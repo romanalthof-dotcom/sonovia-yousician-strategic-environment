@@ -14439,6 +14439,22 @@ body[data-view="database"] .category-proof-panel {
   }
 }
 
+/* Product Design map label pass: avoid stacked text in focused map states. */
+body[data-view="overview"][data-map-zoomed="true"] .cluster-label-card,
+body[data-view="overview"][data-map-zoomed="true"] .cluster-label,
+body[data-view="overview"][data-map-zoomed="true"] .cluster-count,
+body[data-view="overview"][data-map-focus-mode="key"] .cluster-label-card,
+body[data-view="overview"][data-map-focus-mode="key"] .cluster-label,
+body[data-view="overview"][data-map-focus-mode="key"] .cluster-count,
+body[data-view="overview"][data-map-focus-mode="ai"] .cluster-label-card,
+body[data-view="overview"][data-map-focus-mode="ai"] .cluster-label,
+body[data-view="overview"][data-map-focus-mode="ai"] .cluster-count,
+body[data-view="overview"][data-map-focus-mode="appdata"] .cluster-label-card,
+body[data-view="overview"][data-map-focus-mode="appdata"] .cluster-label,
+body[data-view="overview"][data-map-focus-mode="appdata"] .cluster-count {
+  display: none;
+}
+
 /* Final print pass for the executive report: A4, compact, presentation-safe. */
 @media print {
   @page {

@@ -4973,6 +4973,85 @@ function svgLabelX(x, width, anchor) {
   return x - width / 2;
 }
 
+function rectsOverlap(a, b, padding = 0) {
+  return !(
+    a.x + a.width + padding < b.x ||
+    b.x + b.width + padding < a.x ||
+    a.y + a.height + padding < b.y ||
+    b.y + b.height + padding < a.y
+  );
+}
+
+function mapLabelPriority(player) {
+  return (
+    Number(player.id === state.selectedPlayerId) * 10000 +
+    Number(player.key) * 2500 +
+    totalPriority(player) * 120 +
+    player.relevance * 30 +
+    player.aiScore * 18
+  );
+}
+
+function mapLabelCandidate(item, visibleCount, focusScale, center) {
+  const { player, categoryPlayers, index, layout, x, y, clusterX } = item;
+  if (!shouldLabelMapNode(player, categoryPlayers, index, layout, visibleCount, focusScale)) return null;
+  const isSelected = player.id === state.selectedPlayerId;
+  const anchor = mapLabelAnchor(x, y, clusterX, center, focusScale);
+  const labelText = compactName(player.name, isSelected ? 24 : focusScale >= 1.18 ? 20 : 18);
+  const labelFontSize = Math.min(isSelected ? 15.2 : 13.8, 10.4 * focusScale);
+  const scale = Math.min(focusScale, 1.42);
+  const badgeHeight = Math.round((isSelected ? 30 : 18) * scale);
+  const badgeWidth = svgLabelWidth(
+    labelText,
+    Math.round((player.key || isSelected ? 70 : 56) * scale),
+    Math.round((isSelected ? 164 : 132) * scale),
+    scale
+  );
+  const rect = {
+    x: svgLabelX(anchor.x, badgeWidth, anchor.anchor),
+    y: anchor.y - Math.round(badgeHeight * 0.64),
+    width: badgeWidth,
+    height: badgeHeight + (isSelected && focusScale < 1.18 ? 15 : 0)
+  };
+  return {
+    anchor,
+    badgeHeight,
+    badgeWidth,
+    labelFontSize,
+    labelText,
+    priority: mapLabelPriority(player),
+    rect,
+    showSubLabel: isSelected && focusScale < 1.18
+  };
+}
+
+function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center) {
+  const selectedNode = nodeItems.find((item) => item.player.id === state.selectedPlayerId);
+  const selectedBounds = selectedNode
+    ? {
+        x: selectedNode.x - selectedNode.radius - 8,
+        y: selectedNode.y - selectedNode.radius - 8,
+        width: selectedNode.radius * 2 + 16,
+        height: selectedNode.radius * 2 + 16
+      }
+    : null;
+  const accepted = [];
+  const plan = new Map();
+  nodeItems
+    .map((item) => ({ item, label: mapLabelCandidate(item, visibleCount, focusScale, center) }))
+    .filter(({ label }) => label)
+    .sort((a, b) => b.label.priority - a.label.priority)
+    .forEach(({ item, label }) => {
+      const isSelected = item.player.id === state.selectedPlayerId;
+      const overlapsLabel = accepted.some((rect) => rectsOverlap(label.rect, rect, focusScale >= 1.18 ? 12 : 8));
+      const overlapsSelectedNode = selectedBounds && !isSelected && rectsOverlap(label.rect, selectedBounds, 8);
+      if (!isSelected && (overlapsLabel || overlapsSelectedNode)) return;
+      accepted.push(label.rect);
+      plan.set(item.player.id, label);
+    });
+  return plan;
+}
+
 function renderMap() {
   const svg = els.ecosystemMap;
   svg.innerHTML = "";
@@ -5006,7 +5085,10 @@ function renderMap() {
         x: point.x,
         y: point.y,
         radius: mapNodeRadius(player, focusScale),
-        index
+        index,
+        categoryPlayers,
+        layout,
+        clusterX: layout.x
       });
     });
   });
@@ -5016,6 +5098,7 @@ function renderMap() {
   svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   setMapViewBox(svg, viewBox, defaultBox);
   const metricsByCategory = new Map(categoryMetrics().map((item) => [item.id, item]));
+  const labelPlan = buildMapLabelPlan(nodeItems, filtered.length, focusScale, center);
 
   const defs = createSvg("defs");
   const radial = createSvg("radialGradient", { id: "mapGlow", cx: "50%", cy: "50%", r: "60%" });
@@ -5190,17 +5273,9 @@ function renderMap() {
         init.textContent = initials(player.name);
         node.appendChild(init);
       }
-      if (shouldLabelMapNode(player, categoryPlayers, idx, layout, filtered.length, focusScale)) {
-        const anchor = mapLabelAnchor(nodeX, nodeY, x, center, focusScale);
-        const labelText = compactName(player.name, isSelected ? 24 : focusScale >= 1.18 ? 20 : 18);
-        const labelFontSize = Math.min(isSelected ? 15.2 : 13.8, 10.4 * focusScale);
-        const badgeHeight = Math.round((isSelected ? 30 : 18) * Math.min(focusScale, 1.42));
-        const badgeWidth = svgLabelWidth(
-          labelText,
-          Math.round((player.key || isSelected ? 70 : 56) * Math.min(focusScale, 1.42)),
-          Math.round((isSelected ? 164 : 132) * Math.min(focusScale, 1.42)),
-          Math.min(focusScale, 1.42)
-        );
+      const labelInfo = labelPlan.get(player.id);
+      if (labelInfo) {
+        const { anchor, badgeHeight, badgeWidth, labelFontSize, labelText } = labelInfo;
         node.appendChild(
           createSvg("rect", {
             x: svgLabelX(anchor.x, badgeWidth, anchor.anchor),
@@ -5221,7 +5296,7 @@ function renderMap() {
         });
         name.textContent = labelText;
         node.appendChild(name);
-        if (isSelected) {
+        if (labelInfo.showSubLabel) {
           const sub = createSvg("text", {
             x: anchor.x,
             y: anchor.y + 13 * Math.min(focusScale, 1.35),
