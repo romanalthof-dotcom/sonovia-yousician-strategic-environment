@@ -1,0 +1,5 @@
+gate,status,count,rule,artifact,last_checked_date
+Credentialed Appfigures,Pending,0,"No app-performance ranking by revenue, downloads, ranks, country mix or trends until credentialed Appfigures data is imported.",Appfigures Data Request.csv,2026-06-13
+Source-linked statements eligible for main narrative,Filtered,141,"High/Medium confidence source-linked statements outside app-performance metrics are eligible for internal discussion and main narrative use, subject to final source skim before external leadership/investor use.",source_mapped_claims_eligible_v3_9.csv,2026-06-13
+Claims requiring final validation,Appendix / completion only,16,Low/Pending and Appfigures-dependent source-linked statements remain out of the main narrative.,claims_requiring_final_validation_v3_9.csv,2026-06-13
+Internal relationships,Pending until Yousician input,28,Internal relationship status not yet captured in this dataset. To be completed by Yousician.,Relationship Completion Template.csv,2026-06-13

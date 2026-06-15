@@ -1,0 +1,8 @@
+"category_id","name","short_name","layer","orbit","color","description","records","key_players"
+"learning","Learning apps & curricula","Learning apps","Core market","1","#00d292","Direct music-learning products, curricula, feedback loops, and subscription benchmarks.","15","9"
+"practice","Song & practice ecosystems","Practice habits","Core habit layer","1","#11a5a5","Song discovery, tabs, play-along utilities, creators, and repeat-practice habits.","11","5"
+"hardware","Hardware & retail channels","Gear channels","Acquisition layer","2","#ffb84d","Instrument brands and retailers that shape gear access, beginner bundles, and partner routes.","11","4"
+"creation","Creation & production tools","Creation tools","Hobby expansion","2","#00b77e","Tools that move people from learning and practice into making, arranging, producing, and sharing.","15","3"
+"ai","AI music & audio technology","AI music tech","Disruption layer","1","#6e5cff","AI-native generation, audio utilities, practice augmentation, and licensing/rights shifts.","9","4"
+"education","Education & pedagogy benchmarks","Education benchmarks","Learning model layer","3","#80a83d","Non-music learning products, formal music education, teacher networks, and pedagogy references.","13","1"
+"signals","Capital, media & opportunity signals","Market signals","Strategic signal layer","3","#3da5d9","Investors, news, awards, funding programmes, and external indicators to monitor.","22","2"

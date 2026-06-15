@@ -1,0 +1,4 @@
+check_id,viewport,width,height,status,data_quality_card_visible,document_overflow_px,overflow_candidate_count,data_quality_card_overflow_count,console_issue_count,failed_request_count,appfigures_gate_visible,relationship_gate_visible,screenshot,notes,last_checked_date
+data_quality_desktop,desktop,1440,960,passed,Yes,0,0,0,0,0,Yes,Yes,deliverables/dashboard_data_quality_desktop_v3_2_5.png,,2026-06-11
+data_quality_tablet,tablet,900,960,passed,Yes,0,0,0,0,0,Yes,Yes,deliverables/dashboard_data_quality_tablet_v3_2_5.png,,2026-06-11
+data_quality_mobile,mobile,390,844,passed,Yes,0,0,0,0,0,Yes,Yes,deliverables/dashboard_data_quality_mobile_v3_2_5.png,,2026-06-11

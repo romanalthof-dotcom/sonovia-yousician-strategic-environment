@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="robots" content="noindex,nofollow" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yousician Strategic Environment</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='28' cy='28' r='18' fill='none' stroke='%2300d292' stroke-width='10'/%3E%3Cpath d='M42 42l14 14' stroke='%231b1d1f' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css?v=20260615-print-safe-v4" />
+  </head>
+  <body data-view="overview" data-mode="executive">
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="title-lockup">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <div>
+            <p class="eyebrow">Yousician strategic intelligence</p>
+            <h1>Strategic Environment Map</h1>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <div class="global-search">
+            <label class="search">
+              <span>Search</span>
+              <input id="searchInput" type="search" placeholder="Company, person, investor..." />
+            </label>
+            <button class="search-clear" id="clearSearch" type="button" aria-label="Clear search">Clear</button>
+          </div>
+          <button class="primary-button" id="exportButton" type="button">Open report</button>
+        </div>
+      </header>
+
+      <nav class="view-tabs" aria-label="Workspace views">
+        <button class="tab-button active" data-view="overview" type="button">Overview</button>
+        <button class="tab-button" data-view="key-players" type="button">Monitor</button>
+        <button class="tab-button" data-view="one-pager" type="button">One-pager</button>
+        <button class="tab-button" data-view="database" type="button">Database</button>
+        <button class="tab-button" data-view="relationships" type="button">Relationships</button>
+        <button class="tab-button research-tab" data-view="sources" type="button">Sources</button>
+      </nav>
+
+      <section class="active-filter-strip" id="activeFilterStrip" aria-label="Active filters"></section>
+
+      <section class="overview-monitor-snapshot" id="overviewMonitorSnapshot" aria-label="Market monitor snapshot"></section>
+
+      <section class="executive-band output-brief executive-handoff" aria-label="Executive overview">
+        <div class="executive-copy">
+          <span class="section-kicker">Executive overview</span>
+          <h2>Yousician's environment is a market ecosystem, not a competitor list.</h2>
+          <p>
+            The package answers Chris' brief across ecosystem map, key players, category coverage, relationships and
+            the three guiding questions. App performance and internal relationships are kept as explicit input fields.
+          </p>
+          <div class="primary-deliverable-strip" aria-label="Primary handoff files">
+            <a href="./deliverables/Yousician%20Strategic%20Environment%20Executive%20Summary%20v3.9.pptx" download>Deck PPTX</a>
+            <a href="./deliverables/Yousician%20Strategic%20Environment%20Mapping%20-%20Market%20Landscape%20Report%20v3.9.pdf" download>Report PDF</a>
+            <a href="./deliverables/Yousician%20Strategic%20Environment%20Database%20v3.9.xlsx" download>Database XLSX</a>
+          </div>
+          <div class="priority-actor-strip" aria-label="Priority actors">
+            <span>Priority actors</span>
+            <strong>Suno</strong>
+            <strong>Moises</strong>
+            <strong>Simply</strong>
+            <strong>Ultimate Guitar</strong>
+            <strong>BandLab</strong>
+            <em>full set in deck, report and database</em>
+          </div>
+          <div class="guiding-answer-grid" aria-label="Direct answers to the guiding questions">
+            <article class="guiding-answer">
+              <span>1</span>
+              <strong>Who influences music learning? Who is successful?</strong>
+              <p>Learning apps, song systems, AI practice utilities, teachers, creators, education bodies and hardware funnels. Success is read by surface until Appfigures is imported.</p>
+            </article>
+            <article class="guiding-answer">
+              <span>2</span>
+              <strong>Who shapes music as a hobby?</strong>
+              <p>TikTok, YouTube, Spotify, tabs, notation, creator tools, instrument brands, retailers, artists and AI generation tools.</p>
+            </article>
+            <article class="guiding-answer">
+              <span>3</span>
+              <strong>Who shapes Yousician's environment?</strong>
+              <p>AI companies, rights owners, learning competitors, hardware brands, creators, publishers, investors, awards, funding, media and education organizations.</p>
+            </article>
+          </div>
+        </div>
+        <div class="executive-proof-panel" aria-label="Brief coverage">
+          <div class="handoff-header">
+            <span class="section-kicker">Package status</span>
+            <h3>First-read files are ready; two input fields stay explicit.</h3>
+            <p>Use the deck for the fastest read, the report for narrative proof and the workbook for the structured database.</p>
+          </div>
+          <div class="handoff-metrics" aria-label="Brief coverage metrics">
+            <article>
+              <strong>96</strong>
+              <span>tracked records</span>
+            </article>
+            <article>
+              <strong>28</strong>
+              <span>key players</span>
+            </article>
+            <article>
+              <strong>49</strong>
+              <span>market moves</span>
+            </article>
+            <article>
+              <strong>12</strong>
+              <span>brief categories</span>
+            </article>
+          </div>
+          <div class="coverage-checklist" aria-label="Coverage checklist">
+            <article>
+              <strong>Core market</strong>
+              <span>Learning apps, song/practice systems and AI practice utilities.</span>
+            </article>
+            <article>
+              <strong>Hobby layer</strong>
+              <span>Creators, platforms, repertoire, culture and creation tools.</span>
+            </article>
+            <article>
+              <strong>Strategic layer</strong>
+              <span>Hardware, rights, capital, awards, funding and education bodies.</span>
+            </article>
+          </div>
+          <div class="appfigures-caveat">
+            <strong>Two explicit inputs:</strong>
+            <span>Appfigures performance data and internal relationship status are prepared separately.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="overview-shortcuts" aria-label="Dashboard sections">
+        <button class="overview-shortcut-card active" data-jump-view="overview" type="button">
+          <strong>Ecosystem map</strong>
+          <span>Stakeholder groups around Yousician.</span>
+        </button>
+        <button class="overview-shortcut-card" data-jump-view="key-players" type="button">
+          <strong>Market monitor</strong>
+          <span>Coverage, activity lanes and company index.</span>
+        </button>
+        <button class="overview-shortcut-card" data-jump-view="one-pager" type="button">
+          <strong>One-pager</strong>
+          <span>Selected player profile.</span>
+        </button>
+        <button class="overview-shortcut-card" data-jump-view="database" type="button">
+          <strong>Database</strong>
+          <span>Full structured market records.</span>
+        </button>
+        <button class="overview-shortcut-card" data-jump-view="relationships" type="button">
+          <strong>Relationships</strong>
+          <span>Internal relationship fields.</span>
+        </button>
+      </section>
+
+      <main>
+        <section class="workspace-grid view active" id="overviewView">
+          <section class="map-panel">
+            <div class="panel-header map-header">
+              <div class="map-title-block">
+                <span class="section-kicker">Strategic environment map</span>
+                <h2>Ecosystem map</h2>
+                <p>Who shapes music learning, music as a hobby, and the strategic environment around Yousician?</p>
+              </div>
+              <div class="focus-lenses" aria-label="Strategic lenses">
+                <span>Learn</span>
+                <span>Practice</span>
+                <span>Create + signal</span>
+              </div>
+              <div class="map-legend" id="mapLegend"></div>
+            </div>
+            <div class="map-summary-strip" id="mapSummaryStrip" aria-label="Visible map coverage"></div>
+            <div class="map-workbench">
+              <div class="map-wrap">
+                <svg id="ecosystemMap" role="img" aria-label="Yousician ecosystem map"></svg>
+              </div>
+              <aside class="map-company-picker" id="mapCompanyPicker" aria-label="Companies visible on map"></aside>
+            </div>
+            <div class="map-note">
+              <span>Inner ring: closer to Yousician's core learning and practice surface</span>
+              <span>Outer ring: broader hobby, culture, capital, AI, rights and infrastructure signals</span>
+            </div>
+            <details class="optional-drawer map-optional">
+              <summary>
+                <span>
+                  <strong>Optional visual layer</strong>
+                  <small>Portfolio landscape by density, pressure, AI relevance, and evidence strength</small>
+                </span>
+                <span class="drawer-indicator">Show</span>
+              </summary>
+              <div class="category-landscape" id="categoryLandscape" aria-label="Category landscape"></div>
+            </details>
+          </section>
+
+          <aside class="profile-panel" id="profilePanel"></aside>
+
+          <section class="kpi-grid" aria-label="Strategic summary">
+            <article class="kpi">
+              <span class="kpi-label">Tracked players</span>
+              <strong id="totalPlayers">0</strong>
+              <small>Expanded database</small>
+            </article>
+            <article class="kpi">
+              <span class="kpi-label">Key players</span>
+              <strong id="keyPlayers">0</strong>
+              <small>Prioritized for profiles</small>
+            </article>
+            <article class="kpi">
+              <span class="kpi-label">AI-relevant</span>
+              <strong id="aiPlayers">0</strong>
+              <small>Learning, content, creation</small>
+            </article>
+            <article class="kpi">
+              <span class="kpi-label">Evidence links</span>
+              <strong id="needsSource">0</strong>
+              <small>Linked references</small>
+            </article>
+          </section>
+
+          <section class="brief-readiness-panel" id="briefReadiness" aria-label="Brief readiness"></section>
+
+          <details class="side-panel research-drawer" open>
+            <summary>
+              <span>
+                <strong>Product and research filters</strong>
+                <small>Yousician, GuitarTuna, categories, relevance and source-check tools</small>
+              </span>
+              <span class="drawer-indicator">Show</span>
+            </summary>
+            <div class="panel-header">
+              <h2>Filter the map</h2>
+              <button class="ghost-button" id="clearFilters" type="button">Clear</button>
+            </div>
+            <div class="product-lens" aria-label="Product lens">
+              <span>Product lens</span>
+              <div class="product-lens-options" id="productLensFilters"></div>
+              <div class="product-lens-research" id="productLensResearchNote"></div>
+            </div>
+            <div class="filter-group" id="categoryFilters"></div>
+            <div class="score-filter">
+              <label for="priorityRange">Minimum relevance</label>
+              <input id="priorityRange" type="range" min="1" max="5" value="1" />
+              <span id="priorityValue">1+</span>
+            </div>
+            <div class="source-box">
+              <span class="status-dot"></span>
+              <div>
+                <strong>Research mode</strong>
+                <p>Seeded structure. Live sources can be attached without changing the UI.</p>
+              </div>
+            </div>
+          </details>
+
+          <details class="optional-drawer analysis-drawer">
+            <summary>
+              <span>
+                <strong>Optional strategic analysis</strong>
+                <small>Signals, portfolio lens, AI pressure, and near-term research queue</small>
+              </span>
+              <span class="drawer-indicator">Show</span>
+            </summary>
+            <section class="insight-row signal-row">
+              <article class="insight-panel strategy-implication-panel">
+                <div class="panel-header">
+                  <div>
+                    <span class="section-kicker">Strategic implications</span>
+                    <h2>What this means for Yousician</h2>
+                  </div>
+                  <span class="panel-chip">Decision layer</span>
+                </div>
+                <div id="strategicImplications" class="strategy-implication-grid"></div>
+              </article>
+              <article class="insight-panel signal-panel">
+                <div class="panel-header signal-header">
+                  <div>
+                    <span class="section-kicker">Signals</span>
+                    <h2>What to watch next</h2>
+                  </div>
+                  <span class="panel-chip">Research queue</span>
+                </div>
+                <div class="signal-columns">
+                  <div>
+                    <h3>AI and disruption</h3>
+                    <div id="aiRadar" class="radar-list"></div>
+                  </div>
+                  <div>
+                    <h3>Last 24 months / next checks</h3>
+                    <div id="recentMoves" class="timeline"></div>
+                  </div>
+                </div>
+              </article>
+              <article class="insight-panel question-panel">
+                <div class="panel-header">
+                  <h2>Decision lens</h2>
+                </div>
+                <div class="portfolio-visual" id="portfolioVisual" aria-label="Strategic portfolio lens"></div>
+              </article>
+            </section>
+          </details>
+        </section>
+
+        <section class="view" id="key-playersView">
+          <div class="section-heading">
+            <div>
+              <h2>Market monitor</h2>
+              <p>Company coverage, signal sources, activity lanes, priority players, and one-pager profiles in one working view.</p>
+            </div>
+            <button class="ghost-button" data-jump-view="overview" type="button">Map</button>
+          </div>
+          <div id="marketMonitorOverview" class="market-monitor-overview" aria-label="Market monitoring coverage"></div>
+          <div id="monitorControlBar" class="monitor-control-bar" aria-label="Monitor navigation"></div>
+          <div id="activityQueue" class="key-player-workspace"></div>
+          <div id="companyDirectory" class="key-player-workspace"></div>
+          <div id="keyPlayerVisuals" class="key-player-visuals" aria-label="Key player visual analysis"></div>
+          <div id="keyPlayerGrid" class="key-player-workspace"></div>
+        </section>
+
+        <section class="view" id="one-pagerView">
+          <div class="section-heading">
+            <div>
+              <h2>Player one-pager</h2>
+              <p>Printable executive profile for the selected key player.</p>
+            </div>
+            <div class="section-actions">
+              <button class="ghost-button" data-jump-view="overview" type="button">Map</button>
+              <button class="ghost-button" id="printOnePager" type="button">Print</button>
+            </div>
+          </div>
+          <div id="onePager" class="one-pager"></div>
+        </section>
+
+        <section class="view" id="databaseView">
+          <div class="section-heading">
+            <div>
+              <h2>Database</h2>
+              <p>Structured market database for players, signals, evidence status, and completion fields.</p>
+            </div>
+            <div class="section-actions">
+              <button class="ghost-button" data-jump-view="overview" type="button">Map</button>
+              <button class="ghost-button" id="downloadCsv" type="button">CSV</button>
+            </div>
+          </div>
+          <div class="database-workbench">
+            <div class="database-stats" id="databaseStats"></div>
+            <div class="database-controls" aria-label="Database controls">
+              <div class="segment-control" id="databaseSegments" aria-label="Database segments"></div>
+              <label class="sort-control">
+                <span>Sort</span>
+                <select id="databaseSort">
+                  <option value="priority">Strategic priority</option>
+                  <option value="name">Name</option>
+                  <option value="relevance">Relevance</option>
+                  <option value="ai">AI relevance</option>
+                  <option value="momentum">Momentum</option>
+                  <option value="source">Source urgency</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div id="databaseVisuals" class="database-visuals" aria-label="Database visual analysis"></div>
+          <div id="databaseCards" class="database-cards" aria-label="Database records"></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Entity</th>
+                  <th>Strategic role</th>
+                  <th>Classification</th>
+                  <th>Product lens</th>
+                  <th>Scores</th>
+                  <th>Evidence status</th>
+                  <th>Research plan</th>
+                  <th>Yousician angle</th>
+                  <th>Next action</th>
+                  <th>Owner</th>
+                </tr>
+              </thead>
+              <tbody id="databaseRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="view" id="relationshipsView">
+          <div class="section-heading">
+            <div>
+              <h2>Relationships</h2>
+              <p>Strategic proximity view with neutral fields reserved for Yousician owner and relationship completion.</p>
+            </div>
+            <button class="ghost-button" data-jump-view="overview" type="button">Map</button>
+          </div>
+          <div id="relationshipValidationPanel" class="relationship-validation-panel"></div>
+          <div class="relationship-layout">
+            <div class="relationship-graph">
+              <div id="relationshipGraph" class="relationship-matrix" role="img" aria-label="Relationship matrix"></div>
+            </div>
+            <div id="relationshipList" class="relationship-list"></div>
+          </div>
+        </section>
+
+        <section class="view research-only" id="sourcesView">
+          <div class="section-heading">
+            <div>
+              <h2>Sources and automation</h2>
+              <p>Data feeds, research imports, and source-of-truth status for the same structure.</p>
+            </div>
+          </div>
+          <div id="backendOpsPanel" class="backend-ops-panel" aria-label="Local backend operations"></div>
+          <div id="sourceStatusPanel" class="source-status-panel"></div>
+          <div id="sourceVisuals" class="source-visuals" aria-label="Source quality visual analysis"></div>
+          <div id="validationReadiness" class="validation-readiness"></div>
+          <div id="evidenceLibrary" class="evidence-library"></div>
+          <div id="sourceGrid" class="source-grid"></div>
+        </section>
+      </main>
+
+      <section class="export-snapshot" id="exportSnapshot" aria-label="Executive export snapshot"></section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js?v=20260615-print-safe-v4"></script>
+  </body>
+</html>

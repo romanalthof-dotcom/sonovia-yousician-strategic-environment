@@ -1,0 +1,114 @@
+{
+  "status": {
+    "mode": "local_skill_reference",
+    "label": "Local research layer loaded",
+    "liveAccess": "blocked_by_atlassian_login",
+    "lastChecked": "2026-06-10",
+    "databaseUrl": "https://yousician.atlassian.net/wiki/spaces/Research/database/5904400385",
+    "note": "The installed find-user-research skill is available locally. Direct Confluence database import was attempted and redirected to Atlassian login, so this dashboard uses durable local research context until authenticated access is available."
+  },
+  "studies": [
+    {
+      "title": "Foundational Knowledge of Yousician Users",
+      "scope": "Yousician product",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6040158226"
+    },
+    {
+      "title": "Foundational Knowledge of GuitarTuna Users",
+      "scope": "GuitarTuna product",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6040977421"
+    },
+    {
+      "title": "Market Research for both Yousician and GuitarTuna",
+      "scope": "Market / cross-product",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6041960456"
+    }
+  ],
+  "marketPrinciples": [
+    "Music learning is heavily song-led: users want to learn, repeat, remember, and play songs they care about.",
+    "Beginner guitar users need guidance, direction, feedback, and confidence, but many also want to feel independent.",
+    "The category has low brand awareness and no clearly dominant learning brand beyond broad platforms like YouTube.",
+    "Restarting is normal; many people pause and come back to guitar when life, time, motivation, or method changes."
+  ],
+  "playerAnchors": {
+    "simply": {
+      "headline": "Direct competitor lens from market research",
+      "summary": "Simply Guitar is called out as a growing reference competitor whose success appears tied to emotional UX, a consistent teacher character, and song-focused courses.",
+      "studyTitle": "Market Research for both Yousician and GuitarTuna",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6041960456",
+      "confidence": "Local summary, needs page-level verification"
+    },
+    "ultimate-guitar": {
+      "headline": "Song discovery and tab habit owner",
+      "summary": "Ultimate Guitar is described as a vast chords/tabs library and search leader, but users can experience it as cluttered and weak for beginner support.",
+      "studyTitle": "Market Research for both Yousician and GuitarTuna",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6041960456",
+      "confidence": "Local summary, needs page-level verification"
+    },
+    "youtube": {
+      "headline": "Free learning default with high research burden",
+      "summary": "YouTube offers abundant free guitar learning content, but the experience is uncurated, disconnected, and asks users to build their own learning path.",
+      "studyTitle": "Market Research for both Yousician and GuitarTuna",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6041960456",
+      "confidence": "Local summary, needs page-level verification"
+    },
+    "duolingo": {
+      "headline": "Consumer learning mechanics benchmark",
+      "summary": "Use as a mechanics benchmark only; Yousician research emphasizes guided progression, feedback, and motivation in music practice rather than language-learning transfer by default.",
+      "studyTitle": "Foundational Knowledge of Yousician Users",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6040158226",
+      "confidence": "Derived from local summary"
+    }
+  },
+  "categoryAnchors": {
+    "learning": {
+      "headline": "Guided learning and feedback matter",
+      "summary": "Yousician users value a guided, personalized path, timely feedback, progress visibility, and song-led practice moments.",
+      "studyTitle": "Foundational Knowledge of Yousician Users",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6040158226",
+      "confidence": "Local summary"
+    },
+    "practice": {
+      "headline": "Songs, chords, and practice flow drive habit",
+      "summary": "Across guitar research, the strongest jobs cluster around learning songs, chords, transitions, repetition, and playing songs from memory.",
+      "studyTitle": "Market Research for both Yousician and GuitarTuna",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6041960456",
+      "confidence": "Local summary"
+    },
+    "hardware": {
+      "headline": "Gear access shapes the beginner funnel",
+      "summary": "Instrument brands and retailers matter because many beginners decide what to buy, how seriously to commit, and which learning route to try before they ever choose a learning app.",
+      "studyTitle": "Market Research for both Yousician and GuitarTuna",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6041960456",
+      "confidence": "Strategic inference from local market summary; needs page-level verification"
+    },
+    "creation": {
+      "headline": "Creation is a meaningful but narrower motivation",
+      "summary": "Some guitar users explore improvisation and songwriting, especially as they become more independent and expressive.",
+      "studyTitle": "Foundational Knowledge of GuitarTuna Users",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6040977421",
+      "confidence": "Local summary"
+    },
+    "education": {
+      "headline": "Learning loops and teacher trust transfer only selectively",
+      "summary": "General learning mechanics can inspire Yousician, and teacher/institution signals can shape credibility, but guitar research should stay anchored in practice, feedback, songs, confidence, and free-time constraints.",
+      "studyTitle": "Foundational Knowledge of Yousician Users",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6040158226",
+      "confidence": "Derived from local summary"
+    },
+    "ai": {
+      "headline": "AI should reduce guidance and practice friction",
+      "summary": "The strongest AI relevance is where it can reduce the user's burden: personalization, feedback, song discovery, practice planning, and content adaptation.",
+      "studyTitle": "Foundational Knowledge of Yousician Users",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6040158226",
+      "confidence": "Derived from local summary"
+    },
+    "signals": {
+      "headline": "Signals are inputs, not competitors",
+      "summary": "Investors, media, awards, and funding programmes should be treated as monitoring and opportunity inputs. They help explain timing, credibility, and strategic options rather than user behavior on their own.",
+      "studyTitle": "Market Research for both Yousician and GuitarTuna",
+      "url": "https://yousician.atlassian.net/wiki/spaces/Research/pages/6041960456",
+      "confidence": "Strategic inference from local market summary; needs page-level verification"
+    }
+  }
+}

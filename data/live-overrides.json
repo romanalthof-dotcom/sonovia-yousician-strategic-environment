@@ -1,0 +1,195 @@
+{
+  "status": {
+    "label": "Live override layer generated from v3.2 handoff tables",
+    "lastUpdated": "2026-06-11",
+    "source": "scripts/apply_brief_aligned_v3_2.py",
+    "caveat": "Public proxy notes are shown in the dashboard. Appfigures metrics remain pending unless imported from credentialed export."
+  },
+  "schema": {
+    "metricsByPlayer": "Generated from appfigures-performance-export-integrated-v3.csv",
+    "relationshipOverrides": "Internal relationship overrides still require Yousician input"
+  },
+  "metricsByPlayer": {
+    "simply": {
+      "name": "Simply",
+      "appfiguresAppId": "1019442026 / com.joytunes.simplypiano",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Needs Appfigures; include as Simply portfolio app. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+    },
+    "flowkey": {
+      "name": "Flowkey",
+      "appfiguresAppId": "1020357408 / com.flowkey.app",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Apple public proxy: 4.7 rating, 64K ratings; Google Play public proxy: 10M+ learners claim in listing. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+    },
+    "skoove": {
+      "name": "Skoove",
+      "appfiguresAppId": "1160668178 / com.skoove.piano",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Google Play public proxy: 1M+ downloads, 11.6K reviews. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+    },
+    "fender-play": {
+      "name": "Fender Play",
+      "appfiguresAppId": "1226057939 / com.fender.play",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Apple public proxy: 4.8 rating, 61K ratings; Google Play public proxy: 1M+ downloads, 13.2K reviews. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+    },
+    "gibson-app": {
+      "name": "Gibson App",
+      "appfiguresAppId": "To validate",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Needs Appfigures and public app-store validation. Public proxy, not Appfigures."
+    },
+    "moises": {
+      "name": "Moises",
+      "appfiguresAppId": "1515796612 / ai.moises",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Apple public proxy: 4.7 rating, 27K ratings; company / MBW proxy: Music.AI says Moises reached 50M users. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+    },
+    "ultimate-guitar": {
+      "name": "Ultimate Guitar",
+      "appfiguresAppId": "357828853 / com.ultimateguitar.tabs",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Google Play public proxy: 10M+ downloads, 627K reviews. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+    },
+    "musescore": {
+      "name": "MuseScore",
+      "appfiguresAppId": "835731296 / com.musescore.playerlite",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Apple public proxy: 4.6 rating, 76K ratings; Google Play public proxy: 10M+ downloads, 156K reviews. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+    },
+    "songsterr": {
+      "name": "Songsterr",
+      "appfiguresAppId": "399211291 / com.songsterr",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Apple public proxy: 4.7 rating, 42K ratings; listing claims large tab catalog. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+    },
+    "chordify": {
+      "name": "Chordify",
+      "appfiguresAppId": "To validate",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Needs Appfigures / public app-store validation. Public proxy, not Appfigures."
+    },
+    "chord-ai": {
+      "name": "Chord ai",
+      "appfiguresAppId": "1446177109 / com.chordai",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Needs Appfigures; public listings validate AI chord recognition. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+    },
+    "rocksmith-plus": {
+      "name": "Rocksmith+",
+      "appfiguresAppId": "To validate",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Needs Appfigures plus Ubisoft platform data. Public proxy, not Appfigures."
+    },
+    "fretello": {
+      "name": "Fretello",
+      "appfiguresAppId": "To validate",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Needs Appfigures; specialist guitar-learning app. Public proxy, not Appfigures."
+    },
+    "musora": {
+      "name": "Musora",
+      "appfiguresAppId": "To validate",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Needs Appfigures plus web membership validation. Public proxy, not Appfigures."
+    },
+    "bandlab": {
+      "name": "BandLab",
+      "appfiguresAppId": "968585775 / com.bandlab.bandlab",
+      "downloads": null,
+      "revenue": null,
+      "categoryRank": null,
+      "reviewVelocity": null,
+      "websiteVisits": null,
+      "source": "handoff/appfigures-performance-export-integrated-v3.csv",
+      "lastUpdated": "2026-06-11",
+      "notes": "Apple public proxy: 4.8 rating, 484K ratings; company proxy: 100M+ creators and fans. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+    }
+  },
+  "relationshipOverrides": {}
+}

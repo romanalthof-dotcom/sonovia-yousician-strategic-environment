@@ -1,0 +1,7 @@
+slide,claim,proof_object,caveat
+1,"This is a broad strategic environment map, not a competitor analysis.","Counts and package scope: players, key profiles, board moves, claim-source rows.",Appfigures and relationship fields remain gated.
+2,"The 10 most important actors split across AI, learning, repertoire, creation, discovery, hardware, trust and rights.",Ranked actor table with evidence and validation gap.,"Ranking is strategic influence, not financial performance."
+3,Success cannot be reduced to revenue while Appfigures is missing.,"Success signal matrix: habit, distribution, repertoire/community, creator trust, hardware reach, AI utility, funding, app performance.",Revenue/download/rank success requires Appfigures.
+4,The ecosystem map should show proximity and influence layers around the learner.,Ecosystem Map 2.0 layer table.,Relationship proximity is not inferred externally.
+5,The board timeline should foreground curated news-grade movement.,Curated market-move table with include_in_board_timeline and news_grade.,Appendix/context items stay out of the main board timeline.
+6,The package is strongest where evidence and blockers are explicit.,Decision-gates table.,Blocked fields are not failure if presented as action gates.

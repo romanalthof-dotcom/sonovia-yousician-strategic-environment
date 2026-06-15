@@ -1,0 +1,3247 @@
+{
+  "status": {
+    "label": "Public evidence library linked",
+    "lastChecked": "2026-06-11",
+    "method": "Manual source pass plus automated link-health checks. Added backup public sources for access-restricted pages, thin records, and key-player ownership/product context. Brief-aligned v2 pass added Appfigures contract sources, market moves, media/cultural drivers, awards/funding sources and relationship wording cleanup.",
+    "caveat": "Public sources validate existence, positioning, and selected ownership/product claims. They do not automatically prove every size, momentum, AI, or strategic-importance statement. Appfigures, Similarweb, Crunchbase, internal CRM, and authenticated Confluence still remain credentialed layers and should not be implied as live-connected.",
+    "version": "brief-aligned-v3",
+    "lastUpdated": "2026-06-11T00:00:00.000Z",
+    "appfiguresPolicy": "Appfigures metrics are pending unless explicitly populated from a credentialed export.",
+    "relationshipPolicy": "Internal relationship status not yet captured in this dataset. To be completed by Yousician."
+  },
+  "sourceLibrary": [
+    {
+      "source_id": "www_hellosimply_com_simply_guitar",
+      "title": "Simply",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://www.hellosimply.com/simply-guitar",
+      "scope": "Music learning apps and platforms",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_ultimate_guitar_com_about",
+      "title": "Ultimate Guitar",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.ultimate-guitar.com/about/",
+      "scope": "Music hobby software ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_fender_com_play",
+      "title": "Fender Play",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://www.fender.com/play",
+      "scope": "Music learning apps and platforms; Instrument brands, manufacturers and distributors",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_flowkey_com_en",
+      "title": "Flowkey",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://www.flowkey.com/en",
+      "scope": "Music learning apps and platforms",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_justinguitar_com",
+      "title": "JustinGuitar",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.justinguitar.com/",
+      "scope": "Music hobby software ecosystem; v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_yamaha_com_en_products_services",
+      "title": "Yamaha",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.yamaha.com/en/products-services/",
+      "scope": "Instrument brands, manufacturers and distributors",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_bandlab_com",
+      "title": "BandLab",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.bandlab.com/?lang=en",
+      "scope": "Music hobby software ecosystem; Creation platform",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "splice_com",
+      "title": "Splice",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://splice.com/",
+      "scope": "Music hobby software ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "suno_com_about",
+      "title": "Suno",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://suno.com/about",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_udio_com",
+      "title": "Udio",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.udio.com/",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "moises_ai",
+      "title": "Moises",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://moises.ai/",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "investors_duolingo_com_investor_relations",
+      "title": "Duolingo",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://investors.duolingo.com/investor-relations",
+      "scope": "Teachers, schools and music education organizations / wider education",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_guitartricks_com",
+      "title": "Guitar Tricks",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://www.guitartricks.com/",
+      "scope": "Music learning apps and platforms",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_pickupmusic_com",
+      "title": "Pickup Music",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.pickupmusic.com/",
+      "scope": "Music learning apps and platforms",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_ubisoft_com_en_us_game_rocksmith_plus",
+      "title": "Rocksmith+",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.ubisoft.com/en-us/game/rocksmith/plus",
+      "scope": "Music learning apps and platforms; Music / Games",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_gibson_app",
+      "title": "Gibson App",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://www.gibson.app/",
+      "scope": "Music learning apps and platforms; Music / Education",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "chordify_net",
+      "title": "Chordify",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://chordify.net/",
+      "scope": "Music hobby software ecosystem; Music",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "artists_youtube",
+      "title": "YouTube",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://artists.youtube/",
+      "scope": "Music hobby software ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_gibson_com",
+      "title": "Gibson",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.gibson.com/",
+      "scope": "Instrument brands, manufacturers and distributors",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_positivegrid_com",
+      "title": "Positive Grid",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.positivegrid.com/",
+      "scope": "Instrument brands, manufacturers and distributors",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_image_line_com",
+      "title": "FL Studio",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.image-line.com/",
+      "scope": "Music hobby software ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "elevenlabs_io_music",
+      "title": "ElevenLabs Music",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://elevenlabs.io/music",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "artists_spotify_com_en_home",
+      "title": "Spotify for Artists",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://artists.spotify.com/en/home",
+      "scope": "Investors, media, awards, funding and cultural drivers; Artist platform",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "artists_tiktok_com",
+      "title": "TikTok for Artists",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://artists.tiktok.com/",
+      "scope": "Investors, media, awards, funding and cultural drivers",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_musora_com",
+      "title": "Musora",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.musora.com/",
+      "scope": "Music learning apps and platforms; Education; Online lesson ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "fretello_com_app",
+      "title": "Fretello",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://fretello.com/app/",
+      "scope": "Music learning apps and platforms",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "apps_apple_com_us_app_chord_ai_play_any_song_id1446177109",
+      "title": "Chord ai",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://apps.apple.com/us/app/chord-ai-play-any-song/id1446177109",
+      "scope": "Music hobby software ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "play_google_com_store_apps_details",
+      "title": "Simply",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://play.google.com/store/apps/details?hl=en_US&id=com.joytunes.simplyguitar",
+      "scope": "Education; Education; Music; Practice ecosystem; Notation ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_hellosimply_com",
+      "title": "Simply",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://www.hellosimply.com/",
+      "scope": "Education",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "apps_apple_com_us_app_flowkey_learn_to_play_piano_id1020357408",
+      "title": "Flowkey",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://apps.apple.com/us/app/flowkey-learn-to-play-piano/id1020357408",
+      "scope": "Education",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "apps_apple_com_us_app_fender_play_learn_guitar_id1226057939",
+      "title": "Fender Play",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://apps.apple.com/us/app/fender-play-learn-guitar/id1226057939",
+      "scope": "Education",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "apps_apple_com_us_app_moises_the_musicians_app_id1515796612",
+      "title": "Moises",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://apps.apple.com/us/app/moises-the-musicians-app/id1515796612",
+      "scope": "Music",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "apps_apple_com_us_app_musescore_sheet_music_chords_id835731296",
+      "title": "MuseScore",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://apps.apple.com/us/app/musescore-sheet-music-chords/id835731296",
+      "scope": "Music",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "apps_apple_com_us_app_songsterr_tabs_chords_id399211291",
+      "title": "Songsterr",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://apps.apple.com/us/app/songsterr-tabs-chords/id399211291",
+      "scope": "Music; Practice ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "chordai_net",
+      "title": "Chord ai",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://chordai.net/",
+      "scope": "Music",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "fretello_com",
+      "title": "Fretello",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://fretello.com/",
+      "scope": "Education",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "apps_apple_com_us_app_bandlab_music_maker_beats_id968585775",
+      "title": "BandLab",
+      "type": "Public source / proxy",
+      "tier": "Pending",
+      "url": "https://apps.apple.com/us/app/bandlab-music-maker-beats/id968585775",
+      "scope": "Music",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "riaa_suno_udio_2024",
+      "title": "Suno / Udio / RIAA",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.riaa.com/record-companies-bring-landmark-cases-for-responsible-ai-againstsuno-and-udio-in-boston-and-new-york-federal-courts-respectively/",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "eu_ai_act_2024",
+      "title": "European Union AI Act",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "tiktok_music_shutdown_2024",
+      "title": "TikTok Music",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.businessinsider.com/tiktok-abandoning-plan-to-challenge-spotify-apple-in-music-streaming-2024-9",
+      "scope": "Media, publishers and cultural drivers",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "duolingo_loog_2024",
+      "title": "Duolingo / Loog",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.theverge.com/2024/9/25/24253932/duolingo-loog-portable-green-piano-music-lessons",
+      "scope": "Wider education and self-improvement ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "youtube_ai_restyle_2024",
+      "title": "YouTube Dream Track",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.theverge.com/2024/11/12/24294891/youtube-ai-restyle-music-creators",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "takelessons_closure_2024",
+      "title": "Microsoft TakeLessons",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://learn.microsoft.com/en-us/takelessons/takelessons-closure-faq",
+      "scope": "Teachers, schools and music education organizations",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "musicai_series_a_2025",
+      "title": "Music.AI / Moises",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://music.ai/blog/press/music-ai-raises-40m-series-a/",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "usco_ai_part2_2025",
+      "title": "U.S. Copyright Office",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.copyright.gov/ai/",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "school_of_rock_locations_2025",
+      "title": "School of Rock",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.schoolofrock.com/locations",
+      "scope": "Teachers, schools and music education organizations",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "splice_spitfire_2025",
+      "title": "Splice / Spitfire Audio",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.prnewswire.com/news-releases/splice-to-supercharge-music-creation-ecosystem-with-acquisition-of-spitfire-audio-positioning-itself-to-lead-in-the-7b-music-software-and-services-sector-302439458.html",
+      "scope": "Music hobby software ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "tiktok_for_artists_2025",
+      "title": "TikTok for Artists",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://newsroom.tiktok.com/en-us/tiktok-for-artists-launches",
+      "scope": "Media, publishers and cultural drivers",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "eleven_music_2025",
+      "title": "ElevenLabs Music",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://elevenlabs.io/blog/eleven-music-is-here",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "moises_ai_studio_2025",
+      "title": "Moises AI Studio",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://moises.ai/newsroom/product-announcements/launch-ai-studio/",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "spotify_ai_protections_2025",
+      "title": "Spotify",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://newsroom.spotify.com/2025-09-25/spotify-strengthens-ai-protections/",
+      "scope": "Media, publishers and cultural drivers",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "creative_europe_games_2026",
+      "title": "Creative Europe MEDIA",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.creativeeuropeireland.eu/funding-opportunities/call/video-games-immersive-content",
+      "scope": "Funding",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "splice_instrument_2025",
+      "title": "Splice INSTRUMENT",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.musicradar.com/music-tech/for-the-first-time-were-moving-beyond-samples-splice-unveils-free-plugin-and-virtual-instrument-platform-with-hundreds-of-free-presets",
+      "scope": "Music hobby software ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "umg_udio_2025",
+      "title": "UMG / Udio",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.universalmusic.com/universal-music-group-and-udio-announce-udios-first-strategic-agreements-for-new-licensed-ai-music-creation-platform/",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "suno_series_c_2025",
+      "title": "Suno",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://suno.com/blog/series-c-announcement",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "wmg_suno_2025",
+      "title": "Warner Music Group / Suno",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.wmg.com/news/warner-music-group-and-suno-forge-groundbreaking-partnership",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "spotify_wrapped_artists_2025",
+      "title": "Spotify Wrapped for Artists",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://newsroom.spotify.com/2025-12-03/wrapped-for-artists-songwriters-creators-authors-advertisers/",
+      "scope": "Media, publishers and cultural drivers",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "tiktok_top_music_2025",
+      "title": "TikTok Year in Music",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://newsroom.tiktok.com/tiktok-reveals-the-top-artists-and-songs-of-2025?lang=en",
+      "scope": "Media, publishers and cultural drivers",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "worldwide_edtech_2026",
+      "title": "WorldWiDE EdTech Awards",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://worldwide-edtech.org/faq",
+      "scope": "Awards",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "eic_deadlines_2026",
+      "title": "EIC Accelerator",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://innovation-manager.com/eic-accelerator-2026-key-application-dates-announced/",
+      "scope": "Funding",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "webby_deadline_2026",
+      "title": "Webby Awards",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.webbyawards.com/how-to-enter-the-webby-awards/",
+      "scope": "Awards",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "creative_europe_deadline_2026",
+      "title": "Creative Europe MEDIA",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.euro-access.eu/en/calls/2391/Video-games-and-immersive-content-development",
+      "scope": "Funding",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "edtech_awards_2026",
+      "title": "EdTech Awards",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.edtechdigest.com/2026-finalists-winners/",
+      "scope": "Awards",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "spotify_loud_clear_2026",
+      "title": "Spotify Loud & Clear",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.musicradar.com/music-industry/streaming-sharing/spotify-is-the-highest-paying-retailer-globally-paying-the-music-industry-more-than-usd11-billion-in-2025-spotify-reveals-how-much-it-actually-pays-out-to-musicians-in-its-new-loud-and-clear-report",
+      "scope": "Media, publishers and cultural drivers",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "splice_ai_tools_2026",
+      "title": "Splice",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.musicbusinessworldwide.com/splice-launches-ai-tools-that-compensate-sample-creators-when-their-sounds-are-used/",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "brandon_hall_edtech_2026",
+      "title": "Brandon Hall EdTech Awards",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://excellenceawards.brandonhall.com/edtech/",
+      "scope": "Awards",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "youtube_music_growth_2026",
+      "title": "YouTube Music / Premium",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.digitalmusicnews.com/2026/04/30/youtube-music-subscribers-q1-2026/",
+      "scope": "Media, publishers and cultural drivers",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "google_play_q1_2026",
+      "title": "Google Play",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://google.play/the-latest/2026-q1/",
+      "scope": "Music learning apps and platforms",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "apple_ada_finalists_2026",
+      "title": "Apple Design Awards",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://developer.apple.com/news/?id=8t3j66i7",
+      "scope": "Awards",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "google_play_accelerator_2026",
+      "title": "Google Play Apps Accelerator",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://developer.android.com/blog/posts/meet-the-class-of-2026-for-the-google-play-apps-accelerator",
+      "scope": "Funding",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "afm_ai_licensing_2026",
+      "title": "AFM / UMG / WMG",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://pitchfork.com/news/musicians-union-sues-universal-and-warner-over-ai-use",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "bandlab_songstarter_2026",
+      "title": "BandLab SongStarter",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://help.bandlab.com/hc/en-us/articles/24226593087001-Generate-Ideas-with-SongStarter-AI",
+      "scope": "Music hobby software ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "google_lyria_lawsuit_2026",
+      "title": "Google / YouTube / Lyria",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.theverge.com/tech/947770/google-lyria-music-ai-lawsuit-youtube",
+      "scope": "AI companies and AI initiatives",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "fender_moises_2026",
+      "title": "Fender Studio Pro / Moises",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.musicradar.com/music-tech/daws/ai-isnt-the-destination-making-music-is-fender-looks-forward-as-its-studio-pro-daw-integrates-moises-stem-separation-and-a-smart-studio-assistant",
+      "scope": "Instrument brands, manufacturers and distributors",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "apple_ada_winners_2026",
+      "title": "Apple Design Awards",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.apple.com/newsroom/2026/06/apple-reveals-winners-of-the-2026-apple-design-awards/",
+      "scope": "Awards",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "rocksmith_plus_official",
+      "title": "Rocksmith+",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.ubisoft.com/en-us/game/rocksmith/plus",
+      "scope": "Music learning apps and platforms",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "chord_ai_public",
+      "title": "Chord ai",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://chordai.net/",
+      "scope": "Music hobby software ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "abrsm_impact_2024",
+      "title": "ABRSM",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.abrsm.org/sites/default/files/2024-09/Impact%20Report%202024%20FINAL.pdf",
+      "scope": "Teachers, schools and music education organizations",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "muse_hal_leonard_2025",
+      "title": "Muse Group / Hal Leonard",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.mu.se/posts/muse-group-unifies-hal-leonard-us-and-hal-leonard-europe-into-a-global-powerhouse",
+      "scope": "Media, publishers and cultural drivers",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "bandlab_100m",
+      "title": "BandLab",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.bandlab.com/?lang=en",
+      "scope": "Music hobby software ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "tiktok_artists_beta_2025",
+      "title": "TikTok for Artists beta",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.thefader.com/2025/04/10/tiktok-for-artists-spotify",
+      "scope": "Media, publishers and cultural drivers",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "berklee_online_about",
+      "title": "Berklee Online",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://online.berklee.edu/about/berklee-online",
+      "scope": "Teachers, schools and music education organizations",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "lessonface_home",
+      "title": "Lessonface",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.lessonface.com/home",
+      "scope": "Teachers, schools and music education organizations",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "musescore_app_2026",
+      "title": "MuseScore",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://apps.apple.com/us/app/musescore-sheet-music-chords/id835731296",
+      "scope": "Music hobby software ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "pianote_official",
+      "title": "Pianote / Musora",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.pianote.com/",
+      "scope": "Influencers, creators and educators",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "school_of_rock_warped_2025",
+      "title": "School of Rock / Warped Tour",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.schoolofrock.com/locations/rockvillecentre/news/events/school-of-rock-set-to-hit-the-stage-at-warped-tour-in-orlando",
+      "scope": "Teachers, schools and music education organizations",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "menlo_suno_2025",
+      "title": "Menlo Ventures / Suno",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://menlovc.com/perspective/the-future-of-music-is-participatory-leading-sunos-series-c/",
+      "scope": "Investors active in the space",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "eic_results_2026",
+      "title": "EIC Accelerator",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://eic.ec.europa.eu/news/61-start-ups-and-smes-secure-eic-support-latest-round-eic-accelerator-2026-02-17_en",
+      "scope": "Funding",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "toms_guide_ai_awards_2026",
+      "title": "Tom's Guide AI Awards",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.tomsguide.com/ai/introducing-the-toms-guide-ai-awards-2026",
+      "scope": "Awards",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "guitarworld_beato_nuno_2026",
+      "title": "Rick Beato / Gibson / Nuno Bettencourt",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.guitarworld.com/artists/guitarists/nuno-bettencourt-and-rick-beato-play-thin-lizzy",
+      "scope": "Influencers, creators and educators",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "business_finland_funding_2026",
+      "title": "Business Finland",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.businessfinland.fi/en/services/funding/",
+      "scope": "Funding",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_abrsm_org",
+      "title": "ABRSM",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.abrsm.org/",
+      "scope": "Exam board / charity",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_trinitycollege_com_local_trinity_UK_a_modern_approach_to_music_exams",
+      "title": "Trinity College London",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.trinitycollege.com/local-trinity/UK/a-modern-approach-to-music-exams",
+      "scope": "Exam board",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_rslawards_com",
+      "title": "RSL Awards / Rockschool",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.rslawards.com/",
+      "scope": "Exam board / qualifications",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_mtna_org_index_html",
+      "title": "Music Teachers National Association",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.mtna.org/index.html",
+      "scope": "Teacher association",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "online_berklee_edu_about_berklee_online",
+      "title": "Berklee Online",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://online.berklee.edu/about/berklee-online",
+      "scope": "Online music school",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_schoolofrock_com_locations",
+      "title": "School of Rock",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.schoolofrock.com/locations",
+      "scope": "Music school franchise",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_lessonface_com_home",
+      "title": "Lessonface",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.lessonface.com/home",
+      "scope": "Online lesson marketplace",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "learn_microsoft_com_en_us_takelessons_takelessons_closure_faq",
+      "title": "TakeLessons",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://learn.microsoft.com/en-us/takelessons/takelessons-closure-faq",
+      "scope": "Closed lesson marketplace",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_pianote_com",
+      "title": "Pianote",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.pianote.com/",
+      "scope": "Online piano lesson brand; v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_%40DrumeoOfficial",
+      "title": "Drumeo",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.youtube.com/%40DrumeoOfficial",
+      "scope": "Online drum lesson brand; v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "scottsbasslessons_com",
+      "title": "Scott's Bass Lessons",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://scottsbasslessons.com/",
+      "scope": "Online bass school; v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "artistworks_com",
+      "title": "ArtistWorks",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://artistworks.com/",
+      "scope": "Online teacher platform",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_tonebase_co",
+      "title": "tonebase",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.tonebase.co/",
+      "scope": "Online music education",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_rcmusic_com_learning",
+      "title": "Royal Conservatory of Music",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.rcmusic.com/learning",
+      "scope": "Curriculum / exam body",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "flat_io_edu",
+      "title": "Flat for Education",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://flat.io/edu",
+      "scope": "Classroom music SaaS",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_noteflight_com_learn",
+      "title": "Noteflight Learn",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.noteflight.com/learn",
+      "scope": "Classroom notation platform",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_martymusic",
+      "title": "Marty Music",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.youtube.com/martymusic",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_RickBeato",
+      "title": "Rick Beato",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.youtube.com/RickBeato",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "pauldavidsguitar_com",
+      "title": "Paul Davids",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://pauldavidsguitar.com/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_user_andycrowley",
+      "title": "Andy Guitar",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.youtube.com/user/andycrowley",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_channel_UCasFZzbM8JJ6dqSVEgL9VVg",
+      "title": "GuitarZero2Hero",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.youtube.com/channel/UCasFZzbM8JJ6dqSVEgL9VVg",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "videos_feedspot_com_guitar_youtube_channels",
+      "title": "GuitarLessons365Song",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://videos.feedspot.com/guitar_youtube_channels/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_user_swiftlessons",
+      "title": "Swiftlessons",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.youtube.com/user/swiftlessons",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "pianowithjonny_com",
+      "title": "Piano With Jonny",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://pianowithjonny.com/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_c_NahreSol",
+      "title": "Nahre Sol",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.youtube.com/c/NahreSol",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_c_PianoFromScratch",
+      "title": "Piano From Scratch",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.youtube.com/c/PianoFromScratch",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_c_BassBuzz",
+      "title": "BassBuzz",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.youtube.com/c/BassBuzz",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_adamneely",
+      "title": "Adam Neely",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.youtube.com/adamneely",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_%40DavidBennettPiano",
+      "title": "David Bennett Music Theory",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.youtube.com/%40DavidBennettPiano",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "signalsmusic_studio",
+      "title": "Signals Music Studio",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://signalsmusic.studio/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_channel_UCdcemy56JtVTrsFIOoqvV8g",
+      "title": "Andrew Huang",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.youtube.com/channel/UCdcemy56JtVTrsFIOoqvV8g",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_%40CharlesCornellStudios",
+      "title": "Charles Cornell",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.youtube.com/%40CharlesCornellStudios",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_activemelody_com",
+      "title": "Active Melody",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.activemelody.com/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_c_Bernthguitar",
+      "title": "Bernth",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.youtube.com/c/Bernthguitar",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_user_BenEllerGuitars",
+      "title": "Ben Eller",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.youtube.com/user/BenEllerGuitars",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_c_12tonevideos",
+      "title": "12tone",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.youtube.com/c/12tonevideos",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_c_TheCharismaticVoice",
+      "title": "The Charismatic Voice",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.youtube.com/c/TheCharismaticVoice",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_youtube_com_user_th3ycharg3",
+      "title": "Jared Dines",
+      "type": "Public source / proxy",
+      "tier": "Low",
+      "url": "https://www.youtube.com/user/th3ycharg3",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "menlovc_com_perspective_the_future_of_music_is_participatory_leading_sunos_serie",
+      "title": "Menlo Ventures",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://menlovc.com/perspective/the-future-of-music-is-participatory-leading-sunos-series-c/",
+      "scope": "VC",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "suno_com_blog_series_c_announcement",
+      "title": "Lightspeed Venture Partners",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://suno.com/blog/series-c-announcement",
+      "scope": "VC; VC; Corporate VC; Strategic investor",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "music_ai_blog_press_music_ai_raises_40m_series_a",
+      "title": "Connect Ventures",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://music.ai/blog/press/music-ai-raises-40m-series-a/",
+      "scope": "Strategic VC; VC; VC; VC; VC; VC / investor",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_recordoftheday_com_news_and_press_music_ai_the_company_behind_moises_raises_",
+      "title": "Samsung Next",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.recordoftheday.com/news-and-press/music-ai-the-company-behind-moises-raises-40m-in-series-a-funding-led-by-connect-ventures-and-monashees",
+      "scope": "Corporate VC",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_accel_com",
+      "title": "Accel",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.accel.com/",
+      "scope": "VC / growth",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "caldecottmusic_com_press_9953_bandlab_raises_us65m_series_b",
+      "title": "Prosus Ventures",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://caldecottmusic.com/press/9953-bandlab-raises-us65m-series-b",
+      "scope": "VC / growth; Strategic / holding company",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "techcrunch_com_2022_04_26_social_music_platform_bandlab_scores_65m_at_a_valuatio",
+      "title": "Vulcan Capital / Cercano",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://techcrunch.com/2022/04/26/social-music-platform-bandlab-scores-65m-at-a-valuation-of-315-million/",
+      "scope": "VC / family office",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_musicbusinessworldwide_com_splice_closes_55m_series_d_funding_round_led_by_g",
+      "title": "Goldman Sachs Growth",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.musicbusinessworldwide.com/splice-closes-55m-series-d-funding-round-led-by-goldman-sachs/",
+      "scope": "Growth fund / merchant banking; Strategic investment vehicle",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_sonyinnovationfund_com",
+      "title": "Sony Innovation Fund",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.sonyinnovationfund.com/",
+      "scope": "Corporate VC",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_wmg_com_news_warner_music_group_and_suno_forge_groundbreaking_partnership",
+      "title": "Warner Music Group",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.wmg.com/news/warner-music-group-and-suno-forge-groundbreaking-partnership",
+      "scope": "Strategic / corporate",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_universalmusic_com_universal_music_group_and_udio_announce_udios_first_strat",
+      "title": "Universal Music Group",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.universalmusic.com/universal-music-group-and-udio-announce-udios-first-strategic-agreements-for-new-licensed-ai-music-creation-platform/",
+      "scope": "Strategic / corporate",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_businessfinland_fi_en_services_funding",
+      "title": "Business Finland",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.businessfinland.fi/en/services/funding/",
+      "scope": "Public funder; v3 database; v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_guitarworld_com",
+      "title": "Guitar World",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.guitarworld.com/",
+      "scope": "Specialist media",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_musicradar_com",
+      "title": "MusicRadar",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.musicradar.com/",
+      "scope": "Specialist media",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "musictech_com",
+      "title": "MusicTech",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://musictech.com/",
+      "scope": "Specialist media",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_billboard_com",
+      "title": "Billboard",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.billboard.com/",
+      "scope": "Music industry media",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_musicbusinessworldwide_com",
+      "title": "Music Business Worldwide",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.musicbusinessworldwide.com/",
+      "scope": "Music business media",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "musically_com",
+      "title": "Music Ally",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://musically.com/",
+      "scope": "Music business intelligence",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_midiaresearch_com",
+      "title": "MIDiA Research",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.midiaresearch.com/",
+      "scope": "Research firm",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "luminatedata_com",
+      "title": "Luminate",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://luminatedata.com/",
+      "scope": "Music data provider",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "chartmetric_com",
+      "title": "Chartmetric",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://chartmetric.com/",
+      "scope": "Music analytics",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "newsroom_tiktok_com_en_us_tiktok_for_artists_launches",
+      "title": "TikTok",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://newsroom.tiktok.com/en-us/tiktok-for-artists-launches",
+      "scope": "Short-form platform",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "musicai_withyoutube_com",
+      "title": "YouTube",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://musicai.withyoutube.com/",
+      "scope": "Video / creator platform",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "splice_com_innovation",
+      "title": "Splice creator workflow",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://splice.com/innovation",
+      "scope": "Creator tools",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_npr_org_series_tiny_desk_concerts",
+      "title": "NPR Tiny Desk",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.npr.org/series/tiny-desk-concerts/",
+      "scope": "Cultural media",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_namm_org",
+      "title": "NAMM",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.namm.org/",
+      "scope": "Industry event",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_musictectonics_com",
+      "title": "Music Tectonics",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.musictectonics.com/",
+      "scope": "Music-tech event/media",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_theverge_com",
+      "title": "The Verge",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.theverge.com/",
+      "scope": "Technology media",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "techcrunch_com",
+      "title": "TechCrunch",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://techcrunch.com/",
+      "scope": "Startup media",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_commonsensemedia_org",
+      "title": "Parent / family education media",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.commonsensemedia.org/",
+      "scope": "Audience channel",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_duolingo_com_music",
+      "title": "Duolingo Music",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.duolingo.com/music",
+      "scope": "Consumer education signal",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_apple_com_mac_garageband",
+      "title": "GarageBand / Apple creation",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://www.apple.com/mac/garageband/",
+      "scope": "Creation ecosystem",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "learningmusic_ableton_com",
+      "title": "Ableton Learning Music",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://learningmusic.ableton.com/",
+      "scope": "Creation education",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "newsroom_tiktok_com_tiktok_reveals_the_top_artists_and_songs_of_2025",
+      "title": "TikTok Year in Music",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://newsroom.tiktok.com/tiktok-reveals-the-top-artists-and-songs-of-2025?lang=en",
+      "scope": "Cultural signal",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "support_google_com_youtube_answer_14151606",
+      "title": "Google / YouTube AI music policy",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://support.google.com/youtube/answer/14151606?hl=en",
+      "scope": "AI platform signal",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "developer_apple_com_design_awards",
+      "title": "Apple Design Awards",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://developer.apple.com/design/awards/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "play_google_com_best_of_2025",
+      "title": "Google Play Best Of",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://play.google.com/best-of-2025",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_webbyawards_com_how_to_enter_the_webby_awards",
+      "title": "The Webby Awards",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.webbyawards.com/how-to-enter-the-webby-awards/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_edtechdigest_com_enter_awards",
+      "title": "The EdTech Awards",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.edtechdigest.com/enter-awards/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "excellenceawards_brandonhall_com_edtech",
+      "title": "Brandon Hall Excellence in EdTech",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://excellenceawards.brandonhall.com/edtech/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "worldwide_edtech_org_faq",
+      "title": "WorldWiDE EdTech Awards",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://worldwide-edtech.org/faq",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "learningtechnologiesawards_co_uk",
+      "title": "Learning Technologies Awards",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://learningtechnologiesawards.co.uk/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_sxswedu_com_competitions_launch",
+      "title": "SXSW EDU Launch",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.sxswedu.com/competitions/launch/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_fastcompany_com_world_changing_ideas",
+      "title": "Fast Company World Changing Ideas",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.fastcompany.com/world-changing-ideas",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "time_com_collection_best_inventions",
+      "title": "TIME Best Inventions",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://time.com/collection/best-inventions/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_tecawards_org",
+      "title": "NAMM TEC Awards",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.tecawards.org/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_tomsguide_com_ai_introducing_the_toms_guide_ai_awards_2026",
+      "title": "Tom's Guide AI Awards",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.tomsguide.com/ai/introducing-the-toms-guide-ai-awards-2026",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "eic_ec_europa_eu_eic_funding_opportunities_eic_accelerator_en",
+      "title": "EIC Accelerator",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "research_and_innovation_ec_europa_eu_funding_funding_opportunities_funding_progr",
+      "title": "Horizon Europe Cluster 2",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe/cluster-2-culture-creativity-and-inclusive-society_en",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_euro_access_eu_en_calls_2391_Video_games_and_immersive_content_development",
+      "title": "Creative Europe MEDIA - Video Games and Immersive Content",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.euro-access.eu/en/calls/2391/Video-games-and-immersive-content-development",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "eit_culture_creativity_eu",
+      "title": "EIT Culture & Creativity",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://eit-culture-creativity.eu/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "erasmus_plus_ec_europa_eu_opportunities_opportunities_for_organisations_cooperat",
+      "title": "Erasmus+ Cooperation Partnerships",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://erasmus-plus.ec.europa.eu/opportunities/opportunities-for-organisations/cooperation-among-organisations-and-institutions",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "digital_strategy_ec_europa_eu_en_activities_digital_programme",
+      "title": "Digital Europe Programme",
+      "type": "Official / credible public source",
+      "tier": "High",
+      "url": "https://digital-strategy.ec.europa.eu/en/activities/digital-programme",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "developer_android_com_blog_posts_meet_the_class_of_2026_for_the_google_play_apps",
+      "title": "Google Play Apps Accelerator",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://developer.android.com/blog/posts/meet-the-class-of-2026-for-the-google-play-apps-accelerator",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "aws_amazon_com_activate",
+      "title": "AWS Activate",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://aws.amazon.com/activate/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_nvidia_com_en_us_startups",
+      "title": "NVIDIA Inception",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.nvidia.com/en-us/startups/",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    },
+    {
+      "source_id": "www_finnvera_fi_eng",
+      "title": "Finnvera / Tesi growth finance",
+      "type": "Public source / proxy",
+      "tier": "Medium",
+      "url": "https://www.finnvera.fi/eng",
+      "scope": "v3 database",
+      "access_status": "URL collected; factual claims limited to source-backed statements.",
+      "last_url_check": "2026-06-11",
+      "quality_note": "v3 source audit row"
+    }
+  ],
+  "evidenceByPlayer": {
+    "simply": {
+      "summary": "Simply evidence now combines official product pages, developer/app-store portfolio pages, and Yousician market research; this better supports company identity, app portfolio, and direct music-learning overlap.",
+      "sourceIds": [
+        "simply_guitar",
+        "simply_home",
+        "research_market_cross_product",
+        "simply_google_play_dev",
+        "simply_app_store_dev",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "App performance and revenue trend",
+        "Ownership/investor history beyond public developer pages",
+        "Current growth by geography"
+      ]
+    },
+    "ultimate-guitar": {
+      "summary": "Ultimate Guitar evidence now includes Muse Group ownership/scale context plus Google Play app evidence for tabs, chords, practice tools, and multi-instrument use.",
+      "sourceIds": [
+        "ultimate_guitar_about",
+        "muse_group",
+        "research_market_cross_product",
+        "ultimate_guitar_google_play",
+        "muse_group_ultimate_guitar",
+        "muse_group_hal_leonard_2025"
+      ],
+      "openQuestions": [
+        "Current traffic split by web/app",
+        "Recent monetization and AI product direction",
+        "Impact of Muse Group bundling"
+      ]
+    },
+    "fender-play": {
+      "summary": "Fender Play is now supported by app-store sources plus the official Fender Play page and internal market research; public evidence validates guitar/bass/ukulele lessons and app positioning, while Appfigures is still needed for performance.",
+      "sourceIds": [
+        "fender_play",
+        "research_market_cross_product",
+        "fender_play_app_store",
+        "fender_play_google_play",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "Current app performance and revenue",
+        "Hardware bundle and Samsung/TV expansion impact",
+        "Retention vs Yousician guitar-learning journeys"
+      ]
+    },
+    "flowkey": {
+      "summary": "flowkey evidence now combines official product, app-store, and Yamaha partnership sources validating piano learning, feedback, song-led practice, and hardware-partner distribution.",
+      "sourceIds": [
+        "flowkey_official",
+        "flowkey_google_play",
+        "flowkey_yamaha",
+        "yamaha_flowkey_promo",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "Current app ranking and revenue",
+        "Exact company ownership structure",
+        "Yamaha partnership conversion impact"
+      ]
+    },
+    "skoove": {
+      "summary": "Skoove evidence now includes official web, Google Play, and App Store sources validating AI listening, piano lessons, feedback, and app-store positioning.",
+      "sourceIds": [
+        "skoove_official",
+        "skoove_google_play",
+        "skoove_app_store",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "Ownership and funding",
+        "Current app performance",
+        "B2C vs partnership motion"
+      ]
+    },
+    "justinguitar": {
+      "summary": "Official website and app sources support creator-led guitar education, beginner curriculum, and play-along app positioning.",
+      "sourceIds": [
+        "justinguitar_site",
+        "justinguitar_app"
+      ],
+      "openQuestions": [
+        "Current audience size",
+        "App conversion and course economics"
+      ]
+    },
+    "artie-piano": {
+      "summary": "Artie evidence now combines ArtMaster product, review/explainer, and App Store sources for AI piano teacher positioning, real-time feedback, and emerging app presence.",
+      "sourceIds": [
+        "artie_artmaster",
+        "artie_app_store",
+        "artie_review"
+      ],
+      "openQuestions": [
+        "Traction beyond app listing",
+        "Retention and paid conversion",
+        "Model/feedback quality against established piano apps"
+      ]
+    },
+    "fender": {
+      "summary": "Fender evidence now combines Fender Play, app-store presence, and market research to validate the brand-backed software path from hardware into learning.",
+      "sourceIds": [
+        "fender_play",
+        "research_market_cross_product",
+        "fender_play_app_store",
+        "fender_play_google_play",
+        "fender_studio_pro_moises_2026"
+      ],
+      "openQuestions": [
+        "Current beginner-bundle strategy",
+        "Retail and connected hardware partnerships",
+        "Internal relationship opportunities"
+      ]
+    },
+    "yamaha": {
+      "summary": "Official Yamaha sources validate instruments, audio, music education, schools, and broader group relevance.",
+      "sourceIds": [
+        "yamaha_products",
+        "yamaha_education"
+      ],
+      "openQuestions": [
+        "Current digital-learning partnerships",
+        "Regional education priorities"
+      ]
+    },
+    "thomann": {
+      "summary": "Thomann evidence now includes official retail and company-history sources validating European channel relevance, ownership context, and gear-purchase surface.",
+      "sourceIds": [
+        "thomann_official",
+        "thomann_about"
+      ],
+      "openQuestions": [
+        "Traffic and conversion behavior",
+        "Beginner-bundle behavior",
+        "Partnership openness"
+      ]
+    },
+    "sweetwater": {
+      "summary": "Sweetwater evidence now includes official retail and mobile app sources validating US gear retail, Sales Engineer support, Gear Exchange, and mobile channel relevance.",
+      "sourceIds": [
+        "sweetwater_official",
+        "sweetwater_app"
+      ],
+      "openQuestions": [
+        "Beginner bundle strategy",
+        "Education or referral partnerships",
+        "Retail-to-learning funnel data"
+      ]
+    },
+    "bandlab": {
+      "summary": "BandLab evidence now includes reported 100M user milestone; active engagement still requires validation.",
+      "sourceIds": [
+        "bandlab_official",
+        "bandlab_app_store",
+        "research_guitartuna_foundational",
+        "bandlab_100m_2024"
+      ],
+      "openQuestions": [
+        "Creator-to-learner overlap",
+        "Current monetization and AI roadmap",
+        "Active users and creator retention",
+        "Country mix"
+      ]
+    },
+    "musescore": {
+      "summary": "MuseScore and Muse Group sources validate notation, sheet-music ecosystem, ownership context, and scale signals.",
+      "sourceIds": [
+        "musescore_org",
+        "muse_group_musescore",
+        "muse_group",
+        "muse_group_hal_leonard_2025",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "Learner usage vs creator usage",
+        "Bundling with Ultimate Guitar/Muse Group"
+      ]
+    },
+    "songsterr": {
+      "summary": "Official and app-store sources validate tab/practice utility, play-along audio, subscription app model, and AI tab-creation signal.",
+      "sourceIds": [
+        "songsterr_official",
+        "songsterr_app_store",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "Traffic and app performance",
+        "Licensing and catalog depth"
+      ]
+    },
+    "splice": {
+      "summary": "Splice evidence now includes label/AI partnership signals and rights-secure AI workflow direction.",
+      "sourceIds": [
+        "splice_official",
+        "splice_samples_search",
+        "splice_ai_tools_news",
+        "splice_elevenlabs_2026",
+        "umg_splice_ai_2025"
+      ],
+      "openQuestions": [
+        "Hobbyist vs professional usage",
+        "AI licensing/commercial model details",
+        "Current paid subscriber and revenue estimates"
+      ]
+    },
+    "ableton": {
+      "summary": "Official Ableton sources validate Live, Push, and broader creator-tool ecosystem for music production workflows.",
+      "sourceIds": [
+        "ableton_official",
+        "ableton_live",
+        "ableton_push"
+      ],
+      "openQuestions": [
+        "Learning/onboarding influence for beginners",
+        "Education channel signal"
+      ]
+    },
+    "suno": {
+      "summary": "Official Suno sources validate prompt-to-song creation and company positioning; RIAA source marks major legal/industry risk.",
+      "sourceIds": [
+        "suno_about",
+        "suno_product",
+        "suno_app_store",
+        "riaa_suno_udio",
+        "riaa_suno_udio_2024"
+      ],
+      "openQuestions": [
+        "Licensing status by label",
+        "Consumer adoption, retention, and paid conversion"
+      ]
+    },
+    "udio": {
+      "summary": "Official Udio and App Store sources validate AI music creation; RIAA and UMG sources mark litigation and licensing transition signals.",
+      "sourceIds": [
+        "udio_official",
+        "udio_app_store",
+        "riaa_suno_udio",
+        "udio_umg_deal",
+        "riaa_suno_udio_2024"
+      ],
+      "openQuestions": [
+        "Status of licensed product launch",
+        "Impact on broader AI music legitimacy"
+      ]
+    },
+    "moises": {
+      "summary": "Moises evidence now includes company-reported funding/user scale and AI Studio product direction.",
+      "sourceIds": [
+        "moises_official",
+        "moises_app_store",
+        "moises_google_play",
+        "moises_musicfirst",
+        "musicai_series_a_2025",
+        "moises_ai_studio_2025",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "App growth trend",
+        "Partnership and education revenue relevance",
+        "Current MAU/revenue by geography via Appfigures/Similarweb"
+      ]
+    },
+    "duolingo": {
+      "summary": "Duolingo evidence now includes official Music launch and hardware tie-in signal; music-specific performance still needs triangulation.",
+      "sourceIds": [
+        "duolingo_ir",
+        "duolingo_q1_2025_sec",
+        "duolingo_2025_10k",
+        "duolingo_music_launch",
+        "duolingo_loog_piano_2024"
+      ],
+      "openQuestions": [
+        "Transferability of language-learning loops to music practice",
+        "Music course relevance, if any",
+        "Music-course usage and retention",
+        "Relationship to Loog hardware funnel"
+      ]
+    },
+    "kahoot": {
+      "summary": "Kahoot evidence now includes official AI tools and trust pages, validating AI-assisted content creation and availability in addition to general game-based learning positioning.",
+      "sourceIds": [
+        "kahoot_home",
+        "kahoot_ai_press",
+        "kahoot_ai_support",
+        "kahoot_ai_tools",
+        "kahoot_trust_ai"
+      ],
+      "openQuestions": [
+        "School distribution depth by market",
+        "Learning platform AI adoption",
+        "Relevance transfer to music learning"
+      ]
+    },
+    "brilliant": {
+      "summary": "Official and app-store sources validate active problem-solving, interactive learning, and AI/personal tutor positioning.",
+      "sourceIds": [
+        "brilliant_home",
+        "brilliant_google_play"
+      ],
+      "openQuestions": [
+        "Habit mechanics that transfer to music",
+        "Depth vs casual learner fit"
+      ]
+    },
+    "marty-music": {
+      "summary": "Official Marty Music source supports creator-led guitar education; still needs audience validation from YouTube/social analytics.",
+      "sourceIds": [
+        "marty_music_site",
+        "research_market_cross_product"
+      ],
+      "openQuestions": [
+        "Audience scale",
+        "Partnership fit and content overlap"
+      ]
+    },
+    "berklee-online": {
+      "summary": "Official Berklee Online sources validate formal music education, online courses, certificates, and degree programs.",
+      "sourceIds": [
+        "berklee_online",
+        "berklee_courses"
+      ],
+      "openQuestions": [
+        "Consumer beginner relevance",
+        "Partnership or credibility role"
+      ]
+    },
+    "mtna": {
+      "summary": "Official MTNA sources validate teacher-network role, professional development, membership, and music-teaching ecosystem relevance.",
+      "sourceIds": [
+        "mtna_home",
+        "mtna_membership"
+      ],
+      "openQuestions": [
+        "Digital-learning adoption among members",
+        "Potential teacher-trust implications"
+      ]
+    },
+    "rsi": {
+      "summary": "Creator/audience evidence is light: Rousseau is retained as cultural signal, but needs stronger audience and channel verification.",
+      "sourceIds": [
+        "rousseau_youtube"
+      ],
+      "openQuestions": [
+        "Audience scale",
+        "Current content cadence",
+        "Relevance beyond piano aspiration"
+      ]
+    },
+    "apple-garageband": {
+      "summary": "Official Apple and App Store sources validate GarageBand as accessible creation software inside Apple's ecosystem.",
+      "sourceIds": [
+        "apple_garageband",
+        "garageband_app_store"
+      ],
+      "openQuestions": [
+        "Learning-to-creation journey overlap",
+        "Current AI/creator-tool direction from Apple"
+      ]
+    },
+    "accel": {
+      "summary": "Official Accel sources validate capital-signal role and portfolio context; not a direct player unless mapped to specific investments.",
+      "sourceIds": [
+        "accel_home",
+        "accel_atoms"
+      ],
+      "openQuestions": [
+        "Music/education/AI investment theses",
+        "Relevant portfolio companies"
+      ]
+    },
+    "techcrunch": {
+      "summary": "TechCrunch is a monitoring source for startup/product/funding signals, not a strategic player itself.",
+      "sourceIds": [
+        "techcrunch_home"
+      ],
+      "openQuestions": [
+        "Automated query setup",
+        "Signal quality vs noise"
+      ]
+    },
+    "bett-awards": {
+      "summary": "Official Bett sources validate education-technology awards, categories, and recognition opportunity surface.",
+      "sourceIds": [
+        "bett_awards",
+        "bett_categories"
+      ],
+      "openQuestions": [
+        "Fit for Yousician/GuitarTuna positioning",
+        "Submission timing and category relevance"
+      ]
+    },
+    "creative-europe": {
+      "summary": "European Commission sources validate funding programme and current calls for cultural and creative sectors.",
+      "sourceIds": [
+        "creative_europe_programme",
+        "creative_europe_calls"
+      ],
+      "openQuestions": [
+        "Eligibility of music-learning/digital projects",
+        "Consortium requirements and timing"
+      ]
+    },
+    "guitar-tricks": {
+      "summary": "Guitar Tricks evidence now combines official/manual product page with App Store and Google Play sources for structured lessons, guided videos, and song-led beginner positioning.",
+      "sourceIds": [
+        "guitar_tricks_official",
+        "guitar_tricks_google_play",
+        "guitar_tricks_app_store",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "Current traffic and app performance",
+        "Ownership/company structure confirmation",
+        "Subscription conversion benchmarks"
+      ]
+    },
+    "truefire": {
+      "summary": "TrueFire evidence now includes official and app-store sources validating deep guitar lesson library, app availability, tabs, jam tracks, and course depth.",
+      "sourceIds": [
+        "truefire_official",
+        "truefire_app_store",
+        "truefire_google_play",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "Traffic and app performance",
+        "Ownership/company structure",
+        "Teacher-marketplace economics"
+      ]
+    },
+    "pickup-music": {
+      "summary": "Pickup Music evidence now combines official product, course, pricing, app-store, and company-profile sources for structured guitar pathways, feedback, live lessons, and community positioning.",
+      "sourceIds": [
+        "pickup_music_official",
+        "pickup_music_courses",
+        "pickup_music_app_store",
+        "pickup_music_pricing",
+        "pickup_music_linkedin",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "Traffic and app performance",
+        "Ownership/current company structure",
+        "Instructor feedback economics"
+      ]
+    },
+    "rocksmith-plus": {
+      "summary": "Ubisoft and app-store sources validate Rocksmith+ as a subscription learning service for guitar, bass, and piano with songs and real-instrument feedback.",
+      "sourceIds": [
+        "rocksmith_plus_ubisoft",
+        "rocksmith_plus_app_store",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "Current song catalog strength",
+        "Subscription retention and platform split"
+      ]
+    },
+    "gibson-app": {
+      "summary": "Official Gibson App and App Store sources validate guitar learning, real-time feedback, songs, tuner, chords, tabs, and Gibson brand bundle relevance.",
+      "sourceIds": [
+        "gibson_app_official",
+        "gibson_app_store",
+        "gibson_official",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "App performance",
+        "Impact of guitar/amp purchase bundles"
+      ]
+    },
+    "piano-marvel": {
+      "summary": "Official and App Store sources validate Piano Marvel as piano learning software with songs, lessons, reading practice, and teacher/classroom relevance.",
+      "sourceIds": [
+        "piano_marvel_official",
+        "piano_marvel_app_store"
+      ],
+      "openQuestions": [
+        "School/studio penetration",
+        "Current app and subscription performance"
+      ]
+    },
+    "melodics": {
+      "summary": "Official and App Store sources validate Melodics as an interactive practice app for drums, keys, and pads with real-time feedback.",
+      "sourceIds": [
+        "melodics_official",
+        "melodics_app_store"
+      ],
+      "openQuestions": [
+        "Instrument mix and retention",
+        "Fit with guitar-first Yousician strategy"
+      ]
+    },
+    "chordify": {
+      "summary": "Chordify evidence now combines official/manual site evidence, Google Play, App Store, and support documentation for automatic chords, tuner, app availability, and play-along workflows.",
+      "sourceIds": [
+        "chordify_official",
+        "chordify_google_play",
+        "chordify_app_store",
+        "chordify_support_apps"
+      ],
+      "openQuestions": [
+        "Rights/copyright model",
+        "App performance and conversion",
+        "Ownership/current company structure"
+      ]
+    },
+    "soundslice": {
+      "summary": "Official and teacher-facing sources validate Soundslice as an interactive notation/video practice and teaching platform.",
+      "sourceIds": [
+        "soundslice_official",
+        "soundslice_teachers"
+      ],
+      "openQuestions": [
+        "Teacher adoption scale",
+        "Transcription and AI roadmap"
+      ]
+    },
+    "guitar-pro": {
+      "summary": "Official and Google Play sources validate Guitar Pro as a major tab editor/reader with desktop and mobile practice relevance.",
+      "sourceIds": [
+        "guitar_pro_official",
+        "guitar_pro_google_play"
+      ],
+      "openQuestions": [
+        "Current mobile usage",
+        "AI tab creation and arrangement roadmap"
+      ]
+    },
+    "youtube-artists": {
+      "summary": "Official YouTube for Artists product/resource sources validate YouTube as artist-growth, Official Artist Channel, music-promotion, creator, and discovery infrastructure; local Yousician research also marks YouTube as a high-burden free-learning default.",
+      "sourceIds": [
+        "youtube_artists",
+        "youtube_oac_support",
+        "research_market_cross_product"
+      ],
+      "openQuestions": [
+        "Yousician search/funnel impact",
+        "Creator partnership opportunities",
+        "Short-form lesson behavior"
+      ]
+    },
+    "gibson": {
+      "summary": "Official Gibson source validates hardware brand relevance and explicit Gibson App bundling with guitar/amp purchases.",
+      "sourceIds": [
+        "gibson_official",
+        "gibson_app_official"
+      ],
+      "openQuestions": [
+        "Bundle conversion",
+        "Retail/channel strategy for beginners"
+      ]
+    },
+    "positive-grid": {
+      "summary": "Official Positive Grid and Spark App sources validate smart amp, app-led practice, AI/smart features, tones, and connected guitar ecosystem relevance.",
+      "sourceIds": [
+        "positive_grid_official",
+        "positive_grid_spark_app"
+      ],
+      "openQuestions": [
+        "Spark unit sales",
+        "AI feature adoption",
+        "Practice engagement through the app"
+      ]
+    },
+    "reverb": {
+      "summary": "Reverb evidence now includes official app pages and the official Reverb ownership-change update confirming Creator Partners/Servco after the Etsy sale closed in June 2025; traffic and category scale still need metrics.",
+      "sourceIds": [
+        "reverb_official",
+        "reverb_featured_app",
+        "reverb_google_play",
+        "reverb_sale_news"
+      ],
+      "openQuestions": [
+        "Post-Etsy ownership strategy and operating changes",
+        "Beginner gear demand",
+        "Category and geography split"
+      ]
+    },
+    "guitar-center": {
+      "summary": "Official Guitar Center Lessons source validates retail-linked private lessons and offline learning channel relevance.",
+      "sourceIds": [
+        "guitar_center_lessons"
+      ],
+      "openQuestions": [
+        "Lesson volume and demographics",
+        "Referral or bundle potential"
+      ]
+    },
+    "boss": {
+      "summary": "Official BOSS source validates guitar/bass effects, amps, loop stations, and performance/practice gear ecosystem relevance.",
+      "sourceIds": [
+        "boss_official"
+      ],
+      "openQuestions": [
+        "Connected app roadmap",
+        "Beginner-friendly practice product strategy"
+      ]
+    },
+    "soundtrap": {
+      "summary": "Soundtrap evidence now includes official creation and education sources validating browser-based studio, school workflows, loops, instruments, and collaboration.",
+      "sourceIds": [
+        "soundtrap_official",
+        "soundtrap_education"
+      ],
+      "openQuestions": [
+        "Education adoption",
+        "Spotify integration direction",
+        "AI feature roadmap"
+      ]
+    },
+    "fl-studio": {
+      "summary": "Official Image-Line and market-news sources validate FL Studio as a major accessible production platform moving toward cloud/web workflows.",
+      "sourceIds": [
+        "fl_studio_official",
+        "fl_studio_web_news"
+      ],
+      "openQuestions": [
+        "FL Studio Web adoption",
+        "Beginner creator onboarding and AI assistance"
+      ]
+    },
+    "soundcloud": {
+      "summary": "SoundCloud evidence now includes company, artist-tool, and app-store sources validating creator community, artist distribution, audience tools, and mobile music sharing.",
+      "sourceIds": [
+        "soundcloud_official",
+        "soundcloud_newsroom",
+        "soundcloud_for_artists_home",
+        "soundcloud_app_store"
+      ],
+      "openQuestions": [
+        "Current AI-content policy",
+        "Creator tool direction",
+        "Distribution strategy and artist economics"
+      ]
+    },
+    "distrokid": {
+      "summary": "DistroKid evidence now includes official mobile app page and app-store sources for music distribution, release management, artist tools, and scale claims.",
+      "sourceIds": [
+        "distrokid_official",
+        "distrokid_google_play",
+        "distrokid_app",
+        "distrokid_app_store"
+      ],
+      "openQuestions": [
+        "AI music distribution policy",
+        "Artist count and retention",
+        "Creator-service attach rate"
+      ]
+    },
+    "landr": {
+      "summary": "Official LANDR sources validate bundled AI mastering, distribution, plugins, samples, courses, stem separation, and creator-service positioning.",
+      "sourceIds": [
+        "landr_official",
+        "landr_mastering"
+      ],
+      "openQuestions": [
+        "Distribution policy for AI-assisted content",
+        "Creator services attach rate"
+      ]
+    },
+    "native-instruments": {
+      "summary": "Official company and inMusic announcement sources validate the production software/hardware ecosystem and May 2026 definitive acquisition agreement; closing/status and product roadmap still need monitoring.",
+      "sourceIds": [
+        "native_instruments_official",
+        "native_instruments_acquisition_news"
+      ],
+      "openQuestions": [
+        "Deal close / final ownership status after the May 2026 agreement",
+        "Effect on beginner/accessible production strategy"
+      ]
+    },
+    "bandcamp": {
+      "summary": "Official Bandcamp source validates direct-to-fan artist marketplace; AI-policy news marks strong human-authenticity positioning signal.",
+      "sourceIds": [
+        "bandcamp_artists",
+        "bandcamp_ai_policy_news"
+      ],
+      "openQuestions": [
+        "Policy enforcement details",
+        "Relevance to learning creators and teacher-musicians"
+      ]
+    },
+    "lalal-ai": {
+      "summary": "Official and Google Play sources validate LALAL.AI as an AI stem separation and vocal/instrumental isolation utility.",
+      "sourceIds": [
+        "lalal_ai_official",
+        "lalal_ai_google_play"
+      ],
+      "openQuestions": [
+        "User scale",
+        "DAW plugin adoption",
+        "Fit with practice/backing-track workflows"
+      ]
+    },
+    "aiva": {
+      "summary": "AIVA evidence now includes official product and download sources validating AI music generation, desktop tools, style models, editing, and licensing positioning.",
+      "sourceIds": [
+        "aiva_official",
+        "aiva_download"
+      ],
+      "openQuestions": [
+        "Current creator adoption",
+        "Licensing confidence vs newer AI music players",
+        "Desktop vs browser workflow relevance"
+      ]
+    },
+    "elevenlabs-music": {
+      "summary": "Official ElevenLabs sources validate AI music generation and strategic expansion from broader AI audio into full music generation.",
+      "sourceIds": [
+        "elevenlabs_music",
+        "eleven_music_blog",
+        "eleven_music_docs"
+      ],
+      "openQuestions": [
+        "Licensing posture",
+        "Artist and label partnerships",
+        "Impact on casual music creation"
+      ]
+    },
+    "tonebase": {
+      "summary": "tonebase evidence now includes broader official and instrument-specific sources for premium classical music education, expert instructors, and subscription positioning.",
+      "sourceIds": [
+        "tonebase_official",
+        "tonebase_piano"
+      ],
+      "openQuestions": [
+        "Subscriber scale",
+        "Casual vs serious learner fit",
+        "Instrument expansion and live workshops"
+      ]
+    },
+    "artistworks": {
+      "summary": "ArtistWorks evidence now includes official and library-channel evidence for self-paced video lessons, professional musician instruction, and personalized learning availability.",
+      "sourceIds": [
+        "artistworks_official",
+        "artistworks_lapl"
+      ],
+      "openQuestions": [
+        "Video-exchange model details",
+        "Library/channel adoption",
+        "Current category traction"
+      ]
+    },
+    "spotify-artists": {
+      "summary": "Official Spotify for Artists and Campaign Kit sources validate artist profile, analytics, promotion, merch, video, and streaming-career tooling.",
+      "sourceIds": [
+        "spotify_artists",
+        "spotify_artists_app_store",
+        "spotify_artists_support",
+        "spotify_campaign_kit",
+        "spotify_campaign_kit_2025",
+        "spotify_ai_protections_2025"
+      ],
+      "openQuestions": [
+        "AI artist verification policy",
+        "Signals for learner-to-artist aspiration",
+        "Which campaign tools change hobbyist release goals"
+      ]
+    },
+    "tiktok-artists": {
+      "summary": "Official TikTok for Artists product and support sources validate TikTok as a music-insights, artist-certification, and promotion surface.",
+      "sourceIds": [
+        "tiktok_artists",
+        "tiktok_artists_launch",
+        "tiktok_for_artists_launch",
+        "tiktok_add_music_6b_2026"
+      ],
+      "openQuestions": [
+        "Song trend spillover into what learners want to play",
+        "Data access and monitoring setup"
+      ]
+    },
+    "patreon": {
+      "summary": "Official Patreon for Musicians source validates musician memberships, direct fan monetization, shops, and community building.",
+      "sourceIds": [
+        "patreon_musicians"
+      ],
+      "openQuestions": [
+        "Creator-teacher prevalence",
+        "Relevance to Yousician partnerships or influencer strategy"
+      ]
+    },
+    "musora": {
+      "summary": "Official Musora and App Store sources validate a multi-instrument lesson ecosystem across drums, piano, guitar, singing, community, and app-based subscription learning.",
+      "sourceIds": [
+        "musora_official",
+        "musora_app_store"
+      ],
+      "openQuestions": [
+        "Subscriber/app scale by instrument",
+        "Overlap with Yousician guitar, piano, and beginner segments",
+        "Community and teacher-led retention mechanics"
+      ]
+    },
+    "fretello": {
+      "summary": "Fretello evidence now combines official home/app pages plus App Store and Google Play sources for personalized guitar lessons, structured practice, and app positioning.",
+      "sourceIds": [
+        "fretello_official",
+        "fretello_google_play",
+        "fretello_home"
+      ],
+      "openQuestions": [
+        "Current Appfigures performance",
+        "Ownership and partnership status",
+        "Differentiation vs Yousician"
+      ]
+    },
+    "playground-sessions": {
+      "summary": "Official and Google Play sources validate Playground Sessions as an interactive piano learning product with song-led lessons, progress feedback, and subscription/lifetime pricing.",
+      "sourceIds": [
+        "playground_sessions_official",
+        "playground_sessions_google_play"
+      ],
+      "openQuestions": [
+        "Current app performance",
+        "Pricing and conversion benchmarks",
+        "Catalog and teacher/celebrity marketing impact"
+      ]
+    },
+    "tomplay": {
+      "summary": "Official and Google Play sources validate Tomplay as an interactive sheet-music and backing-track practice app with multi-instrument repertoire.",
+      "sourceIds": [
+        "tomplay_official",
+        "tomplay_google_play",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "Catalog depth and licensing model",
+        "Teacher/school adoption",
+        "App performance and paid conversion"
+      ]
+    },
+    "chord-ai": {
+      "summary": "Chord ai evidence now combines App Store, Google Play, Nomad AI, and official product sources validating AI chord/beat recognition, song analysis, app availability, and practice utility fit.",
+      "sourceIds": [
+        "chord_ai_app_store",
+        "chord_ai_google_play",
+        "chord_ai_nomad",
+        "chord_ai_site",
+        "appfigures_api_estimates"
+      ],
+      "openQuestions": [
+        "Accuracy and retention",
+        "Revenue and ranking trend",
+        "Overlap with GuitarTuna chord/tuner workflows"
+      ]
+    },
+    "musicca": {
+      "summary": "Musicca evidence now includes official product and exercise sources validating free theory, ear-training, notes, chords, scales, rhythm, and web-based learning tools.",
+      "sourceIds": [
+        "musicca_official",
+        "musicca_exercises"
+      ],
+      "openQuestions": [
+        "Traffic and SEO scale",
+        "Conversion from theory tools to instrument practice",
+        "Fit as benchmark or partner surface"
+      ]
+    },
+    "abrsm": {
+      "summary": "Official ABRSM sources validate music exams, graded assessment, curriculum authority, apps, and practice tools.",
+      "sourceIds": [
+        "abrsm_official",
+        "abrsm_apps"
+      ],
+      "openQuestions": [
+        "Regional relevance for Yousician priority markets",
+        "Digital tool adoption",
+        "Teacher and parent influence on learning choices"
+      ]
+    },
+    "rcm": {
+      "summary": "Royal Conservatory evidence now includes official learning and digital-learning sources validating curriculum, exams, certificates, and teacher-supported progression.",
+      "sourceIds": [
+        "rcm_digital_learning",
+        "rcm_learning"
+      ],
+      "openQuestions": [
+        "Digital product traction",
+        "North American teacher/student adoption",
+        "Potential curriculum-alignment relevance"
+      ]
+    },
+    "school-of-rock": {
+      "summary": "School of Rock evidence now uses Method app store sources to validate tailored song assignments, weekly private lessons, and performance-based learning, without relying only on the access-restricted lesson page.",
+      "sourceIds": [
+        "school_of_rock_lessons",
+        "school_of_rock_google_play",
+        "school_of_rock_app_store"
+      ],
+      "openQuestions": [
+        "Current school/location count",
+        "Student reach and demographics",
+        "Hybrid/digital learning tool relevance"
+      ]
+    },
+    "flat-io": {
+      "summary": "Flat evidence now includes official product and education sources validating cloud notation, collaboration, composition, assignments, and teacher workflows.",
+      "sourceIds": [
+        "flat_io_education",
+        "flat_io_official"
+      ],
+      "openQuestions": [
+        "School penetration",
+        "AI/composition roadmap",
+        "Overlap with notation/practice platforms"
+      ]
+    },
+    "noteflight": {
+      "summary": "Noteflight evidence now includes official product and Learn sources validating online notation, composition, classroom use, and education plans.",
+      "sourceIds": [
+        "noteflight_learn",
+        "noteflight_official"
+      ],
+      "openQuestions": [
+        "Ownership and traffic",
+        "Classroom adoption scale",
+        "AI composition or teacher workflow roadmap"
+      ]
+    },
+    "donner": {
+      "summary": "Official Donner store and Google Play sources validate affordable gear, broad instrument catalog, and an app-connected hardware surface.",
+      "sourceIds": [
+        "donner_official",
+        "donner_google_play"
+      ],
+      "openQuestions": [
+        "Sales scale and geography split",
+        "App usage and connected gear adoption",
+        "Beginner bundle partnerships"
+      ]
+    },
+    "gear4music": {
+      "summary": "Official Gear4music education source validates European retail channel relevance, education supplies, instruments, and beginner/classroom purchasing surface.",
+      "sourceIds": [
+        "gear4music_education"
+      ],
+      "openQuestions": [
+        "Traffic and category share",
+        "Education-channel sales data",
+        "Bundle/referral opportunity"
+      ]
+    },
+    "audacity": {
+      "summary": "Official Audacity source validates a free, accessible recording/editing workflow that can bridge learning and hobbyist creation.",
+      "sourceIds": [
+        "audacity_official",
+        "muse_group"
+      ],
+      "openQuestions": [
+        "Current Muse Group roadmap",
+        "AI editing/transcription direction",
+        "Hobbyist learner overlap"
+      ]
+    },
+    "soundation": {
+      "summary": "Official Soundation source validates browser-based music creation, loops, collaboration, and online production workflow.",
+      "sourceIds": [
+        "soundation_official"
+      ],
+      "openQuestions": [
+        "Education use and traffic",
+        "AI-assisted creation roadmap",
+        "Overlap with beginner production pathways"
+      ]
+    },
+    "beatstars": {
+      "summary": "Official BeatStars sources validate producer storefronts, beat marketplace, licensing, and creator-business monetization workflows.",
+      "sourceIds": [
+        "beatstars_official",
+        "beatstars_creators"
+      ],
+      "openQuestions": [
+        "Marketplace scale",
+        "AI-generated beat policy",
+        "Relevance to learning-to-creator journey"
+      ]
+    },
+    "flow-music": {
+      "summary": "Official Flow Music and Riffusion redirect sources validate the current AI music-generation app destination and preserve the Riffusion-origin signal.",
+      "sourceIds": [
+        "flow_music_official",
+        "riffusion_redirect"
+      ],
+      "openQuestions": [
+        "Riffusion/Flow ownership and rebrand details",
+        "User adoption and rights posture",
+        "Competitive positioning vs Suno and Udio"
+      ]
+    },
+    "ripx-daw": {
+      "summary": "Official RipX source validates AI stem separation, audio editing, remixing, and note-level manipulation for musician workflows.",
+      "sourceIds": [
+        "ripx_official"
+      ],
+      "openQuestions": [
+        "User scale and education use",
+        "Accuracy and workflow differentiation",
+        "Practice/backing-track relevance"
+      ]
+    },
+    "klangio": {
+      "summary": "Official Klangio source validates AI audio-to-score transcription across instruments, MIDI/tabs, and practice-material conversion.",
+      "sourceIds": [
+        "klangio_official"
+      ],
+      "openQuestions": [
+        "Accuracy by instrument",
+        "Teacher and transcriber adoption",
+        "Overlap with song-to-practice workflows"
+      ]
+    },
+    "music-ally": {
+      "summary": "Official Music Ally source validates music-industry intelligence coverage for rights, DSPs, marketing, AI policy, and platform developments.",
+      "sourceIds": [
+        "music_ally_official"
+      ],
+      "openQuestions": [
+        "Monitoring setup and subscription access",
+        "Weekly scan ownership",
+        "Which topics should feed the board export"
+      ]
+    },
+    "midia-research": {
+      "summary": "Official MIDiA source validates music-industry and creator-economy research coverage for market framing and board-level trend context.",
+      "sourceIds": [
+        "midia_music_reports"
+      ],
+      "openQuestions": [
+        "Report access and licensing",
+        "Most relevant music participation reports",
+        "Cadence for updating market assumptions"
+      ]
+    },
+    "namm": {
+      "summary": "Official NAMM source validates music-products industry relevance across hardware, retail, education, events, and product-launch monitoring.",
+      "sourceIds": [
+        "namm_official"
+      ],
+      "openQuestions": [
+        "Which NAMM announcements matter to Yousician",
+        "Partner shortlist from member/event ecosystem",
+        "Education and connected-gear signals"
+      ]
+    },
+    "luminate": {
+      "summary": "Official Luminate source validates music-consumption and entertainment-data signal potential for charts, audience behavior, and market reporting.",
+      "sourceIds": [
+        "luminate_music"
+      ],
+      "openQuestions": [
+        "Data/report access",
+        "Song and genre trend relevance for learning demand",
+        "How to connect to strategic monitoring"
+      ]
+    },
+    "chartmetric": {
+      "summary": "Official Chartmetric source validates artist, playlist, social, streaming, and trend intelligence relevant to learner song demand.",
+      "sourceIds": [
+        "chartmetric_official"
+      ],
+      "openQuestions": [
+        "API/account access",
+        "TikTok-to-learning demand signal design",
+        "Artist/song trend monitoring cadence"
+      ]
+    },
+    "a16z-consumer": {
+      "summary": "Public a16z Consumer source validates this as an investor-thesis signal for consumer AI, creator tools, and adjacent learning-product capital flows.",
+      "sourceIds": [
+        "a16z_consumer"
+      ],
+      "openQuestions": [
+        "Relevant consumer AI portfolio moves",
+        "Music, creator, or education thesis mentions",
+        "Deal-monitoring cadence and owner"
+      ]
+    },
+    "general-catalyst": {
+      "summary": "Public General Catalyst source validates this as a broader growth-capital signal for applied AI, consumer technology, education, and transformation investing.",
+      "sourceIds": [
+        "general_catalyst_home"
+      ],
+      "openQuestions": [
+        "Relevant AI, education, or consumer portfolio companies",
+        "Any thesis overlap with music learning or creator workflows",
+        "Watchlist owner and update cadence"
+      ]
+    },
+    "eic-accelerator": {
+      "summary": "Official EIC Accelerator source validates a concrete EU funding route for high-risk startup and SME innovation, including possible AI or creative-technology initiatives.",
+      "sourceIds": [
+        "eic_accelerator"
+      ],
+      "openQuestions": [
+        "Eligibility for Yousician-owned initiatives",
+        "Best-fit challenge themes and cut-off dates",
+        "Grant vs equity suitability"
+      ]
+    },
+    "horizon-europe-cluster-2": {
+      "summary": "Official Horizon Europe Cluster 2 source validates culture, creativity, and inclusive-society funding as a strategic partnership route for music participation and learning research.",
+      "sourceIds": [
+        "horizon_europe_cluster2"
+      ],
+      "openQuestions": [
+        "Relevant 2026-27 work-programme calls",
+        "Potential consortium partners",
+        "Fit for music participation, learning impact, or cultural inclusion"
+      ]
+    },
+    "eit-culture-creativity": {
+      "summary": "Official EIT Culture & Creativity source validates creative-sector innovation, skills, and venture-support opportunities relevant to music, learning, and creator-economy partnerships.",
+      "sourceIds": [
+        "eit_culture_creativity"
+      ],
+      "openQuestions": [
+        "Open accelerator or skills-programme calls",
+        "Partnership fit for music-learning initiatives",
+        "Expected effort and internal owner"
+      ]
+    },
+    "apple-design-awards": {
+      "summary": "Official Apple Design Awards source validates a high-signal recognition route and benchmark for app craft, interaction, accessibility, innovation, and technical quality.",
+      "sourceIds": [
+        "apple_design_awards_2026"
+      ],
+      "openQuestions": [
+        "Which annual categories fit Yousician best",
+        "Submission calendar and owner",
+        "Product-quality gaps against finalist benchmark"
+      ]
+    },
+    "google-play-best-of": {
+      "summary": "Official Google Play Best Of source validates Android-side editorial recognition as a benchmark for standout mobile products and platform visibility.",
+      "sourceIds": [
+        "google_play_best_2025"
+      ],
+      "openQuestions": [
+        "Relevant 2026 category once published",
+        "Android product story and submission owner",
+        "Competitive recognition examples in learning or creativity"
+      ]
+    },
+    "music-tectonics": {
+      "summary": "Official Music Tectonics source validates this as a music-tech startup, investor, partner, AI, rights, and creator-tool monitoring surface.",
+      "sourceIds": [
+        "music_tectonics_2026"
+      ],
+      "openQuestions": [
+        "Pitch competition and startup shortlist",
+        "AI/rights/creator-tool themes to track",
+        "Partner or investor intros worth pursuing"
+      ]
+    },
+    "learning-technologies-awards": {
+      "summary": "Official Learning Technologies Awards source validates a broader learning-tech recognition signal for AI learning, digital learning impact, and L&D market expectations.",
+      "sourceIds": [
+        "learning_technologies_awards"
+      ],
+      "openQuestions": [
+        "Whether music learning has credible category fit",
+        "Which AI-learning criteria are relevant",
+        "Use as benchmark only or active submission target"
+      ]
+    },
+    "sxsw-edu-launch": {
+      "summary": "Official SXSW EDU Launch source validates an education-startup and learning-innovation signal for early-stage product narratives, investor exposure, and adjacent EdTech themes.",
+      "sourceIds": [
+        "sxsw_edu_launch"
+      ],
+      "openQuestions": [
+        "Relevant finalist patterns for music learning",
+        "Investor-facing EdTech claims to benchmark",
+        "Whether to monitor only or pursue presence"
+      ]
+    }
+  },
+  "v3Summary": {
+    "trackedPlayers": 96,
+    "keyPlayers": 28,
+    "relationshipStatusDefault": "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
+    "appfiguresStatusDefault": "Pending credentialed Appfigures export"
+  }
+}

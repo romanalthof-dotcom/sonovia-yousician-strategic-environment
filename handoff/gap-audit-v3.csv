@@ -1,0 +1,12 @@
+requirement_from_brief,current_status_in_v2,missing_work,file_to_update,priority
+Single final report,v2 PDF is explicitly a supplement.,"Create self-contained final report with executive synthesis, tables, sources and caveats.",report/Yousician Strategic Environment Mapping - Final Report v3.pdf,Critical
+"Broad ecosystem map, not only competitors","Dashboard taxonomy is broad, but report foregrounds supplement mechanics.",Elevate ecosystem categories in the main report and database.,players_v3.csv; report,Critical
+Appfigures for app-based companies where possible,Queue exists; no credentialed values present.,Add integrated Appfigures schema and mark all unpopulated fields as pending credentialed export.,appfigures_performance_export_integrated_v3.csv,Critical
+All key players in overview,28 key players in airtable-players.csv; 12 in key-player overview.,Generate all 28 overview rows with evidence status and confidence.,key_players_v3.csv,Critical
+Last 24 months market moves,17 entries.,"Expand to 40-60 validated market, AI, rights, funding, platform, awards and culture moves.",market_moves_24m_v3.csv,Critical
+"Teachers, schools and music education organizations",Present but thin inside education benchmark category.,"Create separate table with exam boards, school networks, marketplaces and teacher-of-teachers.",teachers_schools_education_v3.csv,High
+"Influencers, creators and educators with reach data",Only high-level creator signals.,"Add named creators with YouTube reach, platform notes, learner type and confidence.",influencers_creators_v3.csv,High
+Investors active in the space,Investors treated as general signals.,"Create standalone investor watchlist with thesis, portfolio overlap and relevance.",investors_v3.csv,High
+Awards and funding opportunities with operational fields,Six tracker rows.,"Split awards and funding into action-ready tables with timing, eligibility, effort and owner placeholder.",awards_v3.csv; funding_v3.csv,High
+Relationship space without external assumptions,"Neutral wording improved, but old labels still present in some rows.",Use relationship completion layer wording throughout and keep internal confirmation fields blank.,relationships_template_v3.csv,High
+Direct answers to three guiding questions,Implicit in dashboard; not direct enough.,Add Executive Synthesis with explicit answers and caveats.,report,Critical

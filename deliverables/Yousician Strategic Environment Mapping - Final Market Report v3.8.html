@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Yousician Strategic Environment Mapping - Final Market Report v3.8</title>
+  <style>
+    @page { size: A4 landscape; margin: 12mm; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: #f6f4ed;
+      color: #12201d;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 10.2px;
+      line-height: 1.36;
+      letter-spacing: 0;
+    }
+    section { padding: 8mm 6mm; break-inside: auto; }
+    .hero { min-height: 170mm; display: grid; grid-template-columns: 1.2fr .8fr; gap: 22px; align-items: center; break-after: page; }
+    .chapter { break-before: page; }
+    .chapter + .chapter { margin-top: 0; }
+    .kicker, .eyebrow { margin: 0 0 6px; text-transform: uppercase; font-weight: 800; color: #13705f; font-size: 8px; letter-spacing: .08em; }
+    h1 { margin: 0 0 10px; font-size: 40px; line-height: 1.02; letter-spacing: 0; max-width: 760px; }
+    h2 { margin: 0 0 10px; font-size: 25px; line-height: 1.08; letter-spacing: 0; }
+    h3 { margin: 0 0 6px; font-size: 13px; line-height: 1.16; letter-spacing: 0; }
+    p { margin: 0 0 7px; }
+    .lead { max-width: 760px; font-size: 15px; color: #53615d; }
+    .summary-box, .warning, .note, article, .metric, .category-panel, .category-row {
+      background: #fffef9;
+      border: 1px solid #d8ded5;
+      border-radius: 8px;
+    }
+    .summary-box { padding: 18px; border-left: 8px solid #00cf95; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+    .metric { padding: 11px; min-height: 78px; border-top: 5px solid #00cf95; }
+    .metric.watch { border-top-color: #f1ad36; }
+    .metric.risk { border-top-color: #e3554d; }
+    .metric strong { display: block; font-size: 27px; line-height: 1; }
+    .metric span { display: block; font-weight: 800; font-size: 9px; margin: 5px 0 4px; }
+    .metric p { font-size: 8.2px; color: #65706d; margin: 0; }
+    .answer-grid, .ecosystem-grid, .four-pack, .gate-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .answer-grid article, .ecosystem-grid article, .four-pack article, .gate-grid article { padding: 12px; break-inside: avoid; }
+    .four-pack { grid-template-columns: repeat(3, 1fr); }
+    .four-pack strong { display: block; font-size: 28px; color: #13705f; }
+    .category-panel { margin-top: 12px; padding: 12px; }
+    .category-row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 10px; margin-top: 6px; }
+    .muted, .note { color: #63716d; }
+    .note { padding: 9px 12px; border-left: 5px solid #13705f; margin: 8px 0 10px; }
+    .warning { padding: 14px; border-left: 7px solid #e3554d; margin: 10px 0; }
+    .profile-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .profile-card { padding: 11px; break-inside: avoid; min-height: 178px; }
+    .profile-top { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; margin-bottom: 6px; }
+    .confidence { flex: 0 0 auto; padding: 4px 8px; border-radius: 999px; font-size: 7.4px; font-weight: 800; background: #dff8ed; color: #0a654e; }
+    .confidence.watch { background: #fff1c7; color: #7b5300; }
+    .confidence.risk { background: #ffd9d4; color: #8b211d; }
+    .profile-card p { font-size: 8.65px; }
+    table { width: 100%; border-collapse: collapse; background: #fffef9; border: 1px solid #d8ded5; margin-top: 8px; break-inside: auto; }
+    thead { display: table-header-group; }
+    tr { break-inside: avoid; }
+    th { background: #10231f; color: #fff; text-align: left; font-size: 7.4px; line-height: 1.15; padding: 5px; vertical-align: top; }
+    td { border-top: 1px solid #e5e9e3; font-size: 7.25px; line-height: 1.24; padding: 4px 5px; vertical-align: top; }
+    .executive-table td, .moves-table td { font-size: 7.5px; }
+    .request-table td, .quality-table td, .gap-table td, .claim-table td { font-size: 7.35px; }
+    .move-counts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .move-counts span { background: #10231f; color: white; border-radius: 999px; padding: 5px 9px; font-size: 8px; }
+    .appendix h2::after { content: "Appendix"; margin-left: 10px; font-size: 8px; color: #fff; background: #6a756f; padding: 4px 7px; border-radius: 999px; vertical-align: middle; }
+    .risk { border-left: 6px solid #e3554d; }
+    .watch { border-left: 6px solid #f1ad36; }
+    @media print {
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  
+      <section class="hero">
+        <div>
+          <p class="kicker">Final market report / v3.8 / 2026-06-12</p>
+          <h1>Yousician Strategic Environment Mapping</h1>
+          <p class="lead">A brief-led ecosystem report: who influences music learning, who appears successful, who shapes music as a hobby, and which actors define Yousician's strategic environment.</p>
+          <div class="metrics">
+      <div class="metric ready">
+        <strong>96</strong>
+        <span>tracked ecosystem records</span>
+        <p>Broad database across brief categories.</p>
+      </div>
+    
+      <div class="metric ready">
+        <strong>28</strong>
+        <span>key-player profiles</span>
+        <p>All marked key players are included without one-page blank spillover.</p>
+      </div>
+    
+      <div class="metric ready">
+        <strong>49</strong>
+        <span>main-timeline news moves</span>
+        <p>Grade A/B recent moves; static context kept out of main timeline.</p>
+      </div>
+    
+      <div class="metric risk">
+        <strong></strong>
+        <span>credentialed Appfigures rows</span>
+        <p>Performance ranking is not finalized because credentialed Appfigures data is pending. Revenue, downloads, rank trends, review velocity and country mix must not be treated as complete.</p>
+      </div>
+    
+      <div class="metric risk">
+        <strong>28</strong>
+        <span>relationship rows pending</span>
+        <p>Completion layer is prepared for Yousician owners.</p>
+      </div>
+    
+      <div class="metric ready">
+        <strong>108</strong>
+        <span>source-mapped claims</span>
+        <p>High/Medium hard claims eligible for internal discussion with source visible.</p>
+      </div>
+    
+      <div class="metric risk">
+        <strong>49</strong>
+        <span>claims needing validation</span>
+        <p>Low/Pending or Appfigures-dependent hard claims stay appendix-only.</p>
+      </div>
+    </div>
+        </div>
+        <aside class="summary-box">
+          <h2>Executive Summary</h2>
+          <p>The environment around Yousician is not only a direct-competitor market. It is shaped by learning apps, hardware brands, song and practice platforms, teachers and education bodies, creator educators, hobby software, AI tools, rights owners, investors, media and cultural demand drivers.</p>
+          <p>The current package is discussion-ready as a market report. It is not yet final for app-performance conclusions because Appfigures is not populated, and it is not relationship-final because internal Yousician owner/status fields remain open. Low/Pending hard claims are filtered out of the main narrative and kept in the completion layer.</p>
+          <p><b>Latest source-skim update:</b> Suno announced more than $400M in Series D funding at a $5.4B post-money valuation on June 3, 2026. This strengthens the conclusion that AI music creation is a market-structure force, not only a product feature.</p>
+        </aside>
+      </section>
+
+      <section class="chapter">
+        <p class="kicker">Direct answers to the guiding questions</p>
+        <h2>What the brief asks, answered first</h2>
+        <div class="answer-grid">
+          <article><h3>Who influences the future of music learning?</h3><p>Direct learning apps, hardware-backed ecosystems, song/practice systems, AI feedback utilities, creator educators, teachers, schools and formal education benchmarks.</p></article>
+          <article><h3>Who is successful?</h3><p>Success should be read across habit, repertoire ownership, creator trust, distribution, AI utility, funding momentum and app-store performance. App-store performance is blocked until credentialed Appfigures data is imported.</p></article>
+          <article><h3>Who influences music as a hobby?</h3><p>TikTok, YouTube, Spotify, artists, song libraries, creator tools, AI generation tools, instrument brands, retailers and cultural moments influence what people want to play, make and share.</p></article>
+          <article><h3>Who shapes Yousician's strategic environment?</h3><p>AI companies, rights owners, app-based competitors, hardware brands, creators, publishers, investors, awards/funding bodies and education benchmarks jointly shape the field.</p></article>
+        </div>
+      </section>
+
+      <section class="chapter">
+        <p class="kicker">Top actors and evidence caveats</p>
+        <h2>The 10 actors or clusters that should lead the executive read</h2>
+        <p class="note">These actors are prioritized by ecosystem influence. They are not app-performance-ranked, because credentialed Appfigures data is still pending.</p>
+        <table class='executive-table'><thead><tr><th>Rank</th><th>Actor Or Cluster</th><th>Primary Influence Layer</th><th>Guiding Question Answered</th><th>Priority Reason</th><th>Board Use Status</th><th>Next Validation Step</th></tr></thead><tbody><tr><td>1</td><td>Suno</td><td>AI creation and rights risk</td><td>Music as a hobby; strategic environment</td><td>Suno is the clearest signal that music participation can move from learning an instrument to prompting, generating and sharing music, while also triggering rights and licensing risk.</td><td>Usable as a strategic signal; do not use as an adoption or revenue ranking without validated metrics.</td><td>Keep litigation and rights status current; do not use adoption, revenue or mobile-performance ranking without validated metrics.</td></tr><tr><td>2</td><td>Music.AI / Moises</td><td>AI practice utility and creator tooling</td><td>Music learning; music as a hobby</td><td>Moises connects AI directly to practice utility: stems, isolation, transcription and creator workflow reduce friction between song discovery and playing.</td><td>Usable as a capability and ecosystem signal; not performance-ranked yet.</td><td>Import Appfigures and verify user/reach claims from official or investor-grade sources.</td></tr><tr><td>3</td><td>Simply / JoyTunes</td><td>Direct app-based learning benchmark</td><td>Music learning; who is successful</td><td>Simply is the closest mobile learning benchmark for onboarding, motivation, subscription learning and beginner conversion.</td><td>Do not rank as successful by performance until credentialed Appfigures data is imported.</td><td>Run credentialed Appfigures export for Simply Piano and Simply Guitar.</td></tr><tr><td>4</td><td>Ultimate Guitar / Muse Group</td><td>Song-practice habit and repertoire ownership</td><td>Music learning; music as a hobby</td><td>Ultimate Guitar controls a major song-to-practice surface: tabs, chords, community and repeated practice intent.</td><td>Usable as a category-influence signal; not yet a quantified scale comparison.</td><td>Validate traffic, app performance and Muse Group ownership/source claims.</td></tr><tr><td>5</td><td>BandLab</td><td>Creation community and hobby expansion</td><td>Music as a hobby; strategic environment</td><td>BandLab represents the path where hobbyists create, collaborate and publish rather than only learn or practice.</td><td>Usable as ecosystem position; avoid quantified reach claims unless sourced.</td><td>Validate platform reach, product changes and AI/creator tooling claims.</td></tr><tr><td>6</td><td>TikTok / YouTube music discovery</td><td>Discovery, demand creation and creator trust</td><td>Music as a hobby; music learning</td><td>These platforms shape what beginners want to play and which creators they trust before a learning product is considered.</td><td>Usable as demand-generation layer; creator reach table still needs social exports.</td><td>Complete TikTok/Instagram/YouTube creator reach exports and average-view validation.</td></tr><tr><td>7</td><td>Fender / Gibson / Yamaha hardware ecosystems</td><td>Instrument access, bundles and branded learning funnels</td><td>Music learning; strategic environment</td><td>Hardware brands can turn instrument purchase, setup, app onboarding and lesson subscription into one beginner journey.</td><td>Usable as ecosystem/partner layer; not as partner pipeline without Yousician input.</td><td>Confirm internal relationship owners and Appfigures for Fender Play/Gibson App where relevant.</td></tr><tr><td>8</td><td>Splice</td><td>Paid creator tools and rights-aware workflow</td><td>Music as a hobby; strategic environment</td><td>Splice shows that hobby participation can become paid creator workflow, sample access and production learning.</td><td>Usable as creator-tool context; avoid scale claims without source validation.</td><td>Validate current AI/sample/product positioning and creator reach metrics.</td></tr><tr><td>9</td><td>ABRSM / Trinity / School of Rock education layer</td><td>Trust, curriculum, certification and teacher/parent influence</td><td>Music learning; strategic environment</td><td>Education bodies and school networks shape credibility, progression, parent trust and teacher recommendations.</td><td>Usable as trust/benchmark layer; not as relationship map until internal fields are filled.</td><td>Prioritize by beginner influence, geography and feasible relationship path.</td></tr><tr><td>10</td><td>Spotify / labels / rights infrastructure</td><td>Rights, artist data, repertoire and AI governance</td><td>Music as a hobby; strategic environment</td><td>Rights owners and music platforms set the permission, repertoire and artist-authenticity context for AI, songs and learning content.</td><td>Usable as external environment signal; do not infer Yousician relationship or licensing status.</td><td>Confirm current rights-policy position and internal licensing relationship fields.</td></tr></tbody></table>
+      </section>
+
+      <section class="chapter">
+        <p class="kicker">Claim discipline</p>
+        <h2>Source-mapped claims are eligible for internal discussion, not automatically external-final</h2>
+        <div class="gate-grid">
+          <article><h3>Source-mapped hard claims</h3><strong>108</strong><p>High/Medium confidence hard claims outside app-performance metrics may support the main narrative with visible source URL and confidence.</p></article>
+          <article class="risk"><h3>Needs final validation</h3><strong>49</strong><p>Low/Pending hard claims and all Appfigures-dependent performance claims stay out of the main story.</p></article>
+        </div>
+        <table class='quality-table'><thead><tr><th>Gate</th><th>Status</th><th>Count</th><th>Rule</th><th>Artifact</th></tr></thead><tbody><tr><td>Credentialed Appfigures</td><td>Blocked</td><td>0</td><td>No app-performance ranking by revenue, downloads, ranks, country mix or trends until credentialed Appfigures data is imported.</td><td>Appfigures Request Pack.csv</td></tr><tr><td>Source-mapped claims eligible for main narrative</td><td>Filtered</td><td>108</td><td>High/Medium confidence hard claims outside app-performance metrics are eligible for internal discussion and main narrative use, subject to final source skim before external Board/investor use.</td><td>source_mapped_claims_eligible_v3_8.csv</td></tr><tr><td>Claims requiring final validation</td><td>Appendix / completion only</td><td>49</td><td>Low/Pending and Appfigures-dependent hard claims remain out of the main narrative.</td><td>claims_requiring_final_validation_v3_8.csv</td></tr><tr><td>Internal relationships</td><td>Blocked until Yousician input</td><td>28</td><td>Internal relationship status not yet captured in this dataset. To be completed by Yousician.</td><td>relationships_template_v3.csv</td></tr></tbody></table>
+      </section>
+
+      <section class="chapter">
+        <p class="kicker">Market map, not competitor list</p>
+        <h2>What the ecosystem currently looks like</h2>
+        <div class="ecosystem-grid">
+        <article class="cluster">
+          <p class="eyebrow">1 / Very close</p>
+          <h3>Direct learning and practice apps</h3>
+          <p>Simply, Flowkey, Skoove, Fender Play, Gibson App, Rocksmith+, Guitar Tricks, Pickup Music</p>
+          <p class="muted">These players compete or benchmark directly on beginner learning, practice feedback, lessons, song-led curricula and subscription habits.</p>
+        </article>
+        
+        <article class="cluster">
+          <p class="eyebrow">2 / Close</p>
+          <h3>Song and repertoire ownership</h3>
+          <p>Ultimate Guitar, MuseScore, Songsterr, Chordify, Chord ai, YouTube</p>
+          <p class="muted">Song demand and repertoire access shape what learners actually practice and why they return.</p>
+        </article>
+        
+        <article class="cluster">
+          <p class="eyebrow">3 / Close / partnership surface</p>
+          <h3>Hardware-backed beginner funnels</h3>
+          <p>Fender, Gibson, Yamaha, Positive Grid, Donner, retailers</p>
+          <p class="muted">Instrument purchase is a major entry point; brands can bundle apps, lessons, setup and accessories into the beginner journey.</p>
+        </article>
+        
+        <article class="cluster">
+          <p class="eyebrow">4 / Close / adjacent utility</p>
+          <h3>AI practice utility</h3>
+          <p>Moises, Chord ai, Chordify AI features, transcription/stem tools</p>
+          <p class="muted">These tools reduce the distance from song discovery to usable practice assets such as stems, chords and transcriptions.</p>
+        </article>
+        
+        <article class="cluster">
+          <p class="eyebrow">5 / Adjacent hobby expansion</p>
+          <h3>Creation and production tools</h3>
+          <p>BandLab, Splice, GarageBand, Ableton, FL Studio, Soundtrap</p>
+          <p class="muted">Learners increasingly move from playing to creating, remixing, producing and sharing.</p>
+        </article>
+        
+        <article class="cluster">
+          <p class="eyebrow">6 / Adjacent trust and acquisition layer</p>
+          <h3>Creator educators and media demand</h3>
+          <p>JustinGuitar, Marty Music, Drumeo, Pianote, Rick Beato, Paul Davids, Guitar World, MusicRadar, MusicTech</p>
+          <p class="muted">Creators and media shape trust, song demand, lesson expectations and the beginner&#x27;s mental model of progress.</p>
+        </article>
+        
+        <article class="cluster">
+          <p class="eyebrow">7 / Trust / benchmark layer</p>
+          <h3>Formal education and teacher networks</h3>
+          <p>ABRSM, Trinity, RSL Awards, MTNA, Berklee Online, School of Rock, teacher platforms</p>
+          <p class="muted">These bodies influence standards, credibility, parent trust, teacher recommendations and progression pathways.</p>
+        </article>
+        
+        <article class="cluster">
+          <p class="eyebrow">8 / Strategic environment</p>
+          <h3>AI creation, rights and platform governance</h3>
+          <p>Suno, Udio, ElevenLabs Music, labels, RIAA, Spotify, YouTube, TikTok</p>
+          <p class="muted">AI generation and rights governance reshape what music participation, repertoire use and content authenticity mean.</p>
+        </article>
+        
+        <article class="cluster">
+          <p class="eyebrow">9 / Opportunity and signal layer</p>
+          <h3>Capital, awards and public funding</h3>
+          <p>VC/growth funds, strategic investors, Business Finland, Horizon Europe, awards ecosystems</p>
+          <p class="muted">Funding and awards indicate where the market sees momentum and where non-dilutive or credibility opportunities may exist.</p>
+        </article>
+        </div>
+        <div class="category-panel">
+          <h3>Brief-category coverage</h3>
+          
+        <div class="category-row">
+          <strong>Music hobby software ecosystem</strong>
+          <span>26 database records / 8 key players</span>
+        </div>
+        
+        <div class="category-row">
+          <strong>Investors, media, awards, funding and cultural drivers</strong>
+          <span>22 database records / 2 key players</span>
+        </div>
+        
+        <div class="category-row">
+          <strong>Music learning apps and platforms</strong>
+          <span>15 database records / 9 key players</span>
+        </div>
+        
+        <div class="category-row">
+          <strong>Teachers, schools and music education organizations / wider education</strong>
+          <span>13 database records / 1 key players</span>
+        </div>
+        
+        <div class="category-row">
+          <strong>Instrument brands, manufacturers and distributors</strong>
+          <span>11 database records / 4 key players</span>
+        </div>
+        
+        <div class="category-row">
+          <strong>AI companies and AI initiatives</strong>
+          <span>9 database records / 4 key players</span>
+        </div>
+        
+        </div>
+      </section>
+
+      <section class="chapter">
+        <p class="kicker">Who made the news for what</p>
+        <h2>Last 24 months: curated market moves</h2>
+        <p class="note">The main table uses Grade A/B items only. Appendix-only rows are retained as context but should not carry the main narrative.</p>
+        <table class='moves-table'><thead><tr><th>Date</th><th>Move Type</th><th>Player Or Signal</th><th>What Happened</th><th>Why It Matters For Yousician</th><th>Confidence</th><th>News Grade</th></tr></thead><tbody><tr><td>2024-06-24</td><td>AI rights / litigation</td><td>Suno / Udio / RIAA</td><td>Major record companies filed copyright infringement cases against Suno and Udio.</td><td>AI music moved from novelty to rights, licensing and board-level risk.</td><td>High</td><td>A</td></tr><tr><td>2024-08-01</td><td>Policy / AI governance</td><td>European Union AI Act</td><td>The EU AI Act entered into force, with transparency rules for AI-generated content and GPAI obligations phasing in.</td><td>EU AI transparency and copyright compliance expectations matter for AI-enabled music learning and creation tools.</td><td>High</td><td>A</td></tr><tr><td>2024-09-24</td><td>Platform move</td><td>TikTok Music</td><td>TikTok announced it would shut down TikTok Music and focus on music discovery in the main TikTok app.</td><td>Music discovery power remains in social platforms even when full streaming products retreat.</td><td>Medium</td><td>B</td></tr><tr><td>2024-09-25</td><td>Hardware + software bundle</td><td>Duolingo / Loog</td><td>Duolingo Music was linked to a beginner-friendly portable piano product with Loog.</td><td>Consumer learning platforms are testing physical beginner bundles.</td><td>Medium</td><td>B</td></tr><tr><td>2024-10-01</td><td>Education / apps</td><td>ABRSM</td><td>ABRSM&#x27;s 2024 impact report quantified global exams, qualifications and teacher support.</td><td>Formal assessment bodies still shape parent, teacher and serious-learner trust.</td><td>High</td><td>A</td></tr><tr><td>2024-11-12</td><td>AI product experiment</td><td>YouTube Dream Track</td><td>YouTube tested AI restyling of licensed songs for Shorts using Dream Track technology.</td><td>Short-form video platforms are turning licensed music into editable creator material.</td><td>Medium</td><td>B</td></tr><tr><td>2024-11-15</td><td>Marketplace closure</td><td>Microsoft TakeLessons</td><td>Microsoft&#x27;s TakeLessons marketplace closed, with account access ending in November 2024.</td><td>Online lesson marketplaces remain fragile; teacher acquisition and continuity are strategic surfaces.</td><td>High</td><td>A</td></tr><tr><td>2025-01-15</td><td>Publishing / rights</td><td>Muse Group / Hal Leonard</td><td>Muse Group unified Hal Leonard US and Europe into a global publishing operation.</td><td>Song rights, notation, tabs and learning content are becoming more ecosystem-controlled.</td><td>Medium</td><td>B</td></tr><tr><td>2025-01-22</td><td>Funding / AI utility</td><td>Music.AI / Moises</td><td>Music.AI raised a $40M Series A and reported Moises at 50M users.</td><td>AI practice utilities have meaningful reach and investor momentum.</td><td>High</td><td>A</td></tr><tr><td>2025-01-29</td><td>Policy / copyright</td><td>U.S. Copyright Office</td><td>The U.S. Copyright Office published Part 2 of its AI report on copyrightability of AI outputs.</td><td>Human-authorship rules affect generated content, practice tools and creator workflows.</td><td>High</td><td>A</td></tr><tr><td>2025-03-17</td><td>Education network signal</td><td>School of Rock</td><td>School of Rock social channels referenced roughly 400 global locations.</td><td>Offline music schools remain scaled trust and accountability channels.</td><td>Medium</td><td>B</td></tr><tr><td>2025-04-10</td><td>Artist platform</td><td>TikTok for Artists beta</td><td>Coverage indicated TikTok was preparing a dedicated artist insights platform before global launch.</td><td>TikTok is formalizing the data layer around music discovery.</td><td>Medium</td><td>B</td></tr><tr><td>2025-04-28</td><td>M&amp;A / creator tools</td><td>Splice / Spitfire Audio</td><td>Splice announced the acquisition of Spitfire Audio.</td><td>Creator-tool platforms are consolidating premium sound libraries for AI-assisted creation.</td><td>High</td><td>A</td></tr><tr><td>2025-05-01</td><td>Education platform</td><td>Berklee Online</td><td>Berklee Online positioned itself as the world&#x27;s largest online music school with 30,000+ learners from 140+ countries.</td><td>High-trust online music education offers a benchmark for credentialed, instructor-led learning.</td><td>High</td><td>A</td></tr><tr><td>2025-06-03</td><td>Artist insights</td><td>TikTok for Artists</td><td>TikTok for Artists launched globally after beta testing, initially in 26 countries.</td><td>TikTok is becoming structured music analytics and promotion infrastructure.</td><td>High</td><td>A</td></tr><tr><td>2025-08-01</td><td>AI music generation</td><td>ElevenLabs Music</td><td>ElevenLabs launched Eleven Music for prompt-based music generation.</td><td>Major voice/audio AI providers moved into full music creation.</td><td>High</td><td>A</td></tr><tr><td>2025-08-20</td><td>AI practice / creation</td><td>Moises AI Studio</td><td>Moises launched AI Studio for adaptive AI music creation support.</td><td>Practice utilities are expanding toward creation co-pilots.</td><td>High</td><td>A</td></tr><tr><td>2025-09-25</td><td>AI governance</td><td>Spotify</td><td>Spotify announced stronger AI protections for artists and songwriters.</td><td>Streaming-platform AI rules shape discovery, identity and rights expectations.</td><td>High</td><td>A</td></tr><tr><td>2025-09-30</td><td>Funding call</td><td>Creative Europe MEDIA</td><td>The 2026 Video Games and Immersive Content Development call opened.</td><td>Interactive learning, gamified practice or immersive music products may fit future EU creative funding routes.</td><td>High</td><td>A</td></tr><tr><td>2025-10-02</td><td>Product launch</td><td>Splice INSTRUMENT</td><td>Splice moved beyond samples with a cloud-connected instrument plugin drawing on Spitfire libraries.</td><td>Creator platforms are reducing friction from inspiration to playable sound.</td><td>Medium</td><td>B</td></tr><tr><td>2025-10-22</td><td>Youth performance</td><td>School of Rock / Warped Tour</td><td>School of Rock locations announced student performers at Warped Tour Orlando.</td><td>Performance-based learning connects lessons with youth culture and live music moments.</td><td>Medium</td><td>B</td></tr><tr><td>2025-10-29</td><td>AI rights / licensing</td><td>UMG / Udio</td><td>UMG and Udio settled litigation and announced agreements for a licensed AI music creation platform planned for 2026.</td><td>A licensed AI music lane is emerging alongside litigation.</td><td>High</td><td>A</td></tr><tr><td>2025-11-19</td><td>Funding / AI music</td><td>Suno</td><td>Suno raised a $250M Series C at a $2.45B post-money valuation.</td><td>AI music generation has crossed into large-scale venture-backed consumer infrastructure.</td><td>High</td><td>A</td></tr><tr><td>2025-11-25</td><td>AI rights / partnership</td><td>Warner Music Group / Suno</td><td>Warner Music Group and Suno announced a partnership and settlement path for licensed AI models.</td><td>Major labels are beginning to define opt-in licensed AI models, not only legal opposition.</td><td>High</td><td>A</td></tr><tr><td>2025-12-03</td><td>Artist data</td><td>Spotify Wrapped for Artists</td><td>Spotify provided personalized Wrapped experiences for artists, songwriters, creators and advertisers.</td><td>Music platforms are expanding shareable analytics loops around identity and fandom.</td><td>High</td><td>A</td></tr><tr><td>2025-12-10</td><td>Cultural signal</td><td>TikTok Year in Music</td><td>TikTok named global 2025 music signals and highlighted Add to Music App behavior.</td><td>Short-form music demand increasingly predicts what users may want to sing, play or learn.</td><td>High</td><td>A</td></tr><tr><td>2025-12-14</td><td>Award / EdTech</td><td>WorldWiDE EdTech Awards</td><td>The 2026 WorldWiDE EdTech Awards nomination deadline closed.</td><td>Education awards provide low-cost credibility routes if evidence of learning impact is documented.</td><td>Medium</td><td>B</td></tr><tr><td>2026-01-07</td><td>Funding deadline</td><td>EIC Accelerator</td><td>The first 2026 EIC Accelerator full-application cut-off occurred.</td><td>Public deep-tech funding remains relevant for high-risk AI practice or learning innovations.</td><td>Medium</td><td>B</td></tr><tr><td>2026-01-22</td><td>Investor thesis</td><td>Menlo Ventures / Suno</td><td>Menlo framed Suno as participatory music creation in its Series C thesis.</td><td>Venture theses are shifting from music consumption to participatory creation.</td><td>High</td><td>A</td></tr><tr><td>2026-02-06</td><td>Award deadline</td><td>Webby Awards</td><td>The 30th Annual Webby Awards extended entry deadline closed.</td><td>Apps, software, immersive and creator categories are relevant for brand and product recognition.</td><td>High</td><td>A</td></tr><tr><td>2026-02-11</td><td>Funding deadline</td><td>Creative Europe MEDIA</td><td>The 2026 Video Games and Immersive Content Development call deadline closed.</td><td>Music-learning/game-like products need early planning for EU creative funding cycles.</td><td>Medium</td><td>B</td></tr><tr><td>2026-02-17</td><td>Funding result</td><td>EIC Accelerator</td><td>61 startups and SMEs secured EIC Accelerator support in the latest round.</td><td>EU deep-tech funding remains competitive but meaningful for high-risk innovation.</td><td>High</td><td>A</td></tr><tr><td>2026-03-01</td><td>Awards / education</td><td>EdTech Awards</td><td>The EdTech Awards 2026 announced finalists and winners in March 2026.</td><td>Learning-product credibility can be strengthened through education technology awards.</td><td>High</td><td>A</td></tr><tr><td>2026-03-15</td><td>Rights / royalties</td><td>Spotify Loud &amp; Clear</td><td>Spotify&#x27;s 2026 transparency reporting said 2025 payouts to the music industry exceeded $11B.</td><td>Rights-holder economics affect catalog, artist relations and music-learning licensing context.</td><td>Medium</td><td>B</td></tr><tr><td>2026-04-02</td><td>AI awards</td><td>Tom&#x27;s Guide AI Awards</td><td>Tom&#x27;s Guide AI Awards nominations closed for 2026.</td><td>Consumer AI awards are useful external signals for AI utility positioning.</td><td>Medium</td><td>B</td></tr><tr><td>2026-04-15</td><td>AI creator tools</td><td>Splice</td><td>Splice announced generative AI tools tied to its creator compensation model.</td><td>Human-made licensed sample catalogs are being combined with traceable generative workflows.</td><td>Medium</td><td>B</td></tr><tr><td>2026-04-20</td><td>Award opening</td><td>Brandon Hall EdTech Awards</td><td>The Excellence in EdTech Awards launched for 2026 entries with a September deadline.</td><td>Operationally relevant award for learning products with measurable outcomes.</td><td>High</td><td>A</td></tr><tr><td>2026-04-30</td><td>Platform growth</td><td>YouTube Music / Premium</td><td>Alphabet reported record quarterly growth for YouTube Music and Premium non-trial subscribers.</td><td>YouTube remains central to hobby music discovery, lessons, creators and paid music consumption.</td><td>Medium</td><td>B</td></tr><tr><td>2026-05-01</td><td>Developer ecosystem</td><td>Google Play</td><td>Google Play summarized Q1 2026 discovery and developer tools updates.</td><td>App-store discovery and merchandising remain important for music-learning acquisition.</td><td>High</td><td>A</td></tr><tr><td>2026-05-18</td><td>Awards / iOS</td><td>Apple Design Awards</td><td>Apple announced 2026 Apple Design Award finalists.</td><td>Apple design recognition remains a benchmark for app craft, accessibility and interaction.</td><td>High</td><td>A</td></tr><tr><td>2026-05-22</td><td>Creator / hardware culture</td><td>Rick Beato / Gibson / Nuno Bettencourt</td><td>Guitar media highlighted Rick Beato&#x27;s live collaboration at Six-String Sanctuary and use of signature Gibson gear.</td><td>Creator educators increasingly bridge learning, artist culture and hardware marketing.</td><td>Medium</td><td>B</td></tr><tr><td>2026-06-01</td><td>App accelerator</td><td>Google Play Apps Accelerator</td><td>Google Play announced the first Apps Accelerator class of 2026.</td><td>Platform accelerator programs are a route for app growth, merchandising and developer relationships.</td><td>High</td><td>A</td></tr><tr><td>2026-06-03</td><td>Funding / public RDI</td><td>Business Finland</td><td>Business Finland funding listings showed open R&amp;D and internationalization funding routes.</td><td>As a Finnish company, Yousician can screen public RDI funding against product and AI initiatives.</td><td>High</td><td>A</td></tr><tr><td>2026-06-03</td><td>Funding / AI music</td><td>Suno</td><td>Suno announced more than $400M in Series D funding at a $5.4B post-money valuation.</td><td>Strengthens Suno as the leading AI music-creation market signal and reinforces AI creation as a market-structure force, not only a feature trend.</td><td>High</td><td>A</td></tr><tr><td>2026-06-05</td><td>AI rights / labor</td><td>AFM / UMG / WMG</td><td>The American Federation of Musicians sued UMG and WMG over AI licensing to Suno and Udio.</td><td>AI-rights exposure now includes session musician compensation and labor claims.</td><td>Medium</td><td>B</td></tr><tr><td>2026-06-08</td><td>AI creation tooling</td><td>BandLab SongStarter</td><td>BandLab&#x27;s help center updated SongStarter guidance for AI-generated song ideas.</td><td>Large creator communities are normalizing AI as a lightweight idea-generation layer.</td><td>High</td><td>A</td></tr><tr><td>2026-06-10</td><td>Award / iOS</td><td>Apple Design Awards</td><td>Apple revealed 2026 Design Award winners across app and game categories.</td><td>Awards can reveal current interaction and visual-quality benchmarks for consumer apps.</td><td>High</td><td>A</td></tr><tr><td>2026-06-10</td><td>Hardware + AI software</td><td>Fender Studio Pro / Moises</td><td>Fender Studio Pro update was reported to integrate Moises stem separation and a smart studio assistant.</td><td>Instrument brands are moving deeper into app, DAW and AI utility territory.</td><td>Medium</td><td>B</td></tr><tr><td>2026-06-10</td><td>AI rights / platform data</td><td>Google / YouTube / Lyria</td><td>Independent musicians sued Google over alleged use of YouTube-uploaded music for Lyria AI training.</td><td>Creator-platform data rights are becoming material to AI music tooling and trust.</td><td>Medium</td><td>B</td></tr></tbody></table>
+        <div class="move-counts">
+          <span>AI companies and AI initiatives: <b>14</b></span><span>Media, publishers and cultural drivers: <b>9</b></span><span>Awards: <b>7</b></span><span>Funding: <b>6</b></span><span>Teachers, schools and music education organizations: <b>5</b></span><span>Music hobby software ecosystem: <b>3</b></span><span>Wider education and self-improvement ecosystem: <b>1</b></span><span>Investors active in the space: <b>1</b></span><span>Music learning apps and platforms: <b>1</b></span><span>Influencers, creators and educators: <b>1</b></span><span>Instrument brands, manufacturers and distributors: <b>1</b></span>
+        </div>
+      </section>
+
+      <section class="chapter">
+        <p class="kicker">Performance discipline</p>
+        <h2>Appfigures is a mandatory gate, not an optional nice-to-have</h2>
+        <div class="warning">
+          <strong>Performance ranking is not finalized because credentialed Appfigures data is pending. Revenue, downloads, rank trends, review velocity and country mix must not be treated as complete.</strong>
+          <p>16 app rows are ready for credentialed export/import; 0 credentialed rows are currently populated. Public app-store ratings or reviews are proxies only and must not be described as Appfigures.</p>
+        </div>
+        <p class="note">The full 16-row Appfigures request pack is included as a completion file. The report shows a compact sample so the main PDF does not become an operational table dump.</p>
+        <table class='request-table'><thead><tr><th>Player</th><th>App Name</th><th>App Store Id Or Package</th><th>Credentialed Status</th><th>Next Action</th></tr></thead><tbody><tr><td>Simply</td><td>Simply Guitar - Learn Guitar</td><td>1476695335 / com.joytunes.simplyguitar</td><td>Missing from package</td><td>Export Appfigures app performance rows and run scripts/import_appfigures_export.py with --credentialed.</td></tr><tr><td>Simply</td><td>Simply Piano</td><td>1019442026 / com.joytunes.simplypiano</td><td>Missing from package</td><td>Export Appfigures app performance rows and run scripts/import_appfigures_export.py with --credentialed.</td></tr><tr><td>Flowkey</td><td>flowkey - Learn to Play Piano</td><td>1020357408 / com.flowkey.app</td><td>Missing from package</td><td>Export Appfigures app performance rows and run scripts/import_appfigures_export.py with --credentialed.</td></tr><tr><td>Skoove</td><td>Skoove: Learn Piano</td><td>1160668178 / com.skoove.piano</td><td>Missing from package</td><td>Export Appfigures app performance rows and run scripts/import_appfigures_export.py with --credentialed.</td></tr><tr><td>Fender Play</td><td>Fender Play: Learn Guitar</td><td>1226057939 / com.fender.play</td><td>Missing from package</td><td>Export Appfigures app performance rows and run scripts/import_appfigures_export.py with --credentialed.</td></tr><tr><td>Gibson App</td><td>Gibson: Learn &amp; Play Guitar</td><td>To validate</td><td>Missing from package</td><td>Export Appfigures app performance rows and run scripts/import_appfigures_export.py with --credentialed.</td></tr><tr><td>Moises</td><td>Moises: The Musician&#x27;s App</td><td>1515796612 / ai.moises</td><td>Missing from package</td><td>Export Appfigures app performance rows and run scripts/import_appfigures_export.py with --credentialed.</td></tr><tr><td>Ultimate Guitar</td><td>Ultimate Guitar: Chords &amp; Tabs</td><td>357828853 / com.ultimateguitar.tabs</td><td>Missing from package</td><td>Export Appfigures app performance rows and run scripts/import_appfigures_export.py with --credentialed.</td></tr><tr><td>MuseScore</td><td>MuseScore - Sheet Music &amp; Chords</td><td>835731296 / com.musescore.playerlite</td><td>Missing from package</td><td>Export Appfigures app performance rows and run scripts/import_appfigures_export.py with --credentialed.</td></tr><tr><td>Songsterr</td><td>Songsterr Tabs &amp; Chords</td><td>399211291 / com.songsterr</td><td>Missing from package</td><td>Export Appfigures app performance rows and run scripts/import_appfigures_export.py with --credentialed.</td></tr></tbody></table>
+      </section>
+
+      <section class="chapter">
+        <p class="kicker">Direct music-learning apps</p>
+        <h2>The direct learning-app market remains visible even while performance is gated</h2>
+        <p class="note">This snapshot keeps the core music-learning app field visible without inventing Appfigures metrics. It is qualitative until credentialed revenue, download, rank and country-mix data is imported.</p>
+        <table class='executive-table'><thead><tr><th>Player</th><th>What They Are</th><th>Audience Focus</th><th>Recent Public Signal</th><th>Why It Matters</th><th>Appfigures Status</th><th>Source Confidence</th></tr></thead><tbody><tr><td>Simply</td><td>Mobile-first music learning platform and direct reference point for casual learners.</td><td>Beginner / casual learners</td><td>Potential personalization and practice feedback research target</td><td>Useful benchmark for onboarding, motivation, pricing, and growth in app-based music education.</td><td>Credentialed Appfigures data pending; no revenue/download/rank conclusions.</td><td>Pending</td></tr><tr><td>Flowkey</td><td>Piano learning app focused on songs, guided lessons, and practice support.</td><td>Beginner piano learners</td><td>Confirmed feedback/product-learning surface; AI content generation remains a monitoring hypothesis</td><td>Important benchmark for piano learning, catalog positioning, and conversion mechanics.</td><td>Credentialed Appfigures data pending; no revenue/download/rank conclusions.</td><td>Pending</td></tr><tr><td>Skoove</td><td>Digital piano learning platform for beginner and intermediate players.</td><td>Beginner piano learners</td><td>Research feedback and adaptive practice signals</td><td>Relevant for piano pedagogy, app store positioning, and paid acquisition benchmarks.</td><td>Credentialed Appfigures data pending; no revenue/download/rank conclusions.</td><td>Pending</td></tr><tr><td>Fender Play</td><td>Learning product connected to one of the strongest guitar brands.</td><td>Beginner guitar and bass learners</td><td>Confirmed app feedback surface; broader AI/connected-instrument roadmap remains a monitoring hypothesis</td><td>Shows how instrument makers can extend into software, subscriptions, and beginner journeys.</td><td>Credentialed Appfigures data pending; no revenue/download/rank conclusions.</td><td>Pending</td></tr><tr><td>Gibson App</td><td>Guitar-learning app connected to Gibson&#x27;s hardware and brand ecosystem.</td><td>Beginner guitar learners and Gibson customers</td><td>Research real-time feedback and brand-led personalization</td><td>Shows how a major guitar brand can bundle learning with instrument purchase and beginner motivation.</td><td>Credentialed Appfigures data pending; no revenue/download/rank conclusions.</td><td>Pending</td></tr><tr><td>Guitar Tricks</td><td>Long-running online guitar lesson platform with structured courses, songs, and learning tools.</td><td>Guitar learners seeking structured lessons</td><td>Research personalization, practice planning, and lesson recommendation signals</td><td>Important guitar-specific subscription benchmark for curriculum depth, song-led learning, and adult beginner messaging.</td><td>Credentialed Appfigures data pending; no revenue/download/rank conclusions.</td><td>Pending</td></tr><tr><td>Pickup Music</td><td>Modern guitar-learning platform built around structured pathways and contemporary player identity.</td><td>Intermediate and style-specific guitar learners</td><td>Research personalized feedback, pathway design, and practice accountability</td><td>Useful benchmark for higher-intent guitarists, modern aesthetics, community, and guided weekly practice.</td><td>Credentialed Appfigures data pending; no revenue/download/rank conclusions.</td><td>Medium</td></tr><tr><td>Rocksmith+</td><td>Interactive music-learning service built around real instruments, song catalog, and feedback.</td><td>Practice-oriented guitar/piano learners</td><td>Research note detection, adaptive difficulty, and song-based feedback mechanics</td><td>Important benchmark for real-time feedback, licensed songs, game-like practice, and multi-instrument expansion.</td><td>Credentialed Appfigures data pending; no revenue/download/rank conclusions.</td><td>Low</td></tr><tr><td>Musora</td><td>Umbrella music education platform spanning drums, piano, guitar, singing, lessons, and community.</td><td>Multi-instrument learners</td><td>Research practice feedback, lesson recommendation, and cross-instrument learning paths</td><td>Adds an important multi-instrument subscription benchmark beyond single-instrument apps.</td><td>Credentialed Appfigures data pending; no revenue/download/rank conclusions.</td><td>Low</td></tr><tr><td>Fretello</td><td>Mobile guitar learning app focused on structured plans and guided practice.</td><td>Beginner and returning guitar learners</td><td>Research personalization, adaptive plans, and feedback patterns</td><td>Directly relevant for guitar onboarding, lesson pacing, personalization, and app-store positioning.</td><td>Credentialed Appfigures data pending; no revenue/download/rank conclusions.</td><td>Pending</td></tr><tr><td>Duolingo Music</td><td>Consumer education app extension into music literacy</td><td>Mass-market beginner learners</td><td>Public product and category signal; no app-performance conclusion without Appfigures.</td><td>Direct reference point for app-based music learning and beginner motivation.</td><td>Credentialed Appfigures data pending; no revenue/download/rank conclusions.</td><td>Pending</td></tr></tbody></table>
+      </section>
+
+      <section class="chapter">
+        <p class="kicker">The categories that cannot be hidden in appendix</p>
+        <h2>Teachers, creators, investors, media, awards and funding</h2>
+        <div class="four-pack">
+          <article><h3>Teachers / schools</h3><strong>17</strong><p>Education bodies and teacher networks shape trust, progression, certification language and parent confidence.</p></article>
+          <article><h3>Creators</h3><strong>26</strong><p>Creator educators influence discovery, trust and beginner motivation. Platform reach remains partly pending.</p></article>
+          <article><h3>Investors</h3><strong>22</strong><p>Capital flows around music, education, creator tools and AI indicate adjacent market momentum.</p></article>
+          <article><h3>Media / culture</h3><strong>28</strong><p>Media, platforms and cultural drivers explain demand formation before app consideration.</p></article>
+          <article><h3>Awards</h3><strong>12</strong><p>Award entries are now usable as an operational tracker with fit, timing and effort fields.</p></article>
+          <article><h3>Funding</h3><strong>12</strong><p>Funding opportunities are separated from investors and marked by geography, eligibility and effort.</p></article>
+        </div>
+      </section>
+
+      <section class="chapter">
+        <p class="kicker">Key players</p>
+        <h2>All 28 key players, without placeholder-looking one-pagers</h2>
+        <p class="note">Profiles are intentionally compact. Missing news, performance or relationship data is treated as a validation status rather than forced into empty boxes.</p>
+        <div class="profile-grid">
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-01 / Music learning apps and platforms</p>
+            <h3>Simply</h3>
+          </div>
+          <span class="confidence risk">Pending</span>
+        </div>
+        <p><b>Role:</b> Direct learning app</p>
+        <p><b>Why it matters:</b> Useful benchmark for onboarding, motivation, pricing, and growth in app-based music education.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> Credentialed Appfigures data is pending. Do not use this row for revenue, downloads, rank trend, review velocity, country mix or app-performance rank...</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-02 / Music hobby software ecosystem</p>
+            <h3>Ultimate Guitar</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Song-practice ecosystem</p>
+        <p><b>Why it matters:</b> Strong influence on how hobbyists discover songs and move from inspiration to practice.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> Credentialed Appfigures data is pending. Do not use this row for revenue, downloads, rank trend, review velocity, country mix or app-performance rank...</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-03 / Music learning apps and platforms</p>
+            <h3>Fender Play</h3>
+          </div>
+          <span class="confidence risk">Pending</span>
+        </div>
+        <p><b>Role:</b> Brand-backed learning app</p>
+        <p><b>Why it matters:</b> Shows how instrument makers can extend into software, subscriptions, and beginner journeys.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> Credentialed Appfigures data is pending. Do not use this row for revenue, downloads, rank trend, review velocity, country mix or app-performance rank...</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-04 / Music learning apps and platforms</p>
+            <h3>Flowkey</h3>
+          </div>
+          <span class="confidence risk">Pending</span>
+        </div>
+        <p><b>Role:</b> Instrument learning app</p>
+        <p><b>Why it matters:</b> Important benchmark for piano learning, catalog positioning, and conversion mechanics.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> Credentialed Appfigures data is pending. Do not use this row for revenue, downloads, rank trend, review velocity, country mix or app-performance rank...</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-05 / Music hobby software ecosystem</p>
+            <h3>JustinGuitar</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Creator-led practice ecosystem</p>
+        <p><b>Why it matters:</b> Shows the power of trusted teachers and free content in shaping learner behavior.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-06 / Instrument brands, manufacturers and distributors</p>
+            <h3>Fender</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Hardware ecosystem</p>
+        <p><b>Why it matters:</b> Instrument brands can shape the beginner funnel before users choose a learning app.</p>
+        <p><b>Recent move:</b> 2026-06-10: Fender Studio Pro update was reported to integrate Moises stem separation and a smart studio assistant.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-07 / Instrument brands, manufacturers and distributors</p>
+            <h3>Yamaha</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Hardware and education ecosystem</p>
+        <p><b>Why it matters:</b> Influences hardware access, music education channels, and partner possibilities.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-08 / Music hobby software ecosystem</p>
+            <h3>BandLab</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Creation and social platform</p>
+        <p><b>Why it matters:</b> Represents the shift from learning an instrument to making and sharing music quickly.</p>
+        <p><b>Recent move:</b> 2026-06-08: BandLab&#x27;s help center updated SongStarter guidance for AI-generated song ideas. | 2025-02-01: BandLab continued to present itself as a 10...</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> Credentialed Appfigures data is pending. Do not use this row for revenue, downloads, rank trend, review velocity, country mix or app-performance rank...</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-09 / Music hobby software ecosystem</p>
+            <h3>Splice</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Creator marketplace</p>
+        <p><b>Why it matters:</b> Shows how hobbyists and creators pay for tools that accelerate making music.</p>
+        <p><b>Recent move:</b> 2026-04-15: Splice announced generative AI tools tied to its creator compensation model. | 2025-10-02: Splice moved beyond samples with a cloud-conne...</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-10 / AI companies and AI initiatives</p>
+            <h3>Suno</h3>
+          </div>
+          <span class="confidence ready">High for funding update; Medium-High overall</span>
+        </div>
+        <p><b>Role:</b> AI creation disruptor</p>
+        <p><b>Why it matters:</b> May shift the meaning of music participation, motivation, and creation for casual users.</p>
+        <p><b>Recent move:</b> June 3, 2026: Suno announced more than $400M in Series D funding at a $5.4B post-money valuation. 2026-01-22: Menlo framed Suno as participatory musi...</p>
+        <p><b>Validation:</b> Keep funding, litigation and rights-owner status current; do not use adoption or revenue ranking without validated metrics.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-11 / AI companies and AI initiatives</p>
+            <h3>Udio</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> AI creation disruptor</p>
+        <p><b>Why it matters:</b> Important to understand whether AI creation competes with, complements, or expands music learning.</p>
+        <p><b>Recent move:</b> 2026-06-10: Fender Studio Pro update was reported to integrate Moises stem separation and a smart studio assistant. | 2025-10-29: UMG and Udio settle...</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-12 / AI companies and AI initiatives</p>
+            <h3>Moises</h3>
+          </div>
+          <span class="confidence ready">Medium</span>
+        </div>
+        <p><b>Role:</b> AI practice utility</p>
+        <p><b>Why it matters:</b> Strong example of AI improving practice workflows without replacing instrument learning.</p>
+        <p><b>Recent move:</b> 2026-06-10: Fender Studio Pro update was reported to integrate Moises stem separation and a smart studio assistant. | 2025-08-20: Moises launched AI...</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> Credentialed Appfigures data is pending. Do not use this row for revenue, downloads, rank trend, review velocity, country mix or app-performance rank...</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-13 / Teachers, schools and music education organizations / wider education</p>
+            <h3>Duolingo</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Consumer learning benchmark</p>
+        <p><b>Why it matters:</b> Not music-specific, but highly relevant for learning loops, retention, brand, and AI in education.</p>
+        <p><b>Recent move:</b> 2024-09-25: Duolingo Music was linked to a beginner-friendly portable piano product with Loog.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-14 / Music learning apps and platforms</p>
+            <h3>Guitar Tricks</h3>
+          </div>
+          <span class="confidence risk">Pending</span>
+        </div>
+        <p><b>Role:</b> Structured guitar learning platform</p>
+        <p><b>Why it matters:</b> Important guitar-specific subscription benchmark for curriculum depth, song-led learning, and adult beginner messaging.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-15 / Music learning apps and platforms</p>
+            <h3>Pickup Music</h3>
+          </div>
+          <span class="confidence ready">Medium</span>
+        </div>
+        <p><b>Role:</b> Structured guitar learning platform</p>
+        <p><b>Why it matters:</b> Useful benchmark for higher-intent guitarists, modern aesthetics, community, and guided weekly practice.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-16 / Music learning apps and platforms</p>
+            <h3>Rocksmith+</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Interactive song-learning service</p>
+        <p><b>Why it matters:</b> Important benchmark for real-time feedback, licensed songs, game-like practice, and multi-instrument expansion.</p>
+        <p><b>Recent move:</b> 2024-06-20: Rocksmith+ continued cross-platform subscription positioning for learning real songs with real instruments.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> Credentialed Appfigures data is pending. Do not use this row for revenue, downloads, rank trend, review velocity, country mix or app-performance rank...</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-17 / Music learning apps and platforms</p>
+            <h3>Gibson App</h3>
+          </div>
+          <span class="confidence risk">Pending</span>
+        </div>
+        <p><b>Role:</b> Brand-backed guitar learning app</p>
+        <p><b>Why it matters:</b> Shows how a major guitar brand can bundle learning with instrument purchase and beginner motivation.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> Credentialed Appfigures data is pending. Do not use this row for revenue, downloads, rank trend, review velocity, country mix or app-performance rank...</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-18 / Music hobby software ecosystem</p>
+            <h3>Chordify</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Song-chord practice utility</p>
+        <p><b>Why it matters:</b> Owns a high-intent moment between song discovery and self-guided practice.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> Credentialed Appfigures data is pending. Do not use this row for revenue, downloads, rank trend, review velocity, country mix or app-performance rank...</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-19 / Music hobby software ecosystem</p>
+            <h3>YouTube</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Music discovery and creator platform</p>
+        <p><b>Why it matters:</b> A major substitute and funnel for self-guided learning; it shapes inspiration, discovery, and expectations of free content.</p>
+        <p><b>Recent move:</b> 2026-06-10: Independent musicians sued Google over alleged use of YouTube-uploaded music for Lyria AI training. | 2026-04-30: Alphabet reported recor...</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-20 / Instrument brands, manufacturers and distributors</p>
+            <h3>Gibson</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Hardware and brand ecosystem</p>
+        <p><b>Why it matters:</b> Hardware brands can capture learner intent before software choice and can bundle education into purchase moments.</p>
+        <p><b>Recent move:</b> 2026-05-22: Guitar media highlighted Rick Beato&#x27;s live collaboration at Six-String Sanctuary and use of signature Gibson gear.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-21 / Instrument brands, manufacturers and distributors</p>
+            <h3>Positive Grid</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Smart amp and practice ecosystem</p>
+        <p><b>Why it matters:</b> Shows how hardware can become an app-led practice surface and compete for daily guitar time.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-22 / Music hobby software ecosystem</p>
+            <h3>FL Studio</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Accessible production platform</p>
+        <p><b>Why it matters:</b> Shapes the path from musical interest to beat-making, production, and creator identity.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-23 / AI companies and AI initiatives</p>
+            <h3>ElevenLabs Music</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> AI music and audio platform</p>
+        <p><b>Why it matters:</b> Important because major AI audio platforms may enter music creation, rights, and creator tooling at scale.</p>
+        <p><b>Recent move:</b> 2025-08-01: ElevenLabs launched Eleven Music for prompt-based music generation.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-24 / Investors, media, awards, funding and cultural drivers</p>
+            <h3>Spotify for Artists</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Artist analytics and promotion platform</p>
+        <p><b>Why it matters:</b> Important for how hobbyists understand music success, release goals, artist identity, and AI-authenticity debates.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-25 / Investors, media, awards, funding and cultural drivers</p>
+            <h3>TikTok for Artists</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Music discovery and artist insights platform</p>
+        <p><b>Why it matters:</b> TikTok can shape song discovery, cultural momentum, and what learners want to play.</p>
+        <p><b>Recent move:</b> 2025-06-03: TikTok for Artists launched globally after beta testing, initially in 26 countries. | 2025-04-10: Coverage indicated TikTok was preparing...</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> No app-performance row mapped; add if app-based.</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-26 / Music learning apps and platforms</p>
+            <h3>Musora</h3>
+          </div>
+          <span class="confidence ready">Low</span>
+        </div>
+        <p><b>Role:</b> Multi-instrument lesson ecosystem</p>
+        <p><b>Why it matters:</b> Adds an important multi-instrument subscription benchmark beyond single-instrument apps.</p>
+        <p><b>Recent move:</b> 2025-09-01: Musora education brands continued to scale YouTube-led funnels for piano, drums, guitar and voice.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> Credentialed Appfigures data is pending. Do not use this row for revenue, downloads, rank trend, review velocity, country mix or app-performance rank...</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-27 / Music learning apps and platforms</p>
+            <h3>Fretello</h3>
+          </div>
+          <span class="confidence risk">Pending</span>
+        </div>
+        <p><b>Role:</b> Guitar learning app</p>
+        <p><b>Why it matters:</b> Directly relevant for guitar onboarding, lesson pacing, personalization, and app-store positioning.</p>
+        <p><b>Recent move:</b> No board-grade recent-news item is used for this profile; source monitoring remains active.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> Credentialed Appfigures data is pending. Do not use this row for revenue, downloads, rank trend, review velocity, country mix or app-performance rank...</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    
+      <article class="profile-card">
+        <div class="profile-top">
+          <div>
+            <p class="eyebrow">KP-28 / Music hobby software ecosystem</p>
+            <h3>Chord ai</h3>
+          </div>
+          <span class="confidence risk">Pending</span>
+        </div>
+        <p><b>Role:</b> AI chord recognition app</p>
+        <p><b>Why it matters:</b> Important because it moves AI directly into the song-to-practice moment that GuitarTuna/Yousician users care about.</p>
+        <p><b>Recent move:</b> 2024-07-15: Chord ai public listings positioned AI chord, beat and song-structure recognition as a play-any-song utility.</p>
+        <p><b>Validation:</b> Validate Appfigures/traffic or investor data where applicable; confirm internal relationship owner.</p>
+        <p class="muted"><b>Performance:</b> Credentialed Appfigures data is pending. Do not use this row for revenue, downloads, rank trend, review velocity, country mix or app-performance rank...</p>
+        <p class="muted"><b>Relationship:</b> Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p>
+      </article>
+    </div>
+      </section>
+
+      <section class="chapter appendix">
+        <p class="kicker">Appendix: validation gates</p>
+        <h2>What is not optional before external leadership / investor use</h2>
+        <div class="gate-grid">
+          <article class="risk"><h3>Appfigures</h3><p>Blocked until credentialed export/API data is imported. No app-performance ranking should be finalized.</p></article>
+          <article class="watch"><h3>Hard claims</h3><p>157 hard claim rows require source-level confidence review before high-stakes use.</p></article>
+          <article class="risk"><h3>Relationships</h3><p>Internal relationship status not yet captured in this dataset. To be completed by Yousician.</p></article>
+          <article class="watch"><h3>Source review</h3><p>12 source-change review items and 78 refresh retry/access rows remain open.</p></article>
+        </div>
+        <table class='quality-table'><thead><tr><th>Check Id</th><th>Label</th><th>Status</th><th>Count</th><th>Detail</th><th>Next Action</th></tr></thead><tbody><tr><td>key_players</td><td>All 28 key players present</td><td>passed</td><td>28</td><td>28 key-player rows are present.</td><td>Keep at 28 unless the key-player scope changes.</td></tr><tr><td>market_moves</td><td>Board timeline depth</td><td>passed</td><td>48</td><td>48 curated market moves are marked for board timeline use.</td><td>Keep weaker context items in appendix-only status.</td></tr><tr><td>appfigures</td><td>Credentialed Appfigures gate</td><td>blocked</td><td>0</td><td>0 of 16 app rows are credentialed Appfigures imports.</td><td>Import Appfigures export/API output before app revenue/download/rank conclusions.</td></tr><tr><td>appfigures_request</td><td>Appfigures request pack</td><td>passed</td><td>16</td><td>16 request rows are ready for credentialed export.</td><td>Use the request pack as the source list for Appfigures export.</td></tr><tr><td>relationships</td><td>Relationship completion layer</td><td>blocked</td><td>28</td><td>28 of 28 relationship rows still need Yousician owner input.</td><td>Do not infer relationships externally; assign internal owners.</td></tr><tr><td>review_queue</td><td>Open source-change review queue</td><td>warning</td><td>12</td><td>12 source-change/new-source rows remain open after excluding refresh retry/access rows.</td><td>Review or reject source changes before board use.</td></tr><tr><td>refresh_retries</td><td>Refresh retry/access rows</td><td>warning</td><td>78</td><td>78 open rows are local refresh retry/access checks, not accepted market claims.</td><td>Retry when network/source access is available or replace inaccessible sources.</td></tr><tr><td>review_duplicates</td><td>Duplicate open refresh rows</td><td>warning</td><td>12</td><td>12 sources have repeated open refresh rows.</td><td>Safe fix marks older duplicate rows as superseded and keeps the latest row open.</td></tr><tr><td>proxy_note_duplicates</td><td>Repeated public proxy notes</td><td>passed</td><td>0</td><td>0 Appfigures proxy rows contain repeated note text.</td><td>Safe fix de-duplicates repeated note sentences without changing metrics.</td></tr><tr><td>hard_claims</td><td>Hard-claim source confidence</td><td>warning</td><td>33</td><td>33 hard claims still have Low/Pending source confidence.</td><td>Validate ownership, funding, user counts, AI and M&amp;A claims before investor-facing use.</td></tr><tr><td>source_confidence</td><td>Source audit confidence</td><td>warning</td><td>42</td><td>42 source-audit rows are Low/Pending.</td><td>Upgrade only with stronger source review; do not auto-promote.</td></tr></tbody></table>
+      </section>
+
+      <section class="chapter appendix">
+        <p class="kicker">Appendix: source and gap summary</p>
+        <h2>Claims, source confidence and remaining gaps</h2>
+        <p class="note">Source confidence mix: {&#x27;Pending&#x27;: 17, &#x27;Low&#x27;: 25, &#x27;Medium&#x27;: 82, &#x27;High&#x27;: 65}. The full source audit and claim-source matrix remain in the database and CSV appendix.</p>
+        <table class='gap-table'><thead><tr><th>Gap</th><th>Status</th><th>Detail</th><th>Priority</th><th>Next Action</th><th>Owner Placeholder</th></tr></thead><tbody><tr><td>Appfigures metrics</td><td>Blocked / credentialed export required</td><td>Revenue, downloads, ranks, ratings velocity, country mix and 12-month trends remain pending unless populated from a credentialed Appfigures export.</td><td>Critical</td><td>Export the Appfigures request pack and run scripts/import_appfigures_export.py with --credentialed.</td><td>Yousician / Appfigures credential owner</td></tr><tr><td>Internal relationship status</td><td>Blocked / internal owner input required</td><td>Internal relationship ownership, history and sensitivity fields are prepared for Yousician completion and must be filled only from confirmed internal knowledge.</td><td>Critical</td><td>Assigned Yousician owners complete relationship owner, status, sensitivity and last-contact fields.</td><td>Yousician owners</td></tr><tr><td>Private company ownership and revenue</td><td>Partially validated / paid database or direct validation required</td><td>Public source status is captured, but ownership, investor history and revenue for private players require Crunchbase, PitchBook, Dealroom or direct validation.</td><td>High</td><td>Run a paid-database validation pass for private companies before investor/board usage.</td><td>Research owner TBD</td></tr><tr><td>Influencer multi-platform reach</td><td>Partially complete / platform export required</td><td>YouTube reach is included where visible. TikTok, Instagram and average views remain marked as pending platform export for campaign planning.</td><td>High</td><td>Use YouTube/TikTok/Instagram channel exports or creator tools to fill current reach and average-view fields.</td><td>Creator/partnership owner TBD</td></tr><tr><td>Traffic and SEO</td><td>Blocked / Similarweb or analytics-grade export required</td><td>Web traffic for song/practice ecosystems, teacher platforms and media drivers requires Similarweb or a comparable analytics export.</td><td>Medium</td><td>Run Similarweb export for priority domains and label it as public/third-party traffic estimate.</td><td>Research owner TBD</td></tr><tr><td>Awards and funding deadlines</td><td>Operationalized / quarterly refresh needed</td><td>Awards and funding rows now contain deadlines, effort, fit and immediate next steps; date cycles should still be refreshed quarterly.</td><td>Low</td><td>Review deadlines at the start of each quarter and assign an ops/comms owner before submission decisions.</td><td>Ops / comms owner TBD</td></tr><tr><td>User research linkage</td><td>Blocked / Confluence research-database access required</td><td>Market signals should be linked back to Yousician user research before turning observations into recommendations. This pass does not have Confluence research database access.</td><td>Medium</td><td>Search the Yousician User Research Database for guitar beginner motivation, FTUX, churn, pricing and competitor studies and add study links to the report appendix.</td><td>Research / strategy owner TBD</td></tr></tbody></table>
+        <h3>Source-mapped hard claim sample</h3>
+        <table class='claim-table'><thead><tr><th>Entity</th><th>Claim Type</th><th>Claim</th><th>Source Confidence</th><th>Main Narrative Rule</th></tr></thead><tbody><tr><td>Moises</td><td>Ownership / investors</td><td>Private</td><td>Medium</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Pickup Music</td><td>Ownership / investors</td><td>Pickup Music, Inc.</td><td>Medium</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Suno / Udio / RIAA</td><td>Market move</td><td>2024-06-24: Major record companies filed copyright infringement cases against Suno and Udio.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>European Union AI Act</td><td>Market move</td><td>2024-08-01: The EU AI Act entered into force, with transparency rules for AI-generated content and GPAI obligations phasing in.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>TikTok Music</td><td>Market move</td><td>2024-09-24: TikTok announced it would shut down TikTok Music and focus on music discovery in the main TikTok app.</td><td>Medium</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Duolingo / Loog</td><td>Market move</td><td>2024-09-25: Duolingo Music was linked to a beginner-friendly portable piano product with Loog.</td><td>Medium</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>YouTube Dream Track</td><td>Market move</td><td>2024-11-12: YouTube tested AI restyling of licensed songs for Shorts using Dream Track technology.</td><td>Medium</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Microsoft TakeLessons</td><td>Market move</td><td>2024-11-15: Microsoft&#x27;s TakeLessons marketplace closed, with account access ending in November 2024.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Music.AI / Moises</td><td>Market move</td><td>2025-01-22: Music.AI raised a $40M Series A and reported Moises at 50M users.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>U.S. Copyright Office</td><td>Market move</td><td>2025-01-29: The U.S. Copyright Office published Part 2 of its AI report on copyrightability of AI outputs.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>School of Rock</td><td>Market move</td><td>2025-03-17: School of Rock social channels referenced roughly 400 global locations.</td><td>Medium</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Splice / Spitfire Audio</td><td>Market move</td><td>2025-04-28: Splice announced the acquisition of Spitfire Audio.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>TikTok for Artists</td><td>Market move</td><td>2025-06-03: TikTok for Artists launched globally after beta testing, initially in 26 countries.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>ElevenLabs Music</td><td>Market move</td><td>2025-08-01: ElevenLabs launched Eleven Music for prompt-based music generation.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Moises AI Studio</td><td>Market move</td><td>2025-08-20: Moises launched AI Studio for adaptive AI music creation support.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Spotify</td><td>Market move</td><td>2025-09-25: Spotify announced stronger AI protections for artists and songwriters.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Creative Europe MEDIA</td><td>Market move</td><td>2025-09-30: The 2026 Video Games and Immersive Content Development call opened.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Splice INSTRUMENT</td><td>Market move</td><td>2025-10-02: Splice moved beyond samples with a cloud-connected instrument plugin drawing on Spitfire libraries.</td><td>Medium</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>UMG / Udio</td><td>Market move</td><td>2025-10-29: UMG and Udio settled litigation and announced agreements for a licensed AI music creation platform planned for 2026.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Suno</td><td>Market move</td><td>2025-11-19: Suno raised a $250M Series C at a $2.45B post-money valuation.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Warner Music Group / Suno</td><td>Market move</td><td>2025-11-25: Warner Music Group and Suno announced a partnership and settlement path for licensed AI models.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Spotify Wrapped for Artists</td><td>Market move</td><td>2025-12-03: Spotify provided personalized Wrapped experiences for artists, songwriters, creators and advertisers.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>TikTok Year in Music</td><td>Market move</td><td>2025-12-10: TikTok named global 2025 music signals and highlighted Add to Music App behavior.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>WorldWiDE EdTech Awards</td><td>Market move</td><td>2025-12-14: The 2026 WorldWiDE EdTech Awards nomination deadline closed.</td><td>Medium</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>EIC Accelerator</td><td>Market move</td><td>2026-01-07: The first 2026 EIC Accelerator full-application cut-off occurred.</td><td>Medium</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Webby Awards</td><td>Market move</td><td>2026-02-06: The 30th Annual Webby Awards extended entry deadline closed.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>Creative Europe MEDIA</td><td>Market move</td><td>2026-02-11: The 2026 Video Games and Immersive Content Development call deadline closed.</td><td>Medium</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr><tr><td>EdTech Awards</td><td>Market move</td><td>2026-03-01: The EdTech Awards 2026 announced finalists and winners in March 2026.</td><td>High</td><td>May be used in the main narrative with source URL and confidence visible; final source skim recommended before external Board/investor use.</td></tr></tbody></table>
+        <h3>Claims requiring final validation sample</h3>
+        <table class='claim-table'><thead><tr><th>Entity</th><th>Claim Type</th><th>Claim</th><th>Source Confidence</th><th>Blocked Reason</th></tr></thead><tbody><tr><td>Simply</td><td>Ownership / investors</td><td>Simply Ltd</td><td>Pending</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Ultimate Guitar</td><td>Ownership / investors</td><td>Muse Group</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Fender Play</td><td>Ownership / investors</td><td>Fender</td><td>Pending</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Flowkey</td><td>Ownership / investors</td><td>flowkey GmbH; Yamaha is a hardware-promotion partner, not shown here as owner</td><td>Pending</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>JustinGuitar</td><td>Ownership / investors</td><td>Independent</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Fender</td><td>Ownership / investors</td><td>Private</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Yamaha</td><td>Ownership / investors</td><td>Public company</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>BandLab</td><td>Ownership / investors</td><td>BandLab Technologies</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Splice</td><td>Ownership / investors</td><td>Private</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Suno</td><td>Ownership / investors</td><td>Private</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Udio</td><td>Ownership / investors</td><td>Private</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Duolingo</td><td>Ownership / investors</td><td>Public company</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Guitar Tricks</td><td>Ownership / investors</td><td>Guitar Tricks Inc.</td><td>Pending</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Rocksmith+</td><td>Ownership / investors</td><td>Ubisoft</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Gibson App</td><td>Ownership / investors</td><td>Gibson</td><td>Pending</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Chordify</td><td>Ownership / investors</td><td>Chordify B.V.</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>YouTube</td><td>Ownership / investors</td><td>Google / Alphabet</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Gibson</td><td>Ownership / investors</td><td>Private</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Positive Grid</td><td>Ownership / investors</td><td>Private</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>FL Studio</td><td>Ownership / investors</td><td>Image-Line</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>ElevenLabs Music</td><td>Ownership / investors</td><td>Private</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr><tr><td>Spotify for Artists</td><td>Ownership / investors</td><td>Spotify</td><td>Low</td><td>Blocked until source confidence is upgraded from Low/Pending.</td></tr></tbody></table>
+      </section>
+
+      <section class="chapter appendix">
+        <p class="kicker">Appendix: useful context kept out of the main timeline</p>
+        <h2>Appendix-only market moves</h2>
+        <table class='moves-table'><thead><tr><th>Date</th><th>Move Type</th><th>Player Or Signal</th><th>What Happened</th><th>Curation Note</th><th>Confidence</th><th>News Grade</th></tr></thead><tbody><tr><td>2024-06-20</td><td>Product / guitar learning</td><td>Rocksmith+</td><td>Rocksmith+ continued cross-platform subscription positioning for learning real songs with real instruments.</td><td>Useful context, but weaker as a &#x27;who made the news&#x27; item.</td><td>Medium</td><td>C</td></tr><tr><td>2024-07-15</td><td>Practice utility</td><td>Chord ai</td><td>Chord ai public listings positioned AI chord, beat and song-structure recognition as a play-any-song utility.</td><td>Useful context, but weaker as a &#x27;who made the news&#x27; item.</td><td>Medium</td><td>C</td></tr><tr><td>2025-02-01</td><td>Creator community</td><td>BandLab</td><td>BandLab continued to present itself as a 100M+ creator and fan platform.</td><td>Useful context, but weaker as a &#x27;who made the news&#x27; item.</td><td>High</td><td>C</td></tr><tr><td>2025-06-01</td><td>Teacher network</td><td>Lessonface</td><td>Lessonface continued positioning as a marketplace for vetted online music teachers and live lessons.</td><td>Useful context, but weaker as a &#x27;who made the news&#x27; item.</td><td>Medium</td><td>C</td></tr><tr><td>2025-07-01</td><td>Practice ecosystem</td><td>MuseScore</td><td>MuseScore public app listings emphasized interactive sheet music, tabs and large score access.</td><td>Useful context, but weaker as a &#x27;who made the news&#x27; item.</td><td>Medium</td><td>C</td></tr><tr><td>2025-09-01</td><td>Creator education</td><td>Pianote / Musora</td><td>Musora education brands continued to scale YouTube-led funnels for piano, drums, guitar and voice.</td><td>Useful context, but weaker as a &#x27;who made the news&#x27; item.</td><td>Medium</td><td>C</td></tr></tbody></table>
+      </section>
+    
+</body>
+</html>

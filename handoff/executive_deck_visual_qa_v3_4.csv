@@ -1,0 +1,7 @@
+check_id,status,result,detail,artifact,last_checked_date
+deck_version,passed,v3.4 is primary,"Dashboard and executive export links point to the v3.4 executive deck as the primary recipient artifact.",deliverables/Yousician Strategic Environment Executive Summary v3.4.pptx,2026-06-11
+slide_count,passed,14 slides,"Deck expanded from a tighter 12-slide table-heavy rhythm to a 14-slide executive narrative with separate success, hobby, relationship and evidence QA slides.",deliverables/Yousician Strategic Environment Executive Summary v3.4.pptx,2026-06-11
+visual_system,passed,editorial system applied,"Large claim-first pages, music-staff line motif, left confidence rail, dark/paper pacing and semantic status colors now replace the previous generic card-grid feel.",deliverables/executive_summary_deck_contact_sheet_v3.4.png,2026-06-11
+data_viz_clarity,passed,direct labels used,"Main proof objects use direct labels and status colors; Appfigures and relationship gaps remain visible instead of being hidden in appendix copy.",deliverables/executive_summary_deck_contact_sheet_v3.4.png,2026-06-11
+pptx_integrity,passed,zip test OK,"The v3.4 PPTX passes Office ZIP integrity checks in both the dashboard deliverables folder and final handoff folder.",deliverables/Yousician Strategic Environment Executive Summary v3.4.pptx,2026-06-11
+figma_handoff,prepared,design brief included,"A Figma-ready design brief has been added; direct Figma Slides creation still requires a target Figma file or plan key.",handoff/figma_slide_design_brief_v3_4.md,2026-06-11

@@ -1,0 +1,60 @@
+{
+  "recommendedBackend": "Airtable first, Postgres/API later if automation grows",
+  "primaryTables": [
+    {
+      "name": "Categories",
+      "importFile": "airtable-categories.csv",
+      "primaryKey": "category_id"
+    },
+    {
+      "name": "Players",
+      "importFile": "airtable-players.csv",
+      "primaryKey": "player_id"
+    },
+    {
+      "name": "Sources",
+      "importFile": "airtable-sources.csv",
+      "primaryKey": "source_id"
+    },
+    {
+      "name": "Player source links",
+      "importFile": "airtable-player-source-links.csv",
+      "primaryKey": "player_id + source_id"
+    },
+    {
+      "name": "Strategic moves",
+      "importFile": "airtable-strategic-moves.csv",
+      "primaryKey": "date + player_id + title"
+    },
+    {
+      "name": "Relationship validation",
+      "importFile": "relationship-validation-template.csv",
+      "primaryKey": "player_id"
+    },
+    {
+      "name": "Research backlog",
+      "importFile": "research-backlog.csv",
+      "primaryKey": "player_id + question_or_task"
+    },
+    {
+      "name": "Source quality backlog",
+      "importFile": "source-quality-backlog.csv",
+      "primaryKey": "source_id"
+    }
+  ],
+  "fieldTypes": {
+    "scores": "Number 1-5",
+    "key_player": "Checkbox",
+    "tags": "Multi-select or linked table if normalized",
+    "source_urls": "URL / long text in imported CSV; normalize via Player source links for production",
+    "relationship_status": "Single select: Needs confirmation, Confirmed, Not relevant, Sensitive, Archived",
+    "claim_type": "Single select: Verified fact, Interpretation, Hypothesis, Needs internal data",
+    "refresh_cadence": "Single select: Weekly, Monthly, Quarterly, Before exec review"
+  },
+  "automations": [
+    "Weekly source health check writes access_status and last_url_check.",
+    "Credentialed metrics job writes to live-overrides.json shape or an API equivalent.",
+    "Relationship owner reminder triggers when status is Needs confirmation and key_player is true.",
+    "Board export gate flags records with unresolved High-priority backlog tasks."
+  ]
+}

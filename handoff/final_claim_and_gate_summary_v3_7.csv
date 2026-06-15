@@ -1,0 +1,5 @@
+gate,status,count,rule,artifact,last_checked_date
+Credentialed Appfigures,Blocked,0,"No app-performance ranking by revenue, downloads, ranks, country mix or trends until credentialed Appfigures data is imported.",Appfigures Request Pack.csv,2026-06-12
+Source-mapped claims eligible for main narrative,Filtered,108,"High/Medium confidence hard claims outside app-performance metrics are eligible for internal discussion and main narrative use, subject to final source skim before external Board/investor use.",source_mapped_claims_eligible_v3_7.csv,2026-06-12
+Claims requiring final validation,Appendix / completion only,49,Low/Pending and Appfigures-dependent hard claims remain out of the main narrative.,claims_requiring_final_validation_v3_7.csv,2026-06-12
+Internal relationships,Blocked until Yousician input,28,Internal relationship status not yet captured in this dataset. To be completed by Yousician.,relationships_template_v3.csv,2026-06-12

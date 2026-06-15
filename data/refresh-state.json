@@ -1,0 +1,538 @@
+{
+  "policy": "Public refresh detects changes only. Claims require human review before final outputs.",
+  "sources": {
+    "abrsm_impact_2024": {
+      "content_hash": "43345f8601e8953a1ef67532b3129bd00b8daf195ed34ba7db6724bbd03a26c7",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "",
+      "source_url": "https://www.abrsm.org/sites/default/files/2024-09/Impact%20Report%202024%20FINAL.pdf"
+    },
+    "afm_ai_licensing_2026": {
+      "content_hash": "ae4072554f26f670006648d1646d963c9bf1955d4987801a3beb28b788ab2dea",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Musicians Union Sues Universal and Warner Over AI Use | Pitchfork",
+      "source_url": "https://pitchfork.com/news/musicians-union-sues-universal-and-warner-over-ai-use"
+    },
+    "apple_ada_finalists_2026": {
+      "content_hash": "03307f4e1a29d7bc2facc4e08134a5d9dd5f3e460278ef8c0db239f3e89aa445",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Introducing the 2026 Apple Design Award finalists - Latest News - Apple Developer",
+      "source_url": "https://developer.apple.com/news/?id=8t3j66i7"
+    },
+    "apple_ada_winners_2026": {
+      "content_hash": "7f506210e970b1bab1930dcb39c46cfe51ceab41d0aeb1ed5891c5bc181c245f",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Apple reveals winners of the 2026 Apple Design Awards - Apple",
+      "source_url": "https://www.apple.com/newsroom/2026/06/apple-reveals-winners-of-the-2026-apple-design-awards/"
+    },
+    "apps_apple_com_us_app_bandlab_music_maker_beats_id968585775": {
+      "content_hash": "69b13073077ec1772bae9c58fc8c00a514ea53e05dd7130a03ca82f6afec6338",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "\u200eBandLab \u2013 Music Maker &amp; Beats App - App Store",
+      "source_url": "https://apps.apple.com/us/app/bandlab-music-maker-beats/id968585775"
+    },
+    "apps_apple_com_us_app_chord_ai_play_any_song_id1446177109": {
+      "content_hash": "7661436d9ad663033701269455f633f6f2596c113ab396e6b8c465ec849cf4ee",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "\u200eChord ai - Play any song! App - App Store",
+      "source_url": "https://apps.apple.com/us/app/chord-ai-play-any-song/id1446177109"
+    },
+    "apps_apple_com_us_app_fender_play_learn_guitar_id1226057939": {
+      "content_hash": "710914c60d3cef4f721414b6bb72bf6236125234b9bd6654bb64054253fb4ec6",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "\u200eFender Play: Learn Guitar App - App Store",
+      "source_url": "https://apps.apple.com/us/app/fender-play-learn-guitar/id1226057939"
+    },
+    "apps_apple_com_us_app_flowkey_learn_to_play_piano_id1020357408": {
+      "content_hash": "a9a47d5729ceb2a9297344a81f4918ad38f6ed640f0ffd3b7295e4e94cd69938",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "\u200eflowkey \u2013 Learn to Play Piano App - App Store",
+      "source_url": "https://apps.apple.com/us/app/flowkey-learn-to-play-piano/id1020357408"
+    },
+    "apps_apple_com_us_app_moises_the_musicians_app_id1515796612": {
+      "content_hash": "99c9382824778d95984e53d6b2384c11c420b66c93576d1c84919c2beb843056",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "\u200eMoises: The Musician's App App - App Store",
+      "source_url": "https://apps.apple.com/us/app/moises-the-musicians-app/id1515796612"
+    },
+    "apps_apple_com_us_app_musescore_sheet_music_chords_id835731296": {
+      "content_hash": "5ddef74ab06e504a0500c9ad6617352fe463e2197b949843789aeed79a6a62f0",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "\u200eMuseScore\uff0dSheet Music &amp; Chords App - App Store",
+      "source_url": "https://apps.apple.com/us/app/musescore-sheet-music-chords/id835731296"
+    },
+    "apps_apple_com_us_app_songsterr_tabs_chords_id399211291": {
+      "content_hash": "d63ba89a610df0c3b73379167306c947a3dbf9a848d6b7fdfcce2d2c6b42e634",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "\u200eSongsterr Tabs &amp; Chords App - App Store",
+      "source_url": "https://apps.apple.com/us/app/songsterr-tabs-chords/id399211291"
+    },
+    "bandlab_100m": {
+      "content_hash": "3563fd197cbd69311ad82c50b563729d90ca931902f1882bb64feb1af3a76a5a",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "",
+      "source_url": "https://www.bandlab.com/?lang=en"
+    },
+    "bandlab_songstarter_2026": {
+      "content_hash": "33421c3f60442c4907ee8671eb7748eed9733d8d48ae118f84495b164c2ba9cc",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Generate Ideas with SongStarter AI &ndash; BandLab Help Center",
+      "source_url": "https://help.bandlab.com/hc/en-us/articles/24226593087001-Generate-Ideas-with-SongStarter-AI"
+    },
+    "berklee_online_about": {
+      "content_hash": "c70e25596b8e741cccac6cf46777cddc1077c56679758b7f9ce439539ad8d2cf",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "About - Berklee Online",
+      "source_url": "https://online.berklee.edu/about/berklee-online"
+    },
+    "brandon_hall_edtech_2026": {
+      "content_hash": "efc694c0bbef181c7aa591a80cfcf2ad3122b0b1f0a1da3e6348ce951c2dddda",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "EdTech Award Page - Brandon Hall Awards",
+      "source_url": "https://excellenceawards.brandonhall.com/edtech/"
+    },
+    "business_finland_funding_2026": {
+      "content_hash": "388e9d256d9d9d9f3978de84b6c9717c1c9a76d7a474240291f2a757c823ef37",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Funding",
+      "source_url": "https://www.businessfinland.fi/en/services/funding/"
+    },
+    "chord_ai_public": {
+      "content_hash": "c64d7aa6c1a8daad4100023d12bfd307562c63131d4f8109c3c7fd1d2a2c0cee",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Chord ai &#8211; Chords and beats for any song!",
+      "source_url": "https://chordai.net/"
+    },
+    "chordai_net": {
+      "content_hash": "c64d7aa6c1a8daad4100023d12bfd307562c63131d4f8109c3c7fd1d2a2c0cee",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Chord ai &#8211; Chords and beats for any song!",
+      "source_url": "https://chordai.net/"
+    },
+    "creative_europe_deadline_2026": {
+      "content_hash": "9f09915c6a5dd6e1d3d85ef35669d62e2b038f1b5abad2f5d70833d8264f1bc0",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Video games and immersive content development - Search for Funding - EuroAccess - F\u00f6rdermittelsuche der EuroVienna EU-consulting &amp; -management GmbH",
+      "source_url": "https://www.euro-access.eu/en/calls/2391/Video-games-and-immersive-content-development"
+    },
+    "creative_europe_games_2026": {
+      "content_hash": "3de592f5ea2671119e63d04236cfa55bfa2e6f4851e03a8e5be550f1a2eb3bea",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Video Games + Immersive Content Development | Creative Europe Desk Ireland",
+      "source_url": "https://www.creativeeuropeireland.eu/funding-opportunities/call/video-games-immersive-content"
+    },
+    "duolingo_loog_2024": {
+      "content_hash": "21ac8188c2bdf44e7969975e1787c1819a85c12a00c804b73d2fb7731f777dda",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Duolingo now offers a portable piano for its music course | The Verge",
+      "source_url": "https://www.theverge.com/2024/9/25/24253932/duolingo-loog-portable-green-piano-music-lessons"
+    },
+    "edtech_awards_2026": {
+      "content_hash": "12e234085658878cec3c143b9026fbc2bcd7980134f0d044c930061d30724c5c",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "2026 Finalists &amp; Winners - EdTech Digest",
+      "source_url": "https://www.edtechdigest.com/2026-finalists-winners/"
+    },
+    "eic_deadlines_2026": {
+      "content_hash": "803833072c30e242687e443dcfa473a17fe901a542def9211a5b0bc12ec1f14e",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "EIC Accelerator 2026 \u2013 Key Application Dates Announced - Innovation Manager",
+      "source_url": "https://innovation-manager.com/eic-accelerator-2026-key-application-dates-announced/"
+    },
+    "eic_results_2026": {
+      "content_hash": "f7aea09ecd1dd452de1f684f0191fecd1df5db2b60971c6c3237ffff51fd153d",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "61 start-ups and SMEs secure EIC support in latest round of the EIC Accelerator - European Innovation Council",
+      "source_url": "https://eic.ec.europa.eu/news/61-start-ups-and-smes-secure-eic-support-latest-round-eic-accelerator-2026-02-17_en"
+    },
+    "eleven_music_2025": {
+      "content_hash": "071402eaacc3f2524c9b3abae7fb43f0548934ac6031161393eed1988a61b222",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Eleven Music is here",
+      "source_url": "https://elevenlabs.io/blog/eleven-music-is-here"
+    },
+    "eu_ai_act_2024": {
+      "content_hash": "474fd8f0ee1d69a5095fc58335886573f10d339a35fa562a1d6cb4ce63d0d88e",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "AI Act | Shaping Europe\u2019s digital future",
+      "source_url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+    },
+    "fender_moises_2026": {
+      "content_hash": "66fbdbf20967a764b777d6c516eb332d4011b59b008e5380b6684a10da52550e",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "&ldquo;AI isn&rsquo;t the destination. Making music is&rdquo;: Fender looks forward as its Studio Pro DAW integrates Moises stem separation and a smart studio assistant | MusicRadar",
+      "source_url": "https://www.musicradar.com/music-tech/daws/ai-isnt-the-destination-making-music-is-fender-looks-forward-as-its-studio-pro-daw-integrates-moises-stem-separation-and-a-smart-studio-assistant"
+    },
+    "fretello_com": {
+      "content_hash": "fea3534d795c810db4cdf08a22284294034ae3641267c700cf9ab0f365acbce3",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Fretello: Step-by-Step Guitar Lessons for Beginners",
+      "source_url": "https://fretello.com/"
+    },
+    "fretello_com_app": {
+      "content_hash": "39824892a561b06cb0bc5b3a45e367c2a0f5bfda1483861e1c72c876c8f99740",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Guitar Learning App | Fretello",
+      "source_url": "https://fretello.com/app/"
+    },
+    "google_lyria_lawsuit_2026": {
+      "content_hash": "a6b7640591f8e9a4747ef2ddf94060e79e4f5aa9d4e87a9875f1a3644fe7e072",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Google won\u2019t just admit it\u2019s feeding YouTube creators to its music AI | The Verge",
+      "source_url": "https://www.theverge.com/tech/947770/google-lyria-music-ai-lawsuit-youtube"
+    },
+    "google_play_accelerator_2026": {
+      "content_hash": "1395478d0f0ca57413947494d41af69433b3c4792878db50b8de982b52c81a10",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Meet the class of 2026 for the Google Play Apps Accelerator &nbsp;|&nbsp; Android Developers&apos; Blog",
+      "source_url": "https://developer.android.com/blog/posts/meet-the-class-of-2026-for-the-google-play-apps-accelerator"
+    },
+    "google_play_q1_2026": {
+      "content_hash": "fd5c5faf353cfb93c3a996ec18b8977f26a06983995691fc9c15c622f7198a3d",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "The Latest from Google Play: Q1 2026",
+      "source_url": "https://google.play/the-latest/2026-q1/"
+    },
+    "guitarworld_beato_nuno_2026": {
+      "content_hash": "f6e68ab5f9f2903e2437e62fecb13768262fc87cbd80c6862792387c2a2546bd",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Nuno Bettencourt and Rick Beato cover Thin Lizzy classic | Guitar World",
+      "source_url": "https://www.guitarworld.com/artists/guitarists/nuno-bettencourt-and-rick-beato-play-thin-lizzy"
+    },
+    "lessonface_home": {
+      "content_hash": "8018af8763f5689538e13bce877d7cdf054b48e7c8f735a69c06d357a5970205",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Live Online Music Lessons Of All Instruments | Lessonface",
+      "source_url": "https://www.lessonface.com/home"
+    },
+    "menlo_suno_2025": {
+      "content_hash": "9c03833c063014af3f88e404ba470cea15fed1d42198bdc419d4affc92b315a9",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "The Future of Music Is Participatory: Leading Suno\u2019s Series C | Menlo Ventures",
+      "source_url": "https://menlovc.com/perspective/the-future-of-music-is-participatory-leading-sunos-series-c/"
+    },
+    "moises_ai": {
+      "content_hash": "455f224ccf9e0a304aaee67bc269d150a5a6247e7fb1fe37d0199d62c5b3a4cf",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Moises App: The Musician&#x27;s App | Vocal Remover &amp; much more",
+      "source_url": "https://moises.ai/"
+    },
+    "moises_ai_studio_2025": {
+      "content_hash": "fc5a87510a869d4b218fa1bfcc068f1958a93c4aeacaf2353ff2af529607f9a8",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "We&#x27;re Launching AI Studio: Our New AI Music Creation Platform",
+      "source_url": "https://moises.ai/newsroom/product-announcements/launch-ai-studio/"
+    },
+    "muse_hal_leonard_2025": {
+      "content_hash": "04ef5706725f6592663ca5a96cc76a42295a02a6f441883f2ced8d1b4ae1ccae",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Muse Group Unifies Hal Leonard US and Europe into a Global Powerhouse | Muse Group",
+      "source_url": "https://www.mu.se/posts/muse-group-unifies-hal-leonard-us-and-hal-leonard-europe-into-a-global-powerhouse"
+    },
+    "musescore_app_2026": {
+      "content_hash": "5ddef74ab06e504a0500c9ad6617352fe463e2197b949843789aeed79a6a62f0",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "\u200eMuseScore\uff0dSheet Music &amp; Chords App - App Store",
+      "source_url": "https://apps.apple.com/us/app/musescore-sheet-music-chords/id835731296"
+    },
+    "musicai_series_a_2025": {
+      "content_hash": "d41fe3c7e6899c827c95a883f19558d767e13b6ce2c2cb602fe8a46371ce3069",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Music AI, the company behind Moises, raises $40M in Series A | Music AI",
+      "source_url": "https://music.ai/blog/press/music-ai-raises-40m-series-a/"
+    },
+    "online_berklee_edu_about_berklee_online": {
+      "content_hash": "c70e25596b8e741cccac6cf46777cddc1077c56679758b7f9ce439539ad8d2cf",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "About - Berklee Online",
+      "source_url": "https://online.berklee.edu/about/berklee-online"
+    },
+    "pianote_official": {
+      "content_hash": "e6ff3cf7ee9a5726d1f83448f597c870ac68c74e21d25cbedd47b88a8b3c24d4",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Learn the piano anytime with real teachers. | Pianote",
+      "source_url": "https://www.pianote.com/"
+    },
+    "play_google_com_store_apps_details": {
+      "content_hash": "6d608a5badc88d01ba6b2ad132627a2261e29211e0f63852709152b8f0ae9c7a",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "",
+      "source_url": "https://play.google.com/store/apps/details?hl=en_US&id=com.joytunes.simplyguitar"
+    },
+    "riaa_suno_udio_2024": {
+      "content_hash": "4844ee7a157dbe5487d38d7eb41bf317889e7ab5cce2f0e1f42c72ef1c52786d",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Record Companies Bring Landmark Cases for Responsible AI Against Suno and Udio in Boston and New York Federal Courts, Respectively - RIAA",
+      "source_url": "https://www.riaa.com/record-companies-bring-landmark-cases-for-responsible-ai-againstsuno-and-udio-in-boston-and-new-york-federal-courts-respectively/"
+    },
+    "rocksmith_plus_official": {
+      "content_hash": "a32fc96fa661459880f2495ca9be6c184599e01e04be70aa99f3288faf69a8bc",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Rocksmith+ - Learn to Play the Guitar, Bass, &amp; Piano | Ubisoft (US)",
+      "source_url": "https://www.ubisoft.com/en-us/game/rocksmith/plus"
+    },
+    "splice_ai_tools_2026": {
+      "content_hash": "24dc5fbebf534e19ee7a71874d00cce58e6570b71a149d72fac8903f56ad4d72",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Splice launches AI tools that compensate sample creators when their sounds are used - Music Business Worldwide",
+      "source_url": "https://www.musicbusinessworldwide.com/splice-launches-ai-tools-that-compensate-sample-creators-when-their-sounds-are-used/"
+    },
+    "splice_instrument_2025": {
+      "content_hash": "251dd52137886aa5aceb3144b0d7e69dc9a7f045d14d4ab376e31396aebb6397",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "&ldquo;For the first time, we&rsquo;re moving beyond samples&rdquo;: Splice unveils free plugin and virtual instrument platform with hundreds of free presets | MusicRadar",
+      "source_url": "https://www.musicradar.com/music-tech/for-the-first-time-were-moving-beyond-samples-splice-unveils-free-plugin-and-virtual-instrument-platform-with-hundreds-of-free-presets"
+    },
+    "splice_spitfire_2025": {
+      "content_hash": "c51de589d36150f1a733757435c749dba15a85cfe7dd70b74d36088b6758267d",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Splice to Supercharge Music Creation Ecosystem with Acquisition of Spitfire Audio, Positioning Itself to Lead in the $7B Music Software and Services Sector",
+      "source_url": "https://www.prnewswire.com/news-releases/splice-to-supercharge-music-creation-ecosystem-with-acquisition-of-spitfire-audio-positioning-itself-to-lead-in-the-7b-music-software-and-services-sector-302439458.html"
+    },
+    "spotify_ai_protections_2025": {
+      "content_hash": "42bca769bfd981864090922f020d4f07a99184e296839c0586aaa14f36a1150c",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Spotify Strengthens AI Protections for Artists, Songwriters, and Producers &#8212; Spotify",
+      "source_url": "https://newsroom.spotify.com/2025-09-25/spotify-strengthens-ai-protections/"
+    },
+    "spotify_loud_clear_2026": {
+      "content_hash": "462a42aa304e86effc028e73f578592036e000cc00da55b53bfb1544c973e2de",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "&ldquo;Spotify is the highest-paying retailer globally - paying the music industry more than $11 billion in 2025&rdquo;: Spotify reveals how much it actually pays out to musicians in its new Loud &amp; Clear report | MusicRadar",
+      "source_url": "https://www.musicradar.com/music-industry/streaming-sharing/spotify-is-the-highest-paying-retailer-globally-paying-the-music-industry-more-than-usd11-billion-in-2025-spotify-reveals-how-much-it-actually-pays-out-to-musicians-in-its-new-loud-and-clear-report"
+    },
+    "spotify_wrapped_artists_2025": {
+      "content_hash": "5c2fb600b9cd7c70ee850b2206294d3d7783d5f333e5eef2d5c9b69433843376",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "The 2025 Wrapped Guide for Artists, Songwriters, Creators, Authors, and Advertisers &#8212; Spotify",
+      "source_url": "https://newsroom.spotify.com/2025-12-03/wrapped-for-artists-songwriters-creators-authors-advertisers/"
+    },
+    "suno_series_c_2025": {
+      "content_hash": "26ab5cd52cfc8fcad67cb840a4da88371d8b90de15f9ac347bf8ae81307c4f8d",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "The Future of Music is Already Here \u00b7 Suno",
+      "source_url": "https://suno.com/blog/series-c-announcement"
+    },
+    "takelessons_closure_2024": {
+      "content_hash": "acbd2866c62b5556f4ffc57d193ad1a43d6cdae162939e9cb79c8625b98b18d2",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "TakeLessons Closure Frequently Asked Questions | Microsoft Learn",
+      "source_url": "https://learn.microsoft.com/en-us/takelessons/takelessons-closure-faq"
+    },
+    "tiktok_artists_beta_2025": {
+      "content_hash": "5e7a11219ea5ed16f1e3a2f6f1eea4fb7a90bb3b3b82ed3a6ca6404e3a62b1ae",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "TikTok\u2019s \u201cFor Artists\u201d platform sounds like bad news for music | The FADER",
+      "source_url": "https://www.thefader.com/2025/04/10/tiktok-for-artists-spotify"
+    },
+    "tiktok_for_artists_2025": {
+      "content_hash": "56ad53491870f23dba8839509968e6757ad8bd0d60e0de9414c3cfdc5b8015bb",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "TikTok for Artists: The new all-in-one music insights platform for artists - Newsroom | TikTok",
+      "source_url": "https://newsroom.tiktok.com/en-us/tiktok-for-artists-launches"
+    },
+    "tiktok_music_shutdown_2024": {
+      "content_hash": "9306cc0b3171ab61bda6843fa98e73e698abb5620e250c7291eb82431e3a3e03",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "TikTok Abandons Plan to Take on Spotify and Apple in Music Streaming - Business Insider",
+      "source_url": "https://www.businessinsider.com/tiktok-abandoning-plan-to-challenge-spotify-apple-in-music-streaming-2024-9"
+    },
+    "tiktok_top_music_2025": {
+      "content_hash": "8dd3830b1792eed92046aab89abd1dbd9cc50eece5d7ef3edcc0e654bd50ae14",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "TikTok reveals the Top Artists and Songs of 2025 - Newsroom | TikTok",
+      "source_url": "https://newsroom.tiktok.com/tiktok-reveals-the-top-artists-and-songs-of-2025?lang=en"
+    },
+    "toms_guide_ai_awards_2026": {
+      "content_hash": "97f06f3e175dd3508c42ec2ea1ef0fc517f57579fa6af24503264f960d6e4348",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Introducing the Tom&rsquo;s Guide AI Awards 2026 | Tom's Guide",
+      "source_url": "https://www.tomsguide.com/ai/introducing-the-toms-guide-ai-awards-2026"
+    },
+    "umg_udio_2025": {
+      "content_hash": "a66b4f146f6399c64e5fc5eb3128efc6004a70ad94fb38c8370707b3851bb1c0",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "UNIVERSAL MUSIC GROUP AND UDIO ANNOUNCE UDIO\u2019S FIRST STRATEGIC AGREEMENTS FOR NEW LICENSED AI MUSIC CREATION PLATFORM - UMG",
+      "source_url": "https://www.universalmusic.com/universal-music-group-and-udio-announce-udios-first-strategic-agreements-for-new-licensed-ai-music-creation-platform/"
+    },
+    "usco_ai_part2_2025": {
+      "content_hash": "6061f2ee0463c3c14ab6bc6a6ed4e389bad9e08a139cae08bf8790fe564830fb",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Copyright and Artificial Intelligence | U.S. Copyright Office",
+      "source_url": "https://www.copyright.gov/ai/"
+    },
+    "webby_deadline_2026": {
+      "content_hash": "47531d6559259ebc0c81d47cf0c5588f7459f0105bc09c0cdf67d463ffa456da",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "How To Enter The Webby Awards",
+      "source_url": "https://www.webbyawards.com/how-to-enter-the-webby-awards/"
+    },
+    "wmg_suno_2025": {
+      "content_hash": "a6c7e9401e82ef79369c0fc807e0831536782eb9824c7a2ae29cc0ca18f632d3",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "WARNER MUSIC GROUP AND SUNO FORGE GROUNDBREAKING PARTNERSHIP - Warner Music Group",
+      "source_url": "https://www.wmg.com/news/warner-music-group-and-suno-forge-groundbreaking-partnership"
+    },
+    "worldwide_edtech_2026": {
+      "content_hash": "a87e5f052b7c74592caf0176d6a3348c0f3e36c5fbeba50d62fad4c4dada16df",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "FAQ \u2013 WorldWiDE EdTech",
+      "source_url": "https://worldwide-edtech.org/faq"
+    },
+    "www_fender_com_play": {
+      "content_hash": "69eca09463a751c3ee7f6188f3583eb93a2ba4dcdfa2da29a68c53c6fb4bc954",
+      "http_status": "200",
+      "last_checked_at": "2026-06-11T12:08:18.536576+00:00",
+      "observed_title": "",
+      "source_url": "https://www.fender.com/play"
+    },
+    "www_flowkey_com_en": {
+      "content_hash": "c487aa005654fbed104ff3ff6e2784c2675ce10b420ced7c9ff65788435846d1",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Learn Piano \u2013 Interactive Piano Learning App | flowkey",
+      "source_url": "https://www.flowkey.com/en"
+    },
+    "www_gibson_app": {
+      "content_hash": "fab863c2b405a56e8d6d3b059858be5581ac143ba0249cb215ddf05ba68a60dd",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Gibson App \u2014 The Guitar Learning App with Real-Time Feedback",
+      "source_url": "https://www.gibson.app/"
+    },
+    "www_guitartricks_com": {
+      "content_hash": "695b6e2cfcf7c8e28fad4b12df08abca15c0cb1f7704724b23173bff254f5197",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Free Online Guitar Lessons - Easy Step-by-Step Video Guitar Lessons",
+      "source_url": "https://www.guitartricks.com/"
+    },
+    "www_hellosimply_com": {
+      "content_hash": "c35e52aec5903993e2f1f4046ad86ab58d21460f16319bc6d184e3c7db6706d6",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Simply | The best apps to set your creativity free",
+      "source_url": "https://www.hellosimply.com/"
+    },
+    "www_hellosimply_com_simply_guitar": {
+      "content_hash": "1827989628e8713cfbb4e11bcc8648fd30564513397a70da093f5f715851d885",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Simply Guitar | Give your home the rock star it deserves",
+      "source_url": "https://www.hellosimply.com/simply-guitar"
+    },
+    "www_lessonface_com_home": {
+      "content_hash": "8018af8763f5689538e13bce877d7cdf054b48e7c8f735a69c06d357a5970205",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Live Online Music Lessons Of All Instruments | Lessonface",
+      "source_url": "https://www.lessonface.com/home"
+    },
+    "www_mtna_org_index_html": {
+      "content_hash": "3c6417fddd565474291f71a6633edfe647815d7637a791558cc4b1265070e116",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Home - Music Teachers National Association",
+      "source_url": "https://www.mtna.org/index.html"
+    },
+    "www_pickupmusic_com": {
+      "content_hash": "01aced64d714ad600084f72049ab299799c42577eaefeb305e9e29528938f9b9",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "Pickup Music - The most structured approach to learning guitar",
+      "source_url": "https://www.pickupmusic.com/"
+    },
+    "www_rslawards_com": {
+      "content_hash": "206ac1e7b5194b1a3a2c1569b22ff75af48899411d91c1b22124bf71b630eaeb",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "RSL Awards - Graded Music Exams &amp; Awarding the Contemporary Arts",
+      "source_url": "https://www.rslawards.com/"
+    },
+    "www_trinitycollege_com_local_trinity_UK_a_modern_approach_to_music_exams": {
+      "content_hash": "a7b4082a52411c501881ae31fa8b10f45ea686d2243e6af8cdd60434f98184be",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "A flexible, modern approach to music exams | Trinity College London",
+      "source_url": "https://www.trinitycollege.com/local-trinity/UK/a-modern-approach-to-music-exams"
+    },
+    "youtube_ai_restyle_2024": {
+      "content_hash": "0fabbae16421162f84707a624163fa6cf44170d58addfab2de47109ed853d7c3",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "YouTube is testing music remixes made by AI | The Verge",
+      "source_url": "https://www.theverge.com/2024/11/12/24294891/youtube-ai-restyle-music-creators"
+    },
+    "youtube_music_growth_2026": {
+      "content_hash": "d05acccb05bce7977024577b0355531b8d062fbb32a83a36583ea69a38eb9033",
+      "http_status": "200",
+      "last_checked_at": "2026-06-13T11:58:30.735398+00:00",
+      "observed_title": "YouTube Music &amp; Premium Post Record Q1 2026 Subscriber Jump",
+      "source_url": "https://www.digitalmusicnews.com/2026/04/30/youtube-music-subscribers-q1-2026/"
+    }
+  },
+  "updated_at": "2026-06-13T12:02:11.070930+00:00"
+}
