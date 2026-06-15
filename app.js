@@ -2696,7 +2696,16 @@ const databaseSegments = [
   { id: "signals", label: "Signal sources", matches: (player) => isSignalOnlyRecord(player) },
   { id: "internal", label: "Internal needed", matches: (player) => Boolean(relationForPlayer(player)) },
   { id: "ai", label: "AI / disruption", matches: (player) => player.aiScore >= 4 || player.category === "ai" },
-  { id: "partner", label: "Partner candidates", matches: (player) => /partner|channel|funding|recognition/i.test(player.relationship) }
+  {
+    id: "partner",
+    label: "Partner candidates",
+    matches: (player) =>
+      relationForPlayer(player)?.type === "partners" ||
+      ["hardware", "education"].includes(player.category) ||
+      /partner|channel|retail|hardware|school|teacher|education|bundle|store|brand|funding|recognition/i.test(
+        activitySearchText(player)
+      )
+  }
 ];
 
 const monitorSegments = [
@@ -3426,8 +3435,91 @@ function sourceLibrary() {
   return Array.isArray(evidenceContext.sourceLibrary) ? evidenceContext.sourceLibrary : [];
 }
 
+const sourceTokenStopwords = new Set([
+  "www",
+  "com",
+  "org",
+  "net",
+  "io",
+  "app",
+  "apps",
+  "apple",
+  "google",
+  "play",
+  "store",
+  "official",
+  "site",
+  "home",
+  "about",
+  "support",
+  "news",
+  "launch",
+  "dev",
+  "details",
+  "the",
+  "for",
+  "en",
+  "us",
+  "id",
+  "api",
+  "source",
+  "sources"
+]);
+
+function normalizeSourceKey(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
+function sourceTokens(value) {
+  return normalizeSourceKey(value)
+    .split("_")
+    .filter((token) => token.length > 2 && !sourceTokenStopwords.has(token) && !/^\d+$/.test(token));
+}
+
+function sourceCanonicalId(source) {
+  return source?.id || source?.source_id || "";
+}
+
+function sourceMatchScore(source, referenceId) {
+  const referenceKey = normalizeSourceKey(referenceId);
+  const directKeys = [source.id, source.source_id].map(normalizeSourceKey).filter(Boolean);
+  if (directKeys.includes(referenceKey)) return 10;
+
+  const referenceTokens = sourceTokens(referenceId);
+  if (!referenceTokens.length) return 0;
+
+  const sourceText = [source.id, source.source_id, source.title, source.url].filter(Boolean).join(" ");
+  const sourceTokenSet = new Set(sourceTokens(sourceText));
+  const overlap = referenceTokens.filter((token) => sourceTokenSet.has(token));
+  if (!overlap.length) return 0;
+
+  let score = overlap.length / referenceTokens.length;
+  if (directKeys.some((key) => referenceKey.length >= 6 && key.includes(referenceKey))) score += 1;
+  if (referenceTokens.length === 1 && overlap.length === 1) score += 0.25;
+  return score;
+}
+
 function sourceById(id) {
-  return sourceLibrary().find((source) => source.id === id || source.source_id === id);
+  const sources = sourceLibrary();
+  const exact = sources.find((source) => source.id === id || source.source_id === id);
+  if (exact) return exact;
+  const referenceTokens = sourceTokens(id);
+  if (!referenceTokens.length) return null;
+
+  let best = null;
+  let bestScore = 0;
+  sources.forEach((source) => {
+    const score = sourceMatchScore(source, id);
+    if (score > bestScore) {
+      best = source;
+      bestScore = score;
+    }
+  });
+  const threshold = referenceTokens.length === 1 ? 1.2 : 0.7;
+  return bestScore >= threshold ? best : null;
 }
 
 function evidenceRecordFor(player) {
@@ -3442,7 +3534,16 @@ function evidenceRecordFor(player) {
 
 function evidenceSourcesFor(player) {
   const record = evidenceRecordFor(player);
-  return (record.sourceIds || []).map(sourceById).filter(Boolean);
+  const seen = new Set();
+  return (record.sourceIds || [])
+    .map(sourceById)
+    .filter((source) => {
+      if (!source) return false;
+      const key = sourceCanonicalId(source);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
 }
 
 function sourceAccessStatus(source) {
@@ -7676,9 +7777,11 @@ function renderEvidenceLibrary() {
   const usageBySource = new Map();
   players.forEach((player) => {
     (evidenceRecordFor(player).sourceIds || []).forEach((sourceId) => {
-      const list = usageBySource.get(sourceId) || [];
+      const source = sourceById(sourceId);
+      const usageKey = sourceCanonicalId(source) || sourceId;
+      const list = usageBySource.get(usageKey) || [];
       list.push(player.name);
-      usageBySource.set(sourceId, list);
+      usageBySource.set(usageKey, list);
     });
   });
   const highCount = sources.filter((source) => source.tier === "High").length;
@@ -7722,7 +7825,7 @@ function renderEvidenceLibrary() {
                 <div class="source-mini-list">
                   ${items
                     .map((source) => {
-                      const usedBy = usageBySource.get(source.id) || [];
+                      const usedBy = usageBySource.get(sourceCanonicalId(source)) || [];
                       return `
                         <a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">
                           <span>${escapeHtml(source.title)}</span>
@@ -7795,9 +7898,11 @@ function renderSourceVisuals() {
   const usageBySource = new Map();
   players.forEach((player) => {
     (evidenceRecordFor(player).sourceIds || []).forEach((sourceId) => {
-      const list = usageBySource.get(sourceId) || [];
+      const source = sourceById(sourceId);
+      const usageKey = sourceCanonicalId(source) || sourceId;
+      const list = usageBySource.get(usageKey) || [];
       list.push(player.id);
-      usageBySource.set(sourceId, list);
+      usageBySource.set(usageKey, list);
     });
   });
   const accessCounts = {
@@ -7822,14 +7927,15 @@ function renderSourceVisuals() {
       : "The evidence library file has not loaded in this view.";
   const typeRows = Object.entries(
     sources.reduce((groups, source) => {
-      const group = groups[source.type] || { count: 0, used: 0, high: 0 };
+      const group = groups[source.type] || { count: 0, usedPlayers: new Set(), high: 0 };
       group.count += 1;
-      group.used += usageBySource.has(source.id) ? 1 : 0;
+      (usageBySource.get(sourceCanonicalId(source)) || []).forEach((playerId) => group.usedPlayers.add(playerId));
       group.high += source.tier === "High" ? 1 : 0;
       groups[source.type] = group;
       return groups;
     }, {})
   )
+    .map(([type, data]) => [type, { count: data.count, used: data.usedPlayers.size, high: data.high }])
     .sort((a, b) => b[1].count - a[1].count || b[1].used - a[1].used)
     .slice(0, 9);
   const maxTypeCount = Math.max(1, ...typeRows.map(([, data]) => data.count));
