@@ -8926,8 +8926,7 @@ function bindEvents() {
 function shouldLoadBackendStatus() {
   const params = new URLSearchParams(window.location.search);
   if (params.get("backend") === "1") return true;
-  if (params.get("backend") === "0") return false;
-  return window.location.port !== "8877";
+  return false;
 }
 
 bindEvents();
