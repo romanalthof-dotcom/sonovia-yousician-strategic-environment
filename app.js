@@ -2587,6 +2587,7 @@ const state = {
   view: "overview",
   dbSegment: "all",
   dbSort: "priority",
+  ratingMode: "strategic",
   exportLength: "standard",
   monitorSegment: "all",
   monitorQuery: "",
@@ -2666,6 +2667,7 @@ const els = {
   databaseVisuals: document.getElementById("databaseVisuals"),
   databaseSegments: document.getElementById("databaseSegments"),
   databaseSort: document.getElementById("databaseSort"),
+  databaseRating: document.getElementById("databaseRating"),
   databaseCards: document.getElementById("databaseCards"),
   databaseRows: document.getElementById("databaseRows"),
   relationshipGraph: document.getElementById("relationshipGraph"),
@@ -2727,15 +2729,27 @@ const bubbleSizeModes = [
   },
   {
     id: "business",
-    label: "Business size",
-    shortLabel: "Business",
-    note: "Business size uses reach wording as a proxy until verified size data is imported."
+    label: "Company size",
+    shortLabel: "Company",
+    note: "Company size uses reach, ownership, and entity type as a proxy until verified size data is imported."
+  },
+  {
+    id: "revenue",
+    label: "Revenue proxy",
+    shortLabel: "Revenue",
+    note: "Revenue proxy uses business model and company scale signals. It is not verified revenue."
+  },
+  {
+    id: "reach",
+    label: "Audience reach",
+    shortLabel: "Reach",
+    note: "Audience reach uses scale wording such as global, large, specialist, or emerging."
   },
   {
     id: "appfigures",
-    label: "Appfigures performance",
-    shortLabel: "Appfigures",
-    note: "Appfigures mode shows the prepared app data queue. It is not a performance ranking until credentialed rows are imported."
+    label: "App data readiness",
+    shortLabel: "App data",
+    note: "App data mode shows the prepared app data queue. It is not a performance ranking until credentialed rows are imported."
   },
   {
     id: "ai",
@@ -2748,6 +2762,75 @@ const bubbleSizeModes = [
     label: "Recent momentum",
     shortLabel: "Momentum",
     note: "Recent momentum uses the current momentum field."
+  },
+  {
+    id: "evidence",
+    label: "Evidence confidence",
+    shortLabel: "Evidence",
+    note: "Evidence confidence uses linked source coverage and claim quality."
+  }
+];
+
+const ratingModes = [
+  {
+    id: "strategic",
+    label: "Strategic priority",
+    shortLabel: "Priority",
+    note: "Composite view of relevance, momentum, AI relevance, and key player status."
+  },
+  {
+    id: "relevance",
+    label: "Yousician relevance",
+    shortLabel: "Relevance",
+    note: "Direct strategic relevance to Yousician."
+  },
+  {
+    id: "company",
+    label: "Company size",
+    shortLabel: "Company",
+    note: "Scale proxy from reach, ownership, and entity type."
+  },
+  {
+    id: "revenue",
+    label: "Revenue proxy",
+    shortLabel: "Revenue",
+    note: "Proxy based on monetisation model and company scale. Not verified revenue."
+  },
+  {
+    id: "reach",
+    label: "Audience reach",
+    shortLabel: "Reach",
+    note: "Reach proxy from audience and market wording."
+  },
+  {
+    id: "evidence",
+    label: "Evidence confidence",
+    shortLabel: "Evidence",
+    note: "Linked evidence strength and claim confidence."
+  },
+  {
+    id: "proximity",
+    label: "Competitive proximity",
+    shortLabel: "Proximity",
+    note: "How close the actor is to Yousician's learning and practice surface."
+  },
+  {
+    id: "appdata",
+    label: "App data readiness",
+    shortLabel: "App data",
+    note: "Prepared app or traffic data queue, not performance ranking."
+  },
+  {
+    id: "ai",
+    label: "AI relevance",
+    shortLabel: "AI",
+    note: "Current AI relevance score."
+  },
+  {
+    id: "momentum",
+    label: "Momentum",
+    shortLabel: "Momentum",
+    note: "Recent signal and market move momentum."
   }
 ];
 
@@ -2785,12 +2868,56 @@ function bubbleSizeModeById(id) {
   return bubbleSizeModes.find((mode) => mode.id === id) || bubbleSizeModes[0];
 }
 
+function ratingModeById(id) {
+  return ratingModes.find((mode) => mode.id === id) || ratingModes[0];
+}
+
 function businessSizeScore(player) {
-  const reach = `${player.reach || ""} ${player.type || ""} ${player.model || ""}`.toLowerCase();
-  if (/massive|very large|major global|major platform|preinstalled|broad apple/.test(reach)) return 5;
-  if (/major|large|global|spotify backed/.test(reach)) return 4;
-  if (/established|visible|growing|brand backed/.test(reach)) return 3;
-  if (/specialist|niche|emerging|independent/.test(reach)) return 2;
+  const reach = `${player.reach || ""} ${player.type || ""} ${player.model || ""} ${player.ownership || ""}`.toLowerCase();
+  if (
+    /massive|very large|major global|major platform|preinstalled|broad apple|alphabet|google|apple|microsoft|spotify|bytedance|tiktok|warner|universal|yamaha|duolingo|ubisoft/.test(
+      reach
+    )
+  ) {
+    return 5;
+  }
+  if (/major|large|global|spotify backed|public company|muse group|fender|gibson|hal leonard/.test(reach)) return 4;
+  if (/established|visible|growing|brand backed|subscription|marketplace|platform/.test(reach)) return 3;
+  if (/specialist|niche|emerging|independent|research source|association|award/.test(reach)) return 2;
+  return 1;
+}
+
+function audienceReachScore(player) {
+  const text = `${player.reach || ""} ${player.geography || ""} ${player.type || ""} ${player.description || ""}`.toLowerCase();
+  if (/massive|very large|preinstalled|global platform|major platform|broad apple|worldwide|hundreds of millions/.test(text)) return 5;
+  if (/large global|major global|global|large|major|broad|scaled/.test(text)) return 4;
+  if (/established|visible|growing|brand backed|multi instrument|consumer/.test(text)) return 3;
+  if (/specialist|niche|emerging|local|regional|independent/.test(text)) return 2;
+  return 1;
+}
+
+function revenueProxyScore(player) {
+  const text = `${player.model || ""} ${player.type || ""} ${player.reach || ""} ${player.ownership || ""} ${player.tags?.join(" ") || ""}`.toLowerCase();
+  let score = businessSizeScore(player);
+  if (/subscription|freemium|ads|advertising|marketplace|commerce|hardware|publishing|licensing|streaming|platform|enterprise|app store/.test(text)) {
+    score += 1;
+  }
+  if (/public company|alphabet|google|apple|microsoft|spotify|bytedance|tiktok|warner|universal|yamaha|duolingo|ubisoft|major label/.test(text)) {
+    score += 1;
+  }
+  if (/funding call|grant|award|association|research source|media source|nonprofit|school network/.test(text)) {
+    score -= 1;
+  }
+  return Math.max(1, Math.min(5, score));
+}
+
+function competitiveProximityScore(player) {
+  const taxonomy = taxonomyProfile(player);
+  const text = `${player.category} ${player.type} ${player.relationship} ${taxonomy.proximity} ${taxonomy.role}`.toLowerCase();
+  if (/direct learning competitor|direct learning|core habit adjacent|learning app|practice ecosystem|song practice/.test(text)) return 5;
+  if (["learning", "practice"].includes(player.category) || /creator led practice|brand backed learning/.test(text)) return 4;
+  if (["hardware", "education", "creation"].includes(player.category) || /habit|education|instrument/.test(text)) return 3;
+  if (["ai", "signals"].includes(player.category) || /market signal|funding|award|research/.test(text)) return 2;
   return 1;
 }
 
@@ -2806,9 +2933,12 @@ function appfiguresReadinessScore(player) {
 function bubbleSizeScore(player) {
   const mode = bubbleSizeModeById(state.bubbleSizeMode).id;
   if (mode === "business") return businessSizeScore(player);
+  if (mode === "revenue") return revenueProxyScore(player);
+  if (mode === "reach") return audienceReachScore(player);
   if (mode === "appfigures") return appfiguresReadinessScore(player);
   if (mode === "ai") return player.aiScore;
   if (mode === "momentum") return player.momentum;
+  if (mode === "evidence") return Math.max(1, Math.round(qualityProfile(player).score / 20));
   return Math.min(5, Math.max(1, Math.round((strategicWeight(player) - (player.key ? 4 : 0)) / 8)));
 }
 
@@ -2825,11 +2955,65 @@ function bubbleSizeRadius(player) {
 
 function bubbleSizeBasis(player) {
   const mode = bubbleSizeModeById(state.bubbleSizeMode).id;
-  if (mode === "business") return `Business proxy ${businessSizeScore(player)} of 5`;
-  if (mode === "appfigures") return requiresCredentialedData(player) ? "Prepared Appfigures queue" : "No app data queue flag";
+  if (mode === "business") return `Company size ${businessSizeScore(player)} of 5`;
+  if (mode === "revenue") return `Revenue proxy ${revenueProxyScore(player)} of 5, not verified revenue`;
+  if (mode === "reach") return `Audience reach ${audienceReachScore(player)} of 5`;
+  if (mode === "appfigures") return requiresCredentialedData(player) ? "Prepared app data queue" : "No app data queue flag";
   if (mode === "ai") return `AI relevance ${player.aiScore} of 5`;
   if (mode === "momentum") return `Recent momentum ${player.momentum} of 5`;
+  if (mode === "evidence") return `Evidence confidence ${qualityProfile(player).score}%`;
   return `Strategic influence ${bubbleSizeScore(player)} of 5`;
+}
+
+function strategicScoreFive(player) {
+  return Math.max(1, Math.min(5, Math.round(strategicWeight(player) / 9)));
+}
+
+function ratingForPlayer(player, modeId = state.ratingMode) {
+  const mode = ratingModeById(modeId);
+  const quality = mode.id === "evidence" ? qualityProfile(player) : null;
+  const valueByMode = {
+    strategic: strategicScoreFive(player),
+    relevance: player.relevance,
+    company: businessSizeScore(player),
+    revenue: revenueProxyScore(player),
+    reach: audienceReachScore(player),
+    evidence: quality ? Math.max(1, Math.round(quality.score / 20)) : 1,
+    proximity: competitiveProximityScore(player),
+    appdata: appfiguresReadinessScore(player),
+    ai: player.aiScore,
+    momentum: player.momentum
+  };
+  const value = Math.max(1, Math.min(5, valueByMode[mode.id] || valueByMode.strategic));
+  return {
+    ...mode,
+    value,
+    display: mode.id === "evidence" ? `${quality.score}%` : `${value}/5`,
+    sortValue: mode.id === "evidence" ? quality.score : value * 20,
+    detail:
+      mode.id === "revenue"
+        ? "Proxy, no verified revenue"
+        : mode.id === "company"
+          ? "Scale proxy"
+          : mode.id === "appdata"
+            ? "Data readiness"
+            : mode.note
+  };
+}
+
+function databaseSortScore(player, sortId = state.dbSort) {
+  if (sortId === "priority") return totalPriority(player);
+  if (sortId === "relevance") return player.relevance * 20;
+  if (sortId === "ai") return player.aiScore * 20;
+  if (sortId === "momentum") return player.momentum * 20;
+  if (sortId === "company") return businessSizeScore(player) * 20 + strategicWeight(player) / 3;
+  if (sortId === "revenue") return revenueProxyScore(player) * 20 + businessSizeScore(player) * 2;
+  if (sortId === "reach") return audienceReachScore(player) * 20 + player.relevance * 2;
+  if (sortId === "evidence") return qualityProfile(player).score;
+  if (sortId === "proximity") return competitiveProximityScore(player) * 20 + player.relevance * 2;
+  if (sortId === "appdata") return appfiguresReadinessScore(player) * 20 + sourceUrgency(player);
+  if (sortId === "source") return sourceUrgency(player) * 20;
+  return totalPriority(player);
 }
 
 function priorityTier(player) {
@@ -3959,11 +4143,11 @@ function getDatabasePlayers() {
   const rows = getFilteredPlayers().filter((player) => segment.matches(player));
   return rows.sort((a, b) => {
     if (state.dbSort === "name") return a.name.localeCompare(b.name);
-    if (state.dbSort === "relevance") return b.relevance - a.relevance || a.name.localeCompare(b.name);
-    if (state.dbSort === "ai") return b.aiScore - a.aiScore || b.relevance - a.relevance || a.name.localeCompare(b.name);
-    if (state.dbSort === "momentum") return b.momentum - a.momentum || b.relevance - a.relevance || a.name.localeCompare(b.name);
-    if (state.dbSort === "source") return sourceUrgency(b) - sourceUrgency(a) || a.name.localeCompare(b.name);
-    return totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name);
+    return (
+      databaseSortScore(b) - databaseSortScore(a) ||
+      totalPriority(b) - totalPriority(a) ||
+      a.name.localeCompare(b.name)
+    );
   });
 }
 
@@ -5342,6 +5526,7 @@ function renderProfile() {
   const quality = qualityProfile(player);
   const taxonomy = taxonomyProfile(player);
   const executive = isExecutiveMode();
+  const activeRating = ratingForPlayer(player);
   els.profilePanel.innerHTML = `
     <div class="profile-top">
       <div class="avatar" style="--avatar-color:${category.color}">${initials(player.name)}</div>
@@ -5350,8 +5535,8 @@ function renderProfile() {
         <div class="profile-meta">${player.type} / ${category.name}</div>
       </div>
       <div class="profile-score">
-        <strong>${player.relevance}</strong>
-        <span>relevance</span>
+        <strong>${escapeHtml(activeRating.display)}</strong>
+        <span>${escapeHtml(activeRating.shortLabel)}</span>
       </div>
     </div>
     <div class="badge-row">
@@ -5391,10 +5576,21 @@ function renderProfile() {
     </section>
     <section class="profile-section">
       <h3>Strategic scores</h3>
+      <div class="active-rating-callout">
+        <span>${escapeHtml(activeRating.label)}</span>
+        <strong>${escapeHtml(activeRating.display)}</strong>
+        <small>${escapeHtml(activeRating.detail)}</small>
+      </div>
       <div class="metric-grid metric-grid-compact">
-        ${metricRow("Relevance", player.relevance)}
+        ${metricRow("Yousician relevance", player.relevance)}
         ${metricRow("Momentum", player.momentum)}
         ${metricRow("AI relevance", player.aiScore)}
+        ${metricRow("Company size", businessSizeScore(player))}
+        ${metricRow("Revenue proxy", revenueProxyScore(player))}
+        ${metricRow("Audience reach", audienceReachScore(player))}
+        ${metricRow("Evidence confidence", Math.max(1, Math.round(quality.score / 20)))}
+        ${metricRow("Competitive proximity", competitiveProximityScore(player))}
+        ${metricRow("App data readiness", appfiguresReadinessScore(player))}
       </div>
     </section>
     ${
@@ -6680,6 +6876,7 @@ function renderDatabaseSegments() {
     });
   });
   els.databaseSort.value = state.dbSort;
+  if (els.databaseRating) els.databaseRating.value = state.ratingMode;
 }
 
 function renderDatabaseVisuals(rows) {
@@ -6784,6 +6981,7 @@ function databaseCardHtml(player) {
   if (isExecutiveMode()) {
     const category = categoryById(player.category);
     const quality = qualityProfile(player);
+    const activeRating = ratingForPlayer(player);
     const completionNeed = requiresCredentialedData(player)
       ? "Credentialed Appfigures metrics required before app performance ranking."
       : relationForPlayer(player)
@@ -6809,6 +7007,7 @@ function databaseCardHtml(player) {
         <div class="record-meta-grid executive-record-meta">
           <span><strong>Category</strong>${escapeHtml(category?.shortName || player.category)}</span>
           <span><strong>Product lens</strong>${escapeHtml(productFocusLabel(player))}</span>
+          <span><strong>${escapeHtml(activeRating.label)}</strong>${escapeHtml(activeRating.display)}</span>
           <span><strong>Source confidence</strong>${escapeHtml(quality.label)}</span>
           <span><strong>Why it matters</strong>${escapeHtml(player.why)}</span>
         </div>
@@ -6834,6 +7033,7 @@ function databaseCardHtml(player) {
         ${player.key ? `<em>Key</em>` : ""}
       </header>
       <p>${escapeHtml(player.description)}</p>
+      ${activeRatingMini(player)}
       <div class="record-meta-grid">
         <span><strong>Category</strong>${escapeHtml(categoryById(player.category)?.shortName || player.category)}</span>
         <span><strong>Product lens</strong>${escapeHtml(productFocusLabel(player))}</span>
@@ -6852,12 +7052,27 @@ function databaseCardHtml(player) {
   `;
 }
 
+function activeRatingMini(player) {
+  const rating = ratingForPlayer(player);
+  return `
+    <div class="active-rating-mini">
+      <span>${escapeHtml(rating.label)}</span>
+      <strong>${escapeHtml(rating.display)}</strong>
+      <small>${escapeHtml(rating.detail)}</small>
+    </div>
+  `;
+}
+
 function scoreStack(player) {
+  const rating = ratingForPlayer(player);
   return `
     <div class="score-stack" aria-label="Strategic scores">
+      <span class="selected-rating"><strong>${escapeHtml(rating.shortLabel)}</strong>${escapeHtml(rating.display)}</span>
       <span><strong>R</strong>${player.relevance}/5</span>
       <span><strong>M</strong>${player.momentum}/5</span>
       <span><strong>AI</strong>${player.aiScore}/5</span>
+      <span><strong>Size</strong>${businessSizeScore(player)}/5</span>
+      <span><strong>Rev</strong>${revenueProxyScore(player)}/5</span>
     </div>
   `;
 }
@@ -8745,6 +8960,12 @@ function downloadCsv() {
     "Strategic relevance",
     "Momentum",
     "AI relevance",
+    "Company size score",
+    "Revenue proxy score",
+    "Audience reach score",
+    "Evidence confidence score",
+    "Competitive proximity score",
+    "App data readiness score",
     "Last 24m / next check",
     "Research confidence",
     "Last verified",
@@ -8793,6 +9014,12 @@ function downloadCsv() {
       player.relevance,
       player.momentum,
       player.aiScore,
+      businessSizeScore(player),
+      revenueProxyScore(player),
+      audienceReachScore(player),
+      Math.max(1, Math.round(quality.score / 20)),
+      competitiveProximityScore(player),
+      appfiguresReadinessScore(player),
       player.recent,
       confidenceLabel(player),
       verifiedLabel(player),
@@ -9173,6 +9400,12 @@ function bindEvents() {
 
   els.databaseSort.addEventListener("change", (event) => {
     state.dbSort = event.target.value;
+    renderDatabase();
+  });
+
+  els.databaseRating?.addEventListener("change", (event) => {
+    state.ratingMode = event.target.value;
+    renderProfile();
     renderDatabase();
   });
 
