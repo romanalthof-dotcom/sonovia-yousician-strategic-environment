@@ -13934,6 +13934,222 @@ body[data-mode="executive"][data-view="overview"] .profile-panel {
   }
 }
 
+/* Product Design map efficiency pass: give the map the first screen back. */
+body[data-view="overview"] .map-summary-strip {
+  grid-template-columns: minmax(220px, 0.8fr) minmax(300px, 0.96fr) minmax(220px, 0.66fr) minmax(260px, 0.76fr) !important;
+  grid-template-areas:
+    "mode size selected zoom"
+    "category category category category" !important;
+  align-items: stretch !important;
+  gap: 6px !important;
+  margin-bottom: 6px !important;
+}
+
+body[data-view="overview"] .map-mode-row {
+  grid-area: mode;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  padding: 5px;
+}
+
+body[data-view="overview"] .map-size-row {
+  grid-area: size;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  gap: 0;
+  padding: 5px;
+}
+
+body[data-view="overview"] .map-size-row > span,
+body[data-view="overview"] .map-size-row small,
+body[data-view="overview"] .map-summary-metrics {
+  display: none !important;
+}
+
+body[data-view="overview"] .map-size-row > div {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+}
+
+body[data-view="overview"] .map-zoom-row {
+  grid-area: zoom;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-content: center;
+  gap: 4px;
+  padding: 5px;
+}
+
+body[data-view="overview"] .map-zoom-row .map-reset-button {
+  grid-column: auto;
+}
+
+body[data-view="overview"] .map-selected-card {
+  align-items: center;
+  grid-area: selected;
+  min-height: 38px;
+  padding: 5px 7px;
+}
+
+body[data-view="overview"] .map-selected-card > span {
+  display: none;
+}
+
+body[data-view="overview"] .map-selected-card > small {
+  display: none;
+}
+
+body[data-view="overview"] .map-selected-card > strong {
+  font-size: 0.8rem;
+}
+
+body[data-view="overview"] .map-selected-card > div {
+  grid-row: 1;
+  grid-template-columns: repeat(2, minmax(58px, 1fr));
+  gap: 4px;
+}
+
+body[data-view="overview"] .map-mode-row button,
+body[data-view="overview"] .map-size-row button,
+body[data-view="overview"] .map-zoom-row button,
+body[data-view="overview"] .map-selected-card button {
+  min-height: 28px;
+  border-radius: 7px;
+  padding: 4px 6px;
+  font-size: 0.6rem;
+  line-height: 1;
+}
+
+body[data-view="overview"] .map-size-row button {
+  padding-right: 3px;
+  padding-left: 3px;
+  font-size: 0.53rem;
+  white-space: nowrap;
+}
+
+body[data-view="overview"] .map-mode-row button {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+body[data-view="overview"] .map-mode-row button span {
+  font-size: 0.58rem;
+}
+
+body[data-view="overview"] .map-mode-row button strong {
+  min-width: 21px;
+  height: 18px;
+  font-size: 0.58rem;
+}
+
+body[data-view="overview"] .map-category-rail {
+  grid-area: category;
+  gap: 5px;
+  padding-bottom: 0;
+}
+
+body[data-view="overview"] .map-category-rail button {
+  min-width: 106px;
+  min-height: 28px;
+  border-top-width: 2px;
+  padding: 3px 7px;
+}
+
+body[data-view="overview"] .map-category-rail button span {
+  font-size: 0.58rem;
+}
+
+body[data-view="overview"] .map-category-rail button strong {
+  min-width: 21px;
+  height: 18px;
+  font-size: 0.58rem;
+}
+
+body[data-mode="executive"][data-view="overview"] .map-workbench {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+body[data-mode="executive"][data-view="overview"] .map-company-picker {
+  max-height: 140px;
+}
+
+body[data-mode="executive"][data-view="overview"] .map-picker-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+body[data-mode="executive"][data-view="overview"] .map-picker-row {
+  min-height: 38px;
+  padding: 5px 7px;
+}
+
+body[data-mode="executive"][data-view="overview"] .map-picker-row small {
+  display: none;
+}
+
+body[data-mode="executive"][data-view="overview"] .map-wrap {
+  height: clamp(560px, 62vh, 680px);
+  min-height: clamp(560px, 62vh, 680px);
+}
+
+body[data-mode="executive"][data-view="overview"] #ecosystemMap {
+  height: clamp(560px, 62vh, 680px);
+}
+
+@media (min-width: 1040px) and (max-width: 1359px) {
+  body[data-mode="executive"][data-view="overview"] #overviewView.workspace-grid.active {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      "map"
+      "kpis"
+      "profile"
+      "brief" !important;
+  }
+}
+
+@media (min-width: 1360px) {
+  body[data-mode="executive"][data-view="overview"] #overviewView.workspace-grid.active {
+    grid-template-columns: minmax(0, 1fr) minmax(286px, 320px) !important;
+    grid-template-areas:
+      "map profile"
+      "kpis profile"
+      "brief profile" !important;
+  }
+}
+
+@media (max-width: 1180px) {
+  body[data-view="overview"] .map-summary-strip {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-areas:
+      "mode"
+      "size"
+      "selected"
+      "zoom"
+      "category" !important;
+  }
+
+  body[data-view="overview"] .map-size-row > div {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  body[data-mode="executive"][data-view="overview"] .map-picker-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-view="overview"] .map-size-row > div,
+  body[data-view="overview"] .map-zoom-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-mode="executive"][data-view="overview"] .map-wrap,
+  body[data-mode="executive"][data-view="overview"] #ecosystemMap {
+    height: 500px;
+    min-height: 500px;
+  }
+}
+
 /* Final print pass for the executive report: A4, compact, presentation-safe. */
 @media print {
   @page {
