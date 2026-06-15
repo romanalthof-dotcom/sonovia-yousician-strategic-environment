@@ -13903,6 +13903,37 @@ body[data-view="overview"] .overview-shortcuts {
   }
 }
 
+/* Overview overlap fix: keep the profile rail in normal grid flow */
+body[data-mode="executive"][data-view="overview"] .profile-panel {
+  position: static !important;
+  top: auto !important;
+  align-self: start;
+  max-height: none !important;
+  overflow: visible !important;
+  z-index: 0;
+}
+
+@media (min-width: 1040px) {
+  body[data-mode="executive"][data-view="overview"] #overviewView.workspace-grid.active {
+    grid-template-columns: minmax(0, 1fr) minmax(286px, 340px) !important;
+    grid-template-areas:
+      "map profile"
+      "kpis profile"
+      "brief profile" !important;
+  }
+}
+
+@media (max-width: 1039px) {
+  body[data-mode="executive"][data-view="overview"] #overviewView.workspace-grid.active {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      "map"
+      "kpis"
+      "profile"
+      "brief" !important;
+  }
+}
+
 /* Final print pass for the executive report: A4, compact, presentation-safe. */
 @media print {
   @page {
