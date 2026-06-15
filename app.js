@@ -4312,6 +4312,20 @@ function mapHasActiveFilter(basePlayers, visiblePlayers) {
   );
 }
 
+function mapFocusScale(basePlayers, visiblePlayers) {
+  const isFocused =
+    state.mapZoomMode === "fit" ||
+    state.mapZoomMode === "selected" ||
+    mapHasActiveFilter(basePlayers, visiblePlayers);
+  if (!isFocused) return 1;
+  if (state.mapZoomMode === "selected") return 1.55;
+  if (visiblePlayers.length <= 6) return 1.55;
+  if (visiblePlayers.length <= 12) return 1.44;
+  if (visiblePlayers.length <= 30) return 1.34;
+  if (visiblePlayers.length <= 48) return 1.22;
+  return 1.12;
+}
+
 function normalizeMapViewBox(bounds, options = {}) {
   const stage = { x: 0, y: 0, width: 1000, height: 700 };
   const aspect = 1000 / 700;
@@ -4359,6 +4373,7 @@ function mapViewBoxFromNodes(nodeItems, basePlayers, visiblePlayers, compactMap)
     (state.mapZoomMode === "auto" && mapHasActiveFilter(basePlayers, visiblePlayers));
   if (!shouldFit) return defaultBox;
   const focusNodes = state.mapZoomMode === "selected" && selectedNode ? [selectedNode] : nodeItems;
+  const focused = mapHasActiveFilter(basePlayers, visiblePlayers) || state.mapZoomMode === "fit" || state.mapZoomMode === "selected";
   const bounds = focusNodes.reduce(
     (acc, item) => ({
       x1: Math.min(acc.x1, item.x - item.radius),
@@ -4369,9 +4384,9 @@ function mapViewBoxFromNodes(nodeItems, basePlayers, visiblePlayers, compactMap)
     { x1: Infinity, y1: Infinity, x2: -Infinity, y2: -Infinity }
   );
   return normalizeMapViewBox(bounds, {
-    padding: focusNodes.length <= 2 ? 190 : focusNodes.length <= 8 ? 150 : 118,
-    minWidth: state.mapZoomMode === "selected" ? 360 : focusNodes.length <= 3 ? 420 : 520,
-    minHeight: state.mapZoomMode === "selected" ? 250 : focusNodes.length <= 3 ? 294 : 364
+    padding: focused ? (focusNodes.length <= 2 ? 118 : focusNodes.length <= 8 ? 104 : focusNodes.length <= 18 ? 94 : 84) : 118,
+    minWidth: state.mapZoomMode === "selected" ? 300 : focusNodes.length <= 3 ? 340 : focusNodes.length <= 8 ? 390 : focused ? 460 : 520,
+    minHeight: state.mapZoomMode === "selected" ? 210 : focusNodes.length <= 3 ? 238 : focusNodes.length <= 8 ? 274 : focused ? 322 : 364
   });
 }
 
@@ -4895,14 +4910,17 @@ function clusterPointPosition(index, total, layout) {
   return { x, y };
 }
 
-function mapNodeRadius(player) {
+function mapNodeRadius(player, focusScale = 1) {
   const radius = bubbleSizeRadius(player);
-  if (player.id === state.selectedPlayerId) return Math.min(24, radius + 3);
-  return radius;
+  const boostedRadius = Math.round(radius * focusScale);
+  if (player.id === state.selectedPlayerId) return Math.min(34, boostedRadius + Math.round(3 * focusScale));
+  return Math.min(31, boostedRadius);
 }
 
-function shouldLabelMapNode(player, categoryPlayers, index, layout, visibleCount = Infinity) {
+function shouldLabelMapNode(player, categoryPlayers, index, layout, visibleCount = Infinity, focusScale = 1) {
   if (player.id === state.selectedPlayerId) return true;
+  if (focusScale >= 1.3 && visibleCount <= 30) return true;
+  if (focusScale >= 1.18 && visibleCount <= 48 && (player.key || player.relevance >= 4 || player.aiScore >= 4)) return true;
   if (visibleCount <= 8) return true;
   if (visibleCount <= 18 && (player.key || player.relevance >= 3 || player.aiScore >= 3)) return true;
   if (!player.key) return index < 2 && (player.relevance >= 4 || player.aiScore >= 4);
@@ -4911,12 +4929,15 @@ function shouldLabelMapNode(player, categoryPlayers, index, layout, visibleCount
   return keyIndex >= 0 && keyIndex < Math.min(layout.visibleLimit || 4, 5);
 }
 
-function mapLabelAnchor(nodeX, nodeY, clusterX, center) {
+function mapLabelAnchor(nodeX, nodeY, clusterX, center, focusScale = 1) {
   const rightSide = nodeX >= clusterX;
   const lowerHalf = nodeY > center.y;
+  const xOffset = 18 * focusScale;
+  const lowerOffset = 22 * focusScale;
+  const upperOffset = 16 * focusScale;
   return {
-    x: nodeX + (rightSide ? 18 : -18),
-    y: nodeY + (lowerHalf ? 22 : -16),
+    x: nodeX + (rightSide ? xOffset : -xOffset),
+    y: nodeY + (lowerHalf ? lowerOffset : -upperOffset),
     anchor: rightSide ? "start" : "end"
   };
 }
@@ -4932,8 +4953,8 @@ function clusterTextPositions(layout, center) {
   };
 }
 
-function svgLabelWidth(text, min = 68, max = 148) {
-  return Math.max(min, Math.min(max, Math.round(String(text).length * 5.8 + 20)));
+function svgLabelWidth(text, min = 68, max = 148, scale = 1) {
+  return Math.max(min, Math.min(max, Math.round((String(text).length * 5.8 + 20) * scale)));
 }
 
 function svgLabelX(x, width, anchor) {
@@ -4949,6 +4970,8 @@ function renderMap() {
   const center = { x: 500, y: 342 };
   const basePlayers = getFilteredPlayers();
   const filtered = mapVisiblePlayers(basePlayers);
+  const focusScale = mapFocusScale(basePlayers, filtered);
+  document.body.dataset.mapFocusScale = String(Math.round(focusScale * 100));
   const byCategory = categories.map((category, index) => {
     const layout = mapLayoutForCategory(category, index, center);
     const categoryPlayers = filtered
@@ -4972,7 +4995,7 @@ function renderMap() {
         player,
         x: point.x,
         y: point.y,
-        radius: mapNodeRadius(player),
+        radius: mapNodeRadius(player, focusScale),
         index
       });
     });
@@ -5123,7 +5146,7 @@ function renderMap() {
       const title = createSvg("title");
       title.textContent = `${player.name} / ${strategicRole(player)} / ${bubbleSizeBasis(player)} / R${player.relevance} M${player.momentum} AI${player.aiScore}`;
       node.appendChild(title);
-      const radius = nodeItem?.radius ?? mapNodeRadius(player);
+      const radius = nodeItem?.radius ?? mapNodeRadius(player, focusScale);
       node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius + 16, class: "node-hit" }));
       if (isSelected) {
         node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius + 15, class: "node-halo", fill: colorFor(player) }));
@@ -5147,20 +5170,33 @@ function renderMap() {
       }
       node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius, fill: colorFor(player) }));
       if (player.key || isSelected || tier === "focus") {
-        const init = createSvg("text", { x: nodeX, y: nodeY + (tier === "signal" ? 3 : 4), class: `node-initial ${tier}` });
+        const initFontSize = Math.min(isSelected ? 15 : 13.5, (tier === "signal" ? 8.6 : 9.4) * focusScale);
+        const init = createSvg("text", {
+          x: nodeX,
+          y: nodeY + (tier === "signal" ? 3 : 4) * focusScale,
+          class: `node-initial ${tier}`,
+          style: `font-size:${initFontSize.toFixed(1)}px`
+        });
         init.textContent = initials(player.name);
         node.appendChild(init);
       }
-      if (shouldLabelMapNode(player, categoryPlayers, idx, layout, filtered.length)) {
-        const anchor = mapLabelAnchor(nodeX, nodeY, x, center);
-        const labelText = compactName(player.name, isSelected ? 22 : 18);
-        const badgeWidth = svgLabelWidth(labelText, player.key || isSelected ? 70 : 56, isSelected ? 164 : 132);
+      if (shouldLabelMapNode(player, categoryPlayers, idx, layout, filtered.length, focusScale)) {
+        const anchor = mapLabelAnchor(nodeX, nodeY, x, center, focusScale);
+        const labelText = compactName(player.name, isSelected ? 24 : focusScale >= 1.18 ? 20 : 18);
+        const labelFontSize = Math.min(isSelected ? 15.2 : 13.8, 10.4 * focusScale);
+        const badgeHeight = Math.round((isSelected ? 30 : 18) * Math.min(focusScale, 1.42));
+        const badgeWidth = svgLabelWidth(
+          labelText,
+          Math.round((player.key || isSelected ? 70 : 56) * Math.min(focusScale, 1.42)),
+          Math.round((isSelected ? 164 : 132) * Math.min(focusScale, 1.42)),
+          Math.min(focusScale, 1.42)
+        );
         node.appendChild(
           createSvg("rect", {
             x: svgLabelX(anchor.x, badgeWidth, anchor.anchor),
-            y: anchor.y - 12,
+            y: anchor.y - Math.round(badgeHeight * 0.64),
             width: badgeWidth,
-            height: isSelected ? 30 : 18,
+            height: badgeHeight,
             rx: 7,
             class: `node-label-card ${player.key || isSelected ? "is-key" : "is-context"}`,
             fill: colorFor(player)
@@ -5170,6 +5206,7 @@ function renderMap() {
           x: anchor.x,
           y: anchor.y,
           class: "node-label key-node-label",
+          style: `font-size:${labelFontSize.toFixed(1)}px`,
           "text-anchor": anchor.anchor
         });
         name.textContent = labelText;
@@ -5177,8 +5214,9 @@ function renderMap() {
         if (isSelected) {
           const sub = createSvg("text", {
             x: anchor.x,
-            y: anchor.y + 13,
+            y: anchor.y + 13 * Math.min(focusScale, 1.35),
             class: "node-sub selected-node-sub",
+            style: `font-size:${Math.min(11.8, 8.4 * focusScale).toFixed(1)}px`,
             "text-anchor": anchor.anchor
           });
           sub.textContent = compactName(strategicRole(player), 24);
