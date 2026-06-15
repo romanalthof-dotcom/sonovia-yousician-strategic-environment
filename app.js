@@ -7092,15 +7092,20 @@ function renderDatabaseStats() {
   const avgQuality = evidenceLoading
     ? "..."
     : `${Math.round(filtered.reduce((sum, player) => sum + qualityProfile(player).score, 0) / Math.max(filtered.length, 1))}%`;
-  const linkedSourceIds = new Set(filtered.flatMap((player) => evidenceRecordFor(player).sourceIds || []));
-  const linkedSources = [...linkedSourceIds].map(sourceById).filter(Boolean);
+  const linkedSourceRefs = filtered.flatMap((player) => evidenceRecordFor(player).sourceIds || []);
+  const linkedSourcesByKey = new Map();
+  linkedSourceRefs.forEach((sourceId) => {
+    const source = sourceById(sourceId);
+    if (source) linkedSourcesByKey.set(sourceCanonicalId(source), source);
+  });
+  const linkedSources = [...linkedSourcesByKey.values()];
   const linkedSourceCount = evidenceLoading
     ? "..."
-    : linkedSourceIds.size;
+    : linkedSources.length;
   const verifiedLinkedCount = evidenceLoading
     ? "..."
     : linkedSources.filter((source) => sourceAccessStatus(source) === "verified").length;
-  const sourceNote = evidenceLoading ? "loading references" : evidenceUnavailable ? "source file unavailable" : "unique references";
+  const sourceNote = evidenceLoading ? "loading references" : evidenceUnavailable ? "source file unavailable" : "resolved library sources";
   const gapNote = evidenceLoading ? "waiting for proof map" : "source and ownership completion needs";
   const avgNote = evidenceLoading ? "loading source quality" : "coverage and gaps";
   const appfiguresRows = credentialedAppfiguresCount();
