@@ -3156,6 +3156,14 @@ body:not([data-view="overview"]) .view.active {
   gap: 6px;
 }
 
+.criteria-note {
+  grid-column: 1 / -1;
+  margin: -2px 0 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
 .sort-control select {
   height: 36px;
   width: 100%;

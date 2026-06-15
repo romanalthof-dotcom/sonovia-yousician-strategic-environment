@@ -2735,9 +2735,9 @@ const bubbleSizeModes = [
   },
   {
     id: "revenue",
-    label: "Revenue proxy",
+    label: "Revenue signal",
     shortLabel: "Revenue",
-    note: "Revenue proxy uses business model and company scale signals. It is not verified revenue."
+    note: "Revenue signal is a proxy from business model and company scale. It is not verified revenue."
   },
   {
     id: "reach",
@@ -2747,9 +2747,9 @@ const bubbleSizeModes = [
   },
   {
     id: "appfigures",
-    label: "App data readiness",
+    label: "App data status",
     shortLabel: "App data",
-    note: "App data mode shows the prepared app data queue. It is not a performance ranking until credentialed rows are imported."
+    note: "App data status shows whether app metrics are queued or missing. It is not a performance ranking."
   },
   {
     id: "ai",
@@ -2765,9 +2765,9 @@ const bubbleSizeModes = [
   },
   {
     id: "evidence",
-    label: "Evidence confidence",
-    shortLabel: "Evidence",
-    note: "Evidence confidence uses linked source coverage and claim quality."
+    label: "Source confidence",
+    shortLabel: "Sources",
+    note: "Source confidence uses linked source coverage and claim quality."
   }
 ];
 
@@ -2788,11 +2788,11 @@ const ratingModes = [
     id: "company",
     label: "Company size",
     shortLabel: "Company",
-    note: "Scale proxy from reach, ownership, and entity type."
+    note: "Estimated scale from reach, ownership, and entity type."
   },
   {
     id: "revenue",
-    label: "Revenue proxy",
+    label: "Revenue signal",
     shortLabel: "Revenue",
     note: "Proxy based on monetisation model and company scale. Not verified revenue."
   },
@@ -2804,8 +2804,8 @@ const ratingModes = [
   },
   {
     id: "evidence",
-    label: "Evidence confidence",
-    shortLabel: "Evidence",
+    label: "Source confidence",
+    shortLabel: "Sources",
     note: "Linked evidence strength and claim confidence."
   },
   {
@@ -2816,7 +2816,7 @@ const ratingModes = [
   },
   {
     id: "appdata",
-    label: "App data readiness",
+    label: "App data status",
     shortLabel: "App data",
     note: "Prepared app or traffic data queue, not performance ranking."
   },
@@ -2956,12 +2956,12 @@ function bubbleSizeRadius(player) {
 function bubbleSizeBasis(player) {
   const mode = bubbleSizeModeById(state.bubbleSizeMode).id;
   if (mode === "business") return `Company size ${businessSizeScore(player)} of 5`;
-  if (mode === "revenue") return `Revenue proxy ${revenueProxyScore(player)} of 5, not verified revenue`;
+  if (mode === "revenue") return `Revenue signal ${revenueProxyScore(player)} of 5. Proxy only, not verified revenue`;
   if (mode === "reach") return `Audience reach ${audienceReachScore(player)} of 5`;
   if (mode === "appfigures") return requiresCredentialedData(player) ? "Prepared app data queue" : "No app data queue flag";
   if (mode === "ai") return `AI relevance ${player.aiScore} of 5`;
   if (mode === "momentum") return `Recent momentum ${player.momentum} of 5`;
-  if (mode === "evidence") return `Evidence confidence ${qualityProfile(player).score}%`;
+  if (mode === "evidence") return `Source confidence ${qualityProfile(player).score}%`;
   return `Strategic influence ${bubbleSizeScore(player)} of 5`;
 }
 
@@ -2992,11 +2992,11 @@ function ratingForPlayer(player, modeId = state.ratingMode) {
     sortValue: mode.id === "evidence" ? quality.score : value * 20,
     detail:
       mode.id === "revenue"
-        ? "Proxy, no verified revenue"
+        ? "Directional score, not verified revenue"
         : mode.id === "company"
-          ? "Scale proxy"
+          ? "Estimated scale"
           : mode.id === "appdata"
-            ? "Data readiness"
+            ? "Data status"
             : mode.note
   };
 }
@@ -3502,9 +3502,9 @@ function evidenceCoverage(player) {
     replacementCount
       ? "Needs source repair"
       : score >= 76 && sources.length >= 3 && restrictedCount <= 1
-      ? "Evidence-backed"
+      ? "Evidence supported"
       : score >= 56 && sources.length >= 2
-        ? "Sourced draft"
+        ? "Sourced profile"
         : sources.length
           ? "Lightly sourced"
           : "Unsourced queue";
@@ -3556,7 +3556,7 @@ function aiClaimStatusFor(player) {
     return {
       label: "AI-adjacent signal",
       tone: "mixed",
-      note: "Relevant product capability is visible, but this artifact should not overclaim AI strategy."
+      note: "Relevant product capability is visible, but this artifact should not overstate AI strategy."
     };
   }
   if (/research|monitor|hypothesis|potential|likely|may|roadmap/i.test(text) || player.aiScore >= 3) {
@@ -3641,9 +3641,9 @@ function claimIntegrityFor(player) {
   };
   const evidenceLabel =
     coverage.score >= 76 && coverage.officialCount
-      ? "Primary-source backed"
+      ? "Primary source supported"
       : coverage.score >= 56
-        ? "Sourced draft"
+        ? "Sourced profile"
         : coverage.count
           ? "Light proof"
           : "Needs validation";
@@ -3824,7 +3824,7 @@ function factClaimsFor(player) {
       caveat: aiClaimStatusFor(player).note
     },
     {
-      label: "Evidence-backed note",
+      label: "Evidence supported note",
       text: coverage.record.summary,
       basis: sourceBasis,
       kind: claimIntegrityFor(player).evidence.label,
@@ -3941,7 +3941,7 @@ function executivePostureFor(player, taxonomy, validation) {
   return {
     label: "Track context",
     headline: "Strategic context for the ecosystem",
-    body: "Use this record to keep the broader Yousician environment visible without overclaiming performance or relationship status.",
+    body: "Use this record to keep the broader Yousician environment visible without overstating performance or relationship status.",
     owner: validation.owner
   };
 }
@@ -3981,20 +3981,20 @@ function executiveReadinessFor(player, quality) {
   }
   if (quality.score >= 56) {
     return {
-      label: "Sourced draft",
+      label: "Sourced profile",
       headline: "Useful with visible caveats",
       body: "Use for prioritisation, but keep performance, size and relationship claims attached to source notes."
     };
   }
   return {
-    label: "Monitor item",
+    label: "Check before use",
     headline: "Needs stronger evidence before hard claims",
     body: "Keep as a watch item until source depth, validation fields or credentialed data improve."
   };
 }
 
 function executiveGuardrailsFor(player, quality, validation) {
-  const guardrails = ["Revenue proxy is directional only and must not be treated as verified revenue."];
+  const guardrails = ["Revenue signal is a proxy. Do not present it as verified revenue."];
   if (requiresCredentialedData(player)) {
     guardrails.push("Do not rank app revenue, downloads, rank trend, country mix or growth until credentialed app data is imported.");
   }
@@ -4057,27 +4057,27 @@ function executiveOnePagerDecisionCards(player, taxonomy, validation, quality) {
     </article>
 
     <article class="one-pager-card executive-money-card">
-      <span>Money and scale lens</span>
-      <h3>${escapeHtml(ratingForPlayer(player, "revenue").display)} revenue proxy</h3>
+      <span>Scale and revenue signal</span>
+      <h3>${escapeHtml(ratingForPlayer(player, "revenue").display)} revenue signal</h3>
       <p>${escapeHtml(player.model)}. ${escapeHtml(player.reach)}. Treat as directional until sourced metrics are attached.</p>
     </article>
 
     <article class="one-pager-card executive-readiness-card">
-      <span>Use confidence</span>
+      <span>Safe to use</span>
       <h3>${escapeHtml(readiness.label)} / ${quality.score}%</h3>
       <p>${escapeHtml(readiness.body)}</p>
       <small>${escapeHtml(quality.label)}. ${quality.coverage.count} linked source${quality.coverage.count === 1 ? "" : "s"}.</small>
     </article>
 
     <article class="one-pager-card executive-validation-card">
-      <span>Validation owner</span>
+      <span>Who should validate</span>
       <h3>${escapeHtml(validation.owner)}</h3>
       <p>${escapeHtml(validation.nextStep)}</p>
-      <small>Source queue: ${escapeHtml(sourceNeedsText)}</small>
+      <small>Check next: ${escapeHtml(sourceNeedsText)}</small>
     </article>
 
     <article class="one-pager-card executive-guardrail-card">
-      <span>Do not overclaim</span>
+      <span>Caveats</span>
       <h3>Safe use rules</h3>
       <ul class="one-pager-guardrail-list">
         ${guardrails.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
@@ -4163,7 +4163,7 @@ function qualityProfile(player) {
   const sourcePenalty = gaps.filter((gap) => ["source", "broken source", "manual link check", "ownership"].includes(gap)).length * 6;
   const credentialPenalty = gaps.filter((gap) => ["credentialed data", "capital", "open questions", "metadata", "ownership check", "evidence depth"].includes(gap)).length * 3;
   const score = Math.max(18, Math.min(94, coverage.score - sourcePenalty - credentialPenalty - coverage.restrictedCount * 2 - (player.key && coverage.count < 3 ? 4 : 0)));
-  const label = score >= 76 ? "Evidence-backed" : score >= 56 ? "Sourced draft" : "Research backlog";
+  const label = score >= 76 ? "Evidence supported" : score >= 56 ? "Sourced profile" : "Needs sources";
   return {
     gaps: [...new Set(gaps)],
     score,
@@ -5769,11 +5769,11 @@ function renderProfile() {
         ${metricRow("Momentum", player.momentum)}
         ${metricRow("AI relevance", player.aiScore)}
         ${metricRow("Company size", businessSizeScore(player))}
-        ${metricRow("Revenue proxy", revenueProxyScore(player))}
+        ${metricRow("Revenue signal", revenueProxyScore(player))}
         ${metricRow("Audience reach", audienceReachScore(player))}
-        ${metricRow("Evidence confidence", Math.max(1, Math.round(quality.score / 20)))}
+        ${metricRow("Source confidence", Math.max(1, Math.round(quality.score / 20)))}
         ${metricRow("Competitive proximity", competitiveProximityScore(player))}
-        ${metricRow("App data readiness", appfiguresReadinessScore(player))}
+        ${metricRow("App data status", appfiguresReadinessScore(player))}
       </div>
     </section>
     ${
@@ -7115,7 +7115,7 @@ function renderDatabaseVisuals(rows) {
         <span class="matrix-quadrant quadrant-watch">Watch and validate</span>
         <span class="matrix-quadrant quadrant-proof">Proof bank</span>
         <span class="matrix-axis axis-y">Strategic priority</span>
-        <span class="matrix-axis axis-x">Evidence confidence</span>
+        <span class="matrix-axis axis-x">Source confidence</span>
         ${matrixRows
           .map((player) =>
             visualPoint(player, {
@@ -9146,11 +9146,11 @@ function downloadCsv() {
     "Momentum",
     "AI relevance",
     "Company size score",
-    "Revenue proxy score",
+    "Revenue signal score",
     "Audience reach score",
-    "Evidence confidence score",
+    "Source confidence score",
     "Competitive proximity score",
-    "App data readiness score",
+    "App data status score",
     "Last 24m / next check",
     "Research confidence",
     "Last verified",
