@@ -2591,7 +2591,8 @@ const state = {
   monitorSegment: "all",
   monitorQuery: "",
   mapFocusMode: "all",
-  mapZoomMode: "auto"
+  mapZoomMode: "auto",
+  bubbleSizeMode: "strategic"
 };
 
 function isExecutiveMode() {
@@ -2716,6 +2717,39 @@ const mapFocusModes = [
   { id: "appdata", label: "App data", matches: (player) => requiresCredentialedData(player) }
 ];
 
+const bubbleSizeModes = [
+  {
+    id: "strategic",
+    label: "Strategic influence",
+    shortLabel: "Strategic",
+    note: "Default size shows strategic influence, not company size."
+  },
+  {
+    id: "business",
+    label: "Business size",
+    shortLabel: "Business",
+    note: "Business size uses reach wording as a proxy until verified size data is imported."
+  },
+  {
+    id: "appfigures",
+    label: "Appfigures performance",
+    shortLabel: "Appfigures",
+    note: "Appfigures mode shows the prepared app data queue. It is not a performance ranking until credentialed rows are imported."
+  },
+  {
+    id: "ai",
+    label: "AI relevance",
+    shortLabel: "AI",
+    note: "AI relevance uses the current AI score field."
+  },
+  {
+    id: "momentum",
+    label: "Recent momentum",
+    shortLabel: "Momentum",
+    note: "Recent momentum uses the current momentum field."
+  }
+];
+
 function categoryById(id) {
   return categories.find((category) => category.id === id);
 }
@@ -2744,6 +2778,57 @@ function mapCategoryLabel(category) {
 
 function strategicWeight(player) {
   return player.relevance * 4 + player.momentum * 3 + player.aiScore * 2 + (player.key ? 6 : 0);
+}
+
+function bubbleSizeModeById(id) {
+  return bubbleSizeModes.find((mode) => mode.id === id) || bubbleSizeModes[0];
+}
+
+function businessSizeScore(player) {
+  const reach = `${player.reach || ""} ${player.type || ""} ${player.model || ""}`.toLowerCase();
+  if (/massive|very large|major global|major platform|preinstalled|broad apple/.test(reach)) return 5;
+  if (/major|large|global|spotify backed/.test(reach)) return 4;
+  if (/established|visible|growing|brand backed/.test(reach)) return 3;
+  if (/specialist|niche|emerging|independent/.test(reach)) return 2;
+  return 1;
+}
+
+function appfiguresReadinessScore(player) {
+  if (!requiresCredentialedData(player)) return player.category === "signals" ? 1 : 2;
+  const appSurface = /app|ranking|rank|revenue|download|review|subscription|pricing|traffic/i.test(
+    `${player.type} ${player.model} ${player.sourceStatus} ${player.recent}`
+  );
+  const queueWeight = Math.max(player.relevance, player.momentum);
+  return appSurface ? Math.max(3, queueWeight) : Math.max(2, Math.round(queueWeight * 0.8));
+}
+
+function bubbleSizeScore(player) {
+  const mode = bubbleSizeModeById(state.bubbleSizeMode).id;
+  if (mode === "business") return businessSizeScore(player);
+  if (mode === "appfigures") return appfiguresReadinessScore(player);
+  if (mode === "ai") return player.aiScore;
+  if (mode === "momentum") return player.momentum;
+  return Math.min(5, Math.max(1, Math.round((strategicWeight(player) - (player.key ? 4 : 0)) / 8)));
+}
+
+function bubbleSizeSortWeight(player) {
+  if (bubbleSizeModeById(state.bubbleSizeMode).id === "strategic") return strategicWeight(player);
+  return bubbleSizeScore(player) * 10 + strategicWeight(player) / 10;
+}
+
+function bubbleSizeRadius(player) {
+  const score = Math.max(1, Math.min(5, bubbleSizeScore(player)));
+  const radius = 7 + score * 3;
+  return player.key ? Math.max(radius, 11) : radius;
+}
+
+function bubbleSizeBasis(player) {
+  const mode = bubbleSizeModeById(state.bubbleSizeMode).id;
+  if (mode === "business") return `Business proxy ${businessSizeScore(player)} of 5`;
+  if (mode === "appfigures") return requiresCredentialedData(player) ? "Prepared Appfigures queue" : "No app data queue flag";
+  if (mode === "ai") return `AI relevance ${player.aiScore} of 5`;
+  if (mode === "momentum") return `Recent momentum ${player.momentum} of 5`;
+  return `Strategic influence ${bubbleSizeScore(player)} of 5`;
 }
 
 function priorityTier(player) {
@@ -4090,6 +4175,7 @@ function resetWorkspaceFilters() {
   state.dbSegment = "all";
   state.mapFocusMode = "all";
   state.mapZoomMode = "auto";
+  state.bubbleSizeMode = "strategic";
   if (els.searchInput) els.searchInput.value = "";
 }
 
@@ -4120,6 +4206,7 @@ function clearFilterById(filterId) {
   if (filterId === "database") state.dbSegment = "all";
   if (filterId === "mapFocus") state.mapFocusMode = "all";
   if (filterId === "mapZoom") state.mapZoomMode = "auto";
+  if (filterId === "bubbleSize") state.bubbleSizeMode = "strategic";
   if (filterId === "query" && els.searchInput) els.searchInput.value = "";
   markMapFilterChanged();
   renderAll();
@@ -4142,6 +4229,9 @@ function renderActiveFilterStrip() {
   if (state.minRelevance > 1) chips.push({ id: "relevance", label: "Relevance", value: `${state.minRelevance}+` });
   if (state.mapFocusMode !== "all") chips.push({ id: "mapFocus", label: "Map", value: mapFocusModeById(state.mapFocusMode).label });
   if (state.mapZoomMode !== "auto") chips.push({ id: "mapZoom", label: "View", value: mapZoomLabel() });
+  if (state.bubbleSizeMode !== "strategic") {
+    chips.push({ id: "bubbleSize", label: "Bubble size", value: bubbleSizeModeById(state.bubbleSizeMode).shortLabel });
+  }
   if (state.monitorSegment !== "all") {
     chips.push({ id: "monitorSegment", label: "Monitor", value: monitorSegmentById(state.monitorSegment).label });
   }
@@ -4317,6 +4407,7 @@ function renderMapSummaryStrip() {
   const aiRelevant = filtered.filter((player) => player.aiScore >= 4 || ["ai", "creation"].includes(player.category));
   const appQueue = filtered.filter(requiresCredentialedData);
   const selectedPlayer = getSelectedPlayer();
+  const activeSizeMode = bubbleSizeModeById(state.bubbleSizeMode);
   const zoomButtons = [
     { id: "fit", label: "Fit" },
     { id: "selected", label: "Selected" },
@@ -4352,6 +4443,20 @@ function renderMapSummaryStrip() {
       `;
     })
     .join("");
+  const sizeButtons = bubbleSizeModes
+    .map((mode) => {
+      const active = state.bubbleSizeMode === mode.id;
+      return `
+        <button
+          type="button"
+          class="${active ? "is-active" : ""}"
+          data-bubble-size="${escapeHtml(mode.id)}"
+          aria-pressed="${active ? "true" : "false"}"
+          title="${escapeHtml(mode.note)}"
+        >${escapeHtml(mode.shortLabel)}</button>
+      `;
+    })
+    .join("");
   const categoryChips = categories
     .map((category) => {
       const count = filtered.filter((player) => player.category === category.id).length;
@@ -4373,6 +4478,13 @@ function renderMapSummaryStrip() {
   els.mapSummaryStrip.innerHTML = `
     <div class="map-mode-row" aria-label="Map focus">
       ${modeButtons}
+    </div>
+    <div class="map-size-row" aria-label="Bubble size mode">
+      <span>Bubble size by</span>
+      <div>
+        ${sizeButtons}
+      </div>
+      <small>${escapeHtml(activeSizeMode.note)}</small>
     </div>
     <div class="map-zoom-row" aria-label="Map view controls">
       ${zoomButtons}
@@ -4403,6 +4515,14 @@ function renderMapSummaryStrip() {
       state.mapFocusMode = button.dataset.mapMode;
       markMapFilterChanged();
       ensureSelectedPlayerVisibleInMap();
+      renderAll();
+      revealMapForFilteredView();
+      flashElement(els.mapSummaryStrip);
+    });
+  });
+  els.mapSummaryStrip.querySelectorAll("[data-bubble-size]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.bubbleSizeMode = button.dataset.bubbleSize;
       renderAll();
       revealMapForFilteredView();
       flashElement(els.mapSummaryStrip);
@@ -4776,12 +4896,9 @@ function clusterPointPosition(index, total, layout) {
 }
 
 function mapNodeRadius(player) {
-  const tier = priorityTier(player);
-  if (player.id === state.selectedPlayerId) return 24;
-  if (tier === "primary") return 21;
-  if (player.key) return 17;
-  if (tier === "focus") return 11;
-  return 7;
+  const radius = bubbleSizeRadius(player);
+  if (player.id === state.selectedPlayerId) return Math.min(24, radius + 3);
+  return radius;
 }
 
 function shouldLabelMapNode(player, categoryPlayers, index, layout, visibleCount = Infinity) {
@@ -4836,7 +4953,7 @@ function renderMap() {
     const layout = mapLayoutForCategory(category, index, center);
     const categoryPlayers = filtered
       .filter((player) => player.category === category.id)
-      .sort((a, b) => strategicWeight(b) - strategicWeight(a));
+      .sort((a, b) => bubbleSizeSortWeight(b) - bubbleSizeSortWeight(a));
     return {
       category,
       players: categoryPlayers,
@@ -5004,7 +5121,7 @@ function renderMap() {
         "data-id": player.id
       });
       const title = createSvg("title");
-      title.textContent = `${player.name} / ${strategicRole(player)} / R${player.relevance} M${player.momentum} AI${player.aiScore}`;
+      title.textContent = `${player.name} / ${strategicRole(player)} / ${bubbleSizeBasis(player)} / R${player.relevance} M${player.momentum} AI${player.aiScore}`;
       node.appendChild(title);
       const radius = nodeItem?.radius ?? mapNodeRadius(player);
       node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius + 16, class: "node-hit" }));
@@ -7675,6 +7792,7 @@ function flashElement(element) {
 function syncInteractionState() {
   document.body.dataset.hasQuery = state.query.trim() ? "true" : "false";
   document.body.dataset.mapFocusMode = state.mapFocusMode;
+  document.body.dataset.bubbleSizeMode = state.bubbleSizeMode;
   document.querySelectorAll("[data-id]").forEach((element) => {
     element.classList.toggle("is-selected", element.dataset.id === state.selectedPlayerId);
   });
