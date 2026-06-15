@@ -3427,7 +3427,7 @@ function sourceLibrary() {
 }
 
 function sourceById(id) {
-  return sourceLibrary().find((source) => source.id === id);
+  return sourceLibrary().find((source) => source.id === id || source.source_id === id);
 }
 
 function evidenceRecordFor(player) {
@@ -3446,7 +3446,14 @@ function evidenceSourcesFor(player) {
 }
 
 function sourceAccessStatus(source) {
-  return source.accessStatus || "not-checked";
+  const rawStatus = `${source.accessStatus || source.access_status || ""}`.toLowerCase();
+  if (source.accessStatus) return source.accessStatus;
+  if (/needs?\s*replacement|repair|broken|dead/.test(rawStatus)) return "needs-replacement";
+  if (/auth|login|credential|subscription|paywall/.test(rawStatus)) return "auth-required";
+  if (/restricted|manual/.test(rawStatus)) return "access-restricted";
+  if (/timeout/.test(rawStatus)) return "timeout";
+  if (/verified|checked|url collected|source-backed/.test(rawStatus) || source.lastUrlCheck || source.last_url_check) return "verified";
+  return "not-checked";
 }
 
 function sourceAccessLabel(source) {
@@ -7797,12 +7804,22 @@ function renderSourceVisuals() {
     verified: sources.filter((source) => sourceAccessStatus(source) === "verified").length,
     auth: sources.filter((source) => sourceAccessStatus(source) === "auth-required").length,
     manual: sources.filter((source) => ["access-restricted", "timeout"].includes(sourceAccessStatus(source))).length,
-    repair: sources.filter((source) => sourceAccessStatus(source) === "needs-replacement").length
+    repair: sources.filter((source) => sourceAccessStatus(source) === "needs-replacement").length,
+    unchecked: sources.filter((source) => sourceAccessStatus(source) === "not-checked").length
   };
-  const total = Math.max(1, sources.length);
+  const accessTotal = Object.values(accessCounts).reduce((sum, count) => sum + count, 0);
+  const total = Math.max(1, accessTotal);
   const verifiedDeg = Math.round((accessCounts.verified / total) * 360);
   const authDeg = verifiedDeg + Math.round((accessCounts.auth / total) * 360);
   const manualDeg = authDeg + Math.round((accessCounts.manual / total) * 360);
+  const repairDeg = manualDeg + Math.round((accessCounts.repair / total) * 360);
+  const donutValue = accessCounts.verified || sources.length;
+  const donutLabel = accessCounts.verified ? "links checked" : sources.length ? "sources loaded" : "no sources";
+  const donutNote = accessCounts.verified
+    ? `${accessCounts.verified} of ${sources.length} source links have a recorded link check.`
+    : sources.length
+      ? "Sources are loaded, but no link check status is recorded yet."
+      : "The evidence library file has not loaded in this view.";
   const typeRows = Object.entries(
     sources.reduce((groups, source) => {
       const group = groups[source.type] || { count: 0, used: 0, high: 0 };
@@ -7828,18 +7845,20 @@ function renderSourceVisuals() {
       </div>
       <div class="source-donut-wrap">
         <div
-          class="source-donut"
-          style="--verified-deg:${verifiedDeg}deg; --auth-deg:${authDeg}deg; --manual-deg:${manualDeg}deg"
+          class="source-donut ${accessCounts.verified ? "" : "is-empty"}"
+          style="--verified-deg:${verifiedDeg}deg; --auth-deg:${authDeg}deg; --manual-deg:${manualDeg}deg; --repair-deg:${repairDeg}deg"
           aria-label="Source access status distribution"
         >
-          <strong>${accessCounts.verified}</strong>
-          <span>verified</span>
+          <strong>${donutValue}</strong>
+          <span>${escapeHtml(donutLabel)}</span>
         </div>
         <div class="source-donut-legend">
           <span><i class="legend-verified"></i>${accessCounts.verified} links checked</span>
-          <span><i class="legend-auth"></i>${accessCounts.auth} auth-required</span>
+          <span><i class="legend-auth"></i>${accessCounts.auth} auth required</span>
           <span><i class="legend-manual"></i>${accessCounts.manual} manual / restricted</span>
-          <span><i class="legend-repair"></i>${accessCounts.repair} repair-needed</span>
+          <span><i class="legend-repair"></i>${accessCounts.repair} repair needed</span>
+          ${accessCounts.unchecked ? `<span><i class="legend-unchecked"></i>${accessCounts.unchecked} not checked</span>` : ""}
+          <p class="source-donut-note">${escapeHtml(donutNote)}</p>
         </div>
       </div>
     </section>
@@ -9468,7 +9487,16 @@ async function loadEvidenceContext() {
         ...evidenceContextFallback.status,
         ...(data.status || {})
       },
-      sourceLibrary: Array.isArray(data.sourceLibrary) ? data.sourceLibrary : [],
+      sourceLibrary: Array.isArray(data.sourceLibrary)
+        ? data.sourceLibrary.map((source) => ({
+            ...source,
+            id: source.id || source.source_id,
+            source_id: source.source_id || source.id,
+            accessStatus: sourceAccessStatus(source),
+            lastUrlCheck: source.lastUrlCheck || source.last_url_check,
+            qualityNote: source.qualityNote || source.quality_note
+          }))
+        : [],
       evidenceByPlayer: data.evidenceByPlayer || {}
     };
     evidenceContextStatus = "ready";

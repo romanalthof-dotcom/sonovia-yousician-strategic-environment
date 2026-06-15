@@ -3554,8 +3554,13 @@ body:not([data-view="overview"]) .view.active {
     var(--brand) 0 var(--verified-deg),
     #ffb84d var(--verified-deg) var(--auth-deg),
     #6e5cff var(--auth-deg) var(--manual-deg),
-    #ef5d5d var(--manual-deg) 360deg
+    #ef5d5d var(--manual-deg) var(--repair-deg),
+    rgba(27, 29, 31, 0.1) var(--repair-deg) 360deg
   );
+}
+
+.source-donut.is-empty {
+  background: conic-gradient(rgba(27, 29, 31, 0.1) 0 360deg);
 }
 
 .source-donut::after {
@@ -3620,6 +3625,17 @@ body:not([data-view="overview"]) .view.active {
 
 .legend-repair {
   background: #ef5d5d;
+}
+
+.legend-unchecked {
+  background: rgba(27, 29, 31, 0.18);
+}
+
+.source-donut-note {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.35;
 }
 
 .source-type-row {
