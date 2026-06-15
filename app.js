@@ -3903,6 +3903,189 @@ function executiveProfileSnapshot(player, taxonomy) {
   `;
 }
 
+function executivePostureFor(player, taxonomy, validation) {
+  const relation = relationForPlayer(player);
+  const proximity = competitiveProximityScore(player);
+  if (relation?.type === "competes" || proximity >= 5) {
+    return {
+      label: "Defend core",
+      headline: "Core learning or practice pressure",
+      body: "Use this player as a benchmark for onboarding, motivation, pricing, catalog, feedback and habit retention.",
+      owner: "Product and Growth"
+    };
+  }
+  if (relation?.type === "partners" || /partner|channel|bundle|hardware|retail/i.test(`${player.relationship} ${taxonomy.role}`)) {
+    return {
+      label: "Partner screen",
+      headline: "Potential route to reach or trust",
+      body: "Screen whether this actor creates distribution, content, credibility, hardware, education or creator access for Yousician.",
+      owner: validation.owner
+    };
+  }
+  if (player.aiScore >= 4 || player.category === "ai") {
+    return {
+      label: "Watch disruption",
+      headline: "AI or workflow shift",
+      body: "Track whether this expands practice utility, changes music participation, raises licensing risk, or shifts what learners expect.",
+      owner: "AI strategy"
+    };
+  }
+  if (player.category === "signals") {
+    return {
+      label: "Monitor signal",
+      headline: "External market signal",
+      body: "Use this as context for funding, recognition, policy, capital, media or market timing rather than as a direct competitor.",
+      owner: validation.owner
+    };
+  }
+  return {
+    label: "Track context",
+    headline: "Strategic context for the ecosystem",
+    body: "Use this record to keep the broader Yousician environment visible without overclaiming performance or relationship status.",
+    owner: validation.owner
+  };
+}
+
+function executiveDecisionQuestion(player, taxonomy) {
+  if (player.category === "learning") {
+    return "Does this change how Yousician should benchmark onboarding, curriculum, pricing, feedback or paid conversion?";
+  }
+  if (player.category === "practice") {
+    return "Which song choice, trust or repeat practice habit does this actor own before a learner chooses Yousician?";
+  }
+  if (player.category === "hardware") {
+    return "Is there a bundle, channel, brand trust or beginner acquisition path worth screening?";
+  }
+  if (player.category === "creation") {
+    return "Does this show where learners graduate into making music and what they may pay for next?";
+  }
+  if (player.category === "ai") {
+    return "Does this expand practice utility, substitute learning motivation, or create rights and trust risk?";
+  }
+  if (player.category === "education") {
+    return "Does this create a credibility, curriculum, teacher, parent or institutional proof opportunity?";
+  }
+  if (player.category === "signals") {
+    return "Does this trigger funding, recognition, policy, monitoring or leadership timing action?";
+  }
+  return taxonomy.decisionUse;
+}
+
+function executiveReadinessFor(player, quality) {
+  if (quality.score >= 76 && !hasCriticalEvidenceGap(player)) {
+    return {
+      label: "Leadership ready",
+      headline: "Usable for internal executive discussion",
+      body: "Role, relevance and current signal are sufficiently sourced for internal decision framing."
+    };
+  }
+  if (quality.score >= 56) {
+    return {
+      label: "Sourced draft",
+      headline: "Useful with visible caveats",
+      body: "Use for prioritisation, but keep performance, size and relationship claims attached to source notes."
+    };
+  }
+  return {
+    label: "Monitor item",
+    headline: "Needs stronger evidence before hard claims",
+    body: "Keep as a watch item until source depth, validation fields or credentialed data improve."
+  };
+}
+
+function executiveGuardrailsFor(player, quality, validation) {
+  const guardrails = ["Revenue proxy is directional only and must not be treated as verified revenue."];
+  if (requiresCredentialedData(player)) {
+    guardrails.push("Do not rank app revenue, downloads, rank trend, country mix or growth until credentialed app data is imported.");
+  }
+  if (/Needs|not yet|not prioritized/i.test(`${validation.status} ${validation.knownRelationship}`)) {
+    guardrails.push("Do not imply an active relationship, partnership or owner status until Yousician confirms it.");
+  }
+  if (quality.score < 56 || hasCriticalEvidenceGap(player)) {
+    guardrails.push("Keep language as monitored signal until stronger source coverage is linked.");
+  }
+  return [...new Set(guardrails)].slice(0, 4);
+}
+
+function executiveMetricList(player, quality) {
+  const metrics = [
+    ratingForPlayer(player, "strategic"),
+    ratingForPlayer(player, "company"),
+    ratingForPlayer(player, "revenue"),
+    ratingForPlayer(player, "reach"),
+    ratingForPlayer(player, "proximity"),
+    ratingForPlayer(player, "appdata")
+  ];
+  return `
+    <div class="one-pager-executive-metrics" aria-label="Executive rating metrics">
+      ${metrics
+        .map(
+          (metric) => `
+            <span>
+              <strong>${escapeHtml(metric.display)}</strong>
+              <small>${escapeHtml(metric.shortLabel)}</small>
+            </span>
+          `
+        )
+        .join("")}
+      <span>
+        <strong>${quality.score}%</strong>
+        <small>Evidence</small>
+      </span>
+    </div>
+  `;
+}
+
+function executiveOnePagerDecisionCards(player, taxonomy, validation, quality) {
+  const posture = executivePostureFor(player, taxonomy, validation);
+  const readiness = executiveReadinessFor(player, quality);
+  const guardrails = executiveGuardrailsFor(player, quality, validation);
+  const sourceNeedsText = sourceNeeds(player).join(", ");
+  return `
+    <article class="one-pager-card executive-priority-card one-pager-card-large">
+      <span>Executive priority</span>
+      <h3>${escapeHtml(posture.headline)}</h3>
+      <p>${escapeHtml(posture.body)}</p>
+      ${executiveMetricList(player, quality)}
+    </article>
+
+    <article class="one-pager-card executive-decision-card">
+      <span>Decision question</span>
+      <h3>${escapeHtml(posture.label)}</h3>
+      <p>${escapeHtml(executiveDecisionQuestion(player, taxonomy))}</p>
+      <small>${escapeHtml(taxonomy.decisionUse)}</small>
+    </article>
+
+    <article class="one-pager-card executive-money-card">
+      <span>Money and scale lens</span>
+      <h3>${escapeHtml(ratingForPlayer(player, "revenue").display)} revenue proxy</h3>
+      <p>${escapeHtml(player.model)}. ${escapeHtml(player.reach)}. Treat as directional until sourced metrics are attached.</p>
+    </article>
+
+    <article class="one-pager-card executive-readiness-card">
+      <span>Use confidence</span>
+      <h3>${escapeHtml(readiness.label)} / ${quality.score}%</h3>
+      <p>${escapeHtml(readiness.body)}</p>
+      <small>${escapeHtml(quality.label)}. ${quality.coverage.count} linked source${quality.coverage.count === 1 ? "" : "s"}.</small>
+    </article>
+
+    <article class="one-pager-card executive-validation-card">
+      <span>Validation owner</span>
+      <h3>${escapeHtml(validation.owner)}</h3>
+      <p>${escapeHtml(validation.nextStep)}</p>
+      <small>Source queue: ${escapeHtml(sourceNeedsText)}</small>
+    </article>
+
+    <article class="one-pager-card executive-guardrail-card">
+      <span>Do not overclaim</span>
+      <h3>Safe use rules</h3>
+      <ul class="one-pager-guardrail-list">
+        ${guardrails.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+      </ul>
+    </article>
+  `;
+}
+
 function executiveOnePagerCards(player, taxonomy, validation) {
   return `
     <article class="one-pager-card">
@@ -6711,6 +6894,7 @@ function renderOnePager() {
   const taxonomy = taxonomyProfile(player);
   const validation = internalValidationFor(player);
   const executive = isExecutiveMode();
+  const activeRating = ratingForPlayer(player);
 
   els.onePager.innerHTML = `
     <article class="one-pager-sheet" style="--onepager-accent:${category.color}">
@@ -6727,8 +6911,8 @@ function renderOnePager() {
           </div>
         </div>
         <div class="one-pager-score">
-          <strong>${player.relevance}</strong>
-          <span>Strategic relevance</span>
+          <strong>${escapeHtml(activeRating.display)}</strong>
+          <span>${escapeHtml(activeRating.label)}</span>
         </div>
       </header>
 
@@ -6739,6 +6923,7 @@ function renderOnePager() {
           <p>${escapeHtml(player.why)}</p>
         </article>
 
+        ${executiveOnePagerDecisionCards(player, taxonomy, validation, quality)}
         ${executiveOnePagerCards(player, taxonomy, validation)}
       </section>
 

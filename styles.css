@@ -2863,6 +2863,94 @@ body:not([data-view="overview"]) .view.active {
   min-width: 0;
 }
 
+.one-pager-card small {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 650;
+  line-height: 1.36;
+}
+
+.one-pager-executive-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 2px;
+}
+
+.one-pager-executive-metrics span {
+  display: grid;
+  gap: 2px;
+  min-height: 54px;
+  border: 1px solid rgba(22, 33, 29, 0.08);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.82);
+  padding: 8px;
+}
+
+.one-pager-executive-metrics strong {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.one-pager-executive-metrics small {
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.executive-priority-card {
+  border-color: color-mix(in srgb, var(--onepager-accent) 22%, rgba(22, 33, 29, 0.08));
+  background:
+    linear-gradient(180deg, #fff, color-mix(in srgb, var(--onepager-accent) 7%, #fff)),
+    #fff;
+}
+
+.executive-decision-card,
+.executive-readiness-card,
+.executive-validation-card {
+  background: #fff;
+}
+
+.executive-money-card {
+  border-color: rgba(255, 184, 77, 0.32);
+  background: #fffaf2;
+}
+
+.executive-guardrail-card {
+  border-color: rgba(241, 91, 91, 0.18);
+  background: #fff8f5;
+}
+
+.one-pager-guardrail-list {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.one-pager-guardrail-list li {
+  position: relative;
+  padding-left: 14px;
+  color: #33413c;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.one-pager-guardrail-list li::before {
+  position: absolute;
+  top: 0.58em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--rose);
+  content: "";
+}
+
 .one-pager-card .metric {
   background: rgba(255, 255, 255, 0.74);
 }
@@ -15102,6 +15190,10 @@ body[data-view="overview"] .map-size-row button {
 @media (max-width: 760px) {
   .database-controls {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .one-pager-executive-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .active-rating-mini {
