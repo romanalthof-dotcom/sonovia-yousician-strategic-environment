@@ -2629,6 +2629,7 @@ const exportLengthOptions = [
 
 const els = {
   modeButtons: document.querySelectorAll(".mode-button"),
+  quietModeMenu: document.getElementById("quietModeMenu"),
   totalPlayers: document.getElementById("totalPlayers"),
   keyPlayers: document.getElementById("keyPlayers"),
   aiPlayers: document.getElementById("aiPlayers"),
@@ -7903,12 +7904,24 @@ function isResearchOnlyView(view) {
   return view === "sources";
 }
 
+function syncModeUrl(mode) {
+  if (document.body.dataset.printTarget === "brief-export") return;
+  const url = new URL(window.location.href);
+  if (mode === "research") {
+    url.searchParams.set("mode", "research");
+  } else {
+    url.searchParams.delete("mode");
+  }
+  window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+}
+
 function setMode(mode, options = {}) {
   state.mode = mode;
   document.body.dataset.mode = mode;
   els.modeButtons.forEach((button) => {
     button.classList.toggle("active", button.dataset.mode === mode);
   });
+  if (!options.skipUrl) syncModeUrl(mode);
 
   if (mode === "executive" && isResearchOnlyView(state.view)) {
     switchView("overview");
@@ -9143,7 +9156,19 @@ function bindEvents() {
   });
 
   els.modeButtons.forEach((button) => {
-    button.addEventListener("click", () => setMode(button.dataset.mode));
+    button.addEventListener("click", () => {
+      setMode(button.dataset.mode);
+      els.quietModeMenu?.removeAttribute("open");
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!els.quietModeMenu || els.quietModeMenu.contains(event.target)) return;
+    els.quietModeMenu.removeAttribute("open");
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") els.quietModeMenu?.removeAttribute("open");
   });
 
   els.databaseSort.addEventListener("change", (event) => {
