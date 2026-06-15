@@ -6609,13 +6609,29 @@ function renderDatabaseSegments() {
 function renderDatabaseVisuals(rows) {
   if (!els.databaseVisuals) return;
   const visibleRows = rows;
+  const priorityRows = [...visibleRows].sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name));
+  const labelIds = new Set([
+    state.selectedPlayerId,
+    ...priorityRows.filter((player) => player.key).slice(0, 8).map((player) => player.id),
+    ...priorityRows.slice(0, 5).map((player) => player.id)
+  ]);
+  const matrixRows = [...visibleRows].sort((a, b) =>
+    Number(a.key) - Number(b.key) ||
+    Number(a.id === state.selectedPlayerId) - Number(b.id === state.selectedPlayerId) ||
+    totalPriority(a) - totalPriority(b) ||
+    a.name.localeCompare(b.name)
+  );
+  const avgQuality = Math.round(visibleRows.reduce((sum, player) => sum + qualityProfile(player).score, 0) / Math.max(visibleRows.length, 1));
+  const keyRecordCount = visibleRows.filter((player) => player.key).length;
+  const proofGapCount = visibleRows.filter(hasCriticalEvidenceGap).length;
+  const readyCount = visibleRows.filter((player) => qualityProfile(player).score >= 68 && !hasCriticalEvidenceGap(player)).length;
   const categoryRows = categories
     .map((category) => {
       const items = rows.filter((player) => player.category === category.id);
-      const avgQuality = Math.round(items.reduce((sum, player) => sum + qualityProfile(player).score, 0) / Math.max(items.length, 1));
+      const avgCategoryQuality = Math.round(items.reduce((sum, player) => sum + qualityProfile(player).score, 0) / Math.max(items.length, 1));
       const gapCount = items.filter(hasCriticalEvidenceGap).length;
       const pressure = Math.round(average(items, (player) => player.relevance + player.momentum + player.aiScore) * 6.6);
-      return { category, items, avgQuality, gapCount, pressure: Math.max(0, Math.min(100, pressure)) };
+      return { category, items, avgQuality: avgCategoryQuality, gapCount, pressure: Math.max(0, Math.min(100, pressure)) };
     })
     .filter((item) => item.items.length)
     .sort((a, b) => b.items.length - a.items.length || b.pressure - a.pressure);
@@ -6629,17 +6645,25 @@ function renderDatabaseVisuals(rows) {
         </div>
         <p>${rows.length} records are represented without forcing a raw table into the executive view.</p>
       </div>
+      <div class="database-visual-stats" aria-label="Evidence coverage summary">
+        <span><strong>${avgQuality}%</strong> average confidence</span>
+        <span><strong>${keyRecordCount}</strong> key records</span>
+        <span><strong>${readyCount}</strong> ready records</span>
+        <span><strong>${proofGapCount}</strong> proof gaps</span>
+      </div>
       <div class="visual-matrix database-priority-map ${rows.length > 70 ? "is-dense" : ""}" aria-label="Database evidence priority matrix">
-        <span class="matrix-zone zone-invest">Priority / qualified</span>
-        <span class="matrix-zone zone-ready">Higher confidence</span>
+        <span class="matrix-zone zone-invest">Priority needing proof</span>
+        <span class="matrix-zone zone-ready">Ready for use</span>
+        <span class="matrix-quadrant quadrant-watch">Watch and validate</span>
+        <span class="matrix-quadrant quadrant-proof">Proof bank</span>
         <span class="matrix-axis axis-y">Strategic priority</span>
         <span class="matrix-axis axis-x">Evidence confidence</span>
-        ${visibleRows
-          .map((player, index) =>
+        ${matrixRows
+          .map((player) =>
             visualPoint(player, {
               compact: true,
               jitter: 8.4,
-              showLabel: index < 6 || player.id === state.selectedPlayerId,
+              showLabel: labelIds.has(player.id),
               density: true
             })
           )

@@ -14150,6 +14150,295 @@ body[data-mode="executive"][data-view="overview"] #ecosystemMap {
   }
 }
 
+/* Product Design database visual pass: make evidence coverage feel intentional. */
+body[data-view="database"] .database-visuals {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+body[data-view="database"] .database-matrix-panel {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(0, 159, 114, 0.16);
+  background:
+    linear-gradient(180deg, rgba(0, 210, 146, 0.075), rgba(255, 255, 255, 0) 42%),
+    linear-gradient(135deg, rgba(110, 92, 255, 0.055), rgba(255, 184, 77, 0.045) 64%, rgba(255, 255, 255, 0)),
+    #fff;
+  padding: 18px;
+  box-shadow: 0 14px 32px rgba(18, 28, 24, 0.06);
+}
+
+body[data-view="database"] .database-matrix-panel .visual-head {
+  align-items: end;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(24, 36, 31, 0.08);
+  padding-bottom: 12px;
+}
+
+body[data-view="database"] .database-matrix-panel .visual-head h3 {
+  max-width: 620px;
+  font-size: clamp(1.42rem, 2.2vw, 2rem);
+  line-height: 1.08;
+}
+
+body[data-view="database"] .database-matrix-panel .visual-head p {
+  max-width: 390px;
+  color: rgba(24, 36, 31, 0.68);
+  font-size: 0.9rem;
+  font-weight: 760;
+  line-height: 1.32;
+}
+
+.database-visual-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.database-visual-stats span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  min-height: 58px;
+  border: 1px solid rgba(24, 36, 31, 0.09);
+  border-top: 3px solid var(--brand);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 10px;
+  color: rgba(24, 36, 31, 0.62);
+  font-size: 0.66rem;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.database-visual-stats span:nth-child(2) {
+  border-top-color: #6e5cff;
+}
+
+.database-visual-stats span:nth-child(3) {
+  border-top-color: #00a674;
+}
+
+.database-visual-stats span:nth-child(4) {
+  border-top-color: #ffb84d;
+}
+
+.database-visual-stats strong {
+  color: var(--ink);
+  font-size: 1.44rem;
+  font-weight: 950;
+  line-height: 1.1;
+  text-transform: none;
+}
+
+body[data-view="database"] .database-priority-map.visual-matrix,
+body[data-mode="executive"][data-view="database"] .database-priority-map.visual-matrix {
+  min-height: clamp(460px, 58vh, 620px);
+  border-color: rgba(0, 159, 114, 0.18);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 184, 77, 0.18), rgba(255, 184, 77, 0) 26%),
+    radial-gradient(circle at 83% 16%, rgba(0, 210, 146, 0.16), rgba(0, 210, 146, 0) 28%),
+    radial-gradient(circle at 18% 84%, rgba(110, 92, 255, 0.1), rgba(110, 92, 255, 0) 30%),
+    linear-gradient(90deg, rgba(24, 36, 31, 0.055) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(24, 36, 31, 0.055) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(255, 248, 230, 0.72), rgba(238, 253, 247, 0.82) 48%, rgba(243, 249, 255, 0.74)),
+    #f8fcf9;
+  background-size: auto, auto, auto, 20% 100%, 100% 20%, auto, auto;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.72),
+    inset 0 16px 42px rgba(0, 210, 146, 0.04);
+}
+
+body[data-view="database"] .database-priority-map.visual-matrix::before,
+body[data-view="database"] .database-priority-map.visual-matrix::after {
+  z-index: 2;
+  background: rgba(24, 36, 31, 0.18);
+}
+
+body[data-view="database"] .database-priority-map.visual-matrix::before {
+  right: 26px;
+  left: 26px;
+}
+
+body[data-view="database"] .database-priority-map.visual-matrix::after {
+  top: 26px;
+  bottom: 26px;
+}
+
+body[data-view="database"] .database-priority-map .matrix-axis {
+  z-index: 5;
+  color: rgba(24, 36, 31, 0.6);
+  font-size: 0.68rem;
+  font-weight: 950;
+}
+
+body[data-view="database"] .database-priority-map .axis-y {
+  top: 18px;
+  left: 18px;
+}
+
+body[data-view="database"] .database-priority-map .axis-x {
+  right: 18px;
+  bottom: 18px;
+}
+
+body[data-view="database"] .database-priority-map .matrix-zone {
+  z-index: 5;
+  max-width: 240px;
+  border: 1px solid rgba(255, 255, 255, 0.84);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 10px 24px rgba(18, 28, 24, 0.08);
+  color: rgba(24, 36, 31, 0.66);
+  padding: 6px 10px;
+  font-size: 0.66rem;
+  line-height: 1.08;
+}
+
+body[data-view="database"] .database-priority-map .zone-invest {
+  left: 54%;
+}
+
+body[data-view="database"] .database-priority-map .zone-ready {
+  right: 18px;
+}
+
+.matrix-quadrant {
+  position: absolute;
+  z-index: 3;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  color: rgba(24, 36, 31, 0.42);
+  padding: 5px 9px;
+  font-size: 0.62rem;
+  font-weight: 950;
+  line-height: 1;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.quadrant-watch {
+  bottom: 18px;
+  left: 18px;
+}
+
+.quadrant-proof {
+  right: 18px;
+  bottom: 52%;
+}
+
+body[data-view="database"] .database-priority-map .visual-point {
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+body[data-view="database"] .database-priority-map .visual-point span {
+  width: 34px;
+  height: 34px;
+  border: 2.5px solid rgba(255, 255, 255, 0.95);
+  font-size: 0.62rem;
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--point-color) 16%, transparent),
+    0 13px 28px rgba(18, 28, 24, 0.18);
+}
+
+body[data-view="database"] .database-priority-map .visual-point.is-key span,
+body[data-view="database"] .database-priority-map .visual-point.is-high-signal span {
+  width: 42px;
+  height: 42px;
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--point-color) 18%, transparent),
+    0 16px 32px rgba(18, 28, 24, 0.2);
+}
+
+body[data-view="database"] .database-priority-map .visual-point.is-background {
+  opacity: 0.62;
+}
+
+body[data-view="database"] .database-priority-map .visual-point.is-background span,
+body[data-view="database"] .database-priority-map.is-dense .visual-point.is-background span {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid rgba(255, 255, 255, 0.92);
+  font-size: 0;
+  box-shadow: 0 7px 14px rgba(18, 28, 24, 0.14);
+}
+
+body[data-view="database"] .database-priority-map .visual-point.is-selected span {
+  width: 48px;
+  height: 48px;
+  border-color: #111a17;
+  box-shadow:
+    0 0 0 6px rgba(0, 210, 146, 0.22),
+    0 20px 34px rgba(18, 28, 24, 0.24);
+}
+
+body[data-view="database"] .database-priority-map.is-dense .visual-point span {
+  width: 30px;
+  height: 30px;
+}
+
+body[data-view="database"] .database-priority-map.is-dense .visual-point.is-key span,
+body[data-view="database"] .database-priority-map.is-dense .visual-point.is-high-signal span {
+  width: 37px;
+  height: 37px;
+}
+
+body[data-view="database"] .database-priority-map .visual-point strong {
+  max-width: 118px;
+  border-color: rgba(24, 36, 31, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 20px rgba(18, 28, 24, 0.1);
+  padding: 5px 8px;
+  font-size: 0.66rem;
+}
+
+body[data-view="database"] .database-priority-map .visual-point:hover,
+body[data-view="database"] .database-priority-map .visual-point:focus-visible {
+  transform: translate(-50%, 50%) translateY(-2px);
+}
+
+body[data-view="database"] .category-proof-panel {
+  border-color: rgba(24, 36, 31, 0.1);
+  background:
+    linear-gradient(135deg, rgba(0, 210, 146, 0.05), rgba(110, 92, 255, 0.04)),
+    #fff;
+}
+
+@media (max-width: 900px) {
+  .database-visual-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-view="database"] .database-matrix-panel .visual-head {
+    align-items: start;
+    display: grid;
+    gap: 8px;
+  }
+
+  body[data-view="database"] .database-matrix-panel .visual-head p {
+    max-width: none;
+    text-align: left;
+  }
+
+  body[data-view="database"] .database-priority-map.visual-matrix,
+  body[data-mode="executive"][data-view="database"] .database-priority-map.visual-matrix {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 560px) {
+  .database-visual-stats {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="database"] .database-priority-map .matrix-zone,
+  body[data-view="database"] .database-priority-map .matrix-quadrant {
+    display: none;
+  }
+}
+
 /* Final print pass for the executive report: A4, compact, presentation-safe. */
 @media print {
   @page {
