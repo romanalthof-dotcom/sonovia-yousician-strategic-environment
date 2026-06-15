@@ -4345,6 +4345,14 @@ function normalizeMapViewBox(bounds, options = {}) {
   } else {
     width = height * aspect;
   }
+  if (options.maxWidth && width > options.maxWidth) {
+    width = options.maxWidth;
+    height = width / aspect;
+  }
+  if (options.maxHeight && height > options.maxHeight) {
+    height = options.maxHeight;
+    width = height * aspect;
+  }
   let x = cx - width / 2;
   let y = cy - height / 2;
   const minX = stage.x - 60;
@@ -4386,7 +4394,9 @@ function mapViewBoxFromNodes(nodeItems, basePlayers, visiblePlayers, compactMap)
   return normalizeMapViewBox(bounds, {
     padding: focused ? (focusNodes.length <= 2 ? 118 : focusNodes.length <= 8 ? 104 : focusNodes.length <= 18 ? 94 : 84) : 118,
     minWidth: state.mapZoomMode === "selected" ? 300 : focusNodes.length <= 3 ? 340 : focusNodes.length <= 8 ? 390 : focused ? 460 : 520,
-    minHeight: state.mapZoomMode === "selected" ? 210 : focusNodes.length <= 3 ? 238 : focusNodes.length <= 8 ? 274 : focused ? 322 : 364
+    minHeight: state.mapZoomMode === "selected" ? 210 : focusNodes.length <= 3 ? 238 : focusNodes.length <= 8 ? 274 : focused ? 322 : 364,
+    maxWidth: focused ? defaultBox.width : null,
+    maxHeight: focused ? defaultBox.height : null
   });
 }
 
