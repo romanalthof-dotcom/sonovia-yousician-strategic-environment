@@ -104,7 +104,7 @@ const players = [
     ownership: "Simply Ltd",
     ai: "Potential personalization and practice feedback research target",
     description: "Mobile-first music learning platform and direct reference point for casual learners.",
-    why: "Useful benchmark for onboarding, motivation, pricing, and growth in app-based music education.",
+    why: "Useful benchmark for onboarding, motivation, pricing, and growth in app based music education.",
     relevance: 5,
     momentum: 4,
     aiScore: 3,
@@ -522,7 +522,7 @@ const players = [
     ownership: "Public company",
     ai: "AI personalization, tutoring, and content systems research target",
     description: "Consumer learning benchmark for habit formation, gamification, and subscription education.",
-    why: "Not music-specific, but highly relevant for learning loops, retention, brand, and AI in education.",
+    why: "Not music specific, but highly relevant for learning loops, retention, brand, and AI in education.",
     relevance: 4,
     momentum: 4,
     aiScore: 4,
@@ -720,7 +720,7 @@ const players = [
     ownership: "To verify",
     ai: "News signal for AI, funding, product launches",
     description: "Technology media source for funding and startup momentum signals.",
-    why: "Useful for tracking last-24-month moves in AI, apps, funding, and acquisitions.",
+    why: "Useful for tracking last 24 month moves in AI, apps, funding, and acquisitions.",
     relevance: 2,
     momentum: 3,
     aiScore: 2,
@@ -1461,7 +1461,7 @@ const players = [
     name: "Musora",
     type: "Multi-instrument lesson ecosystem",
     category: "learning",
-    subcategory: "Drumeo, Pianote, Guitareo, Singeo, community, and app-based lessons",
+    subcategory: "Drumeo, Pianote, Guitareo, Singeo, community, and app based lessons",
     geography: "Global / Canada",
     reach: "Large online music lesson ecosystem",
     model: "Subscription lessons, memberships, and community",
@@ -1483,7 +1483,7 @@ const players = [
     name: "Fretello",
     type: "Guitar learning app",
     category: "learning",
-    subcategory: "Structured guitar lessons, personalized practice plans, and app-based feedback",
+    subcategory: "Structured guitar lessons, personalized practice plans, and app based feedback",
     geography: "Global / Europe",
     reach: "Specialist guitar app",
     model: "Subscription learning app",
@@ -1886,7 +1886,7 @@ const players = [
     ownership: "Private",
     ai: "Monitor AI music rights, platform policy, artist tools, and market shifts",
     description: "Music industry intelligence and analysis source for business, rights, platform, and AI developments.",
-    why: "A stronger music-specific monitoring source than general tech media for Yousician's environment.",
+    why: "A stronger music specific monitoring source than general tech media for Yousician's environment.",
     relevance: 3,
     momentum: 4,
     aiScore: 4,
@@ -2207,7 +2207,7 @@ const players = [
 ];
 
 const relations = [
-  { from: "Yousician", to: "simply", type: "competes", strength: 5, note: "Direct app-based learning benchmark." },
+  { from: "Yousician", to: "simply", type: "competes", strength: 5, note: "Direct app based learning benchmark." },
   { from: "Yousician", to: "fender-play", type: "competes", strength: 4, note: "Brand-backed guitar learning overlap." },
   { from: "Yousician", to: "ultimate-guitar", type: "influences", strength: 5, note: "Owns song discovery and tab-driven practice habits." },
   { from: "Yousician", to: "moises", type: "partners", strength: 4, note: "AI practice utility with possible complementarity." },
@@ -2412,7 +2412,7 @@ const sourceCards = [
   },
   {
     name: "Local live overrides",
-    use: "No-cache JSON layer for Appfigures metrics, traffic estimates, and Yousician relationship confirmations.",
+    use: "No cache JSON layer for Appfigures metrics, traffic estimates, and Yousician relationship confirmations.",
     cadence: "Whenever credentialed exports or internal notes are refreshed",
     status: "Implemented as data/live-overrides.json"
   },
@@ -2448,19 +2448,19 @@ const sourceCards = [
   },
   {
     name: "Manual research",
-    use: "Strategic assessment, why it matters, confidence, and board-ready interpretation.",
+    use: "Strategic assessment, why it matters, confidence, and board ready interpretation.",
     cadence: "Before review cycles",
     status: "Always required"
   },
   {
     name: "Research protocol",
-    use: "Every executive-facing claim should carry source, date, and confidence before it is treated as researched content.",
+    use: "Every executive facing claim should carry source, date, and confidence before it is treated as researched content.",
     cadence: "Required before board export",
-    status: "Addresses AI-generated draft risk"
+    status: "Addresses AI generated draft risk"
   },
   {
     name: "Export layer",
-    use: "Snapshot PDFs, board slides, player one-pagers, and research appendices.",
+    use: "Snapshot PDFs, board slides, player one pagers, and research appendices.",
     cadence: "On demand",
     status: "Can be automated later"
   }
@@ -3382,7 +3382,7 @@ function claimIntegrityFor(player) {
   const evidence = {
     label: evidenceLabel,
     tone: evidenceTone,
-    note: `${coverage.count} linked sources; ${coverage.officialCount} official/institutional/legal; ${coverage.verifiedCount} link-checked.`
+    note: `${coverage.count} linked sources; ${coverage.officialCount} official/institutional/legal; ${coverage.verifiedCount} link checked.`
   };
   const hasHypothesis = [ai, size, relationship, evidence].some((item) => item.tone === "hypothesis");
   const boardLanguage =
@@ -3489,7 +3489,7 @@ function evidenceSummarySection(player, context = "profile") {
       <span class="section-kicker">${title}</span>
       <div class="evidence-scoreline">
         <strong>Link coverage: ${escapeHtml(coverage.label)}</strong>
-        <span>${coverage.count} sources / ${coverage.highCount} high-tier / ${coverage.verifiedCount} link-checked</span>
+        <span>${coverage.count} sources / ${coverage.highCount} high tier / ${coverage.verifiedCount} link checked</span>
       </div>
       <p>${escapeHtml(coverage.record.summary)}</p>
       <div class="source-type-row">
@@ -3523,7 +3523,7 @@ function factClaimsFor(player) {
       text: player.description,
       basis: "Profile classification",
       kind: "Verified fact",
-      caveat: "Classification can be refined, but the entity/product description is source-checkable."
+      caveat: "Classification can be refined, but the entity/product description is source checkable."
     },
     {
       label: "Reach / geography",
@@ -3603,7 +3603,7 @@ function factPackSection(player, context = "profile") {
 
 function executiveAppfiguresNote(player) {
   return requiresCredentialedData(player)
-    ? "Credentialed Appfigures metrics are pending for app-based revenue, downloads, rank trend, review velocity, country mix, and 12-month performance. This profile should not be used as an app-performance ranking until those metrics are imported."
+    ? "Credentialed Appfigures metrics are pending for app based revenue, downloads, rank trend, review velocity, country mix, and 12 month performance. This profile should not be used as an app performance ranking until those metrics are imported."
     : "This profile is read primarily for ecosystem role, influence, and strategic relevance. Quantified performance should still be checked in the database before external use.";
 }
 
@@ -3611,9 +3611,9 @@ function executiveSignalText(text) {
   const normalized = String(text || "").trim();
   if (!normalized) return "Current market signal should be validated from current company, product, or news sources.";
   return normalized
-    .replace(/No board-grade recent-news item is used for this profile; source monitoring remains active\./gi, "No recent market move is prioritized in this profile; keep official product and news sources monitored.")
-    .replace(/Track rankings, revenue estimates, product launches, and funding or ownership signals\./gi, "App-performance ranking and growth claims remain pending credentialed Appfigures validation.")
-    .replace(/Potential personalization and practice feedback signal to monitor/gi, "Personalization and practice-feedback capabilities are relevant to watch.")
+    .replace(/No board[- ]grade recent[- ]news item is used for this profile; source monitoring remains active\./gi, "No recent market move is prioritized in this profile; keep official product and news sources monitored.")
+    .replace(/Track rankings, revenue estimates, product launches, and funding or ownership signals\./gi, "App performance ranking and growth claims remain pending credentialed Appfigures validation.")
+    .replace(/Potential personalization and practice feedback signal to monitor/gi, "Personalization and practice feedback capabilities are relevant to watch.")
     .replace(/\bresearch target\b/gi, "signal to monitor")
     .replace(/\bresearch\b/gi, "monitor");
 }
@@ -4384,7 +4384,7 @@ function renderMapSummaryStrip() {
       <small>${escapeHtml(strategicRole(selectedPlayer))}</small>
       <div>
         <button type="button" data-map-selected-action="profile">Profile</button>
-        <button type="button" data-map-selected-action="one-pager">One-pager</button>
+        <button type="button" data-map-selected-action="one-pager">One pager</button>
       </div>
     </div>
     <div class="map-summary-metrics" aria-label="Map summary metrics">
@@ -4651,7 +4651,7 @@ function renderStrategicImplications() {
       tone: "defend",
       count: coreThreats.length,
       body: "Learning and practice competitors are the closest risk because they compete for onboarding, repertoire, feedback, pricing, and repeat practice.",
-      action: "Compare onboarding, retention loops, song-catalog moments, and Appfigures trendlines before deciding product priorities.",
+      action: "Compare onboarding, retention loops, song catalog moments, and Appfigures trendlines before deciding product priorities.",
       players: coreThreats.slice(0, 5)
     },
     {
@@ -5140,11 +5140,11 @@ function renderProfile() {
       <h3>${executive ? "Key-player profile" : "Next action"}</h3>
       <p>${
         executive
-          ? "Open the structured one-pager for role, scale, recent signal, Yousician relevance, and why this player matters."
+          ? "Open the structured one pager for role, scale, recent signal, Yousician relevance, and why this player matters."
           : `${escapeHtml(nextAction(player))}. ${escapeHtml(player.recent)}`
       }</p>
       <div class="profile-actions">
-        <button class="primary-button" data-profile-action="one-pager" type="button">One-pager</button>
+        <button class="primary-button" data-profile-action="one-pager" type="button">One pager</button>
         <button class="ghost-button" data-profile-action="database" type="button">Database</button>
       </div>
     </section>
@@ -5231,7 +5231,7 @@ function renderInsights() {
           </article>
         `
       )
-      .join("") || emptyState("No AI-relevant players in this filter.");
+      .join("") || emptyState("No AI relevant players in this filter.");
 
   const filteredIds = new Set(filtered.map((player) => player.id));
   const moveItems = strategicMoves
@@ -5327,7 +5327,7 @@ function renderBriefReadiness() {
     {
       label: "Appfigures",
       value: credentialedRows ? `${credentialedRows} credentialed` : "Pending",
-      note: `${liveDataQueue} app-based records still require credentialed performance metrics`,
+      note: `${liveDataQueue} app based records still require credentialed performance metrics`,
       state: "partial"
     }
   ];
@@ -5597,7 +5597,7 @@ function marketMonitorModel(filteredPlayers, keyPlayers) {
     {
       label: "Key players",
       value: keyPlayers.length,
-      note: "ranked for one-pagers"
+      note: "ranked for one pagers"
     },
     {
       label: "AI / creation",
@@ -6225,7 +6225,7 @@ function renderKeyPlayers() {
                 <span class="badge">${escapeHtml(strategicRole(player))}</span>
                 <span class="badge">${escapeHtml(player.geography)}</span>
               </div>
-              <span class="player-card-link">Open one-pager</span>
+              <span class="player-card-link">Open one pager</span>
             </div>
           </article>
         `
@@ -6237,7 +6237,7 @@ function renderKeyPlayers() {
       <div class="directory-head">
         <div>
           <span class="section-kicker">Priority profiles</span>
-          <h3>Key-player one-pager cards</h3>
+          <h3>Key player one pager cards</h3>
         </div>
         <span>${keyPlayers.length} key players</span>
       </div>
@@ -6279,7 +6279,7 @@ function renderOnePager() {
     <article class="one-pager-sheet" style="--onepager-accent:${category.color}">
       <header class="one-pager-hero">
         <div>
-          <span class="section-kicker">Key player one-pager</span>
+          <span class="section-kicker">Key player one pager</span>
           <h2>${escapeHtml(player.name)}</h2>
           <p>${escapeHtml(player.description)}</p>
           <div class="badge-row">
@@ -6326,7 +6326,7 @@ function renderOnePager() {
               <span><strong>${coverage.publicCount}</strong> public</span>
               <span><strong>${coverage.internalCount}</strong> internal</span>
               <span><strong>${coverage.officialCount}</strong> official</span>
-              <span><strong>${coverage.highCount}</strong> high-tier</span>
+              <span><strong>${coverage.highCount}</strong> high tier</span>
             </div>
             ${openQuestionsHtml(coverage.openQuestions, 2)}
           </article>
@@ -6379,17 +6379,17 @@ function renderDatabaseStats() {
     ? [
         ["Records in view", filtered.length, "after selected filters"],
         ["Key players", keyCount, "priority profiles"],
-        ["Brief categories", 12, "brief-requested categories"],
+        ["Brief categories", 12, "brief requested categories"],
         ["Linked sources", linkedSourceCount, sourceNote],
         [
           "Appfigures note",
           appfiguresRows ? `${appfiguresRows} credentialed` : "Pending",
-          `${credentialQueueCount} app-based records require credentialed metrics`
+          `${credentialQueueCount} app based records require credentialed metrics`
         ],
         ["Relationship space", "Prepared", "internal status not inferred externally"],
-        ["AI-relevant", aiCount, "high AI signal records"],
+        ["AI relevant", aiCount, "high AI signal records"],
         ["Market signals", signalCount, "news, media, funding, awards"],
-        ["Evidence coverage", avgQuality, "linked-source coverage"]
+        ["Evidence coverage", avgQuality, "linked source coverage"]
       ]
     : [
     ["Records in view", filtered.length, "after global filters"],
@@ -6520,7 +6520,7 @@ function databaseCardHtml(player) {
     const category = categoryById(player.category);
     const quality = qualityProfile(player);
     const completionNeed = requiresCredentialedData(player)
-      ? "Credentialed Appfigures metrics required before app-performance ranking."
+      ? "Credentialed Appfigures metrics required before app performance ranking."
       : relationForPlayer(player)
         ? relationshipCompletionText()
         : nextAction(player);
@@ -7195,7 +7195,7 @@ function renderSourceVisuals() {
                   <span>${data.count}</span>
                 </header>
                 <div><span></span></div>
-                <small>${data.used} mapped to players / ${data.high} high-tier</small>
+                <small>${data.used} mapped to players / ${data.high} high tier</small>
               </article>
             `
           )
@@ -7336,8 +7336,8 @@ function renderBackendOps() {
       <header>
         <div>
           <span class="section-kicker">Local backend</span>
-          <h3>Live review-gated backend is connected.</h3>
-          <p>CSV source-of-truth, SQLite operational cache and rebuild actions are available from the dashboard.</p>
+          <h3>Live review gated backend is connected.</h3>
+          <p>CSV source of truth, SQLite operational cache and rebuild actions are available from the dashboard.</p>
         </div>
         <span class="backend-status-pill">${escapeHtml(backendStatusLabel())}</span>
       </header>
@@ -7380,7 +7380,7 @@ function renderBackendOps() {
       <section class="backend-review-card">
         <div class="backend-section-head">
           <strong>Open review queue</strong>
-          <span>${openReviews.length ? "First five review-gated changes" : "No open rows loaded"}</span>
+          <span>${openReviews.length ? "First five review gated changes" : "No open rows loaded"}</span>
         </div>
         <div class="backend-review-list">
           ${
@@ -7846,7 +7846,7 @@ function renderExportSnapshot() {
     ["AI companies and AI initiatives", "Covered", "Suno, Music.AI/Moises, Udio, ElevenLabs and rights infrastructure are visible."],
     ["Awards", "Covered", "Award opportunities are tracked separately from funding."],
     ["Funding", "Covered", "Public, EU/Finnish and innovation funding options are tracked separately from investors."],
-    ["Last 24 months on the market", "Covered", `${exportMetrics.boardMoves} news-grade moves capture funding, AI, rights, partnerships and platform shifts.`]
+    ["Last 24 months on the market", "Covered", `${exportMetrics.boardMoves} news grade moves capture funding, AI, rights, partnerships and platform shifts.`]
   ];
   const successTypes = [
     ["Direct app benchmark", "Simply / JoyTunes", "Closest benchmark for onboarding, motivation, subscription learning and beginner conversion. Appfigures still required for performance ranking."],
@@ -7860,7 +7860,7 @@ function renderExportSnapshot() {
   const completionNotes = [
     ["Appfigures", "Credentialed input", "App-performance fields are prepared for Appfigures import; the report avoids invented revenue, download, ranking or country estimates."],
     ["Relationships", "Internal input", "Relationship owner/status fields are prepared in the workbook and intentionally left open for Yousician completion."],
-    ["Sources", "Traceable", "Market observations retain source context; deeper source audit remains appendix-only."]
+    ["Sources", "Traceable", "Market observations retain source context; deeper source audit remains appendix only."]
   ];
   const deliverables = [
     ["Executive deck", "./deliverables/Yousician%20Strategic%20Environment%20Executive%20Summary%20v3.9.pptx", "Primary slide deck"],
@@ -7880,7 +7880,7 @@ function renderExportSnapshot() {
     ],
     [
       "Who shapes the strategic environment?",
-      "AI companies, rights owners, app-based learning competitors, hardware brands, creator platforms, publishers, investors, funding bodies, awards, media, and education benchmarks."
+      "AI companies, rights owners, app based learning competitors, hardware brands, creator platforms, publishers, investors, funding bodies, awards, media, and education benchmarks."
     ]
   ];
   const clipText = (value, limit = 160) => {
@@ -8005,7 +8005,7 @@ function renderExportSnapshot() {
       </article>
       <article>
         <strong>Appendix availability</strong>
-        <p>Dashboard and source-audit appendix files are available on request, but are not part of the first-read package.</p>
+        <p>Dashboard and source-audit appendix files are available on request, but are not part of the first read package.</p>
       </article>
     </div>
   `;
@@ -8097,7 +8097,7 @@ function renderExportSnapshot() {
       .join("");
     return `
       <div class="export-key-matrix">${groups}</div>
-      <p class="export-note">Detailed one-player evidence remains in the full appendix and workbook. The first-read version keeps all 28 key players visible without turning the executive report into a database dump.</p>
+      <p class="export-note">Detailed one-player evidence remains in the full appendix and workbook. The first read version keeps all 28 key players visible without turning the executive report into a database dump.</p>
     `;
   };
   const renderEcosystemMap = () => `
@@ -8122,7 +8122,7 @@ function renderExportSnapshot() {
         `)
         .join("")}
     </div>
-    <p class="export-note">This first-read timeline shows the most recent selected moves. The workbook and full report retain the wider 49-move evidence base; direct app performance still depends more heavily on Appfigures than press volume.</p>
+    <p class="export-note">This first read timeline shows the most recent selected moves. The workbook and full report retain the wider 49 move evidence base; direct app performance still depends more heavily on Appfigures than press volume.</p>
   `;
   const renderDecisionGates = () => `
     <div class="export-gate-grid">
@@ -8145,7 +8145,7 @@ function renderExportSnapshot() {
       </article>
       <article>
         <strong>What is deliberately not claimed</strong>
-        <p>Deep product UX reviews, invented Appfigures estimates, inferred relationships, or app-performance winners.</p>
+        <p>Deep product UX reviews, invented Appfigures estimates, inferred relationships, or app performance winners.</p>
       </article>
     </div>
   `;
@@ -8237,11 +8237,11 @@ function renderExportSnapshot() {
       </article>
       <article>
         <strong>Market moves</strong>
-        <p>${exportMetrics.boardMoves} news-grade market moves are separated from appendix/context items so the main story stays news-led.</p>
+        <p>${exportMetrics.boardMoves} news grade market moves are separated from appendix/context items so the main story stays news-led.</p>
       </article>
       <article>
         <strong>Source audit</strong>
-        <p>${sourceQa.verified} sources are link-checked; ${sourceQa.auth + sourceQa.manual + sourceQa.repair} rows need auth, manual access, or replacement handling.</p>
+        <p>${sourceQa.verified} sources are link checked; ${sourceQa.auth + sourceQa.manual + sourceQa.repair} rows need auth, manual access, or replacement handling.</p>
       </article>
     </div>
   `;
@@ -8257,8 +8257,8 @@ function renderExportSnapshot() {
     addSection("Package contents", "The deck, report, database and completion templates form the current package.", renderDeliverables(), "export-package-section", "export-files");
   } else {
     addSection("Direct answers to the guiding questions", "The three guiding questions are answered before any supporting detail.", renderDirectAnswers(), "", "export-answers");
-    addSection("Priority actors and success surfaces", "Top actors first; success is shown by influence surface, not by unvalidated app-performance ranking.", `${renderPriorityActors()}${renderSuccessTypes()}`, "export-priority-section", "export-priority");
-    addSection("All 28 key players at a glance", "Every key player is visible without turning the first-read export into a long database appendix.", renderKeyPlayerProof(false), "export-key-matrix-section", "export-players");
+    addSection("Priority actors and success surfaces", "Top actors first; success is shown by influence surface, not by unvalidated app performance ranking.", `${renderPriorityActors()}${renderSuccessTypes()}`, "export-priority-section", "export-priority");
+    addSection("All 28 key players at a glance", "Every key player is visible without turning the first read export into a long database appendix.", renderKeyPlayerProof(false), "export-key-matrix-section", "export-players");
     addSection("Ecosystem map and category coverage", "Visual map plus the requested brief categories.", renderEcosystemMap(), "export-map-section", "export-map");
     addSection("Brief category coverage", "The requested categories are shown individually, not collapsed into broad buckets.", renderBriefRequirements(), "", "export-coverage");
     addSection("Last 24 months on the market", "A compact view of who made the news for what.", renderMarketMoves(), "", "export-moves");
@@ -8289,18 +8289,18 @@ function renderExportSnapshot() {
         <aside class="export-cover-card">
           <strong>Report status</strong>
           <span>${escapeHtml(selectedLength.printLabel)}</span>
-          <p>Submission-ready first read with explicit completion fields for credentialed Appfigures and internal relationship inputs.</p>
+          <p>Submission ready first read with explicit completion fields for credentialed Appfigures and internal relationship inputs.</p>
         </aside>
       </div>
       ${renderReadoutStrip()}
       <div class="export-stat-row">
         <strong>${exportMetrics.players} tracked records</strong>
         <strong>${exportMetrics.keyPlayers} key players</strong>
-        <strong>${exportMetrics.boardMoves} news-grade moves</strong>
+        <strong>${exportMetrics.boardMoves} news grade moves</strong>
         <strong>${exportMetrics.briefCategories} brief categories</strong>
         <strong>${exportMetrics.guidingQuestions} guiding questions answered</strong>
       </div>
-      <p class="export-note">This report follows the requested structure: ecosystem map, key players, database, relationship fields, guiding answers and last-24-month market moves. Appfigures and internal relationship inputs remain explicit completion layers.</p>
+      <p class="export-note">This report follows the requested structure: ecosystem map, key players, database, relationship fields, guiding answers and last 24 month market moves. Appfigures and internal relationship inputs remain explicit completion layers.</p>
     </header>
     ${sections
       .map(
@@ -8361,6 +8361,50 @@ function requestReportNavigationSync() {
   requestReportNavigationSync.frame = window.requestAnimationFrame(syncReportNavigationState);
 }
 
+let textDashNormalizationQueued = false;
+let textDashObserverInstalled = false;
+
+function normalizeTextDashes(root = document.body) {
+  if (!root) return;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  let node = walker.nextNode();
+  while (node) {
+    const parent = node.parentElement;
+    if (
+      parent &&
+      !parent.closest("script, style, textarea, input, select, option, code, pre") &&
+      /[-‐‑‒–—]/.test(node.nodeValue || "")
+    ) {
+      nodes.push(node);
+    }
+    node = walker.nextNode();
+  }
+  nodes.forEach((textNode) => {
+    textNode.nodeValue = textNode.nodeValue.replace(/\s*[-‐‑‒–—]\s*/g, " ");
+  });
+}
+
+function scheduleTextDashNormalization(root = document.body) {
+  if (textDashNormalizationQueued) return;
+  textDashNormalizationQueued = true;
+  window.requestAnimationFrame(() => {
+    textDashNormalizationQueued = false;
+    normalizeTextDashes(root);
+  });
+}
+
+function installTextDashNormalizer() {
+  if (textDashObserverInstalled || !document.body) return;
+  textDashObserverInstalled = true;
+  const observer = new MutationObserver(() => scheduleTextDashNormalization());
+  observer.observe(document.body, {
+    childList: true,
+    characterData: true,
+    subtree: true
+  });
+}
+
 function renderAll() {
   renderKpis();
   renderFilters();
@@ -8384,6 +8428,7 @@ function renderAll() {
   renderSources();
   renderExportSnapshot();
   syncInteractionState();
+  scheduleTextDashNormalization();
 }
 
 function downloadCsv() {
@@ -8929,6 +8974,7 @@ function shouldLoadBackendStatus() {
   return false;
 }
 
+installTextDashNormalizer();
 bindEvents();
 applyUrlExportMode();
 renderAll();
