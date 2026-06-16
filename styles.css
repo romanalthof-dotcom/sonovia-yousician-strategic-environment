@@ -15451,3 +15451,243 @@ body[data-view="overview"] .map-size-row button {
     grid-column: auto;
   }
 }
+
+/* Layout refinement pass: make the map the primary working surface */
+body[data-view="overview"] .map-panel {
+  padding: 14px;
+}
+
+body[data-view="overview"] .map-panel > .panel-header {
+  grid-template-columns: minmax(0, 1fr);
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+}
+
+body[data-view="overview"] .map-title-block p,
+body[data-view="overview"] .focus-lenses,
+body[data-view="overview"] .map-legend,
+body[data-view="overview"] .map-mode-row,
+body[data-view="overview"] .map-category-rail,
+body[data-view="overview"] .map-summary-metrics {
+  display: none !important;
+}
+
+body[data-view="overview"] .journey-blueprint {
+  grid-template-columns: repeat(7, minmax(84px, 1fr));
+  gap: 4px;
+  margin: 0 0 8px;
+  padding: 4px 0 1px;
+}
+
+body[data-view="overview"] .journey-blueprint-step {
+  min-width: 0;
+  gap: 4px;
+}
+
+body[data-view="overview"] .journey-blueprint-icon {
+  width: 40px;
+  height: 40px;
+}
+
+body[data-view="overview"] .journey-blueprint-icon::after {
+  bottom: -5px;
+  width: 11px;
+  height: 11px;
+}
+
+body[data-view="overview"] .journey-blueprint-icon svg,
+body[data-view="overview"] .journey-icon-fallback {
+  width: 21px;
+  height: 21px;
+}
+
+body[data-view="overview"] .journey-blueprint-card {
+  gap: 2px;
+  min-height: 58px;
+  padding: 8px 9px 7px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%, 8px 50%);
+}
+
+body[data-view="overview"] .journey-blueprint-step:first-child .journey-blueprint-card {
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+}
+
+body[data-view="overview"] .journey-blueprint-step:last-child .journey-blueprint-card {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 8px 50%);
+}
+
+body[data-view="overview"] .journey-blueprint-card strong {
+  font-size: 0.66rem;
+}
+
+body[data-view="overview"] .journey-blueprint-card small {
+  display: -webkit-box;
+  font-size: 0.57rem;
+  line-height: 1.08;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+body[data-view="overview"] .journey-blueprint-card em {
+  font-size: 0.5rem;
+}
+
+body[data-view="overview"] .map-summary-strip {
+  grid-template-columns: minmax(210px, 0.85fr) minmax(330px, 1.15fr) minmax(240px, 0.82fr) !important;
+  grid-template-areas: "selected size zoom" !important;
+  gap: 6px !important;
+  margin-bottom: 8px !important;
+}
+
+body[data-view="overview"] .map-selected-card {
+  grid-area: selected;
+}
+
+body[data-view="overview"] .map-size-row {
+  grid-area: size;
+}
+
+body[data-view="overview"] .map-zoom-row {
+  grid-area: zoom;
+}
+
+body[data-view="overview"] .map-size-row,
+body[data-view="overview"] .map-zoom-row,
+body[data-view="overview"] .map-selected-card {
+  min-height: 38px;
+  padding: 5px 6px;
+}
+
+body[data-view="overview"] .map-size-row > span,
+body[data-view="overview"] .map-size-row small,
+body[data-view="overview"] .map-selected-card > span,
+body[data-view="overview"] .map-selected-card > small {
+  display: none !important;
+}
+
+body[data-view="overview"] .map-size-row > div {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
+
+body[data-view="overview"] .map-zoom-row {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+body[data-view="overview"] .map-zoom-row .map-reset-button {
+  grid-column: auto !important;
+}
+
+body[data-view="overview"] .map-selected-card > div {
+  grid-row: 1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+body[data-view="overview"] .map-size-row button,
+body[data-view="overview"] .map-zoom-row button,
+body[data-view="overview"] .map-selected-card button {
+  min-height: 28px;
+  padding: 4px 6px;
+  font-size: 0.58rem;
+}
+
+body[data-view="overview"] .map-size-row button {
+  white-space: nowrap;
+}
+
+body[data-view="overview"] .map-workbench,
+body[data-mode="executive"][data-view="overview"] .map-workbench {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+body[data-view="overview"] .map-wrap,
+body[data-mode="executive"][data-view="overview"] .map-wrap {
+  min-height: clamp(540px, 58vh, 660px);
+}
+
+body[data-view="overview"] #ecosystemMap,
+body[data-mode="executive"][data-view="overview"] #ecosystemMap {
+  height: clamp(540px, 58vh, 660px);
+}
+
+body[data-view="overview"] .map-company-picker,
+body[data-mode="executive"][data-view="overview"] .map-company-picker {
+  max-height: 118px;
+  padding: 7px;
+}
+
+body[data-view="overview"] .map-picker-head {
+  padding-bottom: 6px;
+}
+
+body[data-view="overview"] .map-picker-list,
+body[data-mode="executive"][data-view="overview"] .map-picker-list {
+  grid-template-columns: repeat(auto-fit, minmax(188px, 1fr)) !important;
+}
+
+body[data-view="overview"] .map-picker-row {
+  min-height: 36px;
+  padding: 5px 7px;
+}
+
+body[data-view="overview"] .map-picker-row small {
+  display: none;
+}
+
+@media (max-width: 1180px) {
+  body[data-view="overview"] .map-summary-strip {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    grid-template-areas:
+      "selected zoom"
+      "size size" !important;
+  }
+
+  body[data-view="overview"] .journey-blueprint {
+    grid-template-columns: repeat(7, minmax(112px, 1fr));
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-view="overview"] .view-tabs {
+    display: flex !important;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 4px;
+    scrollbar-width: thin;
+  }
+
+  body[data-view="overview"] .tab-button {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 108px;
+    min-height: 38px;
+    padding: 0 12px;
+  }
+
+  body[data-view="overview"] .journey-blueprint {
+    grid-template-columns: repeat(7, minmax(136px, 1fr));
+  }
+
+  body[data-view="overview"] .map-summary-strip {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-areas:
+      "selected"
+      "zoom" !important;
+  }
+
+  body[data-view="overview"] .map-size-row {
+    display: none !important;
+  }
+
+  body[data-view="overview"] .map-wrap,
+  body[data-mode="executive"][data-view="overview"] .map-wrap {
+    min-height: 480px;
+  }
+
+  body[data-view="overview"] #ecosystemMap,
+  body[data-mode="executive"][data-view="overview"] #ecosystemMap {
+    height: 480px;
+    min-width: 720px;
+  }
+}

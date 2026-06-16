@@ -5045,7 +5045,7 @@ function clearFilterById(filterId) {
   if (filterId === "database") state.dbSegment = "all";
   if (filterId === "mapFocus") state.mapFocusMode = "all";
   if (filterId === "mapZoom") state.mapZoomMode = "auto";
-  if (filterId === "bubbleSize") state.bubbleSizeMode = "strategic";
+  if (filterId === "bubbleSize") state.bubbleSizeMode = "business";
   if (filterId === "query" && els.searchInput) els.searchInput.value = "";
   markMapFilterChanged();
   renderAll();
@@ -5068,7 +5068,7 @@ function renderActiveFilterStrip() {
   if (state.minRelevance > 1) chips.push({ id: "relevance", label: "Relevance", value: `${state.minRelevance}+` });
   if (state.mapFocusMode !== "all") chips.push({ id: "mapFocus", label: "Map", value: mapFocusModeById(state.mapFocusMode).label });
   if (state.mapZoomMode !== "auto") chips.push({ id: "mapZoom", label: "View", value: mapZoomLabel() });
-  if (state.bubbleSizeMode !== "strategic") {
+  if (state.bubbleSizeMode !== "business") {
     chips.push({ id: "bubbleSize", label: "Bubble size", value: bubbleSizeModeById(state.bubbleSizeMode).shortLabel });
   }
   if (state.monitorSegment !== "all") {
