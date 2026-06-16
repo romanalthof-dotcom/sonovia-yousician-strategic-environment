@@ -10953,6 +10953,17 @@ tr[data-id].is-selected td:first-child {
   box-shadow: inset 4px 0 0 var(--brand);
 }
 
+.database-limit-note {
+  border-style: dashed;
+  background: rgba(0, 210, 146, 0.05);
+}
+
+.database-limit-row td {
+  color: rgba(24, 36, 31, 0.62);
+  font-weight: 850;
+  text-align: center;
+}
+
 .map-node {
   transition:
     opacity 140ms ease,

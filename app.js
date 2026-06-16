@@ -6020,7 +6020,7 @@ function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center) {
 
 function renderMap() {
   const svg = els.ecosystemMap;
-  svg.innerHTML = "";
+  const fragment = document.createDocumentFragment();
   const compactMap = (svg.clientWidth || window.innerWidth) < 520;
   const center = { x: 500, y: 342 };
   const basePlayers = getFilteredPlayers();
@@ -6072,8 +6072,8 @@ function renderMap() {
   radial.appendChild(createSvg("stop", { offset: "72%", "stop-color": "#f7fbf8", "stop-opacity": "1" }));
   radial.appendChild(createSvg("stop", { offset: "100%", "stop-color": "#edf4ef", "stop-opacity": "1" }));
   defs.appendChild(radial);
-  svg.appendChild(defs);
-  svg.appendChild(createSvg("rect", { x: 16, y: 18, width: 968, height: 664, rx: 28, class: "map-stage" }));
+  fragment.appendChild(defs);
+  fragment.appendChild(createSvg("rect", { x: 16, y: 18, width: 968, height: 664, rx: 28, class: "map-stage" }));
 
   const lensLayer = createSvg("g", { class: "map-lens-field-layer" });
   [
@@ -6092,21 +6092,21 @@ function renderMap() {
   ].forEach((field) => {
     lensLayer.appendChild(createSvg("path", { d: field.d, class: `map-lens-field ${field.className}` }));
   });
-  svg.appendChild(lensLayer);
+  fragment.appendChild(lensLayer);
 
   [
     [144, "core overlap"],
     [228, "adjacent ecosystem"],
     [306, "market signals"]
   ].forEach(([radius, label], index) => {
-    svg.appendChild(createSvg("circle", { cx: center.x, cy: center.y, r: radius, class: "map-ring" }));
+    fragment.appendChild(createSvg("circle", { cx: center.x, cy: center.y, r: radius, class: "map-ring" }));
     const ringLabel = createSvg("text", { x: center.x + radius - 10, y: center.y - 8 - index * 12, class: "ring-label" });
     ringLabel.textContent = label;
-    svg.appendChild(ringLabel);
+    fragment.appendChild(ringLabel);
   });
 
   const arcLayer = createSvg("g", { class: "category-arc-layer" });
-  svg.appendChild(arcLayer);
+  fragment.appendChild(arcLayer);
   byCategory.forEach(({ category, layout }) => {
     const metric = metricsByCategory.get(category.id);
     const spread = state.selectedCategory === "all" ? 18 : 24;
@@ -6121,7 +6121,7 @@ function renderMap() {
   });
 
   const connectionLayer = createSvg("g", { class: "connection-layer" });
-  svg.appendChild(connectionLayer);
+  fragment.appendChild(connectionLayer);
 
   byCategory.forEach(({ category, players: categoryPlayers, hiddenCount, x, y, layout }) => {
     if (!categoryPlayers.length && state.selectedCategory !== "all") return;
@@ -6166,7 +6166,7 @@ function renderMap() {
     count.textContent = `${categoryPlayers.length} records / ${keyCount} key`;
     cluster.appendChild(count);
 
-    svg.appendChild(cluster);
+    fragment.appendChild(cluster);
 
     categoryPlayers.forEach((player, idx) => {
       const nodeItem = nodePositions.get(player.id);
@@ -6275,7 +6275,7 @@ function renderMap() {
           flashElement(els.mapSummaryStrip);
         }
       });
-      svg.appendChild(node);
+      fragment.appendChild(node);
     });
   });
 
@@ -6288,7 +6288,8 @@ function renderMap() {
   const hubSub = createSvg("text", { x: center.x, y: center.y + 16, class: "hub-label hub-sub", opacity: 0.8 });
   hubSub.textContent = "strategic center";
   hub.appendChild(hubSub);
-  svg.appendChild(hub);
+  fragment.appendChild(hub);
+  svg.replaceChildren(fragment);
 }
 
 function renderProfile() {
@@ -7912,14 +7913,27 @@ function taxonomyCell(player) {
   `;
 }
 
-function renderDatabase() {
-  renderDatabaseStats();
-  renderDatabaseSegments();
-  const rows = getDatabasePlayers();
-  renderDatabaseVisuals(rows);
+function databaseRowsForCurrentMode(rows) {
+  if (!isExecutiveMode()) return rows;
+  return rows.slice(0, 36);
+}
+
+function renderDatabaseLists(rows, totalRows) {
+  const limited = rows.length < totalRows;
+  const limitNote = limited
+    ? `<article class="database-record-card database-limit-note">
+        <header>
+          <div>
+            <strong>${rows.length} of ${totalRows} shown</strong>
+            <span>Executive view is intentionally capped for faster scanning.</span>
+          </div>
+        </header>
+        <p>Use filters, search, or Research mode when the full long tail is needed.</p>
+      </article>`
+    : "";
   if (els.databaseCards) {
     els.databaseCards.innerHTML =
-      rows.map(databaseCardHtml).join("") || emptyState("No records match the current database segment.");
+      rows.map(databaseCardHtml).join("") + limitNote || emptyState("No records match the current database segment.");
     els.databaseCards.querySelectorAll("[data-id]").forEach((cardEl) => {
       const openRecord = () => {
         selectPlayer(cardEl.dataset.id);
@@ -7990,7 +8004,14 @@ function renderDatabase() {
           </tr>
         `;
       })
-      .join("") || `<tr><td colspan="10">${emptyState("No records match the current database segment.")}</td></tr>`;
+      .join("") ||
+    `<tr><td colspan="10">${emptyState("No records match the current database segment.")}</td></tr>`;
+  if (limited) {
+    els.databaseRows.insertAdjacentHTML(
+      "beforeend",
+      `<tr class="database-limit-row"><td colspan="10">Showing ${rows.length} of ${totalRows} records in executive mode. Switch to Research mode or narrow the filters for the full database.</td></tr>`
+    );
+  }
 
   els.databaseRows.querySelectorAll("tr[data-id]").forEach((row) => {
     const openRow = () => {
@@ -8005,6 +8026,15 @@ function renderDatabase() {
       }
     });
   });
+}
+
+function renderDatabase() {
+  renderDatabaseStats();
+  renderDatabaseSegments();
+  const rows = getDatabasePlayers();
+  const displayRows = databaseRowsForCurrentMode(rows);
+  renderDatabaseVisuals(displayRows);
+  renderDatabaseLists(displayRows, rows.length);
 }
 
 function renderRelationshipValidationPanel() {
@@ -9064,14 +9094,69 @@ function scrollActiveViewIntoPlace(view, options = {}) {
   }
 }
 
-function selectPlayer(id, options = {}) {
-  state.selectedPlayerId = id;
-  renderMapSummaryStrip();
-  renderMapCompanyPicker();
-  renderMap();
-  renderProfile();
-  renderOnePager();
+function scheduleMapRender() {
+  window.cancelAnimationFrame(scheduleMapRender.frame);
+  scheduleMapRender.frame = window.requestAnimationFrame(() => {
+    scheduleMapRender.frame = null;
+    renderMap();
+    syncInteractionState();
+  });
+}
+
+function scheduleRenderAll(afterRender) {
+  window.cancelAnimationFrame(scheduleRenderAll.frame);
+  scheduleRenderAll.afterRender = afterRender;
+  scheduleRenderAll.frame = window.requestAnimationFrame(() => {
+    scheduleRenderAll.frame = null;
+    const callback = scheduleRenderAll.afterRender;
+    scheduleRenderAll.afterRender = null;
+    renderAll();
+    callback?.();
+  });
+}
+
+function isDeferredRenderView(view) {
+  return ["key-players", "database", "relationships", "sources"].includes(view);
+}
+
+function completeViewRender(options = {}) {
+  renderActiveFilterStrip();
   syncInteractionState();
+  refreshLucideIcons();
+  scheduleTextDashNormalization(activeViewElement());
+  if (options.scroll !== false) {
+    window.requestAnimationFrame(() => scrollActiveViewIntoPlace(state.view, options));
+  }
+}
+
+function scheduleActiveViewRender(options = {}) {
+  const target = document.getElementById(`${state.view}View`);
+  target?.setAttribute("aria-busy", "true");
+  window.clearTimeout(scheduleActiveViewRender.timer);
+  scheduleActiveViewRender.timer = window.setTimeout(() => {
+    scheduleActiveViewRender.timer = null;
+    renderActiveView();
+    target?.removeAttribute("aria-busy");
+    completeViewRender(options);
+  }, 180);
+}
+
+function selectPlayer(id, options = {}) {
+  if (!players.some((player) => player.id === id)) return;
+  if (state.selectedPlayerId === id && !options.force) {
+    if (options.revealProfile) window.requestAnimationFrame(() => revealSelectedProfile(options));
+    return;
+  }
+  state.selectedPlayerId = id;
+  syncInteractionState();
+  if (state.view === "overview") {
+    renderMapSummaryStrip();
+    renderMapCompanyPicker();
+    renderProfile();
+    scheduleMapRender();
+  } else if (state.view === "one-pager") {
+    renderOnePager();
+  }
   if (options.revealProfile) {
     window.requestAnimationFrame(() => revealSelectedProfile(options));
   }
@@ -9087,12 +9172,14 @@ function switchView(view, options = {}) {
   }
   applyViewState(view);
   if (!options.skipUrl) syncWorkspaceUrl({ push: options.pushUrl !== false });
-  if (state.view === "relationships") renderRelationshipGraph();
-  if (state.view === "one-pager") renderOnePager();
-  syncInteractionState();
-  if (options.scroll !== false) {
-    window.requestAnimationFrame(() => scrollActiveViewIntoPlace(state.view, options));
+  if (isDeferredRenderView(state.view)) {
+    renderActiveFilterStrip();
+    syncInteractionState();
+    scheduleActiveViewRender(options);
+    return;
   }
+  renderActiveView();
+  completeViewRender(options);
 }
 
 function clonedMapMarkup() {
@@ -9679,7 +9766,6 @@ function requestReportNavigationSync() {
 }
 
 let textDashNormalizationQueued = false;
-let textDashObserverInstalled = false;
 
 function normalizeTextDashes(root = document.body) {
   if (!root) return;
@@ -9711,22 +9797,11 @@ function scheduleTextDashNormalization(root = document.body) {
   });
 }
 
-function installTextDashNormalizer() {
-  if (textDashObserverInstalled || !document.body) return;
-  textDashObserverInstalled = true;
-  const observer = new MutationObserver(() => scheduleTextDashNormalization());
-  observer.observe(document.body, {
-    childList: true,
-    characterData: true,
-    subtree: true
-  });
+function activeViewElement() {
+  return document.getElementById(`${state.view}View`) || document.body;
 }
 
-function renderAll() {
-  renderKpis();
-  renderFilters();
-  renderActiveFilterStrip();
-  renderLegend();
+function renderOverviewView() {
   renderJourneyBlueprint();
   renderMapSummaryStrip();
   renderMapCompanyPicker();
@@ -9738,16 +9813,45 @@ function renderAll() {
   renderInsights();
   renderStrategicImplications();
   renderPortfolioVisual();
-  renderKeyPlayers();
-  renderOnePager();
-  renderDatabase();
-  renderRelationshipValidationPanel();
-  renderRelationshipGraph();
-  renderSources();
-  renderExportSnapshot();
+}
+
+function renderActiveView() {
+  if (state.view === "overview") {
+    renderOverviewView();
+    return;
+  }
+  if (state.view === "key-players") {
+    renderKeyPlayers();
+    return;
+  }
+  if (state.view === "one-pager") {
+    renderOnePager();
+    return;
+  }
+  if (state.view === "database") {
+    renderDatabase();
+    return;
+  }
+  if (state.view === "relationships") {
+    renderRelationshipValidationPanel();
+    renderRelationshipGraph();
+    return;
+  }
+  if (state.view === "sources") {
+    renderSources();
+  }
+}
+
+function renderAll() {
+  renderKpis();
+  renderFilters();
+  renderActiveFilterStrip();
+  renderLegend();
+  renderActiveView();
+  if (document.body.dataset.printTarget === "brief-export") renderExportSnapshot();
   syncInteractionState();
   refreshLucideIcons();
-  scheduleTextDashNormalization();
+  scheduleTextDashNormalization(activeViewElement());
 }
 
 function downloadCsv() {
@@ -10185,15 +10289,15 @@ function bindEvents() {
   els.priorityRange.addEventListener("input", (event) => {
     state.minRelevance = Number(event.target.value);
     markMapFilterChanged();
-    renderAll();
-    revealMapForFilteredView();
+    scheduleRenderAll(revealMapForFilteredView);
   });
 
   els.searchInput.addEventListener("input", (event) => {
     state.query = event.target.value;
     markMapFilterChanged();
-    renderAll();
-    if (state.query.trim().length >= 2) revealMapForFilteredView();
+    scheduleRenderAll(() => {
+      if (state.query.trim().length >= 2) revealMapForFilteredView();
+    });
   });
 
   els.clearSearch?.addEventListener("click", () => {
@@ -10345,7 +10449,6 @@ function shouldLoadBackendStatus() {
   return false;
 }
 
-installTextDashNormalizer();
 bindEvents();
 applyUrlExportMode();
 renderAll();
