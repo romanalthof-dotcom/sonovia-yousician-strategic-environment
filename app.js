@@ -2820,6 +2820,7 @@ const backendStateFallback = {
 let backendState = { ...backendStateFallback };
 
 const defaultMapFocusMode = "priority";
+const defaultBubbleSizeMode = "mission";
 
 const state = {
   mode: "executive",
@@ -2837,7 +2838,7 @@ const state = {
   monitorQuery: "",
   mapFocusMode: defaultMapFocusMode,
   mapZoomMode: "auto",
-  bubbleSizeMode: "business"
+  bubbleSizeMode: defaultBubbleSizeMode
 };
 
 function isExecutiveMode() {
@@ -2983,6 +2984,12 @@ const mapFocusModes = [
 ];
 
 const bubbleSizeModes = [
+  {
+    id: "mission",
+    label: "Mission scale",
+    shortLabel: "Mission",
+    note: "Default size combines company scale with relevance to Yousician's mission today."
+  },
   {
     id: "strategic",
     label: "Strategic influence",
@@ -3308,6 +3315,11 @@ function revenueProxyScore(player) {
   return Math.max(1, Math.min(5, score));
 }
 
+function missionScaleScore(player) {
+  const scale = businessSizeScore(player) * 0.55 + player.relevance * 0.35 + competitiveProximityScore(player) * 0.1;
+  return Math.max(1, Math.min(5, Math.round(scale)));
+}
+
 function competitiveProximityScore(player) {
   const taxonomy = taxonomyProfile(player);
   const text = `${player.category} ${player.type} ${player.relationship} ${taxonomy.proximity} ${taxonomy.role}`.toLowerCase();
@@ -3329,6 +3341,7 @@ function appfiguresReadinessScore(player) {
 
 function bubbleSizeScore(player) {
   const mode = bubbleSizeModeById(state.bubbleSizeMode).id;
+  if (mode === "mission") return missionScaleScore(player);
   if (mode === "business") return businessSizeScore(player);
   if (mode === "revenue") return revenueProxyScore(player);
   if (mode === "reach") return audienceReachScore(player);
@@ -3340,6 +3353,7 @@ function bubbleSizeScore(player) {
 }
 
 function bubbleSizeSortWeight(player) {
+  if (bubbleSizeModeById(state.bubbleSizeMode).id === "mission") return missionScaleScore(player) * 10 + strategicWeight(player) / 8;
   if (bubbleSizeModeById(state.bubbleSizeMode).id === "strategic") return strategicWeight(player);
   return bubbleSizeScore(player) * 10 + strategicWeight(player) / 10;
 }
@@ -3352,6 +3366,7 @@ function bubbleSizeRadius(player) {
 
 function bubbleSizeBasis(player) {
   const mode = bubbleSizeModeById(state.bubbleSizeMode).id;
+  if (mode === "mission") return `Mission scale ${missionScaleScore(player)} of 5. Company scale weighted by Yousician relevance`;
   if (mode === "business") return `Company size ${businessSizeScore(player)} of 5`;
   if (mode === "revenue") return `Revenue signal ${revenueProxyScore(player)} of 5. Proxy only, not verified revenue`;
   if (mode === "reach") return `Audience reach ${audienceReachScore(player)} of 5`;
@@ -5124,7 +5139,7 @@ function resetWorkspaceFilters() {
   state.dbSegment = "all";
   state.mapFocusMode = defaultMapFocusMode;
   state.mapZoomMode = "auto";
-  state.bubbleSizeMode = "business";
+  state.bubbleSizeMode = defaultBubbleSizeMode;
   if (els.searchInput) els.searchInput.value = "";
 }
 
@@ -5155,7 +5170,7 @@ function clearFilterById(filterId) {
   if (filterId === "database") state.dbSegment = "all";
   if (filterId === "mapFocus") state.mapFocusMode = defaultMapFocusMode;
   if (filterId === "mapZoom") state.mapZoomMode = "auto";
-  if (filterId === "bubbleSize") state.bubbleSizeMode = "business";
+  if (filterId === "bubbleSize") state.bubbleSizeMode = defaultBubbleSizeMode;
   if (filterId === "query" && els.searchInput) els.searchInput.value = "";
   markMapFilterChanged();
   renderAll();
@@ -5178,7 +5193,7 @@ function renderActiveFilterStrip() {
   if (state.minRelevance > 1) chips.push({ id: "relevance", label: "Relevance", value: `${state.minRelevance}+` });
   if (state.mapFocusMode !== defaultMapFocusMode) chips.push({ id: "mapFocus", label: "Map", value: mapFocusModeById(state.mapFocusMode).label });
   if (state.mapZoomMode !== "auto") chips.push({ id: "mapZoom", label: "View", value: mapZoomLabel() });
-  if (state.bubbleSizeMode !== "business") {
+  if (state.bubbleSizeMode !== defaultBubbleSizeMode) {
     chips.push({ id: "bubbleSize", label: "Bubble size", value: bubbleSizeModeById(state.bubbleSizeMode).shortLabel });
   }
   if (state.monitorSegment !== "all") {
@@ -5435,6 +5450,7 @@ function renderMapSummaryStrip() {
   const filtered = mapVisiblePlayers(basePlayers);
   const selectedPlayer = getSelectedPlayer();
   const activeSizeMode = bubbleSizeModeById(state.bubbleSizeMode);
+  const executive = isExecutiveMode();
   const zoomButtons = [
     { id: "fit", label: "Fit" },
     { id: "selected", label: "Selected" },
@@ -5468,6 +5484,23 @@ function renderMapSummaryStrip() {
       `;
     })
     .join("");
+  const sizeOrContext = executive
+    ? `
+      <div class="map-context-row" aria-label="Map sizing logic">
+        <span>Bubble size</span>
+        <strong>${escapeHtml(activeSizeMode.label)}</strong>
+        <small>${escapeHtml(activeSizeMode.note)}</small>
+      </div>
+    `
+    : `
+      <div class="map-size-row" aria-label="Bubble size mode">
+        <span>Bubble size by</span>
+        <div>
+          ${sizeButtons}
+        </div>
+        <small>${escapeHtml(activeSizeMode.note)}</small>
+      </div>
+    `;
 
   els.mapSummaryStrip.innerHTML = `
     <div class="map-selected-card" aria-label="Selected player">
@@ -5479,13 +5512,7 @@ function renderMapSummaryStrip() {
         <button type="button" data-map-selected-action="one-pager">One pager</button>
       </div>
     </div>
-    <div class="map-size-row" aria-label="Bubble size mode">
-      <span>Bubble size by</span>
-      <div>
-        ${sizeButtons}
-      </div>
-      <small>${escapeHtml(activeSizeMode.note)}</small>
-    </div>
+    ${sizeOrContext}
     <div class="map-zoom-row" aria-label="Map view controls">
       ${zoomButtons}
       <button type="button" class="map-reset-button" data-map-reset>Reset</button>
@@ -6271,6 +6298,8 @@ function renderProfile() {
   const taxonomy = taxonomyProfile(player);
   const executive = isExecutiveMode();
   const activeRating = ratingForPlayer(player);
+  const validation = internalValidationFor(player);
+  const posture = executivePostureFor(player, taxonomy, validation);
   els.profilePanel.innerHTML = `
     <div class="profile-top">
       <div class="avatar" style="--avatar-color:${category.color}">${initials(player.name)}</div>
@@ -6308,10 +6337,10 @@ function renderProfile() {
     </section>
     ${executive ? "" : `${evidenceSummarySection(player)}${researchAnchorSection(player)}`}
     <section class="profile-section ${executive ? "profile-action-card" : ""}">
-      <h3>${executive ? "Key player profile" : "Next action"}</h3>
+      <h3>${executive ? (player.key ? "Key player profile" : "Executive profile") : "Next action"}</h3>
       <p>${
         executive
-          ? "Open the structured one pager for role, scale, recent signal, Yousician relevance, and why this player matters."
+          ? "Open the structured one pager for role, scale, confidence, Yousician relevance, and the decision this record supports."
           : `${escapeHtml(nextAction(player))}. ${escapeHtml(player.recent)}`
       }</p>
       <div class="profile-actions">
@@ -6319,7 +6348,20 @@ function renderProfile() {
         <button class="ghost-button" data-profile-action="database" type="button">Database</button>
       </div>
     </section>
-    <section class="profile-section">
+    ${
+      executive
+        ? `<section class="profile-section executive-triage-card">
+      <span class="section-kicker">Triage</span>
+      <h3>${escapeHtml(posture.label)}</h3>
+      <div class="executive-triage-grid">
+        <div><span>Relevance</span><strong>${player.relevance}/5</strong></div>
+        <div><span>Mission scale</span><strong>${missionScaleScore(player)}/5</strong></div>
+        <div><span>Confidence</span><strong>${quality.score}%</strong></div>
+        <div><span>App data</span><strong>${appfiguresReadinessScore(player)}/5</strong></div>
+      </div>
+      <p>${escapeHtml(executiveDecisionQuestion(player, taxonomy))}</p>
+    </section>`
+        : `<section class="profile-section">
       <h3>Strategic scores</h3>
       <div class="active-rating-callout">
         <span>${escapeHtml(activeRating.label)}</span>
@@ -6337,7 +6379,8 @@ function renderProfile() {
         ${metricRow("Competitive proximity", competitiveProximityScore(player))}
         ${metricRow("App data status", appfiguresReadinessScore(player))}
       </div>
-    </section>
+    </section>`
+    }
     ${
       executive
         ? ""
@@ -6517,10 +6560,10 @@ function renderBriefReadiness() {
   els.briefReadiness.innerHTML = `
     <div class="brief-readiness-head">
       <div>
-        <span class="section-kicker">Brief category coverage</span>
-        <h3>The requested output areas are represented.</h3>
+        <span class="section-kicker">Triage status</span>
+        <h3>Structure is in place. The next step is prioritisation.</h3>
       </div>
-      <span>${players.length} records / ${keyCount} key players</span>
+      <span>${players.length} records / ${keyCount} first profiles</span>
     </div>
     <div class="brief-readiness-grid">
       ${items
@@ -7462,7 +7505,7 @@ function renderOnePager() {
     <article class="one-pager-sheet" style="--onepager-accent:${category.color}">
       <header class="one-pager-hero">
         <div>
-          <span class="section-kicker">Key player one pager</span>
+          <span class="section-kicker">Strategic one pager</span>
           <h2>${escapeHtml(player.name)}</h2>
           <p>${escapeHtml(player.description)}</p>
           <div class="badge-row">

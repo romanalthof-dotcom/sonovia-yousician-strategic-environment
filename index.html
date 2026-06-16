@@ -37,7 +37,7 @@
     />
     <meta name="theme-color" content="#f7fbf7" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='28' cy='28' r='18' fill='none' stroke='%2300d292' stroke-width='10'/%3E%3Cpath d='M42 42l14 14' stroke='%231b1d1f' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="./styles.css?v=20260616-mapclean-v7" />
+    <link rel="stylesheet" href="./styles.css?v=20260616-focus-v8" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
   </head>
   <body data-view="overview" data-mode="executive">
@@ -226,8 +226,8 @@
               <aside class="map-company-picker" id="mapCompanyPicker" aria-label="Companies visible on map"></aside>
             </div>
             <div class="map-note">
-              <span>Bubble size defaults to company size proxy, not internal enthusiasm.</span>
-              <span>Key player labels are intentionally limited to the first triage short list.</span>
+              <span>Bubble size defaults to mission scale: company scale weighted by relevance to Yousician.</span>
+              <span>Labels are intentionally limited so the map supports triage rather than exhaustive reading.</span>
             </div>
             <details class="optional-drawer map-optional">
               <summary>
@@ -268,16 +268,16 @@
 
           <section class="brief-readiness-panel" id="briefReadiness" aria-label="Brief readiness"></section>
 
-          <details class="side-panel research-drawer" open>
+          <details class="side-panel research-drawer">
             <summary>
               <span>
-                <strong>Product and research filters</strong>
-                <small>Yousician, GuitarTuna, categories, relevance and source check tools</small>
+                <strong>Filters and source checks</strong>
+                <small>Optional cuts for product lens, relevance and research mode</small>
               </span>
               <span class="drawer-indicator">Show</span>
             </summary>
             <div class="panel-header">
-              <h2>Filter the map</h2>
+              <h2>Adjust the map</h2>
               <button class="ghost-button" id="clearFilters" type="button">Clear</button>
             </div>
             <div class="product-lens" aria-label="Product lens">
@@ -490,6 +490,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js?v=20260616-mapclean-v7"></script>
+    <script src="./app.js?v=20260616-focus-v8"></script>
   </body>
 </html>
