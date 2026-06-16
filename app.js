@@ -2819,6 +2819,8 @@ const backendStateFallback = {
 
 let backendState = { ...backendStateFallback };
 
+const defaultMapFocusMode = "priority";
+
 const state = {
   mode: "executive",
   selectedCategory: "all",
@@ -2833,7 +2835,7 @@ const state = {
   exportLength: "standard",
   monitorSegment: "all",
   monitorQuery: "",
-  mapFocusMode: "all",
+  mapFocusMode: defaultMapFocusMode,
   mapZoomMode: "auto",
   bubbleSizeMode: "business"
 };
@@ -2967,6 +2969,14 @@ const monitorSegments = [
 
 const mapFocusModes = [
   { id: "all", label: "All", matches: () => true },
+  {
+    id: "priority",
+    label: "Strategic",
+    matches: (player) =>
+      player.key ||
+      player.relevance >= 5 ||
+      (player.relevance >= 4 && (player.momentum >= 4 || player.aiScore >= 5))
+  },
   { id: "key", label: "Key", matches: (player) => player.key },
   { id: "ai", label: "AI", matches: (player) => player.aiScore >= 4 || ["ai", "creation"].includes(player.category) },
   { id: "appdata", label: "App data", matches: (player) => requiresCredentialedData(player) }
@@ -3094,17 +3104,114 @@ function journeyCategoryById(id) {
   return journeyCategories.find((category) => category.id === id) || journeyCategories[0];
 }
 
+const journeyCategoryOverrides = {
+  simply: "learn",
+  "fender-play": "learn",
+  flowkey: "learn",
+  skoove: "learn",
+  justinguitar: "learn",
+  "marty-music": "learn",
+  "artie-piano": "learn",
+  "pickup-music": "learn",
+  musora: "learn",
+  fretello: "learn",
+  "guitar-tricks": "learn",
+  truefire: "learn",
+  "piano-marvel": "learn",
+  melodics: "learn",
+  tonebase: "learn",
+  artistworks: "learn",
+  "playground-sessions": "learn",
+  musicca: "learn",
+  "school-of-rock": "learn",
+  duolingo: "broader",
+  kahoot: "broader",
+  brilliant: "broader",
+  "ultimate-guitar": "practice",
+  songsterr: "practice",
+  chordify: "practice",
+  "chord-ai": "practice",
+  moises: "practice",
+  "rocksmith-plus": "practice",
+  soundslice: "practice",
+  "guitar-pro": "practice",
+  rsi: "practice",
+  tomplay: "practice",
+  "youtube-artists": "discover",
+  techcrunch: "discover",
+  accel: "discover",
+  "creative-europe": "discover",
+  "music-tectonics": "discover",
+  "midia-research": "discover",
+  namm: "discover",
+  luminate: "discover",
+  chartmetric: "discover",
+  "a16z-consumer": "discover",
+  "general-catalyst": "discover",
+  "eic-accelerator": "discover",
+  "horizon-europe-cluster-2": "discover",
+  "eit-culture-creativity": "discover",
+  "sxsw-edu-launch": "discover",
+  "spotify-platform": "discover",
+  bandlab: "create",
+  musescore: "create",
+  "apple-garageband": "create",
+  suno: "create",
+  udio: "create",
+  splice: "create",
+  aiva: "create",
+  "fl-studio": "create",
+  ableton: "create",
+  soundtrap: "create",
+  landr: "create",
+  "native-instruments": "create",
+  "lalal-ai": "create",
+  "elevenlabs-music": "create",
+  audacity: "create",
+  soundation: "create",
+  beatstars: "create",
+  "flow-music": "create",
+  "ripx-daw": "create",
+  klangio: "create",
+  soundcloud: "share",
+  bandcamp: "share",
+  distrokid: "share",
+  amuse: "share",
+  linkfire: "share",
+  "feature-fm": "share",
+  patreon: "share",
+  "spotify-artists": "share",
+  "tiktok-artists": "share",
+  "music-ally": "share",
+  "berklee-online": "identity",
+  mtna: "identity",
+  abrsm: "identity",
+  rcm: "identity",
+  "flat-io": "identity",
+  noteflight: "identity",
+  "trinity-college-london": "identity",
+  nafme: "identity",
+  "apple-design-awards": "identity",
+  "google-play-awards": "identity",
+  "bett-awards": "identity",
+  "learning-technologies-awards": "identity"
+};
+
 function journeyCategoryFor(player) {
+  const explicitCategory = journeyCategoryOverrides[player.id];
+  if (explicitCategory) return journeyCategoryById(explicitCategory);
   const text = `${player.name} ${player.type} ${player.subcategory} ${player.model} ${player.ownership} ${player.description} ${player.why} ${player.tags.join(" ")}`.toLowerCase();
   if (player.category === "platforms") return journeyCategoryById("broader");
-  if (/identity|family|games|award|recognition|association|credential|certification|berklee|abrsm|trinity|royal schools|nafme|apple design|google play|bett/.test(text)) {
-    return journeyCategoryById("identity");
-  }
-  if (/share|community|social|fans|fanbase|direct-to-fan|promotion|campaign|publisher|label|rights|artist tools|artist services|distribution|bandcamp|soundcloud|distrokid|amuse|linkfire|feature\.fm|hypebot|music ally/.test(text)) {
-    return journeyCategoryById("share");
-  }
-  if (/spotify|youtube|tiktok|artist|playlist|streaming|media|newsletter|discovery|culture|inspiration|concert|festival|sxsw|music tectonics/.test(text)) {
+  if (player.category === "signals") {
+    if (/award|recognition|credential|certification|best of|design/.test(text)) return journeyCategoryById("identity");
     return journeyCategoryById("discover");
+  }
+  if (player.category === "hardware") return journeyCategoryById("start");
+  if (player.category === "practice" || /tab|chord|practice|songsterr|ultimate guitar|moises|tuna|repertoire|feedback|habit|sheet music|play-along|loop/.test(text)) {
+    return journeyCategoryById("practice");
+  }
+  if (player.category === "creation" || player.category === "ai" || /create|creator|studio|daw|sample|production|generation|suno|udio|bandlab|splice|soundtrap|fl studio|ableton|recording|mastering|distribution|notation|composition|arranging|stem/.test(text)) {
+    return journeyCategoryById("create");
   }
   if (/retail|hardware|instrument|guitar brand|beginner bundle|store|thomann|sweetwater|fender|yamaha|gibson|positive grid|pickup music/.test(text)) {
     return journeyCategoryById("start");
@@ -3112,11 +3219,14 @@ function journeyCategoryFor(player) {
   if (player.category === "learning" || /curriculum|lesson|teacher|school|course|learn|education|duolingo|simply|flowkey|skoove|fender play/.test(text)) {
     return journeyCategoryById("learn");
   }
-  if (player.category === "practice" || /tab|chord|practice|songsterr|ultimate guitar|moises|tuna|repertoire|feedback|habit/.test(text)) {
-    return journeyCategoryById("practice");
+  if (/share|community|social|fans|fanbase|direct-to-fan|promotion|campaign|publisher|label|rights|artist tools|artist services|distribution|bandcamp|soundcloud|distrokid|amuse|linkfire|feature\.fm|hypebot|music ally/.test(text)) {
+    return journeyCategoryById("share");
   }
-  if (player.category === "creation" || player.category === "ai" || /create|creator|studio|daw|sample|production|generation|suno|udio|bandlab|splice|soundtrap|fl studio|ableton/.test(text)) {
-    return journeyCategoryById("create");
+  if (/identity|family|games|award|recognition|association|credential|certification|abrsm|trinity|royal schools|nafme|apple design|google play|bett/.test(text)) {
+    return journeyCategoryById("identity");
+  }
+  if (/spotify|youtube|tiktok|artist|playlist|streaming|media|newsletter|discovery|culture|inspiration|concert|festival|sxsw|music tectonics/.test(text)) {
+    return journeyCategoryById("discover");
   }
   return journeyCategoryById("discover");
 }
@@ -5012,7 +5122,7 @@ function resetWorkspaceFilters() {
   state.monitorSegment = "all";
   state.monitorQuery = "";
   state.dbSegment = "all";
-  state.mapFocusMode = "all";
+  state.mapFocusMode = defaultMapFocusMode;
   state.mapZoomMode = "auto";
   state.bubbleSizeMode = "business";
   if (els.searchInput) els.searchInput.value = "";
@@ -5043,7 +5153,7 @@ function clearFilterById(filterId) {
   if (filterId === "monitorSegment") state.monitorSegment = "all";
   if (filterId === "monitorQuery") state.monitorQuery = "";
   if (filterId === "database") state.dbSegment = "all";
-  if (filterId === "mapFocus") state.mapFocusMode = "all";
+  if (filterId === "mapFocus") state.mapFocusMode = defaultMapFocusMode;
   if (filterId === "mapZoom") state.mapZoomMode = "auto";
   if (filterId === "bubbleSize") state.bubbleSizeMode = "business";
   if (filterId === "query" && els.searchInput) els.searchInput.value = "";
@@ -5066,7 +5176,7 @@ function renderActiveFilterStrip() {
     });
   }
   if (state.minRelevance > 1) chips.push({ id: "relevance", label: "Relevance", value: `${state.minRelevance}+` });
-  if (state.mapFocusMode !== "all") chips.push({ id: "mapFocus", label: "Map", value: mapFocusModeById(state.mapFocusMode).label });
+  if (state.mapFocusMode !== defaultMapFocusMode) chips.push({ id: "mapFocus", label: "Map", value: mapFocusModeById(state.mapFocusMode).label });
   if (state.mapZoomMode !== "auto") chips.push({ id: "mapZoom", label: "View", value: mapZoomLabel() });
   if (state.bubbleSizeMode !== "business") {
     chips.push({ id: "bubbleSize", label: "Bubble size", value: bubbleSizeModeById(state.bubbleSizeMode).shortLabel });
@@ -5098,7 +5208,7 @@ function renderActiveFilterStrip() {
                 `
               )
               .join("")
-          : `<span class="filter-chip-empty">All market records</span>`
+          : `<span class="filter-chip-empty">Strategic players by default</span>`
       }
     </div>
     <button class="filter-clear-all" data-filter-clear-all type="button" ${activeCount ? "" : "disabled"}>Clear all</button>
@@ -5323,9 +5433,6 @@ function renderMapSummaryStrip() {
   ensureSelectedPlayerVisibleInMap();
   const basePlayers = getFilteredPlayers();
   const filtered = mapVisiblePlayers(basePlayers);
-  const keyPlayers = filtered.filter((player) => player.key);
-  const aiRelevant = filtered.filter((player) => player.aiScore >= 4 || ["ai", "creation"].includes(player.category));
-  const appQueue = filtered.filter(requiresCredentialedData);
   const selectedPlayer = getSelectedPlayer();
   const activeSizeMode = bubbleSizeModeById(state.bubbleSizeMode);
   const zoomButtons = [
@@ -5347,22 +5454,6 @@ function renderMapSummaryStrip() {
       `;
     })
     .join("");
-  const modeButtons = mapFocusModes
-    .map((mode) => {
-      const active = state.mapFocusMode === mode.id;
-      return `
-        <button
-          type="button"
-          class="${active ? "is-active" : ""}"
-          data-map-mode="${escapeHtml(mode.id)}"
-          aria-pressed="${active ? "true" : "false"}"
-        >
-          <span>${escapeHtml(mode.label)}</span>
-          <strong>${basePlayers.filter(mode.matches).length}</strong>
-        </button>
-      `;
-    })
-    .join("");
   const sizeButtons = bubbleSizeModes
     .map((mode) => {
       const active = state.bubbleSizeMode === mode.id;
@@ -5377,27 +5468,16 @@ function renderMapSummaryStrip() {
       `;
     })
     .join("");
-  const categoryChips = journeyCategories
-    .map((category) => {
-      const count = filtered.filter((player) => journeyCategoryFor(player).id === category.id).length;
-      if (!count) return "";
-      return `
-        <button
-          type="button"
-          data-map-category="${escapeHtml(category.id)}"
-          class="${state.selectedCategory === category.id ? "is-active" : ""}"
-          style="--category-color:${category.color}"
-        >
-          <span>${escapeHtml(category.shortName || category.name)}</span>
-          <strong>${count}</strong>
-        </button>
-      `;
-    })
-    .join("");
 
   els.mapSummaryStrip.innerHTML = `
-    <div class="map-mode-row" aria-label="Map focus">
-      ${modeButtons}
+    <div class="map-selected-card" aria-label="Selected player">
+      <span>Selected</span>
+      <strong>${escapeHtml(selectedPlayer.name)}</strong>
+      <small>${escapeHtml(strategicRole(selectedPlayer))}</small>
+      <div>
+        <button type="button" data-map-selected-action="profile">Profile</button>
+        <button type="button" data-map-selected-action="one-pager">One pager</button>
+      </div>
     </div>
     <div class="map-size-row" aria-label="Bubble size mode">
       <span>Bubble size by</span>
@@ -5410,49 +5490,11 @@ function renderMapSummaryStrip() {
       ${zoomButtons}
       <button type="button" class="map-reset-button" data-map-reset>Reset</button>
     </div>
-    <div class="map-selected-card" aria-label="Selected player">
-      <span>Selected</span>
-      <strong>${escapeHtml(selectedPlayer.name)}</strong>
-      <small>${escapeHtml(strategicRole(selectedPlayer))}</small>
-      <div>
-        <button type="button" data-map-selected-action="profile">Profile</button>
-        <button type="button" data-map-selected-action="one-pager">One pager</button>
-      </div>
-    </div>
-    <div class="map-summary-metrics" aria-label="Map summary metrics">
-      <article><strong>${filtered.length}</strong><span>visible records</span></article>
-      <article><strong>${keyPlayers.length}</strong><span>key players</span></article>
-      <article><strong>${aiRelevant.length}</strong><span>AI / creation</span></article>
-      <article><strong>${appQueue.length}</strong><span>app data queue</span></article>
-    </div>
-    <div class="map-category-rail" aria-label="Visible market groups">
-      ${categoryChips}
-    </div>
   `;
 
-  els.mapSummaryStrip.querySelectorAll("[data-map-mode]").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.mapFocusMode = button.dataset.mapMode;
-      markMapFilterChanged();
-      ensureSelectedPlayerVisibleInMap();
-      renderAll();
-      revealMapForFilteredView();
-      flashElement(els.mapSummaryStrip);
-    });
-  });
   els.mapSummaryStrip.querySelectorAll("[data-bubble-size]").forEach((button) => {
     button.addEventListener("click", () => {
       state.bubbleSizeMode = button.dataset.bubbleSize;
-      renderAll();
-      revealMapForFilteredView();
-      flashElement(els.mapSummaryStrip);
-    });
-  });
-  els.mapSummaryStrip.querySelectorAll("[data-map-category]").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.selectedCategory = state.selectedCategory === button.dataset.mapCategory ? "all" : button.dataset.mapCategory;
-      markMapFilterChanged();
-      ensureSelectedPlayerVisibleInMap();
       renderAll();
       revealMapForFilteredView();
       flashElement(els.mapSummaryStrip);
@@ -5825,14 +5867,15 @@ function mapNodeRadius(player, focusScale = 1) {
 
 function shouldLabelMapNode(player, categoryPlayers, index, layout, visibleCount = Infinity, focusScale = 1) {
   if (player.id === state.selectedPlayerId) return true;
-  if (focusScale >= 1.3 && visibleCount <= 30) return true;
-  if (focusScale >= 1.18 && visibleCount <= 48 && (player.key || player.relevance >= 4 || player.aiScore >= 4)) return true;
-  if (visibleCount <= 8) return true;
-  if (visibleCount <= 18 && (player.key || player.relevance >= 3 || player.aiScore >= 3)) return true;
-  if (!player.key) return index < 2 && (player.relevance >= 4 || player.aiScore >= 4);
+  if (focusScale >= 1.35 && visibleCount <= 16) return player.key || player.relevance >= 4;
+  if (focusScale >= 1.18 && visibleCount <= 28 && (player.key || player.relevance >= 5 || player.aiScore >= 5)) return true;
+  if (visibleCount <= 8) return player.key || player.relevance >= 4 || index < 2;
+  if (visibleCount <= 18 && (player.key || player.relevance >= 5)) return true;
+  if (!player.key) return false;
   const keyPlayersInCategory = categoryPlayers.filter((item) => item.key);
   const keyIndex = keyPlayersInCategory.findIndex((item) => item.id === player.id);
-  return keyIndex >= 0 && keyIndex < Math.min(layout.visibleLimit || 4, 5);
+  const labelCap = visibleCount > 60 ? 2 : Math.min(layout.visibleLimit || 3, 3);
+  return keyIndex >= 0 && keyIndex < labelCap;
 }
 
 function mapLabelAnchor(nodeX, nodeY, clusterX, center, focusScale = 1) {
@@ -6033,16 +6076,6 @@ function renderMap() {
     const ringLabel = createSvg("text", { x: center.x + radius - 10, y: center.y - 8 - index * 12, class: "ring-label" });
     ringLabel.textContent = label;
     svg.appendChild(ringLabel);
-  });
-
-  ["discover", "start", "learn", "practice", "create", "share", "identity"].forEach((label, index) => {
-    const axis = createSvg("text", {
-      x: 112 + index * 126,
-      y: 650,
-      class: "map-axis-label"
-    });
-    axis.textContent = label;
-    svg.appendChild(axis);
   });
 
   const arcLayer = createSvg("g", { class: "category-arc-layer" });
