@@ -61,6 +61,111 @@ const categories = [
     orbit: 3,
     layer: "Strategic signal layer",
     description: "Investors, news, awards, funding programmes, and external indicators to monitor."
+  },
+  {
+    id: "platforms",
+    name: "Broader Entertainment & Education Platforms",
+    shortName: "Broader platforms",
+    color: "#d94c72",
+    orbit: 3,
+    layer: "Attention and identity layer",
+    description: "Large entertainment, games, streaming, education, and IP platforms that may shape music motivation, learning demand, or strategic options."
+  }
+];
+
+const journeyCategories = [
+  {
+    id: "discover",
+    name: "1. Discover",
+    shortName: "Discover",
+    color: "#7b43b6",
+    icon: "search",
+    iconFallback: "D",
+    step: "1",
+    orbit: 3,
+    layer: "Inspiration",
+    description: "I see it, I hear it, I get inspired."
+  },
+  {
+    id: "start",
+    name: "2. Start",
+    shortName: "Start",
+    color: "#2f73d8",
+    icon: "shopping-cart",
+    iconFallback: "S",
+    step: "2",
+    orbit: 2,
+    layer: "First action",
+    description: "I decide to try and get what I need."
+  },
+  {
+    id: "learn",
+    name: "3. Learn",
+    shortName: "Learn",
+    color: "#16a5a5",
+    icon: "graduation-cap",
+    iconFallback: "L",
+    step: "3",
+    orbit: 1,
+    layer: "Skill building",
+    description: "I learn the basics and build skills."
+  },
+  {
+    id: "practice",
+    name: "4. Practice",
+    shortName: "Practice",
+    color: "#6eb05f",
+    icon: "metronome",
+    iconFallback: "P",
+    step: "4",
+    orbit: 1,
+    layer: "Habit",
+    description: "I practice, improve and stay motivated."
+  },
+  {
+    id: "create",
+    name: "5. Create",
+    shortName: "Create",
+    color: "#f59a23",
+    icon: "music-2",
+    iconFallback: "C",
+    step: "5",
+    orbit: 2,
+    layer: "Making",
+    description: "I make my own music and arrangements."
+  },
+  {
+    id: "share",
+    name: "6. Share",
+    shortName: "Share",
+    color: "#ef5a4f",
+    icon: "share-2",
+    iconFallback: "S",
+    step: "6",
+    orbit: 3,
+    layer: "Feedback",
+    description: "I share with others and get feedback."
+  },
+  {
+    id: "identity",
+    name: "7. Identity",
+    shortName: "Identity",
+    color: "#df4d77",
+    icon: "user-round",
+    iconFallback: "I",
+    step: "7",
+    orbit: 3,
+    layer: "Belonging",
+    description: "Music becomes part of who I am."
+  },
+  {
+    id: "broader",
+    name: "Broader platforms",
+    shortName: "Broader",
+    color: "#283b8f",
+    orbit: 3,
+    layer: "Entertainment and education platforms",
+    description: "Large platforms that may affect music, education, identity, attention, or M&A logic."
   }
 ];
 
@@ -2203,8 +2308,145 @@ const players = [
     key: false,
     recent: "Track finalists, categories, judging criteria, and startups adjacent to music learning.",
     tags: ["edtech", "startup", "awards"]
+  },
+  {
+    id: "disney",
+    name: "Disney",
+    type: "Entertainment and IP platform",
+    category: "platforms",
+    subcategory: "Family entertainment, music IP, education content, franchises and character driven learning",
+    geography: "Global",
+    reach: "Major global entertainment company",
+    model: "Streaming, parks, licensing, games, consumer products and media",
+    ownership: "Public company",
+    ai: "Monitor family entertainment, education content, music IP and creator strategy.",
+    description: "Global entertainment and IP company with strong family, music, franchise and education adjacency.",
+    why: "Relevant as a benchmark for how music, character IP, family learning and entertainment habits combine.",
+    relevance: 3,
+    momentum: 3,
+    aiScore: 2,
+    sourceStatus: "Triage record; needs filings, music strategy and education strategy review",
+    relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
+    key: false,
+    recent: "Check music related strategy, education content, acquisition history and possible family learning fit.",
+    tags: ["entertainment", "family", "IP", "education"]
+  },
+  {
+    id: "epic-games",
+    name: "Epic Games",
+    type: "Games and creator platform",
+    category: "platforms",
+    subcategory: "Fortnite, Unreal Engine, creator economy, concerts and youth entertainment",
+    geography: "Global",
+    reach: "Major global games platform",
+    model: "Games, marketplace, engine, creator tools and live events",
+    ownership: "Private",
+    ai: "Monitor creator tools, music experiences, youth engagement and interactive learning signals.",
+    description: "Large games and creator platform where music, performance, identity and youth attention can converge.",
+    why: "Relevant for understanding how interactive entertainment competes for attention and can make music participation feel social.",
+    relevance: 3,
+    momentum: 4,
+    aiScore: 3,
+    sourceStatus: "Triage record; needs music events, education and acquisition scan",
+    relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
+    key: false,
+    recent: "Check music related strategy, creator tools, acquisition history and potential strategic fit.",
+    tags: ["games", "creator economy", "music events", "youth"]
+  },
+  {
+    id: "roblox",
+    name: "Roblox",
+    type: "User generated entertainment platform",
+    category: "platforms",
+    subcategory: "Games, creator economy, virtual identity, education and music experiences",
+    geography: "Global",
+    reach: "Large youth entertainment platform",
+    model: "User generated games, virtual goods, advertising and creator economy",
+    ownership: "Public company",
+    ai: "Monitor creator tools, education use cases, music events and youth identity signals.",
+    description: "Large user generated entertainment platform with relevance to youth identity, creation and social play.",
+    why: "Useful for testing whether music learning can connect to identity, social feedback and creator participation.",
+    relevance: 3,
+    momentum: 4,
+    aiScore: 3,
+    sourceStatus: "Triage record; needs filings, education strategy and music activation scan",
+    relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
+    key: false,
+    recent: "Check music related strategy, education use, acquisition history and youth engagement relevance.",
+    tags: ["games", "youth", "identity", "education"]
+  },
+  {
+    id: "netflix",
+    name: "Netflix",
+    type: "Streaming entertainment platform",
+    category: "platforms",
+    subcategory: "Streaming, games, family entertainment, music documentaries and interactive IP",
+    geography: "Global",
+    reach: "Major global streaming platform",
+    model: "Subscription streaming, advertising and games",
+    ownership: "Public company",
+    ai: "Monitor games, family entertainment, music related content and recommendation strategy.",
+    description: "Global streaming platform with attention, family entertainment, games and music related content relevance.",
+    why: "Useful as an attention and entertainment benchmark rather than a direct music learning competitor.",
+    relevance: 2,
+    momentum: 3,
+    aiScore: 2,
+    sourceStatus: "Triage record; needs filings, games strategy and music content review",
+    relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
+    key: false,
+    recent: "Check music related content, games strategy, acquisition history and family entertainment relevance.",
+    tags: ["streaming", "games", "family", "attention"]
+  },
+  {
+    id: "nintendo",
+    name: "Nintendo",
+    type: "Games and family entertainment company",
+    category: "platforms",
+    subcategory: "Games, family IP, hardware, music experiences and playful learning",
+    geography: "Global",
+    reach: "Major global games and hardware company",
+    model: "Hardware, games, subscriptions, licensing and IP",
+    ownership: "Public company",
+    ai: "Monitor family entertainment, playful learning and music game signals.",
+    description: "Global games and family entertainment company with strong playful learning and music game adjacency.",
+    why: "Relevant as a benchmark for motivation, family trust, habit, and music as play.",
+    relevance: 2,
+    momentum: 3,
+    aiScore: 1,
+    sourceStatus: "Triage record; needs music products, education adjacency and acquisition history scan",
+    relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
+    key: false,
+    recent: "Check music related products, playful learning, acquisition history and family entertainment fit.",
+    tags: ["games", "family", "hardware", "music games"]
+  },
+  {
+    id: "spotify-platform",
+    name: "Spotify",
+    type: "Music and audio platform",
+    category: "platforms",
+    subcategory: "Streaming, recommendations, discovery, artist tools, creator tools and audio culture",
+    geography: "Global",
+    reach: "Major global audio platform",
+    model: "Subscription, advertising, marketplace and creator services",
+    ownership: "Public company",
+    ai: "Monitor recommendations, AI music policy, artist tools, podcasts, audiobooks and creator strategy.",
+    description: "Major audio platform shaping music discovery, artist identity, recommendations and listening habits.",
+    why: "Relevant for how people discover music, form taste, follow artists and move from listening into participation.",
+    relevance: 4,
+    momentum: 5,
+    aiScore: 4,
+    sourceStatus: "Triage record; needs filings, AI policy, creator tools and education adjacency review",
+    relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
+    key: false,
+    recent: "Check music related strategy, education adjacency, acquisition history and potential strategic relevance.",
+    tags: ["streaming", "discovery", "artists", "AI"]
   }
 ];
+
+const initialKeyPlayerIds = new Set(["simply", "ultimate-guitar", "duolingo", "fender"]);
+players.forEach((player) => {
+  player.key = initialKeyPlayerIds.has(player.id);
+});
 
 const relations = [
   { from: "Yousician", to: "simply", type: "competes", strength: 5, note: "Direct app based learning benchmark." },
@@ -2593,7 +2835,7 @@ const state = {
   monitorQuery: "",
   mapFocusMode: "all",
   mapZoomMode: "auto",
-  bubbleSizeMode: "strategic"
+  bubbleSizeMode: "business"
 };
 
 function isExecutiveMode() {
@@ -2644,6 +2886,7 @@ const els = {
   activeFilterStrip: document.getElementById("activeFilterStrip"),
   clearFilters: document.getElementById("clearFilters"),
   mapLegend: document.getElementById("mapLegend"),
+  journeyBlueprint: document.getElementById("journeyBlueprint"),
   mapSummaryStrip: document.getElementById("mapSummaryStrip"),
   mapCompanyPicker: document.getElementById("mapCompanyPicker"),
   ecosystemMap: document.getElementById("ecosystemMap"),
@@ -2845,6 +3088,41 @@ const ratingModes = [
 
 function categoryById(id) {
   return categories.find((category) => category.id === id);
+}
+
+function journeyCategoryById(id) {
+  return journeyCategories.find((category) => category.id === id) || journeyCategories[0];
+}
+
+function journeyCategoryFor(player) {
+  const text = `${player.name} ${player.type} ${player.subcategory} ${player.model} ${player.ownership} ${player.description} ${player.why} ${player.tags.join(" ")}`.toLowerCase();
+  if (player.category === "platforms") return journeyCategoryById("broader");
+  if (/identity|family|games|award|recognition|association|credential|certification|berklee|abrsm|trinity|royal schools|nafme|apple design|google play|bett/.test(text)) {
+    return journeyCategoryById("identity");
+  }
+  if (/share|community|social|fans|fanbase|direct-to-fan|promotion|campaign|publisher|label|rights|artist tools|artist services|distribution|bandcamp|soundcloud|distrokid|amuse|linkfire|feature\.fm|hypebot|music ally/.test(text)) {
+    return journeyCategoryById("share");
+  }
+  if (/spotify|youtube|tiktok|artist|playlist|streaming|media|newsletter|discovery|culture|inspiration|concert|festival|sxsw|music tectonics/.test(text)) {
+    return journeyCategoryById("discover");
+  }
+  if (/retail|hardware|instrument|guitar brand|beginner bundle|store|thomann|sweetwater|fender|yamaha|gibson|positive grid|pickup music/.test(text)) {
+    return journeyCategoryById("start");
+  }
+  if (player.category === "learning" || /curriculum|lesson|teacher|school|course|learn|education|duolingo|simply|flowkey|skoove|fender play/.test(text)) {
+    return journeyCategoryById("learn");
+  }
+  if (player.category === "practice" || /tab|chord|practice|songsterr|ultimate guitar|moises|tuna|repertoire|feedback|habit/.test(text)) {
+    return journeyCategoryById("practice");
+  }
+  if (player.category === "creation" || player.category === "ai" || /create|creator|studio|daw|sample|production|generation|suno|udio|bandlab|splice|soundtrap|fl studio|ableton/.test(text)) {
+    return journeyCategoryById("create");
+  }
+  return journeyCategoryById("discover");
+}
+
+function journeyColorFor(player) {
+  return journeyCategoryFor(player).color;
 }
 
 function colorFor(player) {
@@ -3154,6 +3432,22 @@ function taxonomyProfile(player) {
     };
   }
 
+  if (player.category === "platforms") {
+    return {
+      ...base,
+      role: /spotify|streaming|audio/.test(text)
+        ? "Music discovery and attention platform"
+        : /roblox|epic|nintendo|games/.test(text)
+          ? "Interactive entertainment and identity platform"
+          : /disney|netflix|family|streaming/.test(text)
+            ? "Family entertainment and IP platform"
+            : "Broader entertainment and education platform",
+      journey: "Shape discovery, motivation, identity or strategic options around learning",
+      proximity: "Strategic adjacency",
+      decisionUse: "Triage music strategy, education strategy, acquisition history, audience fit and whether this platform could matter as a partner, acquirer, or attention competitor."
+    };
+  }
+
   if (player.category === "signals") {
     const role = /capital|investor|vc/.test(text)
       ? "Capital signal"
@@ -3190,6 +3484,7 @@ function researchOwner(player) {
   if (player.category === "practice") return "Practice & content";
   if (player.category === "hardware") return "Partnerships";
   if (player.category === "education") return "Learning strategy";
+  if (player.category === "platforms") return "Strategy / corporate development";
   if (player.category === "signals") return "Strategy / monitoring";
   if (player.category === "creation") return "Creator ecosystem";
   return "Strategy research";
@@ -3688,7 +3983,7 @@ function sizeClaimStatusFor(player) {
     [metric.downloads, metric.revenue, metric.categoryRank, metric.reviewVelocity, metric.websiteVisits].some((value) => value != null && value !== "");
   if (hasMetric) {
     return {
-      label: "Metric-backed size",
+      label: "Metric based size",
       tone: "verified",
       note: "A live/manual metric override is loaded for this record."
     };
@@ -3731,7 +4026,7 @@ function relationshipClaimStatusFor(player) {
     };
   }
   return {
-    label: "External-only record",
+    label: "External record",
     tone: "neutral",
     note: "Internal relationship review is not prioritized for this record in the current visible set."
   };
@@ -3974,7 +4269,7 @@ function factPackSection(player, context = "profile") {
       <span class="section-kicker">Fact pack</span>
       <h3>Facts we can state</h3>
       ${factPackHtml(player, context === "one-pager" ? 5 : 4)}
-      <small class="fact-caveat">Strategic interpretation is separated from these factual fields and source-backed notes.</small>
+      <small class="fact-caveat">Strategic interpretation is separated from these factual fields and linked source notes.</small>
     </section>
   `;
 }
@@ -3996,17 +4291,80 @@ function executiveSignalText(text) {
     .replace(/\bresearch\b/gi, "monitor");
 }
 
+function absoluteFigureSummary(player) {
+  const metric = liveMetricFor(player);
+  const figures = [];
+  if (metric?.downloads != null) figures.push(`${metric.downloads} downloads`);
+  if (metric?.revenue != null) figures.push(`${metric.revenue} revenue`);
+  if (metric?.websiteVisits != null) figures.push(`${metric.websiteVisits} visits`);
+  if (metric?.categoryRank != null) figures.push(`rank ${metric.categoryRank}`);
+  if (figures.length) return figures.slice(0, 2).join(" / ");
+  if (/public company/i.test(player.ownership)) return "Public filings available";
+  return "No absolute figure loaded";
+}
+
+function sentimentSummary(player) {
+  const metric = liveMetricFor(player);
+  if (metric?.reviewVelocity != null) return `${metric.reviewVelocity} review velocity`;
+  if (requiresCredentialedData(player)) return "Review trend pending Appfigures";
+  return "Sentiment trend not loaded";
+}
+
+function profileSpecificLens(player, taxonomy, validation) {
+  const relation = relationForPlayer(player);
+  const proximity = competitiveProximityScore(player);
+  if (relation?.type === "competes" || proximity >= 5) {
+    return {
+      label: "Competitor lens",
+      headline: "Compare positioning and core learning mechanics",
+      body: "Focus on pricing, onboarding, catalog, feedback, retention loop and why a learner would choose one product over another."
+    };
+  }
+  if (player.category === "platforms") {
+    return {
+      label: "Platform lens",
+      headline: "Screen music strategy, education strategy and M&A relevance",
+      body: "Use this as a triage record for acquisition history, strategic fit, attention risk and possible distribution or partnership logic."
+    };
+  }
+  if (relation?.type === "partners" || /partner|channel|hardware|education|brand|distribution/i.test(`${taxonomy.role} ${validation.nextStep}`)) {
+    return {
+      label: "Partner lens",
+      headline: "Screen synergies and route to audience",
+      body: "Look for credible access to learners, trust, gear, schools, creators, catalog, distribution or habit formation."
+    };
+  }
+  if (/public company|major global|large|massive/i.test(`${player.ownership} ${player.reach}`)) {
+    return {
+      label: "Acquirer lens",
+      headline: "Check financial scale and strategic fit",
+      body: "Use filings, acquisition history and product adjacency before treating this as a corporate development route."
+    };
+  }
+  return {
+    label: "Context lens",
+    headline: "Explain why this matters to Yousician",
+    body: taxonomy.decisionUse
+  };
+}
+
 function executiveProfileSnapshot(player, taxonomy) {
+  const quality = qualityProfile(player);
+  const validation = internalValidationFor(player);
+  const lens = profileSpecificLens(player, taxonomy, validation);
   return `
     <section class="profile-section executive-snapshot-card">
-      <span class="section-kicker">Market profile</span>
-      <h3>${escapeHtml(taxonomy.group)}</h3>
+      <span class="section-kicker">Decision profile</span>
+      <h3>${escapeHtml(lens.headline)}</h3>
       <div class="executive-snapshot-grid">
         <div><span>Role</span><strong>${escapeHtml(taxonomy.role)}</strong></div>
-        <div><span>Reach</span><strong>${escapeHtml(player.reach)}</strong></div>
-        <div><span>Ownership</span><strong>${escapeHtml(player.ownership)}</strong></div>
-        <div><span>Recent signal</span><strong>${escapeHtml(executiveSignalText(player.recent))}</strong></div>
+        <div><span>Journey</span><strong>${escapeHtml(journeyCategoryFor(player).name)}</strong></div>
+        <div><span>Yousician use</span><strong>${escapeHtml(lens.label)}</strong></div>
+        <div><span>Absolute figure</span><strong>${escapeHtml(absoluteFigureSummary(player))}</strong></div>
+        <div><span>Confidence</span><strong>${escapeHtml(`${quality.score}% source confidence`)}</strong></div>
+        <div><span>Sentiment</span><strong>${escapeHtml(sentimentSummary(player))}</strong></div>
       </div>
+      <p>${escapeHtml(lens.body)}</p>
     </section>
   `;
 }
@@ -4072,6 +4430,9 @@ function executiveDecisionQuestion(player, taxonomy) {
   }
   if (player.category === "education") {
     return "Does this create a credibility, curriculum, teacher, parent or institutional proof opportunity?";
+  }
+  if (player.category === "platforms") {
+    return "Could this platform matter as a partner, acquirer, attention competitor, music discovery surface or education distribution route?";
   }
   if (player.category === "signals") {
     return "Does this trigger funding, recognition, policy, monitoring or leadership timing action?";
@@ -4471,10 +4832,11 @@ function matchesQuery(player) {
 }
 
 function getFilteredPlayers() {
-  return players.filter((player) => {
-    const categoryMatch = state.selectedCategory === "all" || player.category === state.selectedCategory;
-    return categoryMatch && productLensMatches(player) && player.relevance >= state.minRelevance && matchesQuery(player);
-  });
+  return journeyFilterBasePlayers().filter((player) => state.selectedCategory === "all" || journeyCategoryFor(player).id === state.selectedCategory);
+}
+
+function journeyFilterBasePlayers() {
+  return players.filter((player) => productLensMatches(player) && player.relevance >= state.minRelevance && matchesQuery(player));
 }
 
 function getSelectedPlayer() {
@@ -4505,8 +4867,8 @@ function scoreToPercent(value) {
 
 function categoryMetrics() {
   const filtered = getFilteredPlayers();
-  return categories.map((category) => {
-    const items = filtered.filter((player) => player.category === category.id);
+  return journeyCategories.map((category) => {
+    const items = filtered.filter((player) => journeyCategoryFor(player).id === category.id);
     const count = items.length;
     const relevance = scoreToPercent(average(items, (player) => player.relevance));
     const momentum = scoreToPercent(average(items, (player) => player.momentum));
@@ -4612,14 +4974,15 @@ function renderFilters() {
   const counts = players.reduce(
     (acc, player) => {
       if (!productLensMatches(player)) return acc;
-      acc[player.category] = (acc[player.category] || 0) + 1;
+      const journeyId = journeyCategoryFor(player).id;
+      acc[journeyId] = (acc[journeyId] || 0) + 1;
       acc.all += 1;
       return acc;
     },
     { all: 0 }
   );
 
-  const filterRows = [{ id: "all", name: "All categories", color: "#17191a" }, ...categories];
+  const filterRows = [{ id: "all", name: "All journey steps", color: "#17191a" }, ...journeyCategories];
   els.categoryFilters.innerHTML = "";
 
   filterRows.forEach((category) => {
@@ -4651,7 +5014,7 @@ function resetWorkspaceFilters() {
   state.dbSegment = "all";
   state.mapFocusMode = "all";
   state.mapZoomMode = "auto";
-  state.bubbleSizeMode = "strategic";
+  state.bubbleSizeMode = "business";
   if (els.searchInput) els.searchInput.value = "";
 }
 
@@ -4693,7 +5056,7 @@ function renderActiveFilterStrip() {
   const chips = [];
   if (state.query.trim()) chips.push({ id: "query", label: "Search", value: state.query.trim() });
   if (state.selectedCategory !== "all") {
-    chips.push({ id: "category", label: "Category", value: categoryById(state.selectedCategory)?.shortName || state.selectedCategory });
+    chips.push({ id: "category", label: "Journey", value: journeyCategoryById(state.selectedCategory)?.shortName || state.selectedCategory });
   }
   if (state.selectedProductLens !== "all") {
     chips.push({
@@ -4750,12 +5113,68 @@ function renderActiveFilterStrip() {
 }
 
 function renderLegend() {
-  els.mapLegend.innerHTML = categories
+  els.mapLegend.innerHTML = journeyCategories
     .map(
       (category) =>
         `<span class="legend-chip"><span class="legend-swatch" style="--chip:${category.color}"></span>${category.name}</span>`
     )
     .join("");
+}
+
+function renderJourneyBlueprint() {
+  if (!els.journeyBlueprint) return;
+  const basePlayers = journeyFilterBasePlayers();
+  const journeySteps = journeyCategories.filter((category) => category.step);
+  els.journeyBlueprint.innerHTML = `
+    ${journeySteps
+      .map((category) => {
+        const count = basePlayers.filter((player) => journeyCategoryFor(player).id === category.id).length;
+        const active = state.selectedCategory === category.id;
+        return `
+          <button
+            type="button"
+            class="journey-blueprint-step ${active ? "is-active" : ""}"
+            data-journey-step="${escapeHtml(category.id)}"
+            style="--journey-color:${category.color}"
+            aria-pressed="${active ? "true" : "false"}"
+            aria-label="${escapeHtml(category.name)}. ${escapeHtml(category.description)}"
+          >
+            <span class="journey-blueprint-icon" aria-hidden="true">
+              <span class="journey-icon-fallback">${escapeHtml(category.iconFallback)}</span>
+              <i data-lucide="${escapeHtml(category.icon)}"></i>
+            </span>
+            <span class="journey-blueprint-card">
+              <strong><span>${escapeHtml(category.step)}.</span> ${escapeHtml(category.shortName)}</strong>
+              <small>${escapeHtml(category.description)}</small>
+              <em>${count} records</em>
+            </span>
+          </button>
+        `;
+      })
+      .join("")}
+  `;
+
+  els.journeyBlueprint.querySelectorAll("[data-journey-step]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.selectedCategory = state.selectedCategory === button.dataset.journeyStep ? "all" : button.dataset.journeyStep;
+      markMapFilterChanged();
+      ensureSelectedPlayerVisibleInMap();
+      renderAll();
+      revealMapForFilteredView();
+    });
+  });
+}
+
+function refreshLucideIcons() {
+  const run = () => window.lucide?.createIcons?.();
+  if (window.lucide?.createIcons) {
+    run();
+    return;
+  }
+  if (!refreshLucideIcons.queued) {
+    refreshLucideIcons.queued = true;
+    window.addEventListener("load", run, { once: true });
+  }
 }
 
 function mapFocusModeById(id) {
@@ -4958,9 +5377,9 @@ function renderMapSummaryStrip() {
       `;
     })
     .join("");
-  const categoryChips = categories
+  const categoryChips = journeyCategories
     .map((category) => {
-      const count = filtered.filter((player) => player.category === category.id).length;
+      const count = filtered.filter((player) => journeyCategoryFor(player).id === category.id).length;
       if (!count) return "";
       return `
         <button
@@ -5333,17 +5752,18 @@ function renderStrategicImplications() {
 }
 
 const mapCategoryLayouts = {
-  learning: { x: 500, y: 144, angle: -90, arcRadius: 205, visibleLimit: 6, rx: 178, ry: 112 },
-  practice: { x: 772, y: 222, angle: -36, arcRadius: 292, visibleLimit: 6, rx: 182, ry: 112 },
-  hardware: { x: 842, y: 430, angle: 18, arcRadius: 344, visibleLimit: 5, rx: 158, ry: 104 },
-  creation: { x: 690, y: 562, angle: 62, arcRadius: 292, visibleLimit: 5, rx: 176, ry: 108 },
-  ai: { x: 398, y: 562, angle: 116, arcRadius: 278, visibleLimit: 6, rx: 176, ry: 112 },
-  education: { x: 190, y: 430, angle: 166, arcRadius: 336, visibleLimit: 4, rx: 146, ry: 98 },
-  signals: { x: 248, y: 206, angle: -144, arcRadius: 326, visibleLimit: 4, rx: 150, ry: 96 }
+  discover: { x: 148, y: 182, angle: -142, arcRadius: 330, visibleLimit: 4, rx: 132, ry: 88 },
+  start: { x: 278, y: 270, angle: -112, arcRadius: 272, visibleLimit: 5, rx: 140, ry: 92 },
+  learn: { x: 430, y: 170, angle: -78, arcRadius: 196, visibleLimit: 6, rx: 156, ry: 104 },
+  practice: { x: 575, y: 250, angle: -28, arcRadius: 184, visibleLimit: 6, rx: 168, ry: 108 },
+  create: { x: 704, y: 438, angle: 42, arcRadius: 262, visibleLimit: 5, rx: 168, ry: 104 },
+  share: { x: 842, y: 274, angle: 84, arcRadius: 330, visibleLimit: 4, rx: 132, ry: 88 },
+  identity: { x: 810, y: 526, angle: 126, arcRadius: 346, visibleLimit: 4, rx: 132, ry: 88 },
+  broader: { x: 270, y: 535, angle: 168, arcRadius: 340, visibleLimit: 4, rx: 154, ry: 92 }
 };
 
 function mapLayoutForCategory(category, index, center) {
-  const fallbackAngle = -90 + index * (360 / categories.length);
+  const fallbackAngle = -90 + index * (360 / journeyCategories.length);
   const fallbackRadius = category.orbit === 1 ? 196 : category.orbit === 2 ? 276 : 328;
   const layout = mapCategoryLayouts[category.id] || {
     angle: fallbackAngle,
@@ -5537,10 +5957,10 @@ function renderMap() {
   const filtered = mapVisiblePlayers(basePlayers);
   const focusScale = mapFocusScale(basePlayers, filtered);
   document.body.dataset.mapFocusScale = String(Math.round(focusScale * 100));
-  const byCategory = categories.map((category, index) => {
+  const byCategory = journeyCategories.map((category, index) => {
     const layout = mapLayoutForCategory(category, index, center);
     const categoryPlayers = filtered
-      .filter((player) => player.category === category.id)
+      .filter((player) => journeyCategoryFor(player).id === category.id)
       .sort((a, b) => bubbleSizeSortWeight(b) - bubbleSizeSortWeight(a));
     return {
       category,
@@ -5615,9 +6035,9 @@ function renderMap() {
     svg.appendChild(ringLabel);
   });
 
-  ["learn", "practice", "create + signal"].forEach((label, index) => {
+  ["discover", "start", "learn", "practice", "create", "share", "identity"].forEach((label, index) => {
     const axis = createSvg("text", {
-      x: 182 + index * 318,
+      x: 112 + index * 126,
       y: 650,
       class: "map-axis-label"
     });
@@ -5718,7 +6138,7 @@ function renderMap() {
       const radius = nodeItem?.radius ?? mapNodeRadius(player, focusScale);
       node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius + 16, class: "node-hit" }));
       if (isSelected) {
-        node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius + 15, class: "node-halo", fill: colorFor(player) }));
+        node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius + 15, class: "node-halo", fill: journeyColorFor(player) }));
       }
       const quality = qualityProfile(player);
       if (player.key || isSelected) {
@@ -5729,7 +6149,7 @@ function renderMap() {
             r: radius + 6,
             class: `node-evidence-ring evidence-${quality.coverage.status}`,
             fill: "none",
-            stroke: colorFor(player),
+            stroke: journeyColorFor(player),
             "stroke-dasharray": `${Math.max(5, Math.round(quality.score / 8))} 5`
           })
         );
@@ -5737,7 +6157,7 @@ function renderMap() {
       if ((player.key || isSelected) && player.aiScore >= 4) {
         node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius + 10, class: "node-ai-ring", fill: "none" }));
       }
-      node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius, fill: colorFor(player) }));
+      node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius, fill: journeyColorFor(player) }));
       if (player.key || isSelected || tier === "focus") {
         const initFontSize = Math.min(isSelected ? 15 : 13.5, (tier === "signal" ? 8.6 : 9.4) * focusScale);
         const init = createSvg("text", {
@@ -5760,7 +6180,7 @@ function renderMap() {
             height: badgeHeight,
             rx: 7,
             class: `node-label-card ${player.key || isSelected ? "is-key" : "is-context"}`,
-            fill: colorFor(player)
+            fill: journeyColorFor(player)
           })
         );
         const name = createSvg("text", {
@@ -5841,7 +6261,8 @@ function renderProfile() {
       <p>${escapeHtml(player.why)}</p>
       <small>${escapeHtml(player.description)}</small>
     </section>
-    ${executive ? executiveProfileSnapshot(player, taxonomy) : `${factPackSection(player)}${claimIntegritySection(player)}`}
+    ${executiveProfileSnapshot(player, taxonomy)}
+    ${executive ? "" : `${factPackSection(player)}${claimIntegritySection(player)}`}
     <section class="profile-section taxonomy-card">
       <span class="section-kicker">Classification</span>
       <h3>${escapeHtml(taxonomy.group)}</h3>
@@ -5854,7 +6275,7 @@ function renderProfile() {
     </section>
     ${executive ? "" : `${evidenceSummarySection(player)}${researchAnchorSection(player)}`}
     <section class="profile-section ${executive ? "profile-action-card" : ""}">
-      <h3>${executive ? "Key-player profile" : "Next action"}</h3>
+      <h3>${executive ? "Key player profile" : "Next action"}</h3>
       <p>${
         executive
           ? "Open the structured one pager for role, scale, recent signal, Yousician relevance, and why this player matters."
@@ -6340,7 +6761,7 @@ function marketMonitorModel(filteredPlayers, keyPlayers) {
     {
       label: "Coverage groups",
       value: categoryCount,
-      note: `${highMomentum.length} high-momentum records`
+      note: `${highMomentum.length} strong momentum records`
     }
   ];
 
@@ -6370,7 +6791,7 @@ function renderOverviewMonitorSnapshot() {
       <div>
         <span class="section-kicker">Market monitor</span>
         <h2>${filteredPlayers.length} monitored records across ${categoryCount} coverage groups</h2>
-        <p>${companyRecords.length} companies and organisations, ${keyPlayers.length} key players, ${highMomentum.length} high-momentum records, and ${liveDataQueue.length} app or traffic inputs queued.</p>
+        <p>${companyRecords.length} companies and organisations, ${keyPlayers.length} key players, ${highMomentum.length} strong momentum records, and ${liveDataQueue.length} app or traffic inputs queued.</p>
       </div>
       <div class="overview-monitor-actions" aria-label="Market monitor actions">
         <button type="button" data-monitor-jump="key-players">Monitor</button>
@@ -6721,7 +7142,7 @@ function renderKeyPlayerVisuals(keyPlayers) {
   if (!els.keyPlayerVisuals) return;
   const rankedPlayers = [...keyPlayers].sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name));
   if (!rankedPlayers.length) {
-    els.keyPlayerVisuals.innerHTML = emptyState("No key-player visuals match the current filter.");
+    els.keyPlayerVisuals.innerHTML = emptyState("No key player visuals match the current filter.");
     return;
   }
   const leadPlayer = rankedPlayers[0];
@@ -6775,12 +7196,12 @@ function renderKeyPlayerVisuals(keyPlayers) {
     <section class="visual-panel key-priority-panel">
       <div class="visual-head">
         <div>
-          <span class="section-kicker">Key-player focus</span>
+          <span class="section-kicker">Key player focus</span>
           <h3>Priority board</h3>
         </div>
         <p>Highest-signal players first, grouped by strategic use.</p>
       </div>
-      <div class="priority-board" aria-label="Ranked key-player priority board">
+      <div class="priority-board" aria-label="Ranked key player priority board">
         <button
           class="priority-lead ${leadPlayer.id === state.selectedPlayerId ? "is-selected" : ""}"
           data-visual-player="${escapeHtml(leadPlayer.id)}"
@@ -6834,7 +7255,7 @@ function renderKeyPlayerVisuals(keyPlayers) {
             .join("")}
         </div>
       </div>
-      <div class="priority-group-strip" aria-label="Key-player priority groups">
+      <div class="priority-group-strip" aria-label="Key player priority groups">
         ${focusGroups
           .map((group) => {
             const matches = rankedPlayers.filter(group.matches);
@@ -6871,7 +7292,7 @@ function renderKeyPlayerVisuals(keyPlayers) {
       <div class="visual-head">
         <div>
           <span class="section-kicker">Action lanes</span>
-          <h3>How to read the key-player set</h3>
+          <h3>How to read the key player set</h3>
         </div>
       </div>
       <div class="key-lanes">
@@ -7114,7 +7535,7 @@ function renderDatabaseStats() {
     ? [
         ["Records in view", filtered.length, "after selected filters"],
         ["Key players", keyCount, "priority profiles"],
-        ["Brief categories", 12, "brief requested categories"],
+        ["Journey steps", journeyCategories.length, "agreed ecosystem structure"],
         ["Linked sources", linkedSourceCount, sourceNote],
         [
           "Appfigures note",
@@ -7136,7 +7557,7 @@ function renderDatabaseStats() {
     ["Live data queue", credentialQueueCount, "credentials / reports"],
     ["Signal sources", signalCount, "monitoring inputs"],
     ["Internal checks", internalCheckCount, "relationship validation"],
-    ["AI-critical", aiCount, "high AI signal"],
+    ["AI relevant", aiCount, "high AI signal"],
     ["Avg. evidence", avgQuality, avgNote]
   ];
 
@@ -7196,9 +7617,9 @@ function renderDatabaseVisuals(rows) {
   const keyRecordCount = visibleRows.filter((player) => player.key).length;
   const proofGapCount = visibleRows.filter(hasCriticalEvidenceGap).length;
   const readyCount = visibleRows.filter((player) => qualityProfile(player).score >= 68 && !hasCriticalEvidenceGap(player)).length;
-  const categoryRows = categories
+  const categoryRows = journeyCategories
     .map((category) => {
-      const items = rows.filter((player) => player.category === category.id);
+      const items = rows.filter((player) => journeyCategoryFor(player).id === category.id);
       const avgCategoryQuality = Math.round(items.reduce((sum, player) => sum + qualityProfile(player).score, 0) / Math.max(items.length, 1));
       const gapCount = items.filter(hasCriticalEvidenceGap).length;
       const pressure = Math.round(average(items, (player) => player.relevance + player.momentum + player.aiScore) * 6.6);
@@ -7713,7 +8134,7 @@ function renderRelationshipGraph() {
         return `
           <article class="relationship-item" style="--rel:${relationshipColor(rel.type)}">
             <span>${escapeHtml(relationshipTitle(rel.type))}</span>
-            <h3>${escapeHtml(rel.from)} -> ${escapeHtml(rel.player.name)}</h3>
+            <h3>${escapeHtml(rel.from)} to ${escapeHtml(rel.player.name)}</h3>
             <p>${escapeHtml(rel.note)}</p>
             <div class="badge-row">
               <span class="badge">${escapeHtml(categoryById(rel.player.category).name)}</span>
@@ -8611,10 +9032,10 @@ function clonedMapMarkup() {
 }
 
 function exportCategorySummary() {
-  return categories
+  return journeyCategories
     .map((category) => {
       const categoryPlayers = players
-        .filter((player) => player.category === category.id)
+        .filter((player) => journeyCategoryFor(player).id === category.id)
         .sort((a, b) => totalPriority(b) - totalPriority(a));
       const keyCount = categoryPlayers.filter((player) => player.key).length;
       return `
@@ -8655,9 +9076,9 @@ function renderExportSnapshot() {
   const counts = backendState?.status?.counts || {};
   const exportMetrics = {
     players: counts.players || players.length,
-    keyPlayers: counts.key_players || keyPlayers.length,
-    boardMoves: 49,
-    briefCategories: 12,
+    keyPlayers: keyPlayers.length,
+    boardMoves: strategicMoves.length,
+    briefCategories: journeyCategories.length,
     guidingQuestions: 3,
     claimRows: 185,
     appfiguresRequestRows: counts.appfigures_request_rows || 16,
@@ -8668,27 +9089,20 @@ function renderExportSnapshot() {
     refreshChecks: counts.refresh_checks_logged || 400
   };
   const briefRequirements = [
-    ["Music learning apps and platforms", "Covered", "Simply, Flowkey, Skoove, Fender Play, Gibson App, Rocksmith+ and related app benchmarks."],
-    ["Instrument brands, manufacturers and distributors", "Covered", "Fender, Gibson, Yamaha, Positive Grid, retailers and beginner hardware funnels."],
-    ["Teachers, schools and music education organizations", "Covered", "ABRSM, Trinity, RSL/Rockschool, School of Rock, Berklee Online and teacher networks."],
-    ["Music hobby software ecosystem", "Covered", "Ultimate Guitar, MuseScore, Songsterr, BandLab, Splice and creation/practice tools."],
-    ["Wider education and self-improvement ecosystem", "Covered", "Duolingo, online learning platforms and education benchmarks are represented."],
-    ["Investors active in the space", "Covered", "VC, growth, strategic and corporate capital signals are included."],
-    ["Influencers, creators and educators", "Covered", "Creator educators are treated as trust and demand-shaping actors."],
-    ["Media, publishers and cultural drivers", "Covered", "TikTok, YouTube, Spotify, specialist media and cultural moments are mapped."],
-    ["AI companies and AI initiatives", "Covered", "Suno, Music.AI/Moises, Udio, ElevenLabs and rights infrastructure are visible."],
-    ["Awards", "Covered", "Award opportunities are tracked separately from funding."],
-    ["Funding", "Covered", "Public, EU/Finnish and innovation funding options are tracked separately from investors."],
-    ["Last 24 months on the market", "Covered", `${exportMetrics.boardMoves} news grade moves capture funding, AI, rights, partnerships and platform shifts.`]
+    ["Discover", "Covered", "Music discovery, artist platforms, media, culture and inspiration sources."],
+    ["Start", "Covered", "Instrument brands, hardware, retail channels and beginner access routes."],
+    ["Learn", "Covered", "Direct learning apps, curriculum, teachers, schools and education benchmarks."],
+    ["Practice", "Covered", "Song choice, tabs, practice utilities, feedback and habit formation."],
+    ["Create", "Covered", "Creation tools, AI music systems, DAWs, samples and production workflows."],
+    ["Share", "Covered", "Community, artist tools, rights, creator feedback and distribution surfaces."],
+    ["Identity", "Covered", "Music as culture, brand, recognition, trust, fandom and personal identity."],
+    ["Broader platforms", "Triage", "Spotify, Disney, Epic Games, Roblox, Netflix, Nintendo and major education brands are included as strategic adjacency records."]
   ];
   const successTypes = [
-    ["Direct app benchmark", "Simply / JoyTunes", "Closest benchmark for onboarding, motivation, subscription learning and beginner conversion. Appfigures still required for performance ranking."],
-    ["Repertoire / practice surface", "Ultimate Guitar / Muse Group", "Strong song-intent and repertoire ownership around tabs, chords and practice habits."],
-    ["AI practice utility", "Music.AI / Moises", "Stems, isolation, transcription and creator-practice workflows connect AI to actual playing."],
-    ["AI creation signal", "Suno", "Funding, rights debate and product visibility make AI music creation a market-structure force."],
-    ["Hobby creation / community", "BandLab / Splice", "Creator workflows and communities shape participation beyond formal learning."],
-    ["Trust and curriculum", "ABRSM / Trinity / School of Rock", "Certification, teacher trust and education infrastructure shape confidence."],
-    ["Hardware funnel", "Fender / Gibson / Yamaha", "Brands and retailers influence instrument access, bundles and beginner pathways."]
+    ["Direct app benchmark", "Simply", "Closest benchmark for onboarding, motivation, subscription learning and beginner conversion. Appfigures still required for performance ranking."],
+    ["Repertoire and practice surface", "Ultimate Guitar", "Strong song intent and repertoire ownership around tabs, chords and repeat practice habits."],
+    ["Learning mechanics benchmark", "Duolingo", "Useful reference for habit loops, gamification, subscription learning, brand and AI in education."],
+    ["Hardware and trust route", "Fender", "Instrument brand reach can influence beginner access, trust, bundles and possible partner routes."]
   ];
   const completionNotes = [
     ["Appfigures", "Credentialed input", "App-performance fields are prepared for Appfigures import; the report avoids invented revenue, download, ranking or country estimates."],
@@ -8705,15 +9119,15 @@ function renderExportSnapshot() {
   const directAnswers = [
     [
       "Who influences the future of music learning? Who is successful?",
-      "Learning is shaped by direct apps, song/practice systems, AI practice utilities, teacher/creator educators, education benchmarks and hardware funnels. Success is clearest by type: Simply for direct-app benchmarking, Ultimate Guitar for repertoire, Moises for AI practice utility, Suno for AI creation, BandLab/Splice for hobby creation, ABRSM/Trinity/School of Rock for trust, and Fender/Gibson/Yamaha for hardware funnels."
+      "Start with a small priority set: Simply, Ultimate Guitar, Duolingo and Fender. Use the long tail for context until board and LST feedback confirms the next entities to deepen."
     ],
     [
       "Who influences music as a hobby?",
-      "TikTok, YouTube, Spotify, creator tools, tabs and notation, artists, cultural moments, instrument brands, retailers, and AI generation tools."
+      "The journey runs from discovery to identity: discovery platforms, instruments, learning apps, practice surfaces, creation tools, sharing loops and broader entertainment platforms all shape motivation."
     ],
     [
       "Who shapes the strategic environment?",
-      "AI companies, rights owners, app based learning competitors, hardware brands, creator platforms, publishers, investors, funding bodies, awards, media, and education benchmarks."
+      "The next phase is triage, not more filler: agree categories, rank importance, validate with board and LST, then deepen only the highest priority profiles."
     ]
   ];
   const clipText = (value, limit = 160) => {
@@ -8875,13 +9289,7 @@ function renderExportSnapshot() {
   const priorityActorNames = [
     "Simply",
     "Ultimate Guitar",
-    "Moises",
-    "Suno",
-    "BandLab",
     "Fender",
-    "YouTube",
-    "Spotify for Artists",
-    "TikTok for Artists",
     "Duolingo"
   ];
   const priorityActors = priorityActorNames
@@ -8912,9 +9320,9 @@ function renderExportSnapshot() {
     <p class="export-note">These actors are shown first because they best answer the brief's core questions: learning influence, hobby influence, success surfaces, and strategic environment pressure.</p>
   `;
   const renderKeyPlayerCompactMatrix = () => {
-    const groups = categories
+    const groups = journeyCategories
       .map((category) => {
-        const categoryPlayers = keyPlayers.filter((player) => player.category === category.id);
+        const categoryPlayers = keyPlayers.filter((player) => journeyCategoryFor(player).id === category.id);
         if (!categoryPlayers.length) return "";
         return `
           <article class="export-key-matrix-card" style="--accent:${category.color}">
@@ -8930,7 +9338,7 @@ function renderExportSnapshot() {
       .join("");
     return `
       <div class="export-key-matrix">${groups}</div>
-      <p class="export-note">Detailed one-player evidence remains in the full appendix and workbook. The first read version keeps all 28 key players visible without turning the executive report into a database dump.</p>
+      <p class="export-note">The first read keeps the key player set intentionally small. Add more only after board and LST feedback confirms the next priorities.</p>
     `;
   };
   const renderEcosystemMap = () => `
@@ -9085,22 +9493,22 @@ function renderExportSnapshot() {
 
   if (isShort) {
     addSection("Direct answers to the guiding questions", "Short export for fast executive reading.", renderDirectAnswers(), "", "export-answers");
-    addSection("Priority actors", "The highest-signal actors are shown before supporting detail.", renderPriorityActors(), "export-priority-section", "export-priority");
+    addSection("Priority actors", "The strongest signal actors are shown before supporting detail.", renderPriorityActors(), "export-priority-section", "export-priority");
     addSection("Completion notes", "The short version keeps only the caveats that must not be missed.", renderDecisionGates(), "", "export-completion");
     addSection("Package contents", "The deck, report, database and completion templates form the current package.", renderDeliverables(), "export-package-section", "export-files");
   } else {
     addSection("Direct answers to the guiding questions", "The three guiding questions are answered before any supporting detail.", renderDirectAnswers(), "", "export-answers");
     addSection("Priority actors and success surfaces", "Top actors first; success is shown by influence surface, not by unvalidated app performance ranking.", `${renderPriorityActors()}${renderSuccessTypes()}`, "export-priority-section", "export-priority");
-    addSection("All 28 key players at a glance", "Every key player is visible without turning the first read export into a long database appendix.", renderKeyPlayerProof(false), "export-key-matrix-section", "export-players");
-    addSection("Ecosystem map and category coverage", "Visual map plus the requested brief categories.", renderEcosystemMap(), "export-map-section", "export-map");
-    addSection("Brief category coverage", "The requested categories are shown individually, not collapsed into broad buckets.", renderBriefRequirements(), "", "export-coverage");
+    addSection("Key players at a glance", "The key player set is intentionally small before the next triage round.", renderKeyPlayerProof(false), "export-key-matrix-section", "export-players");
+    addSection("Ecosystem map and journey coverage", "Visual map plus the agreed journey categories.", renderEcosystemMap(), "export-map-section", "export-map");
+    addSection("Journey category coverage", "The agreed journey steps are shown individually, with broader platforms kept as triage records.", renderBriefRequirements(), "", "export-coverage");
     addSection("Last 24 months on the market", "A compact view of who made the news for what.", renderMarketMoves(), "", "export-moves");
     addSection("Completion notes", "Appfigures and relationships remain explicit completion layers without dominating the main story.", renderDecisionGates(), "", "export-completion");
     addSection("Package contents", "The deck, report, database and completion templates form the current package.", renderDeliverables(), "export-package-section", "export-files");
   }
 
   if (isFull) {
-    addSection("Full key-player profile appendix", "The full version includes the longer key-player profile cards; the standard executive readout keeps this compressed.", renderKeyPlayerProof(true), "export-full-key-section", "export-appendix");
+    addSection("Full key player profile appendix", "The full version includes the longer key player profile cards; the standard executive readout keeps this compressed.", renderKeyPlayerProof(true), "export-full-key-section", "export-appendix");
     addSection("Database sample", "The workbook contains the full structured data layer; this export includes the highest-priority records.", renderDatabaseProof(), "", "export-database");
     addSection("Relationship space", "Relationship status remains an internal Yousician field, not an external market claim.", renderRelationshipProof(), "", "export-relationships");
     addSection("Appendix source context", "Supporting proof points and clearly marked data caveats.", renderAppendixProof(), "", "export-source-context");
@@ -9111,7 +9519,7 @@ function renderExportSnapshot() {
     <header class="export-cover" id="export-overview">
       <div class="export-cover-grid">
         <div>
-          <span class="section-kicker">Brief-aligned executive report</span>
+          <span class="section-kicker">Brief aligned executive report</span>
           <h1>Strategic Environment Mapping</h1>
           <p class="export-subtitle">Executive readout for Chris' first submission.</p>
           <div class="export-question">
@@ -9130,10 +9538,10 @@ function renderExportSnapshot() {
         <strong>${exportMetrics.players} tracked records</strong>
         <strong>${exportMetrics.keyPlayers} key players</strong>
         <strong>${exportMetrics.boardMoves} news grade moves</strong>
-        <strong>${exportMetrics.briefCategories} brief categories</strong>
+        <strong>${exportMetrics.briefCategories} journey categories</strong>
         <strong>${exportMetrics.guidingQuestions} guiding questions answered</strong>
       </div>
-      <p class="export-note">This report follows the requested structure: ecosystem map, key players, database, relationship fields, guiding answers and last 24 month market moves. Appfigures and internal relationship inputs remain explicit completion layers.</p>
+      <p class="export-note">This report follows the new direction: simpler platform, agreed journey categories, small key player set, triage first, deeper research only where priority is confirmed.</p>
     </header>
     ${sections
       .map(
@@ -9243,6 +9651,7 @@ function renderAll() {
   renderFilters();
   renderActiveFilterStrip();
   renderLegend();
+  renderJourneyBlueprint();
   renderMapSummaryStrip();
   renderMapCompanyPicker();
   renderOverviewMonitorSnapshot();
@@ -9261,6 +9670,7 @@ function renderAll() {
   renderSources();
   renderExportSnapshot();
   syncInteractionState();
+  refreshLucideIcons();
   scheduleTextDashNormalization();
 }
 
