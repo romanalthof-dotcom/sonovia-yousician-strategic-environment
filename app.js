@@ -8434,15 +8434,61 @@ function isResearchOnlyView(view) {
   return view === "sources";
 }
 
-function syncModeUrl(mode) {
+function viewExists(view) {
+  return Boolean(document.getElementById(`${view}View`));
+}
+
+function requestedWorkspaceView(params, mode) {
+  const requestedView = params.get("view") || "overview";
+  if (!viewExists(requestedView)) return "overview";
+  if (mode === "executive" && isResearchOnlyView(requestedView)) return "overview";
+  return requestedView;
+}
+
+function applyViewState(view) {
+  const nextView = viewExists(view) ? view : "overview";
+  state.view = nextView;
+  document.body.dataset.view = nextView;
+  document.querySelectorAll(".tab-button").forEach((button) => {
+    const active = button.dataset.view === nextView;
+    button.classList.toggle("active", active);
+    if (active) {
+      button.setAttribute("aria-current", "page");
+    } else {
+      button.removeAttribute("aria-current");
+    }
+  });
+  document.querySelectorAll(".overview-shortcut-card").forEach((button) => {
+    const active = button.dataset.jumpView === nextView;
+    button.classList.toggle("active", active);
+    if (active) {
+      button.setAttribute("aria-current", "page");
+    } else {
+      button.removeAttribute("aria-current");
+    }
+  });
+  document.querySelectorAll(".view").forEach((section) => section.classList.remove("active"));
+  document.getElementById(`${nextView}View`)?.classList.add("active");
+}
+
+function syncWorkspaceUrl(options = {}) {
   if (document.body.dataset.printTarget === "brief-export") return;
   const url = new URL(window.location.href);
-  if (mode === "research") {
+  if (state.mode === "research") {
     url.searchParams.set("mode", "research");
   } else {
     url.searchParams.delete("mode");
   }
-  window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+  if (state.view === "overview") {
+    url.searchParams.delete("view");
+  } else {
+    url.searchParams.set("view", state.view);
+  }
+  const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+  const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  if (nextUrl === currentUrl) return;
+  const method = options.push ? "pushState" : "replaceState";
+  window.history[method]({}, "", nextUrl);
 }
 
 function setMode(mode, options = {}) {
@@ -8451,12 +8497,11 @@ function setMode(mode, options = {}) {
   els.modeButtons.forEach((button) => {
     button.classList.toggle("active", button.dataset.mode === mode);
   });
-  if (!options.skipUrl) syncModeUrl(mode);
 
   if (mode === "executive" && isResearchOnlyView(state.view)) {
-    switchView("overview");
-    return;
+    applyViewState("overview");
   }
+  if (!options.skipUrl) syncWorkspaceUrl();
 
   renderAll();
   if (!options.silent) {
@@ -8541,35 +8586,15 @@ function switchView(view, options = {}) {
     clearReportUrlParams();
   }
   if (isResearchOnlyView(view) && state.mode !== "research") {
-    setMode("research", { silent: true });
+    setMode("research", { silent: true, skipUrl: true });
   }
-  state.view = view;
-  document.body.dataset.view = view;
-  document.querySelectorAll(".tab-button").forEach((button) => {
-    const active = button.dataset.view === view;
-    button.classList.toggle("active", active);
-    if (active) {
-      button.setAttribute("aria-current", "page");
-    } else {
-      button.removeAttribute("aria-current");
-    }
-  });
-  document.querySelectorAll(".overview-shortcut-card").forEach((button) => {
-    const active = button.dataset.jumpView === view;
-    button.classList.toggle("active", active);
-    if (active) {
-      button.setAttribute("aria-current", "page");
-    } else {
-      button.removeAttribute("aria-current");
-    }
-  });
-  document.querySelectorAll(".view").forEach((section) => section.classList.remove("active"));
-  document.getElementById(`${view}View`).classList.add("active");
-  if (view === "relationships") renderRelationshipGraph();
-  if (view === "one-pager") renderOnePager();
+  applyViewState(view);
+  if (!options.skipUrl) syncWorkspaceUrl({ push: options.pushUrl !== false });
+  if (state.view === "relationships") renderRelationshipGraph();
+  if (state.view === "one-pager") renderOnePager();
   syncInteractionState();
   if (options.scroll !== false) {
-    window.requestAnimationFrame(() => scrollActiveViewIntoPlace(view, options));
+    window.requestAnimationFrame(() => scrollActiveViewIntoPlace(state.view, options));
   }
 }
 
@@ -9410,19 +9435,17 @@ function launchReportPrint() {
   });
 }
 
-function applyUrlExportMode() {
+function applyUrlExportMode(options = {}) {
   const params = new URLSearchParams(window.location.search);
   const isReportRequest = params.get("export") === "brief" && params.get("report") === "brief";
   const requestedMode = params.get("mode") === "research" && params.get("export") !== "brief" ? "research" : "executive";
+  const requestedView = requestedWorkspaceView(params, requestedMode);
   state.mode = requestedMode;
   document.body.dataset.mode = requestedMode;
   els.modeButtons.forEach((button) => {
     button.classList.toggle("active", button.dataset.mode === requestedMode);
   });
-  if (requestedMode === "executive" && isResearchOnlyView(state.view)) {
-    state.view = "overview";
-    document.body.dataset.view = "overview";
-  }
+  applyViewState(requestedView);
   const requestedLength = params.get("length");
   if (exportLengthOptions.some((option) => option.id === requestedLength)) {
     state.exportLength = requestedLength;
@@ -9433,6 +9456,16 @@ function applyUrlExportMode() {
   } else {
     setReportMode(false);
     clearReportUrlParams();
+    if (options.normalizeUrl !== false) syncWorkspaceUrl();
+  }
+  if (options.render) {
+    renderAll();
+    if (state.view === "relationships") renderRelationshipGraph();
+    if (state.view === "one-pager") renderOnePager();
+    syncInteractionState();
+  }
+  if (options.scroll) {
+    window.requestAnimationFrame(() => scrollActiveViewIntoPlace(state.view, { scroll: true }));
   }
 }
 
@@ -9813,6 +9846,11 @@ function bindEvents() {
   window.addEventListener("scroll", () => {
     if (document.body.dataset.printTarget === "brief-export") requestReportNavigationSync();
   }, { passive: true });
+
+  window.addEventListener("popstate", () => {
+    applyUrlExportMode({ render: true, scroll: true });
+    requestReportNavigationSync();
+  });
 }
 
 function shouldLoadBackendStatus() {
