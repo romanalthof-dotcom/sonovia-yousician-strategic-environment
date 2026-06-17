@@ -8289,7 +8289,7 @@ body[data-print-target="brief-export"] .export-length-options button.active {
     grid-template-columns: 1fr;
   }
 
-  .priority-actor-strip strong:nth-of-type(n + 4),
+  .priority-actor-strip strong:nth-of-type(n + 6),
   .priority-actor-strip em {
     display: none;
   }
@@ -13976,7 +13976,7 @@ body[data-view="overview"] .overview-shortcut-card span {
     grid-template-columns: 1fr;
   }
 
-  body[data-view="overview"] .priority-actor-strip strong:nth-of-type(n + 4),
+  body[data-view="overview"] .priority-actor-strip strong:nth-of-type(n + 6),
   body[data-view="overview"] .priority-actor-strip em {
     display: none;
   }

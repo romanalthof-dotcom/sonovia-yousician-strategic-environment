@@ -689,17 +689,17 @@ const players = [
     geography: "Global",
     reach: "Large education platform",
     model: "SaaS, consumer, education",
-    ownership: "Private",
+    ownership: "Private; investor consortium led by Goldman Sachs Asset Management",
     ai: "Research content generation and classroom AI",
     description: "Game-based learning platform with broad teacher and classroom reach.",
-    why: "Useful benchmark for learning engagement, classroom channels, and education buyers.",
-    relevance: 3,
+    why: "Useful benchmark for game based learning engagement, classroom channels, education buyers, and AI assisted content creation.",
+    relevance: 4,
     momentum: 3,
     aiScore: 3,
-    sourceStatus: "Public company/product sources linked; needs market validation",
+    sourceStatus: "Official product and AI sources linked; ownership and market relevance should be cited before board use",
     relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
-    key: false,
-    recent: "Track AI content and school distribution moves.",
+    key: true,
+    recent: "Track AI content generation, classroom distribution, enterprise learning, and education buyer signals.",
     tags: ["education", "classroom", "benchmark"]
   },
   {
@@ -2486,7 +2486,7 @@ const players = [
   }
 ];
 
-const initialKeyPlayerIds = new Set(["simply", "ultimate-guitar", "duolingo", "fender"]);
+const initialKeyPlayerIds = new Set(["simply", "ultimate-guitar", "duolingo", "fender", "kahoot"]);
 players.forEach((player) => {
   player.key = initialKeyPlayerIds.has(player.id);
 });
@@ -10525,7 +10525,8 @@ function renderExportSnapshot() {
     ["Direct app benchmark", "Simply", "Closest benchmark for onboarding, motivation, subscription learning and beginner conversion. Appfigures still required for performance ranking."],
     ["Repertoire and practice surface", "Ultimate Guitar", "Strong song intent and repertoire ownership around tabs, chords and repeat practice habits."],
     ["Learning mechanics benchmark", "Duolingo", "Useful reference for habit loops, gamification, subscription learning, brand and AI in education."],
-    ["Hardware and trust route", "Fender", "Instrument brand reach can influence beginner access, trust, bundles and possible partner routes."]
+    ["Hardware and trust route", "Fender", "Instrument brand reach can influence beginner access, trust, bundles and possible partner routes."],
+    ["Classroom engagement benchmark", "Kahoot", "Useful reference for game based learning, teacher channels, classroom distribution and AI assisted content creation."]
   ];
   const completionNotes = [
     ["Appfigures", "Credentialed input", "App-performance fields are prepared for Appfigures import; the report avoids invented revenue, download, ranking or country estimates."],
@@ -10542,7 +10543,7 @@ function renderExportSnapshot() {
   const directAnswers = [
     [
       "Who influences the future of music learning? Who is successful?",
-      "Start with a small priority set: Simply, Ultimate Guitar, Duolingo and Fender. Use the long tail for context until board and LST feedback confirms the next entities to deepen."
+      "Start with a small priority set: Simply, Ultimate Guitar, Duolingo, Fender and Kahoot. Use the long tail for context until board and LST feedback confirms the next entities to deepen."
     ],
     [
       "Who influences music as a hobby?",
@@ -10712,8 +10713,9 @@ function renderExportSnapshot() {
   const priorityActorNames = [
     "Simply",
     "Ultimate Guitar",
+    "Duolingo",
     "Fender",
-    "Duolingo"
+    "Kahoot"
   ];
   const priorityActors = priorityActorNames
     .map((name) => players.find((player) => player.name === name))
