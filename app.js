@@ -5542,7 +5542,7 @@ function renderMapSummaryStrip() {
   els.mapSummaryStrip.querySelectorAll("[data-bubble-size]").forEach((button) => {
     button.addEventListener("click", () => {
       state.bubbleSizeMode = button.dataset.bubbleSize;
-      renderOverviewMapWorkspace({ revealMap: true, flashSummary: true });
+      renderOverviewMapWorkspace({ revealMap: true, flashSummary: true, deferPicker: true, updateProfile: false });
     });
   });
   els.mapSummaryStrip.querySelectorAll("[data-map-zoom]").forEach((button) => {
@@ -5552,12 +5552,20 @@ function renderMapSummaryStrip() {
         state.mapFocusMode = "all";
       }
       state.mapZoomMode = nextZoomMode;
-      renderOverviewMapWorkspace({ revealMap: true, flashSummary: true });
+      renderOverviewMapWorkspace({ revealMap: true, flashSummary: true, deferPicker: true, updateProfile: false });
     });
   });
   els.mapSummaryStrip.querySelector("[data-map-reset]")?.addEventListener("click", () => {
     resetWorkspaceFilters();
-    renderOverviewMapWorkspace({ includeFilters: true, refreshSecondary: true, revealMap: true, flashSummary: true });
+    renderOverviewMapWorkspace({
+      includeFilters: true,
+      refreshJourney: true,
+      refreshSecondary: true,
+      revealMap: true,
+      flashSummary: true,
+      deferPicker: true,
+      updateProfile: false
+    });
   });
   els.mapSummaryStrip.querySelectorAll("[data-map-selected-action]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -5624,7 +5632,7 @@ function renderMapCompanyPicker() {
   els.mapCompanyPicker.querySelector("[data-map-full-view]")?.addEventListener("click", () => {
     state.mapFocusMode = "all";
     state.mapZoomMode = "full";
-    renderOverviewMapWorkspace({ revealMap: true, flashSummary: true });
+    renderOverviewMapWorkspace({ revealMap: true, flashSummary: true, deferPicker: true, updateProfile: false });
   });
 }
 
@@ -9854,6 +9862,16 @@ function scheduleOverviewSecondaryContent() {
   }, 620);
 }
 
+function scheduleMapCompanyPickerRender() {
+  if (state.view !== "overview") return;
+  window.clearTimeout(scheduleMapCompanyPickerRender.timer);
+  scheduleMapCompanyPickerRender.timer = window.setTimeout(() => {
+    scheduleMapCompanyPickerRender.timer = null;
+    renderMapCompanyPicker();
+    syncInteractionState();
+  }, 180);
+}
+
 function renderOverviewMapWorkspace(options = {}) {
   if (state.view !== "overview") {
     renderAll();
@@ -9863,13 +9881,17 @@ function renderOverviewMapWorkspace(options = {}) {
   ensureSelectedPlayerVisibleInMap();
   if (options.includeFilters) renderFilters();
   renderActiveFilterStrip();
-  renderJourneyBlueprint();
+  if (options.includeFilters || options.refreshJourney) renderJourneyBlueprint();
   renderMapSummaryStrip();
-  renderMapCompanyPicker();
-  renderProfile();
+  if (options.deferPicker) {
+    scheduleMapCompanyPickerRender();
+  } else {
+    renderMapCompanyPicker();
+  }
+  if (options.updateProfile !== false) renderProfile();
   syncInteractionState();
-  refreshLucideIcons();
-  scheduleTextDashNormalization(activeViewElement());
+  if (options.includeFilters || options.refreshJourney) refreshLucideIcons();
+  if (options.normalizeText !== false) scheduleTextDashNormalization(activeViewElement());
   scheduleMapRender();
 
   if (options.refreshSecondary) scheduleOverviewSecondaryContent();
