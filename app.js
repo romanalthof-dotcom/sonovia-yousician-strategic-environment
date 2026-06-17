@@ -5454,7 +5454,7 @@ function renderMapSummaryStrip() {
   const zoomButtons = [
     { id: "fit", label: "Fit" },
     { id: "selected", label: "Selected" },
-    { id: "full", label: "Full map" }
+    { id: "full", label: `All ${basePlayers.length}` }
   ]
     .map((button) => {
       const active =
@@ -5529,7 +5529,11 @@ function renderMapSummaryStrip() {
   });
   els.mapSummaryStrip.querySelectorAll("[data-map-zoom]").forEach((button) => {
     button.addEventListener("click", () => {
-      state.mapZoomMode = button.dataset.mapZoom;
+      const nextZoomMode = button.dataset.mapZoom;
+      if (nextZoomMode === "full") {
+        state.mapFocusMode = "all";
+      }
+      state.mapZoomMode = nextZoomMode;
       renderAll();
       revealMapForFilteredView();
       flashElement(els.mapSummaryStrip);
