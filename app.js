@@ -4457,6 +4457,8 @@ function sentimentSummary(player) {
 }
 
 function profileSpecificLens(player, taxonomy, validation) {
+  const safeTaxonomy = taxonomy || taxonomyProfile(player);
+  const safeValidation = validation || internalValidationFor(player);
   const relation = relationForPlayer(player);
   const proximity = competitiveProximityScore(player);
   if (relation?.type === "competes" || proximity >= 5) {
@@ -4473,7 +4475,7 @@ function profileSpecificLens(player, taxonomy, validation) {
       body: "Use this as a triage record for acquisition history, strategic fit, attention risk and possible distribution or partnership logic."
     };
   }
-  if (relation?.type === "partners" || /partner|channel|hardware|education|brand|distribution/i.test(`${taxonomy.role} ${validation.nextStep}`)) {
+  if (relation?.type === "partners" || /partner|channel|hardware|education|brand|distribution/i.test(`${safeTaxonomy.role} ${safeValidation.nextStep}`)) {
     return {
       label: "Partner lens",
       headline: "Screen synergies and route to audience",
@@ -4490,7 +4492,7 @@ function profileSpecificLens(player, taxonomy, validation) {
   return {
     label: "Context lens",
     headline: "Explain why this matters to Yousician",
-    body: taxonomy.decisionUse
+    body: safeTaxonomy.decisionUse
   };
 }
 
@@ -4587,6 +4589,13 @@ function executiveDecisionQuestion(player, taxonomy) {
 }
 
 function executiveReadinessFor(player, quality) {
+  if (quality.score >= 76 && requiresCredentialedData(player)) {
+    return {
+      label: "Board framing ready",
+      headline: "Usable for internal decision framing",
+      body: "Role, relevance and strategic question are sourced; app performance claims still need credentialed Appfigures data."
+    };
+  }
   if (quality.score >= 76 && !hasCriticalEvidenceGap(player)) {
     return {
       label: "Leadership ready",
@@ -8333,12 +8342,13 @@ function onePagerSnapshotRows(player, quality) {
 }
 
 function onePagerPortfolioRows(player, taxonomy) {
+  const validation = internalValidationFor(player);
   return [
     ["Primary surface", player.description],
     ["Category role", taxonomy.group],
     ["Product lens", productFocusLabel(player)],
     ["Customer model", player.model],
-    ["Yousician use", profileSpecificLens(player)],
+    ["Yousician use", profileSpecificLens(player, taxonomy, validation).headline],
     ["Next data need", nextAction(player)]
   ];
 }
@@ -8479,6 +8489,122 @@ function onePagerSourcesHtml(player, quality) {
   `;
 }
 
+function onePagerExecutiveQuestions(player, quality, validation) {
+  const questions = [
+    requiresCredentialedData(player)
+      ? "Import Appfigures metrics before ranking app performance, revenue, downloads, rank trend, review velocity, country mix, or growth."
+      : "",
+    /not prioritized|not yet|to be completed|owner confirmation/i.test(`${validation.knownRelationship} ${validation.status}`)
+      ? "Confirm internal relationship owner, contact history, sensitivity, and whether this belongs in an active pipeline."
+      : "",
+    quality.gaps.length ? `Close ${quality.gaps.slice(0, 2).join(" and ")} gap before hard claims.` : "",
+    ...quality.coverage.openQuestions,
+    nextAction(player)
+  ]
+    .filter(Boolean)
+    .map((item) => compactTemplateText(item, 150));
+  return [...new Set(questions)].slice(0, 4);
+}
+
+function onePagerExecutiveBriefHtml(player, taxonomy, validation, quality) {
+  const posture = executivePostureFor(player, taxonomy, validation);
+  const readiness = executiveReadinessFor(player, quality);
+  const lens = profileSpecificLens(player, taxonomy, validation);
+  const guardrails = executiveGuardrailsFor(player, quality, validation);
+  const relation = relationForPlayer(player);
+  const sourceNeedText = sourceNeeds(player).join(", ");
+  const questions = onePagerExecutiveQuestions(player, quality, validation);
+  const gates = [
+    {
+      label: "Decision posture",
+      value: posture.label,
+      detail: posture.owner
+    },
+    {
+      label: "Business scale",
+      value: absoluteFigureSummary(player),
+      detail: `${ratingForPlayer(player, "revenue").display} proxy only`
+    },
+    {
+      label: "Evidence confidence",
+      value: `${quality.score}%`,
+      detail: `${quality.label}, ${quality.coverage.count} linked source${quality.coverage.count === 1 ? "" : "s"}`
+    },
+    {
+      label: "Relationship status",
+      value: templateRelationshipFor(player),
+      detail: relation ? relationshipTitle(relation.type) : validation.owner
+    },
+    {
+      label: "Sentiment input",
+      value: sentimentSummary(player),
+      detail: requiresCredentialedData(player) ? "Needs app data" : "Use as qualitative signal"
+    },
+    {
+      label: "Next validation",
+      value: nextAction(player),
+      detail: sourceNeedText
+    }
+  ];
+
+  return `
+    <section class="one-pager-executive-brief" aria-label="Executive decision brief">
+      <header class="one-pager-brief-head">
+        <div>
+          <span>Executive decision brief</span>
+          <h3>What matters before the detail</h3>
+        </div>
+        <strong>${escapeHtml(readiness.label)}</strong>
+      </header>
+
+      <div class="one-pager-brief-main">
+        <article class="one-pager-brief-card is-primary">
+          <span>Board read</span>
+          <h4>${escapeHtml(posture.headline)}</h4>
+          <p>${escapeHtml(posture.body)}</p>
+          <p><strong>Use this profile to decide:</strong> ${escapeHtml(executiveDecisionQuestion(player, taxonomy))}</p>
+        </article>
+
+        <article class="one-pager-brief-card">
+          <span>Yousician implication</span>
+          <h4>${escapeHtml(lens.headline)}</h4>
+          <p>${escapeHtml(lens.body)}</p>
+          <p><strong>Safe read:</strong> ${escapeHtml(readiness.body)}</p>
+        </article>
+      </div>
+
+      <div class="one-pager-brief-kpi-grid" aria-label="Decision gates">
+        ${gates
+          .map(
+            (gate) => `
+              <div class="one-pager-brief-kpi">
+                <span>${escapeHtml(gate.label)}</span>
+                <strong>${escapeHtml(gate.value)}</strong>
+                <small>${escapeHtml(gate.detail)}</small>
+              </div>
+            `
+          )
+          .join("")}
+      </div>
+
+      <div class="one-pager-brief-detail-grid">
+        <article class="one-pager-brief-card">
+          <span>Next checks</span>
+          <ul class="one-pager-executive-actions">
+            ${questions.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+          </ul>
+        </article>
+        <article class="one-pager-brief-card one-pager-brief-caveats">
+          <span>Do not overclaim</span>
+          <ul class="one-pager-executive-actions">
+            ${guardrails.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+          </ul>
+        </article>
+      </div>
+    </section>
+  `;
+}
+
 function renderOnePager() {
   const player = getSelectedPlayer();
   const category = categoryById(player.category);
@@ -8521,6 +8647,8 @@ function renderOnePager() {
       </header>
 
       ${onePagerFactStripHtml(player, taxonomy, quality)}
+
+      ${onePagerExecutiveBriefHtml(player, taxonomy, validation, quality)}
 
       <section class="one-pager-numbered-grid">
         ${onePagerSectionHtml(
