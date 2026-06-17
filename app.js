@@ -8707,6 +8707,161 @@ function onePagerScoreLabel(value) {
   return "Low";
 }
 
+function onePagerRank(player, cohort, scoreFn) {
+  const ranked = [...cohort].sort((a, b) => scoreFn(b) - scoreFn(a) || a.name.localeCompare(b.name));
+  return Math.max(1, ranked.findIndex((candidate) => candidate.id === player.id) + 1);
+}
+
+function onePagerPriorityRank(player) {
+  const cohort = players.filter((candidate) => !isSignalOnlyRecord(candidate));
+  return {
+    rank: onePagerRank(player, cohort, totalPriority),
+    total: cohort.length
+  };
+}
+
+function onePagerCategoryRank(player) {
+  const cohort = players.filter((candidate) => candidate.category === player.category && !isSignalOnlyRecord(candidate));
+  return {
+    rank: onePagerRank(player, cohort, totalPriority),
+    total: cohort.length
+  };
+}
+
+function onePagerClosestPeers(player, taxonomy, limit = 5) {
+  return players
+    .filter((candidate) => candidate.id !== player.id)
+    .filter((candidate) => !isSignalOnlyRecord(candidate))
+    .map((candidate) => {
+      const candidateTaxonomy = taxonomyProfile(candidate);
+      let score = 0;
+      if (candidate.category === player.category) score += 34;
+      if (candidateTaxonomy.journey === taxonomy.journey) score += 24;
+      if (candidateTaxonomy.proximity === taxonomy.proximity) score += 16;
+      if (candidate.key) score += 8;
+      score += Math.max(0, 10 - Math.abs(totalPriority(candidate) - totalPriority(player)) / 4);
+      score += Math.max(0, 6 - Math.abs(competitiveProximityScore(candidate) - competitiveProximityScore(player)));
+      return { candidate, score };
+    })
+    .sort((a, b) => b.score - a.score || totalPriority(b.candidate) - totalPriority(a.candidate) || a.candidate.name.localeCompare(b.candidate.name))
+    .slice(0, limit)
+    .map((item) => item.candidate);
+}
+
+function onePagerMarketContextHtml(player, taxonomy, quality, validation) {
+  const priorityRank = onePagerPriorityRank(player);
+  const categoryRank = onePagerCategoryRank(player);
+  const category = categoryById(player.category);
+  const peerSet = onePagerClosestPeers(player, taxonomy);
+  const publicNeedCount = sourceNeeds(player).filter((need) => !/appfigures|similarweb|crunchbase/i.test(need)).length;
+  const gatedNeedCount = sourceNeeds(player).filter((need) => /appfigures|similarweb|crunchbase/i.test(need)).length + quality.coverage.gatedQuestions.length;
+  const relation = relationForPlayer(player);
+  const contextCards = [
+    {
+      label: "Market rank",
+      value: `#${priorityRank.rank} of ${priorityRank.total}`,
+      detail: "Strategic priority among company and organisation records."
+    },
+    {
+      label: "Category rank",
+      value: `#${categoryRank.rank} of ${categoryRank.total}`,
+      detail: `${category.shortName || category.name}, sorted by priority.`
+    },
+    {
+      label: "Closest peer set",
+      value: `${peerSet.length} comparables`,
+      detail: peerSet.slice(0, 3).map((peer) => peer.name).join(", ") || "No close peer set."
+    },
+    {
+      label: "Validation load",
+      value: `${publicNeedCount + gatedNeedCount} checks`,
+      detail: `${publicNeedCount} public, ${gatedNeedCount} gated or credentialed.`
+    }
+  ];
+  const peerRows = peerSet.map((peer) => {
+    const peerQuality = qualityProfile(peer);
+    return [
+      peer.name,
+      taxonomyProfile(peer).journey,
+      `${peer.relevance}/5`,
+      `${peer.momentum}/5`,
+      `${peer.aiScore}/5`,
+      `${peerQuality.score}%`
+    ];
+  });
+  const triggerItems = [
+    requiresCredentialedData(player)
+      ? `Import Appfigures or traffic data before using app performance, revenue, downloads, rank trend, review velocity, or country mix claims.`
+      : `No credentialed app data is required for the current executive use case unless the decision shifts to performance benchmarking.`,
+    quality.gaps.length
+      ? `Close the source gap around ${quality.gaps.slice(0, 2).join(" and ")} before making hard claims.`
+      : `Public source coverage is strong enough for directional discussion, subject to the listed caveats.`,
+    /not prioritized|not yet|to be completed|owner confirmation/i.test(`${validation.knownRelationship} ${validation.status}`)
+      ? `Ask Yousician to confirm owner, contact history, commercial sensitivity, and whether this belongs in an active pipeline.`
+      : `Relationship state is loaded as ${templateRelationshipFor(player)}; validate sensitivity before sharing externally.`,
+    relation
+      ? `Use the relationship lane as ${relationshipTitle(relation.type).toLowerCase()} evidence, not as proof of an active commercial path.`
+      : `No explicit relationship lane is loaded; treat opportunity language as hypothesis until internal owners confirm.`
+  ];
+  const useCases = [
+    ["Board question", executiveDecisionQuestion(player, taxonomy)],
+    ["Compare against", peerSet.slice(0, 3).map((peer) => peer.name).join(", ") || "Current category peers"],
+    ["Best use today", profileSpecificLens(player, taxonomy, validation).headline],
+    ["Worst use today", executiveGuardrailsFor(player, quality, validation)[0] || "Hard claims without stronger source coverage"],
+    ["Owner to involve", validation.owner],
+    ["Next data import", liveDataFeedsForPlayer(player).join(", ") || "No live feed required yet"]
+  ];
+
+  return `
+    <section class="one-pager-market-context" aria-label="Market comparison and validation context">
+      <div class="one-pager-market-context-head">
+        <div>
+          <span>Decision context</span>
+          <h3>How to use this profile in the market readout</h3>
+        </div>
+        <strong>${escapeHtml(taxonomy.journey)}</strong>
+      </div>
+      <div class="one-pager-context-card-grid">
+        ${contextCards
+          .map(
+            (card) => `
+              <article>
+                <span>${escapeHtml(card.label)}</span>
+                <strong>${escapeHtml(card.value)}</strong>
+                <small>${escapeHtml(card.detail)}</small>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+      <div class="one-pager-context-split">
+        <article>
+          <span>Comparable peer benchmark</span>
+          ${onePagerTableHtml(["Peer", "Journey", "Fit", "Momentum", "AI", "Evidence"], peerRows.length ? peerRows : [["To verify", taxonomy.journey, "To verify", "To verify", "To verify", "To verify"]])}
+        </article>
+        <article>
+          <span>What would change the read</span>
+          <ul class="one-pager-executive-actions">
+            ${triggerItems.map((item) => `<li>${escapeHtml(compactTemplateText(item, 150))}</li>`).join("")}
+          </ul>
+        </article>
+      </div>
+      <div class="one-pager-use-case-grid">
+        ${useCases
+          .map(
+            ([label, value]) => `
+              <div>
+                <span>${escapeHtml(label)}</span>
+                <strong>${escapeHtml(nonEmptyString(value) || "To verify")}</strong>
+              </div>
+            `
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
 function onePagerTableHtml(headers, rows) {
   return `
     <table class="one-pager-table">
@@ -8776,7 +8931,11 @@ function onePagerSectionHtml(index, title, body, modifier = "") {
 
 function onePagerSnapshotRows(player, quality) {
   const coverage = quality.coverage;
+  const priorityRank = onePagerPriorityRank(player);
+  const categoryRank = onePagerCategoryRank(player);
   return [
+    ["Market priority rank", `#${priorityRank.rank} of ${priorityRank.total} company and organisation records`],
+    ["Category priority rank", `#${categoryRank.rank} of ${categoryRank.total} records in this category`],
     ["Strategic relevance", ratingForPlayer(player, "strategic").display],
     ["Company size", `${businessSizeScore(player)}/5 directional score`],
     ["Revenue signal", `${ratingForPlayer(player, "revenue").display} proxy only`],
@@ -9108,6 +9267,8 @@ function renderOnePager() {
       ${onePagerFactStripHtml(player, taxonomy, quality)}
 
       ${onePagerExecutiveBriefHtml(player, taxonomy, validation, quality)}
+
+      ${onePagerMarketContextHtml(player, taxonomy, quality, validation)}
 
       <section class="one-pager-numbered-grid">
         ${onePagerSectionHtml(
