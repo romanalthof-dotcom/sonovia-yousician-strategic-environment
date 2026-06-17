@@ -5208,13 +5208,15 @@ function renderActiveFilterStrip() {
     });
   }
   if (state.minRelevance > 1) chips.push({ id: "relevance", label: "Relevance", value: `${state.minRelevance}+` });
-  if (state.mapFocusMode !== defaultMapFocusMode) chips.push({ id: "mapFocus", label: "Map", value: mapFocusModeById(state.mapFocusMode).label });
-  if (!["auto", defaultMapZoomMode].includes(state.mapZoomMode)) chips.push({ id: "mapZoom", label: "View", value: mapZoomLabel() });
   const basePlayers = getFilteredPlayers();
-  const mapLimit = mapRecordLimitFor(basePlayers);
-  const defaultLimit = Math.min(defaultMapRecordLimit, Math.max(1, basePlayers.length));
-  if (mapLimit !== defaultLimit) {
-    chips.push({ id: "mapLimit", label: "Map records", value: mapLimit >= basePlayers.length ? `All ${basePlayers.length}` : `${mapLimit}` });
+  if (state.view === "overview") {
+    if (state.mapFocusMode !== defaultMapFocusMode) chips.push({ id: "mapFocus", label: "Map", value: mapFocusModeById(state.mapFocusMode).label });
+    if (!["auto", defaultMapZoomMode].includes(state.mapZoomMode)) chips.push({ id: "mapZoom", label: "View", value: mapZoomLabel() });
+    const mapLimit = mapRecordLimitFor(basePlayers);
+    const defaultLimit = Math.min(defaultMapRecordLimit, Math.max(1, basePlayers.length));
+    if (mapLimit !== defaultLimit) {
+      chips.push({ id: "mapLimit", label: "Map records", value: mapLimit >= basePlayers.length ? `All ${basePlayers.length}` : `${mapLimit}` });
+    }
   }
   if (state.bubbleSizeMode !== defaultBubbleSizeMode) {
     chips.push({ id: "bubbleSize", label: "Bubble size", value: bubbleSizeModeById(state.bubbleSizeMode).shortLabel });
@@ -5226,11 +5228,12 @@ function renderActiveFilterStrip() {
   if (state.dbSegment !== "all") chips.push({ id: "database", label: "Database", value: databaseSegmentById(state.dbSegment).label });
 
   const mapPlayers = mapVisiblePlayers(basePlayers);
+  const visibleCount = state.view === "overview" ? mapPlayers.length : basePlayers.length;
   const activeCount = chips.length;
   els.activeFilterStrip.innerHTML = `
     <div class="filter-status-pill" aria-label="Current visible records">
-      <strong>${mapPlayers.length}</strong>
-      <span>${state.view === "overview" ? "on map" : `${basePlayers.length} records`}</span>
+      <strong>${visibleCount}</strong>
+      <span>${state.view === "overview" ? "on map" : "records"}</span>
     </div>
     <div class="active-filter-chips">
       ${
@@ -5245,7 +5248,7 @@ function renderActiveFilterStrip() {
                 `
               )
               .join("")
-          : `<span class="filter-chip-empty">Top 25 by priority</span>`
+          : `<span class="filter-chip-empty">${state.view === "overview" ? "Top 25 by priority" : "No active filters"}</span>`
       }
     </div>
     <button class="filter-clear-all" data-filter-clear-all type="button" ${activeCount ? "" : "disabled"}>Clear all</button>
@@ -6872,6 +6875,123 @@ function visualPoint(player, options = {}) {
   `;
 }
 
+function databaseMatrixPriorityScore(player) {
+  return Math.round(((player.relevance + player.momentum + player.aiScore) / 15) * 100);
+}
+
+function databaseMatrixPointRadius(player, showLabel) {
+  if (player.id === state.selectedPlayerId) return 4.9;
+  if (player.key) return 4.35;
+  if (showLabel) return 3.75;
+  if (player.relevance >= 5 || player.aiScore >= 5) return 2.85;
+  return 1.72;
+}
+
+function databaseMatrixBasePoint(player, showLabel, index) {
+  const quality = qualityProfile(player);
+  const seed = player.id.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0);
+  const priority = databaseMatrixPriorityScore(player);
+  const jitterX = ((seed % 9) - 4) * 0.72;
+  const jitterY = (((Math.floor(seed / 9) % 9) - 4) * 0.58);
+  return {
+    player,
+    quality,
+    priority,
+    showLabel,
+    radius: databaseMatrixPointRadius(player, showLabel),
+    x: Math.max(8, Math.min(92, quality.score + jitterX)),
+    y: Math.max(10, Math.min(88, priority + jitterY)),
+    index
+  };
+}
+
+function clampDatabaseMatrixPoint(point) {
+  const margin = point.radius + 1.8;
+  point.x = Math.max(margin, Math.min(100 - margin, point.x));
+  point.y = Math.max(margin, Math.min(100 - margin, point.y));
+}
+
+function relaxDatabaseMatrixPoints(points) {
+  const yScale = 0.46;
+  for (let iteration = 0; iteration < 26; iteration += 1) {
+    for (let a = 0; a < points.length; a += 1) {
+      for (let b = a + 1; b < points.length; b += 1) {
+        const one = points[a];
+        const two = points[b];
+        const dx = two.x - one.x;
+        const dy = (two.y - one.y) * yScale;
+        const distance = Math.max(0.1, Math.hypot(dx, dy));
+        const labelGap = one.showLabel || two.showLabel ? 1.7 : 0.75;
+        const target = one.radius + two.radius + labelGap + 1.4;
+        if (distance >= target) continue;
+        const push = ((target - distance) / 2) * 0.82;
+        const ux = dx / distance;
+        const uy = dy / distance;
+        one.x -= ux * push;
+        one.y -= (uy * push) / yScale;
+        two.x += ux * push;
+        two.y += (uy * push) / yScale;
+      }
+    }
+    points.forEach((point) => {
+      const basePull = point.showLabel || point.player.key ? 0.018 : 0.035;
+      point.x += (point.quality.score - point.x) * basePull;
+      point.y += (point.priority - point.y) * basePull;
+      clampDatabaseMatrixPoint(point);
+    });
+  }
+  for (let iteration = 0; iteration < 8; iteration += 1) {
+    for (let a = 0; a < points.length; a += 1) {
+      for (let b = a + 1; b < points.length; b += 1) {
+        const one = points[a];
+        const two = points[b];
+        const dx = two.x - one.x;
+        const dy = (two.y - one.y) * yScale;
+        const distance = Math.max(0.1, Math.hypot(dx, dy));
+        const target = one.radius + two.radius + 2.1;
+        if (distance >= target) continue;
+        const push = (target - distance) / 2;
+        one.x -= (dx / distance) * push;
+        one.y -= ((dy / distance) * push) / yScale;
+        two.x += (dx / distance) * push;
+        two.y += ((dy / distance) * push) / yScale;
+      }
+    }
+    points.forEach(clampDatabaseMatrixPoint);
+  }
+  return points;
+}
+
+function databaseMatrixPointHtml(point) {
+  const { player, quality, showLabel, x, y, radius } = point;
+  const isSelected = player.id === state.selectedPlayerId;
+  const proofGap = hasCriticalEvidenceGap(player);
+  const ready = quality.score >= 68 && !proofGap;
+  const highSignal = player.relevance >= 5 || player.aiScore >= 5 || totalPriority(player) >= 40;
+  const background = !player.key && !isSelected && !showLabel && !highSignal;
+  const label = compactName(player.name, isSelected ? 18 : 13);
+  return `
+    <button
+      class="visual-point database-confidence-point ${player.key ? "is-key" : ""} ${isSelected ? "is-selected" : ""} ${
+        highSignal ? "is-high-signal" : ""
+      } ${background ? "is-background" : ""} ${proofGap ? "is-proof-gap" : "is-ready"}"
+      data-visual-player="${escapeHtml(player.id)}"
+      type="button"
+      style="--point-x:${x.toFixed(2)}; --point-y:${y.toFixed(2)}; --point-color:${colorFor(player)}; --point-size:${Math.round(radius * 9)}px"
+      title="${escapeHtml(player.name)} / source confidence ${quality.score}% / priority ${databaseMatrixPriorityScore(player)} / ${proofGap ? "proof needed" : "ready"}"
+    >
+      <span>${background ? "" : escapeHtml(initials(player.name))}</span>
+      ${showLabel ? `<strong>${escapeHtml(label)}</strong>` : ""}
+    </button>
+  `;
+}
+
+function databaseMatrixLayout(rows, labelIds) {
+  const showLabelFor = (player) => labelIds.has(player.id);
+  const points = rows.map((player, index) => databaseMatrixBasePoint(player, showLabelFor(player), index));
+  return relaxDatabaseMatrixPoints(points);
+}
+
 function bindVisualPlayers(container) {
   container?.querySelectorAll("[data-visual-player]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -7937,21 +8057,25 @@ function renderDatabaseVisuals(rows) {
   if (!els.databaseVisuals) return;
   const visibleRows = rows;
   const priorityRows = [...visibleRows].sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name));
+  const proofDebtRows = priorityRows.filter(hasCriticalEvidenceGap);
+  const readyRows = priorityRows.filter((player) => qualityProfile(player).score >= 68 && !hasCriticalEvidenceGap(player));
   const labelIds = new Set([
     state.selectedPlayerId,
-    ...priorityRows.filter((player) => player.key).slice(0, 8).map((player) => player.id),
-    ...priorityRows.slice(0, 5).map((player) => player.id)
+    ...priorityRows.filter((player) => player.key).slice(0, 5).map((player) => player.id),
+    ...proofDebtRows.slice(0, 5).map((player) => player.id),
+    ...readyRows.slice(0, 3).map((player) => player.id)
   ]);
   const matrixRows = [...visibleRows].sort((a, b) =>
+    Number(hasCriticalEvidenceGap(a)) - Number(hasCriticalEvidenceGap(b)) ||
     Number(a.key) - Number(b.key) ||
-    Number(a.id === state.selectedPlayerId) - Number(b.id === state.selectedPlayerId) ||
     totalPriority(a) - totalPriority(b) ||
     a.name.localeCompare(b.name)
   );
+  const matrixPoints = databaseMatrixLayout(matrixRows, labelIds);
   const avgQuality = Math.round(visibleRows.reduce((sum, player) => sum + qualityProfile(player).score, 0) / Math.max(visibleRows.length, 1));
   const keyRecordCount = visibleRows.filter((player) => player.key).length;
-  const proofGapCount = visibleRows.filter(hasCriticalEvidenceGap).length;
-  const readyCount = visibleRows.filter((player) => qualityProfile(player).score >= 68 && !hasCriticalEvidenceGap(player)).length;
+  const proofGapCount = proofDebtRows.length;
+  const readyCount = readyRows.length;
   const categoryRows = journeyCategories
     .map((category) => {
       const items = rows.filter((player) => journeyCategoryFor(player).id === category.id);
@@ -7970,31 +8094,29 @@ function renderDatabaseVisuals(rows) {
           <span class="section-kicker">Ecosystem coverage view</span>
           <h3>Source confidence versus strategic priority</h3>
         </div>
-        <p>${rows.length} records are represented without forcing a raw table into the executive view.</p>
+        <p>Read from top left to top right: important records first need proof, then become usable evidence.</p>
       </div>
       <div class="database-visual-stats" aria-label="Evidence coverage summary">
-        <span><strong>${avgQuality}%</strong> average confidence</span>
-        <span><strong>${keyRecordCount}</strong> key records</span>
-        <span><strong>${readyCount}</strong> ready records</span>
-        <span><strong>${proofGapCount}</strong> proof gaps</span>
+        <span><strong>${avgQuality}%</strong> avg source confidence</span>
+        <span><strong>${keyRecordCount}</strong> decision records</span>
+        <span><strong>${readyCount}</strong> ready for use</span>
+        <span><strong>${proofGapCount}</strong> proof debt</span>
+      </div>
+      <div class="database-confidence-legend" aria-label="Source confidence legend">
+        <span><i class="legend-ready"></i> usable evidence</span>
+        <span><i class="legend-gap"></i> proof needed</span>
+        <span><i class="legend-key"></i> decision record</span>
       </div>
       <div class="visual-matrix database-priority-map ${rows.length > 70 ? "is-dense" : ""}" aria-label="Database evidence priority matrix">
-        <span class="matrix-zone zone-invest">Priority needing proof</span>
-        <span class="matrix-zone zone-ready">Ready for use</span>
-        <span class="matrix-quadrant quadrant-watch">Watch and validate</span>
+        <span class="matrix-zone zone-invest">High priority, proof needed</span>
+        <span class="matrix-zone zone-ready">High priority, ready to use</span>
+        <span class="matrix-quadrant quadrant-watch">Monitor later</span>
         <span class="matrix-quadrant quadrant-proof">Proof bank</span>
         <span class="matrix-axis axis-y">Strategic priority</span>
         <span class="matrix-axis axis-x">Source confidence</span>
-        ${matrixRows
-          .map((player) =>
-            visualPoint(player, {
-              compact: true,
-              jitter: 8.4,
-              showLabel: labelIds.has(player.id),
-              density: true
-            })
-          )
-          .join("")}
+        <span class="matrix-threshold threshold-confidence"></span>
+        <span class="matrix-threshold threshold-priority"></span>
+        ${matrixPoints.map(databaseMatrixPointHtml).join("")}
       </div>
     </section>
     <section class="visual-panel category-proof-panel">
