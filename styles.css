@@ -3636,6 +3636,16 @@ body:not([data-view="overview"]) .view.active {
   padding: 9px 11px;
 }
 
+.one-pager-source-needs.is-covered {
+  border-left-color: var(--brand);
+  background: #ecfff6;
+}
+
+.one-pager-source-needs.is-gated {
+  border-left-color: #9a7b2f;
+  background: #fff8e6;
+}
+
 .database-workbench {
   display: grid;
   gap: 10px;

@@ -378,10 +378,10 @@ const players = [
     type: "AI-native learning app",
     category: "learning",
     subcategory: "AI piano teacher and adaptive practice",
-    geography: "To verify",
+    geography: "Global app-store presence",
     reach: "Emerging",
-    model: "To verify",
-    ownership: "To verify",
+    model: "AI piano learning app",
+    ownership: "ArtMaster",
     ai: "Likely research target for AI-native learning patterns",
     description: "Example emerging piano learning player from the brief.",
     why: "Useful as an early signal for new product patterns in music learning.",
@@ -3682,7 +3682,7 @@ function credentialedAppfiguresCount() {
 
 function nextAction(player) {
   const needs = sourceNeeds(player);
-  if (needs.includes("Appfigures")) return "Pull app performance";
+  if (needs.includes("Appfigures metrics")) return "Import app metrics if ranking is needed";
   if (needs.includes("Crunchbase")) return "Verify ownership / funding";
   if (needs.includes("Similarweb")) return "Check web traffic";
   if (needs.includes("Audience source")) return "Validate audience reach";
@@ -3690,21 +3690,26 @@ function nextAction(player) {
   if (needs.includes("Award source")) return "Check award relevance";
   if (needs.includes("Programme source")) return "Review eligibility window";
   if (needs.includes("Company source")) return "Verify company claims";
-  return "Manual research pass";
+  return "Quarterly source refresh";
 }
 
 function sourceNeeds(player) {
-  const text = `${player.sourceStatus} ${player.recent} ${player.type}`.toLowerCase();
+  const coverage = evidenceCoverage(player);
+  const text = `${player.sourceStatus} ${player.recent} ${player.type} ${player.ownership}`.toLowerCase();
   const needs = [];
-  if (/appfigures|app|download|rank|revenue/.test(text)) needs.push("Appfigures");
-  if (/traffic|web/.test(text)) needs.push("Similarweb");
-  if (/funding|investor|private|capital|ownership/.test(text)) needs.push("Crunchbase");
-  if (/youtube|creator|media/.test(text)) needs.push("Audience source");
+  const publicProfileCovered = coverage.count >= 3 && coverage.publicCount >= 2 && coverage.highCount >= 1;
+  const publicSourceCovered = coverage.count >= 2 && coverage.publicCount >= 1;
+  if (/appfigures|download|rank|revenue|review velocity|country mix|app performance/.test(text)) {
+    needs.push("Appfigures metrics");
+  }
+  if (/traffic|web visits|similarweb/.test(text)) needs.push("Similarweb");
+  if (/to verify/i.test(player.ownership || "")) needs.push("Crunchbase");
+  if (/funding|investor|capital|ownership/.test(text) && !publicProfileCovered) needs.push("Crunchbase");
+  if (/youtube|creator|media/.test(text) && coverage.count < 2) needs.push("Audience source");
   if (/legal|litigation|rights|copyright/.test(text)) needs.push("Legal/news");
   if (/award|bett/.test(text)) needs.push("Award source");
   if (/eligibility|programme|funding source|grant/.test(text)) needs.push("Programme source");
-  if (/company|product|source|verify/.test(text)) needs.push("Company source");
-  if (!needs.length) needs.push("Manual research");
+  if (!publicSourceCovered && /company|product|source|verify|official|site/.test(text)) needs.push("Company source");
   return [...new Set(needs)].slice(0, 4);
 }
 
@@ -3806,13 +3811,13 @@ function internalValidationFor(player) {
 function liveDataFeedsForPlayer(player) {
   const needs = sourceNeeds(player);
   const feeds = [];
-  if (needs.includes("Appfigures")) feeds.push("Appfigures");
+  if (needs.includes("Appfigures metrics")) feeds.push("Appfigures");
   if (needs.includes("Similarweb")) feeds.push("Similarweb");
   if (needs.includes("Crunchbase")) feeds.push("Crunchbase");
   if (needs.includes("Audience source")) feeds.push("YouTube / audience analytics");
   if (needs.includes("Legal/news")) feeds.push("News / legal monitoring");
   if (needs.includes("Company source")) feeds.push("Company website / press");
-  if (!feeds.length) feeds.push("Manual research");
+  if (!feeds.length) feeds.push("Quarterly source refresh");
   return feeds.slice(0, 3);
 }
 
@@ -3968,8 +3973,39 @@ function evidenceRecordFor(player) {
     evidenceContext.evidenceByPlayer?.[player.id] || {
       summary: "No structured evidence record loaded yet. Keep this player in the research backlog.",
       sourceIds: [],
-      openQuestions: sourceNeeds(player)
+      openQuestions: ["Add official company or product source"]
     }
+  );
+}
+
+function isCredentialedQuestion(question) {
+  return /appfigures|download|revenue|rank|ranking|conversion|retention|active usage|paid|traffic|similarweb|app performance|review velocity|country mix|web\/app split|usage data|sales data|creator retention/i.test(
+    question || ""
+  );
+}
+
+function isInternalQuestion(question) {
+  return /yousician|internal|relationship|owner|contact|prior|pipeline|sensitivity|partner history|bizdev/i.test(
+    question || ""
+  );
+}
+
+function isCapitalValidationQuestion(question) {
+  return /ownership|investor|funding|crunchbase|pitchbook|dealroom|company ownership/i.test(question || "");
+}
+
+function publicOpenQuestionsFor(record) {
+  return (record.openQuestions || []).filter(
+    (question) =>
+      !isCredentialedQuestion(question) &&
+      !isInternalQuestion(question) &&
+      !isCapitalValidationQuestion(question)
+  );
+}
+
+function gatedOpenQuestionsFor(record) {
+  return (record.openQuestions || []).filter(
+    (question) => isCredentialedQuestion(question) || isInternalQuestion(question) || isCapitalValidationQuestion(question)
   );
 }
 
@@ -4034,6 +4070,8 @@ function evidenceCoverage(player) {
   const restrictedCount = sources.filter((source) => ["access-restricted", "timeout"].includes(sourceAccessStatus(source))).length;
   const replacementCount = sources.filter((source) => sourceAccessStatus(source) === "needs-replacement").length;
   const openQuestions = record.openQuestions || [];
+  const publicOpenQuestions = publicOpenQuestionsFor(record);
+  const gatedQuestions = gatedOpenQuestionsFor(record);
   const types = [...new Set(sources.map((source) => source.type))];
   const rawScore =
     sources.length * 11 +
@@ -4045,7 +4083,7 @@ function evidenceCoverage(player) {
     (internalCount ? 6 : 0) -
     restrictedCount * 5 -
     replacementCount * 18 -
-    Math.max(0, openQuestions.length - 1) * 4;
+    Math.max(0, publicOpenQuestions.length - 1) * 5;
   const score = sources.length ? Math.max(24, Math.min(96, rawScore)) : 12;
   const label =
     replacementCount
@@ -4071,6 +4109,8 @@ function evidenceCoverage(player) {
     restrictedCount,
     replacementCount,
     openQuestions,
+    publicOpenQuestions,
+    gatedQuestions,
     types,
     score,
     label,
@@ -4360,9 +4400,9 @@ function factClaimsFor(player) {
     },
     {
       label: "Ownership / investors",
-      text: player.ownership,
+      text: displayOwnership(player),
       basis: "Ownership field",
-      kind: /to verify|monitor/i.test(player.ownership) ? "Needs verification" : "Ownership claim",
+      kind: /to verify|monitor/i.test(player.ownership) ? "Gated ownership field" : "Ownership claim",
       caveat: "Use latest official/company or transaction source where available."
     },
     {
@@ -4422,7 +4462,7 @@ function factPackSection(player, context = "profile") {
 
 function executiveAppfiguresNote(player) {
   return requiresCredentialedData(player)
-    ? "Credentialed Appfigures metrics are pending for app based revenue, downloads, rank trend, review velocity, country mix, and 12 month performance. This profile should not be used as an app performance ranking until those metrics are imported."
+    ? "Credentialed-only gate: use Appfigures for revenue, downloads, rank trend, review velocity, country mix, and 12 month performance. Public sources cover profile context, not app performance ranking."
     : "This profile is read primarily for ecosystem role, influence, and strategic relevance. Quantified performance should still be checked in the database before external use.";
 }
 
@@ -4431,7 +4471,7 @@ function executiveSignalText(text) {
   if (!normalized) return "Current market signal should be validated from current company, product, or news sources.";
   return normalized
     .replace(/No board[- ]grade recent[- ]news item is used for this profile; source monitoring remains active\./gi, "No recent market move is prioritized in this profile; keep official product and news sources monitored.")
-    .replace(/Track rankings, revenue estimates, product launches, and funding or ownership signals\./gi, "App performance ranking and growth claims remain pending credentialed Appfigures validation.")
+    .replace(/Track rankings, revenue estimates, product launches, and funding or ownership signals\./gi, "Credentialed app performance gate plus public product and ownership monitoring.")
     .replace(/Potential personalization and practice feedback signal to monitor/gi, "Personalization and practice feedback capabilities are relevant to watch.")
     .replace(/\bresearch target\b/gi, "signal to monitor")
     .replace(/\bresearch\b/gi, "monitor");
@@ -4439,6 +4479,7 @@ function executiveSignalText(text) {
 
 function absoluteFigureSummary(player) {
   const metric = liveMetricFor(player);
+  const coverage = evidenceCoverage(player);
   const figures = [];
   if (metric?.downloads != null) figures.push(`${metric.downloads} downloads`);
   if (metric?.revenue != null) figures.push(`${metric.revenue} revenue`);
@@ -4446,14 +4487,20 @@ function absoluteFigureSummary(player) {
   if (metric?.categoryRank != null) figures.push(`rank ${metric.categoryRank}`);
   if (figures.length) return figures.slice(0, 2).join(" / ");
   if (/public company/i.test(player.ownership)) return "Public filings available";
-  return "No absolute figure loaded";
+  if (coverage.count >= 3) return "Public profile sourced";
+  return "Quant metrics gated";
 }
 
 function sentimentSummary(player) {
   const metric = liveMetricFor(player);
   if (metric?.reviewVelocity != null) return `${metric.reviewVelocity} review velocity`;
-  if (requiresCredentialedData(player)) return "Review trend pending Appfigures";
-  return "Sentiment trend not loaded";
+  if (requiresCredentialedData(player)) return "App sentiment gated";
+  return "Qualitative signal only";
+}
+
+function displayOwnership(player) {
+  if (!/to verify/i.test(player.ownership || "")) return player.ownership;
+  return player.key ? "Ownership validation gated" : "Ownership not used in this brief";
 }
 
 function profileSpecificLens(player, taxonomy, validation) {
@@ -4713,7 +4760,7 @@ function executiveOnePagerDecisionCards(player, taxonomy, validation, quality) {
 function ownershipNoteFor(player) {
   const coverage = evidenceCoverage(player);
   if (/to verify/i.test(player.ownership)) {
-    return "Ownership is still an explicit validation field before leadership use.";
+    return "Ownership is a gated field only for deal or investor work.";
   }
   if (coverage.officialCount >= 2 && coverage.verifiedCount >= 2) {
     return "Shown from cited official or public source fields; validate investor detail only for deal work.";
@@ -4740,7 +4787,7 @@ function executiveOnePagerCards(player, taxonomy, validation) {
 
     <article class="one-pager-card">
       <span>Ownership / investors</span>
-      <h3>${escapeHtml(player.ownership)}</h3>
+      <h3>${escapeHtml(displayOwnership(player))}</h3>
       <p>${escapeHtml(ownershipNoteFor(player))}</p>
     </article>
 
@@ -4795,13 +4842,13 @@ function qualityProfile(player) {
   if (coverage.restrictedCount > 0 && coverage.verifiedCount < 2) gaps.push("manual link check");
   if (/to verify/i.test(player.ownership)) gaps.push(player.key ? "ownership" : "ownership check");
   if (/to verify|emerging/i.test(`${player.geography} ${player.reach} ${player.model}`)) gaps.push("metadata");
-  if (requiresCredentialedData(player)) gaps.push("credentialed data");
-  if (/funding|investor|ownership|to verify/i.test(player.sourceStatus) || /to verify/i.test(player.ownership)) gaps.push("capital");
-  if (coverage.openQuestions.length >= 3) gaps.push("open questions");
+  if (requiresCredentialedData(player) && coverage.count < 2) gaps.push("credentialed data");
+  if ((/funding|investor|ownership|to verify/i.test(player.sourceStatus) || /to verify/i.test(player.ownership)) && coverage.count < 3) gaps.push("capital");
+  if (coverage.publicOpenQuestions.length >= 2) gaps.push("open source questions");
   const sourcePenalty = gaps.filter((gap) => ["source", "broken source", "manual link check", "ownership"].includes(gap)).length * 6;
-  const credentialPenalty = gaps.filter((gap) => ["credentialed data", "capital", "open questions", "metadata", "ownership check", "evidence depth"].includes(gap)).length * 3;
+  const credentialPenalty = gaps.filter((gap) => ["credentialed data", "capital", "open source questions", "metadata", "ownership check", "evidence depth"].includes(gap)).length * 3;
   const score = Math.max(18, Math.min(94, coverage.score - sourcePenalty - credentialPenalty - coverage.restrictedCount * 2 - (player.key && coverage.count < 3 ? 4 : 0)));
-  const label = score >= 76 ? "Evidence supported" : score >= 56 ? "Sourced profile" : "Needs sources";
+  const label = score >= 76 ? "Evidence supported" : score >= 56 ? "Sourced profile" : "Source light triage";
   return {
     gaps: [...new Set(gaps)],
     score,
@@ -6964,7 +7011,7 @@ function renderProfile() {
         <div class="snapshot-grid">
           <div><span>Reach</span><strong>${escapeHtml(player.reach)}</strong></div>
           <div><span>Model</span><strong>${escapeHtml(player.model)}</strong></div>
-          <div><span>Ownership</span><strong>${escapeHtml(player.ownership)}</strong></div>
+          <div><span>Ownership</span><strong>${escapeHtml(displayOwnership(player))}</strong></div>
         </div>
       </section>
       <section class="profile-section">
@@ -8222,10 +8269,10 @@ function onePagerTableHtml(headers, rows) {
 function onePagerFactStripHtml(player, taxonomy, quality) {
   const facts = [
     { icon: "map-pin", label: "HQ", value: templateHqFor(player) },
-    { icon: "calendar", label: "Founded", value: player.founded || "To verify" },
-    { icon: "network", label: "Ownership", value: player.ownership },
+    { icon: "calendar", label: "Founded", value: player.founded || "Not needed for triage" },
+    { icon: "network", label: "Ownership", value: displayOwnership(player) },
     { icon: "circle-dollar-sign", label: "Revenue signal", value: `${ratingForPlayer(player, "revenue").display} proxy` },
-    { icon: "users", label: "Employees", value: player.employees || "Not loaded" },
+    { icon: "users", label: "Scale proof", value: absoluteFigureSummary(player) },
     { icon: "globe", label: "Website", value: onePagerHostFor(player) }
   ];
   return `
@@ -8276,7 +8323,7 @@ function onePagerSnapshotRows(player, quality) {
     ["Audience reach", `${audienceReachScore(player)}/5 ${player.reach}`],
     ["Geographic reach", player.geography],
     ["Business model", player.model],
-    ["Ownership", player.ownership],
+    ["Ownership", displayOwnership(player)],
     ["Source confidence", `${quality.score}% with ${coverage.count} linked source${coverage.count === 1 ? "" : "s"}`],
     ["Relationship status", templateRelationshipFor(player)],
     ["App data status", executiveAppfiguresNote(player)]
@@ -8363,10 +8410,10 @@ function onePagerRelationshipRows(player, validation, quality) {
   const guardrails = executiveGuardrailsFor(player, quality, validation);
   return [
     ["Existing relationship", templateRelationshipFor(player)],
-    ["Past discussions", "To be completed by Yousician"],
-    ["Partnerships", /partner|bundle|channel/i.test(player.relationship) ? player.relationship : "To verify"],
-    ["Licensing", sourceNeeds(player).some((item) => /legal|rights|licensing/i.test(item)) ? "Needs legal source check" : "To verify if relevant"],
-    ["Shared investors", "To verify"],
+    ["Past discussions", "Internal Yousician input only"],
+    ["Partnerships", /partner|bundle|channel/i.test(player.relationship) ? player.relationship : "No public partnership claim loaded"],
+    ["Licensing", sourceNeeds(player).some((item) => /legal|rights|licensing/i.test(item)) ? "Legal source check required" : "No licensing claim in current profile"],
+    ["Shared investors", "No shared-investor claim loaded"],
     ["Strategic opportunities", nextAction(player)],
     ["Strategic risks", guardrails.join("; ")]
   ];
@@ -8416,6 +8463,11 @@ function onePagerAssessmentHtml(player, quality) {
 function onePagerSourcesHtml(player, quality) {
   const coverage = quality.coverage;
   const needs = sourceNeeds(player);
+  const publicNeeds = needs.filter((need) => !/appfigures|similarweb|crunchbase/i.test(need));
+  const gatedNeeds = [
+    ...needs.filter((need) => /appfigures|similarweb|crunchbase/i.test(need)),
+    ...coverage.gatedQuestions.slice(0, 3)
+  ];
   return `
     <div class="one-pager-source-summary">
       <span><strong>${coverage.count}</strong> linked</span>
@@ -8424,8 +8476,13 @@ function onePagerSourcesHtml(player, quality) {
     </div>
     ${sourceLinksHtml(coverage.sources, 5)}
     ${
-      needs.length
-        ? `<p class="one-pager-source-needs"><strong>Still needed:</strong> ${escapeHtml(needs.slice(0, 4).join(", "))}</p>`
+      publicNeeds.length
+        ? `<p class="one-pager-source-needs"><strong>Public source gap:</strong> ${escapeHtml(publicNeeds.slice(0, 4).join(", "))}</p>`
+        : `<p class="one-pager-source-needs is-covered"><strong>Public evidence:</strong> Core public profile is covered for this brief.</p>`
+    }
+    ${
+      gatedNeeds.length
+        ? `<p class="one-pager-source-needs is-gated"><strong>Gated data, not public evidence:</strong> ${escapeHtml(gatedNeeds.slice(0, 4).join(", "))}</p>`
         : ""
     }
   `;
@@ -8434,13 +8491,13 @@ function onePagerSourcesHtml(player, quality) {
 function onePagerExecutiveQuestions(player, quality, validation) {
   const questions = [
     requiresCredentialedData(player)
-      ? "Import Appfigures metrics before ranking app performance, revenue, downloads, rank trend, review velocity, country mix, or growth."
+      ? "Only import Appfigures if the next decision requires app performance, revenue, downloads, rank trend, review velocity, country mix, or growth."
       : "",
     /not prioritized|not yet|to be completed|owner confirmation/i.test(`${validation.knownRelationship} ${validation.status}`)
-      ? "Confirm internal relationship owner, contact history, sensitivity, and whether this belongs in an active pipeline."
+      ? "Internal only: confirm relationship owner, contact history, sensitivity, and whether this belongs in an active pipeline."
       : "",
     quality.gaps.length ? `Close ${quality.gaps.slice(0, 2).join(" and ")} gap before hard claims.` : "",
-    ...quality.coverage.openQuestions,
+    ...quality.coverage.publicOpenQuestions,
     nextAction(player)
   ]
     .filter(Boolean)
@@ -8454,7 +8511,7 @@ function onePagerExecutiveBriefHtml(player, taxonomy, validation, quality) {
   const lens = profileSpecificLens(player, taxonomy, validation);
   const guardrails = executiveGuardrailsFor(player, quality, validation);
   const relation = relationForPlayer(player);
-  const sourceNeedText = sourceNeeds(player).join(", ");
+  const sourceNeedText = sourceNeeds(player).join(", ") || "No public source gap";
   const questions = onePagerExecutiveQuestions(player, quality, validation);
   const gates = [
     {
@@ -8579,7 +8636,7 @@ function renderOnePager() {
           </div>
           <div>
             <span>Type</span>
-            <strong>${escapeHtml(executive ? taxonomy.role : player.relationship)}</strong>
+            <strong>${escapeHtml(taxonomy.role)}</strong>
           </div>
           <div class="one-pager-template-rating">
             <span>${escapeHtml(activeRating.label)}</span>
@@ -9029,7 +9086,7 @@ function databaseRowsForCurrentMode(rows) {
 }
 
 function compactTemplateText(value, maxLength = 92) {
-  const text = nonEmptyString(value) || "To verify";
+  const text = nonEmptyString(value) || "No public claim loaded";
   if (text.length <= maxLength) return text;
   return `${text.slice(0, Math.max(0, maxLength - 1)).trim()}...`;
 }
@@ -9044,7 +9101,8 @@ function templateHqFor(player) {
   if (/uk|united kingdom/.test(geo)) return "UK";
   if (/belgium/.test(geo)) return "Belgium";
   if (/china/.test(geo)) return "China";
-  return "To verify";
+  if (/global/.test(geo)) return "Global footprint";
+  return "Not material for triage";
 }
 
 function templateRelationshipFor(player) {
@@ -9052,8 +9110,8 @@ function templateRelationshipFor(player) {
   if (validation.overrideApplied && nonEmptyString(validation.knownRelationship)) {
     return compactTemplateText(validation.knownRelationship, 66);
   }
-  if (relationForPlayer(player)) return "To be completed by Yousician";
-  if (/not yet captured|to be completed/i.test(player.relationship || "")) return "To be completed";
+  if (relationForPlayer(player)) return "Internal owner check";
+  if (/not yet captured|to be completed/i.test(player.relationship || "")) return "No public relationship claim";
   return compactTemplateText(player.relationship || validation.status, 66);
 }
 
