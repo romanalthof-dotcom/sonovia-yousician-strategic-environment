@@ -11670,6 +11670,11 @@ html[data-report-scroll="auto"] {
   html {
     scroll-behavior: auto;
   }
+
+  .map-node-enter,
+  .map-node-exit {
+    animation: none;
+  }
 }
 
 .global-search {
@@ -11812,6 +11817,50 @@ tr[data-id].is-selected td:first-child {
   transition:
     opacity 140ms ease,
     transform 140ms ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.map-node-enter {
+  animation: map-node-enter 240ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: var(--map-node-delay, 0ms);
+}
+
+.map-node-exit {
+  pointer-events: none;
+  animation: map-node-exit 220ms ease-in both;
+}
+
+.map-node-exit .node-exit-ring {
+  stroke-width: 2;
+  stroke-opacity: 0.44;
+  filter: none !important;
+}
+
+@keyframes map-node-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.78);
+  }
+  68% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes map-node-exit {
+  0% {
+    opacity: 0.74;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.68);
+  }
 }
 
 .map-node:hover circle:not(.node-evidence-ring):not(.node-ai-ring),
@@ -13622,6 +13671,15 @@ body[data-view="overview"] .map-cluster {
   stroke-width: 1;
 }
 
+.cluster-label-layer {
+  pointer-events: none;
+}
+
+.cluster-label-layer .cluster-label-card {
+  opacity: 0.2;
+  stroke: rgba(24, 36, 31, 0.2);
+}
+
 body[data-view="overview"] .cluster-label {
   fill: rgba(16, 28, 24, 0.82);
   font-size: 9.6px;
@@ -13631,10 +13689,23 @@ body[data-view="overview"] .cluster-label {
   stroke-width: 3.4px;
 }
 
+body[data-view="overview"] .cluster-label-layer .cluster-label {
+  fill: rgba(10, 22, 18, 0.92);
+  font-size: 10.4px;
+  stroke: rgba(255, 255, 255, 0.98);
+  stroke-width: 4.2px;
+}
+
 body[data-view="overview"] .cluster-count {
   fill: rgba(24, 36, 31, 0.66);
   font-size: 8.1px;
   font-weight: 900;
+}
+
+body[data-view="overview"] .cluster-label-layer .cluster-count {
+  fill: rgba(20, 31, 27, 0.82);
+  font-size: 7.6px;
+  stroke: none;
 }
 
 body[data-view="overview"] .category-arc {
@@ -15627,6 +15698,12 @@ body[data-view="overview"][data-map-focus-mode="appdata"] .cluster-label-card,
 body[data-view="overview"][data-map-focus-mode="appdata"] .cluster-label,
 body[data-view="overview"][data-map-focus-mode="appdata"] .cluster-count {
   display: none;
+}
+
+body[data-view="overview"] .cluster-label-layer .cluster-label-card,
+body[data-view="overview"] .cluster-label-layer .cluster-label,
+body[data-view="overview"] .cluster-label-layer .cluster-count {
+  display: inline;
 }
 
 /* Attention pass: keep executive map controls explanatory, not tool-heavy. */

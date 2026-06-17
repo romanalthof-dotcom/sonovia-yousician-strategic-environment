@@ -2853,6 +2853,8 @@ const state = {
   quickFocus: null
 };
 
+let previousMapNodePositions = new Map();
+
 function isExecutiveMode() {
   return state.mode === "executive";
 }
@@ -5710,7 +5712,7 @@ function mapViewBoxFromNodes(nodeItems, basePlayers, visiblePlayers, compactMap)
     ? { x: 120, y: 42, width: 760, height: 610 }
     : { x: 0, y: 0, width: 1000, height: 700 };
   if (!nodeItems.length || state.mapZoomMode === "full") return defaultBox;
-  const selectedNode = nodeItems.find((item) => item.player.id === state.selectedPlayerId);
+  const selectedNode = nodeItems.find((item) => item.player?.id === state.selectedPlayerId);
   const shouldFit =
     state.mapZoomMode === "fit" ||
     state.mapZoomMode === "selected" ||
@@ -5733,6 +5735,26 @@ function mapViewBoxFromNodes(nodeItems, basePlayers, visiblePlayers, compactMap)
     minHeight: state.mapZoomMode === "selected" ? 210 : focusNodes.length <= 3 ? 238 : focusNodes.length <= 8 ? 274 : focused ? 322 : 364,
     maxWidth: focused ? defaultBox.width : null,
     maxHeight: focused ? defaultBox.height : null
+  });
+}
+
+function mapCategoryBoundsItems(categoryGroups, center) {
+  return categoryGroups.flatMap(({ contextPlayers, layout }) => {
+    if (!contextPlayers.length) return [];
+    const visualSize = clusterVisualSize(layout, contextPlayers.length);
+    const textPositions = clusterTextPositions({ ...layout, ...visualSize }, center);
+    return [
+      {
+        x: layout.x,
+        y: layout.y,
+        radius: Math.max(visualSize.rx, visualSize.ry)
+      },
+      {
+        x: layout.x,
+        y: textPositions.labelY + 3,
+        radius: 92
+      }
+    ];
   });
 }
 
@@ -6524,6 +6546,68 @@ function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center) {
   return plan;
 }
 
+function createMapExitGhost(snapshot) {
+  const ghost = createSvg("g", {
+    class: `map-node map-node-exit ${snapshot.tier}`,
+    "aria-hidden": "true"
+  });
+  ghost.appendChild(
+    createSvg("circle", {
+      cx: snapshot.x,
+      cy: snapshot.y,
+      r: snapshot.radius + 8,
+      class: "node-exit-ring",
+      fill: "none",
+      stroke: snapshot.color
+    })
+  );
+  ghost.appendChild(createSvg("circle", { cx: snapshot.x, cy: snapshot.y, r: snapshot.radius, fill: snapshot.color }));
+  if (snapshot.initials) {
+    const init = createSvg("text", {
+      x: snapshot.x,
+      y: snapshot.y + 4,
+      class: `node-initial ${snapshot.tier}`
+    });
+    init.textContent = snapshot.initials;
+    ghost.appendChild(init);
+  }
+  return ghost;
+}
+
+function appendMapClusterLabel(layer, { category, categoryPlayers, contextPlayers, x, layout, visualSize, center }) {
+  const contextCount = contextPlayers.length;
+  if (!contextCount) return;
+  const textPositions = clusterTextPositions({ ...layout, ...visualSize }, center);
+  const clusterLabel = mapCategoryLabel(category);
+  const clusterWidth = svgLabelWidth(clusterLabel, 96, 180);
+  layer.appendChild(
+    createSvg("rect", {
+      x: x - clusterWidth / 2,
+      y: textPositions.labelY - 16,
+      width: clusterWidth,
+      height: 39,
+      rx: 10,
+      class: "cluster-label-card",
+      fill: category.color
+    })
+  );
+  const label = createSvg("text", {
+    x,
+    y: textPositions.labelY,
+    class: "cluster-label"
+  });
+  label.textContent = clusterLabel;
+  layer.appendChild(label);
+
+  const count = createSvg("text", { x, y: textPositions.countY, class: "cluster-count" });
+  const keyCount = contextPlayers.filter((player) => player.key).length;
+  count.textContent =
+    categoryPlayers.length === contextCount
+      ? `${contextCount} records / ${keyCount} key`
+      : `${categoryPlayers.length} shown / ${contextCount} total`;
+  layer.appendChild(count);
+}
+
 function renderMap() {
   const svg = els.ecosystemMap;
   const fragment = document.createDocumentFragment();
@@ -6532,15 +6616,20 @@ function renderMap() {
   const basePlayers = getFilteredPlayers();
   const filtered = mapVisiblePlayers(basePlayers);
   const focusScale = mapFocusScale(basePlayers, filtered);
+  const previousNodePositions = previousMapNodePositions;
   document.body.dataset.mapFocusScale = String(Math.round(focusScale * 100));
   const byCategory = journeyCategories.map((category, index) => {
     const layout = mapLayoutForCategory(category, index, center);
     const categoryPlayers = filtered
       .filter((player) => journeyCategoryFor(player).id === category.id)
       .sort((a, b) => bubbleSizeSortWeight(b) - bubbleSizeSortWeight(a));
+    const categoryContextPlayers = basePlayers
+      .filter((player) => journeyCategoryFor(player).id === category.id)
+      .sort((a, b) => bubbleSizeSortWeight(b) - bubbleSizeSortWeight(a));
     return {
       category,
       players: categoryPlayers,
+      contextPlayers: categoryContextPlayers,
       hiddenCount: 0,
       x: layout.x,
       y: layout.y,
@@ -6571,11 +6660,13 @@ function renderMap() {
   relaxMapNodePositions(nodeItems, center);
   const nodePositions = new Map(nodeItems.map((item) => [item.player.id, item]));
   const defaultBox = compactMap ? { x: 120, y: 42, width: 760, height: 610 } : { x: 0, y: 0, width: 1000, height: 700 };
-  const viewBox = mapViewBoxFromNodes(nodeItems, basePlayers, filtered, compactMap);
+  const viewBox = mapViewBoxFromNodes([...nodeItems, ...mapCategoryBoundsItems(byCategory, center)], basePlayers, filtered, compactMap);
   svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   setMapViewBox(svg, viewBox, defaultBox);
   const metricsByCategory = new Map(categoryMetrics().map((item) => [item.id, item]));
   const labelPlan = buildMapLabelPlan(nodeItems, filtered.length, focusScale, center);
+  const currentNodeIds = new Set(nodeItems.map((item) => item.player.id));
+  const exitingNodeSnapshots = [...previousNodePositions.values()].filter((item) => !currentNodeIds.has(item.id));
 
   const defs = createSvg("defs");
   const radial = createSvg("radialGradient", { id: "mapGlow", cx: "50%", cy: "50%", r: "60%" });
@@ -6634,49 +6725,27 @@ function renderMap() {
   const connectionLayer = createSvg("g", { class: "connection-layer" });
   fragment.appendChild(connectionLayer);
 
-  byCategory.forEach(({ category, players: categoryPlayers, hiddenCount, x, y, layout }) => {
-    if (!categoryPlayers.length && state.selectedCategory !== "all") return;
-    const visualSize = clusterVisualSize(layout, categoryPlayers.length);
+  byCategory.forEach(({ category, players: categoryPlayers, contextPlayers, hiddenCount, x, y, layout }) => {
+    const contextCount = contextPlayers.length;
+    if (!contextCount && state.selectedCategory !== "all") return;
+    if (!contextCount && state.selectedCategory === "all") return;
+    const visualCount = Math.max(categoryPlayers.length, contextCount);
+    const visualSize = clusterVisualSize(layout, visualCount);
 
-    const cluster = createSvg("g");
+    const cluster = createSvg("g", {
+      class: `map-cluster-group ${categoryPlayers.length ? "has-visible-nodes" : "is-context-only"}`
+    });
     const ellipse = createSvg("ellipse", {
       cx: x,
       cy: y,
-      rx: categoryPlayers.length > 1 ? visualSize.rx : 82,
-      ry: categoryPlayers.length > 1 ? visualSize.ry : 56,
+      rx: visualCount > 1 ? visualSize.rx : 82,
+      ry: visualCount > 1 ? visualSize.ry : 56,
       class: "map-cluster",
       fill: category.color,
       stroke: category.color,
-      opacity: categoryPlayers.length ? 0.16 : 0.05
+      opacity: categoryPlayers.length ? 0.16 : 0.09
     });
     cluster.appendChild(ellipse);
-
-    const textPositions = clusterTextPositions({ ...layout, ...visualSize }, center);
-    const clusterLabel = mapCategoryLabel(category);
-    const clusterWidth = svgLabelWidth(clusterLabel, 88, 172);
-    cluster.appendChild(
-      createSvg("rect", {
-        x: x - clusterWidth / 2,
-        y: textPositions.labelY - 14,
-        width: clusterWidth,
-        height: 36,
-        rx: 10,
-        class: "cluster-label-card",
-        fill: category.color
-      })
-    );
-    const label = createSvg("text", {
-      x,
-      y: textPositions.labelY,
-      class: "cluster-label"
-    });
-    label.textContent = clusterLabel;
-    cluster.appendChild(label);
-
-    const count = createSvg("text", { x, y: textPositions.countY, class: "cluster-count" });
-    const keyCount = categoryPlayers.filter((player) => player.key).length;
-    count.textContent = `${categoryPlayers.length} records / ${keyCount} key`;
-    cluster.appendChild(count);
 
     fragment.appendChild(cluster);
 
@@ -6686,6 +6755,7 @@ function renderMap() {
       const nodeY = nodeItem?.y ?? layout.y;
       const tier = priorityTier(player);
       const isSelected = player.id === state.selectedPlayerId;
+      const isEntering = !previousNodePositions.has(player.id);
       if (player.key || isSelected) {
         const connection = createSvg("line", {
           x1: center.x,
@@ -6697,13 +6767,18 @@ function renderMap() {
         connectionLayer.appendChild(connection);
       }
 
-      const node = createSvg("g", {
+      const nodeAttrs = {
         class: `map-node ${tier} ${isSelected ? "selected" : ""}`,
         tabindex: "0",
         role: "button",
         "aria-label": `${player.name}, ${player.relevance} of 5 relevance`,
         "data-id": player.id
-      });
+      };
+      if (isEntering) {
+        nodeAttrs.class += " map-node-enter";
+        nodeAttrs.style = `--map-node-delay:${Math.min(90, idx * 7)}ms`;
+      }
+      const node = createSvg("g", nodeAttrs);
       const title = createSvg("title");
       title.textContent = `${player.name} / ${strategicRole(player)} / ${bubbleSizeBasis(player)} / R${player.relevance} M${player.momentum} AI${player.aiScore}`;
       node.appendChild(title);
@@ -6791,6 +6866,23 @@ function renderMap() {
     });
   });
 
+  const clusterLabelLayer = createSvg("g", { class: "cluster-label-layer" });
+  byCategory.forEach(({ category, players: categoryPlayers, contextPlayers, x, layout }) => {
+    if (!contextPlayers.length) return;
+    const visualCount = Math.max(categoryPlayers.length, contextPlayers.length);
+    const visualSize = clusterVisualSize(layout, visualCount);
+    appendMapClusterLabel(clusterLabelLayer, { category, categoryPlayers, contextPlayers, x, layout, visualSize, center });
+  });
+  fragment.appendChild(clusterLabelLayer);
+
+  if (exitingNodeSnapshots.length) {
+    const exitLayer = createSvg("g", { class: "map-node-exit-layer" });
+    exitingNodeSnapshots.slice(0, 80).forEach((snapshot) => {
+      exitLayer.appendChild(createMapExitGhost(snapshot));
+    });
+    fragment.appendChild(exitLayer);
+  }
+
   const hub = createSvg("g");
   hub.appendChild(createSvg("circle", { cx: center.x, cy: center.y, r: 70, class: "hub-glow" }));
   hub.appendChild(createSvg("circle", { cx: center.x, cy: center.y, r: 52, class: "hub" }));
@@ -6802,6 +6894,20 @@ function renderMap() {
   hub.appendChild(hubSub);
   fragment.appendChild(hub);
   svg.replaceChildren(fragment);
+  previousMapNodePositions = new Map(
+    nodeItems.map((item) => [
+      item.player.id,
+      {
+        id: item.player.id,
+        initials: initials(item.player.name),
+        x: item.x,
+        y: item.y,
+        radius: item.radius,
+        color: journeyColorFor(item.player),
+        tier: priorityTier(item.player)
+      }
+    ])
+  );
 }
 
 function renderProfile() {
