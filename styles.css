@@ -15445,7 +15445,7 @@ body[data-view="database"] .database-priority-map .matrix-axis {
   font-weight: 950;
 }
 
-body[data-view="database"] .database-priority-map .axis-y {
+  body[data-view="database"] .database-priority-map .axis-y {
   top: 18px;
   left: 18px;
 }
@@ -18077,12 +18077,188 @@ body[data-view="database"] .database-confidence-point strong {
     font-size: 0.58rem;
   }
 
-  body[data-view="database"] .database-priority-map .axis-y {
+body[data-view="database"] .database-priority-map .axis-y {
     left: 12px;
   }
 
   body[data-view="database"] .database-priority-map .axis-x {
     right: 12px;
     bottom: 12px;
+  }
+}
+
+/* Compact map key for the main strategic map. */
+body[data-view="overview"] .map-symbol-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin-top: 8px;
+  border: 1px solid rgba(23, 33, 29, 0.075);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(249, 252, 249, 0.9)),
+    #fff;
+  padding: 8px;
+}
+
+body[data-view="overview"] .map-symbol-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  border: 1px solid rgba(23, 33, 29, 0.06);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.72);
+  color: rgba(23, 33, 29, 0.68);
+  padding: 5px 8px;
+  font-size: 0.68rem;
+  font-weight: 750;
+  line-height: 1.15;
+}
+
+body[data-view="overview"] .map-symbol-legend strong {
+  color: var(--ink);
+  font-weight: 950;
+}
+
+body[data-view="overview"] .map-symbol-title {
+  border-color: transparent !important;
+  background: transparent !important;
+  color: rgba(23, 33, 29, 0.86) !important;
+  padding-left: 2px !important;
+  font-size: 0.7rem !important;
+  font-weight: 950 !important;
+  text-transform: uppercase;
+}
+
+body[data-view="overview"] .map-symbol {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+}
+
+body[data-view="overview"] .map-symbol-colour {
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7b43b6 0 15%, #2f73d8 15% 31%, #16a5a5 31% 47%, #6eb05f 47% 63%, #f59a23 63% 79%, #ef5a4f 79% 91%, #df4d77 91%);
+  box-shadow: inset 0 0 0 2px #fff, 0 0 0 1px rgba(23, 33, 29, 0.12);
+}
+
+body[data-view="overview"] .map-symbol-size::before,
+body[data-view="overview"] .map-symbol-size::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: #00b884;
+  box-shadow: inset 0 0 0 2px #fff;
+}
+
+body[data-view="overview"] .map-symbol-size::before {
+  right: 1px;
+  bottom: 1px;
+  width: 15px;
+  height: 15px;
+}
+
+body[data-view="overview"] .map-symbol-size::after {
+  left: 1px;
+  top: 7px;
+  width: 8px;
+  height: 8px;
+  background: #16a5a5;
+}
+
+body[data-view="overview"] .map-symbol-source {
+  border: 2px dashed #00b884;
+  border-radius: 50%;
+}
+
+body[data-view="overview"] .map-symbol-source::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: #00b884;
+}
+
+body[data-view="overview"] .map-symbol-ai {
+  border: 2px dotted var(--violet);
+  border-radius: 50%;
+}
+
+body[data-view="overview"] .map-symbol-ai::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--violet);
+}
+
+body[data-view="overview"] .map-symbol-line::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  top: 8px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(0, 159, 114, 0.54);
+  transform: rotate(-22deg);
+}
+
+body[data-view="overview"] .map-symbol-line::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 5px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00b884;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+body[data-view="overview"] .map-symbol-area {
+  width: 26px;
+  border: 1px dashed rgba(0, 159, 114, 0.34);
+  border-radius: 999px;
+  background: rgba(0, 210, 146, 0.1);
+}
+
+body[data-view="overview"] .map-symbol-label {
+  width: 32px;
+  height: 18px;
+  border-radius: 6px;
+  background: rgba(0, 184, 132, 0.12);
+}
+
+body[data-view="overview"] .map-symbol-label::after {
+  content: "Abc";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(23, 33, 29, 0.78);
+  font-size: 0.52rem;
+  font-style: normal;
+  font-weight: 950;
+}
+
+@media (max-width: 760px) {
+  body[data-view="overview"] .map-symbol-legend {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-view="overview"] .map-symbol-title {
+    grid-column: 1 / -1;
+  }
+
+  body[data-view="overview"] .map-symbol-legend > span {
+    justify-content: flex-start;
+    min-width: 0;
+    white-space: normal;
   }
 }
