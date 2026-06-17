@@ -8127,6 +8127,252 @@ function renderKeyPlayers() {
   });
 }
 
+function onePagerHostFor(player) {
+  const source = evidenceSourcesFor(player).find((item) => item.url);
+  if (!source) return "Source needed";
+  try {
+    return new URL(source.url).hostname.replace(/^www\./, "");
+  } catch {
+    return "Source needed";
+  }
+}
+
+function onePagerScoreLabel(value) {
+  if (value >= 4) return "High";
+  if (value >= 3) return "Medium";
+  return "Low";
+}
+
+function onePagerTableHtml(headers, rows) {
+  return `
+    <table class="one-pager-table">
+      <thead>
+        <tr>${headers.map((header) => `<th>${escapeHtml(header)}</th>`).join("")}</tr>
+      </thead>
+      <tbody>
+        ${rows
+          .map(
+            (row) => `
+              <tr>${row.map((cell) => `<td>${escapeHtml(nonEmptyString(cell) || "To verify")}</td>`).join("")}</tr>
+            `
+          )
+          .join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function onePagerFactStripHtml(player, taxonomy, quality) {
+  const facts = [
+    { icon: "map-pin", label: "HQ", value: templateHqFor(player) },
+    { icon: "calendar", label: "Founded", value: player.founded || "To verify" },
+    { icon: "network", label: "Ownership", value: player.ownership },
+    { icon: "circle-dollar-sign", label: "Revenue signal", value: `${ratingForPlayer(player, "revenue").display} proxy` },
+    { icon: "users", label: "Employees", value: player.employees || "Not loaded" },
+    { icon: "globe", label: "Website", value: onePagerHostFor(player) }
+  ];
+  return `
+    <section class="one-pager-fact-strip" aria-label="Core profile facts">
+      ${facts
+        .map(
+          (fact) => `
+            <div class="one-pager-fact">
+              <i data-lucide="${escapeHtml(fact.icon)}"></i>
+              <span>${escapeHtml(fact.label)}</span>
+              <strong>${escapeHtml(fact.value)}</strong>
+            </div>
+          `
+        )
+        .join("")}
+      <div class="one-pager-fact one-pager-fact-wide">
+        <i data-lucide="badge-check"></i>
+        <span>Source confidence</span>
+        <strong>${quality.score}% ${escapeHtml(quality.label)}</strong>
+      </div>
+      <div class="one-pager-fact one-pager-fact-wide">
+        <i data-lucide="route"></i>
+        <span>Journey role</span>
+        <strong>${escapeHtml(taxonomy.journey)}</strong>
+      </div>
+    </section>
+  `;
+}
+
+function onePagerSectionHtml(index, title, body, modifier = "") {
+  return `
+    <article class="one-pager-section ${modifier}">
+      <header class="one-pager-section-head">
+        <span class="one-pager-section-index">${index}</span>
+        <h3>${escapeHtml(title)}</h3>
+      </header>
+      ${body}
+    </article>
+  `;
+}
+
+function onePagerSnapshotRows(player, quality) {
+  const coverage = quality.coverage;
+  return [
+    ["Strategic relevance", ratingForPlayer(player, "strategic").display],
+    ["Company size", `${businessSizeScore(player)}/5 directional score`],
+    ["Revenue signal", `${ratingForPlayer(player, "revenue").display} proxy only`],
+    ["Audience reach", `${audienceReachScore(player)}/5 ${player.reach}`],
+    ["Geographic reach", player.geography],
+    ["Business model", player.model],
+    ["Ownership", player.ownership],
+    ["Source confidence", `${quality.score}% with ${coverage.count} linked source${coverage.count === 1 ? "" : "s"}`],
+    ["Relationship status", templateRelationshipFor(player)],
+    ["App data status", executiveAppfiguresNote(player)]
+  ];
+}
+
+function onePagerPortfolioRows(player, taxonomy) {
+  return [
+    ["Primary surface", player.description],
+    ["Category role", taxonomy.group],
+    ["Product lens", productFocusLabel(player)],
+    ["Customer model", player.model],
+    ["Yousician use", profileSpecificLens(player)],
+    ["Next data need", nextAction(player)]
+  ];
+}
+
+function onePagerAiRows(player) {
+  const ai = aiClaimStatusFor(player);
+  const feeds = liveDataFeedsForPlayer(player);
+  return [
+    ["AI signal", executiveSignalText(player.ai)],
+    ["AI claim status", ai.label],
+    ["AI relevance", `${player.aiScore}/5`],
+    ["What to verify", ai.note],
+    ["Live data inputs", feeds.length ? feeds.join(", ") : "No live feed required yet"],
+    ["Safe wording", "Keep as directional unless primary product evidence is linked"]
+  ];
+}
+
+function onePagerRecentRows(player, quality, validation) {
+  return [
+    ["Current signal", executiveSignalText(player.recent)],
+    ["Source status", player.sourceStatus],
+    ["Evidence status", `${quality.label}, ${quality.score}%`],
+    ["Internal check", validation.nextStep],
+    ["Next use", executiveReadinessFor(player, quality).headline]
+  ];
+}
+
+function onePagerPositionPlayers(player, kind) {
+  const directIds = new Set(relations.filter((relation) => relation.type === kind).map((relation) => relation.to));
+  const scored = players
+    .filter((candidate) => candidate.id !== player.id)
+    .filter((candidate) => {
+      if (directIds.has(candidate.id)) return true;
+      if (kind === "competes") {
+        return ["learning", "practice"].includes(candidate.category) && competitiveProximityScore(candidate) >= 4;
+      }
+      if (kind === "partners") {
+        return ["hardware", "education"].includes(candidate.category) || /partner|bundle|licens|channel/i.test(candidate.relationship);
+      }
+      return ["platforms", "signals", "ai", "creation"].includes(candidate.category) && candidate.relevance >= 3;
+    })
+    .sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name));
+  return scored.slice(0, 5);
+}
+
+function onePagerPositionHtml(player) {
+  const groups = [
+    { id: "competes", icon: "shield-alert", label: "Competes with" },
+    { id: "partners", icon: "handshake", label: "Partners with" },
+    { id: "influences", icon: "megaphone", label: "Influences" }
+  ];
+  return `
+    <div class="one-pager-position-grid">
+      ${groups
+        .map((group) => {
+          const names = onePagerPositionPlayers(player, group.id).map((candidate) => candidate.name);
+          return `
+            <div>
+              <strong><i data-lucide="${escapeHtml(group.icon)}"></i>${escapeHtml(group.label)}</strong>
+              <ul>${names.length ? names.map((name) => `<li>${escapeHtml(name)}</li>`).join("") : "<li>To verify</li>"}</ul>
+            </div>
+          `;
+        })
+        .join("")}
+    </div>
+  `;
+}
+
+function onePagerRelationshipRows(player, validation, quality) {
+  const guardrails = executiveGuardrailsFor(player, quality, validation);
+  return [
+    ["Existing relationship", templateRelationshipFor(player)],
+    ["Past discussions", "To be completed by Yousician"],
+    ["Partnerships", /partner|bundle|channel/i.test(player.relationship) ? player.relationship : "To verify"],
+    ["Licensing", sourceNeeds(player).some((item) => /legal|rights|licensing/i.test(item)) ? "Needs legal source check" : "To verify if relevant"],
+    ["Shared investors", "To verify"],
+    ["Strategic opportunities", nextAction(player)],
+    ["Strategic risks", guardrails.join("; ")]
+  ];
+}
+
+function onePagerAssessmentHtml(player, quality) {
+  const relation = relationForPlayer(player);
+  const partnershipScore =
+    relation?.type === "partners"
+      ? Math.max(4, relation.strength)
+      : ["hardware", "education", "platforms", "creation"].includes(player.category)
+        ? 3
+        : 2;
+  const acquisitionScore = /public|alphabet|google|apple|microsoft|spotify|bytedance|warner|universal|yamaha|duolingo|ubisoft/i.test(
+    `${player.ownership} ${player.reach} ${player.type}`
+  )
+    ? 2
+    : player.key
+      ? 3
+      : 1;
+  const scores = [
+    { icon: "shield-alert", label: "Competitive threat", value: competitiveProximityScore(player) },
+    { icon: "handshake", label: "Partnership potential", value: partnershipScore },
+    { icon: "crosshair", label: "Acquisition potential", value: acquisitionScore },
+    { icon: "network", label: "Ecosystem influence", value: strategicScoreFive(player) },
+    { icon: "brain", label: "AI relevance", value: player.aiScore },
+    { icon: "badge-check", label: "Source confidence", value: Math.max(1, Math.round(quality.score / 20)) }
+  ];
+  return `
+    <div class="one-pager-score-card-grid">
+      ${scores
+        .map(
+          (score) => `
+            <div class="one-pager-mini-score">
+              <i data-lucide="${escapeHtml(score.icon)}"></i>
+              <span>${escapeHtml(score.label)}</span>
+              <strong>${score.value}</strong>
+              <small>${escapeHtml(onePagerScoreLabel(score.value))}</small>
+            </div>
+          `
+        )
+        .join("")}
+    </div>
+  `;
+}
+
+function onePagerSourcesHtml(player, quality) {
+  const coverage = quality.coverage;
+  const needs = sourceNeeds(player);
+  return `
+    <div class="one-pager-source-summary">
+      <span><strong>${coverage.count}</strong> linked</span>
+      <span><strong>${coverage.verifiedCount}</strong> checked</span>
+      <span><strong>${coverage.officialCount}</strong> official</span>
+    </div>
+    ${sourceLinksHtml(coverage.sources, 5)}
+    ${
+      needs.length
+        ? `<p class="one-pager-source-needs"><strong>Still needed:</strong> ${escapeHtml(needs.slice(0, 4).join(", "))}</p>`
+        : ""
+    }
+  `;
+}
+
 function renderOnePager() {
   const player = getSelectedPlayer();
   const category = categoryById(player.category);
@@ -8138,34 +8384,84 @@ function renderOnePager() {
   const activeRating = ratingForPlayer(player);
 
   els.onePager.innerHTML = `
-    <article class="one-pager-sheet" style="--onepager-accent:${category.color}">
-      <header class="one-pager-hero">
-        <div>
-          <span class="section-kicker">Strategic one pager</span>
-          <h2>${escapeHtml(player.name)}</h2>
-          <p>${escapeHtml(player.description)}</p>
-          <div class="badge-row">
-            ${player.key ? `<span class="badge key">Key player</span>` : ""}
-            <span class="badge">${escapeHtml(category.name)}</span>
-            <span class="badge">${escapeHtml(executive ? taxonomy.role : player.relationship)}</span>
-            <span class="badge">${escapeHtml(player.geography)}</span>
+    <article class="one-pager-sheet one-pager-template" style="--onepager-accent:${category.color}">
+      <header class="one-pager-template-hero">
+        <div class="one-pager-template-brand">
+          <span class="one-pager-template-icon">${escapeHtml(initials(player.name))}</span>
+          <div>
+            <span class="one-pager-template-label">Strategic one pager</span>
+            <h2>${escapeHtml(player.name)}</h2>
+            <p>${escapeHtml(player.why)}</p>
           </div>
         </div>
-        <div class="one-pager-score">
-          <strong>${escapeHtml(activeRating.display)}</strong>
-          <span>${escapeHtml(activeRating.label)}</span>
+        <div class="one-pager-template-taxonomy">
+          <div>
+            <span>Category</span>
+            <strong>${escapeHtml(category.name)}</strong>
+          </div>
+          <div>
+            <span>Subcategory</span>
+            <strong>${escapeHtml(player.subcategory || taxonomy.role)}</strong>
+          </div>
+          <div>
+            <span>Type</span>
+            <strong>${escapeHtml(executive ? taxonomy.role : player.relationship)}</strong>
+          </div>
+          <div class="one-pager-template-rating">
+            <span>${escapeHtml(activeRating.label)}</span>
+            <strong>${escapeHtml(activeRating.display)}</strong>
+          </div>
         </div>
       </header>
 
-      <section class="one-pager-grid">
-        <article class="one-pager-card one-pager-card-large">
-          <span>Why they matter</span>
-          <h3>${escapeHtml(strategicRole(player))}</h3>
-          <p>${escapeHtml(player.why)}</p>
-        </article>
+      ${onePagerFactStripHtml(player, taxonomy, quality)}
 
-        ${executiveOnePagerDecisionCards(player, taxonomy, validation, quality)}
-        ${executiveOnePagerCards(player, taxonomy, validation)}
+      <section class="one-pager-numbered-grid">
+        ${onePagerSectionHtml(
+          1,
+          "What they are",
+          `<p>${escapeHtml(player.description)}</p>`,
+          "one-pager-section-half"
+        )}
+        ${onePagerSectionHtml(
+          2,
+          "Why they matter",
+          `<p>${escapeHtml(strategicRole(player))}</p><p>${escapeHtml(executiveDecisionQuestion(player, taxonomy))}</p>`,
+          "one-pager-section-half"
+        )}
+        ${onePagerSectionHtml(
+          3,
+          "Business snapshot",
+          onePagerTableHtml(["Metric", "Value"], onePagerSnapshotRows(player, quality)),
+          "one-pager-section-full one-pager-section-snapshot"
+        )}
+        ${onePagerSectionHtml(
+          4,
+          "Product portfolio",
+          onePagerTableHtml(["Surface", "Decision useful detail"], onePagerPortfolioRows(player, taxonomy)),
+          "one-pager-section-half"
+        )}
+        ${onePagerSectionHtml(
+          5,
+          "AI initiatives",
+          onePagerTableHtml(["Signal", "Status"], onePagerAiRows(player)),
+          "one-pager-section-half"
+        )}
+        ${onePagerSectionHtml(
+          6,
+          "Recent signals",
+          onePagerTableHtml(["Area", "Read"], onePagerRecentRows(player, quality, validation)),
+          "one-pager-section-half"
+        )}
+        ${onePagerSectionHtml(7, "Ecosystem position", onePagerPositionHtml(player), "one-pager-section-half")}
+        ${onePagerSectionHtml(
+          8,
+          "Relationship with Yousician",
+          onePagerTableHtml(["Area", "Current state"], onePagerRelationshipRows(player, validation, quality)),
+          "one-pager-section-half"
+        )}
+        ${onePagerSectionHtml(9, "Strategic assessment", onePagerAssessmentHtml(player, quality), "one-pager-section-half")}
+        ${onePagerSectionHtml(10, "Sources", onePagerSourcesHtml(player, quality), "one-pager-section-full")}
       </section>
 
       ${
