@@ -2878,6 +2878,7 @@ const els = {
   onePager: document.getElementById("onePager"),
   printOnePager: document.getElementById("printOnePager"),
   databaseStats: document.getElementById("databaseStats"),
+  keyPlayerTemplate: document.getElementById("keyPlayerTemplate"),
   databaseVisuals: document.getElementById("databaseVisuals"),
   databaseSegments: document.getElementById("databaseSegments"),
   databaseSort: document.getElementById("databaseSort"),
@@ -8311,6 +8312,208 @@ function databaseRowsForCurrentMode(rows) {
   return rows.slice(0, 36);
 }
 
+function compactTemplateText(value, maxLength = 92) {
+  const text = nonEmptyString(value) || "To verify";
+  if (text.length <= maxLength) return text;
+  return `${text.slice(0, Math.max(0, maxLength - 1)).trim()}...`;
+}
+
+function templateHqFor(player) {
+  if (nonEmptyString(player.hq)) return player.hq;
+  const geo = `${player.geography || ""}`.toLowerCase();
+  if (/global\s*\/\s*us|^us$|usa|united states|north america/.test(geo)) return "USA";
+  if (/germany/.test(geo)) return "Germany";
+  if (/canada/.test(geo)) return "Canada";
+  if (/japan/.test(geo)) return "Japan";
+  if (/uk|united kingdom/.test(geo)) return "UK";
+  if (/belgium/.test(geo)) return "Belgium";
+  if (/china/.test(geo)) return "China";
+  return "To verify";
+}
+
+function templateRelationshipFor(player) {
+  const validation = internalValidationFor(player);
+  if (validation.overrideApplied && nonEmptyString(validation.knownRelationship)) {
+    return compactTemplateText(validation.knownRelationship, 66);
+  }
+  if (relationForPlayer(player)) return "To be completed by Yousician";
+  if (/not yet captured|to be completed/i.test(player.relationship || "")) return "To be completed";
+  return compactTemplateText(player.relationship || validation.status, 66);
+}
+
+function templateNotesFor(player) {
+  const quality = qualityProfile(player);
+  const notes = [];
+  if (requiresCredentialedData(player)) notes.push("Needs Appfigures");
+  if (/to verify/i.test(player.ownership || "")) notes.push("Ownership check");
+  if (/not yet captured|to be completed/i.test(player.relationship || "")) notes.push("Relationship owner needed");
+  if (quality.gaps.length) notes.push(`Check ${quality.gaps.slice(0, 2).join(", ")}`);
+  if (!notes.length) notes.push("Ready for quarterly review");
+  return compactTemplateText([...new Set(notes)].join("; "), 92);
+}
+
+function keyPlayerTemplateRows(rows) {
+  const preferredIds = new Set(["simply", "ultimate-guitar", "duolingo", "fender-play"]);
+  const sorted = [...rows].sort((a, b) => {
+    const preferredDelta = Number(preferredIds.has(b.id)) - Number(preferredIds.has(a.id));
+    if (preferredDelta) return preferredDelta;
+    return Number(b.key) - Number(a.key) || totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name);
+  });
+  return sorted.slice(0, isExecutiveMode() ? 14 : 32);
+}
+
+function keyPlayerTemplateRowData(player) {
+  const category = categoryById(player.category) || {};
+  const journey = journeyCategoryFor(player);
+  const strategicRating = ratingForPlayer(player, "strategic");
+  const revenueSignal = ratingForPlayer(player, "revenue");
+  return {
+    color: category.color || journey.color || "#00d292",
+    category: category.shortName || category.name || "To classify",
+    subcategory: player.subcategory || taxonomyProfile(player).role,
+    name: player.name,
+    description: compactTemplateText(player.description, 90),
+    revenueSize: `${businessSizeScore(player)}/5 size, ${revenueSignal.display} revenue proxy`,
+    hq: templateHqFor(player),
+    geography: player.geography || "To verify",
+    ownership: compactTemplateText(player.ownership, 74),
+    strategicImportance: strategicRating.display,
+    relationship: templateRelationshipFor(player),
+    notes: templateNotesFor(player)
+  };
+}
+
+function downloadKeyPlayerTemplateCsv(rows) {
+  const header = [
+    "Category",
+    "Subcategory",
+    "Name",
+    "Description",
+    "Revenue / size",
+    "HQ",
+    "Geographic reach",
+    "Ownership / investors",
+    "Strategic importance",
+    "Existing relationship",
+    "Notes / comments"
+  ];
+  const csvRows = keyPlayerTemplateRows(rows).map((player) => {
+    const row = keyPlayerTemplateRowData(player);
+    return [
+      row.category,
+      row.subcategory,
+      row.name,
+      row.description,
+      row.revenueSize,
+      row.hq,
+      row.geography,
+      row.ownership,
+      row.strategicImportance,
+      row.relationship,
+      row.notes
+    ];
+  });
+  downloadTextFile(
+    "yousician-key-players-database-template.csv",
+    "text/csv;charset=utf-8",
+    toCsv([header, ...csvRows]),
+    "Key player template exported."
+  );
+}
+
+function renderKeyPlayerTemplate(rows, totalRows) {
+  if (!els.keyPlayerTemplate) return;
+  const templateRows = keyPlayerTemplateRows(rows);
+  const shownCount = templateRows.length;
+  const limited = shownCount < rows.length;
+  els.keyPlayerTemplate.innerHTML = `
+    <div class="template-panel-head">
+      <div>
+        <span class="section-kicker">Key players database template</span>
+        <h3>Decision fields for the current view</h3>
+        <p>Live template from the selected filters. Proxy fields stay explicit until internal or licensed data is added.</p>
+      </div>
+      <div class="template-panel-actions">
+        <button class="ghost-button" type="button" data-template-open-all>Open full table</button>
+        <button class="ghost-button" type="button" data-template-export>CSV template</button>
+      </div>
+    </div>
+    <div class="template-table-wrap">
+      <table class="template-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Subcategory</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Revenue / size</th>
+            <th>HQ</th>
+            <th>Geographic reach</th>
+            <th>Ownership / investors</th>
+            <th>Strategic importance</th>
+            <th>Existing relationship</th>
+            <th>Notes / comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${
+            templateRows
+              .map((player) => {
+                const row = keyPlayerTemplateRowData(player);
+                return `
+                  <tr data-template-player="${escapeHtml(player.id)}" style="--cat:${row.color}" tabindex="0">
+                    <td>
+                      <span class="template-category-pill">
+                        <i aria-hidden="true">${escapeHtml(row.category.slice(0, 1))}</i>
+                        <strong>${escapeHtml(row.category)}</strong>
+                      </span>
+                    </td>
+                    <td>${escapeHtml(row.subcategory)}</td>
+                    <td><strong>${escapeHtml(row.name)}</strong></td>
+                    <td>${escapeHtml(row.description)}</td>
+                    <td>${escapeHtml(row.revenueSize)}</td>
+                    <td>${escapeHtml(row.hq)}</td>
+                    <td>${escapeHtml(row.geography)}</td>
+                    <td>${escapeHtml(row.ownership)}</td>
+                    <td><span class="template-score">${escapeHtml(row.strategicImportance)}</span></td>
+                    <td>${escapeHtml(row.relationship)}</td>
+                    <td>${escapeHtml(row.notes)}</td>
+                  </tr>
+                `;
+              })
+              .join("") || `<tr><td colspan="11">${emptyState("No database rows match the current filters.")}</td></tr>`
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="template-help-strip">
+      <span><strong>${shownCount}</strong> of ${rows.length} filtered rows shown${limited ? `, ${totalRows} total records available` : ""}</span>
+      <span>1 Populate HQ, owner and relationship fields</span>
+      <span>2 Add Appfigures and revenue proof where relevant</span>
+      <span>3 Review priority records quarterly</span>
+    </div>
+  `;
+
+  els.keyPlayerTemplate.querySelector("[data-template-export]")?.addEventListener("click", () => downloadKeyPlayerTemplateCsv(rows));
+  els.keyPlayerTemplate.querySelector("[data-template-open-all]")?.addEventListener("click", () => {
+    const fullTable = document.querySelector("#databaseView .table-wrap");
+    fullTable?.scrollIntoView({ block: "start", behavior: "smooth" });
+  });
+  els.keyPlayerTemplate.querySelectorAll("[data-template-player]").forEach((rowEl) => {
+    const openRow = () => {
+      selectPlayer(rowEl.dataset.templatePlayer);
+      switchView("overview", { focusProfile: true });
+    };
+    rowEl.addEventListener("click", openRow);
+    rowEl.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openRow();
+      }
+    });
+  });
+}
+
 function renderDatabaseLists(rows, totalRows) {
   const limited = rows.length < totalRows;
   const limitNote = limited
@@ -8426,6 +8629,7 @@ function renderDatabase() {
   renderDatabaseSegments();
   const rows = getDatabasePlayers();
   const displayRows = databaseRowsForCurrentMode(rows);
+  renderKeyPlayerTemplate(displayRows, rows.length);
   renderDatabaseVisuals(displayRows);
   renderDatabaseLists(displayRows, rows.length);
 }

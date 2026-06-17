@@ -3259,6 +3259,242 @@ body:not([data-view="overview"]) .view.active {
   outline-offset: 2px;
 }
 
+.key-player-template-panel {
+  overflow: hidden;
+  border: 1px solid rgba(16, 35, 31, 0.12);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 252, 250, 0.98)),
+    #fff;
+  box-shadow: 0 16px 34px rgba(18, 28, 24, 0.06);
+  margin: 12px 0 14px;
+}
+
+.template-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 1px solid rgba(16, 35, 31, 0.08);
+  padding: 16px 18px 13px;
+}
+
+.template-panel-head h3 {
+  margin: 4px 0 4px;
+  color: var(--ink);
+  font-size: clamp(1.12rem, 1.8vw, 1.55rem);
+  line-height: 1.05;
+}
+
+.template-panel-head p {
+  max-width: 720px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.36;
+}
+
+.template-panel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.template-table-wrap {
+  max-width: 100%;
+  overflow: auto;
+  background: #fff;
+  scrollbar-color: var(--brand) #eef4ef;
+  scrollbar-width: thin;
+}
+
+.template-table {
+  width: 100%;
+  min-width: 1320px;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.template-table th,
+.template-table td {
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+
+.template-table th {
+  height: 54px;
+  padding: 11px 12px;
+  background: #16304f;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.64rem;
+  line-height: 1.14;
+  letter-spacing: 0;
+  box-shadow: inset 0 -3px 0 rgba(0, 210, 146, 0.84);
+}
+
+.template-table td {
+  padding: 10px 11px;
+  color: #23332e;
+  font-size: 0.7rem;
+  line-height: 1.25;
+  background: #fff;
+}
+
+.template-table tbody tr {
+  cursor: pointer;
+}
+
+.template-table tbody tr:nth-child(even) td {
+  background: #f9fcfb;
+}
+
+.template-table tbody tr:hover td,
+.template-table tbody tr:focus-visible td {
+  background: #eefbf5;
+}
+
+.template-table th:nth-child(1),
+.template-table td:nth-child(1) {
+  width: 12%;
+  min-width: 12%;
+}
+
+.template-table th:nth-child(2),
+.template-table td:nth-child(2) {
+  width: 12%;
+  min-width: 12%;
+}
+
+.template-table th:nth-child(3),
+.template-table td:nth-child(3) {
+  width: 8%;
+  min-width: 8%;
+}
+
+.template-table th:nth-child(4),
+.template-table td:nth-child(4) {
+  width: 17%;
+  min-width: 17%;
+}
+
+.template-table th:nth-child(5),
+.template-table td:nth-child(5),
+.template-table th:nth-child(7),
+.template-table td:nth-child(7) {
+  width: 9%;
+  min-width: 9%;
+}
+
+.template-table th:nth-child(6),
+.template-table td:nth-child(6) {
+  width: 5%;
+  min-width: 5%;
+}
+
+.template-table th:nth-child(8),
+.template-table td:nth-child(8) {
+  width: 10%;
+  min-width: 10%;
+}
+
+.template-table th:nth-child(9),
+.template-table td:nth-child(9) {
+  width: 8%;
+  min-width: 8%;
+}
+
+.template-table th:nth-child(10),
+.template-table td:nth-child(10) {
+  width: 9%;
+  min-width: 9%;
+}
+
+.template-table th:nth-child(11),
+.template-table td:nth-child(11) {
+  width: 9%;
+  min-width: 9%;
+}
+
+.template-table th:first-child,
+.template-table td:first-child {
+  left: 0;
+  z-index: 3;
+  box-shadow: 8px 0 16px rgba(18, 28, 24, 0.07);
+}
+
+.template-table th:first-child {
+  background: #16304f;
+}
+
+.template-category-pill {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: #18332a;
+  font-weight: 850;
+}
+
+.template-category-pill i {
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--cat);
+  color: #fff;
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 950;
+  line-height: 1;
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--cat) 24%, transparent);
+}
+
+.template-category-pill strong {
+  min-width: 0;
+  font-size: 0.74rem;
+  line-height: 1.12;
+}
+
+.template-score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  min-height: 28px;
+  border: 1px solid color-mix(in srgb, var(--cat) 42%, #ffffff);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cat) 13%, #ffffff);
+  color: #13221e;
+  font-weight: 950;
+}
+
+.template-help-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  border-top: 1px solid rgba(16, 35, 31, 0.08);
+  background: #f5faf8;
+  padding: 10px 18px;
+  color: #32443d;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.template-help-strip span {
+  min-width: 0;
+}
+
+.template-help-strip strong {
+  color: var(--ink);
+}
+
 .key-player-visuals,
 .database-visuals,
 .source-visuals {
@@ -8704,6 +8940,116 @@ body[data-print-target="brief-export"] .export-stat-row strong {
   max-width: none;
 }
 
+#databaseView .template-table {
+  width: 100%;
+  min-width: 1320px;
+  table-layout: fixed;
+}
+
+#databaseView .template-table th,
+#databaseView .template-table td {
+  height: auto;
+  padding: 10px 11px;
+  overflow-wrap: break-word;
+  word-break: normal;
+  line-height: 1.25;
+  white-space: normal;
+}
+
+#databaseView .template-table th {
+  background: #16304f;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.64rem;
+  line-height: 1.14;
+}
+
+#databaseView .template-table td {
+  color: #23332e;
+  font-size: 0.7rem;
+  background: #fff;
+}
+
+#databaseView .template-table tbody tr:nth-child(even) td {
+  background: #f9fcfb;
+}
+
+#databaseView .template-table tbody tr:hover td,
+#databaseView .template-table tbody tr:focus-visible td {
+  background: #eefbf5;
+}
+
+#databaseView .template-table th:nth-child(1),
+#databaseView .template-table td:nth-child(1) {
+  width: 12%;
+  min-width: 12%;
+}
+
+#databaseView .template-table th:nth-child(2),
+#databaseView .template-table td:nth-child(2) {
+  width: 12%;
+  min-width: 12%;
+}
+
+#databaseView .template-table th:nth-child(3),
+#databaseView .template-table td:nth-child(3) {
+  width: 8%;
+  min-width: 8%;
+}
+
+#databaseView .template-table th:nth-child(4),
+#databaseView .template-table td:nth-child(4) {
+  width: 17%;
+  min-width: 17%;
+}
+
+#databaseView .template-table th:nth-child(5),
+#databaseView .template-table td:nth-child(5),
+#databaseView .template-table th:nth-child(7),
+#databaseView .template-table td:nth-child(7) {
+  width: 9%;
+  min-width: 9%;
+}
+
+#databaseView .template-table th:nth-child(6),
+#databaseView .template-table td:nth-child(6) {
+  width: 5%;
+  min-width: 5%;
+}
+
+#databaseView .template-table th:nth-child(8),
+#databaseView .template-table td:nth-child(8) {
+  width: 10%;
+  min-width: 10%;
+}
+
+#databaseView .template-table th:nth-child(9),
+#databaseView .template-table td:nth-child(9) {
+  width: 8%;
+  min-width: 8%;
+}
+
+#databaseView .template-table th:nth-child(10),
+#databaseView .template-table td:nth-child(10) {
+  width: 9%;
+  min-width: 9%;
+}
+
+#databaseView .template-table th:nth-child(11),
+#databaseView .template-table td:nth-child(11) {
+  width: 9%;
+  min-width: 9%;
+}
+
+#databaseView .template-table th:first-child,
+#databaseView .template-table td:first-child {
+  left: 0;
+  box-shadow: 8px 0 16px rgba(18, 28, 24, 0.07);
+}
+
+#databaseView .template-table th:first-child {
+  background: #16304f;
+}
+
 @media (max-width: 1280px) {
   #databaseView .table-wrap {
     display: none;
@@ -8720,6 +9066,18 @@ body[data-print-target="brief-export"] .export-stat-row strong {
 }
 
 @media (max-width: 640px) {
+  .template-panel-head {
+    display: grid;
+  }
+
+  .template-panel-actions {
+    justify-content: stretch;
+  }
+
+  .template-panel-actions .ghost-button {
+    flex: 1 1 160px;
+  }
+
   #databaseView .database-stats,
   #databaseView .record-meta-grid {
     grid-template-columns: 1fr;
@@ -9844,6 +10202,14 @@ body[data-mode="executive"] #databaseView th:nth-child(7) {
 body[data-mode="executive"] #databaseView th:nth-child(7)::before {
   content: "Validation need";
   font-size: 0.72rem;
+}
+
+body[data-mode="executive"] #databaseView .template-table th:nth-child(7) {
+  font-size: 0.64rem;
+}
+
+body[data-mode="executive"] #databaseView .template-table th:nth-child(7)::before {
+  content: none;
 }
 
 body[data-mode="executive"] #databaseView .table-wrap {
