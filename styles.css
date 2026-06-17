@@ -18121,6 +18121,22 @@ body[data-view="overview"] .map-context-row {
   }
 }
 
+body[data-view="overview"] .map-zoom-row {
+  grid-template-columns: repeat(2, minmax(76px, 1fr)) !important;
+}
+
+body[data-view="overview"] .map-zoom-row .map-reset-button {
+  grid-column: auto !important;
+}
+
+body[data-view="overview"] .map-zoom-row button {
+  min-height: 32px;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  line-height: 1.05;
+}
+
 /* Source confidence matrix polish. */
 body[data-view="database"] .database-matrix-panel {
   padding: 16px;

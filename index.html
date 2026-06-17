@@ -37,7 +37,7 @@
     />
     <meta name="theme-color" content="#f7fbf7" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='28' cy='28' r='18' fill='none' stroke='%2300d292' stroke-width='10'/%3E%3Cpath d='M42 42l14 14' stroke='%231b1d1f' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="./styles.css?v=20260617-compact-layer-guide-v39" />
+    <link rel="stylesheet" href="./styles.css?v=20260617-clear-labels-v40" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
   </head>
   <body data-view="overview" data-mode="executive">
@@ -60,7 +60,7 @@
           </div>
           <details class="quiet-mode-menu" id="quietModeMenu">
             <summary aria-label="Open workspace options" title="Workspace options">
-              <span>More</span>
+              <span>Tools</span>
             </summary>
             <div class="quiet-mode-panel" aria-label="Workspace mode">
               <button class="mode-button active" data-mode="executive" type="button">
@@ -79,11 +79,11 @@
 
       <nav class="view-tabs" aria-label="Workspace views">
         <button class="tab-button active" data-view="overview" type="button">Overview</button>
-        <button class="tab-button" data-view="key-players" type="button">Monitor</button>
-        <button class="tab-button" data-view="one-pager" type="button">One pager</button>
-        <button class="tab-button" data-view="database" type="button">Database</button>
-        <button class="tab-button" data-view="relationships" type="button">Relationships</button>
-        <button class="tab-button research-tab" data-view="sources" type="button">Sources</button>
+        <button class="tab-button" data-view="key-players" type="button">Market monitor</button>
+        <button class="tab-button" data-view="one-pager" type="button">Player brief</button>
+        <button class="tab-button" data-view="database" type="button">Market database</button>
+        <button class="tab-button" data-view="relationships" type="button">Yousician links</button>
+        <button class="tab-button research-tab" data-view="sources" type="button">Source status</button>
       </nav>
 
       <section class="active-filter-strip" id="activeFilterStrip" aria-label="Active filters"></section>
@@ -185,16 +185,16 @@
           <span>Coverage, activity lanes and company index.</span>
         </button>
         <button class="overview-shortcut-card" data-jump-view="one-pager" type="button">
-          <strong>One pager</strong>
-          <span>Selected player profile.</span>
+          <strong>Player brief</strong>
+          <span>Executive profile for the selected record.</span>
         </button>
         <button class="overview-shortcut-card" data-jump-view="database" type="button">
-          <strong>Database</strong>
-          <span>Full structured market records.</span>
+          <strong>Market database</strong>
+          <span>Structured records and source status.</span>
         </button>
         <button class="overview-shortcut-card" data-jump-view="relationships" type="button">
-          <strong>Relationships</strong>
-          <span>Internal relationship fields.</span>
+          <strong>Yousician links</strong>
+          <span>Internal relationship checks.</span>
         </button>
       </section>
 
@@ -227,11 +227,11 @@
               <aside class="map-company-picker" id="mapCompanyPicker" aria-label="Companies visible on map"></aside>
             </div>
             <div class="map-note">
-              <span>Bubble size defaults to mission scale: company scale weighted by relevance to Yousician.</span>
+              <span>Bubble size defaults to Yousician relevance: company scale weighted by strategic relevance.</span>
               <span>Labels are intentionally limited so the map supports triage rather than exhaustive reading.</span>
             </div>
             <div class="map-symbol-legend" aria-label="Map element legend">
-              <span class="map-symbol-title">Map key</span>
+              <span class="map-symbol-title">Map legend</span>
               <span><i class="map-symbol map-symbol-colour"></i><strong>Colour</strong> journey step</span>
               <span><i class="map-symbol map-symbol-size"></i><strong>Size</strong> selected scale mode</span>
               <span><i class="map-symbol map-symbol-source"></i><strong>Source ring</strong> confidence level</span>
@@ -256,8 +256,8 @@
           <aside class="profile-panel" id="profilePanel"></aside>
 
           <section class="kpi-grid" aria-label="Strategic summary">
-            <button class="kpi" type="button" data-dashboard-action="tracked-records" aria-label="Show all tracked players in the database">
-              <span class="kpi-label">Tracked players</span>
+            <button class="kpi" type="button" data-dashboard-action="tracked-records" aria-label="Show all tracked records in the database">
+              <span class="kpi-label">Tracked records</span>
               <strong id="totalPlayers">0</strong>
               <small>Expanded database</small>
             </button>
@@ -266,13 +266,13 @@
               <strong id="keyPlayers">0</strong>
               <small>Prioritized for profiles</small>
             </button>
-            <button class="kpi" type="button" data-dashboard-action="ai-relevant" aria-label="Show AI relevant records">
-              <span class="kpi-label">AI relevant</span>
+            <button class="kpi" type="button" data-dashboard-action="ai-relevant" aria-label="Show AI records">
+              <span class="kpi-label">AI records</span>
               <strong id="aiPlayers">0</strong>
               <small>Learning, content, creation</small>
             </button>
             <button class="kpi" type="button" data-dashboard-action="evidence-links" aria-label="Show linked evidence sources">
-              <span class="kpi-label">Evidence links</span>
+              <span class="kpi-label">Linked sources</span>
               <strong id="needsSource">0</strong>
               <small>Linked references</small>
             </button>
@@ -379,12 +379,12 @@
         <section class="view" id="one-pagerView">
           <div class="section-heading">
             <div>
-              <h2>Player one pager</h2>
-              <p>Printable executive profile for the selected key player.</p>
+              <h2>Player decision brief</h2>
+              <p>Executive profile for the selected record.</p>
             </div>
             <div class="section-actions">
-              <button class="ghost-button" data-jump-view="overview" type="button">Map</button>
-              <button class="ghost-button" id="printOnePager" type="button">Print</button>
+              <button class="ghost-button" data-jump-view="overview" type="button">Back to map</button>
+              <button class="ghost-button" id="printOnePager" type="button">Print brief</button>
             </div>
           </div>
           <div id="onePager" class="one-pager"></div>
@@ -393,18 +393,18 @@
         <section class="view" id="databaseView">
           <div class="section-heading">
             <div>
-              <h2>Database</h2>
+              <h2>Market database</h2>
               <p>Structured market database for players, signals, evidence status, and completion fields.</p>
             </div>
             <div class="section-actions">
-              <button class="ghost-button" data-jump-view="overview" type="button">Map</button>
+              <button class="ghost-button" data-jump-view="overview" type="button">Back to map</button>
               <button class="ghost-button" id="downloadCsv" type="button">CSV</button>
             </div>
           </div>
           <div class="database-workbench">
             <div class="database-stats" id="databaseStats"></div>
-            <div class="database-controls" aria-label="Database controls">
-              <div class="segment-control" id="databaseSegments" aria-label="Database segments"></div>
+            <div class="database-controls" aria-label="Market database controls">
+              <div class="segment-control" id="databaseSegments" aria-label="Market database segments"></div>
               <label class="sort-control">
                 <span>Sort</span>
                 <select id="databaseSort">
@@ -469,10 +469,10 @@
         <section class="view" id="relationshipsView">
           <div class="section-heading">
             <div>
-              <h2>Relationships</h2>
-              <p>Strategic proximity view with neutral fields reserved for Yousician owner and relationship completion.</p>
+              <h2>Yousician relationship checks</h2>
+              <p>Internal owner, contact history, sensitivity, and relationship status fields reserved for Yousician completion.</p>
             </div>
-            <button class="ghost-button" data-jump-view="overview" type="button">Map</button>
+            <button class="ghost-button" data-jump-view="overview" type="button">Back to map</button>
           </div>
           <div id="relationshipValidationPanel" class="relationship-validation-panel"></div>
           <div class="relationship-layout">
@@ -486,7 +486,7 @@
         <section class="view research-only" id="sourcesView">
           <div class="section-heading">
             <div>
-              <h2>Sources and automation</h2>
+              <h2>Source status and automation</h2>
               <p>Data feeds, research imports, and source of truth status for the same structure.</p>
             </div>
           </div>
@@ -503,6 +503,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js?v=20260617-compact-layer-guide-v39"></script>
+    <script src="./app.js?v=20260617-clear-labels-v40"></script>
   </body>
 </html>

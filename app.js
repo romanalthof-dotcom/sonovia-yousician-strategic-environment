@@ -199,7 +199,7 @@ const productLenses = [
 const ecosystemLayers = [
   {
     id: "core",
-    label: "Hobbyist core",
+    label: "Core habits",
     shortLabel: "Core",
     color: "#174f8a",
     icon: "circle-dot",
@@ -2950,19 +2950,19 @@ const els = {
 
 const databaseSegments = [
   { id: "all", label: "All records", matches: () => true },
-  { id: "key", label: "Key players", matches: (player) => player.key },
-  { id: "actors", label: "Actors only", matches: (player) => !isSignalOnlyRecord(player) },
-  { id: "claims", label: "Hypotheses", matches: (player) => claimIntegrityFor(player).hasHypothesis },
-  { id: "source", label: "Open data fields", matches: (player) => hasCriticalEvidenceGap(player) },
+  { id: "key", label: "Priority profiles", matches: (player) => player.key },
+  { id: "actors", label: "Companies and orgs", matches: (player) => !isSignalOnlyRecord(player) },
+  { id: "claims", label: "Needs caution", matches: (player) => claimIntegrityFor(player).hasHypothesis },
+  { id: "source", label: "Missing data", matches: (player) => hasCriticalEvidenceGap(player) },
   {
     id: "ready",
     label: "Ready records",
     matches: (player) => qualityProfile(player).score >= 68 && !hasCriticalEvidenceGap(player)
   },
-  { id: "appdata", label: "Live data queue", matches: (player) => requiresCredentialedData(player) },
-  { id: "signals", label: "Signal sources", matches: (player) => isSignalOnlyRecord(player) },
-  { id: "internal", label: "Internal needed", matches: (player) => Boolean(relationForPlayer(player)) },
-  { id: "ai", label: "AI / disruption", matches: (player) => player.aiScore >= 4 || player.category === "ai" },
+  { id: "appdata", label: "App data needed", matches: (player) => requiresCredentialedData(player) },
+  { id: "signals", label: "Market signals", matches: (player) => isSignalOnlyRecord(player) },
+  { id: "internal", label: "Yousician input needed", matches: (player) => Boolean(relationForPlayer(player)) },
+  { id: "ai", label: "AI and disruption", matches: (player) => player.aiScore >= 4 || player.category === "ai" },
   {
     id: "partner",
     label: "Partner candidates",
@@ -2976,40 +2976,40 @@ const databaseSegments = [
 ];
 
 const monitorSegments = [
-  { id: "all", label: "All", matches: () => true },
-  { id: "key", label: "Key", matches: (player) => player.key },
-  { id: "core", label: "Core", matches: (player) => ["learning", "practice"].includes(player.category) },
-  { id: "appdata", label: "App data", matches: (player) => requiresCredentialedData(player) },
-  { id: "ai", label: "AI", matches: (player) => player.aiScore >= 4 || ["ai", "creation"].includes(player.category) },
+  { id: "all", label: "All records", matches: () => true },
+  { id: "key", label: "Key players", matches: (player) => player.key },
+  { id: "core", label: "Core market", matches: (player) => ["learning", "practice"].includes(player.category) },
+  { id: "appdata", label: "App data needed", matches: (player) => requiresCredentialedData(player) },
+  { id: "ai", label: "AI and creation", matches: (player) => player.aiScore >= 4 || ["ai", "creation"].includes(player.category) },
   {
     id: "partners",
     label: "Partners",
     matches: (player) => relationForPlayer(player)?.type === "partners" || ["hardware", "education"].includes(player.category)
   },
-  { id: "signals", label: "Signals", matches: (player) => isSignalOnlyRecord(player) }
+  { id: "signals", label: "Market signals", matches: (player) => isSignalOnlyRecord(player) }
 ];
 
 const mapFocusModes = [
-  { id: "all", label: "All", matches: () => true },
+  { id: "all", label: "All records", matches: () => true },
   {
     id: "priority",
-    label: "Strategic",
+    label: "Priority",
     matches: (player) =>
       player.key ||
       player.relevance >= 5 ||
       (player.relevance >= 4 && (player.momentum >= 4 || player.aiScore >= 5))
   },
-  { id: "key", label: "Key", matches: (player) => player.key },
-  { id: "ai", label: "AI", matches: (player) => player.aiScore >= 4 || ["ai", "creation"].includes(player.category) },
-  { id: "appdata", label: "App data", matches: (player) => requiresCredentialedData(player) }
+  { id: "key", label: "Key players", matches: (player) => player.key },
+  { id: "ai", label: "AI records", matches: (player) => player.aiScore >= 4 || ["ai", "creation"].includes(player.category) },
+  { id: "appdata", label: "App data needed", matches: (player) => requiresCredentialedData(player) }
 ];
 
 const bubbleSizeModes = [
   {
     id: "mission",
-    label: "Mission scale",
-    shortLabel: "Mission",
-    note: "Default size combines company scale with relevance to Yousician's mission today."
+    label: "Yousician relevance",
+    shortLabel: "Yousician",
+    note: "Default size combines company scale with strategic relevance to Yousician."
   },
   {
     id: "strategic",
@@ -3387,7 +3387,7 @@ function bubbleSizeRadius(player) {
 
 function bubbleSizeBasis(player) {
   const mode = bubbleSizeModeById(state.bubbleSizeMode).id;
-  if (mode === "mission") return `Mission scale ${missionScaleScore(player)} of 5. Company scale weighted by Yousician relevance`;
+  if (mode === "mission") return `Yousician relevance ${missionScaleScore(player)} of 5. Company scale weighted by strategic relevance`;
   if (mode === "business") return `Company size ${businessSizeScore(player)} of 5`;
   if (mode === "revenue") return `Revenue signal ${revenueProxyScore(player)} of 5. Proxy only, not verified revenue`;
   if (mode === "reach") return `Audience reach ${audienceReachScore(player)} of 5`;
@@ -5285,16 +5285,16 @@ function renderActiveFilterStrip() {
     chips.push({ id: "category", label: "Journey", value: journeyCategoryById(state.selectedCategory)?.shortName || state.selectedCategory });
   }
   if (state.ecosystemLayer !== "all") {
-    chips.push({ id: "ecosystemLayer", label: "Layer", value: ecosystemLayerById(state.ecosystemLayer)?.shortLabel || state.ecosystemLayer });
+    chips.push({ id: "ecosystemLayer", label: "Layer filter", value: ecosystemLayerById(state.ecosystemLayer)?.shortLabel || state.ecosystemLayer });
   }
   if (state.selectedProductLens !== "all") {
     chips.push({
       id: "product",
-      label: "Product",
+      label: "Product lens",
       value: productLenses.find((lens) => lens.id === state.selectedProductLens)?.shortLabel || state.selectedProductLens
     });
   }
-  if (state.minRelevance > 1) chips.push({ id: "relevance", label: "Relevance", value: `${state.minRelevance}+` });
+  if (state.minRelevance > 1) chips.push({ id: "relevance", label: "Yousician relevance", value: `${state.minRelevance}+` });
   const basePlayers = getFilteredPlayers();
   if (state.view === "overview") {
     if (state.mapFocusMode !== defaultMapFocusMode) chips.push({ id: "mapFocus", label: "Map", value: mapFocusModeById(state.mapFocusMode).label });
@@ -5306,16 +5306,16 @@ function renderActiveFilterStrip() {
     }
   }
   if (state.bubbleSizeMode !== defaultBubbleSizeMode) {
-    chips.push({ id: "bubbleSize", label: "Bubble size", value: bubbleSizeModeById(state.bubbleSizeMode).shortLabel });
+    chips.push({ id: "bubbleSize", label: "Bubble size metric", value: bubbleSizeModeById(state.bubbleSizeMode).shortLabel });
   }
   if (state.quickFocus) {
     chips.push({ id: "quickFocus", label: "Focus", value: state.quickFocus });
   }
   if (state.monitorSegment !== "all") {
-    chips.push({ id: "monitorSegment", label: "Monitor", value: monitorSegmentById(state.monitorSegment).label });
+    chips.push({ id: "monitorSegment", label: "Monitor segment", value: monitorSegmentById(state.monitorSegment).label });
   }
   if (state.monitorQuery.trim()) chips.push({ id: "monitorQuery", label: "Monitor search", value: state.monitorQuery.trim() });
-  if (state.dbSegment !== "all") chips.push({ id: "database", label: "Database", value: databaseSegmentById(state.dbSegment).label });
+  if (state.dbSegment !== "all") chips.push({ id: "database", label: "Market database", value: databaseSegmentById(state.dbSegment).label });
 
   const visibleCount = activeViewVisibleCount(basePlayers);
   const activeCount = chips.length;
@@ -5337,7 +5337,7 @@ function renderActiveFilterStrip() {
                 `
               )
               .join("")
-          : `<span class="filter-chip-empty">${state.view === "overview" ? "Top 25 by priority" : "No active filters"}</span>`
+          : `<span class="filter-chip-empty">${state.view === "overview" ? "Top 25 priority records" : "No active filters"}</span>`
       }
     </div>
     <button class="filter-clear-all" data-filter-clear-all type="button" ${activeCount ? "" : "disabled"}>Clear all</button>
@@ -5549,9 +5549,9 @@ function mapVisiblePlayers(basePlayers) {
 function mapZoomLabel() {
   return {
     auto: "Auto fit",
-    fit: "Fit view",
-    selected: "Selected",
-    full: "Full map"
+    fit: "Fit map",
+    selected: "Focus selected",
+    full: "Show all records"
   }[state.mapZoomMode] || "Auto fit";
 }
 
@@ -5710,9 +5710,9 @@ function renderMapSummaryStrip() {
   const mapLimit = mapRecordLimitFor(basePlayers);
   const minMapRecords = Math.min(maxMapRecords, 4);
   const zoomButtons = [
-    { id: "fit", label: "Fit" },
-    { id: "selected", label: "Selected" },
-    { id: "full", label: `All ${basePlayers.length}` }
+    { id: "fit", label: "Fit map" },
+    { id: "selected", label: "Focus selected" },
+    { id: "full", label: `Show all ${basePlayers.length}` }
   ]
     .map((button) => {
       const active =
@@ -5745,14 +5745,14 @@ function renderMapSummaryStrip() {
   const sizeOrContext = executive
     ? `
       <div class="map-context-row" aria-label="Map sizing logic">
-        <span>Bubble size</span>
+        <span>Bubble size means</span>
         <strong>${escapeHtml(activeSizeMode.label)}</strong>
         <small>${escapeHtml(activeSizeMode.note)}</small>
       </div>
     `
     : `
       <div class="map-size-row" aria-label="Bubble size mode">
-        <span>Bubble size by</span>
+        <span>Size bubbles by</span>
         <div>
           ${sizeButtons}
         </div>
@@ -5762,7 +5762,7 @@ function renderMapSummaryStrip() {
   const limitControl = `
     <div class="map-limit-row" aria-label="Visible records by priority">
       <div>
-        <span>Records</span>
+        <span>Records shown</span>
         <strong>${mapLimit >= maxMapRecords ? `All ${maxMapRecords}` : `Top ${mapLimit}`}</strong>
       </div>
       <input
@@ -5774,25 +5774,25 @@ function renderMapSummaryStrip() {
         data-map-record-limit
         aria-label="Number of map records"
       />
-      <small>Sorted by priority</small>
+      <small>Highest priority first</small>
     </div>
   `;
 
   els.mapSummaryStrip.innerHTML = `
-    <div class="map-selected-card" aria-label="Selected player">
-      <span>Selected</span>
+    <div class="map-selected-card" aria-label="Selected record">
+      <span>Selected record</span>
       <strong>${escapeHtml(selectedPlayer.name)}</strong>
       <small>${escapeHtml(strategicRole(selectedPlayer))}</small>
       <div>
         <button type="button" data-map-selected-action="profile">Profile</button>
-        <button type="button" data-map-selected-action="one-pager">One pager</button>
+        <button type="button" data-map-selected-action="one-pager">Player brief</button>
       </div>
     </div>
     ${limitControl}
     ${sizeOrContext}
     <div class="map-zoom-row" aria-label="Map view controls">
       ${zoomButtons}
-      <button type="button" class="map-reset-button" data-map-reset>Reset</button>
+      <button type="button" class="map-reset-button" data-map-reset>Reset view</button>
     </div>
   `;
 
@@ -5871,10 +5871,10 @@ function renderMapCompanyPicker() {
   els.mapCompanyPicker.innerHTML = `
     <div class="map-picker-head">
       <div>
-        <span>Company index</span>
+        <span>Records in view</span>
         <strong>${visiblePlayers.length} in view</strong>
       </div>
-      <button type="button" data-map-full-view ${fullMapActive ? "disabled" : ""}>Full map</button>
+      <button type="button" data-map-full-view ${fullMapActive ? "disabled" : ""}>Show all</button>
     </div>
     <div class="map-picker-list" aria-label="Companies visible in current map view">
       ${
@@ -6084,7 +6084,7 @@ function renderStrategicImplications() {
       players: [...aiComplement.slice(0, 3), ...aiSubstitution.slice(0, 3)].slice(0, 5)
     },
     {
-      label: "Close proof debt before board use",
+      label: "Close source gaps before board use",
       tone: "proof",
       count: proofDebt.length,
       body: "The dashboard now exposes where size, ownership, AI, and internal relationship claims are still not fully proved.",
@@ -6880,8 +6880,8 @@ function renderProfile() {
           : `${escapeHtml(nextAction(player))}. ${escapeHtml(player.recent)}`
       }</p>
       <div class="profile-actions">
-        <button class="primary-button" data-profile-action="one-pager" type="button">One pager</button>
-        <button class="ghost-button" data-profile-action="database" type="button">Database</button>
+        <button class="primary-button" data-profile-action="one-pager" type="button">Player brief</button>
+        <button class="ghost-button" data-profile-action="database" type="button">Market database</button>
       </div>
     </section>
     ${
@@ -6891,7 +6891,7 @@ function renderProfile() {
       <h3>${escapeHtml(posture.label)}</h3>
       <div class="executive-triage-grid">
         <div><span>Relevance</span><strong>${player.relevance}/5</strong></div>
-        <div><span>Mission scale</span><strong>${missionScaleScore(player)}/5</strong></div>
+        <div><span>Yousician relevance</span><strong>${missionScaleScore(player)}/5</strong></div>
         <div><span>Confidence</span><strong>${quality.score}%</strong></div>
         <div><span>App data</span><strong>${appfiguresReadinessScore(player)}/5</strong></div>
       </div>
@@ -6992,7 +6992,7 @@ function renderInsights() {
           </article>
         `
       )
-      .join("") || emptyState("No AI relevant players in this filter.");
+      .join("") || emptyState("No AI records in this filter.");
 
   const filteredIds = new Set(filtered.map((player) => player.id));
   const moveItems = strategicMoves
@@ -7068,7 +7068,7 @@ function renderBriefReadiness() {
       action: "key-players"
     },
     {
-      label: "Database",
+      label: "Market database",
       value: `${librarySources.length || "..."} sources`,
       note: "Structured player, signal, and source fields are available",
       state: "done",
@@ -7529,9 +7529,9 @@ function renderOverviewMonitorSnapshot() {
         <p>${companyRecords.length} companies and organisations, ${keyPlayers.length} key players, ${highMomentum.length} strong momentum records, and ${liveDataQueue.length} app or traffic inputs queued.</p>
       </div>
       <div class="overview-monitor-actions" aria-label="Market monitor actions">
-        <button type="button" data-monitor-jump="key-players">Monitor</button>
-        <button type="button" data-monitor-jump="database">Database</button>
-        <button type="button" data-monitor-jump="relationships">Relationships</button>
+        <button type="button" data-monitor-jump="key-players">Market monitor</button>
+        <button type="button" data-monitor-jump="database">Market database</button>
+        <button type="button" data-monitor-jump="relationships">Yousician links</button>
       </div>
     </div>
     <div class="overview-monitor-body">
@@ -8684,7 +8684,7 @@ function renderDatabaseStats() {
   const databaseStats = isExecutiveMode()
     ? [
         ["Records in view", filtered.length, "after selected filters", "tracked-records"],
-        ["Key players", keyCount, "priority profiles", "key-players"],
+        ["Priority profiles", keyCount, "first players to brief", "key-players"],
         ["Journey steps", journeyCategories.length, "agreed ecosystem structure", "journey-steps"],
         ["Linked sources", linkedSourceCount, sourceNote, "evidence-links"],
         [
@@ -8693,23 +8693,23 @@ function renderDatabaseStats() {
           `${credentialQueueCount} app based records require credentialed metrics`,
           "appfigures"
         ],
-        ["Relationship space", "Prepared", "internal status not inferred externally", "relationships"],
-        ["AI relevant", aiCount, "high AI signal records", "ai-relevant"],
+        ["Yousician links", "Prepared", "internal status not inferred externally", "relationships"],
+        ["AI records", aiCount, "high AI signal records", "ai-relevant"],
         ["Market signals", signalCount, "news, media, funding, awards", "market-signals"],
-        ["Evidence coverage", avgQuality, "linked source coverage", "source-confidence"]
+        ["Source coverage", avgQuality, "linked source coverage", "source-confidence"]
       ]
     : [
     ["Records in view", filtered.length, "after global filters", "tracked-records"],
-    ["Key players", keyCount, "profile candidates", "key-players"],
+    ["Priority profiles", keyCount, "profile candidates", "key-players"],
     ["Linked sources", linkedSourceCount, sourceNote, "evidence-links"],
     ["Link checked", verifiedLinkedCount, "URL health only", "evidence-links"],
     ["Claim caveats", filtered.filter((player) => claimIntegrityFor(player).hasHypothesis).length, "hypotheses visible", "claim-caveats"],
-    ["Completion gaps", backlog, gapNote, "proof-debt"],
-    ["Live data queue", credentialQueueCount, "credentials / reports", "appfigures"],
-    ["Signal sources", signalCount, "monitoring inputs", "market-signals"],
-    ["Internal checks", internalCheckCount, "relationship validation", "relationships"],
-    ["AI relevant", aiCount, "high AI signal", "ai-relevant"],
-    ["Avg. evidence", avgQuality, avgNote, "source-confidence"]
+    ["Missing proof", backlog, gapNote, "proof-debt"],
+    ["App data needed", credentialQueueCount, "credentials / reports", "appfigures"],
+    ["Market signals", signalCount, "monitoring inputs", "market-signals"],
+    ["Yousician checks", internalCheckCount, "relationship validation", "relationships"],
+    ["AI records", aiCount, "high AI signal", "ai-relevant"],
+    ["Avg. source confidence", avgQuality, avgNote, "source-confidence"]
   ];
 
   els.databaseStats.innerHTML = databaseStats
@@ -8788,26 +8788,26 @@ function renderDatabaseVisuals(rows) {
       <div class="visual-head">
         <div>
           <span class="section-kicker">Ecosystem coverage view</span>
-          <h3>Source confidence versus strategic priority</h3>
+          <h3>Which priority records need better proof?</h3>
         </div>
-        <p>Read from top left to top right: important records first need proof, then become usable evidence.</p>
+        <p>Important records sit at the top. Move them right by adding stronger sources.</p>
       </div>
       <div class="database-visual-stats" aria-label="Evidence coverage summary">
         <button type="button" data-dashboard-action="source-confidence"><strong>${avgQuality}%</strong> avg source confidence</button>
-        <button type="button" data-dashboard-action="key-players"><strong>${keyRecordCount}</strong> decision records</button>
+        <button type="button" data-dashboard-action="key-players"><strong>${keyRecordCount}</strong> priority records</button>
         <button type="button" data-dashboard-action="ready-records"><strong>${readyCount}</strong> ready for use</button>
-        <button type="button" data-dashboard-action="proof-debt"><strong>${proofGapCount}</strong> proof debt</button>
+        <button type="button" data-dashboard-action="proof-debt"><strong>${proofGapCount}</strong> proof gaps</button>
       </div>
       <div class="database-confidence-legend" aria-label="Source confidence legend">
         <span><i class="legend-ready"></i> usable evidence</span>
         <span><i class="legend-gap"></i> proof needed</span>
-        <span><i class="legend-key"></i> decision record</span>
+        <span><i class="legend-key"></i> priority record</span>
       </div>
       <div class="visual-matrix database-priority-map ${rows.length > 70 ? "is-dense" : ""}" aria-label="Database evidence priority matrix">
         <span class="matrix-zone zone-invest">High priority, proof needed</span>
         <span class="matrix-zone zone-ready">High priority, ready to use</span>
-        <span class="matrix-quadrant quadrant-watch">Monitor later</span>
-        <span class="matrix-quadrant quadrant-proof">Proof bank</span>
+        <span class="matrix-quadrant quadrant-watch">Lower priority</span>
+        <span class="matrix-quadrant quadrant-proof">Good proof, lower priority</span>
         <span class="matrix-axis axis-y">Strategic priority</span>
         <span class="matrix-axis axis-x">Source confidence</span>
         <span class="matrix-threshold threshold-confidence"></span>
@@ -10425,12 +10425,12 @@ function handleDashboardAction(action) {
       showToast("Showing the priority player set.");
     },
     "ai-relevant": () => {
-      focusDatabaseSegment("ai", { sort: "ai", focus: "AI relevant records" });
-      showToast("Showing AI relevant records.");
+      focusDatabaseSegment("ai", { sort: "ai", focus: "AI records" });
+      showToast("Showing AI records.");
     },
     "evidence-links": () => {
       state.dbSegment = "all";
-      setQuickFocus("Evidence links");
+      setQuickFocus("Linked sources");
       switchView("sources", { scroll: false });
       revealDashboardTarget("#sourceVisuals", { block: "start" });
       showToast("Opening the source evidence view.");
@@ -10444,8 +10444,8 @@ function handleDashboardAction(action) {
       showToast("Showing the ecosystem map.");
     },
     "database": () => {
-      focusDatabaseSegment("all", { sort: "priority", focus: "Database" });
-      showToast("Opening the full database.");
+      focusDatabaseSegment("all", { sort: "priority", focus: "Market database" });
+      showToast("Opening the market database.");
     },
     "guiding-questions": () => {
       state.dbSegment = "all";
@@ -10456,10 +10456,10 @@ function handleDashboardAction(action) {
     },
     "relationships": () => {
       state.dbSegment = "all";
-      setQuickFocus("Relationships");
+      setQuickFocus("Yousician links");
       switchView("relationships", { scroll: false });
       revealDashboardTarget("#relationshipsView", { block: "start" });
-      showToast("Opening relationship completion board.");
+      showToast("Opening Yousician relationship checks.");
     },
     "appfigures": () => {
       focusDatabaseSegment("appdata", { sort: "appdata", focus: "Appfigures queue" });
@@ -10672,7 +10672,7 @@ function renderExportSnapshot() {
   ];
   const completionNotes = [
     ["Appfigures", "Credentialed input", "App-performance fields are prepared for Appfigures import; the report avoids invented revenue, download, ranking or country estimates."],
-    ["Relationships", "Internal input", "Relationship owner/status fields are prepared in the workbook and intentionally left open for Yousician completion."],
+    ["Yousician links", "Internal input", "Relationship owner/status fields are prepared in the workbook and intentionally left open for Yousician completion."],
     ["Sources", "Traceable", "Market observations retain source context; deeper source audit remains appendix only."]
   ];
   const deliverables = [
