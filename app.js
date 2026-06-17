@@ -2821,6 +2821,7 @@ let backendState = { ...backendStateFallback };
 
 const defaultMapFocusMode = "priority";
 const defaultMapZoomMode = "auto";
+const defaultMapRecordLimit = 25;
 const defaultBubbleSizeMode = "mission";
 
 const state = {
@@ -2839,6 +2840,7 @@ const state = {
   monitorQuery: "",
   mapFocusMode: defaultMapFocusMode,
   mapZoomMode: defaultMapZoomMode,
+  mapRecordLimit: defaultMapRecordLimit,
   bubbleSizeMode: defaultBubbleSizeMode
 };
 
@@ -5148,6 +5150,7 @@ function resetWorkspaceFilters() {
   state.dbSegment = "all";
   state.mapFocusMode = defaultMapFocusMode;
   state.mapZoomMode = defaultMapZoomMode;
+  state.mapRecordLimit = defaultMapRecordLimit;
   state.bubbleSizeMode = defaultBubbleSizeMode;
   if (els.searchInput) els.searchInput.value = "";
 }
@@ -5179,10 +5182,11 @@ function clearFilterById(filterId) {
   if (filterId === "database") state.dbSegment = "all";
   if (filterId === "mapFocus") state.mapFocusMode = defaultMapFocusMode;
   if (filterId === "mapZoom") state.mapZoomMode = defaultMapZoomMode;
+  if (filterId === "mapLimit") state.mapRecordLimit = defaultMapRecordLimit;
   if (filterId === "bubbleSize") state.bubbleSizeMode = defaultBubbleSizeMode;
   if (filterId === "query" && els.searchInput) els.searchInput.value = "";
   markMapFilterChanged();
-  if (state.view === "overview" && ["mapFocus", "mapZoom", "bubbleSize"].includes(filterId)) {
+  if (state.view === "overview" && ["mapFocus", "mapZoom", "mapLimit", "bubbleSize"].includes(filterId)) {
     renderOverviewMapWorkspace({ revealMap: true, flashSummary: true });
     return;
   }
@@ -5206,6 +5210,12 @@ function renderActiveFilterStrip() {
   if (state.minRelevance > 1) chips.push({ id: "relevance", label: "Relevance", value: `${state.minRelevance}+` });
   if (state.mapFocusMode !== defaultMapFocusMode) chips.push({ id: "mapFocus", label: "Map", value: mapFocusModeById(state.mapFocusMode).label });
   if (!["auto", defaultMapZoomMode].includes(state.mapZoomMode)) chips.push({ id: "mapZoom", label: "View", value: mapZoomLabel() });
+  const basePlayers = getFilteredPlayers();
+  const mapLimit = mapRecordLimitFor(basePlayers);
+  const defaultLimit = Math.min(defaultMapRecordLimit, Math.max(1, basePlayers.length));
+  if (mapLimit !== defaultLimit) {
+    chips.push({ id: "mapLimit", label: "Map records", value: mapLimit >= basePlayers.length ? `All ${basePlayers.length}` : `${mapLimit}` });
+  }
   if (state.bubbleSizeMode !== defaultBubbleSizeMode) {
     chips.push({ id: "bubbleSize", label: "Bubble size", value: bubbleSizeModeById(state.bubbleSizeMode).shortLabel });
   }
@@ -5215,7 +5225,6 @@ function renderActiveFilterStrip() {
   if (state.monitorQuery.trim()) chips.push({ id: "monitorQuery", label: "Monitor search", value: state.monitorQuery.trim() });
   if (state.dbSegment !== "all") chips.push({ id: "database", label: "Database", value: databaseSegmentById(state.dbSegment).label });
 
-  const basePlayers = getFilteredPlayers();
   const mapPlayers = mapVisiblePlayers(basePlayers);
   const activeCount = chips.length;
   els.activeFilterStrip.innerHTML = `
@@ -5236,7 +5245,7 @@ function renderActiveFilterStrip() {
                 `
               )
               .join("")
-          : `<span class="filter-chip-empty">Strategic players by default</span>`
+          : `<span class="filter-chip-empty">Top 25 by priority</span>`
       }
     </div>
     <button class="filter-clear-all" data-filter-clear-all type="button" ${activeCount ? "" : "disabled"}>Clear all</button>
@@ -5327,9 +5336,41 @@ function mapFocusModeById(id) {
   return mapFocusModes.find((mode) => mode.id === id) || mapFocusModes[0];
 }
 
+function mapPrioritySort(a, b) {
+  return (
+    Number(b.key) - Number(a.key) ||
+    totalPriority(b) - totalPriority(a) ||
+    b.relevance - a.relevance ||
+    b.momentum - a.momentum ||
+    a.name.localeCompare(b.name)
+  );
+}
+
+function mapRecordLimitFor(basePlayers = players) {
+  const max = Math.max(1, basePlayers.length);
+  const value = Number.isFinite(Number(state.mapRecordLimit)) ? Number(state.mapRecordLimit) : defaultMapRecordLimit;
+  return Math.max(1, Math.min(max, Math.round(value)));
+}
+
+function applyMapRecordLimit(value, basePlayers = getFilteredPlayers()) {
+  const max = Math.max(1, basePlayers.length);
+  const limit = Math.max(1, Math.min(max, Math.round(Number(value) || defaultMapRecordLimit)));
+  state.mapRecordLimit = limit;
+  if (limit >= max) {
+    state.mapFocusMode = "all";
+    state.mapZoomMode = "full";
+    return;
+  }
+  state.mapFocusMode = defaultMapFocusMode;
+  if (state.mapZoomMode === "full") state.mapZoomMode = defaultMapZoomMode;
+}
+
 function mapVisiblePlayers(basePlayers) {
   const mode = mapFocusModeById(state.mapFocusMode);
-  return basePlayers.filter(mode.matches);
+  const rankedPlayers = [...basePlayers].sort(mapPrioritySort);
+  const limit = mapRecordLimitFor(rankedPlayers);
+  const pool = ["all", defaultMapFocusMode].includes(state.mapFocusMode) ? rankedPlayers : rankedPlayers.filter(mode.matches);
+  return pool.slice(0, Math.min(limit, pool.length));
 }
 
 function mapZoomLabel() {
@@ -5472,6 +5513,9 @@ function renderMapSummaryStrip() {
   const selectedPlayer = getSelectedPlayer();
   const activeSizeMode = bubbleSizeModeById(state.bubbleSizeMode);
   const executive = isExecutiveMode();
+  const maxMapRecords = Math.max(1, basePlayers.length);
+  const mapLimit = mapRecordLimitFor(basePlayers);
+  const minMapRecords = Math.min(maxMapRecords, 4);
   const zoomButtons = [
     { id: "fit", label: "Fit" },
     { id: "selected", label: "Selected" },
@@ -5522,6 +5566,24 @@ function renderMapSummaryStrip() {
         <small>${escapeHtml(activeSizeMode.note)}</small>
       </div>
     `;
+  const limitControl = `
+    <div class="map-limit-row" aria-label="Visible records by priority">
+      <div>
+        <span>Records</span>
+        <strong>${mapLimit >= maxMapRecords ? `All ${maxMapRecords}` : `Top ${mapLimit}`}</strong>
+      </div>
+      <input
+        type="range"
+        min="${minMapRecords}"
+        max="${maxMapRecords}"
+        step="1"
+        value="${mapLimit}"
+        data-map-record-limit
+        aria-label="Number of map records"
+      />
+      <small>Sorted by priority</small>
+    </div>
+  `;
 
   els.mapSummaryStrip.innerHTML = `
     <div class="map-selected-card" aria-label="Selected player">
@@ -5533,6 +5595,7 @@ function renderMapSummaryStrip() {
         <button type="button" data-map-selected-action="one-pager">One pager</button>
       </div>
     </div>
+    ${limitControl}
     ${sizeOrContext}
     <div class="map-zoom-row" aria-label="Map view controls">
       ${zoomButtons}
@@ -5540,6 +5603,23 @@ function renderMapSummaryStrip() {
     </div>
   `;
 
+  const limitInput = els.mapSummaryStrip.querySelector("input[data-map-record-limit]");
+  limitInput?.addEventListener("input", () => {
+    const previousSelectedId = state.selectedPlayerId;
+    applyMapRecordLimit(limitInput.value, basePlayers);
+    const currentLimit = mapRecordLimitFor(basePlayers);
+    const valueLabel = limitInput.closest(".map-limit-row")?.querySelector("strong");
+    if (valueLabel) valueLabel.textContent = currentLimit >= maxMapRecords ? `All ${maxMapRecords}` : `Top ${currentLimit}`;
+    ensureSelectedPlayerVisibleInMap();
+    renderActiveFilterStrip();
+    renderMap();
+    scheduleMapCompanyPickerRender();
+    if (state.selectedPlayerId !== previousSelectedId) renderProfile();
+    syncInteractionState();
+  });
+  limitInput?.addEventListener("change", () => {
+    renderOverviewMapWorkspace({ revealMap: false, flashSummary: false, deferPicker: true, updateProfile: false });
+  });
   els.mapSummaryStrip.querySelectorAll("[data-bubble-size]").forEach((button) => {
     button.addEventListener("click", () => {
       state.bubbleSizeMode = button.dataset.bubbleSize;
@@ -5551,6 +5631,7 @@ function renderMapSummaryStrip() {
       const nextZoomMode = button.dataset.mapZoom;
       if (nextZoomMode === "full") {
         state.mapFocusMode = "all";
+        state.mapRecordLimit = maxMapRecords;
       }
       state.mapZoomMode = nextZoomMode;
       renderOverviewMapWorkspace({ revealMap: true, flashSummary: true, deferPicker: true, updateProfile: false });
@@ -5593,13 +5674,14 @@ function renderMapCompanyPicker() {
   const basePlayers = getFilteredPlayers();
   const visiblePlayers = mapVisiblePlayers(basePlayers).sort(mapPickerSort);
   const selectedPlayer = getSelectedPlayer();
+  const fullMapActive = state.mapZoomMode === "full" && state.mapFocusMode === "all" && mapRecordLimitFor(basePlayers) >= basePlayers.length;
   els.mapCompanyPicker.innerHTML = `
     <div class="map-picker-head">
       <div>
         <span>Company index</span>
         <strong>${visiblePlayers.length} in view</strong>
       </div>
-      <button type="button" data-map-full-view ${state.mapZoomMode === "full" && state.mapFocusMode === "all" ? "disabled" : ""}>Full map</button>
+      <button type="button" data-map-full-view ${fullMapActive ? "disabled" : ""}>Full map</button>
     </div>
     <div class="map-picker-list" aria-label="Companies visible in current map view">
       ${
@@ -5633,6 +5715,7 @@ function renderMapCompanyPicker() {
   els.mapCompanyPicker.querySelector("[data-map-full-view]")?.addEventListener("click", () => {
     state.mapFocusMode = "all";
     state.mapZoomMode = "full";
+    state.mapRecordLimit = Math.max(1, basePlayers.length);
     renderOverviewMapWorkspace({ revealMap: true, flashSummary: true, deferPicker: true, updateProfile: false });
   });
 }
@@ -6027,6 +6110,7 @@ function isDenseFullMapView() {
   return (
     state.mapFocusMode === "all" &&
     state.mapZoomMode === "full" &&
+    mapRecordLimitFor(players) >= players.length &&
     state.selectedCategory === "all" &&
     state.selectedProductLens === "all" &&
     state.minRelevance <= 1 &&
@@ -9228,6 +9312,7 @@ function flashElement(element) {
 function syncInteractionState() {
   document.body.dataset.hasQuery = state.query.trim() ? "true" : "false";
   document.body.dataset.mapFocusMode = state.mapFocusMode;
+  document.body.dataset.mapRecordCount = String(state.mapRecordLimit);
   document.body.dataset.bubbleSizeMode = state.bubbleSizeMode;
   document.querySelectorAll("[data-id]").forEach((element) => {
     element.classList.toggle("is-selected", element.dataset.id === state.selectedPlayerId);
