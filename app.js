@@ -2819,8 +2819,8 @@ const backendStateFallback = {
 
 let backendState = { ...backendStateFallback };
 
-const defaultMapFocusMode = "all";
-const defaultMapZoomMode = "full";
+const defaultMapFocusMode = "priority";
+const defaultMapZoomMode = "auto";
 const defaultBubbleSizeMode = "mission";
 
 const state = {
@@ -5236,7 +5236,7 @@ function renderActiveFilterStrip() {
                 `
               )
               .join("")
-          : `<span class="filter-chip-empty">Full map by default</span>`
+          : `<span class="filter-chip-empty">Strategic players by default</span>`
       }
     </div>
     <button class="filter-clear-all" data-filter-clear-all type="button" ${activeCount ? "" : "disabled"}>Clear all</button>
@@ -6000,6 +6000,10 @@ function relaxClusterNodePositions(items, layout, center) {
       clampMapNodePosition(item);
     });
   }
+  for (let iteration = 0; iteration < 6; iteration += 1) {
+    pushNodePairsApart(items, profile.gap + 3);
+    items.forEach(clampMapNodePosition);
+  }
 }
 
 function relaxMapNodePositions(items, center) {
@@ -6012,6 +6016,10 @@ function relaxMapNodePositions(items, center) {
       pullNodeIntoCluster(item, item.layout, profile, 0.014);
       clampMapNodePosition(item);
     });
+  }
+  for (let iteration = 0; iteration < 10; iteration += 1) {
+    pushNodePairsApart(items, 8, 1);
+    items.forEach(clampMapNodePosition);
   }
 }
 
