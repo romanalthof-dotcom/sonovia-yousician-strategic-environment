@@ -15697,7 +15697,7 @@ body[data-map-zoomed="true"][data-view="overview"] .map-wrap {
   cursor: pointer;
 }
 
-.map-picker-row span {
+.map-picker-row > span {
   grid-area: avatar;
   display: inline-grid;
   place-items: center;
@@ -19456,6 +19456,23 @@ body[data-view="overview"] .map-symbol-label::after {
   font-weight: 950;
 }
 
+body[data-view="overview"] .map-symbol-logo {
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(23, 33, 29, 0.14);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 0 0 4px rgba(0, 184, 132, 0.12);
+}
+
+body[data-view="overview"] .map-symbol-logo::after {
+  content: "L";
+  color: #10231f;
+  font-size: 0.58rem;
+  font-style: normal;
+  font-weight: 950;
+}
+
 @media (max-width: 760px) {
   body[data-view="overview"] .map-symbol-legend {
     display: grid;
@@ -19526,7 +19543,7 @@ body[data-view="overview"] .map-context-row small,
   color: #064636 !important;
 }
 
-.map-picker-row span,
+.map-picker-row > span,
 .lane-avatar,
 .cross-journey-strip button i {
   border: 1px solid color-mix(in srgb, var(--company-color, var(--avatar-color, #00b884)) 42%, rgba(23, 33, 29, 0.15)) !important;
@@ -19794,4 +19811,126 @@ body[data-view="overview"] .map-note span:nth-child(2) {
   border-color: rgba(245, 154, 35, 0.24);
   background: rgba(255, 249, 240, 0.86);
   color: rgba(65, 44, 14, 0.86);
+}
+
+/* Company logo layer: use verified-source favicons as a visual aid, with initials as the durable fallback. */
+.company-logo-mark {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-grid;
+  place-items: center;
+}
+
+.company-logo-mark::before {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  z-index: -1;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 0 0 1px rgba(23, 33, 29, 0.08);
+}
+
+.company-logo-mark > img,
+.company-logo-mark > .company-logo-initials {
+  grid-area: 1 / 1;
+}
+
+.company-logo-mark > img {
+  z-index: 2;
+  width: 64%;
+  height: 64%;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.company-logo-mark > .company-logo-initials {
+  z-index: 1;
+  color: #10231f;
+  font: inherit;
+  font-size: 0.72em;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.company-logo-mark.has-logo:not(.is-logo-missing) > .company-logo-initials {
+  opacity: 0;
+}
+
+.company-logo-mark.is-logo-missing > .company-logo-initials,
+.company-logo-mark.is-initial-only > .company-logo-initials {
+  opacity: 1;
+}
+
+.map-picker-row > .map-picker-logo {
+  grid-area: avatar;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+}
+
+.company-row-avatar.company-logo-mark,
+.priority-avatar.company-logo-mark,
+.priority-avatar-small.company-logo-mark,
+.avatar.company-logo-mark,
+.lane-avatar.company-logo-mark {
+  flex: 0 0 auto;
+}
+
+.one-pager-template-icon.company-logo-mark > img {
+  width: 62%;
+  height: 62%;
+}
+
+body[data-view="overview"] .node-logo-bg {
+  fill: rgba(255, 255, 255, 0.95);
+  stroke: rgba(23, 33, 29, 0.1);
+  stroke-width: 0.8;
+}
+
+body[data-view="overview"] .node-logo-image {
+  pointer-events: none;
+  filter: drop-shadow(0 1px 1px rgba(23, 33, 29, 0.12));
+}
+
+body[data-view="overview"] .node-logo-fallback {
+  fill: #10231f;
+  stroke: rgba(255, 255, 255, 0.95);
+  stroke-width: 2.4px;
+}
+
+body[data-view="overview"] .node-initial.has-node-logo {
+  opacity: 0;
+}
+
+.map-selected-logo {
+  grid-row: 1 / span 3;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.map-selected-card {
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  column-gap: 8px;
+}
+
+.map-selected-card > span,
+.map-selected-card > strong,
+.map-selected-card > small {
+  grid-column: 2;
+}
+
+.map-selected-card > div {
+  grid-column: 3;
+}
+
+body[data-view="overview"] .map-selected-card {
+  grid-template-columns: 30px minmax(0, 1fr) auto !important;
+}
+
+body[data-view="overview"] .map-selected-logo {
+  width: 30px;
+  height: 30px;
 }

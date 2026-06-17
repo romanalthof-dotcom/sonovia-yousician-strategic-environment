@@ -4061,6 +4061,82 @@ function evidenceSourcesFor(player) {
     });
 }
 
+const logoDomainExclusions = new Set([
+  "apps.apple.com",
+  "play.google.com",
+  "yousician.atlassian.net",
+  "www.sec.gov",
+  "sec.gov",
+  "www.riaa.com",
+  "riaa.com",
+  "www.crunchbase.com",
+  "crunchbase.com",
+  "www.appfigures.com",
+  "appfigures.com"
+]);
+
+function domainFromUrl(value) {
+  try {
+    return new URL(value).hostname.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
+function logoCandidateScore(source, player) {
+  const domain = domainFromUrl(source?.url);
+  if (!domain || logoDomainExclusions.has(domain)) return 0;
+  const sourceText = `${source.title || ""} ${source.type || ""} ${source.scope || ""}`.toLowerCase();
+  const nameTokens = sourceTokens(player.name);
+  const titleTokens = new Set(sourceTokens(source.title || source.url || ""));
+  let score = 1;
+  if (/official|product|company|about|home|investor|developer|platform|education|retail/.test(sourceText)) score += 4;
+  if (/google|apple|app store|play store|news|lawsuit|award|report|support/.test(sourceText)) score -= 2;
+  if (nameTokens.some((token) => titleTokens.has(token) || domain.includes(token))) score += 2;
+  if (sourceAccessStatus(source) === "verified") score += 1;
+  return score;
+}
+
+function logoDomainForPlayer(player) {
+  const rankedSources = evidenceSourcesFor(player)
+    .map((source) => ({ source, score: logoCandidateScore(source, player) }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score);
+  return domainFromUrl(rankedSources[0]?.source?.url || "");
+}
+
+function logoUrlForPlayer(player, size = 64) {
+  const domain = logoDomainForPlayer(player);
+  if (!domain) return "";
+  return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=${size}`;
+}
+
+function logoMarkHtml(player, className = "company-logo-mark", options = {}) {
+  const logoUrl = logoUrlForPlayer(player, options.size || 64);
+  const style = [
+    `--avatar-color:${colorFor(player)}`,
+    `--company-color:${colorFor(player)}`,
+    options.style || ""
+  ]
+    .filter(Boolean)
+    .join(";");
+  return `
+    <span
+      class="${className} company-logo-mark ${logoUrl ? "has-logo" : "is-initial-only"}"
+      style="${style}"
+      title="${escapeHtml(player.name)}"
+      aria-hidden="true"
+    >
+      <span class="company-logo-initials">${escapeHtml(initials(player.name))}</span>
+      ${
+        logoUrl
+          ? `<img src="${escapeHtml(logoUrl)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove();this.parentElement.classList.add('is-logo-missing')" />`
+          : ""
+      }
+    </span>
+  `;
+}
+
 function sourceAccessStatus(source) {
   const rawStatus = `${source.accessStatus || source.access_status || ""}`.toLowerCase();
   if (source.accessStatus) return source.accessStatus;
@@ -5878,6 +5954,7 @@ function renderMapSummaryStrip() {
   els.mapSummaryStrip.innerHTML = `
     <div class="map-selected-card" aria-label="Selected record">
       <span>Selected record</span>
+      ${logoMarkHtml(selectedPlayer, "map-selected-logo")}
       <strong>${escapeHtml(selectedPlayer.name)}</strong>
       <small>${escapeHtml(strategicRole(selectedPlayer))}</small>
       <div>
@@ -5985,7 +6062,7 @@ function renderMapCompanyPicker() {
                 style="--company-color:${colorFor(player)}"
                 title="${escapeHtml(player.name)}"
               >
-                <span>${escapeHtml(initials(player.name))}</span>
+                ${logoMarkHtml(player, "map-picker-logo")}
                 <strong>${escapeHtml(player.name)}</strong>
                 <small>${escapeHtml(strategicRole(player))}</small>
                 <em>${player.key ? "Key" : isSignalOnlyRecord(player) ? "Signal" : "Track"}</em>
@@ -6917,12 +6994,37 @@ function renderMap() {
         node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius + 10, class: "node-ai-ring", fill: "none" }));
       }
       node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius, fill: journeyColorFor(player) }));
+      const nodeLogoUrl = player.key || isSelected ? logoUrlForPlayer(player, 64) : "";
+      if (nodeLogoUrl) {
+        const logoRadius = Math.max(7, Math.round(radius * 0.52));
+        node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: logoRadius + 3, class: "node-logo-bg" }));
+        const fallbackFontSize = Math.min(isSelected ? 11 : 9.4, logoRadius * 0.88);
+        const fallback = createSvg("text", {
+          x: nodeX,
+          y: nodeY + 3,
+          class: "node-initial node-logo-fallback",
+          style: `font-size:${fallbackFontSize.toFixed(1)}px`
+        });
+        fallback.textContent = initials(player.name);
+        node.appendChild(fallback);
+        node.appendChild(
+          createSvg("image", {
+            x: nodeX - logoRadius,
+            y: nodeY - logoRadius,
+            width: logoRadius * 2,
+            height: logoRadius * 2,
+            href: nodeLogoUrl,
+            class: "node-logo-image",
+            preserveAspectRatio: "xMidYMid meet"
+          })
+        );
+      }
       if (player.key || isSelected || tier === "focus") {
         const initFontSize = Math.min(isSelected ? 15 : 13.5, (tier === "signal" ? 8.6 : 9.4) * focusScale);
         const init = createSvg("text", {
           x: nodeX,
           y: nodeY + (tier === "signal" ? 3 : 4) * focusScale,
-          class: `node-initial ${tier}`,
+          class: `node-initial ${tier} ${nodeLogoUrl ? "has-node-logo" : ""}`,
           style: `font-size:${initFontSize.toFixed(1)}px`
         });
         init.textContent = initials(player.name);
@@ -7046,7 +7148,7 @@ function renderProfile() {
   const posture = executivePostureFor(player, taxonomy, validation);
   els.profilePanel.innerHTML = `
     <div class="profile-top">
-      <div class="avatar" style="--avatar-color:${category.color}">${initials(player.name)}</div>
+      ${logoMarkHtml(player, "avatar", { style: `--avatar-color:${category.color}` })}
       <div>
         <h2>${player.name}</h2>
         <div class="profile-meta">${player.type} / ${category.name}</div>
@@ -8465,7 +8567,7 @@ function renderCompanyDirectory(allPlayers) {
                           style="--company-color:${colorFor(player)}"
                           title="${escapeHtml(player.name)}"
                         >
-                          <span class="company-row-avatar">${escapeHtml(initials(player.name))}</span>
+                          ${logoMarkHtml(player, "company-row-avatar")}
                           <span class="company-row-copy">
                             <strong>${escapeHtml(player.name)}</strong>
                             <small>${escapeHtml(strategicRole(player))}</small>
@@ -8572,7 +8674,7 @@ function renderKeyPlayerVisuals(keyPlayers) {
         >
           <span class="priority-lead-top">
             <span class="priority-rank-label">Top priority</span>
-            <span class="priority-avatar" style="--avatar-color:${colorFor(leadPlayer)}">${escapeHtml(initials(leadPlayer.name))}</span>
+            ${logoMarkHtml(leadPlayer, "priority-avatar")}
           </span>
           <span class="priority-lead-copy">
             <strong>${escapeHtml(leadPlayer.name)}</strong>
@@ -8604,7 +8706,7 @@ function renderKeyPlayerVisuals(keyPlayers) {
                   title="${escapeHtml(player.name)} / ${escapeHtml(scoreText(player))} / ${escapeHtml(quality.label)}"
                 >
                   <span class="priority-rank">${index + 2}</span>
-                  <span class="priority-avatar priority-avatar-small" style="--avatar-color:${colorFor(player)}">${escapeHtml(initials(player.name))}</span>
+                  ${logoMarkHtml(player, "priority-avatar priority-avatar-small")}
                   <span class="priority-player-copy">
                     <strong>${escapeHtml(player.name)}</strong>
                     <small>${escapeHtml(strategicRole(player))}</small>
@@ -8724,7 +8826,7 @@ function renderKeyPlayers() {
                 <h3>${player.name}</h3>
                 <p>${player.subcategory}</p>
               </div>
-              <div class="avatar" style="--avatar-color:${colorFor(player)}">${initials(player.name)}</div>
+              ${logoMarkHtml(player, "avatar")}
             </div>
             <p>${player.why}</p>
             ${factMiniHtml(player, 2)}
@@ -9322,7 +9424,7 @@ function renderOnePager() {
     <article class="one-pager-sheet one-pager-template" style="--onepager-accent:${category.color}">
       <header class="one-pager-template-hero">
         <div class="one-pager-template-brand">
-          <span class="one-pager-template-icon">${escapeHtml(initials(player.name))}</span>
+          ${logoMarkHtml(player, "one-pager-template-icon", { style: `--onepager-accent:${category.color}` })}
           <div>
             <span class="one-pager-template-label">Strategic player brief</span>
             <h2>${escapeHtml(player.name)}</h2>
@@ -10283,7 +10385,7 @@ function renderRelationshipGraph() {
                           data-id="${escapeHtml(rel.player.id)}"
                           type="button"
                         >
-                          <span class="lane-avatar" style="--avatar-color:${colorFor(rel.player)}">${initials(rel.player.name)}</span>
+                          ${logoMarkHtml(rel.player, "lane-avatar")}
                           <span>
                             <strong>${escapeHtml(rel.player.name)}</strong>
                             <small>${escapeHtml(rel.note)}</small>
