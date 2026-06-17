@@ -8233,11 +8233,11 @@ function renderKeyPlayers() {
 
 function onePagerHostFor(player) {
   const source = evidenceSourcesFor(player).find((item) => item.url);
-  if (!source) return "Source needed";
+  if (!source) return "Evidence loading";
   try {
     return new URL(source.url).hostname.replace(/^www\./, "");
   } catch {
-    return "Source needed";
+    return "Evidence loading";
   }
 }
 
