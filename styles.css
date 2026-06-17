@@ -5259,8 +5259,9 @@ td strong {
 }
 
 .backend-status-pill.blocked {
-  color: #fff;
-  background: var(--risk);
+  border: 1px solid rgba(143, 41, 32, 0.22);
+  color: #6f211b;
+  background: #fff0ed;
 }
 
 .backend-command {
@@ -18261,4 +18262,234 @@ body[data-view="overview"] .map-symbol-label::after {
     min-width: 0;
     white-space: normal;
   }
+}
+
+/* Contrast hardening: keep small text readable on tinted and image-like surfaces. */
+.profile-score strong,
+body[data-view="overview"] .profile-score strong {
+  color: #fff !important;
+  text-shadow: none !important;
+}
+
+body[data-view="overview"] .appfigures-caveat,
+.appfigures-caveat {
+  border-color: rgba(168, 105, 0, 0.28) !important;
+  background: #fff8e6 !important;
+  color: #26352f !important;
+}
+
+body[data-view="overview"] .appfigures-caveat strong,
+.appfigures-caveat strong {
+  color: #5a3700 !important;
+}
+
+body[data-view="overview"] .appfigures-caveat span,
+.appfigures-caveat span {
+  color: #33413c !important;
+}
+
+body[data-view="overview"] .priority-actor-strip span,
+body[data-view="overview"] .priority-actor-strip em,
+.map-limit-row span,
+.map-limit-row small,
+body[data-view="overview"] .map-context-row span,
+body[data-view="overview"] .map-context-row small,
+.map-picker-head span,
+.map-picker-row small,
+.cross-journey-strip button small,
+.ecosystem-center span,
+.map-symbol-legend > span {
+  color: rgba(24, 36, 31, 0.78) !important;
+}
+
+.map-picker-row em {
+  background: rgba(24, 36, 31, 0.08) !important;
+  color: rgba(24, 36, 31, 0.82) !important;
+}
+
+.map-picker-row.is-key em {
+  background: #eafff5 !important;
+  color: #064636 !important;
+}
+
+.map-picker-row span,
+.lane-avatar,
+.cross-journey-strip button i {
+  border: 1px solid color-mix(in srgb, var(--company-color, var(--avatar-color, #00b884)) 42%, rgba(23, 33, 29, 0.15)) !important;
+  background: color-mix(in srgb, var(--company-color, var(--avatar-color, #00b884)) 18%, #fff) !important;
+  color: #10231f !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.lane-avatar {
+  border-color: color-mix(in srgb, var(--avatar-color, #00b884) 42%, rgba(23, 33, 29, 0.15)) !important;
+  background: color-mix(in srgb, var(--avatar-color, #00b884) 18%, #fff) !important;
+}
+
+.cross-journey-strip button i {
+  border-color: color-mix(in srgb, var(--company-color, #00b884) 42%, rgba(23, 33, 29, 0.15)) !important;
+  background: color-mix(in srgb, var(--company-color, #00b884) 18%, #fff) !important;
+}
+
+body[data-view="overview"] .journey-blueprint-card strong span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  min-height: 20px;
+  margin-right: 5px;
+  border: 1px solid rgba(23, 33, 29, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #10231f !important;
+}
+
+.relationship-item > span,
+.lane-card em {
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  border: 1px solid color-mix(in srgb, var(--rel, var(--lane, #00b884)) 24%, rgba(23, 33, 29, 0.12));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--rel, var(--lane, #00b884)) 10%, #fff);
+  color: #26352f !important;
+  padding: 3px 7px;
+}
+
+.journey-participation-column > span,
+.ecosystem-ring.is-active {
+  text-shadow: none !important;
+}
+
+.handoff-metrics article span,
+.coverage-checklist article span,
+.guiding-answer p,
+.profile-section p,
+.profile-section li,
+.taxonomy-grid span {
+  color: rgba(24, 36, 31, 0.72);
+}
+
+/* Global contrast follow-up for reused chips, initials and data labels. */
+.ecosystem-center span {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.avatar,
+.priority-avatar,
+.priority-avatar-small,
+.company-row-avatar,
+.activity-monitor-lane button span,
+.monitor-focus-strip button > span,
+.priority-group button span,
+.portfolio-player-strip button,
+.template-category-pill i,
+#databaseView .category-pill i,
+body[data-view="database"] .database-table i,
+body[data-view="database"] .database-record-card i {
+  border: 1px solid color-mix(in srgb, var(--avatar-color, var(--company-color, var(--focus-color, var(--chip-color, var(--onepager-accent, #00b884))))) 42%, rgba(23, 33, 29, 0.16)) !important;
+  background: color-mix(in srgb, var(--avatar-color, var(--company-color, var(--focus-color, var(--chip-color, var(--onepager-accent, #00b884))))) 18%, #fff) !important;
+  color: #10231f !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.one-pager-template-icon,
+.one-pager-section-index {
+  border: 1px solid color-mix(in srgb, var(--onepager-accent) 42%, rgba(23, 33, 29, 0.16)) !important;
+  background: color-mix(in srgb, var(--onepager-accent) 18%, #fff) !important;
+  color: #10231f !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.one-pager-template-label,
+.one-pager-section-head h3,
+.one-pager-position-grid strong,
+.one-pager-mini-score svg {
+  color: #064636 !important;
+}
+
+.one-pager-table th {
+  background: #064636 !important;
+  color: #fff !important;
+}
+
+.monitor-coverage-matrix td span.has-count,
+.has-count {
+  border: 1px solid rgba(23, 33, 29, 0.12) !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: #10231f !important;
+}
+
+body[data-view="database"] .database-confidence-point span,
+body[data-view="database"] .database-priority-map.is-dense .database-confidence-point span {
+  border-color: color-mix(in srgb, var(--point-color, #00b884) 44%, rgba(23, 33, 29, 0.18)) !important;
+  background: color-mix(in srgb, var(--point-color, #00b884) 22%, #fff) !important;
+  color: #10231f !important;
+  text-shadow: none !important;
+}
+
+body[data-view="database"] .database-confidence-point.is-selected span,
+body[data-view="database"] .database-priority-map.is-dense .database-confidence-point.is-selected span {
+  border-color: #111a17 !important;
+}
+
+.matrix-quadrant {
+  background: rgba(255, 255, 255, 0.84) !important;
+  color: rgba(24, 36, 31, 0.78) !important;
+}
+
+.matrix-axis {
+  color: rgba(24, 36, 31, 0.78) !important;
+}
+
+.lane-head span,
+.relationship-item > span,
+.relationship-work-queue article span,
+.executive-relationship-list article span {
+  color: #26352f !important;
+}
+
+.lane-head strong,
+.relationship-completion-board strong {
+  border: 1px solid color-mix(in srgb, var(--lane, var(--rel, #00b884)) 36%, rgba(23, 33, 29, 0.15));
+  background: color-mix(in srgb, var(--lane, var(--rel, #00b884)) 18%, #fff) !important;
+  color: #10231f !important;
+}
+
+.relationship-completion-board small,
+.relationship-completion-board span,
+.relationship-lane > p,
+.lane-card small {
+  color: rgba(24, 36, 31, 0.74) !important;
+}
+
+.activity-watch-list button span,
+.key-lane button span,
+.priority-rank {
+  border: 1px solid color-mix(in srgb, var(--chip-color, var(--priority-color, #00b884)) 42%, rgba(23, 33, 29, 0.16)) !important;
+  background: color-mix(in srgb, var(--chip-color, var(--priority-color, #00b884)) 18%, #fff) !important;
+  color: #10231f !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+body[data-view="key-players"] small,
+.company-row-source,
+.priority-player-copy small,
+.company-group small,
+.company-list small,
+.activity-queue-card small,
+.key-lane small,
+.market-monitor-overview small {
+  color: rgba(24, 36, 31, 0.74) !important;
+}
+
+.mode-button.active small {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.priority-rank-label {
+  color: #26352f !important;
 }
