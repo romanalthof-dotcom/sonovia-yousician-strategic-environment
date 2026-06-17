@@ -5428,127 +5428,35 @@ function renderEcosystemGuide() {
       topPlayers: [...items].sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name)).slice(0, 3)
     };
   });
-  const journeyRows = journeyCategories
-    .filter((category) => category.step)
-    .map((category) => {
-      const items = getFilteredPlayers()
-        .filter((player) => journeyCategoryFor(player).id === category.id)
-        .sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name))
-        .slice(0, 4);
-      return { category, items };
-    });
-  const enablers = [
-    { label: "AI and personalization", icon: "sparkles", query: "AI feedback personalization" },
-    { label: "Payments and subscriptions", icon: "credit-card", query: "subscription payments commerce" },
-    { label: "Cloud and sync", icon: "cloud", query: "platform cloud app store" },
-    { label: "Content and rights", icon: "file-music", query: "rights licensing catalog tabs" },
-    { label: "Hardware and connectivity", icon: "cable", query: "hardware instrument gear" },
-    { label: "Community and support", icon: "messages-square", query: "community teacher creator" }
-  ];
-  const crossJourneyIds = ["spotify-platform", "youtube-artists", "fender", "apple-garageband", "yamaha", "tiktok-artists"];
-  const crossJourneyPlayers = crossJourneyIds
-    .map((id) => players.find((player) => player.id === id))
-    .filter(Boolean);
 
   els.ecosystemGuide.innerHTML = `
     <div class="ecosystem-guide-head">
       <div>
-        <span class="section-kicker">How to read</span>
-        <h3>The music hobby ecosystem</h3>
-        <p>Read inside out: habit choices sit close to Yousician, while culture, community and infrastructure shape demand around them.</p>
+        <span class="section-kicker">Optional layer filter</span>
+        <h3>Filter by distance from Yousician</h3>
+        <p>Use this only when you want to isolate core habits, tools, people, culture, or infrastructure. The journey row and map remain the primary read.</p>
       </div>
       <button class="ecosystem-reset ${state.ecosystemLayer === "all" ? "is-active" : ""}" type="button" data-ecosystem-layer="all">
         All layers
       </button>
     </div>
-    <div class="ecosystem-guide-grid">
-      <section class="ecosystem-layer-panel" aria-label="Ecosystem layers">
-        <div class="ecosystem-rings" aria-label="Ecosystem layer rings">
-          ${layerRows
-            .map(
-              (layer, index) => `
-                <button
-                  type="button"
-                  class="ecosystem-ring ring-${index + 1} ${state.ecosystemLayer === layer.id ? "is-active" : ""}"
-                  data-ecosystem-layer="${escapeHtml(layer.id)}"
-                  style="--layer-color:${layer.color}"
-                  title="${escapeHtml(layer.label)}"
-                >
-                  <span>${escapeHtml(layer.shortLabel)}</span>
-                </button>
-              `
-            )
-            .join("")}
-          <div class="ecosystem-center">
-            <strong>Yousician</strong>
-            <span>strategic center</span>
-          </div>
-        </div>
-        <div class="ecosystem-layer-list">
-          ${layerRows
-            .map(
-              (layer) => `
-                <button
-                  type="button"
-                  class="ecosystem-layer-row ${state.ecosystemLayer === layer.id ? "is-active" : ""}"
-                  data-ecosystem-layer="${escapeHtml(layer.id)}"
-                  style="--layer-color:${layer.color}"
-                >
-                  <span><i data-lucide="${escapeHtml(layer.icon)}"></i></span>
-                  <strong>${escapeHtml(layer.label)}</strong>
-                  <small>${layer.count} records, ${layer.keyCount} key</small>
-                </button>
-              `
-            )
-            .join("")}
-        </div>
-      </section>
-      <section class="journey-participation-panel" aria-label="Journey participation">
-        <div class="journey-participation-grid">
-          ${journeyRows
-            .map(
-              ({ category, items }) => `
-                <button
-                  type="button"
-                  class="journey-participation-column ${state.selectedCategory === category.id ? "is-active" : ""}"
-                  data-guide-journey="${escapeHtml(category.id)}"
-                  style="--journey-color:${category.color}"
-                >
-                  <span><i data-lucide="${escapeHtml(category.icon)}"></i></span>
-                  <strong>${escapeHtml(category.shortName)}</strong>
-                  <small>${items.length ? items.map((player) => player.name).join(", ") : "No visible match"}</small>
-                </button>
-              `
-            )
-            .join("")}
-        </div>
-        <div class="ecosystem-enabler-row" aria-label="Key enablers across the journey">
-          ${enablers
-            .map(
-              (enabler) => `
-                <button type="button" data-guide-query="${escapeHtml(enabler.query)}">
-                  <i data-lucide="${escapeHtml(enabler.icon)}"></i>
-                  <span>${escapeHtml(enabler.label)}</span>
-                </button>
-              `
-            )
-            .join("")}
-        </div>
-        <div class="cross-journey-strip" aria-label="Example cross journey players">
-          <span>Cross journey examples</span>
-          ${crossJourneyPlayers
-            .map(
-              (player) => `
-                <button type="button" data-guide-player="${escapeHtml(player.id)}" style="--company-color:${colorFor(player)}">
-                  <i>${escapeHtml(initials(player.name))}</i>
-                  <strong>${escapeHtml(player.name)}</strong>
-                  <small>${escapeHtml(journeyCategoryFor(player).shortName)}</small>
-                </button>
-              `
-            )
-            .join("")}
-        </div>
-      </section>
+    <div class="ecosystem-layer-list" aria-label="Ecosystem layer filters">
+      ${layerRows
+        .map(
+          (layer) => `
+            <button
+              type="button"
+              class="ecosystem-layer-row ${state.ecosystemLayer === layer.id ? "is-active" : ""}"
+              data-ecosystem-layer="${escapeHtml(layer.id)}"
+              style="--layer-color:${layer.color}"
+            >
+              <span><i data-lucide="${escapeHtml(layer.icon)}"></i></span>
+              <strong>${escapeHtml(layer.label)}</strong>
+              <small>${layer.count} records, ${layer.keyCount} key</small>
+            </button>
+          `
+        )
+        .join("")}
     </div>
   `;
 

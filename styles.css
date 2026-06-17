@@ -16563,6 +16563,11 @@ body[data-view="overview"] .map-size-row button {
   padding: 12px;
 }
 
+.ecosystem-guide-compact {
+  gap: 9px;
+  padding: 10px 12px 12px;
+}
+
 .ecosystem-guide-head {
   display: flex;
   align-items: flex-start;
@@ -16573,7 +16578,7 @@ body[data-view="overview"] .map-size-row button {
 .ecosystem-guide-head h3 {
   margin: 2px 0 3px;
   color: var(--ink);
-  font-size: 1.02rem;
+  font-size: 0.98rem;
   line-height: 1.08;
 }
 
@@ -16722,6 +16727,11 @@ body[data-view="overview"] .map-size-row button {
   gap: 6px;
 }
 
+.ecosystem-guide-compact .ecosystem-layer-list {
+  grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+  gap: 8px;
+}
+
 .ecosystem-layer-row {
   display: grid;
   grid-template-columns: 30px minmax(0, 1fr) auto;
@@ -16738,6 +16748,11 @@ body[data-view="overview"] .map-size-row button {
   cursor: pointer;
 }
 
+.ecosystem-guide-compact .ecosystem-layer-row {
+  min-height: 42px;
+  padding: 7px 9px;
+}
+
 .ecosystem-layer-row span {
   display: inline-grid;
   place-items: center;
@@ -16748,9 +16763,19 @@ body[data-view="overview"] .map-size-row button {
   color: var(--layer-color);
 }
 
+.ecosystem-guide-compact .ecosystem-layer-row span {
+  width: 24px;
+  height: 24px;
+}
+
 .ecosystem-layer-row svg {
   width: 16px;
   height: 16px;
+}
+
+.ecosystem-guide-compact .ecosystem-layer-row svg {
+  width: 14px;
+  height: 14px;
 }
 
 .ecosystem-layer-row strong {
@@ -17008,6 +17033,15 @@ body[data-view="overview"] .map-size-row button {
 
   .ecosystem-layer-list {
     grid-template-columns: 1fr;
+  }
+
+  .ecosystem-guide-compact .ecosystem-layer-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ecosystem-guide-compact .ecosystem-layer-row {
+    align-content: start;
+    min-height: 72px;
   }
 
   .ecosystem-layer-row small {
