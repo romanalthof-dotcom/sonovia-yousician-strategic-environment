@@ -6624,6 +6624,14 @@ function renderMap() {
     fragment.appendChild(ringLabel);
   });
 
+  const arcHint = createSvg("g", { class: "map-arc-hint", "aria-hidden": "true" });
+  arcHint.appendChild(createSvg("rect", { x: 34, y: 36, width: 250, height: 34, rx: 10, class: "map-arc-hint-bg" }));
+  arcHint.appendChild(createSvg("path", { d: "M54 56 C72 39 102 39 122 56", class: "map-arc-hint-sample" }));
+  const arcHintText = createSvg("text", { x: 136, y: 58, class: "map-arc-hint-text" });
+  arcHintText.textContent = "Curved arcs show journey lanes";
+  arcHint.appendChild(arcHintText);
+  fragment.appendChild(arcHint);
+
   const arcLayer = createSvg("g", { class: "category-arc-layer" });
   fragment.appendChild(arcLayer);
   byCategory.forEach(({ category, layout }) => {
@@ -6636,6 +6644,9 @@ function renderMap() {
       "stroke-width": Math.max(4, Math.round((metric?.pressure || 0) / 14)),
       opacity: 0.18 + (metric?.pressure || 0) / 260
     });
+    const arcTitle = createSvg("title");
+    arcTitle.textContent = `${category.name} journey lane. This is not a company relationship line.`;
+    arc.appendChild(arcTitle);
     arcLayer.appendChild(arc);
   });
 
