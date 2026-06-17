@@ -2819,7 +2819,8 @@ const backendStateFallback = {
 
 let backendState = { ...backendStateFallback };
 
-const defaultMapFocusMode = "priority";
+const defaultMapFocusMode = "all";
+const defaultMapZoomMode = "full";
 const defaultBubbleSizeMode = "mission";
 
 const state = {
@@ -2837,7 +2838,7 @@ const state = {
   monitorSegment: "all",
   monitorQuery: "",
   mapFocusMode: defaultMapFocusMode,
-  mapZoomMode: "auto",
+  mapZoomMode: defaultMapZoomMode,
   bubbleSizeMode: defaultBubbleSizeMode
 };
 
@@ -5146,7 +5147,7 @@ function resetWorkspaceFilters() {
   state.monitorQuery = "";
   state.dbSegment = "all";
   state.mapFocusMode = defaultMapFocusMode;
-  state.mapZoomMode = "auto";
+  state.mapZoomMode = defaultMapZoomMode;
   state.bubbleSizeMode = defaultBubbleSizeMode;
   if (els.searchInput) els.searchInput.value = "";
 }
@@ -5177,7 +5178,7 @@ function clearFilterById(filterId) {
   if (filterId === "monitorQuery") state.monitorQuery = "";
   if (filterId === "database") state.dbSegment = "all";
   if (filterId === "mapFocus") state.mapFocusMode = defaultMapFocusMode;
-  if (filterId === "mapZoom") state.mapZoomMode = "auto";
+  if (filterId === "mapZoom") state.mapZoomMode = defaultMapZoomMode;
   if (filterId === "bubbleSize") state.bubbleSizeMode = defaultBubbleSizeMode;
   if (filterId === "query" && els.searchInput) els.searchInput.value = "";
   markMapFilterChanged();
@@ -5204,7 +5205,7 @@ function renderActiveFilterStrip() {
   }
   if (state.minRelevance > 1) chips.push({ id: "relevance", label: "Relevance", value: `${state.minRelevance}+` });
   if (state.mapFocusMode !== defaultMapFocusMode) chips.push({ id: "mapFocus", label: "Map", value: mapFocusModeById(state.mapFocusMode).label });
-  if (state.mapZoomMode !== "auto") chips.push({ id: "mapZoom", label: "View", value: mapZoomLabel() });
+  if (!["auto", defaultMapZoomMode].includes(state.mapZoomMode)) chips.push({ id: "mapZoom", label: "View", value: mapZoomLabel() });
   if (state.bubbleSizeMode !== defaultBubbleSizeMode) {
     chips.push({ id: "bubbleSize", label: "Bubble size", value: bubbleSizeModeById(state.bubbleSizeMode).shortLabel });
   }
@@ -5235,7 +5236,7 @@ function renderActiveFilterStrip() {
                 `
               )
               .join("")
-          : `<span class="filter-chip-empty">Strategic players by default</span>`
+          : `<span class="filter-chip-empty">Full map by default</span>`
       }
     </div>
     <button class="filter-clear-all" data-filter-clear-all type="button" ${activeCount ? "" : "disabled"}>Clear all</button>
