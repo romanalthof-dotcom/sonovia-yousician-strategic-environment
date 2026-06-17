@@ -2845,6 +2845,7 @@ const state = {
   ratingMode: "strategic",
   exportLength: "standard",
   monitorSegment: "all",
+  monitorSort: "priority",
   monitorQuery: "",
   mapFocusMode: defaultMapFocusMode,
   mapZoomMode: defaultMapZoomMode,
@@ -2988,6 +2989,20 @@ const monitorSegments = [
     matches: (player) => relationForPlayer(player)?.type === "partners" || ["hardware", "education"].includes(player.category)
   },
   { id: "signals", label: "Market signals", matches: (player) => isSignalOnlyRecord(player) }
+];
+
+const monitorSortModes = [
+  { id: "priority", label: "Priority", note: "Composite strategic rank" },
+  { id: "relevance", label: "Yousician fit", note: "Direct fit to the mission and product surface" },
+  { id: "momentum", label: "Momentum", note: "Recent market activity and signal velocity" },
+  { id: "ai", label: "AI pressure", note: "AI relevance and substitution pressure" },
+  { id: "company", label: "Company scale", note: "Directional size proxy" },
+  { id: "revenue", label: "Revenue proxy", note: "Directional monetisation signal, not verified revenue" },
+  { id: "reach", label: "Audience reach", note: "Directional audience and distribution proxy" },
+  { id: "proximity", label: "Competitive proximity", note: "Closeness to Yousician's learning and practice loop" },
+  { id: "evidence", label: "Source confidence", note: "Records with stronger source coverage first" },
+  { id: "proof", label: "Proof gaps", note: "Records that need evidence before decision use" },
+  { id: "appdata", label: "App data need", note: "Records that need Appfigures, traffic, or revenue imports" }
 ];
 
 const mapFocusModes = [
@@ -3448,6 +3463,28 @@ function databaseSortScore(player, sortId = state.dbSort) {
   if (sortId === "appdata") return appfiguresReadinessScore(player) * 20 + sourceUrgency(player);
   if (sortId === "source") return sourceUrgency(player) * 20;
   return totalPriority(player);
+}
+
+function monitorSortModeById(id) {
+  return monitorSortModes.find((mode) => mode.id === id) || monitorSortModes[0];
+}
+
+function monitorProofGapScore(player) {
+  const quality = qualityProfile(player);
+  const gapPenalty = hasCriticalEvidenceGap(player) ? 60 : 0;
+  const urgency = sourceUrgency(player) * 12;
+  return gapPenalty + urgency + (100 - quality.score);
+}
+
+function monitorSortScore(player, sortId = state.monitorSort) {
+  const mode = monitorSortModeById(sortId).id;
+  if (mode === "proof") return monitorProofGapScore(player);
+  return databaseSortScore(player, mode);
+}
+
+function monitorSortedPlayers(players, sortId = state.monitorSort) {
+  const mode = monitorSortModeById(sortId).id;
+  return [...players].sort((a, b) => monitorSortScore(b, mode) - monitorSortScore(a, mode) || a.name.localeCompare(b.name));
 }
 
 function priorityTier(player) {
@@ -5257,6 +5294,7 @@ function resetWorkspaceFilters() {
   state.minRelevance = 1;
   state.query = "";
   state.monitorSegment = "all";
+  state.monitorSort = "priority";
   state.monitorQuery = "";
   state.dbSegment = "all";
   state.mapFocusMode = defaultMapFocusMode;
@@ -5291,6 +5329,7 @@ function clearFilterById(filterId) {
   if (filterId === "product") state.selectedProductLens = "all";
   if (filterId === "relevance") state.minRelevance = 1;
   if (filterId === "monitorSegment") state.monitorSegment = "all";
+  if (filterId === "monitorSort") state.monitorSort = "priority";
   if (filterId === "monitorQuery") state.monitorQuery = "";
   if (filterId === "database") state.dbSegment = "all";
   if (filterId === "mapFocus") state.mapFocusMode = defaultMapFocusMode;
@@ -5362,6 +5401,9 @@ function renderActiveFilterStrip() {
   }
   if (state.monitorSegment !== "all") {
     chips.push({ id: "monitorSegment", label: "Monitor segment", value: monitorSegmentById(state.monitorSegment).label });
+  }
+  if (state.view === "key-players" && state.monitorSort !== "priority") {
+    chips.push({ id: "monitorSort", label: "Monitor sort", value: monitorSortModeById(state.monitorSort).label });
   }
   if (state.monitorQuery.trim()) chips.push({ id: "monitorQuery", label: "Monitor search", value: state.monitorQuery.trim() });
   if (state.dbSegment !== "all") chips.push({ id: "database", label: "Market database", value: databaseSegmentById(state.dbSegment).label });
@@ -7575,8 +7617,197 @@ function renderMonitorMetaTrends(filteredPlayers) {
     .join("");
 }
 
+function averageScore(items, scoreFn) {
+  if (!items.length) return 0;
+  return Math.round(items.reduce((sum, item) => sum + scoreFn(item), 0) / items.length);
+}
+
+function renderMonitorExecutiveSummary(filteredPlayers) {
+  const trendCounts = monitorTrendDefinitions()
+    .map((trend) => ({ ...trend, players: filteredPlayers.filter(trend.matches) }))
+    .sort((a, b) => b.players.length - a.players.length);
+  const topTrend = trendCounts[0];
+  const secondTrend = trendCounts[1];
+  const currentLeader = monitorSortedPlayers(filteredPlayers)[0];
+  const proofLead = monitorSortedPlayers(filteredPlayers, "proof")[0];
+  const readyRecords = filteredPlayers
+    .filter((player) => qualityProfile(player).score >= 68 && !hasCriticalEvidenceGap(player))
+    .sort((a, b) => qualityProfile(b).score + totalPriority(b) / 3 - (qualityProfile(a).score + totalPriority(a) / 3));
+  const appQueueCount = filteredPlayers.filter(requiresCredentialedData).length;
+  const readyLead = readyRecords[0];
+  const sortMode = monitorSortModeById(state.monitorSort);
+  const summaryCards = [
+    {
+      label: "Largest pressure field",
+      title: topTrend ? topTrend.title : "No pressure field selected",
+      value: topTrend ? `${topTrend.players.length} records` : "0 records",
+      note: topTrend && secondTrend ? `Next cluster: ${secondTrend.title}` : "Use the segment filters to narrow the readout.",
+      action: topTrend ? `<button type="button" data-monitor-trend-segment="${escapeHtml(topTrend.segment)}">Open field</button>` : ""
+    },
+    {
+      label: "Current comparison leader",
+      title: currentLeader ? currentLeader.name : "No record selected",
+      value: sortMode.label,
+      note: currentLeader ? strategicRole(currentLeader) : sortMode.note,
+      action: currentLeader ? `<button type="button" data-monitor-player="${escapeHtml(currentLeader.id)}">Open brief</button>` : ""
+    },
+    {
+      label: "Decision ready",
+      title: readyLead ? readyLead.name : "No ready lead",
+      value: `${readyRecords.length} records`,
+      note: readyLead ? `${qualityProfile(readyLead).score}% source confidence` : "Most records still need evidence or internal data.",
+      action: readyLead ? `<button type="button" data-monitor-player="${escapeHtml(readyLead.id)}">Open brief</button>` : ""
+    },
+    {
+      label: "Biggest blocker",
+      title: proofLead ? proofLead.name : "No blocker",
+      value: `${appQueueCount} app data gaps`,
+      note: proofLead ? sourceNeeds(proofLead).slice(0, 2).join(" / ") : "No source gaps in this view.",
+      action: `<button type="button" data-monitor-sort="proof">Sort by proof gaps</button>`
+    }
+  ];
+
+  return `
+    <div class="monitor-executive-summary" aria-label="Executive market monitor summary">
+      ${summaryCards
+        .map(
+          (card) => `
+            <article>
+              <span>${escapeHtml(card.label)}</span>
+              <strong>${escapeHtml(card.title)}</strong>
+              <em>${escapeHtml(card.value)}</em>
+              <p>${escapeHtml(card.note)}</p>
+              ${card.action}
+            </article>
+          `
+        )
+        .join("")}
+    </div>
+  `;
+}
+
+function monitorLeaderDefinitions() {
+  return [
+    { id: "relevance", label: "Yousician fit", note: "Closest mission fit", score: (player) => player.relevance, display: (player) => `${player.relevance}/5` },
+    { id: "momentum", label: "Momentum", note: "Most active signal", score: (player) => player.momentum, display: (player) => `${player.momentum}/5` },
+    { id: "ai", label: "AI pressure", note: "AI relevance", score: (player) => player.aiScore, display: (player) => `${player.aiScore}/5` },
+    { id: "company", label: "Company scale", note: "Scale proxy", score: businessSizeScore, display: (player) => `${businessSizeScore(player)}/5` },
+    { id: "revenue", label: "Revenue proxy", note: "Not verified revenue", score: revenueProxyScore, display: (player) => `${revenueProxyScore(player)}/5` },
+    { id: "reach", label: "Audience reach", note: "Reach proxy", score: audienceReachScore, display: (player) => `${audienceReachScore(player)}/5` },
+    { id: "proximity", label: "Proximity", note: "Competitive closeness", score: competitiveProximityScore, display: (player) => `${competitiveProximityScore(player)}/5` },
+    { id: "proof", label: "Proof gap", note: "Needs verification", score: monitorProofGapScore, display: (player) => `${Math.round(monitorProofGapScore(player))}` }
+  ];
+}
+
+function renderMonitorMetricLeaders(filteredPlayers) {
+  if (!filteredPlayers.length) return "";
+  return `
+    <div class="monitor-leader-grid" aria-label="Metric leaders by comparison dimension">
+      ${monitorLeaderDefinitions()
+        .map((metric) => {
+          const leader = [...filteredPlayers].sort((a, b) => metric.score(b) - metric.score(a) || a.name.localeCompare(b.name))[0];
+          return `
+            <article class="${state.monitorSort === metric.id ? "is-active" : ""}" style="--leader-color:${colorFor(leader)}">
+              <button type="button" data-monitor-sort="${escapeHtml(metric.id)}">
+                <span>${escapeHtml(metric.label)}</span>
+                <strong>${escapeHtml(metric.display(leader))}</strong>
+              </button>
+              <button type="button" data-monitor-player="${escapeHtml(leader.id)}" title="${escapeHtml(leader.name)}">
+                <em style="--chip-color:${colorFor(leader)}">${escapeHtml(initials(leader.name))}</em>
+                <b>${escapeHtml(compactName(leader.name, 18))}</b>
+              </button>
+              <small>${escapeHtml(metric.note)}</small>
+            </article>
+          `;
+        })
+        .join("")}
+    </div>
+  `;
+}
+
+function renderMonitorSortControls(filteredPlayers) {
+  return `
+    <div class="monitor-sort-panel" aria-label="Benchmark sort controls">
+      <div>
+        <span class="section-kicker">Sort benchmark by</span>
+        <strong>${escapeHtml(monitorSortModeById(state.monitorSort).label)}</strong>
+        <small>${escapeHtml(monitorSortModeById(state.monitorSort).note)}</small>
+      </div>
+      <div>
+        ${monitorSortModes
+          .map((mode) => {
+            const leader = monitorSortedPlayers(filteredPlayers, mode.id)[0];
+            const active = state.monitorSort === mode.id;
+            return `
+              <button type="button" class="${active ? "is-active" : ""}" data-monitor-sort="${escapeHtml(mode.id)}" aria-pressed="${active ? "true" : "false"}">
+                <strong>${escapeHtml(mode.label)}</strong>
+                <span>${leader ? escapeHtml(compactName(leader.name, 14)) : "No match"}</span>
+              </button>
+            `;
+          })
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderMonitorMarketComposition(filteredPlayers) {
+  const rows = categories
+    .map((category) => {
+      const players = filteredPlayers.filter((player) => player.category === category.id);
+      return {
+        category,
+        players,
+        count: players.length,
+        keyCount: players.filter((player) => player.key).length,
+        priority: averageScore(players, (player) => strategicScoreFive(player)),
+        evidence: averageScore(players, (player) => qualityProfile(player).score),
+        topPlayer: monitorSortedPlayers(players)[0]
+      };
+    })
+    .filter((row) => row.count)
+    .sort((a, b) => b.count - a.count || b.priority - a.priority);
+  const maxCount = Math.max(1, ...rows.map((row) => row.count));
+
+  return `
+    <div class="monitor-composition-panel" aria-label="Market group composition and confidence comparison">
+      <div class="monitor-compare-head">
+        <div>
+          <span class="section-kicker">Market composition</span>
+          <h3>Where attention is concentrated</h3>
+        </div>
+        <p>Counts show coverage, not market size. Priority and evidence summarize current records in each group.</p>
+      </div>
+      <div class="monitor-composition-list">
+        ${rows
+          .map(
+            (row) => `
+              <article style="--group-color:${row.category.color}; --group-share:${Math.round((row.count / maxCount) * 100)}">
+                <header>
+                  <strong>${escapeHtml(row.category.shortName || row.category.name)}</strong>
+                  <span>${row.count} records / ${row.keyCount} key</span>
+                </header>
+                <div class="monitor-composition-bar" aria-hidden="true"><i></i></div>
+                <footer>
+                  <small>Priority ${row.priority || 0}/5</small>
+                  <small>Evidence ${row.evidence || 0}%</small>
+                  ${
+                    row.topPlayer
+                      ? `<button type="button" data-monitor-player="${escapeHtml(row.topPlayer.id)}">${escapeHtml(compactName(row.topPlayer.name, 18))}</button>`
+                      : `<small>No top player</small>`
+                  }
+                </footer>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
 function monitorBenchmarkRows(filteredPlayers) {
-  const ranked = [...filteredPlayers].sort((a, b) => focusPlayerScore(b) - focusPlayerScore(a) || a.name.localeCompare(b.name));
+  const ranked = monitorSortedPlayers(filteredPlayers);
   const selected = filteredPlayers.find((player) => player.id === state.selectedPlayerId);
   const rows = ranked.slice(0, 8);
   if (selected && !rows.some((player) => player.id === selected.id)) {
@@ -7600,12 +7831,15 @@ function monitorMetricCell(value, display = `${value}/5`, max = 5) {
 function renderMonitorBenchmark(filteredPlayers) {
   const rows = monitorBenchmarkRows(filteredPlayers);
   if (!rows.length) return emptyState("No records match the current monitor selection.");
+  const sortMode = monitorSortModeById(state.monitorSort);
   return `
     <div class="monitor-benchmark-table" aria-label="Direct player comparison">
       <table>
+        <caption>Sorted by ${escapeHtml(sortMode.label)}. ${escapeHtml(sortMode.note)}</caption>
         <thead>
           <tr>
             <th scope="col">Player</th>
+            <th scope="col">Current sort</th>
             <th scope="col">Yousician fit</th>
             <th scope="col">Momentum</th>
             <th scope="col">AI</th>
@@ -7628,6 +7862,10 @@ function renderMonitorBenchmark(filteredPlayers) {
                       <small>${escapeHtml(strategicRole(player))}</small>
                     </button>
                   </th>
+                  ${monitorMetricCell(
+                    state.monitorSort === "proof" ? Math.max(1, Math.min(5, Math.round(monitorProofGapScore(player) / 28))) : Math.max(1, Math.min(5, Math.round(monitorSortScore(player) / 20))),
+                    state.monitorSort === "evidence" ? `${quality.score}%` : state.monitorSort === "proof" ? `${Math.round(monitorProofGapScore(player))} gap` : `${Math.round(monitorSortScore(player))}`
+                  )}
                   ${monitorMetricCell(player.relevance)}
                   ${monitorMetricCell(player.momentum)}
                   ${monitorMetricCell(player.aiScore)}
@@ -7659,16 +7897,20 @@ function renderMonitorInsightReadout(filteredPlayers) {
         </div>
         <span>${filteredPlayers.length} records compared</span>
       </div>
+      ${renderMonitorExecutiveSummary(filteredPlayers)}
       <div class="monitor-meta-grid" aria-label="Meta trend clusters">
         ${renderMonitorMetaTrends(filteredPlayers)}
       </div>
+      ${renderMonitorMetricLeaders(filteredPlayers)}
+      ${renderMonitorMarketComposition(filteredPlayers)}
       <div class="monitor-compare-head">
         <div>
           <span class="section-kicker">Direct comparison</span>
-          <h3>Top records by current priority</h3>
+          <h3>Top records by ${escapeHtml(monitorSortModeById(state.monitorSort).label.toLowerCase())}</h3>
         </div>
         <p>Scores are directional. Revenue, company size, and reach are proxies until credentialed or official figures are imported.</p>
       </div>
+      ${renderMonitorSortControls(filteredPlayers)}
       ${renderMonitorBenchmark(filteredPlayers)}
     </section>
   `;
@@ -7915,6 +8157,16 @@ function renderMarketMonitorOverview(filteredPlayers, keyPlayers) {
       renderActiveFilterStrip();
       const target = document.getElementById("marketMonitorOverview");
       target?.scrollIntoView({ block: "start", behavior: preferredScrollBehavior() });
+      flashElement(target);
+    });
+  });
+  els.marketMonitorOverview.querySelectorAll("[data-monitor-sort]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.monitorSort = button.dataset.monitorSort;
+      renderKeyPlayers();
+      renderActiveFilterStrip();
+      const target = document.querySelector(".monitor-benchmark-table") || document.getElementById("marketMonitorOverview");
+      target?.scrollIntoView({ block: "center", behavior: preferredScrollBehavior() });
       flashElement(target);
     });
   });
