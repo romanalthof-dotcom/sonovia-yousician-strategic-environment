@@ -4553,7 +4553,7 @@ function executiveProfileSnapshot(player, taxonomy) {
       <h3>${escapeHtml(lens.headline)}</h3>
       <div class="executive-snapshot-grid">
         <div><span>Role</span><strong>${escapeHtml(taxonomy.role)}</strong></div>
-        <div><span>Journey</span><strong>${escapeHtml(journeyCategoryFor(player).name)}</strong></div>
+        <div><span>Journey step</span><strong>${escapeHtml(journeyCategoryFor(player).name)}</strong></div>
         <div><span>Yousician use</span><strong>${escapeHtml(lens.label)}</strong></div>
         <div><span>Absolute figure</span><strong>${escapeHtml(absoluteFigureSummary(player))}</strong></div>
         <div><span>Confidence</span><strong>${escapeHtml(`${quality.score}% source confidence`)}</strong></div>
@@ -4802,7 +4802,7 @@ function executiveOnePagerCards(player, taxonomy, validation) {
       <h3>${escapeHtml(taxonomy.group)}</h3>
       <div class="taxonomy-grid">
         <div><span>Role</span><strong>${escapeHtml(taxonomy.role)}</strong></div>
-        <div><span>Journey</span><strong>${escapeHtml(taxonomy.journey)}</strong></div>
+        <div><span>Journey step</span><strong>${escapeHtml(taxonomy.journey)}</strong></div>
         <div><span>Proximity</span><strong>${escapeHtml(taxonomy.proximity)}</strong></div>
       </div>
       <p>${escapeHtml(taxonomy.decisionUse)}</p>
@@ -5404,10 +5404,10 @@ function renderActiveFilterStrip() {
 
 function renderLegend() {
   els.mapLegend.innerHTML = journeyCategories
-    .map(
-      (category) =>
-        `<span class="legend-chip"><span class="legend-swatch" style="--chip:${category.color}"></span>${category.name}</span>`
-    )
+    .map((category) => {
+      const description = category.description.replace(/\.$/, "");
+      return `<span class="legend-chip"><span class="legend-swatch" style="--chip:${category.color}"></span><span class="legend-copy"><strong>${escapeHtml(category.name)}</strong><small>${escapeHtml(description)}</small></span></span>`;
+    })
     .join("");
 }
 
@@ -6698,7 +6698,7 @@ function renderMap() {
   arcHint.appendChild(createSvg("rect", { x: 34, y: 36, width: 250, height: 34, rx: 10, class: "map-arc-hint-bg" }));
   arcHint.appendChild(createSvg("path", { d: "M54 56 C72 39 102 39 122 56", class: "map-arc-hint-sample" }));
   const arcHintText = createSvg("text", { x: 136, y: 58, class: "map-arc-hint-text" });
-  arcHintText.textContent = "Curved arcs show journey lanes";
+  arcHintText.textContent = "Arcs show user journey steps";
   arcHint.appendChild(arcHintText);
   fragment.appendChild(arcHint);
 
@@ -6947,7 +6947,7 @@ function renderProfile() {
       <h3>${escapeHtml(taxonomy.group)}</h3>
       <div class="taxonomy-grid">
         <div><span>Role</span><strong>${escapeHtml(taxonomy.role)}</strong></div>
-        <div><span>Journey</span><strong>${escapeHtml(taxonomy.journey)}</strong></div>
+        <div><span>Journey step</span><strong>${escapeHtml(taxonomy.journey)}</strong></div>
         <div><span>Proximity</span><strong>${escapeHtml(taxonomy.proximity)}</strong></div>
       </div>
       <p>${escapeHtml(taxonomy.decisionUse)}</p>
@@ -8295,7 +8295,7 @@ function onePagerFactStripHtml(player, taxonomy, quality) {
       </div>
       <div class="one-pager-fact one-pager-fact-wide">
         <i data-lucide="route"></i>
-        <span>Journey role</span>
+        <span>Journey step</span>
         <strong>${escapeHtml(taxonomy.journey)}</strong>
       </div>
     </section>
