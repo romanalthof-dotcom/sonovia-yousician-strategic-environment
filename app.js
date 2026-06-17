@@ -4625,6 +4625,56 @@ const logoDomainExclusions = new Set([
   "appfigures.com"
 ]);
 
+const logoDomainOverrides = {
+  simply: "hellosimply.com",
+  "ultimate-guitar": "ultimate-guitar.com",
+  fender: "fender.com",
+  "fender-play": "fender.com",
+  bandlab: "bandlab.com",
+  duolingo: "duolingo.com",
+  kahoot: "kahoot.com",
+  chordify: "chordify.net",
+  "spotify-platform": "spotify.com",
+  "spotify-artists": "artists.spotify.com",
+  "spotify-for-artists": "artists.spotify.com",
+  youtube: "youtube.com",
+  "youtube-artists": "youtube.com",
+  "tiktok-artists": "artists.tiktok.com",
+  "tiktok-for-artists": "artists.tiktok.com",
+  suno: "suno.com",
+  udio: "udio.com",
+  moises: "moises.ai",
+  "elevenlabs-music": "elevenlabs.io",
+  "chord-ai": "chordai.net",
+  "pickup-music": "pickupmusic.com",
+  "justin-guitar": "justinguitar.com",
+  "fretello": "fretello.com",
+  "gibson-app": "gibson.app",
+  yamaha: "yamaha.com",
+  "positive-grid": "positivegrid.com",
+  "fl-studio": "image-line.com",
+  "ableton": "ableton.com",
+  "garageband": "apple.com",
+  "logic-pro": "apple.com",
+  "guitar-pro": "guitar-pro.com",
+  "musescore": "musescore.org",
+  splice: "splice.com",
+  landr: "landr.com",
+  "flow-music": "flowmusic.app",
+  klangio: "klang.io",
+  "lalal-ai": "lalal.ai",
+  "midia-research": "midiaresearch.com",
+  musora: "musora.com",
+  flowkey: "flowkey.com",
+  skoove: "skoove.com",
+  "rocksmith-plus": "ubisoft.com",
+  "disney": "disney.com",
+  "epic-games": "epicgames.com",
+  roblox: "roblox.com",
+  netflix: "netflix.com",
+  nintendo: "nintendo.com"
+};
+
 function domainFromUrl(value) {
   try {
     return new URL(value).hostname.replace(/^www\./, "");
@@ -4648,6 +4698,7 @@ function logoCandidateScore(source, player) {
 }
 
 function logoDomainForPlayer(player) {
+  if (logoDomainOverrides[player.id]) return logoDomainOverrides[player.id];
   const rankedSources = evidenceSourcesFor(player)
     .map((source) => ({ source, score: logoCandidateScore(source, player) }))
     .filter((item) => item.score > 0)
@@ -4655,14 +4706,27 @@ function logoDomainForPlayer(player) {
   return domainFromUrl(rankedSources[0]?.source?.url || "");
 }
 
-function logoUrlForPlayer(player, size = 64) {
+function logoUrlForPlayer(player, size = 128) {
   const domain = logoDomainForPlayer(player);
   if (!domain) return "";
   return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=${size}`;
 }
 
+function svgSafeId(value) {
+  return String(value).replace(/[^a-zA-Z0-9_-]/g, "-");
+}
+
+function shouldShowMapLogo(player, visibleCount, focusScale, isSelected) {
+  if (!logoUrlForPlayer(player)) return false;
+  return isSelected || player.key || visibleCount <= 35 || focusScale >= 1.15 || player.relevance >= 5;
+}
+
+function logoDomainLabel(player) {
+  return logoDomainForPlayer(player) || "initials fallback";
+}
+
 function logoMarkHtml(player, className = "company-logo-mark", options = {}) {
-  const logoUrl = logoUrlForPlayer(player, options.size || 64);
+  const logoUrl = logoUrlForPlayer(player, options.size || 128);
   const style = [
     `--avatar-color:${colorFor(player)}`,
     `--company-color:${colorFor(player)}`,
@@ -4675,6 +4739,7 @@ function logoMarkHtml(player, className = "company-logo-mark", options = {}) {
       class="${className} company-logo-mark ${logoUrl ? "has-logo" : "is-initial-only"}"
       style="${style}"
       title="${escapeHtml(player.name)}"
+      data-logo-domain="${escapeHtml(logoDomainLabel(player))}"
       aria-hidden="true"
     >
       <span class="company-logo-initials">${escapeHtml(initials(player.name))}</span>
@@ -7495,6 +7560,7 @@ function renderMap() {
       const tier = priorityTier(player);
       const isSelected = player.id === state.selectedPlayerId;
       const isEntering = !previousNodePositions.has(player.id);
+      const nodeLogoUrl = shouldShowMapLogo(player, filtered.length, focusScale, isSelected) ? logoUrlForPlayer(player, 128) : "";
       if (player.key || isSelected) {
         const connection = createSvg("line", {
           x1: center.x,
@@ -7507,7 +7573,7 @@ function renderMap() {
       }
 
       const nodeAttrs = {
-        class: `map-node ${tier} ${isSelected ? "selected" : ""}`,
+        class: `map-node ${tier} ${isSelected ? "selected" : ""} ${nodeLogoUrl ? "has-brand-logo" : ""}`,
         tabindex: "0",
         role: "button",
         "aria-label": `${player.name}, ${player.relevance} of 5 relevance`,
@@ -7544,11 +7610,23 @@ function renderMap() {
         node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius + 10, class: "node-ai-ring", fill: "none" }));
       }
       node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius, fill: journeyColorFor(player) }));
-      const nodeLogoUrl = player.key || isSelected ? logoUrlForPlayer(player, 64) : "";
       if (nodeLogoUrl) {
-        const logoRadius = Math.max(7, Math.round(radius * 0.52));
-        node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: logoRadius + 3, class: "node-logo-bg" }));
-        const fallbackFontSize = Math.min(isSelected ? 11 : 9.4, logoRadius * 0.88);
+        const logoRadius = Math.max(6, Math.min(radius - 2, Math.max(8, Math.round(radius * (isSelected ? 0.72 : 0.68)))));
+        const clipId = `map-logo-clip-${svgSafeId(player.id)}`;
+        const clip = createSvg("clipPath", { id: clipId });
+        clip.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: logoRadius }));
+        defs.appendChild(clip);
+        node.appendChild(
+          createSvg("circle", {
+            cx: nodeX,
+            cy: nodeY,
+            r: logoRadius + 5,
+            class: "node-logo-plate",
+            style: `--node-color:${journeyColorFor(player)}`
+          })
+        );
+        node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: logoRadius, class: "node-logo-mask-bg" }));
+        const fallbackFontSize = Math.min(isSelected ? 12 : 10.2, logoRadius * 0.92);
         const fallback = createSvg("text", {
           x: nodeX,
           y: nodeY + 3,
@@ -7565,6 +7643,8 @@ function renderMap() {
             height: logoRadius * 2,
             href: nodeLogoUrl,
             class: "node-logo-image",
+            "clip-path": `url(#${clipId})`,
+            "data-logo-domain": logoDomainLabel(player),
             preserveAspectRatio: "xMidYMid meet"
           })
         );

@@ -20327,3 +20327,182 @@ body[data-view="overview"] .map-selected-logo {
     display: grid;
   }
 }
+
+/* Stronger logo integration: brand mark sits on a consistent plate, category color remains the system cue. */
+.company-logo-mark {
+  border: 1px solid color-mix(in srgb, var(--avatar-color, var(--company-color, var(--onepager-accent, #00b884))) 38%, rgba(23, 33, 29, 0.14)) !important;
+  border-radius: 12px !important;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--avatar-color, var(--company-color, #00b884)) 18%, #fff), #fff 62%),
+    #fff !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.88),
+    0 8px 20px rgba(18, 28, 24, 0.1) !important;
+}
+
+.company-logo-mark::before {
+  inset: 4px;
+  z-index: 0;
+  border: 1px solid rgba(23, 33, 29, 0.06);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: none;
+}
+
+.company-logo-mark::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 46%);
+}
+
+.company-logo-mark > img {
+  z-index: 2;
+  width: 78%;
+  height: 78%;
+  border-radius: 6px;
+  filter: saturate(1.06) contrast(1.04);
+}
+
+.company-logo-mark > .company-logo-initials {
+  z-index: 3;
+  color: #10231f;
+  font-size: 0.76em;
+  text-shadow: none;
+}
+
+.company-logo-mark.has-logo:not(.is-logo-missing) > .company-logo-initials {
+  opacity: 0;
+}
+
+.company-logo-mark.is-logo-missing::before,
+.company-logo-mark.is-initial-only::before {
+  background: color-mix(in srgb, var(--avatar-color, var(--company-color, #00b884)) 20%, #fff);
+}
+
+.avatar.company-logo-mark,
+.priority-avatar.company-logo-mark,
+.one-pager-template-icon.company-logo-mark,
+.map-selected-logo.company-logo-mark {
+  border-radius: 14px !important;
+}
+
+.company-row-avatar.company-logo-mark,
+.priority-avatar-small.company-logo-mark,
+.map-picker-logo.company-logo-mark,
+.lane-avatar.company-logo-mark,
+.internal-gap-logo.company-logo-mark {
+  border-radius: 10px !important;
+}
+
+.profile-top .avatar.company-logo-mark,
+.avatar.company-logo-mark {
+  width: 50px;
+  height: 50px;
+}
+
+.priority-avatar.company-logo-mark {
+  width: 50px;
+  height: 50px;
+}
+
+.priority-avatar-small.company-logo-mark {
+  width: 36px;
+  height: 36px;
+}
+
+.company-row-avatar.company-logo-mark {
+  width: 38px;
+  height: 38px;
+}
+
+.map-picker-row > .map-picker-logo.company-logo-mark {
+  width: 32px;
+  height: 32px;
+}
+
+.lane-avatar.company-logo-mark,
+.internal-gap-logo.company-logo-mark {
+  width: 32px;
+  height: 32px;
+}
+
+.map-selected-logo.company-logo-mark {
+  width: 36px;
+  height: 36px;
+}
+
+body[data-view="overview"] .map-selected-logo.company-logo-mark {
+  width: 34px;
+  height: 34px;
+}
+
+.one-pager-template-icon.company-logo-mark {
+  width: 82px;
+  height: 82px;
+}
+
+.one-pager-template-icon.company-logo-mark > img {
+  width: 74%;
+  height: 74%;
+}
+
+.company-logo-mark[data-logo-domain]::after {
+  box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--avatar-color, var(--company-color, var(--onepager-accent, #00b884))) 34%, transparent);
+}
+
+body[data-view="overview"] .node-logo-plate {
+  fill: #fff;
+  stroke: color-mix(in srgb, var(--node-color, #00b884) 44%, rgba(23, 33, 29, 0.16));
+  stroke-width: 1.2;
+  filter: drop-shadow(0 5px 8px rgba(18, 28, 24, 0.18));
+}
+
+body[data-view="overview"] .node-logo-mask-bg {
+  fill: rgba(255, 255, 255, 0.98);
+  stroke: rgba(23, 33, 29, 0.06);
+  stroke-width: 0.6;
+  filter: none !important;
+}
+
+body[data-view="overview"] .node-logo-image {
+  opacity: 0.96;
+  pointer-events: none;
+  filter: saturate(1.06) contrast(1.05);
+}
+
+body[data-view="overview"] .node-logo-fallback {
+  fill: #10231f;
+  paint-order: stroke;
+  stroke: rgba(255, 255, 255, 0.98);
+  stroke-linejoin: round;
+  stroke-width: 2.2px;
+}
+
+body[data-view="overview"] .map-node.has-brand-logo .node-initial.has-node-logo {
+  opacity: 0;
+}
+
+body[data-view="overview"] .map-symbol-logo {
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 50% 50%, #fff 0 45%, transparent 46%),
+    linear-gradient(135deg, #56cc95, #4d7de1);
+}
+
+@media (max-width: 760px) {
+  .one-pager-template-icon.company-logo-mark {
+    width: 68px;
+    height: 68px;
+  }
+
+  .profile-top .avatar.company-logo-mark,
+  .avatar.company-logo-mark,
+  .priority-avatar.company-logo-mark {
+    width: 44px;
+    height: 44px;
+  }
+}
