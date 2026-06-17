@@ -213,7 +213,7 @@ const players = [
     relevance: 5,
     momentum: 4,
     aiScore: 3,
-    sourceStatus: "Public product/developer sources linked; needs Appfigures",
+    sourceStatus: "Official product, developer and app store sources linked; Appfigures remains credentialed for performance metrics",
     relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     key: true,
     recent: "Track rankings, revenue estimates, product launches, and funding or ownership signals.",
@@ -235,7 +235,7 @@ const players = [
     relevance: 5,
     momentum: 4,
     aiScore: 3,
-    sourceStatus: "Needs traffic + app data check",
+    sourceStatus: "Official Muse Group and app store sources linked; traffic and monetisation remain follow up metrics",
     relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     key: true,
     recent: "Monitor product bundles, community growth, and AI-assisted music tooling.",
@@ -367,7 +367,7 @@ const players = [
     relevance: 5,
     momentum: 3,
     aiScore: 2,
-    sourceStatus: "Public company/product sources linked; needs market validation",
+    sourceStatus: "Official Fender/Fender Play and app store sources linked; bundle and performance metrics remain follow up data",
     relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     key: true,
     recent: "Track software bundling, beginner bundles, retail partnerships, and learning pushes.",
@@ -631,7 +631,7 @@ const players = [
     relevance: 4,
     momentum: 4,
     aiScore: 4,
-    sourceStatus: "Needs public filings + product source",
+    sourceStatus: "Public filings, official Music launch and Loog partner sources linked; Music performance remains follow up data",
     relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     key: true,
     recent: "Monitor AI product launches, pricing, and retention mechanics.",
@@ -1049,7 +1049,7 @@ const players = [
     relevance: 4,
     momentum: 3,
     aiScore: 4,
-    sourceStatus: "Public app/support sources linked; needs traffic data",
+    sourceStatus: "Official product/support plus Google Play and App Store sources linked; traffic and conversion remain follow up data",
     relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     key: true,
     recent: "Track app rankings, chord-recognition features, and catalog/rights signals.",
@@ -2325,7 +2325,7 @@ const players = [
     relevance: 3,
     momentum: 3,
     aiScore: 2,
-    sourceStatus: "Triage record; needs filings, music strategy and education strategy review",
+    sourceStatus: "SEC filing and official Disney/Epic partnership sources linked; education and music learning relevance remains triage",
     relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     key: false,
     recent: "Check music related strategy, education content, acquisition history and possible family learning fit.",
@@ -2347,7 +2347,7 @@ const players = [
     relevance: 3,
     momentum: 4,
     aiScore: 3,
-    sourceStatus: "Triage record; needs music events, education and acquisition scan",
+    sourceStatus: "Official Epic/Fortnite/Harmonix sources linked; some official pages require manual browser access",
     relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     key: false,
     recent: "Check music related strategy, creator tools, acquisition history and potential strategic fit.",
@@ -2369,7 +2369,7 @@ const players = [
     relevance: 3,
     momentum: 4,
     aiScore: 3,
-    sourceStatus: "Triage record; needs filings, education strategy and music activation scan",
+    sourceStatus: "SEC filing and official Roblox Education sources linked; music-specific activation remains triage",
     relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     key: false,
     recent: "Check music related strategy, education use, acquisition history and youth engagement relevance.",
@@ -2391,7 +2391,7 @@ const players = [
     relevance: 2,
     momentum: 3,
     aiScore: 2,
-    sourceStatus: "Triage record; needs filings, games strategy and music content review",
+    sourceStatus: "SEC filing and official Netflix Games support source linked; music relevance remains triage",
     relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     key: false,
     recent: "Check music related content, games strategy, acquisition history and family entertainment relevance.",
@@ -2413,7 +2413,7 @@ const players = [
     relevance: 2,
     momentum: 3,
     aiScore: 1,
-    sourceStatus: "Triage record; needs music products, education adjacency and acquisition history scan",
+    sourceStatus: "Official Nintendo IR and Nintendo Music sources linked; learning adjacency remains triage",
     relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     key: false,
     recent: "Check music related products, playful learning, acquisition history and family entertainment fit.",
@@ -2435,7 +2435,7 @@ const players = [
     relevance: 4,
     momentum: 5,
     aiScore: 4,
-    sourceStatus: "Triage record; needs filings, AI policy, creator tools and education adjacency review",
+    sourceStatus: "SEC filing, Spotify for Artists, Campaign Kit and AI policy sources linked; education adjacency remains triage",
     relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     key: false,
     recent: "Check music related strategy, education adjacency, acquisition history and potential strategic relevance.",
@@ -2488,7 +2488,7 @@ const strategicMoves = [
     title: "Suno / Udio - Record companies filed copyright cases against Suno and Ud",
     playerId: "suno-udio",
     category: "AI rights",
-    sourceId: "riaa_suno_udio_2024",
+    sourceId: "riaa_suno_udio",
     summary: "Record companies filed copyright cases against Suno and Udio.",
     impact: "AI music shifted from product novelty to rights, licensing and board-level risk."
   },
@@ -2515,7 +2515,7 @@ const strategicMoves = [
     title: "Spotify for Artists - Spotify framed Campaign Kit as a toolset for deeper fandom",
     playerId: "spotify-for-artists",
     category: "Artist tools",
-    sourceId: "spotify_campaign_kit_2025",
+    sourceId: "spotify_campaign_kit",
     summary: "Spotify framed Campaign Kit as a toolset for deeper fandom and audience goals.",
     impact: "Artist-success tooling influences the advanced learner / creator journey."
   },
@@ -2569,63 +2569,27 @@ const strategicMoves = [
     title: "Google Play - Google Play Best of 2025 continued as a platform-recogniti",
     playerId: "google-play",
     category: "Awards / Android",
-    sourceId: "google_play_best_2025_official",
+    sourceId: "google_play_best_2025",
     summary: "Google Play Best of 2025 continued as a platform-recognition benchmark.",
     impact: "Useful for Android app-quality and editorial recognition planning."
-  },
-  {
-    date: "2025-12",
-    title: "UMG / Splice - UMG and Splice announced collaboration on next-generation ",
-    playerId: "umg-splice",
-    category: "AI creator tools",
-    sourceId: "umg_splice_ai_2025",
-    summary: "UMG and Splice announced collaboration on next-generation AI-powered music creation tools.",
-    impact: "Rights-secure AI creation is becoming a label-backed product lane."
   },
   {
     date: "2026-01",
     title: "EIC Accelerator - EIC Accelerator remained an EU route for high-risk, game-c",
     playerId: "eic-accelerator",
     category: "Funding / EU",
-    sourceId: "eic_accelerator_2026_official",
+    sourceId: "eic_accelerator",
     summary: "EIC Accelerator remained an EU route for high-risk, game-changing innovation.",
     impact: "Potential public-funding route for AI/learning/creative-tech initiatives."
-  },
-  {
-    date: "2026-04",
-    title: "TikTok Add to Music App - TikTok said Add to Music App had generated more than 6B tr",
-    playerId: "tiktok-add-to-music-app",
-    category: "Discovery data",
-    sourceId: "tiktok_add_music_6b_2026",
-    summary: "TikTok said Add to Music App had generated more than 6B track saves over the prior twelve months.",
-    impact: "Discovery platforms influence what people want to listen to, save and eventually learn."
-  },
-  {
-    date: "2026-05",
-    title: "Splice / ElevenLabs - Splice announced a partnership with ElevenLabs to build AI",
-    playerId: "splice-elevenlabs",
-    category: "AI creator tools",
-    sourceId: "splice_elevenlabs_2026",
-    summary: "Splice announced a partnership with ElevenLabs to build AI-powered creation tools.",
-    impact: "Human-made licensed sample catalogs are being combined with generative AI workflows."
   },
   {
     date: "2026-06",
     title: "Apple Design Awards - Apple announced 2026 Design Award winners and finalists.",
     playerId: "apple-design-awards",
     category: "Awards / iOS",
-    sourceId: "apple_design_awards_2026_official",
+    sourceId: "apple_design_awards_2026",
     summary: "Apple announced 2026 Design Award winners and finalists.",
     impact: "Clear benchmark for app craft, interaction, accessibility and award submission readiness."
-  },
-  {
-    date: "2026-06",
-    title: "Fender Studio Pro / Moises - Fender Studio Pro update was reported to integrate Moises ",
-    playerId: "fender-studio-pro-moises",
-    category: "Hardware + AI",
-    sourceId: "fender_studio_pro_moises_2026",
-    summary: "Fender Studio Pro update was reported to integrate Moises stem separation and an AI assistant.",
-    impact: "Instrument brands are moving further into app + DAW + AI utility territory."
   },
   {
     date: "2026-06",
@@ -4683,6 +4647,20 @@ function executiveOnePagerDecisionCards(player, taxonomy, validation, quality) {
   `;
 }
 
+function ownershipNoteFor(player) {
+  const coverage = evidenceCoverage(player);
+  if (/to verify/i.test(player.ownership)) {
+    return "Ownership is still an explicit validation field before leadership use.";
+  }
+  if (coverage.officialCount >= 2 && coverage.verifiedCount >= 2) {
+    return "Shown from cited official or public source fields; validate investor detail only for deal work.";
+  }
+  if (coverage.verifiedCount >= 2) {
+    return "Public source fields are linked; confirm investor detail before broader circulation.";
+  }
+  return "Ownership should be checked against cited source fields before broader circulation.";
+}
+
 function executiveOnePagerCards(player, taxonomy, validation) {
   return `
     <article class="one-pager-card">
@@ -4700,7 +4678,7 @@ function executiveOnePagerCards(player, taxonomy, validation) {
     <article class="one-pager-card">
       <span>Ownership / investors</span>
       <h3>${escapeHtml(player.ownership)}</h3>
-      <p>Ownership should be checked against cited source fields before broader circulation.</p>
+      <p>${escapeHtml(ownershipNoteFor(player))}</p>
     </article>
 
     <article class="one-pager-card">
