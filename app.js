@@ -6191,13 +6191,13 @@ function clusterPointPosition(index, total, layout) {
 function clusterSpreadProfile(total) {
   const density = Math.max(0, Math.min(1, (total - 8) / 16));
   return {
-    x: 0.9 + density * 0.82,
-    y: 0.84 + density * 0.66,
-    ellipseX: 1 + density * 0.48,
-    ellipseY: 1 + density * 0.38,
-    gap: 5 + density * 6,
-    radialLift: density * 0.075,
-    iterations: 22 + Math.round(density * 22)
+    x: 0.96 + density * 0.9,
+    y: 0.9 + density * 0.74,
+    ellipseX: 1.04 + density * 0.54,
+    ellipseY: 1.03 + density * 0.44,
+    gap: 7 + density * 8,
+    radialLift: 0.02 + density * 0.09,
+    iterations: 30 + Math.round(density * 30)
   };
 }
 
@@ -6231,6 +6231,10 @@ function pullNodeIntoCluster(item, layout, profile, strength = 0.08) {
   item.y += (layout.y - item.y) * strength;
 }
 
+function nodeCollisionRadius(item) {
+  return item.collisionRadius ?? item.radius;
+}
+
 function pushNodePairsApart(items, minGap, weight = 1) {
   for (let a = 0; a < items.length; a += 1) {
     for (let b = a + 1; b < items.length; b += 1) {
@@ -6239,7 +6243,7 @@ function pushNodePairsApart(items, minGap, weight = 1) {
       const dx = two.x - one.x;
       const dy = two.y - one.y;
       const distance = Math.max(0.1, Math.hypot(dx, dy));
-      const target = one.radius + two.radius + minGap;
+      const target = nodeCollisionRadius(one) + nodeCollisionRadius(two) + minGap;
       if (distance >= target) continue;
       const push = ((target - distance) / 2) * weight;
       const ux = dx / distance;
@@ -6257,7 +6261,7 @@ function pushNodesAwayFromHub(items, center) {
     const dx = item.x - center.x;
     const dy = item.y - center.y;
     const distance = Math.max(0.1, Math.hypot(dx, dy));
-    const target = item.radius + 80;
+    const target = nodeCollisionRadius(item) + 82;
     if (distance >= target) return;
     const push = target - distance;
     item.x += (dx / distance) * push;
@@ -6272,29 +6276,29 @@ function relaxClusterNodePositions(items, layout, center) {
     pushNodePairsApart(items, profile.gap);
     pushNodesAwayFromHub(items, center);
     items.forEach((item) => {
-      pullNodeIntoCluster(item, layout, profile, 0.018);
+      pullNodeIntoCluster(item, layout, profile, 0.012);
       clampMapNodePosition(item);
     });
   }
-  for (let iteration = 0; iteration < 6; iteration += 1) {
-    pushNodePairsApart(items, profile.gap + 3);
+  for (let iteration = 0; iteration < 10; iteration += 1) {
+    pushNodePairsApart(items, profile.gap + 5);
     items.forEach(clampMapNodePosition);
   }
 }
 
 function relaxMapNodePositions(items, center) {
   if (items.length <= 1) return;
-  for (let iteration = 0; iteration < 18; iteration += 1) {
-    pushNodePairsApart(items, 5, 0.72);
+  for (let iteration = 0; iteration < 24; iteration += 1) {
+    pushNodePairsApart(items, 7, 0.76);
     pushNodesAwayFromHub(items, center);
     items.forEach((item) => {
       const profile = clusterSpreadProfile(item.categoryPlayers.length);
-      pullNodeIntoCluster(item, item.layout, profile, 0.014);
+      pullNodeIntoCluster(item, item.layout, profile, 0.01);
       clampMapNodePosition(item);
     });
   }
-  for (let iteration = 0; iteration < 10; iteration += 1) {
-    pushNodePairsApart(items, 8, 1);
+  for (let iteration = 0; iteration < 14; iteration += 1) {
+    pushNodePairsApart(items, 11, 1);
     items.forEach(clampMapNodePosition);
   }
 }
@@ -6323,8 +6327,16 @@ function mapNodeRadius(player, focusScale = 1) {
   return Math.min(31, boostedRadius);
 }
 
+function mapNodeCollisionRadius(player, visibleRadius, focusScale = 1, visibleCount = players.length) {
+  const dense = visibleCount > 60;
+  const selected = player.id === state.selectedPlayerId;
+  const ringAllowance = selected ? 13 : player.key ? 9 : player.aiScore >= 4 ? 7 : 4;
+  const focusAllowance = focusScale >= 1.18 && visibleCount <= 32 ? 4 : 0;
+  return visibleRadius + (dense ? Math.min(5, ringAllowance) : ringAllowance + focusAllowance);
+}
+
 function shouldLabelMapNode(player, categoryPlayers, index, layout, visibleCount = Infinity, focusScale = 1) {
-  if (player.id === state.selectedPlayerId) return true;
+  if (player.id === state.selectedPlayerId) return !(isDenseFullMapView() && visibleCount > 60);
   if (focusScale >= 1.35 && visibleCount <= 16) return player.key || player.relevance >= 4;
   if (focusScale >= 1.18 && visibleCount <= 28 && (player.key || player.relevance >= 5 || player.aiScore >= 5)) return true;
   if (visibleCount <= 8) return player.key || player.relevance >= 4 || index < 2;
@@ -6389,11 +6401,14 @@ function mapLabelPriority(player) {
   );
 }
 
+function clampNumber(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
 function mapLabelCandidate(item, visibleCount, focusScale, center) {
   const { player, categoryPlayers, index, layout, x, y, clusterX } = item;
   if (!shouldLabelMapNode(player, categoryPlayers, index, layout, visibleCount, focusScale)) return null;
   const isSelected = player.id === state.selectedPlayerId;
-  const anchor = mapLabelAnchor(x, y, clusterX, center, focusScale);
   const labelText = compactName(player.name, isSelected ? 24 : focusScale >= 1.18 ? 20 : 18);
   const labelFontSize = Math.min(isSelected ? 15.2 : 13.8, 10.4 * focusScale);
   const scale = Math.min(focusScale, 1.42);
@@ -6404,21 +6419,28 @@ function mapLabelCandidate(item, visibleCount, focusScale, center) {
     Math.round((isSelected ? 164 : 132) * scale),
     scale
   );
+  const side = isSelected ? (x >= center.x ? 1 : -1) : x >= clusterX ? 1 : -1;
+  const cardGap = Math.round(8 * scale);
+  const cardX = clampNumber(side > 0 ? x + item.radius + cardGap : x - item.radius - cardGap - badgeWidth, 26, 974 - badgeWidth);
+  const cardY = clampNumber(y - badgeHeight / 2, 30, 670 - badgeHeight);
   const rect = {
-    x: svgLabelX(anchor.x, badgeWidth, anchor.anchor),
-    y: anchor.y - Math.round(badgeHeight * 0.64),
+    x: cardX,
+    y: cardY,
     width: badgeWidth,
     height: badgeHeight + (isSelected && focusScale < 1.18 ? 15 : 0)
   };
   return {
-    anchor,
     badgeHeight,
     badgeWidth,
+    cardX,
+    cardY,
     labelFontSize,
     labelText,
     priority: mapLabelPriority(player),
     rect,
-    showSubLabel: isSelected && focusScale < 1.18
+    showSubLabel: isSelected && focusScale < 1.18,
+    textX: cardX + badgeWidth / 2,
+    textY: cardY + badgeHeight / 2 + labelFontSize * 0.34
   };
 }
 
@@ -6432,16 +6454,16 @@ function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center) {
         height: selectedNode.radius * 2 + 16
       }
     : null;
-  const avoidDenseNodeOverlap = visibleCount > 55 && focusScale <= 1.12;
-  const nodeBounds = avoidDenseNodeOverlap
-    ? nodeItems.map((item) => ({
-        id: item.player.id,
-        x: item.x - item.radius - 5,
-        y: item.y - item.radius - 5,
-        width: item.radius * 2 + 10,
-        height: item.radius * 2 + 10
-      }))
-    : [];
+  const nodeBounds = nodeItems.map((item) => {
+    const radius = nodeCollisionRadius(item) + 3;
+    return {
+      id: item.player.id,
+      x: item.x - radius,
+      y: item.y - radius,
+      width: radius * 2,
+      height: radius * 2
+    };
+  });
   const accepted = [];
   const plan = new Map();
   nodeItems
@@ -6453,9 +6475,8 @@ function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center) {
       const overlapsLabel = accepted.some((rect) => rectsOverlap(label.rect, rect, focusScale >= 1.18 ? 12 : 8));
       const overlapsSelectedNode = selectedBounds && !isSelected && rectsOverlap(label.rect, selectedBounds, 8);
       const overlapsNode =
-        avoidDenseNodeOverlap &&
         !isSelected &&
-        nodeBounds.some((rect) => rect.id !== item.player.id && rectsOverlap(label.rect, rect, 3));
+        nodeBounds.some((rect) => rect.id !== item.player.id && rectsOverlap(label.rect, rect, focusScale >= 1.18 ? 4 : 2));
       if (!isSelected && (overlapsLabel || overlapsSelectedNode || overlapsNode)) return;
       accepted.push(label.rect);
       plan.set(item.player.id, label);
@@ -6559,11 +6580,13 @@ function renderMap() {
     const clusterItems = [];
     categoryPlayers.forEach((player, index) => {
       const point = clusterPointPosition(index, categoryPlayers.length, layout);
+      const radius = mapNodeRadius(player, focusScale);
       const item = {
         player,
         x: point.x,
         y: point.y,
-        radius: mapNodeRadius(player, focusScale),
+        radius,
+        collisionRadius: mapNodeCollisionRadius(player, radius, focusScale, filtered.length),
         index,
         categoryPlayers,
         layout,
@@ -6746,11 +6769,11 @@ function renderMap() {
       }
       const labelInfo = labelPlan.get(player.id);
       if (labelInfo) {
-        const { anchor, badgeHeight, badgeWidth, labelFontSize, labelText } = labelInfo;
+        const { badgeHeight, badgeWidth, cardX, cardY, labelFontSize, labelText, textX, textY } = labelInfo;
         node.appendChild(
           createSvg("rect", {
-            x: svgLabelX(anchor.x, badgeWidth, anchor.anchor),
-            y: anchor.y - Math.round(badgeHeight * 0.64),
+            x: cardX,
+            y: cardY,
             width: badgeWidth,
             height: badgeHeight,
             rx: 7,
@@ -6759,21 +6782,21 @@ function renderMap() {
           })
         );
         const name = createSvg("text", {
-          x: anchor.x,
-          y: anchor.y,
+          x: textX,
+          y: textY,
           class: "node-label key-node-label",
           style: `font-size:${labelFontSize.toFixed(1)}px`,
-          "text-anchor": anchor.anchor
+          "text-anchor": "middle"
         });
         name.textContent = labelText;
         node.appendChild(name);
         if (labelInfo.showSubLabel) {
           const sub = createSvg("text", {
-            x: anchor.x,
-            y: anchor.y + 13 * Math.min(focusScale, 1.35),
+            x: textX,
+            y: textY + 13 * Math.min(focusScale, 1.35),
             class: "node-sub selected-node-sub",
             style: `font-size:${Math.min(11.8, 8.4 * focusScale).toFixed(1)}px`,
-            "text-anchor": anchor.anchor
+            "text-anchor": "middle"
           });
           sub.textContent = compactName(strategicRole(player), 24);
           node.appendChild(sub);
