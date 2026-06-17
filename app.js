@@ -196,6 +196,49 @@ const productLenses = [
   }
 ];
 
+const ecosystemLayers = [
+  {
+    id: "core",
+    label: "Hobbyist core",
+    shortLabel: "Core",
+    color: "#174f8a",
+    icon: "circle-dot",
+    note: "Direct learning and practice choices closest to Yousician."
+  },
+  {
+    id: "tools",
+    label: "Tools and platforms",
+    shortLabel: "Tools",
+    color: "#16a5a5",
+    icon: "boxes",
+    note: "Products and services used by music hobbyists."
+  },
+  {
+    id: "people",
+    label: "People and communities",
+    shortLabel: "People",
+    color: "#6eb05f",
+    icon: "users",
+    note: "Creators, teachers, communities and support networks."
+  },
+  {
+    id: "culture",
+    label: "Culture and media",
+    shortLabel: "Culture",
+    color: "#f59a23",
+    icon: "radio",
+    note: "Channels that create inspiration, taste and attention."
+  },
+  {
+    id: "infrastructure",
+    label: "Capital and infrastructure",
+    shortLabel: "Infrastructure",
+    color: "#7b43b6",
+    icon: "landmark",
+    note: "Capital, rights, funding, distribution and industry systems."
+  }
+];
+
 const players = [
   {
     id: "simply",
@@ -2791,6 +2834,7 @@ const defaultBubbleSizeMode = "mission";
 const state = {
   mode: "executive",
   selectedCategory: "all",
+  ecosystemLayer: "all",
   selectedProductLens: "all",
   minRelevance: 1,
   query: "",
@@ -2858,6 +2902,7 @@ const els = {
   clearFilters: document.getElementById("clearFilters"),
   mapLegend: document.getElementById("mapLegend"),
   journeyBlueprint: document.getElementById("journeyBlueprint"),
+  ecosystemGuide: document.getElementById("ecosystemGuide"),
   mapSummaryStrip: document.getElementById("mapSummaryStrip"),
   mapCompanyPicker: document.getElementById("mapCompanyPicker"),
   ecosystemMap: document.getElementById("ecosystemMap"),
@@ -4944,8 +4989,29 @@ function matchesQuery(player) {
   return haystack.includes(state.query.trim().toLowerCase());
 }
 
+function ecosystemLayerById(id) {
+  return ecosystemLayers.find((layer) => layer.id === id) || null;
+}
+
+function ecosystemLayerForPlayer(player) {
+  const text = `${player.name} ${player.type} ${player.subcategory} ${player.description} ${player.relationship} ${player.ownership} ${player.tags.join(" ")}`.toLowerCase();
+  if (["learning", "practice"].includes(player.category) && (player.key || player.relevance >= 4)) return "core";
+  if (/creator|educator|teacher|community|artist|band|lesson|school|discord|reddit|influencer|local/i.test(text)) return "people";
+  if (player.category === "platforms" || /media|culture|youtube|tiktok|spotify|streaming|movie|documentary|festival|magazine|news|award/i.test(text)) return "culture";
+  if (player.category === "signals" || /investor|vc|capital|funding|government|rights|publisher|label|payment|commerce|app store|infrastructure/i.test(text)) return "infrastructure";
+  return "tools";
+}
+
+function ecosystemLayerMatches(player, layerId = state.ecosystemLayer) {
+  return layerId === "all" || ecosystemLayerForPlayer(player) === layerId;
+}
+
 function getFilteredPlayers() {
-  return journeyFilterBasePlayers().filter((player) => state.selectedCategory === "all" || journeyCategoryFor(player).id === state.selectedCategory);
+  return journeyFilterBasePlayers().filter(
+    (player) =>
+      (state.selectedCategory === "all" || journeyCategoryFor(player).id === state.selectedCategory) &&
+      ecosystemLayerMatches(player)
+  );
 }
 
 function journeyFilterBasePlayers() {
@@ -5127,6 +5193,7 @@ function renderFilters() {
 
 function resetWorkspaceFilters() {
   state.selectedCategory = "all";
+  state.ecosystemLayer = "all";
   state.selectedProductLens = "all";
   state.minRelevance = 1;
   state.query = "";
@@ -5161,6 +5228,7 @@ function revealMapForFilteredView() {
 function clearFilterById(filterId) {
   if (filterId === "query") state.query = "";
   if (filterId === "category") state.selectedCategory = "all";
+  if (filterId === "ecosystemLayer") state.ecosystemLayer = "all";
   if (filterId === "product") state.selectedProductLens = "all";
   if (filterId === "relevance") state.minRelevance = 1;
   if (filterId === "monitorSegment") state.monitorSegment = "all";
@@ -5204,6 +5272,9 @@ function renderActiveFilterStrip() {
   if (state.query.trim()) chips.push({ id: "query", label: "Search", value: state.query.trim() });
   if (state.selectedCategory !== "all") {
     chips.push({ id: "category", label: "Journey", value: journeyCategoryById(state.selectedCategory)?.shortName || state.selectedCategory });
+  }
+  if (state.ecosystemLayer !== "all") {
+    chips.push({ id: "ecosystemLayer", label: "Layer", value: ecosystemLayerById(state.ecosystemLayer)?.shortLabel || state.ecosystemLayer });
   }
   if (state.selectedProductLens !== "all") {
     chips.push({
@@ -5326,6 +5397,179 @@ function renderJourneyBlueprint() {
         renderAll();
         revealMapForFilteredView();
       }
+    });
+  });
+}
+
+function ecosystemGuideBasePlayers() {
+  return journeyFilterBasePlayers().filter((player) => state.selectedCategory === "all" || journeyCategoryFor(player).id === state.selectedCategory);
+}
+
+function renderEcosystemGuide() {
+  if (!els.ecosystemGuide) return;
+  const basePlayers = ecosystemGuideBasePlayers();
+  const layerRows = ecosystemLayers.map((layer) => {
+    const items = basePlayers.filter((player) => ecosystemLayerForPlayer(player) === layer.id);
+    return {
+      ...layer,
+      count: items.length,
+      keyCount: items.filter((player) => player.key).length,
+      topPlayers: [...items].sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name)).slice(0, 3)
+    };
+  });
+  const journeyRows = journeyCategories
+    .filter((category) => category.step)
+    .map((category) => {
+      const items = getFilteredPlayers()
+        .filter((player) => journeyCategoryFor(player).id === category.id)
+        .sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name))
+        .slice(0, 4);
+      return { category, items };
+    });
+  const enablers = [
+    { label: "AI and personalization", icon: "sparkles", query: "AI feedback personalization" },
+    { label: "Payments and subscriptions", icon: "credit-card", query: "subscription payments commerce" },
+    { label: "Cloud and sync", icon: "cloud", query: "platform cloud app store" },
+    { label: "Content and rights", icon: "file-music", query: "rights licensing catalog tabs" },
+    { label: "Hardware and connectivity", icon: "cable", query: "hardware instrument gear" },
+    { label: "Community and support", icon: "messages-square", query: "community teacher creator" }
+  ];
+  const crossJourneyIds = ["spotify-platform", "youtube-artists", "fender", "apple-garageband", "yamaha", "tiktok-artists"];
+  const crossJourneyPlayers = crossJourneyIds
+    .map((id) => players.find((player) => player.id === id))
+    .filter(Boolean);
+
+  els.ecosystemGuide.innerHTML = `
+    <div class="ecosystem-guide-head">
+      <div>
+        <span class="section-kicker">How to read</span>
+        <h3>The music hobby ecosystem</h3>
+        <p>Read inside out: habit choices sit close to Yousician, while culture, community and infrastructure shape demand around them.</p>
+      </div>
+      <button class="ecosystem-reset ${state.ecosystemLayer === "all" ? "is-active" : ""}" type="button" data-ecosystem-layer="all">
+        All layers
+      </button>
+    </div>
+    <div class="ecosystem-guide-grid">
+      <section class="ecosystem-layer-panel" aria-label="Ecosystem layers">
+        <div class="ecosystem-rings" aria-label="Ecosystem layer rings">
+          ${layerRows
+            .map(
+              (layer, index) => `
+                <button
+                  type="button"
+                  class="ecosystem-ring ring-${index + 1} ${state.ecosystemLayer === layer.id ? "is-active" : ""}"
+                  data-ecosystem-layer="${escapeHtml(layer.id)}"
+                  style="--layer-color:${layer.color}"
+                  title="${escapeHtml(layer.label)}"
+                >
+                  <span>${escapeHtml(layer.shortLabel)}</span>
+                </button>
+              `
+            )
+            .join("")}
+          <div class="ecosystem-center">
+            <strong>Yousician</strong>
+            <span>strategic center</span>
+          </div>
+        </div>
+        <div class="ecosystem-layer-list">
+          ${layerRows
+            .map(
+              (layer) => `
+                <button
+                  type="button"
+                  class="ecosystem-layer-row ${state.ecosystemLayer === layer.id ? "is-active" : ""}"
+                  data-ecosystem-layer="${escapeHtml(layer.id)}"
+                  style="--layer-color:${layer.color}"
+                >
+                  <span><i data-lucide="${escapeHtml(layer.icon)}"></i></span>
+                  <strong>${escapeHtml(layer.label)}</strong>
+                  <small>${layer.count} records, ${layer.keyCount} key</small>
+                </button>
+              `
+            )
+            .join("")}
+        </div>
+      </section>
+      <section class="journey-participation-panel" aria-label="Journey participation">
+        <div class="journey-participation-grid">
+          ${journeyRows
+            .map(
+              ({ category, items }) => `
+                <button
+                  type="button"
+                  class="journey-participation-column ${state.selectedCategory === category.id ? "is-active" : ""}"
+                  data-guide-journey="${escapeHtml(category.id)}"
+                  style="--journey-color:${category.color}"
+                >
+                  <span><i data-lucide="${escapeHtml(category.icon)}"></i></span>
+                  <strong>${escapeHtml(category.shortName)}</strong>
+                  <small>${items.length ? items.map((player) => player.name).join(", ") : "No visible match"}</small>
+                </button>
+              `
+            )
+            .join("")}
+        </div>
+        <div class="ecosystem-enabler-row" aria-label="Key enablers across the journey">
+          ${enablers
+            .map(
+              (enabler) => `
+                <button type="button" data-guide-query="${escapeHtml(enabler.query)}">
+                  <i data-lucide="${escapeHtml(enabler.icon)}"></i>
+                  <span>${escapeHtml(enabler.label)}</span>
+                </button>
+              `
+            )
+            .join("")}
+        </div>
+        <div class="cross-journey-strip" aria-label="Example cross journey players">
+          <span>Cross journey examples</span>
+          ${crossJourneyPlayers
+            .map(
+              (player) => `
+                <button type="button" data-guide-player="${escapeHtml(player.id)}" style="--company-color:${colorFor(player)}">
+                  <i>${escapeHtml(initials(player.name))}</i>
+                  <strong>${escapeHtml(player.name)}</strong>
+                  <small>${escapeHtml(journeyCategoryFor(player).shortName)}</small>
+                </button>
+              `
+            )
+            .join("")}
+        </div>
+      </section>
+    </div>
+  `;
+
+  els.ecosystemGuide.querySelectorAll("[data-ecosystem-layer]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.ecosystemLayer = state.ecosystemLayer === button.dataset.ecosystemLayer ? "all" : button.dataset.ecosystemLayer;
+      if (button.dataset.ecosystemLayer === "all") state.ecosystemLayer = "all";
+      markMapFilterChanged();
+      ensureSelectedPlayerVisibleInMap();
+      renderOverviewMapWorkspace({ includeFilters: true, refreshJourney: true, refreshSecondary: true, revealMap: true, flashSummary: true });
+    });
+  });
+  els.ecosystemGuide.querySelectorAll("[data-guide-journey]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.selectedCategory = state.selectedCategory === button.dataset.guideJourney ? "all" : button.dataset.guideJourney;
+      markMapFilterChanged();
+      ensureSelectedPlayerVisibleInMap();
+      renderOverviewMapWorkspace({ includeFilters: true, refreshJourney: true, refreshSecondary: true, revealMap: true, flashSummary: true });
+    });
+  });
+  els.ecosystemGuide.querySelectorAll("[data-guide-query]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.query = button.dataset.guideQuery;
+      if (els.searchInput) els.searchInput.value = state.query;
+      markMapFilterChanged();
+      renderOverviewMapWorkspace({ includeFilters: true, refreshJourney: true, refreshSecondary: true, revealMap: true, flashSummary: true });
+    });
+  });
+  els.ecosystemGuide.querySelectorAll("[data-guide-player]").forEach((button) => {
+    button.addEventListener("click", () => {
+      selectPlayer(button.dataset.guidePlayer, { revealProfile: true });
+      flashElement(els.ecosystemGuide);
     });
   });
 }
@@ -9653,6 +9897,7 @@ function syncInteractionState() {
   document.body.dataset.mapFocusMode = state.mapFocusMode;
   document.body.dataset.mapRecordCount = String(state.mapRecordLimit);
   document.body.dataset.bubbleSizeMode = state.bubbleSizeMode;
+  document.body.dataset.ecosystemLayer = state.ecosystemLayer;
   document.querySelectorAll("[data-id]").forEach((element) => {
     element.classList.toggle("is-selected", element.dataset.id === state.selectedPlayerId);
   });
@@ -10522,6 +10767,7 @@ function activeViewElement() {
 
 function renderOverviewView() {
   renderJourneyBlueprint();
+  renderEcosystemGuide();
   renderMapSummaryStrip();
   renderMapCompanyPicker();
   renderOverviewMonitorSnapshot();
@@ -10536,6 +10782,7 @@ function renderOverviewView() {
 
 function renderOverviewSecondaryContent() {
   if (state.view !== "overview") return;
+  renderEcosystemGuide();
   renderOverviewMonitorSnapshot();
   renderCategoryLandscape();
   renderBriefReadiness();
@@ -10574,6 +10821,7 @@ function renderOverviewMapWorkspace(options = {}) {
   if (options.includeFilters) renderFilters();
   renderActiveFilterStrip();
   if (options.includeFilters || options.refreshJourney) renderJourneyBlueprint();
+  renderEcosystemGuide();
   renderMapSummaryStrip();
   if (options.deferPicker) {
     scheduleMapCompanyPickerRender();
