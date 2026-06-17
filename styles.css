@@ -19934,3 +19934,396 @@ body[data-view="overview"] .map-selected-logo {
   width: 30px;
   height: 30px;
 }
+
+/* Internal gap audit: concise decision gates for the data Yousician must supply before hard claims. */
+.internal-gap-audit {
+  margin-top: 18px;
+}
+
+.internal-gap-panel,
+.one-pager-internal-validation {
+  border: 1px solid rgba(30, 54, 47, 0.12);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 16px 38px rgba(18, 28, 24, 0.07);
+  color: #10231f;
+}
+
+.internal-gap-panel {
+  padding: 20px;
+}
+
+.internal-gap-hero,
+.one-pager-internal-validation > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.internal-gap-hero h3,
+.one-pager-internal-validation h3 {
+  margin: 4px 0 8px;
+  color: #10231f;
+}
+
+.internal-gap-hero p {
+  max-width: 820px;
+  margin: 0;
+  color: #53615c;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.internal-gap-actions,
+.validation-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.internal-gap-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.internal-gap-metrics article {
+  min-height: 78px;
+  padding: 14px;
+  border: 1px solid rgba(30, 54, 47, 0.12);
+  border-top: 4px solid #56cc95;
+  border-radius: 10px;
+  background: #fbfffc;
+}
+
+.internal-gap-metrics strong {
+  display: block;
+  font-size: clamp(24px, 3vw, 38px);
+  line-height: 1;
+  color: #10231f;
+}
+
+.internal-gap-metrics span {
+  display: block;
+  margin-top: 6px;
+  color: #5c6864;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.internal-gap-layout,
+.internal-request-grid,
+.internal-validation-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.internal-gap-layout {
+  grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+}
+
+.internal-request-grid {
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+  margin-top: 14px;
+}
+
+.internal-gap-column,
+.internal-request-pack,
+.claim-risk-rules,
+.one-pager-internal-validation article {
+  border: 1px solid rgba(30, 54, 47, 0.1);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff, #fbfffc);
+  padding: 14px;
+}
+
+.internal-gap-column > header,
+.internal-request-pack > header,
+.claim-risk-rules > header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.internal-gap-column > header span,
+.internal-request-pack > header span,
+.claim-risk-rules > header span,
+.one-pager-internal-validation span {
+  color: #408a68;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.internal-gap-column > header strong,
+.internal-request-pack > header strong,
+.claim-risk-rules > header strong {
+  color: #10231f;
+  font-size: 14px;
+}
+
+.internal-gap-area-list,
+.internal-player-gap-list,
+.internal-owner-grid {
+  display: grid;
+  gap: 9px;
+}
+
+.internal-gap-area,
+.internal-owner-card {
+  border: 1px solid rgba(30, 54, 47, 0.12);
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.internal-gap-area summary,
+.internal-owner-card summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  color: #10231f;
+  font-weight: 950;
+}
+
+.internal-gap-area summary strong,
+.internal-owner-card summary strong {
+  border-radius: 999px;
+  padding: 5px 9px;
+  background: #fff3df;
+  color: #704615;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.internal-gap-area p,
+.internal-gap-area ul,
+.internal-gap-area small,
+.internal-owner-card ul {
+  margin: 0;
+  padding: 0 14px 12px;
+}
+
+.internal-gap-area p {
+  color: #53615c;
+  font-weight: 750;
+}
+
+.internal-gap-area ul,
+.internal-owner-card ul,
+.one-pager-internal-validation ul {
+  list-style: none;
+}
+
+.internal-gap-area li,
+.internal-owner-card li,
+.one-pager-internal-validation li {
+  position: relative;
+  margin: 8px 0 0;
+  padding-left: 15px;
+  color: #26352f;
+  font-weight: 750;
+  line-height: 1.42;
+}
+
+.internal-gap-area li::before,
+.internal-owner-card li::before,
+.one-pager-internal-validation li::before {
+  content: "";
+  position: absolute;
+  top: 0.66em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #56cc95;
+}
+
+.internal-gap-area small {
+  display: block;
+  color: #5c6864;
+  font-weight: 800;
+}
+
+.internal-player-gap {
+  appearance: none;
+  cursor: pointer;
+  text-align: left;
+  border: 1px solid rgba(30, 54, 47, 0.12);
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.internal-player-gap:hover,
+.internal-player-gap:focus-visible {
+  border-color: rgba(86, 204, 149, 0.65);
+  box-shadow: 0 10px 22px rgba(18, 28, 24, 0.1);
+  transform: translateY(-1px);
+}
+
+.internal-player-gap > span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #10231f;
+  font-size: 14px;
+  font-weight: 950;
+  text-transform: none;
+}
+
+.internal-gap-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #eefaf3;
+}
+
+.internal-player-gap em,
+.internal-player-gap small {
+  display: block;
+  margin-top: 7px;
+  font-style: normal;
+}
+
+.internal-player-gap em {
+  color: #408a68;
+  font-size: 11px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.internal-player-gap small {
+  color: #53615c;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.claim-risk-rules {
+  display: grid;
+  gap: 9px;
+}
+
+.claim-risk-rules header {
+  margin-bottom: 0;
+}
+
+.claim-risk-rules div {
+  border: 1px solid rgba(225, 86, 82, 0.16);
+  border-radius: 10px;
+  background: #fffafa;
+  padding: 11px;
+}
+
+.claim-risk-rules div span {
+  color: #b44742;
+}
+
+.claim-risk-rules p {
+  margin: 5px 0;
+  color: #26352f;
+  font-weight: 800;
+  line-height: 1.42;
+}
+
+.claim-risk-rules small {
+  color: #6a7470;
+  font-weight: 850;
+}
+
+.one-pager-internal-validation {
+  margin: 16px 0;
+  padding: 18px;
+}
+
+.one-pager-internal-validation > header strong {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: #fff3df;
+  color: #704615;
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.internal-validation-grid {
+  grid-template-columns: 1.05fr 0.9fr 0.95fr;
+}
+
+.one-pager-internal-validation article > span {
+  display: block;
+  margin-bottom: 7px;
+}
+
+.internal-validation-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.internal-validation-tags em {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(86, 204, 149, 0.28);
+  border-radius: 999px;
+  background: #f2fbf6;
+  padding: 7px 9px;
+  color: #408a68;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 950;
+}
+
+.internal-validation-tags strong {
+  color: #10231f;
+}
+
+.one-pager-internal-validation p {
+  margin: 8px 0 0;
+  color: #26352f;
+  font-weight: 800;
+  line-height: 1.42;
+}
+
+@media (max-width: 980px) {
+  .internal-gap-hero,
+  .one-pager-internal-validation > header {
+    display: grid;
+  }
+
+  .internal-gap-metrics,
+  .internal-gap-layout,
+  .internal-request-grid,
+  .internal-validation-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .internal-gap-panel,
+  .one-pager-internal-validation {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .internal-gap-column > header,
+  .internal-request-pack > header,
+  .claim-risk-rules > header {
+    display: grid;
+  }
+}

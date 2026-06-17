@@ -2696,6 +2696,12 @@ const sourceCards = [
     status: "Needs permissions model"
   },
   {
+    name: "Internal data gap audit",
+    use: "Decision-readiness checklist for monetization, retention, rights, catalog, relationship and user research gaps.",
+    cadence: "Before board or LST review",
+    status: "Implemented as request pack and player validation gate"
+  },
+  {
     name: "Manual research",
     use: "Strategic assessment, why it matters, confidence, and board ready interpretation.",
     cadence: "Before review cycles",
@@ -2744,6 +2750,24 @@ const liveDataFeeds = [
     nextStep: "The partnership owner validates each relationship lane before external sharing."
   },
   {
+    id: "finance-kpis",
+    name: "Finance and KPI baseline",
+    status: "Input needed",
+    ready: false,
+    owner: "Finance / Growth / Data Analytics",
+    unlocks: "Conversion, retention, ARPPU, LTV, churn, pricing, plan mix and Yousician baseline comparisons",
+    nextStep: "Load approved aggregates only; keep raw customer or payment data outside this static artifact."
+  },
+  {
+    id: "rights-catalog",
+    name: "Rights and catalog inventory",
+    status: "Input needed",
+    ready: false,
+    owner: "Legal / Content",
+    unlocks: "Catalog constraints, renewal risk, publisher dependencies, AI content rules and strategic repertoire gaps",
+    nextStep: "Provide a summarized rights exposure export with restriction type, renewal window and strategic risk."
+  },
+  {
     id: "research-db",
     name: "Yousician research database",
     status: "Login gated",
@@ -2762,6 +2786,351 @@ const liveDataFeeds = [
     nextStep: "Mirror the current schema, then treat this website as the presentation layer."
   }
 ];
+
+const internalGapAreas = [
+  {
+    id: "monetization-retention",
+    label: "Monetization and retention truth",
+    priority: "Critical",
+    owner: "Growth / Finance / Data Analytics",
+    why: "Turns the market map into an actual prioritization model.",
+    missing: [
+      "Conversion, ARPPU, LTV and churn by country, platform and product",
+      "Plan mix, pricing, promotion, cohort retention and web or off-store funnel economics",
+      "Yousician baseline used for competitor and partner comparisons"
+    ],
+    unsafe: "Do not rank revenue, downloads, growth, country mix or payback against competitors without this input.",
+    nextStep: "Import approved KPI Atlas, finance aggregates or Appfigures fields into the live override layer."
+  },
+  {
+    id: "rights-catalog",
+    label: "Rights, catalog and content constraints",
+    priority: "Critical",
+    owner: "Legal / Content",
+    why: "Music strategy is gated by what Yousician can legally use, renew and expand.",
+    missing: [
+      "Licensed versus original catalog split, renewal exposure and publisher dependencies",
+      "Song engagement, content gaps and rights costs by learning or practice use case",
+      "Constraints for AI assisted content, chord recognition, tabs and artist/IP use"
+    ],
+    unsafe: "Do not imply catalog freedom, licensing fit, bundle readiness or AI rights safety until Legal and Content confirm.",
+    nextStep: "Add a rights exposure extract with renewal date, restriction type, cost band and strategic risk."
+  },
+  {
+    id: "relationship-reality",
+    label: "Relationship reality",
+    priority: "Critical",
+    owner: "BizDev / Partnerships",
+    why: "External fit is not enough if there is no contact, owner, intro path or acceptable sensitivity.",
+    missing: [
+      "Known contacts, warm intros, meeting history, NDA status, owner and next action",
+      "Commercial sensitivity, blockers and whether an entity is partner, acquirer, target or competitor only",
+      "Amazon/Alexa+ terms and 2022 bundle history where relevant"
+    ],
+    unsafe: "Do not state active partnership, acquisition path, owner status or relationship warmth from public evidence.",
+    nextStep: "Complete the relationship template and classify each priority entity before external circulation."
+  },
+  {
+    id: "competition-user-truth",
+    label: "Competition and user truth",
+    priority: "High",
+    owner: "Product / Research",
+    why: "Win/loss, switching and FTUX evidence decide whether a player is an actual threat or only a visible market actor.",
+    missing: [
+      "Switching reasons, win/loss notes, overlap with Simply, Ultimate Guitar, Fender and other benchmarks",
+      "Current FTUX findings, activation pain points, retention drivers and song choice behavior",
+      "Parent, teacher and learner sentiment plus how sentiment changes over time"
+    ],
+    unsafe: "Do not call a player a stronger or weaker competitor without observed user, product or win/loss evidence.",
+    nextStep: "Attach current Research and Product findings to the selected priority profiles."
+  },
+  {
+    id: "ai-compliance",
+    label: "AI compliance and provenance",
+    priority: "High",
+    owner: "AI Strategy / Legal",
+    why: "AI product signals can be strategically useful but legally misleading if training data and provenance are unknown.",
+    missing: [
+      "Training data provenance, content generation rules and user data boundaries",
+      "Rights review for audio, chords, tabs, stems, feedback and synthetic music use cases",
+      "Competitive substitution risk versus complementarity with instrument learning"
+    ],
+    unsafe: "Do not frame AI tools as safe integrations, threats or substitutes without provenance and legal review.",
+    nextStep: "Create an AI rights and product safety checklist for AI relevant records."
+  },
+  {
+    id: "strategic-weighting",
+    label: "Strategic weighting",
+    priority: "High",
+    owner: "Leadership / Board / LST",
+    why: "The dashboard can surface candidates, but priority order must reflect company strategy and risk appetite.",
+    missing: [
+      "Fit to Yousician moat, revenue at stake, capability overlap and relationship readiness",
+      "Board and LST weighting for competitor, partner, acquirer, target and watchlist roles",
+      "Decision thresholds for when to deepen research versus keep a player as market context"
+    ],
+    unsafe: "Do not treat the score as final prioritization until leadership confirms the weighting.",
+    nextStep: "Use the shortlist in a triage session and record the agreed priority weights."
+  }
+];
+
+const internalDataRequestPack = [
+  {
+    owner: "Product",
+    asks: [
+      "Current FTUX activation findings and drop-off points",
+      "Feature adoption and lesson completion by learner segment",
+      "Product overlap notes for Simply, Ultimate Guitar, Chordify, Fender and Kahoot"
+    ]
+  },
+  {
+    owner: "Research",
+    asks: [
+      "Motivations, churn drivers, song choice behavior and practice habit findings",
+      "Competitor switching, win/loss and brand perception evidence",
+      "Parent, teacher and learner sentiment with time direction where available"
+    ]
+  },
+  {
+    owner: "Growth",
+    asks: [
+      "Conversion, ARPPU, LTV, churn, plan mix and pricing by country, platform and product",
+      "Web and off-store acquisition economics",
+      "Appfigures identifiers and approved competitive app performance fields"
+    ]
+  },
+  {
+    owner: "Finance",
+    asks: [
+      "Revenue and margin baselines safe for internal prioritization",
+      "Rights and catalog cost bands where finance owns the numbers",
+      "Sensitivity rules for any financial figures shown outside the core team"
+    ]
+  },
+  {
+    owner: "BizDev / Partnerships",
+    asks: [
+      "Known contacts, warm intros, NDA status, meeting history and owner by entity",
+      "Prior partner or bundle history including Amazon/Alexa+ terms where relevant",
+      "Next action, blocker, commercial sensitivity and sharing restrictions"
+    ]
+  },
+  {
+    owner: "Legal / Content",
+    asks: [
+      "Catalog inventory, licensed versus original split, renewal exposure and restrictions",
+      "Publisher relationships, rights constraints and content gaps by strategic use case",
+      "AI provenance, generated content, chord/tab and artist/IP usage rules"
+    ]
+  },
+  {
+    owner: "Data Analytics",
+    asks: [
+      "Metric definitions for retention, LTV, churn, conversion and revenue fields",
+      "Source of truth tables or exports for live overrides",
+      "Coverage checks that flag which records are decision ready versus internal-only"
+    ]
+  },
+  {
+    owner: "Leadership / Board / LST",
+    asks: [
+      "Agreed weighting for strategic fit, moat relevance, relationship readiness and revenue at stake",
+      "Which categories deserve deeper research now versus later",
+      "Decision thresholds for partner, target, acquirer, competitor and watchlist labels"
+    ]
+  }
+];
+
+const internalClaimRiskRules = [
+  {
+    label: "Performance claims",
+    rule: "No revenue, downloads, growth, rank trend, country mix, conversion or retention claim without internal or credentialed data.",
+    owner: "Growth / Finance"
+  },
+  {
+    label: "Rights and catalog claims",
+    rule: "No catalog, licensing, publisher, AI content or repertoire claim without Legal and Content validation.",
+    owner: "Legal / Content"
+  },
+  {
+    label: "Relationship claims",
+    rule: "No partnership, acquisition, warm intro, owner or strategic intent claim without BizDev confirmation.",
+    owner: "BizDev / Partnerships"
+  },
+  {
+    label: "Competitive claims",
+    rule: "No stronger/weaker competitor conclusion without win/loss, switching, user overlap or product evidence.",
+    owner: "Product / Research"
+  }
+];
+
+const playerInternalGapNotes = {
+  simply: {
+    headline: "Validate direct learning comparison",
+    owner: "Product / Growth / Research",
+    questions: [
+      "Where does Simply win or lose against Yousician in onboarding, motivation, pricing and beginner conversion?",
+      "What are Yousician's conversion, retention, ARPPU and churn baselines for the matching learner segments?",
+      "Which user research or support data explains switching between Simply and Yousician?"
+    ],
+    unsafe: ["Do not call Simply stronger or weaker on performance until Appfigures and internal funnel data are loaded."],
+    nextStep: "Attach FTUX, pricing, retention and win/loss evidence before board use."
+  },
+  "ultimate-guitar": {
+    headline: "Validate song-practice overlap",
+    owner: "Product / Research / Content",
+    questions: [
+      "How much Yousician demand starts with song choice, tabs or chords versus structured lessons?",
+      "Where do Ultimate Guitar users overlap with GuitarTuna or Yousician users?",
+      "Which catalog, rights or repertoire constraints change the strategic read?"
+    ],
+    unsafe: ["Do not infer habit substitution without usage, song choice or switching evidence."],
+    nextStep: "Compare song choice, repertoire, retention and catalog constraints."
+  },
+  fender: {
+    headline: "Validate brand and bundle relevance",
+    owner: "BizDev / Partnerships / Product",
+    questions: [
+      "Has Yousician had Fender, Fender Play, retail or hardware bundle conversations?",
+      "What beginner bundle, activation or hardware purchase data would prove distribution value?",
+      "Which brand, retailer or channel sensitivities matter before outreach?"
+    ],
+    unsafe: ["Do not imply partnership readiness or bundle economics from brand fit alone."],
+    nextStep: "Complete relationship owner, contact history and bundle economics fields."
+  },
+  bandlab: {
+    headline: "Validate creation path relevance",
+    owner: "Product / AI Strategy / Research",
+    questions: [
+      "Do Yousician learners graduate into creation workflows, or is this a separate audience?",
+      "What AI provenance, creator loop and community data changes the risk/opportunity read?",
+      "Which creation features increase retention or identity for Yousician users?"
+    ],
+    unsafe: ["Do not frame creation platforms as direct substitutes without user journey evidence."],
+    nextStep: "Link research on learner-to-creator transitions and AI safety review."
+  },
+  duolingo: {
+    headline: "Validate learning mechanics transferability",
+    owner: "Product / Research / Data Analytics",
+    questions: [
+      "Which Duolingo mechanics are actually transferable to instrument learning and which are not?",
+      "How do Yousician retention, streak, practice and lesson completion curves compare?",
+      "Is Duolingo Music a real user threat or a benchmark for habit design only?"
+    ],
+    unsafe: ["Do not import education app lessons blindly without music-practice validation."],
+    nextStep: "Compare retention loops, streak behavior, pricing and lesson completion metrics."
+  },
+  kahoot: {
+    headline: "Validate classroom engagement relevance",
+    owner: "Product / Research / Education",
+    questions: [
+      "Is classroom or teacher-led engagement strategically relevant to Yousician now?",
+      "Which teacher, school or group-learning signals exist in internal research?",
+      "Could game-based learning mechanics improve practice motivation without diluting the product?"
+    ],
+    unsafe: ["Do not treat classroom reach as a priority unless Yousician confirms an education channel strategy."],
+    nextStep: "Add teacher/channel research and decide whether Kahoot is benchmark, partner or watchlist."
+  },
+  chordify: {
+    headline: "Validate chord utility substitution",
+    owner: "Product / Research / Content",
+    questions: [
+      "Do users choose Chordify instead of structured practice, or as a lightweight song utility?",
+      "Which chord recognition, repertoire and conversion signals overlap with Yousician's mission?",
+      "What rights constraints apply to chord parsing and play-along use cases?"
+    ],
+    unsafe: ["Do not claim substitution risk without song utility and user overlap evidence."],
+    nextStep: "Link song-choice research, app performance and content rights review."
+  },
+  "spotify-platform": {
+    headline: "Validate discovery-to-practice bridge",
+    owner: "Strategy / BizDev / Content",
+    questions: [
+      "Can music discovery realistically convert into practice sessions for Yousician?",
+      "Which Spotify relationships, artist tools or campaign surfaces are internally known?",
+      "Which rights and attribution constraints govern any discovery-to-learning idea?"
+    ],
+    unsafe: ["Do not imply partnership or conversion potential from audience scale alone."],
+    nextStep: "Validate relationship owner, use case and rights fit before strategic outreach."
+  },
+  disney: {
+    headline: "Validate family IP and education fit",
+    owner: "Strategy / BizDev / Legal",
+    questions: [
+      "Is family IP, character-led learning or music education strategically relevant to Yousician?",
+      "Does Yousician have any contact, licensing history or sensitivity with Disney or related IP owners?",
+      "Which audience, rights and brand safety constraints would block a real use case?"
+    ],
+    unsafe: ["Do not frame Disney as partner, acquirer or IP route without internal strategy confirmation."],
+    nextStep: "Classify as watchlist, partner thesis or no-action after leadership review."
+  },
+  "epic-games": {
+    headline: "Validate interactive entertainment relevance",
+    owner: "Strategy / Product / BizDev",
+    questions: [
+      "Could music learning benefit from social play, concerts, creator economies or game-like identity?",
+      "Is there any internal relationship or product hypothesis around Epic, Fortnite or Harmonix?",
+      "What acquisition or partnership precedent actually matters to Yousician?"
+    ],
+    unsafe: ["Do not treat youth attention as strategic fit until a concrete use case exists."],
+    nextStep: "Separate attention competitor, product inspiration and partner thesis."
+  },
+  roblox: {
+    headline: "Validate youth identity and creation relevance",
+    owner: "Strategy / Research / Product",
+    questions: [
+      "Does youth identity, social feedback or creator participation map to Yousician's target learners?",
+      "Which research shows group play, sharing or identity as a retention driver?",
+      "Could Roblox be inspiration only, a partner surface, or outside scope?"
+    ],
+    unsafe: ["Do not overstate education or music-learning fit from platform scale alone."],
+    nextStep: "Add user research on social motivation and classify strategic relevance."
+  },
+  netflix: {
+    headline: "Validate attention benchmark only",
+    owner: "Strategy / Research",
+    questions: [
+      "Is Netflix useful beyond attention and family entertainment benchmarking?",
+      "Which music, games or family learning signals would make it strategically relevant?",
+      "Does Yousician leadership want this type of broad platform in the active shortlist?"
+    ],
+    unsafe: ["Do not imply direct partnership, competitor or acquirer relevance without leadership validation."],
+    nextStep: "Keep as watchlist unless a concrete music or learning use case is agreed."
+  },
+  nintendo: {
+    headline: "Validate playful learning relevance",
+    owner: "Strategy / Product / Research",
+    questions: [
+      "Which playful learning, family trust or music-game mechanics can inform Yousician?",
+      "Does internal user research support play, identity or family co-use as a strategic driver?",
+      "Is Nintendo a benchmark only, or a real strategic adjacency?"
+    ],
+    unsafe: ["Do not use nostalgia or brand fit as strategic proof."],
+    nextStep: "Use as product inspiration unless leadership flags deeper strategic relevance."
+  },
+  suno: {
+    headline: "Validate AI substitution and rights risk",
+    owner: "AI Strategy / Legal / Product",
+    questions: [
+      "Does AI music generation substitute learning, inspire learning, or create a separate use case?",
+      "Which rights, provenance and artist compensation issues matter for Yousician's roadmap?",
+      "Could AI creation change learner motivation or song choice?"
+    ],
+    unsafe: ["Do not frame AI music generation as safe or threatening without legal and user evidence."],
+    nextStep: "Attach AI rights review and research on learner motivation."
+  },
+  udio: {
+    headline: "Validate AI creation signal",
+    owner: "AI Strategy / Legal / Product",
+    questions: [
+      "Which AI generation patterns matter to instrument learning versus creator entertainment?",
+      "What provenance, licensing and user-data rules would apply to related features?",
+      "Is Udio a substitute risk, inspiration source or external legal signal?"
+    ],
+    unsafe: ["Do not convert AI buzz into a product conclusion without internal review."],
+    nextStep: "Classify as legal signal, product inspiration or monitored risk."
+  }
+};
 
 const researchContextFallback = {
   status: {
@@ -2940,6 +3309,7 @@ const els = {
   sourceStatusPanel: document.getElementById("sourceStatusPanel"),
   sourceVisuals: document.getElementById("sourceVisuals"),
   validationReadiness: document.getElementById("validationReadiness"),
+  internalGapAudit: document.getElementById("internalGapAudit"),
   evidenceLibrary: document.getElementById("evidenceLibrary"),
   sourceGrid: document.getElementById("sourceGrid"),
   toast: document.getElementById("toast"),
@@ -3857,6 +4227,186 @@ function liveDataFeedsForPlayer(player) {
   if (needs.includes("Company source")) feeds.push("Company website / press");
   if (!feeds.length) feeds.push("Quarterly source refresh");
   return feeds.slice(0, 3);
+}
+
+function internalGapAreaById(id) {
+  return internalGapAreas.find((area) => area.id === id);
+}
+
+function internalGapAreasForPlayer(player) {
+  const areaIds = new Set(["strategic-weighting"]);
+  if (requiresCredentialedData(player) || ["learning", "practice", "education"].includes(player.category)) {
+    areaIds.add("monetization-retention");
+  }
+  if (["practice", "creation", "ai", "platforms"].includes(player.category) || /rights|catalog|song|chord|tab|artist|ip/i.test(`${player.subcategory} ${player.tags.join(" ")}`)) {
+    areaIds.add("rights-catalog");
+  }
+  if (relationForPlayer(player) || player.key || ["hardware", "platforms"].includes(player.category)) {
+    areaIds.add("relationship-reality");
+  }
+  if (["learning", "practice", "education"].includes(player.category) || /competitor|benchmark|overlap/i.test(`${player.relationship} ${player.tags.join(" ")}`)) {
+    areaIds.add("competition-user-truth");
+  }
+  if (player.category === "ai" || player.aiScore >= 4 || /ai|personalization|generation|audio|stem/i.test(`${player.ai} ${player.type}`)) {
+    areaIds.add("ai-compliance");
+  }
+  return [...areaIds].map(internalGapAreaById).filter(Boolean);
+}
+
+function fallbackInternalGapProfile(player) {
+  const taxonomy = taxonomyProfile(player);
+  const categoryProfiles = {
+    learning: {
+      headline: "Validate learning funnel fit",
+      owner: "Product / Growth / Research",
+      questions: [
+        "What Yousician conversion, retention, ARPPU and churn baseline should this be compared against?",
+        "Which FTUX, practice and switching findings explain whether this is a real competitor?",
+        "Which pricing and song catalog inputs change the priority?"
+      ],
+      unsafe: ["Do not rank learning competitors by performance without internal funnel and Appfigures data."],
+      nextStep: "Attach current product, growth and research evidence."
+    },
+    practice: {
+      headline: "Validate practice habit fit",
+      owner: "Product / Research / Content",
+      questions: [
+        "Does this own song choice, repeat practice, repertoire or only a lightweight utility moment?",
+        "Which Yousician song-choice and practice habit findings should be compared?",
+        "Which catalog, rights or content constraints change the strategic read?"
+      ],
+      unsafe: ["Do not infer substitution without song-choice, usage or retention evidence."],
+      nextStep: "Attach practice research and content rights notes."
+    },
+    hardware: {
+      headline: "Validate channel and bundle readiness",
+      owner: "BizDev / Partnerships / Product",
+      questions: [
+        "Is there a known contact, warm intro, bundle history or channel owner?",
+        "Which beginner purchase or activation data would prove relevance?",
+        "What sensitivity or commercial restriction applies before outreach?"
+      ],
+      unsafe: ["Do not imply partner readiness from brand fit alone."],
+      nextStep: "Complete relationship and bundle economics fields."
+    },
+    creation: {
+      headline: "Validate creator pathway relevance",
+      owner: "Product / Research / AI Strategy",
+      questions: [
+        "Do Yousician users move into this creator workflow after learning?",
+        "Which community, identity or AI provenance issues affect the opportunity?",
+        "Could this expand retention or sit outside the core mission?"
+      ],
+      unsafe: ["Do not call creator tools a direct threat without journey evidence."],
+      nextStep: "Add learner-to-creator research and AI safety review."
+    },
+    ai: {
+      headline: "Validate AI risk and provenance",
+      owner: "AI Strategy / Legal / Product",
+      questions: [
+        "What training data, rights and provenance questions must be answered?",
+        "Does this complement practice, substitute learning or only signal market noise?",
+        "Which Yousician data and product boundaries apply?"
+      ],
+      unsafe: ["Do not frame AI tools as safe integrations or threats without provenance review."],
+      nextStep: "Run AI rights and product safety checklist."
+    },
+    education: {
+      headline: "Validate learning mechanics relevance",
+      owner: "Product / Research / Data Analytics",
+      questions: [
+        "Which habit, classroom, teacher or learner mechanics are transferable to instrument learning?",
+        "Which Yousician retention, activation and completion metrics are the right benchmark?",
+        "Is this a partner channel, product inspiration or watchlist record?"
+      ],
+      unsafe: ["Do not translate general education scale into music-learning priority without user proof."],
+      nextStep: "Attach retention, teacher and learning mechanics evidence."
+    },
+    platforms: {
+      headline: "Validate strategic adjacency",
+      owner: "Strategy / BizDev / Leadership",
+      questions: [
+        "What concrete music or education use case makes this platform relevant to Yousician?",
+        "Is there a relationship owner, acquisition precedent, partnership path or rights constraint?",
+        "Should this remain watchlist context or enter the active priority set?"
+      ],
+      unsafe: ["Do not infer partner, acquirer or audience value from platform scale alone."],
+      nextStep: "Classify the role in a leadership triage session."
+    },
+    signals: {
+      headline: "Validate monitoring use only",
+      owner: "Strategy / Research Ops",
+      questions: [
+        "What decision would this signal change?",
+        "Which owner monitors it and at what cadence?",
+        "Does it belong in the database or only in the evidence appendix?"
+      ],
+      unsafe: ["Do not promote monitoring signals to strategic actors without a decision use."],
+      nextStep: "Keep as monitoring context unless a decision owner flags it."
+    }
+  };
+  return (
+    categoryProfiles[player.category] || {
+      headline: "Validate strategic relevance",
+      owner: researchOwner(player),
+      questions: [
+        `What decision does this ${taxonomy.role.toLowerCase()} help Yousician make?`,
+        "Which internal data source would confirm importance?",
+        "Who owns the next validation step?"
+      ],
+      unsafe: ["Do not use as a priority claim without internal owner confirmation."],
+      nextStep: "Assign an owner or keep as context."
+    }
+  );
+}
+
+function internalGapProfileFor(player) {
+  const fallback = fallbackInternalGapProfile(player);
+  const specific = playerInternalGapNotes[player.id] || {};
+  const areas = internalGapAreasForPlayer(player);
+  const specificQuestions = specific.questions || [];
+  const questionPool = specificQuestions.length >= 3 ? specificQuestions : [...specificQuestions, ...fallback.questions];
+  const questions = [...new Set(questionPool)].slice(0, 5);
+  const unsafe = [...new Set([...(specific.unsafe || []), ...fallback.unsafe])].slice(0, 3);
+  const criticalAreas = areas.filter((area) => area.priority === "Critical").length;
+  return {
+    headline: specific.headline || fallback.headline,
+    owner: specific.owner || fallback.owner,
+    questions,
+    unsafe,
+    nextStep: specific.nextStep || fallback.nextStep,
+    areas,
+    priority: criticalAreas || player.key ? "High" : areas.some((area) => area.priority === "High") ? "Medium" : "Low"
+  };
+}
+
+function internalGateSummaryFor(player) {
+  const profile = internalGapProfileFor(player);
+  const criticalAreas = profile.areas.filter((area) => area.priority === "Critical").length;
+  const label = criticalAreas ? "Internal gate open" : profile.priority === "High" ? "Internal check needed" : "Light validation";
+  return {
+    label,
+    value: `${profile.areas.length} data gate${profile.areas.length === 1 ? "" : "s"}`,
+    detail: `${profile.owner}${criticalAreas ? ` / ${criticalAreas} critical` : ""}`,
+    profile
+  };
+}
+
+function internalGapPriorityWeight(priority) {
+  if (priority === "Critical") return 3;
+  if (priority === "High") return 2;
+  return 1;
+}
+
+function internalRequestRows() {
+  return internalDataRequestPack.flatMap((group) =>
+    group.asks.map((ask) => [
+      group.owner,
+      ask,
+      internalGapAreas.find((area) => ask.toLowerCase().includes(area.owner.split(" / ")[0].toLowerCase()))?.priority || "High",
+      "Internal Yousician input"
+    ])
+  );
 }
 
 function validationQueue() {
@@ -7362,6 +7912,7 @@ function renderBriefReadiness() {
   const relationshipOverrideCount = Object.keys(liveOverrideContext.relationshipOverrides || {}).length;
   const credentialedRows = credentialedAppfiguresCount();
   const categoryCount = categories.length;
+  const criticalInternalGates = internalGapAreas.filter((area) => area.priority === "Critical").length;
   const items = [
     {
       label: "Ecosystem map",
@@ -7390,6 +7941,13 @@ function renderBriefReadiness() {
       note: "The three guiding questions are surfaced before detail",
       state: "done",
       action: "guiding-questions"
+    },
+    {
+      label: "Internal gates",
+      value: `${criticalInternalGates} critical`,
+      note: "Monetization, retention, rights, catalog and relationship inputs stay explicit",
+      state: "partial",
+      action: "sources"
     },
     {
       label: "Relationship space",
@@ -9295,6 +9853,7 @@ function onePagerSourcesHtml(player, quality) {
 }
 
 function onePagerExecutiveQuestions(player, quality, validation) {
+  const internalProfile = internalGapProfileFor(player);
   const questions = [
     requiresCredentialedData(player)
       ? "Only import Appfigures if the next decision requires app performance, revenue, downloads, rank trend, review velocity, country mix, or growth."
@@ -9303,12 +9862,56 @@ function onePagerExecutiveQuestions(player, quality, validation) {
       ? "Internal only: confirm relationship owner, contact history, sensitivity, and whether this belongs in an active pipeline."
       : "",
     quality.gaps.length ? `Close ${quality.gaps.slice(0, 2).join(" and ")} gap before hard claims.` : "",
+    ...internalProfile.questions.slice(0, 2),
     ...quality.coverage.publicOpenQuestions,
     nextAction(player)
   ]
     .filter(Boolean)
     .map((item) => compactTemplateText(item, 150));
   return [...new Set(questions)].slice(0, 4);
+}
+
+function onePagerInternalValidationHtml(player) {
+  const gate = internalGateSummaryFor(player);
+  const profile = gate.profile;
+  return `
+    <section class="one-pager-internal-validation" aria-label="Internal validation required">
+      <header>
+        <div>
+          <span>Internal validation gate</span>
+          <h3>${escapeHtml(profile.headline)}</h3>
+        </div>
+        <strong>${escapeHtml(gate.label)}</strong>
+      </header>
+      <div class="internal-validation-grid">
+        <article>
+          <span>Questions to answer</span>
+          <ul>${profile.questions.slice(0, 4).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </article>
+        <article>
+          <span>Data areas</span>
+          <div class="internal-validation-tags">
+            ${profile.areas
+              .map(
+                (area) => `
+                  <em>
+                    <strong>${escapeHtml(area.label)}</strong>
+                    ${escapeHtml(area.priority)}
+                  </em>
+                `
+              )
+              .join("")}
+          </div>
+          <p><strong>Owner:</strong> ${escapeHtml(profile.owner)}</p>
+          <p><strong>Next step:</strong> ${escapeHtml(profile.nextStep)}</p>
+        </article>
+        <article>
+          <span>Do not claim yet</span>
+          <ul>${profile.unsafe.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </article>
+      </div>
+    </section>
+  `;
 }
 
 function onePagerExecutiveBriefHtml(player, taxonomy, validation, quality) {
@@ -9319,6 +9922,7 @@ function onePagerExecutiveBriefHtml(player, taxonomy, validation, quality) {
   const relation = relationForPlayer(player);
   const sourceNeedText = sourceNeeds(player).join(", ") || "No public source gap";
   const questions = onePagerExecutiveQuestions(player, quality, validation);
+  const internalGate = internalGateSummaryFor(player);
   const gates = [
     {
       label: "Decision posture",
@@ -9339,6 +9943,11 @@ function onePagerExecutiveBriefHtml(player, taxonomy, validation, quality) {
       label: "Relationship status",
       value: templateRelationshipFor(player),
       detail: relation ? relationshipTitle(relation.type) : validation.owner
+    },
+    {
+      label: "Internal data gate",
+      value: internalGate.label,
+      detail: internalGate.detail
     },
     {
       label: "Sentiment input",
@@ -9456,6 +10065,8 @@ function renderOnePager() {
       ${onePagerExecutiveBriefHtml(player, taxonomy, validation, quality)}
 
       ${onePagerMarketContextHtml(player, taxonomy, quality, validation)}
+
+      ${onePagerInternalValidationHtml(player)}
 
       <section class="one-pager-numbered-grid">
         ${onePagerSectionHtml(
@@ -10603,6 +11214,138 @@ function renderValidationReadiness() {
   bindHandoffButtons(els.validationReadiness);
 }
 
+function renderInternalGapAudit() {
+  if (!els.internalGapAudit) return;
+  const priorityPlayers = players.filter((player) => player.key);
+  const playerProfiles = priorityPlayers
+    .map((player) => ({ player, profile: internalGapProfileFor(player), gate: internalGateSummaryFor(player) }))
+    .sort(
+      (a, b) =>
+        internalGapPriorityWeight(b.gate.profile.priority) - internalGapPriorityWeight(a.gate.profile.priority) ||
+        totalPriority(b.player) - totalPriority(a.player) ||
+        a.player.name.localeCompare(b.player.name)
+    );
+  const criticalAreas = internalGapAreas.filter((area) => area.priority === "Critical").length;
+  const owners = new Set(internalDataRequestPack.map((group) => group.owner)).size;
+  const requestCount = internalDataRequestPack.reduce((sum, group) => sum + group.asks.length, 0);
+  const gapRecordCount = players.filter((player) => internalGapAreasForPlayer(player).some((area) => area.priority === "Critical")).length;
+
+  els.internalGapAudit.innerHTML = `
+    <section class="internal-gap-panel">
+      <div class="internal-gap-hero">
+        <div>
+          <span class="section-kicker">Internal data gap audit</span>
+          <h3>Decision readiness still depends on Yousician inputs</h3>
+          <p>
+            Public evidence can describe the ecosystem. Internal monetization, retention, rights, relationship and user research data decide what Yousician should do next.
+          </p>
+        </div>
+        <div class="internal-gap-actions">
+          <button class="ghost-button" data-handoff-action="internal-request-pack" type="button">Download request pack</button>
+          <button class="ghost-button" data-handoff-action="live-template" type="button">Download override template</button>
+        </div>
+      </div>
+
+      <div class="internal-gap-metrics" aria-label="Internal data gap summary">
+        <article><strong>${criticalAreas}</strong><span>critical gate areas</span></article>
+        <article><strong>${owners}</strong><span>internal owner groups</span></article>
+        <article><strong>${requestCount}</strong><span>requested inputs</span></article>
+        <article><strong>${gapRecordCount}</strong><span>records with critical gates</span></article>
+      </div>
+
+      <div class="internal-gap-layout">
+        <article class="internal-gap-column">
+          <header>
+            <span>Gate areas</span>
+            <strong>What must be validated before hard claims</strong>
+          </header>
+          <div class="internal-gap-area-list">
+            ${internalGapAreas
+              .sort((a, b) => internalGapPriorityWeight(b.priority) - internalGapPriorityWeight(a.priority) || a.label.localeCompare(b.label))
+              .map(
+                (area) => `
+                  <details class="internal-gap-area" ${area.priority === "Critical" ? "open" : ""}>
+                    <summary>
+                      <span>${escapeHtml(area.label)}</span>
+                      <strong>${escapeHtml(area.priority)}</strong>
+                    </summary>
+                    <p>${escapeHtml(area.why)}</p>
+                    <ul>${area.missing.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+                    <small><strong>${escapeHtml(area.owner)}</strong> · ${escapeHtml(area.nextStep)}</small>
+                  </details>
+                `
+              )
+              .join("")}
+          </div>
+        </article>
+
+        <article class="internal-gap-column">
+          <header>
+            <span>Priority player checks</span>
+            <strong>The shortlist needs specific internal proof</strong>
+          </header>
+          <div class="internal-player-gap-list">
+            ${playerProfiles
+              .map(
+                ({ player, profile, gate }) => `
+                  <button class="internal-player-gap" type="button" data-player-id="${escapeHtml(player.id)}">
+                    <span>${logoMarkHtml(player, "internal-gap-logo")}<strong>${escapeHtml(player.name)}</strong></span>
+                    <em>${escapeHtml(gate.label)}</em>
+                    <small>${escapeHtml(profile.questions[0] || profile.nextStep)}</small>
+                  </button>
+                `
+              )
+              .join("")}
+          </div>
+        </article>
+      </div>
+
+      <div class="internal-request-grid">
+        <article class="internal-request-pack">
+          <header>
+            <span>Minimal data request pack</span>
+            <strong>Ask for only what changes a decision</strong>
+          </header>
+          <div class="internal-owner-grid">
+            ${internalDataRequestPack
+              .map(
+                (group) => `
+                  <details class="internal-owner-card">
+                    <summary>
+                      <span>${escapeHtml(group.owner)}</span>
+                      <strong>${group.asks.length}</strong>
+                    </summary>
+                    <ul>${group.asks.map((ask) => `<li>${escapeHtml(ask)}</li>`).join("")}</ul>
+                  </details>
+                `
+              )
+              .join("")}
+          </div>
+        </article>
+        <article class="claim-risk-rules">
+          <header>
+            <span>Claim risk rules</span>
+            <strong>What not to say yet</strong>
+          </header>
+          ${internalClaimRiskRules
+            .map(
+              (rule) => `
+                <div>
+                  <span>${escapeHtml(rule.label)}</span>
+                  <p>${escapeHtml(rule.rule)}</p>
+                  <small>${escapeHtml(rule.owner)}</small>
+                </div>
+              `
+            )
+            .join("")}
+        </article>
+      </div>
+    </section>
+  `;
+  bindHandoffButtons(els.internalGapAudit);
+  bindVisualPlayers(els.internalGapAudit);
+}
+
 function renderSourceVisuals() {
   if (!els.sourceVisuals) return;
   const sources = sourceLibrary();
@@ -11106,6 +11849,7 @@ function bindBackendOps() {
 function renderSources() {
   renderBackendOps();
   renderSourceStatus();
+  renderInternalGapAudit();
   renderSourceVisuals();
   renderValidationReadiness();
   renderEvidenceLibrary();
@@ -12544,12 +13288,25 @@ function downloadLiveOverrideTemplate() {
   );
 }
 
+function downloadInternalRequestPack() {
+  const header = ["owner", "requested_input", "priority", "source_type"];
+  downloadTextFile(
+    "yousician-internal-data-request-pack.csv",
+    "text/csv;charset=utf-8",
+    toCsv([header, ...internalRequestRows()]),
+    "Internal data request CSV exported."
+  );
+}
+
 function bindHandoffButtons(container) {
   container?.querySelectorAll("[data-handoff-action='relationship-template']").forEach((button) => {
     button.addEventListener("click", downloadRelationshipTemplate);
   });
   container?.querySelectorAll("[data-handoff-action='live-template']").forEach((button) => {
     button.addEventListener("click", downloadLiveOverrideTemplate);
+  });
+  container?.querySelectorAll("[data-handoff-action='internal-request-pack']").forEach((button) => {
+    button.addEventListener("click", downloadInternalRequestPack);
   });
 }
 
