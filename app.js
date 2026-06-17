@@ -5902,19 +5902,137 @@ function nodeOffsetsForCluster(count, clusterY, centerY) {
 function clusterPointPosition(index, total, layout) {
   if (total <= 1) return { x: layout.x, y: layout.y };
   const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+  const spread = clusterSpreadProfile(total);
   const rank = index + 1.15;
-  const radius = Math.sqrt(rank / total);
+  const radius = Math.min(1.08, Math.sqrt(rank / total) + spread.radialLift);
   const angle = index * goldenAngle + (layout.angle * Math.PI) / 180;
-  const spreadX = total > 10 ? 0.9 : 0.8;
-  const spreadY = total > 10 ? 0.84 : 0.76;
-  const x = layout.x + Math.cos(angle) * radius * layout.rx * spreadX;
-  const y = layout.y + Math.sin(angle) * radius * layout.ry * spreadY;
+  const x = layout.x + Math.cos(angle) * radius * layout.rx * spread.x;
+  const y = layout.y + Math.sin(angle) * radius * layout.ry * spread.y;
   return { x, y };
+}
+
+function clusterSpreadProfile(total) {
+  const density = Math.max(0, Math.min(1, (total - 8) / 16));
+  return {
+    x: 0.9 + density * 0.82,
+    y: 0.84 + density * 0.66,
+    ellipseX: 1 + density * 0.48,
+    ellipseY: 1 + density * 0.38,
+    gap: 5 + density * 6,
+    radialLift: density * 0.075,
+    iterations: 22 + Math.round(density * 22)
+  };
+}
+
+function clusterVisualSize(layout, total) {
+  if (total <= 1) return { rx: 82, ry: 56 };
+  const spread = clusterSpreadProfile(total);
+  return {
+    rx: Math.round(layout.rx * spread.ellipseX),
+    ry: Math.round(layout.ry * spread.ellipseY)
+  };
+}
+
+function clampMapNodePosition(item) {
+  const margin = item.radius + 14;
+  item.x = Math.max(margin, Math.min(1000 - margin, item.x));
+  item.y = Math.max(margin, Math.min(700 - margin, item.y));
+}
+
+function pullNodeIntoCluster(item, layout, profile, strength = 0.08) {
+  const maxX = Math.max(96, layout.rx * (profile.ellipseX + 0.38));
+  const maxY = Math.max(72, layout.ry * (profile.ellipseY + 0.32));
+  const dx = item.x - layout.x;
+  const dy = item.y - layout.y;
+  const norm = Math.max(1, Math.hypot(dx / maxX, dy / maxY));
+  if (norm > 1) {
+    item.x = layout.x + dx / norm;
+    item.y = layout.y + dy / norm;
+    return;
+  }
+  item.x += (layout.x - item.x) * strength;
+  item.y += (layout.y - item.y) * strength;
+}
+
+function pushNodePairsApart(items, minGap, weight = 1) {
+  for (let a = 0; a < items.length; a += 1) {
+    for (let b = a + 1; b < items.length; b += 1) {
+      const one = items[a];
+      const two = items[b];
+      const dx = two.x - one.x;
+      const dy = two.y - one.y;
+      const distance = Math.max(0.1, Math.hypot(dx, dy));
+      const target = one.radius + two.radius + minGap;
+      if (distance >= target) continue;
+      const push = ((target - distance) / 2) * weight;
+      const ux = dx / distance;
+      const uy = dy / distance;
+      one.x -= ux * push;
+      one.y -= uy * push;
+      two.x += ux * push;
+      two.y += uy * push;
+    }
+  }
+}
+
+function pushNodesAwayFromHub(items, center) {
+  items.forEach((item) => {
+    const dx = item.x - center.x;
+    const dy = item.y - center.y;
+    const distance = Math.max(0.1, Math.hypot(dx, dy));
+    const target = item.radius + 80;
+    if (distance >= target) return;
+    const push = target - distance;
+    item.x += (dx / distance) * push;
+    item.y += (dy / distance) * push;
+  });
+}
+
+function relaxClusterNodePositions(items, layout, center) {
+  if (!items.length) return;
+  const profile = clusterSpreadProfile(items.length);
+  for (let iteration = 0; iteration < profile.iterations; iteration += 1) {
+    pushNodePairsApart(items, profile.gap);
+    pushNodesAwayFromHub(items, center);
+    items.forEach((item) => {
+      pullNodeIntoCluster(item, layout, profile, 0.018);
+      clampMapNodePosition(item);
+    });
+  }
+}
+
+function relaxMapNodePositions(items, center) {
+  if (items.length <= 1) return;
+  for (let iteration = 0; iteration < 18; iteration += 1) {
+    pushNodePairsApart(items, 5, 0.72);
+    pushNodesAwayFromHub(items, center);
+    items.forEach((item) => {
+      const profile = clusterSpreadProfile(item.categoryPlayers.length);
+      pullNodeIntoCluster(item, item.layout, profile, 0.014);
+      clampMapNodePosition(item);
+    });
+  }
+}
+
+function isDenseFullMapView() {
+  return (
+    state.mapFocusMode === "all" &&
+    state.mapZoomMode === "full" &&
+    state.selectedCategory === "all" &&
+    state.selectedProductLens === "all" &&
+    state.minRelevance <= 1 &&
+    !state.query.trim()
+  );
 }
 
 function mapNodeRadius(player, focusScale = 1) {
   const radius = bubbleSizeRadius(player);
   const boostedRadius = Math.round(radius * focusScale);
+  if (isDenseFullMapView()) {
+    if (player.id === state.selectedPlayerId) return Math.min(24, boostedRadius + 3);
+    if (player.key) return Math.min(20, Math.max(15, boostedRadius));
+    return Math.min(14, Math.max(8, boostedRadius));
+  }
   if (player.id === state.selectedPlayerId) return Math.min(34, boostedRadius + Math.round(3 * focusScale));
   return Math.min(31, boostedRadius);
 }
@@ -6028,6 +6146,16 @@ function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center) {
         height: selectedNode.radius * 2 + 16
       }
     : null;
+  const avoidDenseNodeOverlap = visibleCount > 55 && focusScale <= 1.12;
+  const nodeBounds = avoidDenseNodeOverlap
+    ? nodeItems.map((item) => ({
+        id: item.player.id,
+        x: item.x - item.radius - 5,
+        y: item.y - item.radius - 5,
+        width: item.radius * 2 + 10,
+        height: item.radius * 2 + 10
+      }))
+    : [];
   const accepted = [];
   const plan = new Map();
   nodeItems
@@ -6038,7 +6166,11 @@ function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center) {
       const isSelected = item.player.id === state.selectedPlayerId;
       const overlapsLabel = accepted.some((rect) => rectsOverlap(label.rect, rect, focusScale >= 1.18 ? 12 : 8));
       const overlapsSelectedNode = selectedBounds && !isSelected && rectsOverlap(label.rect, selectedBounds, 8);
-      if (!isSelected && (overlapsLabel || overlapsSelectedNode)) return;
+      const overlapsNode =
+        avoidDenseNodeOverlap &&
+        !isSelected &&
+        nodeBounds.some((rect) => rect.id !== item.player.id && rectsOverlap(label.rect, rect, 3));
+      if (!isSelected && (overlapsLabel || overlapsSelectedNode || overlapsNode)) return;
       accepted.push(label.rect);
       plan.set(item.player.id, label);
     });
@@ -6071,9 +6203,10 @@ function renderMap() {
   });
   const nodeItems = [];
   byCategory.forEach(({ players: categoryPlayers, layout }) => {
+    const clusterItems = [];
     categoryPlayers.forEach((player, index) => {
       const point = clusterPointPosition(index, categoryPlayers.length, layout);
-      nodeItems.push({
+      const item = {
         player,
         x: point.x,
         y: point.y,
@@ -6082,9 +6215,13 @@ function renderMap() {
         categoryPlayers,
         layout,
         clusterX: layout.x
-      });
+      };
+      nodeItems.push(item);
+      clusterItems.push(item);
     });
+    relaxClusterNodePositions(clusterItems, layout, center);
   });
+  relaxMapNodePositions(nodeItems, center);
   const nodePositions = new Map(nodeItems.map((item) => [item.player.id, item]));
   const defaultBox = compactMap ? { x: 120, y: 42, width: 760, height: 610 } : { x: 0, y: 0, width: 1000, height: 700 };
   const viewBox = mapViewBoxFromNodes(nodeItems, basePlayers, filtered, compactMap);
@@ -6152,13 +6289,14 @@ function renderMap() {
 
   byCategory.forEach(({ category, players: categoryPlayers, hiddenCount, x, y, layout }) => {
     if (!categoryPlayers.length && state.selectedCategory !== "all") return;
+    const visualSize = clusterVisualSize(layout, categoryPlayers.length);
 
     const cluster = createSvg("g");
     const ellipse = createSvg("ellipse", {
       cx: x,
       cy: y,
-      rx: categoryPlayers.length > 1 ? layout.rx : 82,
-      ry: categoryPlayers.length > 1 ? layout.ry : 56,
+      rx: categoryPlayers.length > 1 ? visualSize.rx : 82,
+      ry: categoryPlayers.length > 1 ? visualSize.ry : 56,
       class: "map-cluster",
       fill: category.color,
       stroke: category.color,
@@ -6166,7 +6304,7 @@ function renderMap() {
     });
     cluster.appendChild(ellipse);
 
-    const textPositions = clusterTextPositions(layout, center);
+    const textPositions = clusterTextPositions({ ...layout, ...visualSize }, center);
     const clusterLabel = mapCategoryLabel(category);
     const clusterWidth = svgLabelWidth(clusterLabel, 88, 172);
     cluster.appendChild(
