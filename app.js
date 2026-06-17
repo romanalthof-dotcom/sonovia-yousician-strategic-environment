@@ -2709,7 +2709,7 @@ const sourceCards = [
   },
   {
     name: "Export layer",
-    use: "Snapshot PDFs, board slides, player one pagers, and research appendices.",
+    use: "Snapshot PDFs, board slides, player briefs, and research appendices.",
     cadence: "On demand",
     status: "Can be automated later"
   }
@@ -6876,7 +6876,7 @@ function renderProfile() {
       <h3>${executive ? (player.key ? "Key player profile" : "Executive profile") : "Next action"}</h3>
       <p>${
         executive
-          ? "Open the structured one pager for role, scale, confidence, Yousician relevance, and the decision this record supports."
+          ? "Open the structured player brief for role, scale, confidence, Yousician relevance, and the decision this record supports."
           : `${escapeHtml(nextAction(player))}. ${escapeHtml(player.recent)}`
       }</p>
       <div class="profile-actions">
@@ -7481,7 +7481,7 @@ function marketMonitorModel(filteredPlayers, keyPlayers) {
     {
       label: "Key players",
       value: keyPlayers.length,
-      note: "ranked for one pagers"
+      note: "ranked for player briefs"
     },
     {
       label: "AI / creation",
@@ -8109,7 +8109,7 @@ function renderKeyPlayers() {
                 <span class="badge">${escapeHtml(strategicRole(player))}</span>
                 <span class="badge">${escapeHtml(player.geography)}</span>
               </div>
-              <span class="player-card-link">Open one pager</span>
+              <span class="player-card-link">Open player brief</span>
             </div>
           </article>
         `
@@ -8121,7 +8121,7 @@ function renderKeyPlayers() {
       <div class="directory-head">
         <div>
           <span class="section-kicker">Priority profiles</span>
-          <h3>Key player one pager cards</h3>
+          <h3>Key player brief cards</h3>
         </div>
         <span>${keyPlayers.length} key players</span>
       </div>
@@ -8529,7 +8529,7 @@ function renderOnePager() {
         <div class="one-pager-template-brand">
           <span class="one-pager-template-icon">${escapeHtml(initials(player.name))}</span>
           <div>
-            <span class="one-pager-template-label">Strategic one pager</span>
+            <span class="one-pager-template-label">Strategic player brief</span>
             <h2>${escapeHtml(player.name)}</h2>
             <p>${escapeHtml(player.why)}</p>
           </div>
@@ -11832,7 +11832,7 @@ function bindEvents() {
   els.printOnePager.addEventListener("click", () => {
     switchView("one-pager");
     document.body.dataset.printTarget = "one-pager";
-    showToast("Opening print dialog for the selected one-pager.");
+    showToast("Opening print dialog for the selected player brief.");
     setTimeout(() => window.print(), 250);
   });
 
