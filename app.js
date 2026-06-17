@@ -2805,7 +2805,8 @@ const state = {
   mapFocusMode: defaultMapFocusMode,
   mapZoomMode: defaultMapZoomMode,
   mapRecordLimit: defaultMapRecordLimit,
-  bubbleSizeMode: defaultBubbleSizeMode
+  bubbleSizeMode: defaultBubbleSizeMode,
+  quickFocus: null
 };
 
 function isExecutiveMode() {
@@ -2905,6 +2906,11 @@ const databaseSegments = [
   { id: "actors", label: "Actors only", matches: (player) => !isSignalOnlyRecord(player) },
   { id: "claims", label: "Hypotheses", matches: (player) => claimIntegrityFor(player).hasHypothesis },
   { id: "source", label: "Open data fields", matches: (player) => hasCriticalEvidenceGap(player) },
+  {
+    id: "ready",
+    label: "Ready records",
+    matches: (player) => qualityProfile(player).score >= 68 && !hasCriticalEvidenceGap(player)
+  },
   { id: "appdata", label: "Live data queue", matches: (player) => requiresCredentialedData(player) },
   { id: "signals", label: "Signal sources", matches: (player) => isSignalOnlyRecord(player) },
   { id: "internal", label: "Internal needed", matches: (player) => Boolean(relationForPlayer(player)) },
@@ -5130,6 +5136,7 @@ function resetWorkspaceFilters() {
   state.mapZoomMode = defaultMapZoomMode;
   state.mapRecordLimit = defaultMapRecordLimit;
   state.bubbleSizeMode = defaultBubbleSizeMode;
+  state.quickFocus = null;
   if (els.searchInput) els.searchInput.value = "";
 }
 
@@ -5162,6 +5169,7 @@ function clearFilterById(filterId) {
   if (filterId === "mapZoom") state.mapZoomMode = defaultMapZoomMode;
   if (filterId === "mapLimit") state.mapRecordLimit = defaultMapRecordLimit;
   if (filterId === "bubbleSize") state.bubbleSizeMode = defaultBubbleSizeMode;
+  if (filterId === "quickFocus") state.quickFocus = null;
   if (filterId === "query" && els.searchInput) els.searchInput.value = "";
   markMapFilterChanged();
   if (state.view === "overview" && ["mapFocus", "mapZoom", "mapLimit", "bubbleSize"].includes(filterId)) {
@@ -5169,6 +5177,24 @@ function clearFilterById(filterId) {
     return;
   }
   renderAll();
+}
+
+function activeViewVisibleCount(basePlayers) {
+  if (state.view === "overview") return mapVisiblePlayers(basePlayers).length;
+  if (state.view === "database") return getDatabasePlayers().length;
+  if (state.view === "key-players") {
+    return monitorVisiblePlayers(basePlayers).filter((player) => player.key).length;
+  }
+  if (state.view === "relationships") return validationQueue().length;
+  if (state.view === "sources") return sourceLibrary().length;
+  return basePlayers.length;
+}
+
+function activeViewVisibleLabel() {
+  if (state.view === "overview") return "on map";
+  if (state.view === "sources") return "sources";
+  if (state.view === "relationships") return "checks";
+  return "records";
 }
 
 function renderActiveFilterStrip() {
@@ -5199,19 +5225,21 @@ function renderActiveFilterStrip() {
   if (state.bubbleSizeMode !== defaultBubbleSizeMode) {
     chips.push({ id: "bubbleSize", label: "Bubble size", value: bubbleSizeModeById(state.bubbleSizeMode).shortLabel });
   }
+  if (state.quickFocus) {
+    chips.push({ id: "quickFocus", label: "Focus", value: state.quickFocus });
+  }
   if (state.monitorSegment !== "all") {
     chips.push({ id: "monitorSegment", label: "Monitor", value: monitorSegmentById(state.monitorSegment).label });
   }
   if (state.monitorQuery.trim()) chips.push({ id: "monitorQuery", label: "Monitor search", value: state.monitorQuery.trim() });
   if (state.dbSegment !== "all") chips.push({ id: "database", label: "Database", value: databaseSegmentById(state.dbSegment).label });
 
-  const mapPlayers = mapVisiblePlayers(basePlayers);
-  const visibleCount = state.view === "overview" ? mapPlayers.length : basePlayers.length;
+  const visibleCount = activeViewVisibleCount(basePlayers);
   const activeCount = chips.length;
   els.activeFilterStrip.innerHTML = `
     <div class="filter-status-pill" aria-label="Current visible records">
       <strong>${visibleCount}</strong>
-      <span>${state.view === "overview" ? "on map" : "records"}</span>
+      <span>${activeViewVisibleLabel()}</span>
     </div>
     <div class="active-filter-chips">
       ${
@@ -6761,25 +6789,29 @@ function renderBriefReadiness() {
       label: "Ecosystem map",
       value: "Covered",
       note: `${categoryCount} groups, ${players.length} tracked records`,
-      state: "done"
+      state: "done",
+      action: "ecosystem-map"
     },
     {
       label: "Key players",
       value: `${keyCount} profiled`,
       note: "Priority players/clusters are covered with role and relevance",
-      state: "done"
+      state: "done",
+      action: "key-players"
     },
     {
       label: "Database",
       value: `${librarySources.length || "..."} sources`,
       note: "Structured player, signal, and source fields are available",
-      state: "done"
+      state: "done",
+      action: "database"
     },
     {
       label: "Guiding questions",
       value: "Answered",
       note: "The three guiding questions are surfaced before detail",
-      state: "done"
+      state: "done",
+      action: "guiding-questions"
     },
     {
       label: "Relationship space",
@@ -6787,13 +6819,15 @@ function renderBriefReadiness() {
       note: relationshipOverrideCount
         ? `${relationshipOverrideCount} internal relationship fields loaded`
         : "Internal status is intentionally not inferred externally",
-      state: "done"
+      state: "done",
+      action: "relationships"
     },
     {
       label: "Appfigures",
       value: credentialedRows ? `${credentialedRows} credentialed` : "Pending",
       note: `${liveDataQueue} app based records still require credentialed performance metrics`,
-      state: "partial"
+      state: "partial",
+      action: "appfigures"
     }
   ];
 
@@ -6809,11 +6843,11 @@ function renderBriefReadiness() {
       ${items
         .map(
           (item) => `
-            <article class="brief-status-item ${item.state}">
+            <button class="brief-status-item ${item.state}" type="button" data-dashboard-action="${escapeHtml(item.action)}">
               <span>${escapeHtml(item.label)}</span>
               <strong>${escapeHtml(item.value)}</strong>
               <small>${escapeHtml(item.note)}</small>
-            </article>
+            </button>
           `
         )
         .join("")}
@@ -7966,42 +8000,43 @@ function renderDatabaseStats() {
 
   const databaseStats = isExecutiveMode()
     ? [
-        ["Records in view", filtered.length, "after selected filters"],
-        ["Key players", keyCount, "priority profiles"],
-        ["Journey steps", journeyCategories.length, "agreed ecosystem structure"],
-        ["Linked sources", linkedSourceCount, sourceNote],
+        ["Records in view", filtered.length, "after selected filters", "tracked-records"],
+        ["Key players", keyCount, "priority profiles", "key-players"],
+        ["Journey steps", journeyCategories.length, "agreed ecosystem structure", "journey-steps"],
+        ["Linked sources", linkedSourceCount, sourceNote, "evidence-links"],
         [
           "Appfigures note",
           appfiguresRows ? `${appfiguresRows} credentialed` : "Pending",
-          `${credentialQueueCount} app based records require credentialed metrics`
+          `${credentialQueueCount} app based records require credentialed metrics`,
+          "appfigures"
         ],
-        ["Relationship space", "Prepared", "internal status not inferred externally"],
-        ["AI relevant", aiCount, "high AI signal records"],
-        ["Market signals", signalCount, "news, media, funding, awards"],
-        ["Evidence coverage", avgQuality, "linked source coverage"]
+        ["Relationship space", "Prepared", "internal status not inferred externally", "relationships"],
+        ["AI relevant", aiCount, "high AI signal records", "ai-relevant"],
+        ["Market signals", signalCount, "news, media, funding, awards", "market-signals"],
+        ["Evidence coverage", avgQuality, "linked source coverage", "source-confidence"]
       ]
     : [
-    ["Records in view", filtered.length, "after global filters"],
-    ["Key players", keyCount, "profile candidates"],
-    ["Linked sources", linkedSourceCount, sourceNote],
-    ["Link checked", verifiedLinkedCount, "URL health only"],
-    ["Claim caveats", filtered.filter((player) => claimIntegrityFor(player).hasHypothesis).length, "hypotheses visible"],
-    ["Completion gaps", backlog, gapNote],
-    ["Live data queue", credentialQueueCount, "credentials / reports"],
-    ["Signal sources", signalCount, "monitoring inputs"],
-    ["Internal checks", internalCheckCount, "relationship validation"],
-    ["AI relevant", aiCount, "high AI signal"],
-    ["Avg. evidence", avgQuality, avgNote]
+    ["Records in view", filtered.length, "after global filters", "tracked-records"],
+    ["Key players", keyCount, "profile candidates", "key-players"],
+    ["Linked sources", linkedSourceCount, sourceNote, "evidence-links"],
+    ["Link checked", verifiedLinkedCount, "URL health only", "evidence-links"],
+    ["Claim caveats", filtered.filter((player) => claimIntegrityFor(player).hasHypothesis).length, "hypotheses visible", "claim-caveats"],
+    ["Completion gaps", backlog, gapNote, "proof-debt"],
+    ["Live data queue", credentialQueueCount, "credentials / reports", "appfigures"],
+    ["Signal sources", signalCount, "monitoring inputs", "market-signals"],
+    ["Internal checks", internalCheckCount, "relationship validation", "relationships"],
+    ["AI relevant", aiCount, "high AI signal", "ai-relevant"],
+    ["Avg. evidence", avgQuality, avgNote, "source-confidence"]
   ];
 
   els.databaseStats.innerHTML = databaseStats
     .map(
-      ([label, value, note]) => `
-        <article class="database-stat">
+      ([label, value, note, action]) => `
+        <button class="database-stat" type="button" data-dashboard-action="${escapeHtml(action)}">
           <span>${escapeHtml(label)}</span>
           <strong>${escapeHtml(value)}</strong>
           <small>${escapeHtml(note)}</small>
-        </article>
+        </button>
       `
     )
     .join("");
@@ -8075,10 +8110,10 @@ function renderDatabaseVisuals(rows) {
         <p>Read from top left to top right: important records first need proof, then become usable evidence.</p>
       </div>
       <div class="database-visual-stats" aria-label="Evidence coverage summary">
-        <span><strong>${avgQuality}%</strong> avg source confidence</span>
-        <span><strong>${keyRecordCount}</strong> decision records</span>
-        <span><strong>${readyCount}</strong> ready for use</span>
-        <span><strong>${proofGapCount}</strong> proof debt</span>
+        <button type="button" data-dashboard-action="source-confidence"><strong>${avgQuality}%</strong> avg source confidence</button>
+        <button type="button" data-dashboard-action="key-players"><strong>${keyRecordCount}</strong> decision records</button>
+        <button type="button" data-dashboard-action="ready-records"><strong>${readyCount}</strong> ready for use</button>
+        <button type="button" data-dashboard-action="proof-debt"><strong>${proofGapCount}</strong> proof debt</button>
       </div>
       <div class="database-confidence-legend" aria-label="Source confidence legend">
         <span><i class="legend-ready"></i> usable evidence</span>
@@ -8108,7 +8143,7 @@ function renderDatabaseVisuals(rows) {
         ${categoryRows
           .map(
             ({ category, items, avgQuality, gapCount, pressure }) => `
-              <article class="category-proof-row" style="--cat:${category.color}; --quality:${avgQuality}; --pressure:${pressure}">
+              <button class="category-proof-row" type="button" data-dashboard-journey="${escapeHtml(category.id)}" style="--cat:${category.color}; --quality:${avgQuality}; --pressure:${pressure}">
                 <header>
                   <span>${escapeHtml(category.shortName || category.name)}</span>
                   <strong>${items.length}</strong>
@@ -8118,7 +8153,7 @@ function renderDatabaseVisuals(rows) {
                   <span title="Strategic pressure"><i></i></span>
                 </div>
                 <small>${avgQuality}% source confidence / ${gapCount} completion gap${gapCount === 1 ? "" : "s"}</small>
-              </article>
+              </button>
             `
           )
           .join("")}
@@ -9451,6 +9486,127 @@ function scrollActiveViewIntoPlace(view, options = {}) {
   if (options.focusSelected) {
     window.setTimeout(focusSelectedInCurrentView, 140);
   }
+}
+
+function setQuickFocus(label) {
+  state.quickFocus = label || null;
+}
+
+function revealDashboardTarget(selector, options = {}) {
+  window.setTimeout(() => {
+    const target = typeof selector === "string" ? document.querySelector(selector) : selector;
+    if (!target) return;
+    target.scrollIntoView({ block: options.block || "start", behavior: preferredScrollBehavior() });
+    if (options.flash !== false) flashElement(target);
+  }, options.delay ?? 260);
+}
+
+function focusDatabaseSegment(segment, options = {}) {
+  state.dbSegment = segment || "all";
+  state.dbSort = options.sort || state.dbSort || "priority";
+  setQuickFocus(options.focus || databaseSegmentById(state.dbSegment).label);
+  switchView("database", { scroll: false });
+  revealDashboardTarget(options.target || "#databaseView", { block: options.block || "start" });
+}
+
+function focusJourneyCategory(categoryId) {
+  const category = journeyCategoryById(categoryId);
+  if (!category) return;
+  state.selectedCategory = categoryId;
+  state.dbSegment = "all";
+  state.dbSort = "priority";
+  setQuickFocus(category.shortName || category.name);
+  markMapFilterChanged();
+  switchView("database", { scroll: false });
+  revealDashboardTarget("#databaseView", { block: "start" });
+  showToast(`${category.name} records are now visible.`);
+}
+
+function handleDashboardAction(action) {
+  if (!action) return;
+  const actionMap = {
+    "tracked-records": () => {
+      focusDatabaseSegment("all", { sort: "priority", focus: "All tracked records" });
+      showToast("Showing all tracked records in the database.");
+    },
+    "key-players": () => {
+      state.dbSegment = "all";
+      state.monitorSegment = "all";
+      setQuickFocus("Key players");
+      switchView("key-players", { scroll: false });
+      revealDashboardTarget("#keyPlayerVisuals", { block: "start" });
+      showToast("Showing the priority player set.");
+    },
+    "ai-relevant": () => {
+      focusDatabaseSegment("ai", { sort: "ai", focus: "AI relevant records" });
+      showToast("Showing AI relevant records.");
+    },
+    "evidence-links": () => {
+      state.dbSegment = "all";
+      setQuickFocus("Evidence links");
+      switchView("sources", { scroll: false });
+      revealDashboardTarget("#sourceVisuals", { block: "start" });
+      showToast("Opening the source evidence view.");
+    },
+    "ecosystem-map": () => {
+      state.dbSegment = "all";
+      setQuickFocus("Ecosystem map");
+      switchView("overview", { scroll: false });
+      renderOverviewMapWorkspace({ revealMap: true, flashSummary: true });
+      revealDashboardTarget(".map-panel", { block: "start", delay: 140 });
+      showToast("Showing the ecosystem map.");
+    },
+    "database": () => {
+      focusDatabaseSegment("all", { sort: "priority", focus: "Database" });
+      showToast("Opening the full database.");
+    },
+    "guiding-questions": () => {
+      state.dbSegment = "all";
+      setQuickFocus("Guiding questions");
+      switchView("overview", { scroll: false });
+      revealDashboardTarget(".executive-handoff", { block: "start" });
+      showToast("Showing the executive questions.");
+    },
+    "relationships": () => {
+      state.dbSegment = "all";
+      setQuickFocus("Relationships");
+      switchView("relationships", { scroll: false });
+      revealDashboardTarget("#relationshipsView", { block: "start" });
+      showToast("Opening relationship completion board.");
+    },
+    "appfigures": () => {
+      focusDatabaseSegment("appdata", { sort: "appdata", focus: "Appfigures queue" });
+      showToast("Showing records that still need credentialed app metrics.");
+    },
+    "journey-steps": () => {
+      state.dbSegment = "all";
+      setQuickFocus("Journey steps");
+      switchView("overview", { scroll: false });
+      revealDashboardTarget("#journeyBlueprint", { block: "center" });
+      showToast("Showing the journey structure.");
+    },
+    "market-signals": () => {
+      focusDatabaseSegment("signals", { sort: "momentum", focus: "Market signals" });
+      showToast("Showing market signal records.");
+    },
+    "source-confidence": () => {
+      focusDatabaseSegment("all", { sort: "evidence", focus: "Source confidence", target: "#databaseVisuals" });
+      showToast("Showing source confidence view.");
+    },
+    "claim-caveats": () => {
+      focusDatabaseSegment("claims", { sort: "source", focus: "Claim caveats" });
+      showToast("Showing records with claim caveats.");
+    },
+    "proof-debt": () => {
+      focusDatabaseSegment("source", { sort: "source", focus: "Proof debt" });
+      showToast("Showing records that still need proof.");
+    },
+    "ready-records": () => {
+      focusDatabaseSegment("ready", { sort: "evidence", focus: "Ready records" });
+      showToast("Showing records ready for use.");
+    }
+  };
+  actionMap[action]?.();
 }
 
 function scheduleMapRender() {
@@ -10818,6 +10974,20 @@ function bindEvents() {
   });
 
   document.addEventListener("click", (event) => {
+    const dashboardAction = event.target.closest("[data-dashboard-action]");
+    if (dashboardAction) {
+      event.preventDefault();
+      handleDashboardAction(dashboardAction.dataset.dashboardAction);
+      return;
+    }
+
+    const dashboardJourney = event.target.closest("[data-dashboard-journey]");
+    if (dashboardJourney) {
+      event.preventDefault();
+      focusJourneyCategory(dashboardJourney.dataset.dashboardJourney);
+      return;
+    }
+
     const printButton = event.target.closest("[data-export-print]");
     if (printButton) {
       event.preventDefault();
