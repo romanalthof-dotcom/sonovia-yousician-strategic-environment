@@ -2981,6 +2981,7 @@ const monitorSegments = [
   { id: "core", label: "Core market", matches: (player) => ["learning", "practice"].includes(player.category) },
   { id: "appdata", label: "App data needed", matches: (player) => requiresCredentialedData(player) },
   { id: "ai", label: "AI and creation", matches: (player) => player.aiScore >= 4 || ["ai", "creation"].includes(player.category) },
+  { id: "proof", label: "Proof gaps", matches: (player) => hasCriticalEvidenceGap(player) || qualityProfile(player).score < 68 },
   {
     id: "partners",
     label: "Partners",
@@ -5310,7 +5311,7 @@ function activeViewVisibleCount(basePlayers) {
   if (state.view === "overview") return mapVisiblePlayers(basePlayers).length;
   if (state.view === "database") return getDatabasePlayers().length;
   if (state.view === "key-players") {
-    return monitorVisiblePlayers(basePlayers).filter((player) => player.key).length;
+    return monitorVisiblePlayers(basePlayers).length;
   }
   if (state.view === "relationships") return validationQueue().length;
   if (state.view === "sources") return sourceLibrary().length;
@@ -5319,6 +5320,7 @@ function activeViewVisibleCount(basePlayers) {
 
 function activeViewVisibleLabel() {
   if (state.view === "overview") return "on map";
+  if (state.view === "key-players") return "in monitor";
   if (state.view === "sources") return "sources";
   if (state.view === "relationships") return "checks";
   return "records";
@@ -5384,7 +5386,13 @@ function renderActiveFilterStrip() {
                 `
               )
               .join("")
-          : `<span class="filter-chip-empty">${state.view === "overview" ? "Top 25 priority records" : "No active filters"}</span>`
+          : `<span class="filter-chip-empty">${
+              state.view === "overview"
+                ? "Top 25 priority records"
+                : state.view === "key-players"
+                  ? "All monitor records; key profiles highlighted"
+                  : "No active filters"
+            }</span>`
       }
     </div>
     <button class="filter-clear-all" data-filter-clear-all type="button" ${activeCount ? "" : "disabled"}>Clear all</button>
@@ -6694,14 +6702,6 @@ function renderMap() {
     fragment.appendChild(ringLabel);
   });
 
-  const arcHint = createSvg("g", { class: "map-arc-hint", "aria-hidden": "true" });
-  arcHint.appendChild(createSvg("rect", { x: 34, y: 36, width: 250, height: 34, rx: 10, class: "map-arc-hint-bg" }));
-  arcHint.appendChild(createSvg("path", { d: "M54 56 C72 39 102 39 122 56", class: "map-arc-hint-sample" }));
-  const arcHintText = createSvg("text", { x: 136, y: 58, class: "map-arc-hint-text" });
-  arcHintText.textContent = "Arcs show user journey steps";
-  arcHint.appendChild(arcHintText);
-  fragment.appendChild(arcHint);
-
   const arcLayer = createSvg("g", { class: "category-arc-layer" });
   fragment.appendChild(arcLayer);
   byCategory.forEach(({ category, layout }) => {
@@ -7479,6 +7479,201 @@ function renderMonitorCoverageMatrix(filteredPlayers, lanes) {
   `;
 }
 
+function percentOf(count, total) {
+  return Math.round((count / Math.max(1, total)) * 100);
+}
+
+function monitorTrendDefinitions() {
+  return [
+    {
+      id: "core-pressure",
+      title: "Core habit pressure",
+      label: "Direct habit competition",
+      color: "#00b884",
+      segment: "core",
+      matches: (player) => ["learning", "practice"].includes(player.category) || competitiveProximityScore(player) >= 4,
+      insight: "Closest to Yousician's learning, practice, song choice, and retention loop."
+    },
+    {
+      id: "ai-pressure",
+      title: "AI and creation pressure",
+      label: "Substitution or workflow shift",
+      color: "#6e5cff",
+      segment: "ai",
+      matches: (player) => player.aiScore >= 4 || ["ai", "creation"].includes(player.category),
+      insight: "AI native creation and assisted practice can change what beginners expect from music tools."
+    },
+    {
+      id: "app-gate",
+      title: "App performance gate",
+      label: "Credentialed data needed",
+      color: "#f59a23",
+      segment: "appdata",
+      matches: requiresCredentialedData,
+      insight: "Revenue, download, rank, review velocity, and country mix comparisons need Appfigures or traffic imports."
+    },
+    {
+      id: "proof-debt",
+      title: "Proof gaps",
+      label: "Not ready for board use",
+      color: "#ef5a4f",
+      segment: "proof",
+      matches: (player) => hasCriticalEvidenceGap(player) || qualityProfile(player).score < 68,
+      insight: "These records should not drive decisions until the source or confidence gap is closed."
+    },
+    {
+      id: "partner-surface",
+      title: "Partner surface",
+      label: "Potential distribution or bundle route",
+      color: "#ffb84d",
+      segment: "partners",
+      matches: (player) => relationForPlayer(player)?.type === "partners" || ["hardware", "education"].includes(player.category),
+      insight: "Hardware, schools, teachers, and channels can shape acquisition cost and trusted onboarding."
+    },
+    {
+      id: "market-signals",
+      title: "External market signals",
+      label: "Timing and capital context",
+      color: "#3da5d9",
+      segment: "signals",
+      matches: (player) => isSignalOnlyRecord(player) || player.momentum >= 5,
+      insight: "News, funding, awards, and market intelligence help decide when to deepen research."
+    }
+  ];
+}
+
+function renderTrendActors(players, limit = 3) {
+  const actors = [...players].sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name)).slice(0, limit);
+  if (!actors.length) return `<small>No current match</small>`;
+  return actors.map((player) => playerMiniButton(player, "data-monitor-player", 16)).join("");
+}
+
+function renderMonitorMetaTrends(filteredPlayers) {
+  const total = filteredPlayers.length;
+  return monitorTrendDefinitions()
+    .map((trend) => {
+      const matches = filteredPlayers.filter(trend.matches);
+      const percent = percentOf(matches.length, total);
+      return `
+        <article class="monitor-trend-card" style="--trend-color:${trend.color}">
+          <header>
+            <div>
+              <span>${escapeHtml(trend.label)}</span>
+              <strong>${escapeHtml(trend.title)}</strong>
+            </div>
+            <em>${matches.length}<small>${percent}%</small></em>
+          </header>
+          <p>${escapeHtml(trend.insight)}</p>
+          <span class="monitor-trend-meter" aria-hidden="true"><i style="--trend-score:${percent}"></i></span>
+          <div class="monitor-trend-actors">
+            ${renderTrendActors(matches)}
+          </div>
+          <button type="button" data-monitor-trend-segment="${escapeHtml(trend.segment)}">Show segment</button>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function monitorBenchmarkRows(filteredPlayers) {
+  const ranked = [...filteredPlayers].sort((a, b) => focusPlayerScore(b) - focusPlayerScore(a) || a.name.localeCompare(b.name));
+  const selected = filteredPlayers.find((player) => player.id === state.selectedPlayerId);
+  const rows = ranked.slice(0, 8);
+  if (selected && !rows.some((player) => player.id === selected.id)) {
+    rows[rows.length ? rows.length - 1 : 0] = selected;
+  }
+  return rows;
+}
+
+function monitorMetricCell(value, display = `${value}/5`, max = 5) {
+  const percent = max === 100 ? value : value * (100 / max);
+  return `
+    <td>
+      <span class="monitor-score-cell" style="--score:${clampNumber(percent, 0, 100)}">
+        <i></i>
+        <strong>${escapeHtml(display)}</strong>
+      </span>
+    </td>
+  `;
+}
+
+function renderMonitorBenchmark(filteredPlayers) {
+  const rows = monitorBenchmarkRows(filteredPlayers);
+  if (!rows.length) return emptyState("No records match the current monitor selection.");
+  return `
+    <div class="monitor-benchmark-table" aria-label="Direct player comparison">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Player</th>
+            <th scope="col">Yousician fit</th>
+            <th scope="col">Momentum</th>
+            <th scope="col">AI</th>
+            <th scope="col">Scale</th>
+            <th scope="col">Revenue proxy</th>
+            <th scope="col">Evidence</th>
+            <th scope="col">Next check</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows
+            .map((player) => {
+              const quality = qualityProfile(player);
+              return `
+                <tr class="${player.id === state.selectedPlayerId ? "is-selected" : ""}" style="--row-color:${colorFor(player)}">
+                  <th scope="row">
+                    <button type="button" data-monitor-player="${escapeHtml(player.id)}" title="${escapeHtml(player.name)}">
+                      <span>${escapeHtml(initials(player.name))}</span>
+                      <strong>${escapeHtml(player.name)}</strong>
+                      <small>${escapeHtml(strategicRole(player))}</small>
+                    </button>
+                  </th>
+                  ${monitorMetricCell(player.relevance)}
+                  ${monitorMetricCell(player.momentum)}
+                  ${monitorMetricCell(player.aiScore)}
+                  ${monitorMetricCell(businessSizeScore(player))}
+                  ${monitorMetricCell(revenueProxyScore(player))}
+                  ${monitorMetricCell(quality.score, `${quality.score}%`, 100)}
+                  <td><small>${escapeHtml(nextAction(player))}</small></td>
+                </tr>
+              `;
+            })
+            .join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderMonitorInsightReadout(filteredPlayers) {
+  const trendCounts = monitorTrendDefinitions()
+    .map((trend) => ({ ...trend, count: filteredPlayers.filter(trend.matches).length }))
+    .sort((a, b) => b.count - a.count);
+  const topTrend = trendCounts[0];
+  return `
+    <section class="monitor-insight-readout" aria-label="Market trend and comparison readout">
+      <div class="directory-head">
+        <div>
+          <span class="section-kicker">Market readout</span>
+          <h3>${topTrend ? `${topTrend.title} is the largest current signal cluster` : "Compare market pressure first"}</h3>
+        </div>
+        <span>${filteredPlayers.length} records compared</span>
+      </div>
+      <div class="monitor-meta-grid" aria-label="Meta trend clusters">
+        ${renderMonitorMetaTrends(filteredPlayers)}
+      </div>
+      <div class="monitor-compare-head">
+        <div>
+          <span class="section-kicker">Direct comparison</span>
+          <h3>Top records by current priority</h3>
+        </div>
+        <p>Scores are directional. Revenue, company size, and reach are proxies until credentialed or official figures are imported.</p>
+      </div>
+      ${renderMonitorBenchmark(filteredPlayers)}
+    </section>
+  `;
+}
+
 function monitoringActivityLanes() {
   return [
     {
@@ -7667,6 +7862,7 @@ function renderMarketMonitorOverview(filteredPlayers, keyPlayers) {
   const { kpis, lanes } = marketMonitorModel(filteredPlayers, keyPlayers);
 
   els.marketMonitorOverview.innerHTML = `
+    ${renderMonitorInsightReadout(filteredPlayers)}
     <section class="monitor-dashboard" aria-label="Market monitor coverage summary">
       <div class="monitor-kpis">
         ${kpis
@@ -7712,6 +7908,16 @@ function renderMarketMonitorOverview(filteredPlayers, keyPlayers) {
     ${renderMonitorFocusStrip(filteredPlayers)}
     ${renderMonitorCoverageMatrix(filteredPlayers, lanes)}
   `;
+  els.marketMonitorOverview.querySelectorAll("[data-monitor-trend-segment]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.monitorSegment = button.dataset.monitorTrendSegment;
+      renderKeyPlayers();
+      renderActiveFilterStrip();
+      const target = document.getElementById("marketMonitorOverview");
+      target?.scrollIntoView({ block: "start", behavior: preferredScrollBehavior() });
+      flashElement(target);
+    });
+  });
 }
 
 function renderMonitorControlBar(basePlayers, filteredPlayers, keyPlayers) {
@@ -7720,7 +7926,7 @@ function renderMonitorControlBar(basePlayers, filteredPlayers, keyPlayers) {
   const laneCount = monitoringActivityLanes().filter((lane) => filteredPlayers.some(lane.matches)).length;
   const activeSegment = monitorSegmentById(state.monitorSegment);
   const items = [
-    { target: "marketMonitorOverview", label: "Coverage", value: `${filteredPlayers.length}/${companyCount}` },
+    { target: "marketMonitorOverview", label: "Readout", value: `${filteredPlayers.length}/${companyCount}` },
     { target: "companyDirectory", label: "Companies", value: filteredPlayers.length },
     { target: "activityQueue", label: "Activity", value: laneCount },
     { target: "keyPlayerVisuals", label: "Priority", value: keyPlayers.length },
@@ -7776,6 +7982,7 @@ function renderMonitorControlBar(basePlayers, filteredPlayers, keyPlayers) {
   searchInput?.addEventListener("input", (event) => {
     state.monitorQuery = event.target.value;
     renderKeyPlayers();
+    renderActiveFilterStrip();
     window.requestAnimationFrame(() => {
       const nextInput = els.monitorControlBar.querySelector("[data-monitor-search]");
       if (!nextInput) return;
@@ -7787,6 +7994,7 @@ function renderMonitorControlBar(basePlayers, filteredPlayers, keyPlayers) {
     button.addEventListener("click", () => {
       state.monitorSegment = button.dataset.monitorSegment;
       renderKeyPlayers();
+      renderActiveFilterStrip();
       const target = document.getElementById("companyDirectory");
       target?.scrollIntoView({ block: "start", behavior: preferredScrollBehavior() });
       flashElement(target);
