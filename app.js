@@ -2697,7 +2697,7 @@ const sourceCards = [
   },
   {
     name: "Internal data gap audit",
-    use: "Decision-readiness checklist for monetization, retention, rights, catalog, relationship and user research gaps.",
+    use: "Decision readiness checklist for monetization, retention, rights, catalog, relationship and user research gaps.",
     cadence: "Before board or LST review",
     status: "Implemented as request pack and player validation gate"
   },
@@ -2796,7 +2796,7 @@ const internalGapAreas = [
     why: "Turns the market map into an actual prioritization model.",
     missing: [
       "Conversion, ARPPU, LTV and churn by country, platform and product",
-      "Plan mix, pricing, promotion, cohort retention and web or off-store funnel economics",
+      "Plan mix, pricing, promotion, cohort retention and web or off store funnel economics",
       "Yousician baseline used for competitor and partner comparisons"
     ],
     unsafe: "Do not rank revenue, downloads, growth, country mix or payback against competitors without this input.",
@@ -2837,11 +2837,11 @@ const internalGapAreas = [
     owner: "Product / Research",
     why: "Win/loss, switching and FTUX evidence decide whether a player is an actual threat or only a visible market actor.",
     missing: [
-      "Switching reasons, win/loss notes, overlap with Simply, Ultimate Guitar, Fender and other benchmarks",
+      "Switching reasons, won and lost comparison notes, overlap with Simply, Ultimate Guitar, Fender and other benchmarks",
       "Current FTUX findings, activation pain points, retention drivers and song choice behavior",
       "Parent, teacher and learner sentiment plus how sentiment changes over time"
     ],
-    unsafe: "Do not call a player a stronger or weaker competitor without observed user, product or win/loss evidence.",
+    unsafe: "Do not call a player a stronger or weaker competitor without observed user, product or won and lost comparison evidence.",
     nextStep: "Attach current Research and Product findings to the selected priority profiles."
   },
   {
@@ -2887,7 +2887,7 @@ const internalDataRequestPack = [
     owner: "Research",
     asks: [
       "Motivations, churn drivers, song choice behavior and practice habit findings",
-      "Competitor switching, win/loss and brand perception evidence",
+      "Competitor switching, won and lost comparisons, and brand perception evidence",
       "Parent, teacher and learner sentiment with time direction where available"
     ]
   },
@@ -2895,7 +2895,7 @@ const internalDataRequestPack = [
     owner: "Growth",
     asks: [
       "Conversion, ARPPU, LTV, churn, plan mix and pricing by country, platform and product",
-      "Web and off-store acquisition economics",
+      "Web and off store acquisition economics",
       "Appfigures identifiers and approved competitive app performance fields"
     ]
   },
@@ -2928,7 +2928,7 @@ const internalDataRequestPack = [
     asks: [
       "Metric definitions for retention, LTV, churn, conversion and revenue fields",
       "Source of truth tables or exports for live overrides",
-      "Coverage checks that flag which records are decision ready versus internal-only"
+      "Coverage checks that flag which records are decision ready versus internal only"
     ]
   },
   {
@@ -2959,7 +2959,7 @@ const internalClaimRiskRules = [
   },
   {
     label: "Competitive claims",
-    rule: "No stronger/weaker competitor conclusion without win/loss, switching, user overlap or product evidence.",
+    rule: "No stronger or weaker competitor conclusion without won and lost comparison, switching, user overlap or product evidence.",
     owner: "Product / Research"
   }
 ];
@@ -2974,7 +2974,7 @@ const playerInternalGapNotes = {
       "Which user research or support data explains switching between Simply and Yousician?"
     ],
     unsafe: ["Do not call Simply stronger or weaker on performance until Appfigures and internal funnel data are loaded."],
-    nextStep: "Attach FTUX, pricing, retention and win/loss evidence before board use."
+    nextStep: "Attach FTUX, pricing, retention and won and lost comparison evidence before board use."
   },
   "ultimate-guitar": {
     headline: "Validate song-practice overlap",
@@ -3007,7 +3007,7 @@ const playerInternalGapNotes = {
       "Which creation features increase retention or identity for Yousician users?"
     ],
     unsafe: ["Do not frame creation platforms as direct substitutes without user journey evidence."],
-    nextStep: "Link research on learner-to-creator transitions and AI safety review."
+    nextStep: "Link research on learner to creator transitions and AI safety review."
   },
   duolingo: {
     headline: "Validate learning mechanics transferability",
@@ -3026,7 +3026,7 @@ const playerInternalGapNotes = {
     questions: [
       "Is classroom or teacher-led engagement strategically relevant to Yousician now?",
       "Which teacher, school or group-learning signals exist in internal research?",
-      "Could game-based learning mechanics improve practice motivation without diluting the product?"
+      "Could game based learning mechanics improve practice motivation without diluting the product?"
     ],
     unsafe: ["Do not treat classroom reach as a priority unless Yousician confirms an education channel strategy."],
     nextStep: "Add teacher/channel research and decide whether Kahoot is benchmark, partner or watchlist."
@@ -4298,7 +4298,7 @@ function fallbackInternalGapProfile(player) {
         "Could this expand retention or sit outside the core mission?"
       ],
       unsafe: ["Do not call creator tools a direct threat without journey evidence."],
-      nextStep: "Add learner-to-creator research and AI safety review."
+      nextStep: "Add learner to creator research and AI safety review."
     },
     ai: {
       headline: "Validate AI risk and provenance",
