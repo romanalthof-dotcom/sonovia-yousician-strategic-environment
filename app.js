@@ -5077,8 +5077,12 @@ function renderFilters() {
       button.addEventListener("click", () => {
         state.selectedProductLens = button.dataset.productLens;
         markMapFilterChanged();
-        renderAll();
-        revealMapForFilteredView();
+        if (state.view === "overview") {
+          renderOverviewMapWorkspace({ includeFilters: true, refreshSecondary: true, revealMap: true });
+        } else {
+          renderAll();
+          revealMapForFilteredView();
+        }
       });
     });
   }
@@ -5119,8 +5123,12 @@ function renderFilters() {
     button.addEventListener("click", () => {
       state.selectedCategory = category.id;
       markMapFilterChanged();
-      renderAll();
-      revealMapForFilteredView();
+      if (state.view === "overview") {
+        renderOverviewMapWorkspace({ includeFilters: true, refreshSecondary: true, revealMap: true });
+      } else {
+        renderAll();
+        revealMapForFilteredView();
+      }
     });
     els.categoryFilters.appendChild(button);
   });
@@ -5173,6 +5181,10 @@ function clearFilterById(filterId) {
   if (filterId === "bubbleSize") state.bubbleSizeMode = defaultBubbleSizeMode;
   if (filterId === "query" && els.searchInput) els.searchInput.value = "";
   markMapFilterChanged();
+  if (state.view === "overview" && ["mapFocus", "mapZoom", "bubbleSize"].includes(filterId)) {
+    renderOverviewMapWorkspace({ revealMap: true, flashSummary: true });
+    return;
+  }
   renderAll();
 }
 
@@ -5233,6 +5245,10 @@ function renderActiveFilterStrip() {
   });
   els.activeFilterStrip.querySelector("[data-filter-clear-all]")?.addEventListener("click", () => {
     resetWorkspaceFilters();
+    if (state.view === "overview") {
+      renderOverviewMapWorkspace({ includeFilters: true, refreshSecondary: true, revealMap: true });
+      return;
+    }
     renderAll();
   });
 }
@@ -5284,8 +5300,12 @@ function renderJourneyBlueprint() {
       state.selectedCategory = state.selectedCategory === button.dataset.journeyStep ? "all" : button.dataset.journeyStep;
       markMapFilterChanged();
       ensureSelectedPlayerVisibleInMap();
-      renderAll();
-      revealMapForFilteredView();
+      if (state.view === "overview") {
+        renderOverviewMapWorkspace({ includeFilters: true, refreshSecondary: true, revealMap: true });
+      } else {
+        renderAll();
+        revealMapForFilteredView();
+      }
     });
   });
 }
@@ -5522,9 +5542,7 @@ function renderMapSummaryStrip() {
   els.mapSummaryStrip.querySelectorAll("[data-bubble-size]").forEach((button) => {
     button.addEventListener("click", () => {
       state.bubbleSizeMode = button.dataset.bubbleSize;
-      renderAll();
-      revealMapForFilteredView();
-      flashElement(els.mapSummaryStrip);
+      renderOverviewMapWorkspace({ revealMap: true, flashSummary: true });
     });
   });
   els.mapSummaryStrip.querySelectorAll("[data-map-zoom]").forEach((button) => {
@@ -5534,15 +5552,12 @@ function renderMapSummaryStrip() {
         state.mapFocusMode = "all";
       }
       state.mapZoomMode = nextZoomMode;
-      renderAll();
-      revealMapForFilteredView();
-      flashElement(els.mapSummaryStrip);
+      renderOverviewMapWorkspace({ revealMap: true, flashSummary: true });
     });
   });
   els.mapSummaryStrip.querySelector("[data-map-reset]")?.addEventListener("click", () => {
     resetWorkspaceFilters();
-    renderAll();
-    flashElement(els.mapSummaryStrip);
+    renderOverviewMapWorkspace({ includeFilters: true, refreshSecondary: true, revealMap: true, flashSummary: true });
   });
   els.mapSummaryStrip.querySelectorAll("[data-map-selected-action]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -5609,7 +5624,7 @@ function renderMapCompanyPicker() {
   els.mapCompanyPicker.querySelector("[data-map-full-view]")?.addEventListener("click", () => {
     state.mapFocusMode = "all";
     state.mapZoomMode = "full";
-    renderAll();
+    renderOverviewMapWorkspace({ revealMap: true, flashSummary: true });
   });
 }
 
@@ -9819,6 +9834,49 @@ function renderOverviewView() {
   renderPortfolioVisual();
 }
 
+function renderOverviewSecondaryContent() {
+  if (state.view !== "overview") return;
+  renderOverviewMonitorSnapshot();
+  renderCategoryLandscape();
+  renderBriefReadiness();
+  renderInsights();
+  renderStrategicImplications();
+  renderPortfolioVisual();
+  scheduleTextDashNormalization(activeViewElement());
+}
+
+function scheduleOverviewSecondaryContent() {
+  if (state.view !== "overview") return;
+  window.clearTimeout(scheduleOverviewSecondaryContent.timer);
+  scheduleOverviewSecondaryContent.timer = window.setTimeout(() => {
+    scheduleOverviewSecondaryContent.timer = null;
+    renderOverviewSecondaryContent();
+  }, 620);
+}
+
+function renderOverviewMapWorkspace(options = {}) {
+  if (state.view !== "overview") {
+    renderAll();
+    return;
+  }
+
+  ensureSelectedPlayerVisibleInMap();
+  if (options.includeFilters) renderFilters();
+  renderActiveFilterStrip();
+  renderJourneyBlueprint();
+  renderMapSummaryStrip();
+  renderMapCompanyPicker();
+  renderProfile();
+  syncInteractionState();
+  refreshLucideIcons();
+  scheduleTextDashNormalization(activeViewElement());
+  scheduleMapRender();
+
+  if (options.refreshSecondary) scheduleOverviewSecondaryContent();
+  if (options.revealMap) window.requestAnimationFrame(revealMapForFilteredView);
+  if (options.flashSummary) window.requestAnimationFrame(() => flashElement(els.mapSummaryStrip));
+}
+
 function renderActiveView() {
   if (state.view === "overview") {
     renderOverviewView();
@@ -10308,7 +10366,11 @@ function bindEvents() {
     state.query = "";
     els.searchInput.value = "";
     markMapFilterChanged();
-    renderAll();
+    if (state.view === "overview") {
+      renderOverviewMapWorkspace({ includeFilters: true, refreshSecondary: true, revealMap: true });
+    } else {
+      renderAll();
+    }
     els.searchInput.focus();
   });
 
@@ -10322,6 +10384,10 @@ function bindEvents() {
 
   els.clearFilters.addEventListener("click", () => {
     resetWorkspaceFilters();
+    if (state.view === "overview") {
+      renderOverviewMapWorkspace({ includeFilters: true, refreshSecondary: true, revealMap: true });
+      return;
+    }
     renderAll();
   });
 
