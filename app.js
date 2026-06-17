@@ -6433,7 +6433,7 @@ function mapNodeCollisionRadius(player, visibleRadius, focusScale = 1, visibleCo
 }
 
 function shouldLabelMapNode(player, categoryPlayers, index, layout, visibleCount = Infinity, focusScale = 1) {
-  if (player.id === state.selectedPlayerId) return !(isDenseFullMapView() && visibleCount > 60);
+  if (player.id === state.selectedPlayerId) return true;
   if (focusScale >= 1.35 && visibleCount <= 16) return player.key || player.relevance >= 4;
   if (focusScale >= 1.18 && visibleCount <= 28 && (player.key || player.relevance >= 5 || player.aiScore >= 5)) return true;
   if (visibleCount <= 8) return player.key || player.relevance >= 4 || index < 2;
@@ -6502,7 +6502,59 @@ function clampNumber(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
 
-function mapLabelCandidate(item, visibleCount, focusScale, center) {
+function mapLabelLeaderLine(item, rect) {
+  const cardCenterX = rect.x + rect.width / 2;
+  const cardCenterY = rect.y + rect.height / 2;
+  const endX = clampNumber(item.x, rect.x, rect.x + rect.width);
+  const endY = clampNumber(item.y, rect.y, rect.y + rect.height);
+  const dx = endX - item.x;
+  const dy = endY - item.y;
+  const distance = Math.hypot(dx, dy);
+  if (distance < item.radius + 9) return null;
+  const edgeX = item.x + (dx / distance) * (item.radius + 4);
+  const edgeY = item.y + (dy / distance) * (item.radius + 4);
+  return {
+    x1: Math.round(edgeX * 10) / 10,
+    y1: Math.round(edgeY * 10) / 10,
+    x2: Math.round((endX || cardCenterX) * 10) / 10,
+    y2: Math.round((endY || cardCenterY) * 10) / 10
+  };
+}
+
+function mapLabelPositions(item, width, height, scale, center) {
+  const { player, x, y, clusterX } = item;
+  const isSelected = player.id === state.selectedPlayerId;
+  const preferredSide = isSelected ? (x >= center.x ? 1 : -1) : x >= clusterX ? 1 : -1;
+  const otherSide = preferredSide * -1;
+  const gap = Math.round(9 * scale);
+  const verticalGap = Math.round(8 * scale);
+  const radius = item.radius;
+  const horizontal = (side, yOffset = 0) => ({
+    x: side > 0 ? x + radius + gap : x - radius - gap - width,
+    y: y - height / 2 + yOffset
+  });
+  const centered = (above = false) => ({
+    x: x - width / 2,
+    y: above ? y - radius - verticalGap - height : y + radius + verticalGap
+  });
+  const diagonal = (side, lower = true) => ({
+    x: side > 0 ? x + radius + gap : x - radius - gap - width,
+    y: y + (lower ? radius * 0.42 : -radius * 0.42) - height / 2
+  });
+  const lowerFirst = y < center.y;
+  return [
+    horizontal(preferredSide),
+    horizontal(otherSide),
+    centered(lowerFirst ? false : true),
+    centered(lowerFirst ? true : false),
+    diagonal(preferredSide, lowerFirst),
+    diagonal(preferredSide, !lowerFirst),
+    diagonal(otherSide, lowerFirst),
+    diagonal(otherSide, !lowerFirst)
+  ];
+}
+
+function mapLabelCandidates(item, visibleCount, focusScale, center) {
   const { player, categoryPlayers, index, layout, x, y, clusterX } = item;
   if (!shouldLabelMapNode(player, categoryPlayers, index, layout, visibleCount, focusScale)) return null;
   const isSelected = player.id === state.selectedPlayerId;
@@ -6510,35 +6562,50 @@ function mapLabelCandidate(item, visibleCount, focusScale, center) {
   const labelFontSize = Math.min(isSelected ? 15.2 : 13.8, 10.4 * focusScale);
   const scale = Math.min(focusScale, 1.42);
   const badgeHeight = Math.round((isSelected ? 30 : 18) * scale);
+  const showSubLabel = isSelected && focusScale < 1.18;
+  const cardHeight = badgeHeight + (showSubLabel ? Math.round(15 * Math.min(focusScale, 1.35)) : 0);
   const badgeWidth = svgLabelWidth(
     labelText,
     Math.round((player.key || isSelected ? 70 : 56) * scale),
     Math.round((isSelected ? 164 : 132) * scale),
     scale
   );
-  const side = isSelected ? (x >= center.x ? 1 : -1) : x >= clusterX ? 1 : -1;
-  const cardGap = Math.round(8 * scale);
-  const cardX = clampNumber(side > 0 ? x + item.radius + cardGap : x - item.radius - cardGap - badgeWidth, 26, 974 - badgeWidth);
-  const cardY = clampNumber(y - badgeHeight / 2, 30, 670 - badgeHeight);
-  const rect = {
-    x: cardX,
-    y: cardY,
-    width: badgeWidth,
-    height: badgeHeight + (isSelected && focusScale < 1.18 ? 15 : 0)
-  };
-  return {
-    badgeHeight,
-    badgeWidth,
-    cardX,
-    cardY,
-    labelFontSize,
-    labelText,
-    priority: mapLabelPriority(player),
-    rect,
-    showSubLabel: isSelected && focusScale < 1.18,
-    textX: cardX + badgeWidth / 2,
-    textY: cardY + badgeHeight / 2 + labelFontSize * 0.34
-  };
+  const positions = mapLabelPositions(item, badgeWidth, cardHeight, scale, center);
+  const seen = new Set();
+  return positions
+    .map((position, rank) => {
+      const cardX = clampNumber(position.x, 24, 976 - badgeWidth);
+      const cardY = clampNumber(position.y, 24, 676 - cardHeight);
+      const key = `${Math.round(cardX)}:${Math.round(cardY)}`;
+      if (seen.has(key)) return null;
+      seen.add(key);
+      const rect = {
+        x: cardX,
+        y: cardY,
+        width: badgeWidth,
+        height: cardHeight
+      };
+      return {
+        badgeHeight,
+        badgeWidth,
+        cardHeight,
+        cardX,
+        cardY,
+        labelFontSize,
+        labelText,
+        leader: mapLabelLeaderLine(item, rect),
+        priority: mapLabelPriority(player) - rank * 3,
+        rect,
+        showSubLabel,
+        textX: cardX + badgeWidth / 2,
+        textY: cardY + badgeHeight / 2 + labelFontSize * 0.34
+      };
+    })
+    .filter(Boolean);
+}
+
+function mapLabelCandidate(item, visibleCount, focusScale, center) {
+  return mapLabelCandidates(item, visibleCount, focusScale, center)?.[0] || null;
 }
 
 function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center) {
@@ -6564,17 +6631,21 @@ function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center) {
   const accepted = [];
   const plan = new Map();
   nodeItems
-    .map((item) => ({ item, label: mapLabelCandidate(item, visibleCount, focusScale, center) }))
-    .filter(({ label }) => label)
-    .sort((a, b) => b.label.priority - a.label.priority)
-    .forEach(({ item, label }) => {
+    .map((item) => ({ item, labels: mapLabelCandidates(item, visibleCount, focusScale, center) }))
+    .filter(({ labels }) => labels?.length)
+    .sort((a, b) => b.labels[0].priority - a.labels[0].priority)
+    .forEach(({ item, labels }) => {
       const isSelected = item.player.id === state.selectedPlayerId;
-      const overlapsLabel = accepted.some((rect) => rectsOverlap(label.rect, rect, focusScale >= 1.18 ? 12 : 8));
-      const overlapsSelectedNode = selectedBounds && !isSelected && rectsOverlap(label.rect, selectedBounds, 8);
-      const overlapsNode =
-        !isSelected &&
-        nodeBounds.some((rect) => rect.id !== item.player.id && rectsOverlap(label.rect, rect, focusScale >= 1.18 ? 4 : 2));
-      if (!isSelected && (overlapsLabel || overlapsSelectedNode || overlapsNode)) return;
+      const chosen = labels.find((label) => {
+        const overlapsLabel = accepted.some((rect) => rectsOverlap(label.rect, rect, focusScale >= 1.18 ? 12 : 8));
+        const overlapsSelectedNode = selectedBounds && !isSelected && rectsOverlap(label.rect, selectedBounds, 8);
+        const overlapsNode =
+          !isSelected &&
+          nodeBounds.some((rect) => rect.id !== item.player.id && rectsOverlap(label.rect, rect, focusScale >= 1.18 ? 4 : 2));
+        return !overlapsLabel && !overlapsSelectedNode && !overlapsNode;
+      }) || (isSelected ? labels[0] : null);
+      if (!chosen) return;
+      const label = chosen;
       accepted.push(label.rect);
       plan.set(item.player.id, label);
     });
@@ -6623,7 +6694,8 @@ function appendMapClusterLabel(layer, { category, categoryPlayers, contextPlayer
       height: 39,
       rx: 10,
       class: "cluster-label-card",
-      fill: category.color
+      fill: category.color,
+      style: `--cluster-color:${category.color}`
     })
   );
   const label = createSvg("text", {
@@ -6858,16 +6930,29 @@ function renderMap() {
       }
       const labelInfo = labelPlan.get(player.id);
       if (labelInfo) {
-        const { badgeHeight, badgeWidth, cardX, cardY, labelFontSize, labelText, textX, textY } = labelInfo;
+        const { badgeHeight, badgeWidth, cardHeight, cardX, cardY, labelFontSize, labelText, textX, textY } = labelInfo;
+        if (labelInfo.leader) {
+          node.appendChild(
+            createSvg("line", {
+              x1: labelInfo.leader.x1,
+              y1: labelInfo.leader.y1,
+              x2: labelInfo.leader.x2,
+              y2: labelInfo.leader.y2,
+              class: `node-label-link ${player.key || isSelected ? "is-key" : "is-context"}`,
+              style: `--label-color:${journeyColorFor(player)}`
+            })
+          );
+        }
         node.appendChild(
           createSvg("rect", {
             x: cardX,
             y: cardY,
             width: badgeWidth,
-            height: badgeHeight,
+            height: cardHeight || badgeHeight,
             rx: 7,
             class: `node-label-card ${player.key || isSelected ? "is-key" : "is-context"}`,
-            fill: journeyColorFor(player)
+            fill: journeyColorFor(player),
+            style: `--label-color:${journeyColorFor(player)}`
           })
         );
         const name = createSvg("text", {
