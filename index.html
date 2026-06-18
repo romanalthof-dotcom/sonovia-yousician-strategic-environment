@@ -37,7 +37,7 @@
     />
     <meta name="theme-color" content="#f7fbf7" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='28' cy='28' r='18' fill='none' stroke='%2300d292' stroke-width='10'/%3E%3Cpath d='M42 42l14 14' stroke='%231b1d1f' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="./styles.css?v=20260618-yousician-looker-v72" />
+    <link rel="stylesheet" href="./styles.css?v=20260618-map-filters-v73" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
   </head>
   <body data-view="overview" data-mode="executive">
@@ -219,6 +219,39 @@
             </div>
             <div class="journey-blueprint" id="journeyBlueprint" aria-label="Music journey stages"></div>
             <div class="map-summary-strip" id="mapSummaryStrip" aria-label="Visible map coverage"></div>
+            <details class="side-panel research-drawer map-control-drawer">
+              <summary>
+                <span>
+                  <strong>Adjust visible map</strong>
+                  <small>Filter while the map stays in view</small>
+                </span>
+                <span class="drawer-indicator">Show</span>
+              </summary>
+              <div class="map-adjust-body">
+                <div class="panel-header">
+                  <h2>Map controls</h2>
+                  <button class="ghost-button" id="clearFilters" type="button">Clear</button>
+                </div>
+                <div class="product-lens" aria-label="Product lens">
+                  <span>Product lens</span>
+                  <div class="product-lens-options" id="productLensFilters"></div>
+                  <div class="product-lens-research" id="productLensResearchNote"></div>
+                </div>
+                <div class="filter-group" id="categoryFilters"></div>
+                <div class="score-filter">
+                  <label for="priorityRange">Minimum relevance</label>
+                  <input id="priorityRange" type="range" min="1" max="5" value="1" />
+                  <span id="priorityValue">1+</span>
+                </div>
+                <div class="source-box">
+                  <span class="status-dot"></span>
+                  <div>
+                    <strong>Research mode</strong>
+                    <p>Seeded structure. Live sources can be attached without changing the UI.</p>
+                  </div>
+                </div>
+              </div>
+            </details>
             <div class="map-workbench">
               <div class="map-wrap">
                 <svg id="ecosystemMap" role="img" aria-label="Yousician ecosystem map"></svg>
@@ -281,38 +314,6 @@
           </section>
 
           <section class="brief-readiness-panel" id="briefReadiness" aria-label="Brief readiness"></section>
-
-          <details class="side-panel research-drawer">
-            <summary>
-              <span>
-                <strong>Filters and source checks</strong>
-                <small>Optional cuts for product lens, relevance and research mode</small>
-              </span>
-              <span class="drawer-indicator">Show</span>
-            </summary>
-            <div class="panel-header">
-              <h2>Adjust the map</h2>
-              <button class="ghost-button" id="clearFilters" type="button">Clear</button>
-            </div>
-            <div class="product-lens" aria-label="Product lens">
-              <span>Product lens</span>
-              <div class="product-lens-options" id="productLensFilters"></div>
-              <div class="product-lens-research" id="productLensResearchNote"></div>
-            </div>
-            <div class="filter-group" id="categoryFilters"></div>
-            <div class="score-filter">
-              <label for="priorityRange">Minimum relevance</label>
-              <input id="priorityRange" type="range" min="1" max="5" value="1" />
-              <span id="priorityValue">1+</span>
-            </div>
-            <div class="source-box">
-              <span class="status-dot"></span>
-              <div>
-                <strong>Research mode</strong>
-                <p>Seeded structure. Live sources can be attached without changing the UI.</p>
-              </div>
-            </div>
-          </details>
 
           <details class="optional-drawer analysis-drawer">
             <summary>
@@ -702,6 +703,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js?v=20260618-yousician-looker-v72"></script>
+    <script src="./app.js?v=20260618-map-filters-v73"></script>
   </body>
 </html>
