@@ -1,11 +1,11 @@
 {
   "status": {
-    "label": "Public evidence library expanded with close Yousician adjacencies",
+    "label": "Evidence library refreshed with close-adjacency source posture",
     "lastChecked": "2026-06-18",
-    "method": "Added closer music learning, practice utility, repertoire, rights, school assessment, beginner hardware and social singing players with official product, app and company sources. Appfigures, Similarweb and Yousician internal relationship data remain explicit gated layers.",
+    "method": "Public source library now includes corrected Yokee Music, App Store and Google Play posture for Piano Academy plus explicit source states for close Yousician adjacencies.",
     "caveat": "Public sources validate existence, product positioning, filings, legal/industry signals and selected ownership/product claims. They still do not prove app revenue, downloads, paid conversion, internal relationships or every strategic rating unless those credentialed fields are imported separately.",
-    "version": "source-coverage-v5",
-    "lastUpdated": "2026-06-18T12:00:00Z",
+    "version": "source-coverage-v7",
+    "lastUpdated": "2026-06-18T13:05:00Z",
     "appfiguresPolicy": "Appfigures metrics remain pending unless populated from a credentialed export; public source coverage must not be used as app revenue proof.",
     "relationshipPolicy": "Internal relationship status remains a Yousician completion field and is not inferred from public sources."
   },
@@ -3511,20 +3511,6 @@
       "used_by_player_names": "Coach Guitar"
     },
     {
-      "source_id": "piano_academy_home",
-      "title": "Piano Academy official site",
-      "type": "Official product",
-      "tier": "High",
-      "url": "https://www.pianoacademy.app/",
-      "scope": "Piano Academy learning app positioning and product claim surface",
-      "access_status": "verified",
-      "last_url_check": "2026-06-18",
-      "last_http_status": "200",
-      "quality_note": "Automated URL check passed on 2026-06-18.",
-      "used_by_player_ids": "piano-academy",
-      "used_by_player_names": "Piano Academy"
-    },
-    {
       "source_id": "smule_google_play",
       "title": "Smule Google Play listing",
       "type": "App store",
@@ -3579,6 +3565,62 @@
       "quality_note": "Automated URL check passed on 2026-06-18.",
       "used_by_player_ids": "tonalenergy",
       "used_by_player_names": "TonalEnergy"
+    },
+    {
+      "source_id": "piano_academy_yokee_landing",
+      "title": "Piano Academy by Yokee Music landing page",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://yokeemusic.com/pa_lp_funandeasy_couple/",
+      "scope": "Piano Academy app positioning, step-by-step lessons, songs and beginner-to-advanced piano learning claims",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Official Yokee Music landing page found and linked on 2026-06-18.",
+      "used_by_player_ids": "piano-academy",
+      "used_by_player_names": "Piano Academy"
+    },
+    {
+      "source_id": "yokee_music_apps",
+      "title": "Yokee Music app portfolio",
+      "type": "Official company",
+      "tier": "High",
+      "url": "https://yokeemusic.com/apps/",
+      "scope": "Yokee Music app portfolio and published app family context",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Official Yokee Music apps page found and linked on 2026-06-18.",
+      "used_by_player_ids": "piano-academy",
+      "used_by_player_names": "Piano Academy"
+    },
+    {
+      "source_id": "piano_academy_app_store",
+      "title": "Piano Academy by Yokee Music App Store listing",
+      "type": "App store",
+      "tier": "Medium",
+      "url": "https://apps.apple.com/us/app/piano-academy-by-yokee-music/id1390574671",
+      "scope": "iOS app listing for Piano Academy by Yokee Music, including app positioning and platform metadata",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Apple App Store listing found and linked on 2026-06-18.",
+      "used_by_player_ids": "piano-academy",
+      "used_by_player_names": "Piano Academy"
+    },
+    {
+      "source_id": "piano_academy_google_play",
+      "title": "Piano Academy Google Play listing",
+      "type": "App store",
+      "tier": "Medium",
+      "url": "https://play.google.com/store/apps/details?hl=en_US&id=com.yokee.piano.keyboard",
+      "scope": "Android app listing for Piano Academy by Yokee Music, including app positioning and platform metadata",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Google Play listing found and linked on 2026-06-18.",
+      "used_by_player_ids": "piano-academy",
+      "used_by_player_names": "Piano Academy"
     }
   ],
   "evidenceByPlayer": {
@@ -4925,13 +4967,16 @@
       ]
     },
     "piano-academy": {
-      "summary": "Piano Academy is supported by its official product site. It is included as a direct piano learning app benchmark, but needs confirmed App Store, Google Play and performance enrichment before hard ranking claims.",
+      "summary": "Piano Academy is now backed by Yokee Music product, Yokee app portfolio, App Store and Google Play sources. Evidence validates piano lessons, song practice and app-store presence; hard ranking, revenue and retention still require credentialed app data.",
       "sourceIds": [
-        "piano_academy_home"
+        "piano_academy_yokee_landing",
+        "yokee_music_apps",
+        "piano_academy_app_store",
+        "piano_academy_google_play"
       ],
       "openQuestions": [
-        "Add verified App Store and Google Play source IDs",
-        "Import Appfigures metrics before citing downloads, revenue or rank"
+        "Import Appfigures metrics before citing downloads, revenue, rank or country mix",
+        "Compare onboarding, song practice and feedback mechanics against Yousician and Simply Piano"
       ]
     },
     "smule": {
@@ -4951,9 +4996,9 @@
     "keyPlayers": 5,
     "relationshipStatusDefault": "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     "appfiguresStatusDefault": "Pending credentialed Appfigures export",
-    "sourceLibraryCount": 255,
-    "verifiedSourceCount": 239,
-    "highTierSourceCount": 165,
+    "sourceLibraryCount": 258,
+    "verifiedSourceCount": 242,
+    "highTierSourceCount": 166,
     "unresolvedSourceReferences": 0,
     "lastEvidencePass": "2026-06-18"
   }

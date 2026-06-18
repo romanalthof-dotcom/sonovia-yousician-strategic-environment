@@ -2698,7 +2698,7 @@ const players = [
     relevance: 4,
     momentum: 3,
     aiScore: 3,
-    sourceStatus: "Official product source linked; App Store and Google Play sources still need confirmed source IDs before performance metrics are imported.",
+    sourceStatus: "Official Yokee Music, App Store and Google Play sources linked; downloads, revenue, rank and country mix still require credentialed Appfigures data.",
     relationship: "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     key: false,
     recent: "Track app ranking, pricing, feedback claims, catalog updates and family learning positioning.",
@@ -5138,7 +5138,7 @@ const logoDomainOverrides = {
   "cifra-club": "cifraclub.com.br",
   loog: "loogguitars.com",
   "coach-guitar": "coachguitar.com",
-  "piano-academy": "pianoacademy.app",
+  "piano-academy": "yokeemusic.com",
   smule: "smule.com",
   "rocksmith-plus": "ubisoft.com",
   "disney": "disney.com",
@@ -6081,6 +6081,20 @@ function sourceUrgency(player) {
   const quality = qualityProfile(player);
   return player.relevance * 3 + player.momentum * 2 + player.aiScore * 2 + quality.gaps.length * 4 + (player.key ? 6 : 0);
 }
+
+const refreshedSourcePostureIds = [
+  "muse-group",
+  "hal-leonard",
+  "musicnotes",
+  "makemusic-cloud",
+  "tonalenergy",
+  "soundbrenner",
+  "cifra-club",
+  "loog",
+  "coach-guitar",
+  "piano-academy",
+  "smule"
+];
 
 function totalPriority(player) {
   return player.relevance * 4 + player.momentum * 3 + player.aiScore * 3 + (player.key ? 7 : 0);
@@ -12119,6 +12133,19 @@ function renderEvidenceLibrary() {
   const authCount = sources.filter((source) => sourceAccessStatus(source) === "auth-required").length;
   const manualCount = sources.filter((source) => ["access-restricted", "timeout"].includes(sourceAccessStatus(source))).length;
   const repairCount = sources.filter((source) => sourceAccessStatus(source) === "needs-replacement").length;
+  const refreshedPostureRows = refreshedSourcePostureIds
+    .map((id) => players.find((player) => player.id === id))
+    .filter(Boolean)
+    .map((player) => {
+      const quality = qualityProfile(player);
+      const coverage = quality.coverage;
+      const nextGate =
+        sourceNeeds(player)[0] ||
+        coverage.gatedQuestions?.[0] ||
+        quality.gaps[0] ||
+        "Quarterly refresh only";
+      return { player, quality, coverage, nextGate };
+    });
 
   els.evidenceLibrary.innerHTML = `
     <article class="evidence-library-card">
@@ -12135,6 +12162,40 @@ function renderEvidenceLibrary() {
         <span><strong>${avgCoverage}%</strong> avg. coverage</span>
       </div>
     </article>
+    ${
+      refreshedPostureRows.length
+        ? `
+          <section class="source-posture-panel">
+            <div class="source-posture-head">
+              <div>
+                <span class="section-kicker">New source posture</span>
+                <h3>Close Yousician adjacencies now have explicit proof states</h3>
+                <p>Each card shows whether the player is publicly sourced, still needs Appfigures, or needs internal relationship validation.</p>
+              </div>
+              <strong>${refreshedPostureRows.length} refreshed records</strong>
+            </div>
+            <div class="source-posture-grid">
+              ${refreshedPostureRows
+                .map(
+                  ({ player, quality, coverage, nextGate }) => `
+                    <button class="source-posture-card" type="button" data-visual-player="${escapeHtml(player.id)}" style="--source-color:${colorFor(player)}">
+                      <span>
+                        ${logoMarkHtml(player, "source-posture-logo")}
+                        <strong>${escapeHtml(player.name)}</strong>
+                      </span>
+                      <em>${escapeHtml(quality.label)} / ${quality.score}%</em>
+                      <small>${coverage.count} sources · ${coverage.highCount} high tier · ${coverage.verifiedCount} checked</small>
+                      <small>${escapeHtml(coverage.types.slice(0, 3).join(" / ") || "No source type loaded")}</small>
+                      <b>${escapeHtml(nextGate)}</b>
+                    </button>
+                  `
+                )
+                .join("")}
+            </div>
+          </section>
+        `
+        : ""
+    }
     <div class="evidence-library-groups">
       ${
         groups
@@ -12166,6 +12227,7 @@ function renderEvidenceLibrary() {
       }
     </div>
   `;
+  bindVisualPlayers(els.evidenceLibrary);
 }
 
 function renderValidationReadiness() {
