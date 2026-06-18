@@ -4789,6 +4789,7 @@ const logoDomainExclusions = new Set([
 ]);
 
 const logoDomainOverrides = {
+  yousician: "yousician.com",
   simply: "hellosimply.com",
   "ultimate-guitar": "ultimate-guitar.com",
   fender: "fender.com",
@@ -4874,6 +4875,10 @@ function logoUrlForPlayer(player, size = 128) {
   const domain = logoDomainForPlayer(player);
   if (!domain) return "";
   return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=${size}`;
+}
+
+function yousicianLogoUrl(size = 128) {
+  return `https://www.google.com/s2/favicons?domain=yousician.com&sz=${size}`;
 }
 
 function svgSafeId(value) {
@@ -7918,14 +7923,35 @@ function renderMap() {
     fragment.appendChild(exitLayer);
   }
 
-  const hub = createSvg("g");
+  const hub = createSvg("g", { class: "map-hub", "aria-label": "Yousician strategic center" });
+  const hubTitle = createSvg("title");
+  hubTitle.textContent = "Yousician strategic center";
+  hub.appendChild(hubTitle);
   hub.appendChild(createSvg("circle", { cx: center.x, cy: center.y, r: 70, class: "hub-glow" }));
   hub.appendChild(createSvg("circle", { cx: center.x, cy: center.y, r: 52, class: "hub" }));
-  const hubText = createSvg("text", { x: center.x, y: center.y - 5, class: "hub-label" });
-  hubText.textContent = "Yousician";
+  const hubClipId = "map-yousician-hub-logo";
+  const hubClip = createSvg("clipPath", { id: hubClipId });
+  hubClip.appendChild(createSvg("circle", { cx: center.x, cy: center.y - 17, r: 16 }));
+  defs.appendChild(hubClip);
+  hub.appendChild(createSvg("circle", { cx: center.x, cy: center.y - 17, r: 20, class: "hub-logo-plate" }));
+  hub.appendChild(createSvg("circle", { cx: center.x, cy: center.y - 17, r: 16, class: "hub-logo-bg" }));
+  hub.appendChild(
+    createSvg("image", {
+      x: center.x - 16,
+      y: center.y - 33,
+      width: 32,
+      height: 32,
+      href: yousicianLogoUrl(128),
+      class: "hub-logo-image",
+      "clip-path": `url(#${hubClipId})`,
+      preserveAspectRatio: "xMidYMid meet"
+    })
+  );
+  const hubText = createSvg("text", { x: center.x, y: center.y + 16, class: "hub-label hub-word" });
+  hubText.textContent = "Strategic";
   hub.appendChild(hubText);
-  const hubSub = createSvg("text", { x: center.x, y: center.y + 16, class: "hub-label hub-sub", opacity: 0.8 });
-  hubSub.textContent = "strategic center";
+  const hubSub = createSvg("text", { x: center.x, y: center.y + 31, class: "hub-label hub-sub" });
+  hubSub.textContent = "center";
   hub.appendChild(hubSub);
   fragment.appendChild(hub);
   svg.replaceChildren(fragment);
@@ -8689,6 +8715,76 @@ function renderMonitorExecutiveSummary(filteredPlayers) {
   `;
 }
 
+function monitorActionList(players, scoreFn, limit = 3) {
+  return [...players].sort((a, b) => scoreFn(b) - scoreFn(a) || a.name.localeCompare(b.name)).slice(0, limit);
+}
+
+function renderMonitorActionButtons(players) {
+  if (!players.length) return `<p>No current match in this view.</p>`;
+  return players.map((player) => playerMiniButton(player, "data-monitor-player", 18)).join("");
+}
+
+function renderMonitorExecutiveAgenda(filteredPlayers) {
+  const readyPlayers = filteredPlayers.filter((player) => qualityProfile(player).score >= 68 && !hasCriticalEvidenceGap(player));
+  const blockedPlayers = filteredPlayers.filter((player) => hasCriticalEvidenceGap(player) || qualityProfile(player).score < 56);
+  const watchPlayers = filteredPlayers.filter((player) => player.momentum >= 4 || player.aiScore >= 4);
+  const lowerDetailPlayers = filteredPlayers.filter(
+    (player) => !player.key && totalPriority(player) < 29 && qualityProfile(player).score < 68 && !requiresCredentialedData(player)
+  );
+  const lanes = [
+    {
+      label: "Use in executive read",
+      title: `${readyPlayers.length} decision usable records`,
+      detail: "Evidence is sufficient for internal executive discussion with normal caveats.",
+      players: monitorActionList(readyPlayers, (player) => totalPriority(player) + qualityProfile(player).score / 8),
+      action: "Open brief"
+    },
+    {
+      label: "Validate before board",
+      title: `${blockedPlayers.length} records need proof`,
+      detail: "Keep these out of hard claims until sources, ownership or internal status are fixed.",
+      players: monitorActionList(blockedPlayers, monitorProofGapScore),
+      action: "Close gap"
+    },
+    {
+      label: "Watch weekly",
+      title: `${watchPlayers.length} active signals`,
+      detail: "High momentum or AI pressure. Monitor for product, funding, policy or category changes.",
+      players: monitorActionList(watchPlayers, (player) => player.momentum * 14 + player.aiScore * 10 + totalPriority(player) / 3),
+      action: "Monitor"
+    },
+    {
+      label: "Move down",
+      title: `${lowerDetailPlayers.length} long tail records`,
+      detail: "Useful context, but not worth executive attention until priority, proof or internal relevance rises.",
+      players: monitorActionList(lowerDetailPlayers, (player) => 100 - totalPriority(player)),
+      action: "Appendix"
+    }
+  ];
+
+  return `
+    <div class="monitor-executive-agenda" aria-label="Executive monitor agenda">
+      ${lanes
+        .map(
+          (lane) => `
+            <article>
+              <header>
+                <span>${escapeHtml(lane.label)}</span>
+                <strong>${escapeHtml(lane.title)}</strong>
+              </header>
+              <p>${escapeHtml(lane.detail)}</p>
+              <div class="monitor-agenda-actions" aria-label="${escapeHtml(lane.label)} players">
+                ${renderMonitorActionButtons(lane.players)}
+              </div>
+              <em>${escapeHtml(lane.action)}</em>
+            </article>
+          `
+        )
+        .join("")}
+    </div>
+  `;
+}
+
 function monitorLeaderDefinitions() {
   return [
     { id: "relevance", label: "Yousician fit", note: "Closest mission fit", score: (player) => player.relevance, display: (player) => `${player.relevance}/5` },
@@ -8901,6 +8997,7 @@ function renderMonitorInsightReadout(filteredPlayers) {
         <span>${filteredPlayers.length} records compared</span>
       </div>
       ${renderMonitorExecutiveSummary(filteredPlayers)}
+      ${renderMonitorExecutiveAgenda(filteredPlayers)}
       <div class="monitor-meta-grid" aria-label="Meta trend clusters">
         ${renderMonitorMetaTrends(filteredPlayers)}
       </div>
@@ -9920,6 +10017,59 @@ function onePagerFactStripHtml(player, taxonomy, quality) {
   `;
 }
 
+function onePagerExecutivePriorityStripHtml(player, taxonomy, validation, quality) {
+  const posture = executivePostureFor(player, taxonomy, validation);
+  const readiness = executiveReadinessFor(player, quality);
+  const internalGate = internalGateSummaryFor(player);
+  const needs = sourceNeeds(player);
+  const trigger = requiresCredentialedData(player)
+    ? "App data import could change scale, rank, growth or sentiment read."
+    : quality.gaps.length
+      ? `Closing ${quality.gaps.slice(0, 2).join(" and ")} would change confidence.`
+      : "A product, funding, partnership or policy signal would change priority.";
+  const lowerDetail = needs.length
+    ? needs.slice(0, 2).join(", ")
+    : internalGate.detail || "No extra data gate for the current brief.";
+  const cards = [
+    {
+      label: "Executive use",
+      value: posture.label,
+      detail: `${posture.owner}. ${readiness.label}.`
+    },
+    {
+      label: "Decision question",
+      value: executiveDecisionQuestion(player, taxonomy),
+      detail: profileSpecificLens(player, taxonomy, validation).label
+    },
+    {
+      label: "Watch trigger",
+      value: trigger,
+      detail: compactTemplateText(executiveSignalText(player.recent), 92)
+    },
+    {
+      label: "Move lower",
+      value: lowerDetail,
+      detail: "Use in appendix until the next decision needs it."
+    }
+  ];
+
+  return `
+    <section class="one-pager-exec-priority-strip" aria-label="Executive priority strip">
+      ${cards
+        .map(
+          (card) => `
+            <article>
+              <span>${escapeHtml(card.label)}</span>
+              <strong>${escapeHtml(card.value)}</strong>
+              <small>${escapeHtml(card.detail)}</small>
+            </article>
+          `
+        )
+        .join("")}
+    </section>
+  `;
+}
+
 function onePagerSectionHtml(index, title, body, modifier = "") {
   return `
     <article class="one-pager-section ${modifier}">
@@ -10326,6 +10476,8 @@ function renderOnePager() {
       </header>
 
       ${onePagerFactStripHtml(player, taxonomy, quality)}
+
+      ${onePagerExecutivePriorityStripHtml(player, taxonomy, validation, quality)}
 
       ${onePagerExecutiveBriefHtml(player, taxonomy, validation, quality)}
 
