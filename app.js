@@ -2733,6 +2733,86 @@ players.forEach((player) => {
   player.key = initialKeyPlayerIds.has(player.id);
 });
 
+const headquartersByPlayerId = {
+  "simply": { value: "Tel Aviv, Israel", basis: "Public company profile seed" },
+  "ultimate-guitar": { value: "Limassol, Cyprus", basis: "Muse Group company HQ seed" },
+  "fender-play": { value: "Los Angeles, California, USA", basis: "Fender parent company HQ seed" },
+  flowkey: { value: "Berlin, Germany", basis: "flowkey GmbH HQ seed" },
+  skoove: { value: "Berlin, Germany", basis: "Skoove HQ seed" },
+  fender: { value: "Los Angeles, California, USA", basis: "Fender company HQ seed" },
+  yamaha: { value: "Hamamatsu, Shizuoka, Japan", basis: "Yamaha company HQ seed" },
+  thomann: { value: "Treppendorf, Bavaria, Germany", basis: "Thomann company HQ seed" },
+  sweetwater: { value: "Fort Wayne, Indiana, USA", basis: "Sweetwater company HQ seed" },
+  bandlab: { value: "Singapore", basis: "BandLab Technologies HQ seed" },
+  musescore: { value: "Limassol, Cyprus", basis: "Muse Group company HQ seed" },
+  splice: { value: "New York, New York, USA", basis: "Splice company HQ seed" },
+  ableton: { value: "Berlin, Germany", basis: "Ableton company HQ seed" },
+  suno: { value: "Cambridge, Massachusetts, USA", basis: "Suno company HQ seed" },
+  udio: { value: "New York, New York, USA", basis: "Udio company HQ seed" },
+  duolingo: { value: "Pittsburgh, Pennsylvania, USA", basis: "Duolingo company HQ seed" },
+  kahoot: { value: "Oslo, Norway", basis: "Kahoot company HQ seed" },
+  brilliant: { value: "San Francisco, California, USA", basis: "Brilliant company HQ seed" },
+  "berklee-online": { value: "Boston, Massachusetts, USA", basis: "Berklee College of Music HQ seed" },
+  mtna: { value: "Cincinnati, Ohio, USA", basis: "MTNA association HQ seed" },
+  "apple-garageband": { value: "Cupertino, California, USA", basis: "Apple parent company HQ seed" },
+  accel: { value: "Palo Alto, California, USA", basis: "Accel firm HQ seed" },
+  "creative-europe": { value: "Brussels, Belgium", basis: "European Commission programme HQ seed" },
+  "guitar-tricks": { value: "San Francisco, California, USA", basis: "Guitar Tricks company HQ seed" },
+  truefire: { value: "St. Petersburg, Florida, USA", basis: "TrueFire company HQ seed" },
+  "rocksmith-plus": { value: "Saint-Mande, France", basis: "Ubisoft parent company HQ seed" },
+  "gibson-app": { value: "Nashville, Tennessee, USA", basis: "Gibson parent company HQ seed" },
+  melodics: { value: "Auckland, New Zealand", basis: "Melodics company HQ seed" },
+  chordify: { value: "Groningen, Netherlands", basis: "Chordify B.V. HQ seed" },
+  soundslice: { value: "Chicago, Illinois, USA", basis: "Soundslice company HQ seed" },
+  "guitar-pro": { value: "Lille, France", basis: "Arobas Music HQ seed" },
+  "youtube-artists": { value: "San Bruno, California, USA", basis: "YouTube HQ seed" },
+  gibson: { value: "Nashville, Tennessee, USA", basis: "Gibson company HQ seed" },
+  reverb: { value: "Chicago, Illinois, USA", basis: "Reverb company HQ seed" },
+  "guitar-center": { value: "Westlake Village, California, USA", basis: "Guitar Center company HQ seed" },
+  soundtrap: { value: "Stockholm, Sweden", basis: "Soundtrap product/company HQ seed" },
+  "fl-studio": { value: "Ghent, Belgium", basis: "Image-Line HQ seed" },
+  soundcloud: { value: "Berlin, Germany", basis: "SoundCloud company HQ seed" },
+  distrokid: { value: "New York, New York, USA", basis: "DistroKid company HQ seed" },
+  landr: { value: "Montreal, Quebec, Canada", basis: "LANDR company HQ seed" },
+  "native-instruments": { value: "Berlin, Germany", basis: "Native Instruments company HQ seed" },
+  bandcamp: { value: "Oakland, California, USA", basis: "Bandcamp company HQ seed" },
+  aiva: { value: "Luxembourg", basis: "AIVA company HQ seed" },
+  patreon: { value: "San Francisco, California, USA", basis: "Patreon company HQ seed" },
+  musora: { value: "Abbotsford, British Columbia, Canada", basis: "Musora company HQ seed" },
+  fretello: { value: "Linz, Austria", basis: "Fretello GmbH HQ seed" },
+  abrsm: { value: "London, United Kingdom", basis: "ABRSM HQ seed" },
+  rcm: { value: "Toronto, Ontario, Canada", basis: "Royal Conservatory of Music HQ seed" },
+  "school-of-rock": { value: "Canton, Massachusetts, USA", basis: "School of Rock company HQ seed" },
+  gear4music: { value: "York, United Kingdom", basis: "Gear4music company HQ seed" },
+  audacity: { value: "Limassol, Cyprus", basis: "Muse Group parent company HQ seed" },
+  soundation: { value: "Stockholm, Sweden", basis: "Soundation company HQ seed" },
+  "ripx-daw": { value: "Cambridge, United Kingdom", basis: "Hit'n'Mix HQ seed" },
+  klangio: { value: "Karlsruhe, Germany", basis: "Klangio company HQ seed" },
+  "music-ally": { value: "London, United Kingdom", basis: "Music Ally company HQ seed" },
+  "midia-research": { value: "London, United Kingdom", basis: "MIDiA Research HQ seed" },
+  namm: { value: "Carlsbad, California, USA", basis: "NAMM association HQ seed" },
+  chartmetric: { value: "San Francisco, California, USA", basis: "Chartmetric company HQ seed" },
+  "a16z-consumer": { value: "Menlo Park, California, USA", basis: "Andreessen Horowitz HQ seed" },
+  "eic-accelerator": { value: "Brussels, Belgium", basis: "European Innovation Council HQ seed" },
+  "horizon-europe-cluster-2": { value: "Brussels, Belgium", basis: "European Commission programme HQ seed" },
+  "apple-design-awards": { value: "Cupertino, California, USA", basis: "Apple programme owner HQ seed" },
+  "google-play-best-of": { value: "Mountain View, California, USA", basis: "Google programme owner HQ seed" },
+  "learning-technologies-awards": { value: "London, United Kingdom", basis: "Learning Technologies Awards HQ seed" },
+  "sxsw-edu-launch": { value: "Austin, Texas, USA", basis: "SXSW EDU HQ seed" },
+  disney: { value: "Burbank, California, USA", basis: "Disney company HQ seed" },
+  "epic-games": { value: "Cary, North Carolina, USA", basis: "Epic Games company HQ seed" },
+  roblox: { value: "San Mateo, California, USA", basis: "Roblox company HQ seed" },
+  netflix: { value: "Los Gatos, California, USA", basis: "Netflix company HQ seed" },
+  nintendo: { value: "Kyoto, Japan", basis: "Nintendo company HQ seed" },
+  "spotify-platform": { value: "Stockholm, Sweden", basis: "Spotify operating HQ seed" },
+  "spotify-artists": { value: "Stockholm, Sweden", basis: "Spotify parent company HQ seed" },
+  "muse-group": { value: "Limassol, Cyprus", basis: "Muse Group company HQ seed" },
+  "hal-leonard": { value: "Milwaukee, Wisconsin, USA", basis: "Hal Leonard company HQ seed" },
+  musicnotes: { value: "Madison, Wisconsin, USA", basis: "Musicnotes company HQ seed" },
+  "cifra-club": { value: "Belo Horizonte, Brazil", basis: "Studio Sol HQ seed" },
+  smule: { value: "San Francisco, California, USA", basis: "Smule company HQ seed" }
+};
+
 const relations = [
   { from: "Yousician", to: "simply", type: "competes", strength: 5, note: "Direct app based learning benchmark." },
   { from: "Yousician", to: "fender-play", type: "competes", strength: 4, note: "Brand-backed guitar learning overlap." },
@@ -6057,6 +6137,7 @@ function evidenceSummarySection(player, context = "profile") {
 function factClaimsFor(player) {
   const coverage = evidenceCoverage(player);
   const liveMetricClaim = liveMetricClaimFor(player);
+  const hq = headquartersRecordFor(player);
   const sourceBasis = coverage.sources.length
     ? coverage.sources
         .slice(0, 3)
@@ -6072,8 +6153,22 @@ function factClaimsFor(player) {
       caveat: "Classification can be refined, but the entity/product description is source checkable."
     },
     {
-      label: "Reach / geography",
-      text: `${player.reach}; ${player.geography}`,
+      label: "HQ",
+      text: hq.value,
+      basis: hq.basis,
+      kind: hq.kind,
+      caveat: hq.caveat
+    },
+    {
+      label: "Global footprint",
+      text: globalFootprintFor(player),
+      basis: "Footprint field",
+      kind: "Market presence field",
+      caveat: "Shown separately from headquarters. This is reach context, not incorporation or office location."
+    },
+    {
+      label: "Reach signal",
+      text: reachSignalFor(player),
       basis: "Business snapshot",
       kind: sizeClaimStatusFor(player).label,
       caveat: sizeClaimStatusFor(player).note
@@ -6466,6 +6561,7 @@ function ownershipNoteFor(player) {
 }
 
 function executiveOnePagerCards(player, taxonomy, validation) {
+  const hq = headquartersRecordFor(player);
   return `
     <article class="one-pager-card">
       <span>What they are</span>
@@ -6475,8 +6571,14 @@ function executiveOnePagerCards(player, taxonomy, validation) {
 
     <article class="one-pager-card">
       <span>Scale and reach</span>
-      <h3>${escapeHtml(player.reach)}</h3>
-      <p>${escapeHtml(player.geography)} / ${escapeHtml(player.model)}</p>
+      <h3>${escapeHtml(absoluteFigureSummary(player))}</h3>
+      <p>Reach signal: ${escapeHtml(reachSignalFor(player))}. Global footprint: ${escapeHtml(globalFootprintFor(player))}. Model: ${escapeHtml(player.model)}</p>
+    </article>
+
+    <article class="one-pager-card">
+      <span>HQ and footprint</span>
+      <h3>${escapeHtml(hq.value)}</h3>
+      <p>${escapeHtml(hq.basis)}. Footprint: ${escapeHtml(globalFootprintFor(player))}.</p>
     </article>
 
     <article class="one-pager-card">
@@ -9027,7 +9129,7 @@ function renderProfile() {
     <div class="badge-row">
       ${player.key ? `<span class="badge key">Key player</span>` : ""}
       <span class="badge">${executive ? escapeHtml(taxonomy.role) : escapeHtml(player.relationship)}</span>
-      <span class="badge">${escapeHtml(player.geography)}</span>
+      <span class="badge">Footprint: ${escapeHtml(globalFootprintFor(player))}</span>
     </div>
     <section class="profile-section profile-read">
       <span class="section-kicker">Executive read</span>
@@ -11046,7 +11148,7 @@ function renderKeyPlayers() {
               <div class="badge-row">
                 <span class="badge product-focus-badge">${escapeHtml(productFocusLabel(player))}</span>
                 <span class="badge">${escapeHtml(strategicRole(player))}</span>
-                <span class="badge">${escapeHtml(player.geography)}</span>
+                <span class="badge">Footprint: ${escapeHtml(globalFootprintFor(player))}</span>
               </div>
               <span class="player-card-link">Open player brief</span>
             </div>
@@ -11298,16 +11400,28 @@ function onePagerFactStripHtml(player, taxonomy, quality) {
   const websiteSource = playerPrimaryWebsiteSource(player);
   const websiteUrl = sourceUrl(websiteSource);
   const websiteHost = onePagerHostFor(player);
+  const hq = headquartersRecordFor(player);
   const facts = [
-    { icon: "map-pin", label: "HQ", value: templateHqFor(player) },
-    { icon: "calendar", label: "Founded", value: player.founded || "Not needed for triage" },
-    { icon: "network", label: "Ownership", value: displayOwnership(player) },
-    { icon: "circle-dollar-sign", label: "Direct revenue", value: ratingForPlayer(player, "revenue").display },
-    { icon: "users", label: "Scale proof", value: absoluteFigureSummary(player) },
+    { icon: "map-pin", label: "HQ", value: hq.value, detail: `Global footprint: ${globalFootprintFor(player)}` },
+    {
+      icon: "calendar",
+      label: "Founded",
+      value: player.founded || "Founded to verify",
+      detail: player.founded ? "Loaded factual field." : "Not loaded in current dataset."
+    },
+    { icon: "network", label: "Ownership", value: displayOwnership(player), detail: "Legal owner first; relationship status is separate." },
+    {
+      icon: "circle-dollar-sign",
+      label: "Direct revenue",
+      value: ratingForPlayer(player, "revenue").display,
+      detail: "Rating only unless an absolute figure is loaded."
+    },
+    { icon: "users", label: "Scale proof", value: absoluteFigureSummary(player), detail: `Reach signal: ${reachSignalFor(player)}` },
     {
       icon: "globe",
       label: "Website",
       value: websiteHost,
+      detail: "Primary public destination",
       html: websiteUrl
         ? `<a class="one-pager-fact-link" href="${escapeHtml(websiteUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(websiteHost)}</a>`
         : ""
@@ -11321,7 +11435,8 @@ function onePagerFactStripHtml(player, taxonomy, quality) {
               <div class="one-pager-fact">
                 <i data-lucide="${escapeHtml(fact.icon)}"></i>
                 <span>${escapeHtml(fact.label)}</span>
-              <strong>${fact.html || escapeHtml(fact.value)}</strong>
+                <strong>${fact.html || escapeHtml(fact.value)}</strong>
+                ${fact.detail ? `<small>${escapeHtml(fact.detail)}</small>` : ""}
             </div>
           `
         )
@@ -11330,11 +11445,13 @@ function onePagerFactStripHtml(player, taxonomy, quality) {
         <i data-lucide="badge-check"></i>
         <span>Source confidence</span>
         <strong>${quality.score}% ${escapeHtml(quality.label)}</strong>
+        <small>Linked source coverage and claim quality.</small>
       </div>
       <div class="one-pager-fact one-pager-fact-wide">
         <i data-lucide="route"></i>
         <span>Journey step</span>
         <strong>${escapeHtml(taxonomy.journey)}</strong>
+        <small>Interpretation: main role in the hobby path.</small>
       </div>
     </section>
   `;
@@ -11471,6 +11588,7 @@ function onePagerSnapshotRows(player, quality) {
   const websiteSource = playerPrimaryWebsiteSource(player);
   const websiteUrl = sourceUrl(websiteSource);
   const websiteHost = onePagerHostFor(player);
+  const hq = headquartersRecordFor(player);
   return [
     ["Market priority rank", `#${priorityRank.rank} of ${priorityRank.total} company and organisation records`],
     ["Category priority rank", `#${categoryRank.rank} of ${categoryRank.total} records in this category`],
@@ -11486,7 +11604,9 @@ function onePagerSnapshotRows(player, quality) {
     ["Direct scale", `${ratingForPlayer(player, "company").display} ${directMetricDisplay(player, "company")}`],
     ["Direct revenue", `${ratingForPlayer(player, "revenue").display} ${directMetricDisplay(player, "revenue")}`],
     ["Direct reach", `${ratingForPlayer(player, "reach").display} ${directMetricDisplay(player, "reach")}`],
-    ["Geographic reach", player.geography],
+    ["HQ", hq.value],
+    ["Global footprint", globalFootprintFor(player)],
+    ["Reach signal", reachSignalFor(player)],
     ["Business model", player.model],
     ["Ownership", displayOwnership(player)],
     ["Source confidence", `${quality.score}% with ${coverage.count} linked source${coverage.count === 1 ? "" : "s"}`],
@@ -12376,18 +12496,50 @@ function compactTemplateText(value, maxLength = 92) {
   return `${text.slice(0, Math.max(0, maxLength - 1)).trim()}...`;
 }
 
+function headquartersRecordFor(player) {
+  if (nonEmptyString(player.hq)) {
+    return {
+      value: player.hq,
+      basis: "Loaded HQ field",
+      kind: "HQ field",
+      caveat: "Footprint and market reach are shown separately."
+    };
+  }
+  const seeded = headquartersByPlayerId[player.id];
+  if (seeded?.value) {
+    return {
+      value: seeded.value,
+      basis: seeded.basis || "Public HQ seed",
+      kind: "HQ seed",
+      caveat: "Use as entity or parent HQ; verify against the latest source before board circulation."
+    };
+  }
+  const entityKind = entityKindFor(player);
+  const pendingValue = /individual|creator/i.test(entityKind)
+    ? "Creator base to verify"
+    : /institution/i.test(entityKind)
+      ? "Institution HQ to verify"
+      : /signal|media|data/i.test(entityKind)
+        ? "Source owner HQ to verify"
+        : "Company HQ to verify";
+  return {
+    value: pendingValue,
+    basis: "No explicit HQ field loaded",
+    kind: "Pending HQ field",
+    caveat: "Do not infer headquarters from global footprint, market reach, or app availability."
+  };
+}
+
 function templateHqFor(player) {
-  if (nonEmptyString(player.hq)) return player.hq;
-  const geo = `${player.geography || ""}`.toLowerCase();
-  if (/global\s*\/\s*us|^us$|usa|united states|north america/.test(geo)) return "USA";
-  if (/germany/.test(geo)) return "Germany";
-  if (/canada/.test(geo)) return "Canada";
-  if (/japan/.test(geo)) return "Japan";
-  if (/uk|united kingdom/.test(geo)) return "UK";
-  if (/belgium/.test(geo)) return "Belgium";
-  if (/china/.test(geo)) return "China";
-  if (/global/.test(geo)) return "Global footprint";
-  return "Not material for triage";
+  return headquartersRecordFor(player).value;
+}
+
+function globalFootprintFor(player) {
+  return nonEmptyString(player.footprint) || nonEmptyString(player.geography) || "Footprint to verify";
+}
+
+function reachSignalFor(player) {
+  return nonEmptyString(player.reach) || "Reach signal to verify";
 }
 
 function templateRelationshipFor(player) {
@@ -12434,7 +12586,7 @@ function keyPlayerTemplateRowData(player) {
     description: compactTemplateText(player.description, 90),
     revenueSize: `${ratingForPlayer(player, "company").display} scale, ${revenueSignal.display} revenue`,
     hq: templateHqFor(player),
-    geography: player.geography || "To verify",
+    geography: globalFootprintFor(player),
     ownership: compactTemplateText(player.ownership, 74),
     strategicImportance: strategicRating.display,
     relationship: templateRelationshipFor(player),
@@ -12450,7 +12602,7 @@ function downloadKeyPlayerTemplateCsv(rows) {
     "Description",
     "Revenue / size",
     "HQ",
-    "Geographic reach",
+    "Global footprint",
     "Ownership / investors",
     "Strategic importance",
     "Existing relationship",
@@ -12507,7 +12659,7 @@ function renderKeyPlayerTemplate(rows, totalRows) {
             <th>Description</th>
             <th>Revenue / size</th>
             <th>HQ</th>
-            <th>Geographic reach</th>
+            <th>Global footprint</th>
             <th>Ownership / investors</th>
             <th>Strategic importance</th>
             <th>Existing relationship</th>
@@ -12547,9 +12699,9 @@ function renderKeyPlayerTemplate(rows, totalRows) {
     </div>
     <div class="template-help-strip">
       <span><strong>${shownCount}</strong> of ${rows.length} filtered rows shown${limited ? `, ${totalRows} total records available` : ""}</span>
-      <span>1 Populate HQ, owner and relationship fields</span>
+      <span>1 Populate missing HQ, owner and relationship fields</span>
       <span>2 Add Appfigures and revenue proof where relevant</span>
-      <span>3 Review priority records quarterly</span>
+      <span>3 Keep footprint and interpretation separate from facts</span>
     </div>
   `;
 
@@ -12623,7 +12775,7 @@ function renderDatabaseLists(rows, totalRows) {
                 <div class="mini-tag-row">
                   ${player.key ? `<span class="mini-tag key">Key</span>` : ""}
                   <span class="mini-tag">${escapeHtml(entityKindFor(player))}</span>
-                  <span class="mini-tag">${escapeHtml(player.geography)}</span>
+                  <span class="mini-tag">Footprint: ${escapeHtml(globalFootprintFor(player))}</span>
                   <span class="mini-tag">${escapeHtml(player.type)}</span>
                 </div>
               </div>
@@ -14986,8 +15138,9 @@ function downloadCsv() {
     "Entity kind",
     "Type",
     "Subcategory",
-    "Geography",
-    "Reach",
+    "HQ",
+    "Global footprint",
+    "Reach signal",
     "Model",
     "Ownership",
     "Research owner",
@@ -15028,6 +15181,7 @@ function downloadCsv() {
     const evidenceSources = evidenceSourcesFor(player);
     const taxonomy = taxonomyProfile(player);
     const validation = internalValidationFor(player);
+    const hq = headquartersRecordFor(player);
     return [
       player.name,
       taxonomy.group,
@@ -15040,8 +15194,9 @@ function downloadCsv() {
       entityKindFor(player),
       player.type,
       player.subcategory,
-      player.geography,
-      player.reach,
+      hq.value,
+      globalFootprintFor(player),
+      reachSignalFor(player),
       player.model,
       player.ownership,
       researchOwner(player),
