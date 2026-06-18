@@ -5149,6 +5149,30 @@ const logoDomainOverrides = {
   "google-play-best-of": "play.google.com"
 };
 
+const logoImageOverrides = {
+  "apple-garageband":
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/07/b3/a4/07b3a4b9-5372-25d8-78be-b89ea37c9cc9/AppIcon-0-1x_U007epad-0-0-0-1-0-0-sRGB-85-220-0.png/512x512bb.png",
+  garageband:
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/07/b3/a4/07b3a4b9-5372-25d8-78be-b89ea37c9cc9/AppIcon-0-1x_U007epad-0-0-0-1-0-0-sRGB-85-220-0.png/512x512bb.png",
+  "logic-pro":
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/59/f3/29/59f329bc-635a-a4dd-30dd-a2502022bbc3/AppIcon-0-85-220-0-6-0-0-2x-0-0.png/512x512bb.png",
+  "fender-play":
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5f/d2/9b/5fd29b8d-5f4f-29c1-50ee-601a291e2f06/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.png",
+  "piano-academy":
+    "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/64/f1/1c/64f11cbb-bdd9-d408-0a8a-a26542d2511a/AppIcon-0-0-1x_U007emarketing-0-7-0-sRGB-85-220.png/512x512bb.png",
+  "rocksmith-plus":
+    "https://play-lh.googleusercontent.com/L1KZi8RAR2o6CkljCeF-BGIQey1ZLAjS5ZnkQB9MArU5awkzv05aPfrzwwMvOzWSYaTUovth7ulxGb2UVOKTZw"
+};
+
+const logoSourceLabelOverrides = {
+  "apple-garageband": "GarageBand App Store icon",
+  garageband: "GarageBand App Store icon",
+  "logic-pro": "Logic Pro App Store icon",
+  "fender-play": "Fender Play App Store icon",
+  "piano-academy": "Piano Academy App Store icon",
+  "rocksmith-plus": "Rocksmith+ Google Play icon"
+};
+
 function domainFromUrl(value) {
   try {
     return new URL(value).hostname.replace(/^www\./, "");
@@ -5181,6 +5205,7 @@ function logoDomainForPlayer(player) {
 }
 
 function logoUrlForPlayer(player, size = 128) {
+  if (logoImageOverrides[player.id]) return logoImageOverrides[player.id];
   const domain = logoDomainForPlayer(player);
   if (!domain) return "";
   return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=${size}`;
@@ -5199,10 +5224,12 @@ function shouldShowMapLogo(player, visibleCount, focusScale, isSelected) {
 }
 
 function logoDomainLabel(player) {
+  if (logoSourceLabelOverrides[player.id]) return logoSourceLabelOverrides[player.id];
   return logoDomainForPlayer(player) || "initials fallback";
 }
 
 function onePagerLogoSourceText(player) {
+  if (logoSourceLabelOverrides[player.id]) return logoSourceLabelOverrides[player.id];
   const domain = logoDomainForPlayer(player);
   return domain ? domain.replace(/^www\./, "") : "Logo source pending";
 }
