@@ -3199,6 +3199,7 @@ const defaultMapFocusMode = "priority";
 const defaultMapZoomMode = "auto";
 const defaultMapRecordLimit = 25;
 const defaultBubbleSizeMode = "mission";
+const yousicianLookerBoardUrl = "https://yousician.eu.looker.com/boards/14";
 
 const state = {
   mode: "executive",
@@ -3252,6 +3253,11 @@ function showVolosTeaser() {
 function openVolosSideQuest() {
   dismissVolosTeaser({ render: false });
   switchView("sonovia-volos", { scroll: true, pushUrl: true });
+}
+
+function openYousicianLookerBoard() {
+  dismissVolosTeaser({ render: false });
+  window.location.assign(yousicianLookerBoardUrl);
 }
 
 function isExecutiveMode() {
@@ -8001,6 +8007,29 @@ function renderMap() {
   hubSub.textContent = "center";
   hub.appendChild(hubSub);
   hub.appendChild(createSvg("circle", { cx: center.x, cy: center.y, r: 62, class: "hub-hit" }));
+  const yousicianLookerLink = createSvg("g", {
+    class: "hub-yousician-link",
+    "aria-label": "Open Yousician Looker board",
+    tabindex: "0",
+    role: "link"
+  });
+  const yousicianLookerTitle = createSvg("title");
+  yousicianLookerTitle.textContent = "Open Yousician Looker board";
+  yousicianLookerLink.appendChild(yousicianLookerTitle);
+  yousicianLookerLink.appendChild(createSvg("circle", { cx: center.x, cy: center.y - 17, r: 25, class: "hub-yousician-hit" }));
+  yousicianLookerLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    openYousicianLookerBoard();
+  });
+  yousicianLookerLink.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      event.stopPropagation();
+      openYousicianLookerBoard();
+    }
+  });
+  hub.appendChild(yousicianLookerLink);
   hub.addEventListener("click", (event) => {
     event.stopPropagation();
     showVolosTeaser();

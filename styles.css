@@ -1671,6 +1671,23 @@ body:not([data-view="overview"]) .view.active {
   pointer-events: all;
 }
 
+.hub-yousician-link {
+  cursor: pointer;
+  outline: none;
+}
+
+.hub-yousician-hit {
+  fill: transparent;
+  pointer-events: all;
+}
+
+.hub-yousician-link:hover .hub-yousician-hit,
+.hub-yousician-link:focus-visible .hub-yousician-hit {
+  fill: rgba(99, 213, 163, 0.16);
+  stroke: rgba(255, 255, 255, 0.5);
+  stroke-width: 1.5;
+}
+
 .map-hub-options {
   filter: drop-shadow(0 16px 32px rgba(18, 28, 24, 0.18));
 }
