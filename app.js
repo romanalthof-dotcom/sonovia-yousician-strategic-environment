@@ -3614,11 +3614,13 @@ const databaseSegments = [
   { id: "key", label: "Priority profiles", matches: (player) => player.key },
   { id: "actors", label: "Companies and orgs", matches: (player) => !isSignalOnlyRecord(player) },
   { id: "claims", label: "Needs caution", matches: (player) => claimIntegrityFor(player).hasHypothesis },
+  { id: "conflicts", label: "Value conflicts", matches: (player) => claimConflictAudit(player).conflicts.length > 0 },
   { id: "source", label: "Missing data", matches: (player) => hasCriticalEvidenceGap(player) },
+  { id: "sourceclasses", label: "Missing source class", matches: (player) => sourceCoverageTargetAudit(player).missingRequired.length > 0 },
   {
     id: "ready",
     label: "Ready records",
-    matches: (player) => qualityProfile(player).score >= 68 && !hasCriticalEvidenceGap(player)
+    matches: (player) => isReadyRecord(player)
   },
   { id: "appdata", label: "App data needed", matches: (player) => requiresCredentialedData(player) },
   { id: "signals", label: "Market signals", matches: (player) => isSignalOnlyRecord(player) },
@@ -5436,6 +5438,256 @@ function evidenceCoverage(player) {
   };
 }
 
+const sourceClassLabels = {
+  official: "Official source",
+  app_store: "App store",
+  direct_metric: "Direct metric",
+  ownership_capital: "Ownership / capital",
+  internal_research: "Internal research",
+  internal_relationship: "Yousician input",
+  audience_traffic: "Audience / traffic",
+  legal_news: "Legal / news",
+  award_program: "Award / programme",
+  market_data: "Market data",
+  industry_context: "Industry context"
+};
+
+function sourceClassesFor(source) {
+  const type = `${source?.type || ""}`.toLowerCase();
+  const text = `${source?.title || ""} ${source?.scope || ""} ${source?.url || ""}`.toLowerCase();
+  const classes = [];
+  if (/official|institution|support|partner product|partnership|company|product|app store/.test(type)) classes.push("official");
+  if (/app store|google play|developer/.test(type) || /apps\.apple\.com|play\.google\.com/.test(text)) classes.push("app_store");
+  if (/credentialed|appfigures|similarweb|market data|financial|filing|sec/.test(type + " " + text)) classes.push("direct_metric");
+  if (/funding|investor|capital|ownership|crunchbase|pitchbook|dealroom|financial|filing|sec/.test(type + " " + text)) {
+    classes.push("ownership_capital");
+  }
+  if (/internal research/.test(type)) classes.push("internal_research");
+  if (/audience|creator|youtube|traffic|community|analytics|chartmetric|luminate|midia/.test(type + " " + text)) {
+    classes.push("audience_traffic");
+  }
+  if (/legal|rights|copyright|lawsuit|policy|news/.test(type + " " + text)) classes.push("legal_news");
+  if (/award|recognition|funding|programme|program|accelerator|horizon|eit|creative europe|sxsw|bett/.test(type + " " + text)) {
+    classes.push("award_program");
+  }
+  if (/market data|industry research|industry association|report|analytics/.test(type)) classes.push("market_data");
+  if (/industry|association|research|news|media/.test(type)) classes.push("industry_context");
+  return [...new Set(classes.length ? classes : ["industry_context"])];
+}
+
+function sourceTargetLabel(id) {
+  return sourceClassLabels[id] || id;
+}
+
+function sourceCoverageTargetsFor(player) {
+  const text = `${player.type} ${player.category} ${player.subcategory} ${player.reach} ${player.model} ${player.ownership} ${player.sourceStatus} ${player.recent} ${player.tags.join(" ")}`.toLowerCase();
+  const sourceClaimsLinked = /official|linked|verified|source-backed/.test(text);
+  const targets = [
+    {
+      id: "official",
+      required: !isSignalOnlyRecord(player),
+      reason: "Every record needs an official product, company or institution source."
+    }
+  ];
+  if (/app|mobile|software|platform|tool|daw|studio|learning|practice|creation|ai/.test(text) && !isSignalOnlyRecord(player)) {
+    targets.push({
+      id: "app_store",
+      required: /google play|app store/.test(text),
+      reason: "App adjacent records should show store or product distribution evidence where available."
+    });
+  }
+  if (requiresCredentialedData(player)) {
+    targets.push({
+      id: "direct_metric",
+      required: false,
+      reason: "Revenue, downloads, traffic, rank and usage claims need credentialed or direct metric data before they become performance facts."
+    });
+  }
+  if (/ownership|investor|funding|capital|acquired|public|private|sec|filing/.test(text) && !/to verify|unknown|pending/.test(text)) {
+    targets.push({
+      id: "ownership_capital",
+      required: /funding|investor|acquired|public|sec|filing/.test(text) || sourceClaimsLinked,
+      reason: "Ownership and capital claims should be backed separately from product positioning."
+    });
+  }
+  if (player.key || relationForPlayer(player) || /relationship|partner|bundle|bizdev|internal/.test(text)) {
+    targets.push({
+      id: "internal_relationship",
+      required: false,
+      reason: "Strategic relationship status must come from Yousician, not public inference."
+    });
+  }
+  if (/traffic|audience|youtube|creator|community|large|global|subscriber|artist|user|retail|marketplace/.test(text)) {
+    targets.push({
+      id: "audience_traffic",
+      required: /traffic|audience|subscriber/.test(text),
+      reason: "Reach wording needs audience, traffic, community or market signal support."
+    });
+  }
+  if (/legal|rights|copyright|licens|policy|lawsuit|news/.test(text)) {
+    targets.push({
+      id: "legal_news",
+      required: true,
+      reason: "Rights, policy and litigation claims need dedicated legal or news evidence."
+    });
+  }
+  if (/award|programme|program|accelerator|grant|funding|eic|horizon|eit|sxsw|bett|apple design|google play best/.test(text)) {
+    targets.push({
+      id: "award_program",
+      required: true,
+      reason: "Award, grant and programme records need their official criteria or programme source."
+    });
+  }
+  if (isSignalOnlyRecord(player) || /research|market|data|industry|monitor|signal/.test(text)) {
+    targets.push({
+      id: "market_data",
+      required: isSignalOnlyRecord(player) && !sourceClaimsLinked,
+      reason: "Signal records need a market data, industry or monitoring source rather than product proof."
+    });
+  }
+  const byId = new Map();
+  targets.forEach((target) => {
+    const existing = byId.get(target.id);
+    byId.set(target.id, existing ? { ...existing, required: existing.required || target.required } : target);
+  });
+  return [...byId.values()];
+}
+
+function sourceCoverageTargetAudit(player) {
+  const sources = evidenceSourcesFor(player);
+  const classes = new Set(sources.flatMap(sourceClassesFor));
+  const targets = sourceCoverageTargetsFor(player).map((target) => ({
+    ...target,
+    covered: target.id === "internal_relationship" ? Boolean(internalValidationFor(player).overrideApplied) : classes.has(target.id)
+  }));
+  const requiredTargets = targets.filter((target) => target.required);
+  const coveredRequired = requiredTargets.filter((target) => target.covered);
+  const missingRequired = requiredTargets.filter((target) => !target.covered);
+  const coveredOptional = targets.filter((target) => !target.required && target.covered).length;
+  const denominator = Math.max(1, requiredTargets.length);
+  const score = Math.min(100, Math.round((coveredRequired.length / denominator) * 82 + Math.min(18, coveredOptional * 6)));
+  const label =
+    missingRequired.length === 0 && score >= 88
+      ? "Coverage complete"
+      : missingRequired.length <= 1 && score >= 64
+        ? "Coverage mostly complete"
+        : "Coverage gaps visible";
+  return {
+    classes,
+    targets,
+    missingRequired,
+    coveredRequired,
+    score,
+    label
+  };
+}
+
+function sourceCoverageTargetChips(player, limit = 8) {
+  const audit = sourceCoverageTargetAudit(player);
+  return audit.targets
+    .slice(0, limit)
+    .map(
+      (target) => `
+        <span class="source-target-chip ${target.covered ? "is-covered" : target.required ? "is-missing" : "is-optional"}" title="${escapeHtml(target.reason)}">
+          ${escapeHtml(sourceTargetLabel(target.id))}
+        </span>
+      `
+    )
+    .join("");
+}
+
+function isReadyRecord(player) {
+  return (
+    qualityProfile(player).score >= 68 &&
+    !hasCriticalEvidenceGap(player) &&
+    claimConflictAudit(player).status === "consistent" &&
+    sourceCoverageTargetAudit(player).missingRequired.length === 0
+  );
+}
+
+function claimConsistencyStatusFor(player) {
+  const audit = claimConflictAudit(player);
+  if (audit.conflicts.length) {
+    return {
+      label: "Conflict review",
+      tone: "hypothesis",
+      note: audit.conflicts[0]
+    };
+  }
+  if (audit.warnings.length) {
+    return {
+      label: "Consistency caveat",
+      tone: "mixed",
+      note: audit.warnings[0]
+    };
+  }
+  return {
+    label: "No contradiction flagged",
+    tone: "verified",
+    note: audit.supported[0] || "Loaded sources and direct data do not contradict the current profile fields."
+  };
+}
+
+function claimConflictAudit(player) {
+  const coverage = evidenceCoverage(player);
+  const targetAudit = sourceCoverageTargetAudit(player);
+  const metric = directMetricFor(player);
+  const reachText = `${player.reach || ""}`.toLowerCase();
+  const ownershipText = `${player.ownership || ""}`.toLowerCase();
+  const sourceStatusText = `${player.sourceStatus || ""}`.toLowerCase();
+  const conflicts = [];
+  const warnings = [];
+  const supported = [];
+
+  if (coverage.replacementCount > 0) conflicts.push("At least one linked source is marked for repair or replacement.");
+  if (/official|linked|verified|source-backed/.test(sourceStatusText) && coverage.count < 2) {
+    warnings.push("Profile wording claims linked sources, but fewer than two usable sources are attached.");
+  }
+  if (metric) {
+    const reachScore = directReachScore(player);
+    if (/large|global|major|massive|high-profile|very large/.test(reachText) && reachScore > 0 && reachScore <= 2) {
+      conflicts.push("Direct reach metric is materially lower than the current large reach wording.");
+    }
+    if (/niche|local|emerging|small|specialist/.test(reachText) && reachScore >= 4) {
+      conflicts.push("Direct reach metric is materially higher than the current niche or emerging reach wording.");
+    }
+    supported.push("Direct metric source is loaded for at least one quantitative field.");
+  } else if (requiresCredentialedData(player)) {
+    warnings.push("Quantitative claims still need a credentialed Appfigures, Similarweb, filing or internal export.");
+  }
+
+  if (/to verify|unknown|pending/.test(ownershipText)) {
+    warnings.push("Ownership is still marked as a validation item.");
+  } else if (targetAudit.missingRequired.some((target) => target.id === "ownership_capital")) {
+    warnings.push("Ownership or capital wording exists without a dedicated ownership/capital source class.");
+  }
+
+  if (targetAudit.missingRequired.length) {
+    warnings.push(
+      `Missing required source class: ${targetAudit.missingRequired
+        .slice(0, 2)
+        .map((target) => sourceTargetLabel(target.id))
+        .join(", ")}.`
+    );
+  }
+  if (coverage.restrictedCount > 1 && coverage.verifiedCount < 2) {
+    warnings.push("Several sources need manual access, with limited checked public links.");
+  }
+  if (coverage.count >= 3 && targetAudit.missingRequired.length === 0 && !warnings.length && !conflicts.length) {
+    supported.push("Required source classes are covered and no contradictory value is detected.");
+  }
+  const score = Math.max(0, Math.min(100, 92 - conflicts.length * 30 - warnings.length * 9 + supported.length * 4));
+  const status = conflicts.length ? "conflict" : warnings.length ? "review" : "consistent";
+  return {
+    status,
+    score,
+    conflicts: [...new Set(conflicts)],
+    warnings: [...new Set(warnings)].slice(0, 5),
+    supported: [...new Set(supported)].slice(0, 4),
+    targetAudit
+  };
+}
+
 function aiClaimStatusFor(player) {
   const text = `${player.ai} ${player.type} ${player.subcategory} ${player.tags.join(" ")}`.toLowerCase();
   const confirmedIds = new Set([
@@ -5541,6 +5793,7 @@ function claimIntegrityFor(player) {
   const ai = aiClaimStatusFor(player);
   const size = sizeClaimStatusFor(player);
   const relationship = relationshipClaimStatusFor(player);
+  const consistency = claimConsistencyStatusFor(player);
   const interpretation = {
     label: "Strategic interpretation",
     tone: "interpretation",
@@ -5561,7 +5814,7 @@ function claimIntegrityFor(player) {
     tone: evidenceTone,
     note: `${coverage.count} linked sources; ${coverage.officialCount} official/institutional/legal; ${coverage.verifiedCount} link checked.`
   };
-  const hasHypothesis = [ai, size, relationship, evidence].some((item) => item.tone === "hypothesis");
+  const hasHypothesis = [ai, size, relationship, evidence, consistency].some((item) => item.tone === "hypothesis");
   const boardLanguage =
     coverage.score >= 76 && !hasHypothesis
       ? "Board usable with normal caveat"
@@ -5573,6 +5826,7 @@ function claimIntegrityFor(player) {
     size,
     ai,
     relationship,
+    consistency,
     interpretation,
     hasHypothesis,
     boardLanguage,
@@ -5592,7 +5846,7 @@ function claimIntegritySection(player, context = "profile") {
       <span class="section-kicker">Claim integrity</span>
       <h3>${escapeHtml(claim.boardLanguage)}</h3>
       <div class="claim-grid">
-        ${[claim.evidence, claim.size, claim.ai, claim.relationship]
+        ${[claim.evidence, claim.size, claim.ai, claim.relationship, claim.consistency]
           .map(
             (item) => `
               <div class="claim-check claim-${escapeHtml(item.tone)}">
@@ -6159,6 +6413,8 @@ function factMiniHtml(player, limit = 2) {
 
 function qualityProfile(player) {
   const coverage = evidenceCoverage(player);
+  const targetAudit = sourceCoverageTargetAudit(player);
+  const conflictAudit = claimConflictAudit(player);
   const signalOnly = isSignalOnlyRecord(player);
   const gaps = [];
   if ((!signalOnly && coverage.count < 2) || coverage.score < 44 || (/not verified/i.test(verifiedLabel(player)) && coverage.count < 2)) gaps.push("source");
@@ -6170,15 +6426,23 @@ function qualityProfile(player) {
   if (requiresCredentialedData(player) && coverage.count < 2) gaps.push("credentialed data");
   if ((/funding|investor|ownership|to verify/i.test(player.sourceStatus) || /to verify/i.test(player.ownership)) && coverage.count < 3) gaps.push("capital");
   if (coverage.publicOpenQuestions.length >= 2) gaps.push("open source questions");
+  if (targetAudit.missingRequired.length >= 2) gaps.push("source class gap");
+  if (conflictAudit.conflicts.length) gaps.push("value conflict");
   const sourcePenalty = gaps.filter((gap) => ["source", "broken source", "manual link check", "ownership"].includes(gap)).length * 6;
   const credentialPenalty = gaps.filter((gap) => ["credentialed data", "capital", "open source questions", "metadata", "ownership check", "evidence depth"].includes(gap)).length * 3;
-  const score = Math.max(18, Math.min(94, coverage.score - sourcePenalty - credentialPenalty - coverage.restrictedCount * 2 - (player.key && coverage.count < 3 ? 4 : 0)));
+  const auditPenalty = targetAudit.missingRequired.length * 2 + conflictAudit.conflicts.length * 10 + (conflictAudit.status === "review" ? 2 : 0);
+  const score = Math.max(
+    18,
+    Math.min(94, coverage.score - sourcePenalty - credentialPenalty - coverage.restrictedCount * 2 - (player.key && coverage.count < 3 ? 4 : 0) - auditPenalty)
+  );
   const label = score >= 76 ? "Evidence supported" : score >= 56 ? "Sourced profile" : "Source light triage";
   return {
     gaps: [...new Set(gaps)],
     score,
     label,
     coverage,
+    targetAudit,
+    conflictAudit,
     confidence: confidenceLabel(player),
     verified: verifiedLabel(player)
   };
@@ -9242,7 +9506,7 @@ function renderMonitorExecutiveSummary(filteredPlayers) {
   const currentLeader = monitorSortedPlayers(filteredPlayers)[0];
   const proofLead = monitorSortedPlayers(filteredPlayers, "proof")[0];
   const readyRecords = filteredPlayers
-    .filter((player) => qualityProfile(player).score >= 68 && !hasCriticalEvidenceGap(player))
+    .filter(isReadyRecord)
     .sort((a, b) => qualityProfile(b).score + totalPriority(b) / 3 - (qualityProfile(a).score + totalPriority(a) / 3));
   const appQueueCount = filteredPlayers.filter(requiresCredentialedData).length;
   const readyLead = readyRecords[0];
@@ -9307,7 +9571,7 @@ function renderMonitorActionButtons(players) {
 }
 
 function renderMonitorExecutiveAgenda(filteredPlayers) {
-  const readyPlayers = filteredPlayers.filter((player) => qualityProfile(player).score >= 68 && !hasCriticalEvidenceGap(player));
+  const readyPlayers = filteredPlayers.filter(isReadyRecord);
   const blockedPlayers = filteredPlayers.filter((player) => hasCriticalEvidenceGap(player) || qualityProfile(player).score < 56);
   const watchPlayers = filteredPlayers.filter((player) => player.momentum >= 4 || player.aiScore >= 4);
   const lowerDetailPlayers = filteredPlayers.filter(
@@ -10973,6 +11237,8 @@ function onePagerAssessmentHtml(player, quality) {
 
 function onePagerSourcesHtml(player, quality) {
   const coverage = quality.coverage;
+  const targetAudit = sourceCoverageTargetAudit(player);
+  const conflictAudit = claimConflictAudit(player);
   const needs = sourceNeeds(player);
   const publicNeeds = needs.filter((need) => !/appfigures|similarweb|crunchbase/i.test(need));
   const gatedNeeds = [
@@ -10984,6 +11250,20 @@ function onePagerSourcesHtml(player, quality) {
       <span><strong>${coverage.count}</strong> linked</span>
       <span><strong>${coverage.verifiedCount}</strong> checked</span>
       <span><strong>${coverage.officialCount}</strong> official</span>
+      <span><strong>${targetAudit.score}%</strong> source class fit</span>
+      <span><strong>${conflictAudit.score}%</strong> consistency</span>
+    </div>
+    <div class="source-target-chip-row" aria-label="Required source classes">
+      ${sourceCoverageTargetChips(player, 10)}
+    </div>
+    <div class="claim-conflict-box claim-conflict-${escapeHtml(conflictAudit.status)}">
+      <strong>${escapeHtml(conflictAudit.status === "consistent" ? "No contradiction flagged" : conflictAudit.status === "conflict" ? "Conflict review needed" : "Consistency caveat")}</strong>
+      <span>${escapeHtml(
+        conflictAudit.conflicts[0] ||
+          conflictAudit.warnings[0] ||
+          conflictAudit.supported[0] ||
+          "Loaded sources do not contradict the current profile fields."
+      )}</span>
     </div>
     ${sourceLinksHtml(coverage.sources, 5)}
     ${
@@ -11348,6 +11628,9 @@ function renderDatabaseStats() {
   const gapNote = evidenceLoading ? "waiting for proof map" : "source and ownership completion needs";
   const avgNote = evidenceLoading ? "loading source quality" : "coverage and gaps";
   const appfiguresRows = credentialedAppfiguresCount();
+  const valueConflictCount = filtered.filter((player) => claimConflictAudit(player).conflicts.length > 0).length;
+  const valueCaveatCount = filtered.filter((player) => claimConflictAudit(player).status !== "consistent").length;
+  const sourceClassGapCount = filtered.filter((player) => sourceCoverageTargetAudit(player).missingRequired.length > 0).length;
 
   const databaseStats = isExecutiveMode()
     ? [
@@ -11364,7 +11647,8 @@ function renderDatabaseStats() {
         ["Yousician links", "Prepared", "internal status not inferred externally", "relationships"],
         ["AI records", aiCount, "high AI signal records", "ai-relevant"],
         ["Market signals", signalCount, "news, media, funding, awards", "market-signals"],
-        ["Source coverage", avgQuality, "linked source coverage", "source-confidence"]
+        ["Source coverage", avgQuality, "linked source coverage", "source-confidence"],
+        ["Value conflicts", valueConflictCount, "hard contradictions to review", "value-conflicts"]
       ]
     : [
     ["Records in view", filtered.length, "after global filters", "tracked-records"],
@@ -11377,7 +11661,10 @@ function renderDatabaseStats() {
     ["Market signals", signalCount, "monitoring inputs", "market-signals"],
     ["Yousician checks", internalCheckCount, "relationship validation", "relationships"],
     ["AI records", aiCount, "high AI signal", "ai-relevant"],
-    ["Avg. source confidence", avgQuality, avgNote, "source-confidence"]
+    ["Avg. source confidence", avgQuality, avgNote, "source-confidence"],
+    ["Source class gaps", sourceClassGapCount, "missing source type coverage", "source-targets"],
+    ["Value conflicts", valueConflictCount, "hard contradictions", "value-conflicts"],
+    ["Consistency notes", valueCaveatCount, "credential or source caveats", "claim-caveats"]
   ];
 
   els.databaseStats.innerHTML = databaseStats
@@ -11422,7 +11709,7 @@ function renderDatabaseVisuals(rows) {
   const visibleRows = rows;
   const priorityRows = [...visibleRows].sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name));
   const proofDebtRows = priorityRows.filter(hasCriticalEvidenceGap);
-  const readyRows = priorityRows.filter((player) => qualityProfile(player).score >= 68 && !hasCriticalEvidenceGap(player));
+  const readyRows = priorityRows.filter(isReadyRecord);
   const labelIds = new Set([
     state.selectedPlayerId,
     ...priorityRows.filter((player) => player.key).slice(0, 5).map((player) => player.id),
@@ -11440,6 +11727,9 @@ function renderDatabaseVisuals(rows) {
   const keyRecordCount = visibleRows.filter((player) => player.key).length;
   const proofGapCount = proofDebtRows.length;
   const readyCount = readyRows.length;
+  const valueConflictCount = visibleRows.filter((player) => claimConflictAudit(player).conflicts.length > 0).length;
+  const valueCaveatCount = visibleRows.filter((player) => claimConflictAudit(player).status !== "consistent").length;
+  const sourceClassGapCount = visibleRows.filter((player) => sourceCoverageTargetAudit(player).missingRequired.length > 0).length;
   const categoryRows = journeyCategories
     .map((category) => {
       const items = rows.filter((player) => journeyCategoryFor(player).id === category.id);
@@ -11465,6 +11755,9 @@ function renderDatabaseVisuals(rows) {
         <button type="button" data-dashboard-action="key-players"><strong>${keyRecordCount}</strong> priority records</button>
         <button type="button" data-dashboard-action="ready-records"><strong>${readyCount}</strong> ready for use</button>
         <button type="button" data-dashboard-action="proof-debt"><strong>${proofGapCount}</strong> proof gaps</button>
+        <button type="button" data-dashboard-action="source-targets"><strong>${sourceClassGapCount}</strong> source class gaps</button>
+        <button type="button" data-dashboard-action="value-conflicts"><strong>${valueConflictCount}</strong> value conflicts</button>
+        <button type="button" data-dashboard-action="claim-caveats"><strong>${valueCaveatCount}</strong> consistency notes</button>
       </div>
       <div class="database-confidence-legend" aria-label="Source confidence legend">
         <span><i class="legend-ready"></i> usable evidence</span>
@@ -11549,6 +11842,7 @@ function databaseCardHtml(player) {
           <span><strong>Product lens</strong>${escapeHtml(productFocusLabel(player))}</span>
           <span><strong>${escapeHtml(activeRating.label)}</strong>${escapeHtml(activeRating.display)}</span>
           <span><strong>Source confidence</strong>${escapeHtml(quality.label)}</span>
+          <span><strong>Consistency</strong>${escapeHtml(quality.conflictAudit.status === "consistent" ? "No conflict flagged" : quality.conflictAudit.status === "conflict" ? "Review conflict" : "Caveat")}</span>
           <span><strong>Why it matters</strong>${escapeHtml(player.why)}</span>
         </div>
         <div class="record-action-row executive-completion-row">
@@ -11578,6 +11872,7 @@ function databaseCardHtml(player) {
         <span><strong>Category</strong>${escapeHtml(categoryById(player.category)?.shortName || player.category)}</span>
         <span><strong>Product lens</strong>${escapeHtml(productFocusLabel(player))}</span>
         <span><strong>Evidence</strong>${escapeHtml(qualityProfile(player).label)}</span>
+        <span><strong>Consistency</strong>${escapeHtml(claimConflictAudit(player).status === "consistent" ? "No conflict flagged" : "Review needed")}</span>
         <span><strong>AI / momentum</strong>${escapeHtml(`${player.aiScore}/5 AI, ${player.momentum}/5 momentum`)}</span>
         <span><strong>Owner</strong>${escapeHtml(researchOwner(player))}</span>
       </div>
@@ -11587,6 +11882,9 @@ function databaseCardHtml(player) {
       </div>
       <div class="source-need-row">
         ${needs.map((need) => `<span class="source-need">${escapeHtml(need)}</span>`).join("")}
+      </div>
+      <div class="source-target-chip-row compact">
+        ${sourceCoverageTargetChips(player, 6)}
       </div>
     </article>
   `;
@@ -11625,6 +11923,7 @@ function qualityCell(player) {
   const quality = qualityProfile(player);
   const coverage = quality.coverage;
   const claim = claimIntegrityFor(player);
+  const conflict = claimConflictAudit(player);
   const gapText = quality.gaps.length ? quality.gaps.join(", ") : "no major gap flagged";
   const typeText = coverage.types.length ? coverage.types.slice(0, 3).join(" / ") : "no linked source type";
   const accessText = `${coverage.verifiedCount} verified, ${coverage.authRequiredCount} auth, ${coverage.restrictedCount} manual`;
@@ -11639,6 +11938,9 @@ function qualityCell(player) {
         ${claimPillHtml(claim.evidence)}
         ${claimPillHtml(claim.size)}
         ${claimPillHtml(claim.ai)}
+        <span class="claim-pill claim-${escapeHtml(conflict.status === "consistent" ? "verified" : conflict.status === "conflict" ? "hypothesis" : "mixed")}">
+          ${escapeHtml(conflict.status === "consistent" ? "No conflict" : conflict.status === "conflict" ? "Conflict" : "Caveat")}
+        </span>
       </div>
       <small>${coverage.count} linked / ${escapeHtml(typeText)} / access: ${escapeHtml(accessText)} / gaps: ${escapeHtml(gapText)}</small>
     </div>
@@ -12289,6 +12591,24 @@ function renderEvidenceLibrary() {
         "Quarterly refresh only";
       return { player, quality, coverage, nextGate };
     });
+  const sourceAuditRows = players
+    .map((player) => ({
+      player,
+      quality: qualityProfile(player),
+      targetAudit: sourceCoverageTargetAudit(player),
+      conflictAudit: claimConflictAudit(player)
+    }))
+    .sort(
+      (a, b) =>
+        Number(b.conflictAudit.status === "conflict") - Number(a.conflictAudit.status === "conflict") ||
+        Number(b.conflictAudit.status === "review") - Number(a.conflictAudit.status === "review") ||
+        a.targetAudit.score - b.targetAudit.score ||
+        a.conflictAudit.score - b.conflictAudit.score ||
+        totalPriority(b.player) - totalPriority(a.player)
+    );
+  const sourceClassCompleteCount = sourceAuditRows.filter((row) => row.targetAudit.missingRequired.length === 0).length;
+  const conflictRows = sourceAuditRows.filter((row) => row.conflictAudit.status !== "consistent");
+  const hardConflictCount = sourceAuditRows.filter((row) => row.conflictAudit.status === "conflict").length;
 
   els.evidenceLibrary.innerHTML = `
     <article class="evidence-library-card">
@@ -12303,8 +12623,47 @@ function renderEvidenceLibrary() {
         <span><strong>${verifiedCount}</strong> links checked</span>
         <span><strong>${authCount + manualCount}</strong> gated/manual</span>
         <span><strong>${avgCoverage}%</strong> avg. coverage</span>
+        <span><strong>${sourceClassCompleteCount}/${players.length}</strong> class complete</span>
+        <span><strong>${hardConflictCount}</strong> hard conflicts</span>
       </div>
     </article>
+    <section class="source-consistency-panel">
+      <div class="source-consistency-head">
+        <div>
+          <span class="section-kicker">Cross source consistency</span>
+          <h3>Values are checked against source classes before they become claims</h3>
+          <p>Each player is tested for missing source types and contradictory value signals such as reach wording versus direct metrics, ownership caveats, broken sources and metric gates.</p>
+        </div>
+        <div>
+          <strong>${conflictRows.length}</strong>
+          <span>records with caveats</span>
+        </div>
+      </div>
+      <div class="source-consistency-grid">
+        ${sourceAuditRows
+          .slice(0, 16)
+          .map(({ player, targetAudit, conflictAudit }) => {
+            const primaryIssue =
+              conflictAudit.conflicts[0] ||
+              conflictAudit.warnings[0] ||
+              targetAudit.missingRequired[0]?.reason ||
+              conflictAudit.supported[0] ||
+              "No contradiction flagged.";
+            return `
+              <button class="source-consistency-card source-consistency-${escapeHtml(conflictAudit.status)}" type="button" data-visual-player="${escapeHtml(player.id)}">
+                <strong>${companyInlineHtml(player, { logoClassName: "company-inline-logo source-inline-logo" })}</strong>
+                <span>${escapeHtml(conflictAudit.status === "consistent" ? "Consistent" : conflictAudit.status === "conflict" ? "Conflict review" : "Caveat")}</span>
+                <small>${escapeHtml(primaryIssue)}</small>
+                <em>${targetAudit.score}% source class fit / ${conflictAudit.score}% consistency</em>
+                <div class="source-target-chip-row compact">
+                  ${sourceCoverageTargetChips(player, 5)}
+                </div>
+              </button>
+            `;
+          })
+          .join("")}
+      </div>
+    </section>
     ${
       refreshedPostureRows.length
         ? `
@@ -13360,6 +13719,14 @@ function handleDashboardAction(action) {
     "proof-debt": () => {
       focusDatabaseSegment("source", { sort: "source", focus: "Proof debt" });
       showToast("Showing records that still need proof.");
+    },
+    "source-targets": () => {
+      focusDatabaseSegment("sourceclasses", { sort: "source", focus: "Source class gaps" });
+      showToast("Showing records missing a required source class.");
+    },
+    "value-conflicts": () => {
+      focusDatabaseSegment("conflicts", { sort: "source", focus: "Value consistency review" });
+      showToast("Showing records with hard value conflicts.");
     },
     "ready-records": () => {
       focusDatabaseSegment("ready", { sort: "evidence", focus: "Ready records" });

@@ -1,11 +1,11 @@
 {
   "status": {
-    "label": "Evidence library refreshed with close-adjacency source posture",
+    "label": "Evidence library refreshed with source class and consistency audit",
     "lastChecked": "2026-06-18",
-    "method": "Public source library now includes corrected Yokee Music, App Store and Google Play posture for Piano Academy plus explicit source states for close Yousician adjacencies.",
-    "caveat": "Public sources validate existence, product positioning, filings, legal/industry signals and selected ownership/product claims. They still do not prove app revenue, downloads, paid conversion, internal relationships or every strategic rating unless those credentialed fields are imported separately.",
-    "version": "source-coverage-v7",
-    "lastUpdated": "2026-06-18T13:05:00Z",
+    "method": "Each visible record is checked against required source classes such as official product, app store, ownership or capital, direct metric, internal relationship, market data, legal news and audience traffic support. The UI also flags source repair needs and value consistency caveats.",
+    "caveat": "Public sources validate existence, product positioning, filings, legal or industry signals and selected ownership or product claims. They still do not prove app revenue, downloads, paid conversion, internal relationships or every strategic rating unless credentialed exports are imported separately.",
+    "version": "source-coverage-v8",
+    "lastUpdated": "2026-06-18T15:30:00Z",
     "appfiguresPolicy": "Appfigures metrics remain pending unless populated from a credentialed export; public source coverage must not be used as app revenue proof.",
     "relationshipPolicy": "Internal relationship status remains a Yousician completion field and is not inferred from public sources."
   },
