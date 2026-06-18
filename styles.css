@@ -1620,6 +1620,19 @@ body:not([data-view="overview"]) .view.active {
   filter: drop-shadow(0 12px 24px rgba(19, 34, 29, 0.2));
 }
 
+.map-hub {
+  cursor: pointer;
+  outline: none;
+  pointer-events: bounding-box;
+}
+
+.map-hub:focus-visible .hub,
+.map-hub:hover .hub,
+.map-hub.is-open .hub {
+  stroke: rgba(99, 213, 163, 0.95);
+  filter: drop-shadow(0 14px 28px rgba(0, 159, 114, 0.22));
+}
+
 .hub-label {
   fill: #fff;
   font-size: 15px;
@@ -1651,6 +1664,65 @@ body:not([data-view="overview"]) .view.active {
 
 .hub-logo-image {
   image-rendering: auto;
+}
+
+.hub-hit {
+  fill: transparent;
+  pointer-events: all;
+}
+
+.map-hub-options {
+  filter: drop-shadow(0 16px 32px rgba(18, 28, 24, 0.18));
+}
+
+.map-hub-option {
+  cursor: pointer;
+  outline: none;
+  pointer-events: bounding-box;
+}
+
+.map-hub-option-card {
+  fill: rgba(255, 255, 255, 0.96);
+  stroke: rgba(24, 36, 31, 0.12);
+  stroke-width: 1.1;
+}
+
+.map-hub-option-card.small {
+  fill: #0b1512;
+  stroke: rgba(99, 213, 163, 0.28);
+}
+
+.map-hub-option:hover .map-hub-option-card,
+.map-hub-option:focus-visible .map-hub-option-card {
+  stroke: rgba(0, 159, 114, 0.48);
+  stroke-width: 2;
+}
+
+.map-hub-option-logo-bg {
+  fill: #f7fbf8;
+  stroke: rgba(0, 210, 146, 0.28);
+  stroke-width: 1.5;
+}
+
+.map-hub-option-yousician-logo,
+.map-hub-option-volos-logo {
+  image-rendering: auto;
+  pointer-events: none;
+}
+
+.map-hub-option-title {
+  fill: var(--ink);
+  font-size: 17px;
+  font-weight: 950;
+  letter-spacing: 0;
+  pointer-events: none;
+}
+
+.map-hub-option-sub {
+  fill: rgba(24, 36, 31, 0.62);
+  font-size: 9px;
+  font-weight: 850;
+  pointer-events: none;
 }
 
 .connection {
@@ -19483,6 +19555,118 @@ body[data-view="overview"] .map-zoom-row button {
   line-height: 1.05;
 }
 
+/* Hidden Volos trigger: brief flash in the empty slot under Direct reach, right of Sources. */
+body[data-view="overview"] .map-size-row > div {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
+
+body[data-view="overview"] .map-size-row button.volos-map-teaser {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  min-height: 28px;
+  border-color: rgba(24, 36, 31, 0.035);
+  border-radius: 7px;
+  background: rgba(248, 251, 248, 0.18);
+  color: rgba(24, 36, 31, 0.42);
+  box-shadow: none;
+  cursor: pointer;
+}
+
+body[data-view="overview"] .map-size-row button.volos-map-teaser:hover,
+body[data-view="overview"] .map-size-row button.volos-map-teaser:focus-visible {
+  border-color: rgba(24, 36, 31, 0.18);
+  outline: 0;
+  background: rgba(248, 251, 248, 0.42);
+  box-shadow: 0 0 0 2px rgba(24, 36, 31, 0.045);
+}
+
+body[data-view="overview"] .map-size-row button.volos-map-teaser img {
+  width: 37px;
+  height: 22px;
+  object-fit: contain;
+  opacity: 0;
+  pointer-events: none;
+  filter: grayscale(1);
+  animation: volosTeaserLogoFade 1750ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+body[data-view="overview"] .map-size-row button.volos-map-teaser span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+@keyframes volosTeaserButtonFade {
+  0% {
+    border-color: rgba(24, 36, 31, 0.02);
+    background: rgba(248, 251, 248, 0.1);
+  }
+
+  14% {
+    border-color: rgba(24, 36, 31, 0.09);
+    background: rgba(248, 251, 248, 0.34);
+  }
+
+  30% {
+    border-color: rgba(24, 36, 31, 0.05);
+    background: rgba(248, 251, 248, 0.2);
+  }
+
+  76% {
+    border-color: rgba(24, 36, 31, 0.018);
+    background: rgba(248, 251, 248, 0.08);
+  }
+
+  100% {
+    border-color: rgba(24, 36, 31, 0);
+    background: rgba(248, 251, 248, 0);
+  }
+}
+
+@keyframes volosTeaserLogoFade {
+  0% {
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 0.08;
+  }
+
+  16% {
+    opacity: 0.44;
+  }
+
+  28% {
+    opacity: 0.18;
+  }
+
+  72% {
+    opacity: 0.07;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1180px) {
+  body[data-view="overview"] .map-size-row > div {
+    grid-template-columns: repeat(auto-fit, minmax(74px, 1fr)) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-view="overview"] .map-size-row button.volos-map-teaser img {
+    width: 32px;
+    height: 19px;
+  }
+}
+
 /* Source confidence matrix polish. */
 body[data-view="database"] .database-matrix-panel {
   padding: 16px;
@@ -21031,6 +21215,509 @@ body[data-view="overview"] .map-symbol-logo {
     linear-gradient(135deg, #56cc95, #4d7de1);
 }
 
+.sonovia-volos-egg {
+  display: grid;
+  justify-items: center;
+  max-width: 760px;
+  margin: 34px auto 10px;
+  color: rgba(24, 36, 31, 0.58);
+  order: 100;
+}
+
+body[data-print-target="brief-export"] .sonovia-volos-egg,
+body[data-print-target="one-pager"] .sonovia-volos-egg {
+  display: none !important;
+}
+
+.sonovia-volos-egg summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 30px;
+  border: 1px solid rgba(24, 36, 31, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.56);
+  padding: 5px 10px 5px 6px;
+  opacity: 0.32;
+  list-style: none;
+  cursor: pointer;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.sonovia-volos-egg summary::-webkit-details-marker {
+  display: none;
+}
+
+.sonovia-volos-egg summary:hover,
+.sonovia-volos-egg summary:focus-visible,
+.sonovia-volos-egg[open] summary {
+  border-color: rgba(24, 36, 31, 0.16);
+  background: rgba(255, 255, 255, 0.9);
+  opacity: 1;
+  outline: 0;
+  transform: translateY(-1px);
+}
+
+.sonovia-volos-egg summary img {
+  width: 34px;
+  height: 20px;
+  border-radius: 6px;
+  background: #101815;
+  padding: 0;
+  object-fit: cover;
+}
+
+.sonovia-volos-egg summary span {
+  color: rgba(24, 36, 31, 0.58);
+  font-size: 0.64rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.sonovia-volos-card {
+  display: grid;
+  grid-template-columns: 106px minmax(0, 1fr);
+  gap: 14px;
+  width: min(100%, 560px);
+  margin-top: 10px;
+  border: 1px solid rgba(24, 36, 31, 0.12);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(12, 18, 16, 0.96), rgba(19, 30, 27, 0.92)),
+    #101815;
+  box-shadow: 0 18px 42px rgba(18, 28, 24, 0.16);
+  padding: 14px;
+}
+
+.sonovia-volos-card > img {
+  width: 106px;
+  height: 64px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  background: #050806;
+  padding: 0;
+  object-fit: cover;
+}
+
+.sonovia-volos-card div {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+.sonovia-volos-card p,
+.sonovia-volos-card h2 {
+  margin: 0;
+}
+
+.sonovia-volos-kicker {
+  color: rgba(99, 213, 163, 0.86);
+  font-size: 0.62rem;
+  font-weight: 950;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.sonovia-volos-card h2 {
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 950;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.sonovia-volos-card p {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.72rem;
+  font-weight: 720;
+  line-height: 1.32;
+  overflow-wrap: anywhere;
+}
+
+.sonovia-volos-card .sonovia-volos-joke {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 900;
+}
+
+.sonovia-volos-card a {
+  justify-self: start;
+  min-height: 30px;
+  border: 1px solid rgba(99, 213, 163, 0.32);
+  border-radius: 999px;
+  background: rgba(99, 213, 163, 0.12);
+  color: #dff8eb;
+  padding: 7px 11px;
+  font-size: 0.68rem;
+  font-weight: 950;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.sonovia-volos-card a:hover,
+.sonovia-volos-card a:focus-visible {
+  border-color: rgba(99, 213, 163, 0.56);
+  background: rgba(99, 213, 163, 0.2);
+  outline: 0;
+}
+
+.sonovia-volos-page {
+  display: none;
+  gap: 14px;
+}
+
+.sonovia-volos-page.active {
+  display: grid;
+}
+
+.sonovia-volos-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.38fr);
+  gap: 16px;
+  align-items: stretch;
+  overflow: hidden;
+  border: 1px solid rgba(24, 36, 31, 0.12);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 18% 24%, rgba(99, 213, 163, 0.22), transparent 34%),
+    linear-gradient(135deg, #081210, #101815 52%, #17241f);
+  box-shadow: 0 20px 56px rgba(18, 28, 24, 0.16);
+  padding: 22px;
+}
+
+.sonovia-volos-hero-copy {
+  display: grid;
+  align-content: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.sonovia-volos-hero-copy h2 {
+  margin: 0;
+  max-width: 760px;
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 4.6rem);
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 0.94;
+}
+
+.sonovia-volos-hero-copy > p {
+  max-width: 680px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 1rem;
+  font-weight: 760;
+  line-height: 1.36;
+}
+
+.sonovia-volos-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sonovia-volos-actions a,
+.sonovia-volos-actions button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  border: 1px solid rgba(99, 213, 163, 0.34);
+  border-radius: 999px;
+  background: rgba(99, 213, 163, 0.14);
+  color: #e7fff2;
+  padding: 9px 13px;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 950;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.sonovia-volos-actions .ghost-button {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.sonovia-volos-mark-card {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+  min-height: 260px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    #07100e;
+  background-size: 36px 36px;
+  padding: 18px;
+}
+
+.sonovia-volos-mark-card img {
+  width: min(100%, 280px);
+  aspect-ratio: 292 / 174;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.3);
+}
+
+.sonovia-volos-mark-card span {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.68rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.sonovia-volos-fact-grid,
+.sonovia-volos-joke-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.sonovia-volos-fact-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sonovia-volos-joke-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.sonovia-volos-fact,
+.sonovia-volos-joke-grid article {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  border: 1px solid rgba(24, 36, 31, 0.1);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--shadow-soft);
+  padding: 14px;
+}
+
+.sonovia-volos-fact span,
+.sonovia-volos-joke-grid span {
+  color: var(--brand-dark);
+  font-size: 0.66rem;
+  font-weight: 950;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.sonovia-volos-fact h3,
+.sonovia-volos-joke-grid strong {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 950;
+  line-height: 1.16;
+  overflow-wrap: anywhere;
+}
+
+.sonovia-volos-fact p,
+.sonovia-volos-joke-grid p {
+  margin: 0;
+  color: rgba(24, 36, 31, 0.68);
+  font-size: 0.78rem;
+  font-weight: 760;
+  line-height: 1.32;
+}
+
+.sonovia-volos-section {
+  display: grid;
+  gap: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(24, 36, 31, 0.09);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 12% 16%, rgba(99, 213, 163, 0.12), transparent 30%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 251, 248, 0.9));
+  box-shadow: 0 16px 38px rgba(18, 28, 24, 0.06);
+  padding: 18px;
+}
+
+.sonovia-volos-section h3,
+.sonovia-volos-section p {
+  margin: 0;
+}
+
+.sonovia-volos-section h3 {
+  color: var(--ink);
+  font-size: clamp(1.25rem, 2vw, 2rem);
+  font-weight: 950;
+  line-height: 1.04;
+}
+
+.sonovia-volos-section p {
+  color: rgba(24, 36, 31, 0.68);
+  font-size: 0.9rem;
+  font-weight: 720;
+  line-height: 1.42;
+}
+
+.sonovia-volos-section-head {
+  display: grid;
+  gap: 7px;
+  max-width: 760px;
+}
+
+.sonovia-volos-serious-bit {
+  grid-template-columns: minmax(260px, 0.46fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+.sonovia-volos-reality-grid,
+.sonovia-volos-meme-board,
+.sonovia-volos-score-grid,
+.sonovia-volos-panels {
+  display: grid;
+  gap: 10px;
+}
+
+.sonovia-volos-reality-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sonovia-volos-reality-grid article,
+.sonovia-volos-meme,
+.sonovia-volos-score-grid article,
+.sonovia-volos-panels article {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  border: 1px solid rgba(24, 36, 31, 0.09);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.84);
+  padding: 13px;
+}
+
+.sonovia-volos-reality-grid article {
+  background:
+    linear-gradient(135deg, rgba(0, 210, 146, 0.08), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.9);
+}
+
+.sonovia-volos-reality-grid span,
+.sonovia-volos-meme span,
+.sonovia-volos-score-grid span,
+.sonovia-volos-panels span {
+  color: rgba(0, 125, 92, 0.78);
+  font-size: 0.64rem;
+  font-weight: 950;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.sonovia-volos-reality-grid strong,
+.sonovia-volos-meme strong,
+.sonovia-volos-score-grid strong,
+.sonovia-volos-panels strong {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 950;
+  line-height: 1.08;
+}
+
+.sonovia-volos-reality-grid p,
+.sonovia-volos-meme p,
+.sonovia-volos-score-grid p,
+.sonovia-volos-panels p {
+  font-size: 0.82rem;
+  line-height: 1.34;
+}
+
+.sonovia-volos-meme-board {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sonovia-volos-meme {
+  min-height: 142px;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(99, 213, 163, 0.18), transparent 28%),
+    linear-gradient(135deg, #0b1512, #17241f);
+  border-color: rgba(99, 213, 163, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.sonovia-volos-meme span {
+  color: rgba(99, 213, 163, 0.78);
+}
+
+.sonovia-volos-meme strong {
+  color: #f7fff9;
+  font-size: 1.12rem;
+}
+
+.sonovia-volos-meme p {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.sonovia-volos-scoreboard {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 249, 238, 0.86)),
+    #fff;
+}
+
+.sonovia-volos-score-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.sonovia-volos-score-grid article {
+  border-color: rgba(255, 184, 77, 0.24);
+  background:
+    linear-gradient(180deg, rgba(255, 184, 77, 0.08), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.9);
+}
+
+.sonovia-volos-score-grid strong {
+  font-size: clamp(1.3rem, 2.6vw, 2.4rem);
+  line-height: 0.96;
+}
+
+.sonovia-volos-comic-strip {
+  background:
+    linear-gradient(135deg, rgba(18, 28, 24, 0.96), rgba(7, 16, 14, 0.94)),
+    #0b1512;
+}
+
+.sonovia-volos-comic-strip h3,
+.sonovia-volos-comic-strip .sonovia-volos-section-head p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.sonovia-volos-panels {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sonovia-volos-panels article {
+  min-height: 150px;
+  border-color: rgba(255, 255, 255, 0.11);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035)),
+    rgba(255, 255, 255, 0.035);
+}
+
+.sonovia-volos-panels span {
+  color: rgba(99, 213, 163, 0.84);
+}
+
+.sonovia-volos-panels strong {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.sonovia-volos-panels p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
 @media (max-width: 760px) {
   .one-pager-template-icon.company-logo-mark {
     width: 68px;
@@ -21058,5 +21745,30 @@ body[data-view="overview"] .map-symbol-logo {
   .priority-avatar.company-logo-mark {
     width: 44px;
     height: 44px;
+  }
+
+  .sonovia-volos-card {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    margin-inline: 6px;
+  }
+
+  .sonovia-volos-hero,
+  .sonovia-volos-fact-grid,
+  .sonovia-volos-joke-grid,
+  .sonovia-volos-serious-bit,
+  .sonovia-volos-reality-grid,
+  .sonovia-volos-meme-board,
+  .sonovia-volos-score-grid,
+  .sonovia-volos-panels {
+    grid-template-columns: 1fr;
+  }
+
+  .sonovia-volos-hero {
+    padding: 16px;
+  }
+
+  .sonovia-volos-mark-card {
+    min-height: 190px;
   }
 }

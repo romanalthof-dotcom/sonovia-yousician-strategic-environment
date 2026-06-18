@@ -3220,10 +3220,39 @@ const state = {
   mapZoomMode: defaultMapZoomMode,
   mapRecordLimit: defaultMapRecordLimit,
   bubbleSizeMode: defaultBubbleSizeMode,
+  volosTeaserVisible: false,
   quickFocus: null
 };
 
 let previousMapNodePositions = new Map();
+let volosTeaserTimer = null;
+let volosTeaserScrollY = 0;
+
+function clearVolosTeaserTimer() {
+  window.clearTimeout(volosTeaserTimer);
+  volosTeaserTimer = null;
+}
+
+function dismissVolosTeaser(options = {}) {
+  clearVolosTeaserTimer();
+  if (!state.volosTeaserVisible) return;
+  state.volosTeaserVisible = false;
+  if (options.render !== false && state.view === "overview") renderMapSummaryStrip();
+}
+
+function showVolosTeaser() {
+  if (state.view !== "overview") return;
+  clearVolosTeaserTimer();
+  state.volosTeaserVisible = true;
+  volosTeaserScrollY = window.scrollY || 0;
+  renderMapSummaryStrip();
+  volosTeaserTimer = window.setTimeout(() => dismissVolosTeaser(), 1750);
+}
+
+function openVolosSideQuest() {
+  dismissVolosTeaser({ render: false });
+  switchView("sonovia-volos", { scroll: true, pushUrl: true });
+}
 
 function isExecutiveMode() {
   return state.mode === "executive";
@@ -6710,6 +6739,14 @@ function renderMapSummaryStrip() {
       `;
     })
     .join("");
+  const volosTeaserButton = state.volosTeaserVisible
+    ? `
+      <button class="volos-map-teaser" type="button" data-volos-teaser aria-label="Open hidden Volos page">
+        <img src="./assets/sonovia-volos-v-black.png" alt="" loading="lazy" />
+        <span>Volos</span>
+      </button>
+    `
+    : "";
   const sizeOrContext = executive
     ? `
       <div class="map-context-row" aria-label="Map sizing logic">
@@ -6723,6 +6760,7 @@ function renderMapSummaryStrip() {
         <span>Size bubbles by</span>
         <div>
           ${sizeButtons}
+          ${volosTeaserButton}
         </div>
         <small>${escapeHtml(activeSizeMode.note)}</small>
       </div>
@@ -6745,7 +6783,6 @@ function renderMapSummaryStrip() {
       <small>Highest priority first</small>
     </div>
   `;
-
   els.mapSummaryStrip.innerHTML = `
     <div class="map-selected-card" aria-label="Selected record">
       <span>Selected record</span>
@@ -6810,6 +6847,10 @@ function renderMapSummaryStrip() {
       deferPicker: true,
       updateProfile: false
     });
+  });
+  els.mapSummaryStrip.querySelector("[data-volos-teaser]")?.addEventListener("click", (event) => {
+    event.preventDefault();
+    openVolosSideQuest();
   });
   els.mapSummaryStrip.querySelectorAll("[data-map-selected-action]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -7923,9 +7964,15 @@ function renderMap() {
     fragment.appendChild(exitLayer);
   }
 
-  const hub = createSvg("g", { class: "map-hub", "aria-label": "Yousician strategic center" });
+  const hub = createSvg("g", {
+    class: `map-hub ${state.volosTeaserVisible ? "is-open" : ""}`,
+    "aria-label": "Yousician strategic center. Press to briefly reveal the hidden Volos mark.",
+    tabindex: "0",
+    role: "button",
+    "aria-pressed": state.volosTeaserVisible ? "true" : "false"
+  });
   const hubTitle = createSvg("title");
-  hubTitle.textContent = "Yousician strategic center";
+  hubTitle.textContent = "Briefly reveal the hidden Volos mark";
   hub.appendChild(hubTitle);
   hub.appendChild(createSvg("circle", { cx: center.x, cy: center.y, r: 70, class: "hub-glow" }));
   hub.appendChild(createSvg("circle", { cx: center.x, cy: center.y, r: 52, class: "hub" }));
@@ -7953,6 +8000,17 @@ function renderMap() {
   const hubSub = createSvg("text", { x: center.x, y: center.y + 31, class: "hub-label hub-sub" });
   hubSub.textContent = "center";
   hub.appendChild(hubSub);
+  hub.appendChild(createSvg("circle", { cx: center.x, cy: center.y, r: 62, class: "hub-hit" }));
+  hub.addEventListener("click", (event) => {
+    event.stopPropagation();
+    showVolosTeaser();
+  });
+  hub.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      showVolosTeaser();
+    }
+  });
   fragment.appendChild(hub);
   svg.replaceChildren(fragment);
   previousMapNodePositions = new Map(
@@ -12483,6 +12541,7 @@ function requestedWorkspaceView(params, mode) {
 
 function applyViewState(view) {
   const nextView = viewExists(view) ? view : "overview";
+  if (nextView !== "overview") dismissVolosTeaser({ render: false });
   state.view = nextView;
   document.body.dataset.view = nextView;
   document.querySelectorAll(".tab-button").forEach((button) => {
@@ -14040,6 +14099,10 @@ function bindEvents() {
     button.addEventListener("click", () => switchView(button.dataset.view));
   });
 
+  document.querySelector(".map-panel")?.addEventListener("mouseleave", () => {
+    dismissVolosTeaser();
+  });
+
   document.querySelectorAll("[data-jump-view]").forEach((button) => {
     button.addEventListener("click", () => switchView(button.dataset.jumpView));
   });
@@ -14163,6 +14226,9 @@ function bindEvents() {
   });
 
   window.addEventListener("scroll", () => {
+    if (state.volosTeaserVisible && Math.abs((window.scrollY || 0) - volosTeaserScrollY) > 18) {
+      dismissVolosTeaser();
+    }
     if (document.body.dataset.printTarget === "brief-export") requestReportNavigationSync();
   }, { passive: true });
 
