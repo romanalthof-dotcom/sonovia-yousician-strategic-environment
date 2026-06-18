@@ -11856,6 +11856,48 @@ body[data-mode="executive"] .handoff-metrics span {
   font-size: 0.74rem;
 }
 
+.reader-path-list {
+  display: grid;
+  gap: 8px;
+}
+
+.reader-path-list article {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 6px 10px;
+  align-items: start;
+  border: 1px solid rgba(16, 35, 31, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.86);
+  padding: 10px;
+}
+
+.reader-path-list article > span {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #17211d;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 950;
+}
+
+.reader-path-list strong {
+  color: var(--ink);
+  font-size: 0.84rem;
+  line-height: 1.18;
+}
+
+.reader-path-list small {
+  grid-column: 2;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 750;
+  line-height: 1.36;
+}
+
 .coverage-checklist {
   display: grid;
   gap: 0;
@@ -19142,6 +19184,7 @@ body[data-view="overview"] .executive-copy p {
 .priority-actor-strip strong,
 .guiding-answer,
 .handoff-metrics article,
+.reader-path-list article,
 .coverage-checklist article,
 .appfigures-caveat {
   border-radius: 8px;

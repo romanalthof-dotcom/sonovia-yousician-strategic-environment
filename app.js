@@ -8649,42 +8649,25 @@ function renderBriefReadiness() {
   const librarySources = sourceLibrary();
   const verifiedSources = librarySources.filter((source) => sourceAccessStatus(source) === "verified").length;
   const boardGaps = players.filter(hasCriticalEvidenceGap).length;
-  const claimCaveats = players.filter((player) => claimIntegrityFor(player).hasHypothesis).length;
   const liveDataQueue = players.filter(requiresCredentialedData).length;
   const keyCount = players.filter((player) => player.key).length;
-  const relationshipChecks = validationQueue().length;
   const relationshipOverrideCount = Object.keys(liveOverrideContext.relationshipOverrides || {}).length;
   const credentialedRows = credentialedAppfiguresCount();
-  const categoryCount = categories.length;
   const criticalInternalGates = internalGapAreas.filter((area) => area.priority === "Critical").length;
   const items = [
     {
-      label: "Ecosystem map",
-      value: "Covered",
-      note: `${categoryCount} groups, ${players.length} tracked records`,
-      state: "done",
-      action: "ecosystem-map"
-    },
-    {
-      label: "Key players",
-      value: `${keyCount} profiled`,
-      note: "Priority players/clusters are covered with role and relevance",
+      label: "Priority shortlist",
+      value: `${keyCount} players`,
+      note: "First profile set; expand only after triage is agreed",
       state: "done",
       action: "key-players"
     },
     {
-      label: "Market database",
-      value: `${librarySources.length || "..."} sources`,
-      note: "Structured player, signal, and source fields are available",
-      state: "done",
-      action: "database"
-    },
-    {
-      label: "Guiding questions",
-      value: "Answered",
-      note: "The three guiding questions are surfaced before detail",
-      state: "done",
-      action: "guiding-questions"
+      label: "Proof gaps",
+      value: `${boardGaps} records`,
+      note: `${verifiedSources || "..."} checked links; guardrails stay inside detailed briefs`,
+      state: boardGaps ? "partial" : "done",
+      action: "source-confidence"
     },
     {
       label: "Internal gates",
@@ -8714,10 +8697,10 @@ function renderBriefReadiness() {
   els.briefReadiness.innerHTML = `
     <div class="brief-readiness-head">
       <div>
-        <span class="section-kicker">Triage status</span>
-        <h3>Structure is in place. The next step is prioritisation.</h3>
+        <span class="section-kicker">Validation gates</span>
+        <h3>Only open decisions and proof gaps stay here.</h3>
       </div>
-      <span>${players.length} records / ${keyCount} first profiles</span>
+      <span>${players.length} records / ${liveDataQueue} app data gates</span>
     </div>
     <div class="brief-readiness-grid">
       ${items
@@ -12996,15 +12979,6 @@ function applyViewState(view) {
   document.body.dataset.view = nextView;
   document.querySelectorAll(".tab-button").forEach((button) => {
     const active = button.dataset.view === nextView;
-    button.classList.toggle("active", active);
-    if (active) {
-      button.setAttribute("aria-current", "page");
-    } else {
-      button.removeAttribute("aria-current");
-    }
-  });
-  document.querySelectorAll(".overview-shortcut-card").forEach((button) => {
-    const active = button.dataset.jumpView === nextView;
     button.classList.toggle("active", active);
     if (active) {
       button.setAttribute("aria-current", "page");
