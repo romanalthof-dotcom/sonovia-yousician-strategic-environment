@@ -3451,6 +3451,7 @@ let backendState = { ...backendStateFallback };
 const defaultMapFocusMode = "priority";
 const defaultMapZoomMode = "auto";
 const defaultMapRecordLimit = 25;
+const defaultMapRankMode = "priority";
 const defaultBubbleSizeMode = "mission";
 const yousicianLookerBoardUrl = "https://yousician.eu.looker.com/boards/14";
 
@@ -3473,6 +3474,7 @@ const state = {
   mapFocusMode: defaultMapFocusMode,
   mapZoomMode: defaultMapZoomMode,
   mapRecordLimit: defaultMapRecordLimit,
+  mapRankMode: defaultMapRankMode,
   bubbleSizeMode: defaultBubbleSizeMode,
   volosTeaserVisible: false,
   quickFocus: null
@@ -3735,6 +3737,16 @@ const bubbleSizeModes = [
   }
 ];
 
+const mapRankModes = [
+  {
+    id: "priority",
+    label: "Strategic priority",
+    shortLabel: "Priority",
+    note: "Uses key player status, Yousician relevance, momentum and AI pressure."
+  },
+  ...bubbleSizeModes
+];
+
 const ratingModes = [
   {
     id: "strategic",
@@ -3977,6 +3989,10 @@ function bubbleSizeModeById(id) {
   return bubbleSizeModes.find((mode) => mode.id === id) || bubbleSizeModes[0];
 }
 
+function mapRankModeById(id) {
+  return mapRankModes.find((mode) => mode.id === id) || mapRankModes[0];
+}
+
 function ratingModeById(id) {
   return ratingModes.find((mode) => mode.id === id) || ratingModes[0];
 }
@@ -4048,6 +4064,59 @@ function bubbleSizeSortWeight(player) {
   if (bubbleSizeModeById(state.bubbleSizeMode).id === "mission") return missionScaleScore(player) * 10 + strategicWeight(player) / 8;
   if (bubbleSizeModeById(state.bubbleSizeMode).id === "strategic") return strategicWeight(player);
   return bubbleSizeScore(player) * 10 + strategicWeight(player) / 10;
+}
+
+function mapRankScore(player, rankId = state.mapRankMode) {
+  const mode = mapRankModeById(rankId).id;
+  if (mode === "priority") return totalPriority(player) * 4 + Number(player.key) * 16;
+  if (mode === "mission") return missionScaleScore(player) * 100 + totalPriority(player);
+  if (mode === "strategic") return strategicWeight(player) * 4 + Number(player.key) * 12;
+  if (mode === "business") {
+    const directScale = directCompanyScaleScore(player);
+    return directScale ? directScale * 220 + totalPriority(player) : mapDirectDataPriorityScore(player, "company");
+  }
+  if (mode === "revenue") {
+    const directRevenue = directRevenueScore(player);
+    return directRevenue ? directRevenue * 220 + totalPriority(player) : mapDirectDataPriorityScore(player, "revenue");
+  }
+  if (mode === "reach") {
+    const directReach = directReachScore(player);
+    return directReach ? directReach * 220 + totalPriority(player) : mapDirectDataPriorityScore(player, "reach");
+  }
+  if (mode === "appfigures") return appfiguresReadinessScore(player) * 100 + sourceUrgency(player);
+  if (mode === "ai") return player.aiScore * 100 + totalPriority(player) / 2;
+  if (mode === "momentum") return player.momentum * 100 + totalPriority(player) / 2;
+  if (mode === "evidence") return qualityProfile(player).score * 4 + totalPriority(player) / 2;
+  return totalPriority(player);
+}
+
+function mapDirectDataPriorityScore(player, kind) {
+  const text = `${player.type} ${player.model} ${player.reach} ${player.sourceStatus} ${player.recent} ${player.tags?.join(" ") || ""}`.toLowerCase();
+  const appDataNeed = requiresCredentialedData(player) ? 70 : 0;
+  const revenueNeed = /revenue|pricing|paid|subscription|moneti|appfigures|download|rank|subscriber|commerce/.test(text) ? 58 : 0;
+  const reachNeed = /traffic|audience|download|rank|community|global|subscriber|users|visits|appfigures|similarweb/.test(text) ? 50 : 0;
+  const scaleNeed = /company|scale|public|global|major|large|funding|investor|ownership|revenue|traffic|download/.test(text) ? 44 : 0;
+  const directNeed =
+    kind === "revenue" ? revenueNeed + appDataNeed : kind === "reach" ? reachNeed + appDataNeed : scaleNeed + revenueNeed / 2 + reachNeed / 2;
+  return directNeed + player.relevance * 11 + player.momentum * 7 + player.aiScore * 4 + Number(player.key) * 16 + sourceUrgency(player) / 3;
+}
+
+function mapRankSort(a, b) {
+  const rankId = mapRankModeById(state.mapRankMode).id;
+  return (
+    mapRankScore(b, rankId) - mapRankScore(a, rankId) ||
+    Number(b.key) - Number(a.key) ||
+    totalPriority(b) - totalPriority(a) ||
+    a.name.localeCompare(b.name)
+  );
+}
+
+function mapRankTieNote(rankId = state.mapRankMode) {
+  const mode = mapRankModeById(rankId).id;
+  if (["business", "revenue", "reach"].includes(mode)) return "Direct values first; pending values become a proof queue";
+  if (mode === "evidence") return "Stronger source confidence first";
+  if (mode === "appfigures") return "Data queue records first";
+  return "Higher ranked records first";
 }
 
 function bubbleSizeRadius(player) {
@@ -5257,6 +5326,17 @@ function logoMarkHtml(player, className = "company-logo-mark", options = {}) {
           ? `<img src="${escapeHtml(logoUrl)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove();this.parentElement.classList.add('is-logo-missing')" />`
           : ""
       }
+    </span>
+  `;
+}
+
+function companyInlineHtml(player, options = {}) {
+  const label = options.compact ? compactName(player.name, options.compact) : player.name;
+  const className = options.className || "company-inline";
+  return `
+    <span class="${className} company-inline" title="${escapeHtml(player.name)}">
+      ${logoMarkHtml(player, options.logoClassName || "company-inline-logo", { size: options.size || 64 })}
+      <span>${escapeHtml(label)}</span>
     </span>
   `;
 }
@@ -6521,6 +6601,7 @@ function resetWorkspaceFilters() {
   state.mapFocusMode = defaultMapFocusMode;
   state.mapZoomMode = defaultMapZoomMode;
   state.mapRecordLimit = defaultMapRecordLimit;
+  state.mapRankMode = defaultMapRankMode;
   state.bubbleSizeMode = defaultBubbleSizeMode;
   state.quickFocus = null;
   if (els.searchInput) els.searchInput.value = "";
@@ -6556,11 +6637,12 @@ function clearFilterById(filterId) {
   if (filterId === "mapFocus") state.mapFocusMode = defaultMapFocusMode;
   if (filterId === "mapZoom") state.mapZoomMode = defaultMapZoomMode;
   if (filterId === "mapLimit") state.mapRecordLimit = defaultMapRecordLimit;
+  if (filterId === "mapRank") state.mapRankMode = defaultMapRankMode;
   if (filterId === "bubbleSize") state.bubbleSizeMode = defaultBubbleSizeMode;
   if (filterId === "quickFocus") state.quickFocus = null;
   if (filterId === "query" && els.searchInput) els.searchInput.value = "";
   markMapFilterChanged();
-  if (state.view === "overview" && ["mapFocus", "mapZoom", "mapLimit", "bubbleSize"].includes(filterId)) {
+  if (state.view === "overview" && ["mapFocus", "mapZoom", "mapLimit", "mapRank", "bubbleSize"].includes(filterId)) {
     renderOverviewMapWorkspace({ revealMap: true, flashSummary: true });
     return;
   }
@@ -6612,6 +6694,9 @@ function renderActiveFilterStrip() {
     const defaultLimit = Math.min(defaultMapRecordLimit, Math.max(1, basePlayers.length));
     if (mapLimit !== defaultLimit) {
       chips.push({ id: "mapLimit", label: "Map records", value: mapLimit >= basePlayers.length ? `All ${basePlayers.length}` : `${mapLimit}` });
+    }
+    if (state.mapRankMode !== defaultMapRankMode) {
+      chips.push({ id: "mapRank", label: "Record ranking", value: mapRankModeById(state.mapRankMode).shortLabel });
     }
   }
   if (state.bubbleSizeMode !== defaultBubbleSizeMode) {
@@ -6858,7 +6943,7 @@ function applyMapRecordLimit(value, basePlayers = getFilteredPlayers()) {
 
 function mapVisiblePlayers(basePlayers) {
   const mode = mapFocusModeById(state.mapFocusMode);
-  const rankedPlayers = [...basePlayers].sort(mapPrioritySort);
+  const rankedPlayers = [...basePlayers].sort(mapRankSort);
   const limit = mapRecordLimitFor(rankedPlayers);
   const pool = ["all", defaultMapFocusMode].includes(state.mapFocusMode) ? rankedPlayers : rankedPlayers.filter(mode.matches);
   return pool.slice(0, Math.min(limit, pool.length));
@@ -7023,6 +7108,7 @@ function renderMapSummaryStrip() {
   const filtered = mapVisiblePlayers(basePlayers);
   const selectedPlayer = getSelectedPlayer();
   const activeSizeMode = bubbleSizeModeById(state.bubbleSizeMode);
+  const activeRankMode = mapRankModeById(state.mapRankMode);
   const executive = isExecutiveMode();
   const maxMapRecords = Math.max(1, basePlayers.length);
   const mapLimit = mapRecordLimitFor(basePlayers);
@@ -7060,6 +7146,20 @@ function renderMapSummaryStrip() {
       `;
     })
     .join("");
+  const rankButtons = mapRankModes
+    .map((mode) => {
+      const active = state.mapRankMode === mode.id;
+      return `
+        <button
+          type="button"
+          class="${active ? "is-active" : ""}"
+          data-map-rank="${escapeHtml(mode.id)}"
+          aria-pressed="${active ? "true" : "false"}"
+          title="${escapeHtml(mode.note)}"
+        >${escapeHtml(mode.shortLabel)}</button>
+      `;
+    })
+    .join("");
   const volosTeaserButton = state.volosTeaserVisible
     ? `
       <button class="volos-map-teaser" type="button" data-volos-teaser aria-label="Open hidden Volos page">
@@ -7087,7 +7187,7 @@ function renderMapSummaryStrip() {
       </div>
     `;
   const limitControl = `
-    <div class="map-limit-row" aria-label="Visible records by priority">
+    <div class="map-limit-row" aria-label="Visible records by ${escapeHtml(activeRankMode.label)}">
       <div>
         <span>Records shown</span>
         <strong>${mapLimit >= maxMapRecords ? `All ${maxMapRecords}` : `Top ${mapLimit}`}</strong>
@@ -7101,7 +7201,11 @@ function renderMapSummaryStrip() {
         data-map-record-limit
         aria-label="Number of map records"
       />
-      <small>Highest priority first</small>
+      <div class="map-rank-row">
+        <span>Records ranked by</span>
+        <div>${rankButtons}</div>
+      </div>
+      <small>${escapeHtml(activeRankMode.label)}. ${escapeHtml(mapRankTieNote(activeRankMode.id))}</small>
     </div>
   `;
   els.mapSummaryStrip.innerHTML = `
@@ -7143,6 +7247,13 @@ function renderMapSummaryStrip() {
   els.mapSummaryStrip.querySelectorAll("[data-bubble-size]").forEach((button) => {
     button.addEventListener("click", () => {
       state.bubbleSizeMode = button.dataset.bubbleSize;
+      state.mapRankMode = button.dataset.bubbleSize;
+      renderOverviewMapWorkspace({ revealMap: true, flashSummary: true, deferPicker: true, updateProfile: false });
+    });
+  });
+  els.mapSummaryStrip.querySelectorAll("[data-map-rank]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.mapRankMode = button.dataset.mapRank;
       renderOverviewMapWorkspace({ revealMap: true, flashSummary: true, deferPicker: true, updateProfile: false });
     });
   });
@@ -7187,8 +7298,7 @@ function renderMapSummaryStrip() {
 
 function mapPickerSort(a, b) {
   return Number(b.id === state.selectedPlayerId) - Number(a.id === state.selectedPlayerId) ||
-    Number(b.key) - Number(a.key) ||
-    totalPriority(b) - totalPriority(a) ||
+    mapRankScore(b) - mapRankScore(a) ||
     a.name.localeCompare(b.name);
 }
 
@@ -7285,7 +7395,7 @@ function renderCategoryLandscape() {
                     ? item.topPlayers
                         .map(
                           (player) =>
-                            `<button type="button" data-landscape-player="${player.id}" title="${escapeHtml(player.name)}">${escapeHtml(compactName(player.name, 16))}</button>`
+                            `<button type="button" data-landscape-player="${player.id}" title="${escapeHtml(player.name)}">${companyInlineHtml(player, { compact: 16, logoClassName: "company-inline-logo mini-inline-logo" })}</button>`
                         )
                         .join("")
                     : `<span>No match</span>`
@@ -7352,9 +7462,7 @@ function renderPortfolioVisual() {
                     .slice(0, 12)
                     .map(
                       (player) =>
-                        `<button type="button" data-portfolio-player="${player.id}" title="${escapeHtml(player.name)}" style="--player-color:${colorFor(player)}">${escapeHtml(
-                          initials(player.name)
-                        )}</button>`
+                        `<button type="button" data-portfolio-player="${player.id}" title="${escapeHtml(player.name)}" style="--player-color:${colorFor(player)}">${logoMarkHtml(player, "company-inline-logo mini-inline-logo")}</button>`
                     )
                     .join("")
                 : `<span>No current match</span>`
@@ -7440,9 +7548,7 @@ function renderStrategicImplications() {
                 ? item.players
                     .map(
                       (player) =>
-                        `<button type="button" data-visual-player="${escapeHtml(player.id)}" style="--player-color:${colorFor(player)}">${escapeHtml(
-                          compactName(player.name, 16)
-                        )}</button>`
+                        `<button type="button" data-visual-player="${escapeHtml(player.id)}" style="--player-color:${colorFor(player)}">${companyInlineHtml(player, { compact: 16, logoClassName: "company-inline-logo mini-inline-logo" })}</button>`
                     )
                     .join("")
                 : `<span>No current match</span>`
@@ -8047,10 +8153,10 @@ function renderMap() {
     const layout = mapLayoutForCategory(category, index, center);
     const categoryPlayers = filtered
       .filter((player) => journeyCategoryFor(player).id === category.id)
-      .sort((a, b) => bubbleSizeSortWeight(b) - bubbleSizeSortWeight(a));
+      .sort(mapRankSort);
     const categoryContextPlayers = basePlayers
       .filter((player) => journeyCategoryFor(player).id === category.id)
-      .sort((a, b) => bubbleSizeSortWeight(b) - bubbleSizeSortWeight(a));
+      .sort(mapRankSort);
     return {
       category,
       players: categoryPlayers,
@@ -8442,6 +8548,12 @@ function renderMap() {
   });
   fragment.appendChild(hub);
   svg.replaceChildren(fragment);
+  if (exitingNodeSnapshots.length) {
+    window.clearTimeout(renderMap.exitCleanupTimer);
+    renderMap.exitCleanupTimer = window.setTimeout(() => {
+      svg.querySelectorAll(".map-node-exit-layer").forEach((layer) => layer.remove());
+    }, 320);
+  }
   previousMapNodePositions = new Map(
     nodeItems.map((item) => [
       item.player.id,
@@ -9358,8 +9470,7 @@ function renderMonitorMetricLeaders(filteredPlayers) {
                 <strong>${escapeHtml(metric.display(leader))}</strong>
               </button>
               <button type="button" data-monitor-player="${escapeHtml(leader.id)}" title="${escapeHtml(leader.name)}">
-                <em style="--chip-color:${colorFor(leader)}">${escapeHtml(initials(leader.name))}</em>
-                <b>${escapeHtml(compactName(leader.name, 18))}</b>
+                ${companyInlineHtml(leader, { compact: 18, logoClassName: "company-inline-logo monitor-inline-logo" })}
               </button>
               <small>${escapeHtml(metric.note)}</small>
             </article>
@@ -9386,7 +9497,7 @@ function renderMonitorSortControls(filteredPlayers) {
             return `
               <button type="button" class="${active ? "is-active" : ""}" data-monitor-sort="${escapeHtml(mode.id)}" aria-pressed="${active ? "true" : "false"}">
                 <strong>${escapeHtml(mode.label)}</strong>
-                <span>${leader ? escapeHtml(compactName(leader.name, 14)) : "No match"}</span>
+                <span>${leader ? companyInlineHtml(leader, { compact: 14, logoClassName: "company-inline-logo monitor-inline-logo" }) : "No match"}</span>
               </button>
             `;
           })
@@ -9438,7 +9549,7 @@ function renderMonitorMarketComposition(filteredPlayers) {
                   <small>Evidence ${row.evidence || 0}%</small>
                   ${
                     row.topPlayer
-                      ? `<button type="button" data-monitor-player="${escapeHtml(row.topPlayer.id)}">${escapeHtml(compactName(row.topPlayer.name, 18))}</button>`
+                      ? `<button type="button" data-monitor-player="${escapeHtml(row.topPlayer.id)}">${companyInlineHtml(row.topPlayer, { compact: 18, logoClassName: "company-inline-logo monitor-inline-logo" })}</button>`
                       : `<small>No top player</small>`
                   }
                 </footer>
@@ -9502,8 +9613,7 @@ function renderMonitorBenchmark(filteredPlayers) {
                 <tr class="${player.id === state.selectedPlayerId ? "is-selected" : ""}" style="--row-color:${colorFor(player)}">
                   <th scope="row">
                     <button type="button" data-monitor-player="${escapeHtml(player.id)}" title="${escapeHtml(player.name)}">
-                      <span>${escapeHtml(initials(player.name))}</span>
-                      <strong>${escapeHtml(player.name)}</strong>
+                      ${companyInlineHtml(player, { logoClassName: "company-inline-logo monitor-inline-logo" })}
                       <small>${escapeHtml(strategicRole(player))}</small>
                     </button>
                   </th>
@@ -9614,8 +9724,7 @@ function playerMiniButton(player, dataAttribute = "data-monitor-player", maxName
       title="${escapeHtml(player.name)}"
       style="--chip-color:${colorFor(player)}"
     >
-      <span>${escapeHtml(initials(player.name))}</span>
-      <strong>${escapeHtml(compactName(player.name, maxName))}</strong>
+      ${companyInlineHtml(player, { compact: maxName, logoClassName: "company-inline-logo mini-inline-logo" })}
     </button>
   `;
 }
@@ -9952,8 +10061,7 @@ function renderActivityQueue(filteredPlayers, keyPlayers) {
                           .map(
                             (player) => `
                               <button type="button" data-monitor-player="${escapeHtml(player.id)}" data-id="${escapeHtml(player.id)}">
-                                <span style="--chip-color:${colorFor(player)}">${escapeHtml(initials(player.name))}</span>
-                                <strong>${escapeHtml(player.name)}</strong>
+                                ${companyInlineHtml(player, { logoClassName: "company-inline-logo monitor-inline-logo" })}
                                 <small>${escapeHtml(executiveSignalText(player.recent))}</small>
                               </button>
                             `
@@ -10137,7 +10245,7 @@ function renderKeyPlayerVisuals(keyPlayers) {
             ${logoMarkHtml(leadPlayer, "priority-avatar")}
           </span>
           <span class="priority-lead-copy">
-            <strong>${escapeHtml(leadPlayer.name)}</strong>
+            <strong>${companyInlineHtml(leadPlayer)}</strong>
             <small>${escapeHtml(strategicRole(leadPlayer))}</small>
           </span>
           <span class="priority-lead-why">${escapeHtml(leadPlayer.why)}</span>
@@ -10168,7 +10276,7 @@ function renderKeyPlayerVisuals(keyPlayers) {
                   <span class="priority-rank">${index + 2}</span>
                   ${logoMarkHtml(player, "priority-avatar priority-avatar-small")}
                   <span class="priority-player-copy">
-                    <strong>${escapeHtml(player.name)}</strong>
+                    <strong>${companyInlineHtml(player, { logoClassName: "company-inline-logo priority-inline-logo" })}</strong>
                     <small>${escapeHtml(strategicRole(player))}</small>
                   </span>
                   <span class="priority-score-pill">${escapeHtml(scoreText(player))}</span>
@@ -10196,8 +10304,7 @@ function renderKeyPlayerVisuals(keyPlayers) {
                           .map(
                             (player) => `
                               <button type="button" data-visual-player="${escapeHtml(player.id)}" title="${escapeHtml(player.name)}">
-                                <span style="--chip-color:${colorFor(player)}">${escapeHtml(initials(player.name))}</span>
-                                <strong>${escapeHtml(compactName(player.name, 14))}</strong>
+                                ${companyInlineHtml(player, { compact: 14, logoClassName: "company-inline-logo priority-inline-logo" })}
                               </button>
                             `
                           )
@@ -10236,8 +10343,7 @@ function renderKeyPlayerVisuals(keyPlayers) {
                           .map(
                             (player) => `
                               <button type="button" data-visual-player="${escapeHtml(player.id)}" title="${escapeHtml(player.name)}">
-                                <span style="--chip-color:${colorFor(player)}">${escapeHtml(initials(player.name))}</span>
-                                <strong>${escapeHtml(compactName(player.name, 16))}</strong>
+                                ${companyInlineHtml(player, { compact: 16, logoClassName: "company-inline-logo priority-inline-logo" })}
                               </button>
                             `
                           )
@@ -10428,7 +10534,7 @@ function onePagerMarketContextHtml(player, taxonomy, quality, validation) {
   const peerRows = peerSet.map((peer) => {
     const peerQuality = qualityProfile(peer);
     return [
-      peer.name,
+      onePagerCompanyCell(peer),
       taxonomyProfile(peer).journey,
       `${peer.relevance}/5`,
       `${peer.momentum}/5`,
@@ -10509,6 +10615,21 @@ function onePagerMarketContextHtml(player, taxonomy, quality, validation) {
   `;
 }
 
+function onePagerCompanyCell(player) {
+  return {
+    text: player.name,
+    html: companyInlineHtml(player, {
+      compact: 18,
+      logoClassName: "company-inline-logo mini-inline-logo"
+    })
+  };
+}
+
+function onePagerTableCellHtml(cell) {
+  if (cell && typeof cell === "object" && "html" in cell) return cell.html;
+  return escapeHtml(nonEmptyString(cell) || "To verify");
+}
+
 function onePagerTableHtml(headers, rows) {
   return `
     <table class="one-pager-table">
@@ -10519,7 +10640,7 @@ function onePagerTableHtml(headers, rows) {
         ${rows
           .map(
             (row) => `
-              <tr>${row.map((cell) => `<td>${escapeHtml(nonEmptyString(cell) || "To verify")}</td>`).join("")}</tr>
+              <tr>${row.map((cell) => `<td>${onePagerTableCellHtml(cell)}</td>`).join("")}</tr>
             `
           )
           .join("")}
@@ -10770,12 +10891,24 @@ function onePagerPositionHtml(player) {
   return `
     <div class="one-pager-position-grid">
       ${groups
-        .map((group) => {
-          const names = onePagerPositionPlayers(player, group.id).map((candidate) => candidate.name);
+    .map((group) => {
+          const candidates = onePagerPositionPlayers(player, group.id);
           return `
             <div>
               <strong><i data-lucide="${escapeHtml(group.icon)}"></i>${escapeHtml(group.label)}</strong>
-              <ul>${names.length ? names.map((name) => `<li>${escapeHtml(name)}</li>`).join("") : "<li>To verify</li>"}</ul>
+              <ul>${
+                candidates.length
+                  ? candidates
+                      .map(
+                        (candidate) =>
+                          `<li>${companyInlineHtml(candidate, {
+                            compact: 18,
+                            logoClassName: "company-inline-logo mini-inline-logo"
+                          })}</li>`
+                      )
+                      .join("")
+                  : "<li>To verify</li>"
+              }</ul>
             </div>
           `;
         })
@@ -11405,7 +11538,7 @@ function databaseCardHtml(player) {
       >
         <header>
           <div>
-            <strong>${escapeHtml(player.name)}</strong>
+            <strong>${companyInlineHtml(player)}</strong>
             <span>${escapeHtml(strategicRole(player))}</span>
           </div>
           ${player.key ? `<em>Key player</em>` : ""}
@@ -11434,7 +11567,7 @@ function databaseCardHtml(player) {
     >
       <header>
         <div>
-          <strong>${escapeHtml(player.name)}</strong>
+          <strong>${companyInlineHtml(player)}</strong>
           <span>${escapeHtml(strategicRole(player))}</span>
         </div>
         ${player.key ? `<em>Key</em>` : ""}
@@ -11687,7 +11820,7 @@ function renderKeyPlayerTemplate(rows, totalRows) {
                       </span>
                     </td>
                     <td>${escapeHtml(row.subcategory)}</td>
-                    <td><strong>${escapeHtml(row.name)}</strong></td>
+                    <td><strong>${companyInlineHtml(player)}</strong></td>
                     <td>${escapeHtml(row.description)}</td>
                     <td>${escapeHtml(row.revenueSize)}</td>
                     <td>${escapeHtml(row.hq)}</td>
@@ -11773,7 +11906,7 @@ function renderDatabaseLists(rows, totalRows) {
           }" tabindex="0">
             <td class="entity-col">
               <div class="name-cell">
-                <strong>${escapeHtml(player.name)}</strong>
+                <strong>${companyInlineHtml(player)}</strong>
                 <span>${escapeHtml(player.description)}</span>
                 <div class="mini-tag-row">
                   ${player.key ? `<span class="mini-tag key">Key</span>` : ""}
@@ -11915,7 +12048,7 @@ function renderRelationshipValidationPanel() {
             ({ relation, player }) => `
               <article style="--rel:${relationshipColor(relation.type)}">
                 <header>
-                  <strong>${escapeHtml(player.name)}</strong>
+                  <strong>${companyInlineHtml(player)}</strong>
                   <span>${escapeHtml(relationshipTitle(relation.type))}</span>
                 </header>
                 <p>${escapeHtml(player.why)}</p>
@@ -11952,7 +12085,7 @@ function renderRelationshipValidationPanel() {
           ({ relation, player, validation }) => `
             <article style="--rel:${relationshipColor(relation.type)}">
               <header>
-                <strong>${escapeHtml(player.name)}</strong>
+                <strong>${companyInlineHtml(player)}</strong>
                 <span>${escapeHtml(validation.owner)}</span>
               </header>
               <p>${escapeHtml(validation.nextStep)}</p>
@@ -12055,7 +12188,7 @@ function renderRelationshipGraph() {
         return `
           <article class="relationship-item" style="--rel:${relationshipColor(rel.type)}">
             <span>${escapeHtml(relationshipTitle(rel.type))}</span>
-            <h3>${escapeHtml(rel.from)} to ${escapeHtml(rel.player.name)}</h3>
+            <h3>${escapeHtml(rel.from)} to ${companyInlineHtml(rel.player, { logoClassName: "company-inline-logo relationship-inline-logo" })}</h3>
             <p>${escapeHtml(rel.note)}</p>
             <div class="badge-row">
               <span class="badge">${escapeHtml(categoryById(rel.player.category).name)}</span>
@@ -12190,8 +12323,7 @@ function renderEvidenceLibrary() {
                   ({ player, quality, coverage, nextGate }) => `
                     <button class="source-posture-card" type="button" data-visual-player="${escapeHtml(player.id)}" style="--source-color:${colorFor(player)}">
                       <span>
-                        ${logoMarkHtml(player, "source-posture-logo")}
-                        <strong>${escapeHtml(player.name)}</strong>
+                        <strong>${companyInlineHtml(player, { logoClassName: "company-inline-logo source-inline-logo" })}</strong>
                       </span>
                       <em>${escapeHtml(quality.label)} / ${quality.score}%</em>
                       <small>${coverage.count} sources · ${coverage.highCount} high tier · ${coverage.verifiedCount} checked</small>
@@ -13074,6 +13206,7 @@ function syncInteractionState() {
   document.body.dataset.hasQuery = state.query.trim() ? "true" : "false";
   document.body.dataset.mapFocusMode = state.mapFocusMode;
   document.body.dataset.mapRecordCount = String(state.mapRecordLimit);
+  document.body.dataset.mapRankMode = state.mapRankMode;
   document.body.dataset.bubbleSizeMode = state.bubbleSizeMode;
   document.body.dataset.ecosystemLayer = state.ecosystemLayer;
   document.querySelectorAll("[data-id]").forEach((element) => {

@@ -16009,6 +16009,55 @@ body[data-view="overview"] .map-summary-strip {
   background: var(--brand);
 }
 
+.company-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.company-inline > span:last-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.company-inline-logo {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  border-width: 1px;
+  box-shadow: 0 5px 14px rgba(24, 36, 31, 0.08);
+}
+
+.company-inline-logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.monitor-inline-logo,
+.priority-inline-logo,
+.relationship-inline-logo,
+.source-inline-logo,
+.mini-inline-logo {
+  width: 20px;
+  height: 20px;
+}
+
+.mini-inline-logo {
+  width: 18px;
+  height: 18px;
+}
+
+button .company-inline,
+th .company-inline,
+td .company-inline {
+  max-width: 100%;
+}
+
 .map-mode-row button:hover,
 .map-mode-row button:focus-visible,
 .map-size-row button:hover,
@@ -19714,6 +19763,45 @@ body[data-view="overview"] .map-context-row {
   box-shadow: 0 4px 12px rgba(0, 159, 114, 0.24);
 }
 
+.map-rank-row {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.map-rank-row > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+}
+
+.map-rank-row button {
+  min-height: 24px;
+  border: 1px solid rgba(24, 36, 31, 0.08);
+  border-radius: 999px;
+  background: #f8fbf8;
+  color: var(--ink);
+  padding: 3px 7px;
+  font: inherit;
+  font-size: 0.56rem;
+  font-weight: 950;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.map-rank-row button.is-active {
+  border-color: rgba(0, 159, 114, 0.36);
+  background: var(--brand-soft);
+  box-shadow: inset 0 -2px 0 rgba(0, 210, 146, 0.18);
+}
+
+.map-rank-row button:hover,
+.map-rank-row button:focus-visible {
+  border-color: rgba(0, 159, 114, 0.42);
+  outline: 0;
+}
+
 @media (max-width: 1180px) {
   body[data-view="overview"] .map-summary-strip {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -22006,4 +22094,85 @@ body[data-view="overview"] .map-adjust-body .source-box {
     box-shadow: 0 22px 55px rgba(18, 31, 27, 0.16);
     backdrop-filter: blur(18px);
   }
+}
+
+/* Inline company logo safeguards for legacy chip/table rules that style all spans. */
+.monitor-leader-grid button:nth-child(2),
+.monitor-benchmark-table th button,
+.activity-watch-list button {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.monitor-leader-grid button .company-inline,
+.monitor-benchmark-table th button .company-inline,
+.activity-watch-list button .company-inline,
+.landscape-players button .company-inline,
+.strategy-mini-strip button .company-inline,
+.priority-player-copy .company-inline,
+.source-posture-card .company-inline,
+.relationship-item .company-inline,
+.template-table .company-inline,
+.database-record-card .company-inline,
+.name-cell .company-inline {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  text-transform: none !important;
+}
+
+.monitor-leader-grid button .company-inline span,
+.monitor-benchmark-table th button .company-inline span,
+.activity-watch-list button .company-inline span,
+.landscape-players button .company-inline span,
+.strategy-mini-strip button .company-inline span,
+.portfolio-player-strip .company-logo-mark span,
+.priority-player-copy .company-inline span,
+.source-posture-card .company-inline span,
+.relationship-item .company-inline span,
+.template-table .company-inline span,
+.database-record-card .company-inline span,
+.name-cell .company-inline span {
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+}
+
+.monitor-leader-grid button .company-inline-logo,
+.monitor-benchmark-table th button .company-inline-logo,
+.activity-watch-list button .company-inline-logo,
+.landscape-players button .company-inline-logo,
+.strategy-mini-strip button .company-inline-logo,
+.portfolio-player-strip .company-logo-mark,
+.priority-player-copy .company-inline-logo,
+.source-posture-card .company-inline-logo,
+.relationship-item .company-inline-logo,
+.template-table .company-inline-logo,
+.database-record-card .company-inline-logo,
+.name-cell .company-inline-logo {
+  display: inline-grid !important;
+  place-items: center !important;
+  flex: 0 0 auto !important;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 999px !important;
+  background: #fff !important;
+  color: var(--ink) !important;
+  padding: 0 !important;
 }
