@@ -4835,7 +4835,8 @@ const logoDomainOverrides = {
   "epic-games": "epicgames.com",
   roblox: "roblox.com",
   netflix: "netflix.com",
-  nintendo: "nintendo.com"
+  nintendo: "nintendo.com",
+  "google-play-best-of": "play.google.com"
 };
 
 function domainFromUrl(value) {
@@ -4880,7 +4881,7 @@ function svgSafeId(value) {
 }
 
 function shouldShowMapLogo(player, visibleCount, focusScale, isSelected) {
-  return false;
+  return true;
 }
 
 function logoDomainLabel(player) {
@@ -7734,7 +7735,8 @@ function renderMap() {
       const tier = priorityTier(player);
       const isSelected = player.id === state.selectedPlayerId;
       const isEntering = !previousNodePositions.has(player.id);
-      const nodeLogoUrl = shouldShowMapLogo(player, filtered.length, focusScale, isSelected) ? logoUrlForPlayer(player, 128) : "";
+      const nodeHasLogoMark = shouldShowMapLogo(player, filtered.length, focusScale, isSelected);
+      const nodeLogoUrl = nodeHasLogoMark ? logoUrlForPlayer(player, 128) : "";
       if (player.key || isSelected) {
         const connection = createSvg("line", {
           x1: center.x,
@@ -7747,7 +7749,7 @@ function renderMap() {
       }
 
       const nodeAttrs = {
-        class: `map-node ${tier} ${isSelected ? "selected" : ""} ${nodeLogoUrl ? "has-brand-logo" : ""}`,
+        class: `map-node ${tier} ${isSelected ? "selected" : ""} ${nodeHasLogoMark ? "has-brand-logo" : ""} ${nodeLogoUrl ? "has-brand-image" : "has-brand-fallback"}`,
         tabindex: "0",
         role: "button",
         "aria-label": `${player.name}, ${player.relevance} of 5 relevance`,
@@ -7784,7 +7786,7 @@ function renderMap() {
         node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius + 10, class: "node-ai-ring", fill: "none" }));
       }
       node.appendChild(createSvg("circle", { cx: nodeX, cy: nodeY, r: radius, fill: journeyColorFor(player) }));
-      if (nodeLogoUrl) {
+      if (nodeHasLogoMark) {
         const logoRadius = Math.max(6, Math.min(radius - 2, Math.max(8, Math.round(radius * (isSelected ? 0.72 : 0.68)))));
         const clipId = `map-logo-clip-${svgSafeId(player.id)}`;
         const clip = createSvg("clipPath", { id: clipId });
@@ -7809,26 +7811,28 @@ function renderMap() {
         });
         fallback.textContent = initials(player.name);
         node.appendChild(fallback);
-        node.appendChild(
-          createSvg("image", {
-            x: nodeX - logoRadius,
-            y: nodeY - logoRadius,
-            width: logoRadius * 2,
-            height: logoRadius * 2,
-            href: nodeLogoUrl,
-            class: "node-logo-image",
-            "clip-path": `url(#${clipId})`,
-            "data-logo-domain": logoDomainLabel(player),
-            preserveAspectRatio: "xMidYMid meet"
-          })
-        );
+        if (nodeLogoUrl) {
+          node.appendChild(
+            createSvg("image", {
+              x: nodeX - logoRadius,
+              y: nodeY - logoRadius,
+              width: logoRadius * 2,
+              height: logoRadius * 2,
+              href: nodeLogoUrl,
+              class: "node-logo-image",
+              "clip-path": `url(#${clipId})`,
+              "data-logo-domain": logoDomainLabel(player),
+              preserveAspectRatio: "xMidYMid meet"
+            })
+          );
+        }
       }
       if (player.key || isSelected || tier === "focus") {
         const initFontSize = Math.min(isSelected ? 15 : 13.5, (tier === "signal" ? 8.6 : 9.4) * focusScale);
         const init = createSvg("text", {
           x: nodeX,
           y: nodeY + (tier === "signal" ? 3 : 4) * focusScale,
-          class: `node-initial ${tier} ${nodeLogoUrl ? "has-node-logo" : ""}`,
+          class: `node-initial ${tier} ${nodeHasLogoMark ? "has-node-logo" : ""}`,
           style: `font-size:${initFontSize.toFixed(1)}px`
         });
         init.textContent = initials(player.name);

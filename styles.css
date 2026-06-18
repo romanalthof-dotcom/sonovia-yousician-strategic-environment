@@ -20595,6 +20595,11 @@ body[data-view="overview"] .node-logo-mask-bg {
   filter: none !important;
 }
 
+body[data-view="overview"] .map-node.has-brand-fallback .node-logo-mask-bg {
+  fill: color-mix(in srgb, var(--node-color, #00b884) 16%, #fff);
+  stroke: color-mix(in srgb, var(--node-color, #00b884) 34%, rgba(23, 33, 29, 0.08));
+}
+
 body[data-view="overview"] .node-logo-image {
   opacity: 0.96;
   pointer-events: none;
@@ -20607,6 +20612,15 @@ body[data-view="overview"] .node-logo-fallback {
   stroke: rgba(255, 255, 255, 0.98);
   stroke-linejoin: round;
   stroke-width: 2.2px;
+}
+
+body[data-view="overview"] .map-node.has-brand-image .node-logo-fallback {
+  opacity: 0.18;
+}
+
+body[data-view="overview"] .map-node.has-brand-fallback .node-logo-fallback {
+  opacity: 0.96;
+  font-weight: 950;
 }
 
 body[data-view="overview"] .map-node.has-brand-logo .node-initial.has-node-logo {
