@@ -3605,7 +3605,7 @@ function showVolosTeaser() {
   state.volosTeaserVisible = true;
   volosTeaserScrollY = window.scrollY || 0;
   renderMapSummaryStrip();
-  volosTeaserTimer = window.setTimeout(() => dismissVolosTeaser(), 1750);
+  volosTeaserTimer = window.setTimeout(() => dismissVolosTeaser(), 1450);
 }
 
 function openVolosSideQuest() {
@@ -3791,37 +3791,37 @@ const bubbleSizeModes = [
   {
     id: "mission",
     label: "Yousician relevance",
-    shortLabel: "Yousician",
+    shortLabel: "Fit",
     note: "Default size combines company scale with strategic relevance to Yousician."
   },
   {
     id: "strategic",
     label: "Strategic influence",
-    shortLabel: "Strategic",
+    shortLabel: "Impact",
     note: "Default size shows strategic influence, not company size."
   },
   {
     id: "business",
     label: "Verified company scale",
-    shortLabel: "Direct scale",
+    shortLabel: "Scale",
     note: "Uses imported direct metrics only. Missing values stay pending."
   },
   {
     id: "revenue",
     label: "Verified revenue",
-    shortLabel: "Direct revenue",
+    shortLabel: "Rev.",
     note: "Uses credentialed revenue data only. Missing values stay pending."
   },
   {
     id: "reach",
     label: "Verified reach",
-    shortLabel: "Direct reach",
+    shortLabel: "Reach",
     note: "Uses imported audience, traffic, app or direct source data only."
   },
   {
     id: "appfigures",
     label: "App data status",
-    shortLabel: "App data",
+    shortLabel: "Apps",
     note: "App data status shows whether app metrics are queued or missing. It is not a performance ranking."
   },
   {
@@ -3833,7 +3833,7 @@ const bubbleSizeModes = [
   {
     id: "momentum",
     label: "Recent momentum",
-    shortLabel: "Momentum",
+    shortLabel: "Trend",
     note: "Recent momentum uses the current momentum field."
   },
   {

@@ -20535,7 +20535,7 @@ body[data-view="overview"] .map-context-row {
   outline: 0;
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1480px) {
   body[data-view="overview"] .map-summary-strip {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     grid-template-areas:
@@ -20574,6 +20574,15 @@ body[data-view="overview"] .map-zoom-row button {
 /* Hidden Volos trigger: brief flash in the empty slot under Direct reach, right of Sources. */
 body[data-view="overview"] .map-size-row > div {
   grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 5px;
+}
+
+body[data-view="overview"] .map-size-row button:not(.volos-map-teaser) {
+  min-height: 34px;
+  padding: 5px 7px;
+  font-size: clamp(0.66rem, 0.68vw, 0.76rem);
+  line-height: 1.05;
+  white-space: nowrap;
 }
 
 body[data-view="overview"] .map-size-row button.volos-map-teaser {
@@ -20582,30 +20591,32 @@ body[data-view="overview"] .map-size-row button.volos-map-teaser {
   display: grid;
   place-items: center;
   min-height: 28px;
-  border-color: rgba(24, 36, 31, 0.035);
+  border-color: rgba(24, 36, 31, 0.018);
   border-radius: 7px;
-  background: rgba(248, 251, 248, 0.18);
-  color: rgba(24, 36, 31, 0.42);
+  background: rgba(248, 251, 248, 0.04);
+  color: rgba(24, 36, 31, 0.22);
   box-shadow: none;
   cursor: pointer;
+  animation: volosTeaserButtonFade 1450ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 body[data-view="overview"] .map-size-row button.volos-map-teaser:hover,
 body[data-view="overview"] .map-size-row button.volos-map-teaser:focus-visible {
-  border-color: rgba(24, 36, 31, 0.18);
+  border-color: rgba(24, 36, 31, 0.12);
   outline: 0;
-  background: rgba(248, 251, 248, 0.42);
-  box-shadow: 0 0 0 2px rgba(24, 36, 31, 0.045);
+  background: rgba(248, 251, 248, 0.24);
+  box-shadow: 0 0 0 2px rgba(24, 36, 31, 0.026);
 }
 
 body[data-view="overview"] .map-size-row button.volos-map-teaser img {
-  width: 37px;
-  height: 22px;
+  width: 31px;
+  height: 18px;
   object-fit: contain;
   opacity: 0;
   pointer-events: none;
-  filter: grayscale(1);
-  animation: volosTeaserLogoFade 1750ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  filter: grayscale(1) brightness(0.52) contrast(0.82);
+  mix-blend-mode: multiply;
+  animation: volosTeaserLogoFade 1450ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 body[data-view="overview"] .map-size-row button.volos-map-teaser span {
@@ -20619,26 +20630,31 @@ body[data-view="overview"] .map-size-row button.volos-map-teaser span {
 
 @keyframes volosTeaserButtonFade {
   0% {
-    border-color: rgba(24, 36, 31, 0.02);
-    background: rgba(248, 251, 248, 0.1);
+    opacity: 0;
+    border-color: rgba(24, 36, 31, 0);
+    background: rgba(248, 251, 248, 0);
   }
 
   14% {
-    border-color: rgba(24, 36, 31, 0.09);
-    background: rgba(248, 251, 248, 0.34);
+    opacity: 0.58;
+    border-color: rgba(24, 36, 31, 0.038);
+    background: rgba(248, 251, 248, 0.1);
   }
 
-  30% {
-    border-color: rgba(24, 36, 31, 0.05);
-    background: rgba(248, 251, 248, 0.2);
+  27% {
+    opacity: 0.36;
+    border-color: rgba(24, 36, 31, 0.022);
+    background: rgba(248, 251, 248, 0.055);
   }
 
-  76% {
-    border-color: rgba(24, 36, 31, 0.018);
-    background: rgba(248, 251, 248, 0.08);
+  74% {
+    opacity: 0.17;
+    border-color: rgba(24, 36, 31, 0.01);
+    background: rgba(248, 251, 248, 0.025);
   }
 
   100% {
+    opacity: 0;
     border-color: rgba(24, 36, 31, 0);
     background: rgba(248, 251, 248, 0);
   }
@@ -20649,20 +20665,20 @@ body[data-view="overview"] .map-size-row button.volos-map-teaser span {
     opacity: 0;
   }
 
-  8% {
-    opacity: 0.08;
+  9% {
+    opacity: 0.035;
   }
 
-  16% {
-    opacity: 0.44;
+  18% {
+    opacity: 0.16;
   }
 
-  28% {
-    opacity: 0.18;
+  31% {
+    opacity: 0.052;
   }
 
   72% {
-    opacity: 0.07;
+    opacity: 0.018;
   }
 
   100% {
@@ -20672,14 +20688,14 @@ body[data-view="overview"] .map-size-row button.volos-map-teaser span {
 
 @media (max-width: 1180px) {
   body[data-view="overview"] .map-size-row > div {
-    grid-template-columns: repeat(auto-fit, minmax(74px, 1fr)) !important;
+    grid-template-columns: repeat(auto-fit, minmax(84px, 1fr)) !important;
   }
 }
 
 @media (max-width: 760px) {
   body[data-view="overview"] .map-size-row button.volos-map-teaser img {
-    width: 32px;
-    height: 19px;
+    width: 28px;
+    height: 16px;
   }
 }
 
