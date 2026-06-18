@@ -13862,9 +13862,237 @@ body[data-mode="executive"] .key-priority-map.visual-matrix {
   padding: 14px;
 }
 
-.monitor-executive-summary {
+.monitor-compare-board {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.monitor-compare-board article {
+  display: grid;
+  align-content: start;
+  gap: 9px;
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--compare-color) 24%, rgba(24, 36, 31, 0.08));
+  border-top: 4px solid var(--compare-color);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--compare-color) 7%, #fff), #fff 76%),
+    #fff;
+  padding: 11px;
+}
+
+.monitor-compare-board header {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.monitor-compare-board header span,
+.monitor-category-trends .section-kicker {
+  color: color-mix(in srgb, var(--compare-color, var(--brand)) 68%, #17211d);
+  font-size: 0.6rem;
+  font-weight: 950;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.monitor-compare-board header strong {
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 950;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.monitor-compare-board header small {
+  min-height: 46px;
+  color: rgba(24, 36, 31, 0.66);
+  font-size: 0.66rem;
+  font-weight: 770;
+  line-height: 1.2;
+}
+
+.monitor-compare-list {
+  display: grid;
+  gap: 6px;
+}
+
+.monitor-compare-list button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 8px;
+  align-items: center;
+  min-width: 0;
+  min-height: 34px;
+  border: 1px solid color-mix(in srgb, var(--compare-player-color) 18%, rgba(24, 36, 31, 0.08));
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  padding: 5px 7px;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.monitor-compare-list .company-inline {
+  min-width: 0;
+}
+
+.monitor-compare-value {
+  color: color-mix(in srgb, var(--compare-color) 68%, var(--ink));
+  font-size: 0.62rem;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.monitor-compare-list button > i {
+  grid-column: 1 / -1;
+  display: block;
+  width: 100%;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(24, 36, 31, 0.07);
+}
+
+.monitor-compare-list button > i::after {
+  content: "";
+  display: block;
+  width: calc(var(--compare-score) * 1%);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--compare-color), color-mix(in srgb, var(--compare-color) 42%, #fff));
+}
+
+.monitor-compare-action {
+  justify-self: start;
+  min-height: 30px;
+  border: 1px solid color-mix(in srgb, var(--compare-color) 28%, rgba(24, 36, 31, 0.1));
+  border-radius: 999px;
+  background: #fff;
+  color: color-mix(in srgb, var(--compare-color) 72%, #17211d);
+  padding: 5px 10px;
+  font: inherit;
+  font-size: 0.64rem;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.monitor-category-trends {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  border: 1px solid rgba(24, 36, 31, 0.08);
+  border-radius: 10px;
+  background: #fff;
+  padding: 12px;
+}
+
+.monitor-category-trend-list {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.monitor-category-trend-list article {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--category-color) 22%, rgba(24, 36, 31, 0.08));
+  border-left: 4px solid var(--category-color);
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--category-color) 5%, #fff);
+  padding: 9px;
+}
+
+.monitor-category-trend-list header,
+.monitor-category-trend-list footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.monitor-category-trend-list header {
+  align-items: start;
+}
+
+.monitor-category-trend-list header strong {
+  min-width: 0;
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 950;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.monitor-category-trend-list header span,
+.monitor-category-trend-list footer small {
+  color: rgba(24, 36, 31, 0.62);
+  font-size: 0.58rem;
+  font-weight: 850;
+  line-height: 1.12;
+}
+
+.monitor-category-bars {
+  display: grid;
+  gap: 4px;
+}
+
+.monitor-category-bars span {
+  display: block;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(24, 36, 31, 0.07);
+}
+
+.monitor-category-bars span:nth-child(1) i {
+  width: calc(var(--category-priority) * 1%);
+}
+
+.monitor-category-bars span:nth-child(2) i {
+  width: calc(var(--category-momentum) * 1%);
+  background: linear-gradient(90deg, #11a5a5, color-mix(in srgb, #11a5a5 42%, #fff));
+}
+
+.monitor-category-bars span:nth-child(3) i {
+  width: calc(var(--category-funding) * 1%);
+  background: linear-gradient(90deg, #3da5d9, color-mix(in srgb, #3da5d9 42%, #fff));
+}
+
+.monitor-category-bars i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--category-color), color-mix(in srgb, var(--category-color) 42%, #fff));
+}
+
+.monitor-category-trend-list footer {
+  flex-wrap: wrap;
+}
+
+.monitor-category-trend-list button {
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--category-color) 26%, rgba(24, 36, 31, 0.08));
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  padding: 4px 7px;
+  font: inherit;
+  font-size: 0.6rem;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.monitor-executive-summary {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -14298,6 +14526,12 @@ body[data-mode="executive"] .key-priority-map.visual-matrix {
 .monitor-trend-card > button:focus-visible,
 .monitor-trend-actors button:hover,
 .monitor-trend-actors button:focus-visible,
+.monitor-compare-list button:hover,
+.monitor-compare-list button:focus-visible,
+.monitor-compare-action:hover,
+.monitor-compare-action:focus-visible,
+.monitor-category-trend-list button:hover,
+.monitor-category-trend-list button:focus-visible,
 .monitor-executive-summary button:hover,
 .monitor-executive-summary button:focus-visible,
 .monitor-agenda-actions button:hover,
@@ -14307,6 +14541,21 @@ body[data-mode="executive"] .key-priority-map.visual-matrix {
   border-color: color-mix(in srgb, var(--trend-color, var(--chip-color)) 44%, rgba(24, 36, 31, 0.1));
   outline: 0;
   box-shadow: 0 10px 22px rgba(18, 28, 24, 0.09);
+}
+
+.monitor-compare-list button:hover,
+.monitor-compare-list button:focus-visible {
+  border-color: color-mix(in srgb, var(--compare-player-color) 42%, rgba(24, 36, 31, 0.1));
+}
+
+.monitor-compare-action:hover,
+.monitor-compare-action:focus-visible {
+  border-color: color-mix(in srgb, var(--compare-color) 46%, rgba(24, 36, 31, 0.1));
+}
+
+.monitor-category-trend-list button:hover,
+.monitor-category-trend-list button:focus-visible {
+  border-color: color-mix(in srgb, var(--category-color) 44%, rgba(24, 36, 31, 0.1));
 }
 
 .monitor-leader-grid {
@@ -15524,6 +15773,14 @@ body[data-mode="executive"] .key-priority-map.visual-matrix {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .monitor-compare-board {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .monitor-category-trend-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .monitor-executive-summary,
   .monitor-executive-agenda,
   .monitor-role-lens-grid,
@@ -15571,6 +15828,8 @@ body[data-mode="executive"] .key-priority-map.visual-matrix {
 
 @media (max-width: 760px) {
   .monitor-kpis,
+  .monitor-compare-board,
+  .monitor-category-trend-list,
   .monitor-executive-summary,
   .monitor-executive-agenda,
   .monitor-role-lens-grid,

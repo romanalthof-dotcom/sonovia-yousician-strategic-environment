@@ -9666,25 +9666,230 @@ function averageScore(items, scoreFn) {
   return Math.round(items.reduce((sum, item) => sum + scoreFn(item), 0) / items.length);
 }
 
+function monitorFundingSignalScore(player) {
+  const text = activitySearchText(player).toLowerCase();
+  let score = 0;
+  if (/funding|funded|raise|raised|round|series|seed|venture|capital|investor|accelerator|grant|programme|program/.test(text)) {
+    score += 5;
+  }
+  if (/acquisition|acquired|m&a|ownership|public company|sec|filing|backed|portfolio/.test(text)) {
+    score += 4;
+  }
+  if (/a16z|accel|general catalyst|eic|horizon|creative europe|eit|sxsw/.test(text)) {
+    score += 3;
+  }
+  if (player.category === "signals") score += 2;
+  if (sourceCoverageTargetAudit(player).classes.has("ownership_capital")) score += 2;
+  return Math.max(0, Math.min(10, score + Math.max(0, player.momentum - 3) + (player.key ? 1 : 0)));
+}
+
+function monitorComparisonDefinitions() {
+  return [
+    {
+      id: "priority",
+      label: "Strategic pressure",
+      title: "Who matters most right now",
+      note: "Composite of Yousician fit, momentum, AI pressure and key status.",
+      color: "#00b884",
+      sort: "priority",
+      score: totalPriority,
+      display: (player) => Math.round(totalPriority(player))
+    },
+    {
+      id: "momentum",
+      label: "Momentum",
+      title: "Who is moving fastest",
+      note: "Recent product, market, AI or category signal strength.",
+      color: "#11a5a5",
+      sort: "momentum",
+      score: (player) => player.momentum * 20 + totalPriority(player) / 4,
+      display: (player) => `${player.momentum}/5`
+    },
+    {
+      id: "ai",
+      label: "AI pressure",
+      title: "Where expectations may shift",
+      note: "AI native creation, feedback, search, audio and workflow signals.",
+      color: "#6e5cff",
+      sort: "ai",
+      score: (player) => player.aiScore * 20 + totalPriority(player) / 5,
+      display: (player) => `${player.aiScore}/5`
+    },
+    {
+      id: "capital",
+      label: "Funding and ownership",
+      title: "Where capital or M&A matters",
+      note: "Funding, investor, ownership, acquisition and programme signals by category.",
+      color: "#3da5d9",
+      segment: "signals",
+      score: monitorFundingSignalScore,
+      display: (player) => `${monitorFundingSignalScore(player)}/10`
+    },
+    {
+      id: "reach",
+      label: "Reach and channels",
+      title: "Who could add audience or trust",
+      note: "Directional reach signal, with direct values used first where loaded.",
+      color: "#ffb84d",
+      sort: "reach",
+      score: (player) =>
+        directReachScore(player) * 36 +
+        directCompanyScaleScore(player) * 20 +
+        audienceReachScore(player) * 14 +
+        (relationForPlayer(player)?.type === "partners" ? 18 : 0),
+      display: (player) => (directReachScore(player) ? ratingForPlayer(player, "reach").display : `${audienceReachScore(player)}/5 signal`)
+    }
+  ];
+}
+
+function monitorPrimaryTrendCounts(filteredPlayers) {
+  return monitorTrendDefinitions()
+    .filter((trend) => !["proof-debt", "app-gate"].includes(trend.id))
+    .map((trend) => ({ ...trend, players: filteredPlayers.filter(trend.matches), count: filteredPlayers.filter(trend.matches).length }))
+    .sort((a, b) => b.count - a.count);
+}
+
+function renderMonitorComparisonRows(players, dimension, limit = 4) {
+  const ranked = [...players]
+    .sort((a, b) => dimension.score(b) - dimension.score(a) || totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name))
+    .slice(0, limit);
+  if (!ranked.length) return `<p>No current match in this view.</p>`;
+  const maxScore = Math.max(1, ...ranked.map((player) => dimension.score(player)));
+  return ranked
+    .map((player) => {
+      const percent = Math.max(8, Math.round((dimension.score(player) / maxScore) * 100));
+      return `
+        <button type="button" data-monitor-player="${escapeHtml(player.id)}" style="--compare-player-color:${colorFor(player)}; --compare-score:${percent}">
+          ${companyInlineHtml(player, { compact: 18, logoClassName: "company-inline-logo monitor-inline-logo" })}
+          <span class="monitor-compare-value">${escapeHtml(dimension.display(player))}</span>
+          <i aria-hidden="true"></i>
+        </button>
+      `;
+    })
+    .join("");
+}
+
+function renderMonitorComparisonBoard(filteredPlayers) {
+  return `
+    <div class="monitor-compare-board" aria-label="Market comparison board">
+      ${monitorComparisonDefinitions()
+        .map((dimension) => {
+          const action = dimension.sort
+            ? `data-monitor-sort="${escapeHtml(dimension.sort)}"`
+            : `data-monitor-trend-segment="${escapeHtml(dimension.segment || "signals")}"`;
+          const actionLabel = dimension.sort ? `Sort by ${dimension.label.toLowerCase()}` : "Open capital signals";
+          return `
+            <article style="--compare-color:${dimension.color}">
+              <header>
+                <span>${escapeHtml(dimension.label)}</span>
+                <strong>${escapeHtml(dimension.title)}</strong>
+                <small>${escapeHtml(dimension.note)}</small>
+              </header>
+              <div class="monitor-compare-list">
+                ${renderMonitorComparisonRows(filteredPlayers, dimension)}
+              </div>
+              <button type="button" class="monitor-compare-action" ${action}>
+                ${escapeHtml(actionLabel)}
+              </button>
+            </article>
+          `;
+        })
+        .join("")}
+    </div>
+  `;
+}
+
+function renderMonitorCategoryTrendBoard(filteredPlayers) {
+  const rows = categories
+    .map((category) => {
+      const players = filteredPlayers.filter((player) => player.category === category.id);
+      const fundingPlayers = players.filter((player) => monitorFundingSignalScore(player) >= 5);
+      const momentumPlayers = players.filter((player) => player.momentum >= 4);
+      const aiPlayers = players.filter((player) => player.aiScore >= 4 || player.category === "ai");
+      const priority = averageScore(players, (player) => totalPriority(player));
+      const topPlayer = monitorSortedPlayers(players)[0];
+      return {
+        category,
+        players,
+        count: players.length,
+        keyCount: players.filter((player) => player.key).length,
+        momentumCount: momentumPlayers.length,
+        aiCount: aiPlayers.length,
+        fundingCount: fundingPlayers.length,
+        priority,
+        topPlayer
+      };
+    })
+    .filter((row) => row.count)
+    .sort((a, b) => b.priority - a.priority || b.count - a.count);
+  const maxCount = Math.max(1, ...rows.map((row) => row.count));
+  const maxPriority = Math.max(1, ...rows.map((row) => row.priority));
+
+  return `
+    <div class="monitor-category-trends" aria-label="Category trend comparison">
+      <div class="monitor-compare-head">
+        <div>
+          <span class="section-kicker">Category trend board</span>
+          <h3>Compare pressure, momentum and capital signals by category</h3>
+        </div>
+        <p>Funding and ownership are treated as signals unless exact round values are directly sourced.</p>
+      </div>
+      <div class="monitor-category-trend-list">
+        ${rows
+          .map((row) => {
+            const countShare = Math.round((row.count / maxCount) * 100);
+            const priorityShare = Math.round((row.priority / maxPriority) * 100);
+            const momentumShare = Math.round((row.momentumCount / Math.max(1, row.count)) * 100);
+            const fundingShare = Math.round((row.fundingCount / Math.max(1, row.count)) * 100);
+            return `
+              <article
+                style="--category-color:${row.category.color}; --category-count:${countShare}; --category-priority:${priorityShare}; --category-momentum:${momentumShare}; --category-funding:${fundingShare}"
+              >
+                <header>
+                  <strong>${escapeHtml(row.category.shortName || row.category.name)}</strong>
+                  <span>${row.count} records / ${row.keyCount} key</span>
+                </header>
+                <div class="monitor-category-bars" aria-hidden="true">
+                  <span><i></i></span>
+                  <span><i></i></span>
+                  <span><i></i></span>
+                </div>
+                <footer>
+                  <small>Momentum ${row.momentumCount}</small>
+                  <small>AI ${row.aiCount}</small>
+                  <small>Funding or ownership ${row.fundingCount}</small>
+                  ${
+                    row.topPlayer
+                      ? `<button type="button" data-monitor-player="${escapeHtml(row.topPlayer.id)}">${companyInlineHtml(row.topPlayer, { compact: 18, logoClassName: "company-inline-logo monitor-inline-logo" })}</button>`
+                      : `<small>No lead</small>`
+                  }
+                </footer>
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
 function renderMonitorExecutiveSummary(filteredPlayers) {
-  const trendCounts = monitorTrendDefinitions()
-    .map((trend) => ({ ...trend, players: filteredPlayers.filter(trend.matches) }))
-    .sort((a, b) => b.players.length - a.players.length);
+  const trendCounts = monitorPrimaryTrendCounts(filteredPlayers);
   const topTrend = trendCounts[0];
   const secondTrend = trendCounts[1];
   const currentLeader = monitorSortedPlayers(filteredPlayers)[0];
-  const proofLead = monitorSortedPlayers(filteredPlayers, "proof")[0];
+  const momentumLead = monitorSortedPlayers(filteredPlayers, "momentum")[0];
+  const capitalLead = [...filteredPlayers].sort((a, b) => monitorFundingSignalScore(b) - monitorFundingSignalScore(a) || a.name.localeCompare(b.name))[0];
   const readyRecords = filteredPlayers
     .filter(isReadyRecord)
     .sort((a, b) => qualityProfile(b).score + totalPriority(b) / 3 - (qualityProfile(a).score + totalPriority(a) / 3));
-  const appQueueCount = filteredPlayers.filter(requiresCredentialedData).length;
   const readyLead = readyRecords[0];
   const sortMode = monitorSortModeById(state.monitorSort);
   const summaryCards = [
     {
       label: "Largest pressure field",
       title: topTrend ? topTrend.title : "No pressure field selected",
-      value: topTrend ? `${topTrend.players.length} records` : "0 records",
+      value: topTrend ? `${topTrend.count} records` : "0 records",
       note: topTrend && secondTrend ? `Next cluster: ${secondTrend.title}` : "Use the segment filters to narrow the readout.",
       action: topTrend ? `<button type="button" data-monitor-trend-segment="${escapeHtml(topTrend.segment)}">Open field</button>` : ""
     },
@@ -9703,11 +9908,18 @@ function renderMonitorExecutiveSummary(filteredPlayers) {
       action: readyLead ? `<button type="button" data-monitor-player="${escapeHtml(readyLead.id)}">Open brief</button>` : ""
     },
     {
-      label: "Biggest blocker",
-      title: proofLead ? proofLead.name : "No blocker",
-      value: `${appQueueCount} app data gaps`,
-      note: proofLead ? sourceNeeds(proofLead).slice(0, 2).join(" / ") : "No source gaps in this view.",
-      action: `<button type="button" data-monitor-sort="proof">Sort by proof gaps</button>`
+      label: "Fast moving signal",
+      title: momentumLead ? momentumLead.name : "No momentum lead",
+      value: momentumLead ? `Momentum ${momentumLead.momentum}/5` : "No signal",
+      note: momentumLead ? nextAction(momentumLead) : "Use activity lanes for product and market changes.",
+      action: momentumLead ? `<button type="button" data-monitor-player="${escapeHtml(momentumLead.id)}">Open brief</button>` : ""
+    },
+    {
+      label: "Capital watch",
+      title: capitalLead && monitorFundingSignalScore(capitalLead) > 0 ? capitalLead.name : "No capital signal",
+      value: capitalLead ? `${monitorFundingSignalScore(capitalLead)}/10 signal` : "0/10 signal",
+      note: "Funding, M&A, investor and ownership signals are tracked separately from product proof.",
+      action: `<button type="button" data-monitor-trend-segment="signals">Open capital signals</button>`
     }
   ];
 
@@ -10072,22 +10284,20 @@ function renderMonitorBenchmark(filteredPlayers) {
 }
 
 function renderMonitorInsightReadout(filteredPlayers) {
-  const trendCounts = monitorTrendDefinitions()
-    .map((trend) => ({ ...trend, count: filteredPlayers.filter(trend.matches).length }))
-    .sort((a, b) => b.count - a.count);
+  const trendCounts = monitorPrimaryTrendCounts(filteredPlayers);
   const topTrend = trendCounts[0];
   return `
     <section class="monitor-insight-readout" aria-label="Market trend and comparison readout">
       <div class="directory-head">
         <div>
           <span class="section-kicker">Market readout</span>
-          <h3>${topTrend ? `${topTrend.title} is the largest current signal cluster` : "Compare market pressure first"}</h3>
+          <h3>Compare players, categories and market signals first</h3>
         </div>
-        <span>${filteredPlayers.length} records compared</span>
+        <span>${filteredPlayers.length} records / ${topTrend ? `${topTrend.count} in ${topTrend.title}` : "no cluster"}</span>
       </div>
+      ${renderMonitorComparisonBoard(filteredPlayers)}
+      ${renderMonitorCategoryTrendBoard(filteredPlayers)}
       ${renderMonitorExecutiveSummary(filteredPlayers)}
-      ${renderMonitorExecutiveAgenda(filteredPlayers)}
-      ${renderMonitorExecutiveRoleLenses(filteredPlayers)}
       <div class="monitor-meta-grid" aria-label="Meta trend clusters">
         ${renderMonitorMetaTrends(filteredPlayers)}
       </div>
@@ -10102,6 +10312,8 @@ function renderMonitorInsightReadout(filteredPlayers) {
       </div>
       ${renderMonitorSortControls(filteredPlayers)}
       ${renderMonitorBenchmark(filteredPlayers)}
+      ${renderMonitorExecutiveAgenda(filteredPlayers)}
+      ${renderMonitorExecutiveRoleLenses(filteredPlayers)}
     </section>
   `;
 }
