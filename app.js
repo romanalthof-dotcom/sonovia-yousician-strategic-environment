@@ -4984,7 +4984,7 @@ function researchAnchorSection(player, context = "profile") {
       <span>${title}</span>
       <h3>${escapeHtml(anchor.headline)}</h3>
       <p>${escapeHtml(anchor.summary)}</p>
-      <a href="${escapeHtml(anchor.url)}" target="_blank" rel="noreferrer">${escapeHtml(anchor.studyTitle)}</a>
+      <a href="${escapeHtml(anchor.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(anchor.studyTitle)}</a>
       <small>${escapeHtml(anchor.confidence)}</small>
     </section>
   `;
@@ -5250,6 +5250,113 @@ function domainFromUrl(value) {
   } catch {
     return "";
   }
+}
+
+function isExternalUrl(value) {
+  try {
+    return /^https?:$/.test(new URL(value).protocol);
+  } catch {
+    return false;
+  }
+}
+
+function sourceUrl(source) {
+  const url = source?.url || "";
+  return isExternalUrl(url) ? url : "";
+}
+
+function sourceDomainLabel(source) {
+  const domain = domainFromUrl(sourceUrl(source));
+  return domain || "link";
+}
+
+function sourceLinkKind(source) {
+  const url = sourceUrl(source);
+  const text = `${source?.title || ""} ${source?.type || ""} ${source?.scope || ""} ${url}`.toLowerCase();
+  if (/play\.google\.com|google play/.test(text)) return "Google Play";
+  if (/apps\.apple\.com|app store/.test(text)) return "App Store";
+  if (/yousician\.atlassian\.net|internal research|confluence/.test(text)) return "Internal";
+  if (/appfigures|similarweb|credentialed/.test(text)) return "Credentialed data";
+  if (/legal|lawsuit|rights|copyright|riaa/.test(text)) return "Legal / industry";
+  if (/linkedin/.test(text)) return "LinkedIn";
+  if (/sec\.gov|annual report|filing|investor/.test(text)) return "Filing";
+  if (/crunchbase|pitchbook|dealroom|funding|investor/.test(text)) return "Capital";
+  if (/news|press|blog|article|launch/.test(text)) return "News";
+  if (/support|help/.test(text)) return "Support";
+  if (/official|product|company|home|website/.test(text)) return "Website";
+  return source?.type || "Source";
+}
+
+function playerPrimaryWebsiteSource(player) {
+  const directDomain = logoDomainOverrides[player.id];
+  const sources = evidenceSourcesFor(player).filter((source) => sourceUrl(source));
+  if (directDomain) {
+    const directMatch = sources.find((source) => domainFromUrl(source.url).endsWith(directDomain));
+    if (directMatch) return directMatch;
+    return {
+      title: `${player.name} website`,
+      type: "Official website",
+      tier: "High",
+      url: `https://${directDomain}`,
+      access_status: "not-checked",
+      scope: "Primary website inferred from the curated company domain map."
+    };
+  }
+  return sources
+    .map((source) => ({ source, score: logoCandidateScore(source, player) }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score)[0]?.source || sources[0] || null;
+}
+
+function playerExternalLinks(player, limit = 6) {
+  const primary = playerPrimaryWebsiteSource(player);
+  const sources = evidenceSourcesFor(player).filter((source) => sourceUrl(source));
+  const rankedSources = sources
+    .map((source) => {
+      let score = source === primary ? 100 : logoCandidateScore(source, player);
+      const kind = sourceLinkKind(source);
+      if (kind === "App Store" || kind === "Google Play") score += 12;
+      if (kind === "Filing" || kind === "Capital") score += 8;
+      if (kind === "News") score += 4;
+      if (sourceAccessStatus(source) === "needs-replacement") score -= 30;
+      return { source, kind, score };
+    })
+    .sort((a, b) => b.score - a.score || a.source.title.localeCompare(b.source.title));
+  const seen = new Set();
+  return rankedSources
+    .filter(({ source }) => {
+      const url = sourceUrl(source);
+      if (!url || seen.has(url)) return false;
+      seen.add(url);
+      return true;
+    })
+    .slice(0, limit);
+}
+
+function externalLinkPillHtml({ source, kind }, options = {}) {
+  const url = sourceUrl(source);
+  if (!url) return "";
+  const label = options.label || kind || sourceLinkKind(source);
+  const title = options.title || source.title || sourceDomainLabel(source);
+  const className = options.className || "external-link-pill";
+  return `
+    <a class="${className}" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(title)}">
+      <span>${escapeHtml(label)}</span>
+      <small>${escapeHtml(sourceDomainLabel(source))}</small>
+    </a>
+  `;
+}
+
+function playerExternalLinkRailHtml(player, limit = 5, className = "player-link-rail") {
+  const links = playerExternalLinks(player, limit);
+  if (!links.length) {
+    return `<p class="evidence-empty">No working public website link is attached yet.</p>`;
+  }
+  return `
+    <div class="${className}" aria-label="External company links">
+      ${links.map((link) => externalLinkPillHtml(link)).join("")}
+    </div>
+  `;
 }
 
 function logoCandidateScore(source, player) {
@@ -5880,19 +5987,26 @@ function sourceTypeChip(source) {
 }
 
 function sourceLinksHtml(sources, limit = 4) {
-  if (!sources.length) {
+  const seenUrls = new Set();
+  const linkedSources = sources.filter((source) => {
+    const url = sourceUrl(source);
+    if (!url || seenUrls.has(url)) return false;
+    seenUrls.add(url);
+    return true;
+  });
+  if (!linkedSources.length) {
     return `<p class="evidence-empty">No linked evidence yet.</p>`;
   }
-  const visible = sources.slice(0, limit);
-  const hidden = Math.max(0, sources.length - visible.length);
+  const visible = linkedSources.slice(0, limit);
+  const hidden = Math.max(0, linkedSources.length - visible.length);
   return `
     <div class="evidence-link-list">
       ${visible
         .map(
           (source) => `
-            <a class="evidence-link" href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">
+            <a class="evidence-link" href="${escapeHtml(sourceUrl(source))}" target="_blank" rel="noopener noreferrer">
               <span>${escapeHtml(source.title)}</span>
-              <small>${escapeHtml(source.type)} / ${escapeHtml(source.tier)} / ${escapeHtml(sourceAccessLabel(source))}</small>
+              <small>${escapeHtml(sourceLinkKind(source))} / ${escapeHtml(source.type)} / ${escapeHtml(sourceAccessLabel(source))}</small>
             </a>
           `
         )
@@ -6809,7 +6923,7 @@ function renderFilters() {
         <span>${escapeHtml(researchNote.label)}</span>
         <strong>${escapeHtml(researchNote.headline)}</strong>
         <p>${escapeHtml(researchNote.body)}</p>
-        <a href="${escapeHtml(researchNote.study.url)}" target="_blank" rel="noreferrer">${escapeHtml(researchNote.study.title)}</a>
+        <a href="${escapeHtml(researchNote.study.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(researchNote.study.title)}</a>
         <small>${escapeHtml(researchNote.accessLabel)}</small>
       </article>
     `;
@@ -9034,8 +9148,8 @@ function renderInsights() {
               <div class="timeline-meta">
                 <span>${escapeHtml(move.player?.name || move.category)}</span>
                 ${
-                  move.source?.url
-                    ? `<a href="${escapeHtml(move.source.url)}" target="_blank" rel="noreferrer">Source</a>`
+                  sourceUrl(move.source)
+                    ? `<a href="${escapeHtml(sourceUrl(move.source))}" target="_blank" rel="noopener noreferrer">Source</a>`
                     : ""
                 }
               </div>
@@ -10709,7 +10823,7 @@ function renderKeyPlayers() {
 }
 
 function onePagerHostFor(player) {
-  const source = evidenceSourcesFor(player).find((item) => item.url);
+  const source = playerPrimaryWebsiteSource(player);
   if (!source) return "Evidence loading";
   try {
     return new URL(source.url).hostname.replace(/^www\./, "");
@@ -10914,23 +11028,33 @@ function onePagerTableHtml(headers, rows) {
 }
 
 function onePagerFactStripHtml(player, taxonomy, quality) {
+  const websiteSource = playerPrimaryWebsiteSource(player);
+  const websiteUrl = sourceUrl(websiteSource);
+  const websiteHost = onePagerHostFor(player);
   const facts = [
     { icon: "map-pin", label: "HQ", value: templateHqFor(player) },
     { icon: "calendar", label: "Founded", value: player.founded || "Not needed for triage" },
     { icon: "network", label: "Ownership", value: displayOwnership(player) },
     { icon: "circle-dollar-sign", label: "Direct revenue", value: ratingForPlayer(player, "revenue").display },
     { icon: "users", label: "Scale proof", value: absoluteFigureSummary(player) },
-    { icon: "globe", label: "Website", value: onePagerHostFor(player) }
+    {
+      icon: "globe",
+      label: "Website",
+      value: websiteHost,
+      html: websiteUrl
+        ? `<a class="one-pager-fact-link" href="${escapeHtml(websiteUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(websiteHost)}</a>`
+        : ""
+    }
   ];
   return `
     <section class="one-pager-fact-strip" aria-label="Core profile facts">
       ${facts
         .map(
           (fact) => `
-            <div class="one-pager-fact">
-              <i data-lucide="${escapeHtml(fact.icon)}"></i>
-              <span>${escapeHtml(fact.label)}</span>
-              <strong>${escapeHtml(fact.value)}</strong>
+              <div class="one-pager-fact">
+                <i data-lucide="${escapeHtml(fact.icon)}"></i>
+                <span>${escapeHtml(fact.label)}</span>
+              <strong>${fact.html || escapeHtml(fact.value)}</strong>
             </div>
           `
         )
@@ -11077,9 +11201,20 @@ function onePagerSnapshotRows(player, quality) {
   const coverage = quality.coverage;
   const priorityRank = onePagerPriorityRank(player);
   const categoryRank = onePagerCategoryRank(player);
+  const websiteSource = playerPrimaryWebsiteSource(player);
+  const websiteUrl = sourceUrl(websiteSource);
+  const websiteHost = onePagerHostFor(player);
   return [
     ["Market priority rank", `#${priorityRank.rank} of ${priorityRank.total} company and organisation records`],
     ["Category priority rank", `#${categoryRank.rank} of ${categoryRank.total} records in this category`],
+    [
+      "Website",
+      websiteUrl
+        ? {
+            html: `<a class="table-link" href="${escapeHtml(websiteUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(websiteHost)}</a>`
+          }
+        : websiteHost
+    ],
     ["Strategic relevance", ratingForPlayer(player, "strategic").display],
     ["Direct scale", `${ratingForPlayer(player, "company").display} ${directMetricDisplay(player, "company")}`],
     ["Direct revenue", `${ratingForPlayer(player, "revenue").display} ${directMetricDisplay(player, "revenue")}`],
@@ -11494,6 +11629,8 @@ function renderOnePager() {
         </div>
       </header>
 
+      ${playerExternalLinkRailHtml(player, 6, "one-pager-link-rail")}
+
       ${onePagerFactStripHtml(player, taxonomy, quality)}
 
       ${onePagerExecutivePriorityStripHtml(player, taxonomy, validation, quality)}
@@ -11837,6 +11974,7 @@ function databaseCardHtml(player) {
           ${player.key ? `<em>Key player</em>` : ""}
         </header>
         <p>${escapeHtml(player.description)}</p>
+        ${playerExternalLinkRailHtml(player, 4, "record-link-rail")}
         <div class="record-meta-grid executive-record-meta">
           <span><strong>Category</strong>${escapeHtml(category?.shortName || player.category)}</span>
           <span><strong>Product lens</strong>${escapeHtml(productFocusLabel(player))}</span>
@@ -11867,6 +12005,7 @@ function databaseCardHtml(player) {
         ${player.key ? `<em>Key</em>` : ""}
       </header>
       <p>${escapeHtml(player.description)}</p>
+      ${playerExternalLinkRailHtml(player, 4, "record-link-rail")}
       ${activeRatingMini(player)}
       <div class="record-meta-grid">
         <span><strong>Category</strong>${escapeHtml(categoryById(player.category)?.shortName || player.category)}</span>
@@ -12196,6 +12335,10 @@ function renderDatabaseLists(rows, totalRows) {
         }
       });
     });
+    els.databaseCards.querySelectorAll("a[href]").forEach((link) => {
+      link.addEventListener("click", (event) => event.stopPropagation());
+      link.addEventListener("keydown", (event) => event.stopPropagation());
+    });
   }
   els.databaseRows.innerHTML =
     rows
@@ -12524,7 +12667,7 @@ function renderSourceStatus() {
         <span class="source-need">${escapeHtml(evidenceStatus.label)}</span>
         <span class="source-need">${escapeHtml(liveStatus.label)}</span>
         <span class="source-need">Link health is not claim proof</span>
-        <a class="source-need source-link" href="${escapeHtml(status.databaseUrl)}" target="_blank" rel="noreferrer">Open Confluence database</a>
+        <a class="source-need source-link" href="${escapeHtml(status.databaseUrl)}" target="_blank" rel="noopener noreferrer">Open Confluence database</a>
         </div>
       </div>
       <div class="research-source-list">
@@ -12533,7 +12676,7 @@ function renderSourceStatus() {
           studies
             .map(
               (study) => `
-                <a href="${escapeHtml(study.url)}" target="_blank" rel="noreferrer">
+                <a href="${escapeHtml(study.url)}" target="_blank" rel="noopener noreferrer">
                   <span>${escapeHtml(study.title)}</span>
                   <small>${escapeHtml(study.scope)}</small>
                 </a>
@@ -12711,12 +12854,17 @@ function renderEvidenceLibrary() {
                   ${items
                     .map((source) => {
                       const usedBy = usageBySource.get(sourceCanonicalId(source)) || [];
+                      const url = sourceUrl(source);
                       return `
-                        <a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">
+                        ${
+                          url
+                            ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">`
+                            : `<span class="source-mini-list-item is-unlinked">`
+                        }
                           <span>${escapeHtml(source.title)}</span>
                           <small>${escapeHtml(source.scope)}</small>
                           <em>${escapeHtml(source.tier)} tier / ${escapeHtml(sourceAccessLabel(source))} / ${usedBy.length ? `used by ${usedBy.slice(0, 3).join(", ")}` : "not yet mapped to a player"}</em>
-                        </a>
+                        ${url ? "</a>" : "</span>"}
                       `;
                     })
                     .join("")}
@@ -13463,7 +13611,7 @@ function renderSources() {
           </div>
           <p><strong>Cadence:</strong> ${source.cadence}</p>
           <span class="source-status">${escapeHtml(status)}</span>
-          ${source.url ? `<a class="source-card-link" href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">Open source</a>` : ""}
+          ${sourceUrl(source) ? `<a class="source-card-link" href="${escapeHtml(sourceUrl(source))}" target="_blank" rel="noopener noreferrer">Open source</a>` : ""}
         </article>
       `;
       }
