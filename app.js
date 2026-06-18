@@ -2661,15 +2661,15 @@ const sourceCards = [
   },
   {
     name: "Local live overrides",
-    use: "No cache JSON layer for Appfigures metrics, traffic estimates, and Yousician relationship confirmations.",
+    use: "Direct JSON layer for credentialed Appfigures metrics, traffic exports, and Yousician relationship confirmations.",
     cadence: "Whenever credentialed exports or internal notes are refreshed",
     status: "Implemented as data/live-overrides.json"
   },
   {
     name: "Appfigures",
-    use: "App downloads, revenue estimates, rankings, reviews, and historical app performance.",
+    use: "Credentialed downloads, revenue, rankings, review velocity, country mix, and historical app performance.",
     cadence: "Weekly or monthly refresh",
-    status: "Requires plan and API access"
+    status: "Requires export or API access"
   },
   {
     name: "Crunchbase",
@@ -2737,7 +2737,7 @@ const liveDataFeeds = [
     status: "Credential needed",
     ready: false,
     owner: "Growth / Analytics",
-    unlocks: "Downloads, revenue estimates, category rank, review velocity, market trend history",
+    unlocks: "Downloads, revenue, category rank, review velocity, market trend history",
     nextStep: "Confirm paid plan/API access, then map app identifiers for learning, practice, and creation products."
   },
   {
@@ -3366,9 +3366,9 @@ const monitorSortModes = [
   { id: "relevance", label: "Yousician fit", note: "Direct fit to the mission and product surface" },
   { id: "momentum", label: "Momentum", note: "Recent market activity and signal velocity" },
   { id: "ai", label: "AI pressure", note: "AI relevance and substitution pressure" },
-  { id: "company", label: "Company scale", note: "Directional size proxy" },
-  { id: "revenue", label: "Revenue proxy", note: "Directional monetisation signal, not verified revenue" },
-  { id: "reach", label: "Audience reach", note: "Directional audience and distribution proxy" },
+  { id: "company", label: "Verified scale", note: "Direct imported size data only" },
+  { id: "revenue", label: "Verified revenue", note: "Credentialed revenue data only" },
+  { id: "reach", label: "Verified reach", note: "Direct audience, traffic or app data only" },
   { id: "proximity", label: "Competitive proximity", note: "Closeness to Yousician's learning and practice loop" },
   { id: "evidence", label: "Source confidence", note: "Records with stronger source coverage first" },
   { id: "proof", label: "Proof gaps", note: "Records that need evidence before decision use" },
@@ -3405,21 +3405,21 @@ const bubbleSizeModes = [
   },
   {
     id: "business",
-    label: "Company size",
-    shortLabel: "Company",
-    note: "Company size uses reach, ownership, and entity type as a proxy until verified size data is imported."
+    label: "Verified company scale",
+    shortLabel: "Direct scale",
+    note: "Uses imported direct metrics only. Missing values stay pending."
   },
   {
     id: "revenue",
-    label: "Revenue signal",
-    shortLabel: "Revenue",
-    note: "Revenue signal is a proxy from business model and company scale. It is not verified revenue."
+    label: "Verified revenue",
+    shortLabel: "Direct revenue",
+    note: "Uses credentialed revenue data only. Missing values stay pending."
   },
   {
     id: "reach",
-    label: "Audience reach",
-    shortLabel: "Reach",
-    note: "Audience reach uses scale wording such as global, large, specialist, or emerging."
+    label: "Verified reach",
+    shortLabel: "Direct reach",
+    note: "Uses imported audience, traffic, app or direct source data only."
   },
   {
     id: "appfigures",
@@ -3462,21 +3462,21 @@ const ratingModes = [
   },
   {
     id: "company",
-    label: "Company size",
-    shortLabel: "Company",
-    note: "Estimated scale from reach, ownership, and entity type."
+    label: "Verified scale",
+    shortLabel: "Direct scale",
+    note: "Direct imported size, traffic or performance data only."
   },
   {
     id: "revenue",
-    label: "Revenue signal",
-    shortLabel: "Revenue",
-    note: "Proxy based on monetisation model and company scale. Not verified revenue."
+    label: "Verified revenue",
+    shortLabel: "Direct revenue",
+    note: "Credentialed revenue data only."
   },
   {
     id: "reach",
-    label: "Audience reach",
-    shortLabel: "Reach",
-    note: "Reach proxy from audience and market wording."
+    label: "Verified reach",
+    shortLabel: "Direct reach",
+    note: "Direct audience, app, traffic or source of truth data only."
   },
   {
     id: "evidence",
@@ -3707,23 +3707,10 @@ function audienceReachScore(player) {
   return 1;
 }
 
-function revenueProxyScore(player) {
-  const text = `${player.model || ""} ${player.type || ""} ${player.reach || ""} ${player.ownership || ""} ${player.tags?.join(" ") || ""}`.toLowerCase();
-  let score = businessSizeScore(player);
-  if (/subscription|freemium|ads|advertising|marketplace|commerce|hardware|publishing|licensing|streaming|platform|enterprise|app store/.test(text)) {
-    score += 1;
-  }
-  if (/public company|alphabet|google|apple|microsoft|spotify|bytedance|tiktok|warner|universal|yamaha|duolingo|ubisoft|major label/.test(text)) {
-    score += 1;
-  }
-  if (/funding call|grant|award|association|research source|media source|nonprofit|school network/.test(text)) {
-    score -= 1;
-  }
-  return Math.max(1, Math.min(5, score));
-}
-
 function missionScaleScore(player) {
-  const scale = businessSizeScore(player) * 0.55 + player.relevance * 0.35 + competitiveProximityScore(player) * 0.1;
+  const directScale = directCompanyScaleScore(player);
+  const scaleBase = directScale || player.relevance;
+  const scale = scaleBase * 0.55 + player.relevance * 0.35 + competitiveProximityScore(player) * 0.1;
   return Math.max(1, Math.min(5, Math.round(scale)));
 }
 
@@ -3749,9 +3736,9 @@ function appfiguresReadinessScore(player) {
 function bubbleSizeScore(player) {
   const mode = bubbleSizeModeById(state.bubbleSizeMode).id;
   if (mode === "mission") return missionScaleScore(player);
-  if (mode === "business") return businessSizeScore(player);
-  if (mode === "revenue") return revenueProxyScore(player);
-  if (mode === "reach") return audienceReachScore(player);
+  if (mode === "business") return directCompanyScaleScore(player) || 1;
+  if (mode === "revenue") return directRevenueScore(player) || 1;
+  if (mode === "reach") return directReachScore(player) || 1;
   if (mode === "appfigures") return appfiguresReadinessScore(player);
   if (mode === "ai") return player.aiScore;
   if (mode === "momentum") return player.momentum;
@@ -3773,10 +3760,10 @@ function bubbleSizeRadius(player) {
 
 function bubbleSizeBasis(player) {
   const mode = bubbleSizeModeById(state.bubbleSizeMode).id;
-  if (mode === "mission") return `Yousician relevance ${missionScaleScore(player)} of 5. Company scale weighted by strategic relevance`;
-  if (mode === "business") return `Company size ${businessSizeScore(player)} of 5`;
-  if (mode === "revenue") return `Revenue signal ${revenueProxyScore(player)} of 5. Proxy only, not verified revenue`;
-  if (mode === "reach") return `Audience reach ${audienceReachScore(player)} of 5`;
+  if (mode === "mission") return `Yousician relevance ${missionScaleScore(player)} of 5. Missing direct scale falls back to strategic relevance`;
+  if (mode === "business") return directCompanyScaleScore(player) ? `Verified scale ${directMetricDisplay(player, "company")}` : "Verified scale pending";
+  if (mode === "revenue") return directRevenueScore(player) ? `Verified revenue ${directMetricDisplay(player, "revenue")}` : "Verified revenue pending";
+  if (mode === "reach") return directReachScore(player) ? `Verified reach ${directMetricDisplay(player, "reach")}` : "Verified reach pending";
   if (mode === "appfigures") return requiresCredentialedData(player) ? "Prepared app data queue" : "No app data queue flag";
   if (mode === "ai") return `AI relevance ${player.aiScore} of 5`;
   if (mode === "momentum") return `Recent momentum ${player.momentum} of 5`;
@@ -3794,26 +3781,35 @@ function ratingForPlayer(player, modeId = state.ratingMode) {
   const valueByMode = {
     strategic: strategicScoreFive(player),
     relevance: player.relevance,
-    company: businessSizeScore(player),
-    revenue: revenueProxyScore(player),
-    reach: audienceReachScore(player),
+    company: directCompanyScaleScore(player),
+    revenue: directRevenueScore(player),
+    reach: directReachScore(player),
     evidence: quality ? Math.max(1, Math.round(quality.score / 20)) : 1,
     proximity: competitiveProximityScore(player),
     appdata: appfiguresReadinessScore(player),
     ai: player.aiScore,
     momentum: player.momentum
   };
-  const value = Math.max(1, Math.min(5, valueByMode[mode.id] || valueByMode.strategic));
+  const directPending = ["company", "revenue", "reach"].includes(mode.id) && !valueByMode[mode.id];
+  const value = directPending ? 0 : Math.max(1, Math.min(5, valueByMode[mode.id] || valueByMode.strategic));
   return {
     ...mode,
     value,
-    display: mode.id === "evidence" ? `${quality.score}%` : `${value}/5`,
+    display: mode.id === "evidence" ? `${quality.score}%` : directPending ? "Pending" : `${value}/5`,
     sortValue: mode.id === "evidence" ? quality.score : value * 20,
     detail:
       mode.id === "revenue"
-        ? "Directional score, not verified revenue"
+        ? directPending
+          ? "Direct revenue data pending"
+          : `Direct revenue ${directMetricDisplay(player, "revenue")}`
         : mode.id === "company"
-          ? "Estimated scale"
+          ? directPending
+            ? "Direct scale data pending"
+            : `Direct scale ${directMetricDisplay(player, "company")}`
+          : mode.id === "reach"
+            ? directPending
+              ? "Direct reach data pending"
+              : `Direct reach ${directMetricDisplay(player, "reach")}`
           : mode.id === "appdata"
             ? "Data status"
             : mode.note
@@ -3825,9 +3821,9 @@ function databaseSortScore(player, sortId = state.dbSort) {
   if (sortId === "relevance") return player.relevance * 20;
   if (sortId === "ai") return player.aiScore * 20;
   if (sortId === "momentum") return player.momentum * 20;
-  if (sortId === "company") return businessSizeScore(player) * 20 + strategicWeight(player) / 3;
-  if (sortId === "revenue") return revenueProxyScore(player) * 20 + businessSizeScore(player) * 2;
-  if (sortId === "reach") return audienceReachScore(player) * 20 + player.relevance * 2;
+  if (sortId === "company") return directCompanyScaleScore(player) * 20 + strategicWeight(player) / 10;
+  if (sortId === "revenue") return directRevenueScore(player) * 20 + strategicWeight(player) / 10;
+  if (sortId === "reach") return directReachScore(player) * 20 + player.relevance;
   if (sortId === "evidence") return qualityProfile(player).score;
   if (sortId === "proximity") return competitiveProximityScore(player) * 20 + player.relevance * 2;
   if (sortId === "appdata") return appfiguresReadinessScore(player) * 20 + sourceUrgency(player);
@@ -4145,12 +4141,180 @@ function liveMetricFor(player) {
   return liveOverrideContext.metricsByPlayer?.[player.id] || null;
 }
 
+function metricText(value) {
+  if (value == null) return "";
+  if (typeof value === "object") return Object.values(value).map(metricText).join(" ");
+  return String(value);
+}
+
+function isProxyMetricText(value) {
+  return /public\s+proxy|proxy\s+only|not\s+appfigures|pending\s+appfigures|credentialed\s+export\s+not\s+available|estimate|estimated/i.test(
+    metricText(value)
+  );
+}
+
+function isDirectMetricSource(row) {
+  if (!row || isProxyMetricText(row)) return false;
+  const text = metricText([
+    row.source,
+    row.data_source,
+    row.source_type,
+    row.evidence_type,
+    row.confidence,
+    row.status,
+    row.appfigures_status
+  ]);
+  return /credentialed\s+appfigures|appfigures\s+export|appfigures\s+api|authorized\s+export|official\s+filing|internal\s+export|internal\s+metric|similarweb\s+export|crunchbase\s+export|pitchbook\s+export|verified\s+direct/i.test(
+    text
+  );
+}
+
+function parseMetricNumber(value) {
+  if (value == null || value === "" || isProxyMetricText(value)) return null;
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  const raw = String(value).trim();
+  if (!raw) return null;
+  const match = raw.replace(/,/g, "").match(/-?\d+(\.\d+)?/);
+  if (!match) return null;
+  let numeric = Number(match[0]);
+  if (!Number.isFinite(numeric)) return null;
+  if (/bn|billion|\bb\b/i.test(raw)) numeric *= 1_000_000_000;
+  else if (/mio|million|\bm\b/i.test(raw)) numeric *= 1_000_000;
+  else if (/k\b|thousand/i.test(raw)) numeric *= 1_000;
+  return numeric;
+}
+
+function comparableMetricName(value) {
+  return normalizeSourceKey(value).replace(/^(the_|app_|com_)/g, "");
+}
+
+function backendMetricRowsForPlayer(player) {
+  const playerName = comparableMetricName(player.name);
+  const playerId = comparableMetricName(player.id);
+  return (backendState.appfiguresRows || []).filter((row) => {
+    const rowPlayer = comparableMetricName(row.player || row.player_name || row.company || "");
+    const rowApp = comparableMetricName(row.app_name || row.name || row.product || "");
+    return (
+      rowPlayer === playerName ||
+      rowPlayer === playerId ||
+      rowApp === playerName ||
+      rowApp === playerId ||
+      (playerName && rowApp.includes(playerName)) ||
+      (rowPlayer && playerName.includes(rowPlayer))
+    );
+  });
+}
+
+function firstMetricValue(row, fields) {
+  for (const field of fields) {
+    if (row[field] != null && row[field] !== "") return row[field];
+  }
+  return "";
+}
+
+function bestMetricNumber(rows, fields, options = {}) {
+  const values = rows
+    .map((row) => parseMetricNumber(firstMetricValue(row, fields)))
+    .filter((value) => value != null && Number.isFinite(value));
+  if (!values.length) return null;
+  return options.lowerIsBetter ? Math.min(...values.filter((value) => value > 0)) : Math.max(...values);
+}
+
+function scoreFromThresholds(value, thresholds) {
+  if (value == null || !Number.isFinite(value)) return 0;
+  for (const [score, threshold] of thresholds) {
+    if (value >= threshold) return score;
+  }
+  return value > 0 ? 1 : 0;
+}
+
+function compactMetricNumber(value, options = {}) {
+  if (value == null || !Number.isFinite(value)) return "Pending";
+  const prefix = options.currency ? "$" : "";
+  const abs = Math.abs(value);
+  if (abs >= 1_000_000_000) return `${prefix}${(value / 1_000_000_000).toFixed(1).replace(/\.0$/, "")}B`;
+  if (abs >= 1_000_000) return `${prefix}${(value / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`;
+  if (abs >= 1_000) return `${prefix}${(value / 1_000).toFixed(1).replace(/\.0$/, "")}K`;
+  return `${prefix}${Math.round(value)}`;
+}
+
+function directMetricFor(player) {
+  const directRows = [];
+  const override = liveMetricFor(player);
+  if (isDirectMetricSource(override)) directRows.push(override);
+  backendMetricRowsForPlayer(player).filter(isDirectMetricSource).forEach((row) => directRows.push(row));
+  if (!directRows.length) return null;
+
+  const revenue = bestMetricNumber(directRows, ["revenue", "revenue_365d", "revenue_90d", "revenue_30d"]);
+  const downloads = bestMetricNumber(directRows, ["downloads", "downloads_365d", "downloads_90d", "downloads_30d"]);
+  const websiteVisits = bestMetricNumber(directRows, ["websiteVisits", "website_visits", "websiteVisits_30d", "visits", "traffic"]);
+  const reviewCount = bestMetricNumber(directRows, ["reviewCount", "review_count", "ratings", "reviews"]);
+  const reviewVelocity = bestMetricNumber(directRows, ["reviewVelocity", "review_velocity_90d", "reviews_90d"]);
+  const categoryRank = bestMetricNumber(directRows, ["categoryRank", "rank_current", "rank_30d_avg"], { lowerIsBetter: true });
+  const rating = bestMetricNumber(directRows, ["rating", "average_rating"]);
+  if ([revenue, downloads, websiteVisits, reviewCount, reviewVelocity, categoryRank, rating].every((value) => value == null)) {
+    return null;
+  }
+  return {
+    rows: directRows,
+    revenue,
+    downloads,
+    websiteVisits,
+    reviewCount,
+    reviewVelocity,
+    categoryRank,
+    rating,
+    source: firstMetricValue(directRows[0], ["source", "data_source", "appfigures_status"]) || "Direct imported metric",
+    lastUpdated: firstMetricValue(directRows[0], ["lastUpdated", "last_updated", "source_date", "date"])
+  };
+}
+
+function directRevenueScore(player) {
+  const metric = directMetricFor(player);
+  return scoreFromThresholds(metric?.revenue, [
+    [5, 50_000_000],
+    [4, 10_000_000],
+    [3, 1_000_000],
+    [2, 100_000]
+  ]);
+}
+
+function directReachScore(player) {
+  const metric = directMetricFor(player);
+  const reachValue = Math.max(metric?.downloads || 0, metric?.websiteVisits || 0, metric?.reviewCount || 0);
+  return scoreFromThresholds(reachValue || null, [
+    [5, 50_000_000],
+    [4, 10_000_000],
+    [3, 1_000_000],
+    [2, 100_000]
+  ]);
+}
+
+function directCompanyScaleScore(player) {
+  return Math.max(directRevenueScore(player), directReachScore(player));
+}
+
+function directMetricDisplay(player, mode) {
+  const metric = directMetricFor(player);
+  if (!metric) return "Pending";
+  if (mode === "revenue") return compactMetricNumber(metric.revenue, { currency: true });
+  if (mode === "reach") {
+    const value = Math.max(metric.downloads || 0, metric.websiteVisits || 0, metric.reviewCount || 0);
+    return value ? compactMetricNumber(value) : "Pending";
+  }
+  if (mode === "company") {
+    const value = Math.max(metric.revenue || 0, metric.downloads || 0, metric.websiteVisits || 0, metric.reviewCount || 0);
+    return value ? compactMetricNumber(value, { currency: metric.revenue && metric.revenue >= value }) : "Pending";
+  }
+  return "Pending";
+}
+
 function relationshipOverrideFor(player) {
   return liveOverrideContext.relationshipOverrides?.[player.id] || null;
 }
 
 function liveMetricClaimFor(player) {
-  const metric = liveMetricFor(player);
+  const metric = directMetricFor(player);
   if (!metric) return null;
   const parts = [
     metric.downloads != null ? `Downloads: ${metric.downloads}` : "",
@@ -4158,13 +4322,12 @@ function liveMetricClaimFor(player) {
     metric.categoryRank != null ? `Rank: ${metric.categoryRank}` : "",
     metric.reviewVelocity != null ? `Review velocity: ${metric.reviewVelocity}` : "",
     metric.websiteVisits != null ? `Web visits: ${metric.websiteVisits}` : "",
-    nonEmptyString(metric.notes)
   ].filter(Boolean);
   if (!parts.length) return null;
-  const source = nonEmptyString(metric.source) || liveOverrideContext.status?.source || "Live override file";
-  const updated = nonEmptyString(metric.lastUpdated) || liveOverrideContext.status?.lastUpdated || "";
+  const source = nonEmptyString(metric.source) || "Direct imported metric";
+  const updated = nonEmptyString(metric.lastUpdated) || "";
   return {
-    label: "Live metric override",
+    label: "Direct metric",
     text: parts.join("; "),
     basis: `${source}${updated ? ` / ${updated}` : ""}`
   };
@@ -4892,22 +5055,22 @@ function aiClaimStatusFor(player) {
 }
 
 function sizeClaimStatusFor(player) {
-  const metric = liveMetricFor(player);
+  const metric = directMetricFor(player);
   const hasMetric =
     metric &&
     [metric.downloads, metric.revenue, metric.categoryRank, metric.reviewVelocity, metric.websiteVisits].some((value) => value != null && value !== "");
   if (hasMetric) {
     return {
-      label: "Metric based size",
+      label: "Direct metric loaded",
       tone: "verified",
-      note: "A live/manual metric override is loaded for this record."
+      note: "A credentialed or direct metric is loaded for this record."
     };
   }
   if (/large|major|massive|very large|high-profile|high visibility|broad|established/i.test(player.reach)) {
     return {
-      label: "Directional size claim",
+      label: "Size claim needs data",
       tone: "mixed",
-      note: "Reach wording is useful for prioritization, but Appfigures, Similarweb, filings, or reports are still needed."
+      note: "Reach wording can guide triage, but direct Appfigures, Similarweb, filings, or reports are still needed."
     };
   }
   if (/to verify|emerging|visible|specialist|niche/i.test(player.reach)) {
@@ -5207,7 +5370,7 @@ function executiveSignalText(text) {
 }
 
 function absoluteFigureSummary(player) {
-  const metric = liveMetricFor(player);
+  const metric = directMetricFor(player);
   const coverage = evidenceCoverage(player);
   const figures = [];
   if (metric?.downloads != null) figures.push(`${metric.downloads} downloads`);
@@ -5221,7 +5384,7 @@ function absoluteFigureSummary(player) {
 }
 
 function sentimentSummary(player) {
-  const metric = liveMetricFor(player);
+  const metric = directMetricFor(player);
   if (metric?.reviewVelocity != null) return `${metric.reviewVelocity} review velocity`;
   if (requiresCredentialedData(player)) return "App sentiment gated";
   return "Qualitative signal only";
@@ -5394,7 +5557,7 @@ function executiveReadinessFor(player, quality) {
 }
 
 function executiveGuardrailsFor(player, quality, validation) {
-  const guardrails = ["Revenue signal is a proxy. Do not present it as verified revenue."];
+  const guardrails = ["Do not use estimated performance values as direct revenue, size or reach evidence."];
   if (requiresCredentialedData(player)) {
     guardrails.push("Do not rank app revenue, downloads, rank trend, country mix or growth until credentialed app data is imported.");
   }
@@ -5441,6 +5604,7 @@ function executiveOnePagerDecisionCards(player, taxonomy, validation, quality) {
   const readiness = executiveReadinessFor(player, quality);
   const guardrails = executiveGuardrailsFor(player, quality, validation);
   const sourceNeedsText = sourceNeeds(player).join(", ");
+  const directMetric = directMetricFor(player);
   return `
     <article class="one-pager-card executive-priority-card one-pager-card-large">
       <span>Executive priority</span>
@@ -5457,9 +5621,15 @@ function executiveOnePagerDecisionCards(player, taxonomy, validation, quality) {
     </article>
 
     <article class="one-pager-card executive-money-card">
-      <span>Scale and revenue signal</span>
-      <h3>${escapeHtml(ratingForPlayer(player, "revenue").display)} revenue signal</h3>
-      <p>${escapeHtml(player.model)}. ${escapeHtml(player.reach)}. Treat as directional until sourced metrics are attached.</p>
+      <span>Direct metrics</span>
+      <h3>${directMetric ? "Metric source loaded" : "Direct data pending"}</h3>
+      <p>${
+        directMetric
+          ? escapeHtml(
+              `Revenue ${directMetricDisplay(player, "revenue")}. Reach ${directMetricDisplay(player, "reach")}. Source ${directMetric.source}.`
+            )
+          : "Revenue, downloads, rank, review velocity and country mix stay blank until a credentialed source is imported."
+      }</p>
     </article>
 
     <article class="one-pager-card executive-readiness-card">
@@ -7848,9 +8018,9 @@ function renderProfile() {
         ${metricRow("Yousician relevance", player.relevance)}
         ${metricRow("Momentum", player.momentum)}
         ${metricRow("AI relevance", player.aiScore)}
-        ${metricRow("Company size", businessSizeScore(player))}
-        ${metricRow("Revenue signal", revenueProxyScore(player))}
-        ${metricRow("Audience reach", audienceReachScore(player))}
+        ${metricRow("Direct scale", directCompanyScaleScore(player) || 0, ratingForPlayer(player, "company").display)}
+        ${metricRow("Direct revenue", directRevenueScore(player) || 0, ratingForPlayer(player, "revenue").display)}
+        ${metricRow("Direct reach", directReachScore(player) || 0, ratingForPlayer(player, "reach").display)}
         ${metricRow("Source confidence", Math.max(1, Math.round(quality.score / 20)))}
         ${metricRow("Competitive proximity", competitiveProximityScore(player))}
         ${metricRow("App data status", appfiguresReadinessScore(player))}
@@ -7903,10 +8073,10 @@ function renderProfile() {
   });
 }
 
-function metricRow(label, value) {
+function metricRow(label, value, display = `${value}/5`) {
   return `
     <div class="metric">
-      <div class="metric-head"><span>${label}</span><span>${value}/5</span></div>
+      <div class="metric-head"><span>${label}</span><span>${escapeHtml(display)}</span></div>
       <div class="bar" style="--value:${value}"><span></span></div>
     </div>
   `;
@@ -8516,9 +8686,9 @@ function monitorLeaderDefinitions() {
     { id: "relevance", label: "Yousician fit", note: "Closest mission fit", score: (player) => player.relevance, display: (player) => `${player.relevance}/5` },
     { id: "momentum", label: "Momentum", note: "Most active signal", score: (player) => player.momentum, display: (player) => `${player.momentum}/5` },
     { id: "ai", label: "AI pressure", note: "AI relevance", score: (player) => player.aiScore, display: (player) => `${player.aiScore}/5` },
-    { id: "company", label: "Company scale", note: "Scale proxy", score: businessSizeScore, display: (player) => `${businessSizeScore(player)}/5` },
-    { id: "revenue", label: "Revenue proxy", note: "Not verified revenue", score: revenueProxyScore, display: (player) => `${revenueProxyScore(player)}/5` },
-    { id: "reach", label: "Audience reach", note: "Reach proxy", score: audienceReachScore, display: (player) => `${audienceReachScore(player)}/5` },
+    { id: "company", label: "Verified scale", note: "Direct data only", score: directCompanyScaleScore, display: (player) => ratingForPlayer(player, "company").display },
+    { id: "revenue", label: "Verified revenue", note: "Direct data only", score: directRevenueScore, display: (player) => ratingForPlayer(player, "revenue").display },
+    { id: "reach", label: "Verified reach", note: "Direct data only", score: directReachScore, display: (player) => ratingForPlayer(player, "reach").display },
     { id: "proximity", label: "Proximity", note: "Competitive closeness", score: competitiveProximityScore, display: (player) => `${competitiveProximityScore(player)}/5` },
     { id: "proof", label: "Proof gap", note: "Needs verification", score: monitorProofGapScore, display: (player) => `${Math.round(monitorProofGapScore(player))}` }
   ];
@@ -8668,8 +8838,8 @@ function renderMonitorBenchmark(filteredPlayers) {
             <th scope="col">Yousician fit</th>
             <th scope="col">Momentum</th>
             <th scope="col">AI</th>
-            <th scope="col">Scale</th>
-            <th scope="col">Revenue proxy</th>
+            <th scope="col">Direct scale</th>
+            <th scope="col">Direct revenue</th>
             <th scope="col">Evidence</th>
             <th scope="col">Next check</th>
           </tr>
@@ -8694,8 +8864,8 @@ function renderMonitorBenchmark(filteredPlayers) {
                   ${monitorMetricCell(player.relevance)}
                   ${monitorMetricCell(player.momentum)}
                   ${monitorMetricCell(player.aiScore)}
-                  ${monitorMetricCell(businessSizeScore(player))}
-                  ${monitorMetricCell(revenueProxyScore(player))}
+                  ${monitorMetricCell(directCompanyScaleScore(player), ratingForPlayer(player, "company").display)}
+                  ${monitorMetricCell(directRevenueScore(player), ratingForPlayer(player, "revenue").display)}
                   ${monitorMetricCell(quality.score, `${quality.score}%`, 100)}
                   <td><small>${escapeHtml(nextAction(player))}</small></td>
                 </tr>
@@ -8733,7 +8903,7 @@ function renderMonitorInsightReadout(filteredPlayers) {
           <span class="section-kicker">Direct comparison</span>
           <h3>Top records by ${escapeHtml(monitorSortModeById(state.monitorSort).label.toLowerCase())}</h3>
         </div>
-        <p>Scores are directional. Revenue, company size, and reach are proxies until credentialed or official figures are imported.</p>
+        <p>Revenue, size and reach remain pending unless direct credentialed or official figures are imported.</p>
       </div>
       ${renderMonitorSortControls(filteredPlayers)}
       ${renderMonitorBenchmark(filteredPlayers)}
@@ -9620,7 +9790,7 @@ function onePagerMarketContextHtml(player, taxonomy, quality, validation) {
       : `No credentialed app data is required for the current executive use case unless the decision shifts to performance benchmarking.`,
     quality.gaps.length
       ? `Close the source gap around ${quality.gaps.slice(0, 2).join(" and ")} before making hard claims.`
-      : `Public source coverage is strong enough for directional discussion, subject to the listed caveats.`,
+      : `Public source coverage is strong enough for source backed discussion, subject to the listed caveats.`,
     /not prioritized|not yet|to be completed|owner confirmation/i.test(`${validation.knownRelationship} ${validation.status}`)
       ? `Ask Yousician to confirm owner, contact history, commercial sensitivity, and whether this belongs in an active pipeline.`
       : `Relationship state is loaded as ${templateRelationshipFor(player)}; validate sensitivity before sharing externally.`,
@@ -9711,7 +9881,7 @@ function onePagerFactStripHtml(player, taxonomy, quality) {
     { icon: "map-pin", label: "HQ", value: templateHqFor(player) },
     { icon: "calendar", label: "Founded", value: player.founded || "Not needed for triage" },
     { icon: "network", label: "Ownership", value: displayOwnership(player) },
-    { icon: "circle-dollar-sign", label: "Revenue signal", value: `${ratingForPlayer(player, "revenue").display} proxy` },
+    { icon: "circle-dollar-sign", label: "Direct revenue", value: ratingForPlayer(player, "revenue").display },
     { icon: "users", label: "Scale proof", value: absoluteFigureSummary(player) },
     { icon: "globe", label: "Website", value: onePagerHostFor(player) }
   ];
@@ -9762,9 +9932,9 @@ function onePagerSnapshotRows(player, quality) {
     ["Market priority rank", `#${priorityRank.rank} of ${priorityRank.total} company and organisation records`],
     ["Category priority rank", `#${categoryRank.rank} of ${categoryRank.total} records in this category`],
     ["Strategic relevance", ratingForPlayer(player, "strategic").display],
-    ["Company size", `${businessSizeScore(player)}/5 directional score`],
-    ["Revenue signal", `${ratingForPlayer(player, "revenue").display} proxy only`],
-    ["Audience reach", `${audienceReachScore(player)}/5 ${player.reach}`],
+    ["Direct scale", `${ratingForPlayer(player, "company").display} ${directMetricDisplay(player, "company")}`],
+    ["Direct revenue", `${ratingForPlayer(player, "revenue").display} ${directMetricDisplay(player, "revenue")}`],
+    ["Direct reach", `${ratingForPlayer(player, "reach").display} ${directMetricDisplay(player, "reach")}`],
     ["Geographic reach", player.geography],
     ["Business model", player.model],
     ["Ownership", displayOwnership(player)],
@@ -9795,7 +9965,7 @@ function onePagerAiRows(player) {
     ["AI relevance", `${player.aiScore}/5`],
     ["What to verify", ai.note],
     ["Live data inputs", feeds.length ? feeds.join(", ") : "No live feed required yet"],
-    ["Safe wording", "Keep as directional unless primary product evidence is linked"]
+    ["Safe wording", "Use only where primary product evidence is linked"]
   ];
 }
 
@@ -10012,7 +10182,7 @@ function onePagerExecutiveBriefHtml(player, taxonomy, validation, quality) {
     {
       label: "Business scale",
       value: absoluteFigureSummary(player),
-      detail: `${ratingForPlayer(player, "revenue").display} proxy only`
+      detail: ratingForPlayer(player, "revenue").detail
     },
     {
       label: "Evidence confidence",
@@ -10533,8 +10703,8 @@ function scoreStack(player) {
       <span><strong>R</strong>${player.relevance}/5</span>
       <span><strong>M</strong>${player.momentum}/5</span>
       <span><strong>AI</strong>${player.aiScore}/5</span>
-      <span><strong>Size</strong>${businessSizeScore(player)}/5</span>
-      <span><strong>Rev</strong>${revenueProxyScore(player)}/5</span>
+      <span><strong>Scale</strong>${escapeHtml(ratingForPlayer(player, "company").display)}</span>
+      <span><strong>Rev</strong>${escapeHtml(ratingForPlayer(player, "revenue").display)}</span>
     </div>
   `;
 }
@@ -10646,7 +10816,7 @@ function keyPlayerTemplateRowData(player) {
     subcategory: player.subcategory || taxonomyProfile(player).role,
     name: player.name,
     description: compactTemplateText(player.description, 90),
-    revenueSize: `${businessSizeScore(player)}/5 size, ${revenueSignal.display} revenue proxy`,
+    revenueSize: `${ratingForPlayer(player, "company").display} scale, ${revenueSignal.display} revenue`,
     hq: templateHqFor(player),
     geography: player.geography || "To verify",
     ownership: compactTemplateText(player.ownership, 74),
@@ -10704,7 +10874,7 @@ function renderKeyPlayerTemplate(rows, totalRows) {
       <div>
         <span class="section-kicker">Key players database template</span>
         <h3>Decision fields for the current view</h3>
-        <p>Live template from the selected filters. Proxy fields stay explicit until internal or licensed data is added.</p>
+        <p>Live template from the selected filters. Direct metric fields stay pending until internal or licensed data is added.</p>
       </div>
       <div class="template-panel-actions">
         <button class="ghost-button" type="button" data-template-open-all>Open full table</button>
@@ -11252,7 +11422,7 @@ function renderValidationReadiness() {
   const credentialQueueCount = players.filter(requiresCredentialedData).length;
   const relationshipChecks = validationQueue().length;
   const readyFeeds = liveDataFeeds.filter((feed) => feed.ready).length;
-  const liveMetricOverrideCount = Object.keys(liveOverrideContext.metricsByPlayer || {}).length;
+  const liveMetricOverrideCount = players.filter((player) => directMetricFor(player)).length;
   const relationshipOverrideCount = Object.keys(liveOverrideContext.relationshipOverrides || {}).length;
   const liveStatus = liveOverrideContext.status || liveOverrideFallback.status;
   els.validationReadiness.innerHTML = `
@@ -11269,7 +11439,7 @@ function renderValidationReadiness() {
       <div class="validation-metrics">
         <span><strong>${credentialQueueCount}</strong> live-data records</span>
         <span><strong>${relationshipChecks}</strong> relationship checks</span>
-        <span><strong>${liveMetricOverrideCount}</strong> metric overrides</span>
+        <span><strong>${liveMetricOverrideCount}</strong> direct metrics</span>
         <span><strong>${relationshipOverrideCount}</strong> relationship overrides</span>
         <span><strong>${readyFeeds}/${liveDataFeeds.length}</strong> feeds ready</span>
       </div>
@@ -11621,6 +11791,35 @@ function renderDataQualityCard(disabled) {
   `;
 }
 
+function renderDirectSourceContract() {
+  const directMetricPlayers = getDatabasePlayers().filter((player) => directMetricFor(player)).length;
+  const credentialedRows = credentialedAppfiguresCount();
+  const appDataNeeded = getDatabasePlayers().filter((player) => requiresCredentialedData(player)).length;
+  const sourceTotal = sourceLibrary().length;
+  const reviewOpen = backendState.status?.counts?.open_review_queue ?? backendState.reviewRows.length;
+  return `
+    <section class="direct-source-contract" aria-label="Direct source update contract">
+      <div class="backend-section-head">
+        <strong>Self updating direct source contract</strong>
+        <span>${directMetricPlayers} players with direct metrics</span>
+      </div>
+      <p>Public sources refresh into a review queue. Revenue, downloads, rank, review velocity, country mix, traffic and relationship fields only update from credentialed or internal inputs.</p>
+      <div class="direct-source-grid">
+        <article><strong>${sourceTotal}</strong><span>tracked source links</span></article>
+        <article><strong>${reviewOpen}</strong><span>open review items</span></article>
+        <article><strong>${credentialedRows}</strong><span>credentialed app rows</span></article>
+        <article><strong>${appDataNeeded}</strong><span>direct data gaps</span></article>
+      </div>
+      <ol>
+        <li>Refresh public sources and stage changes for review.</li>
+        <li>Import credentialed Appfigures, Similarweb, Crunchbase or internal exports.</li>
+        <li>Approve source changes before they affect executive copy.</li>
+        <li>Keep missing direct metrics as Pending.</li>
+      </ol>
+    </section>
+  `;
+}
+
 function renderBackendOps() {
   if (!els.backendOpsPanel) return;
   const counts = backendCounts();
@@ -11649,6 +11848,7 @@ function renderBackendOps() {
           <strong>Start command</strong>
           <code>scripts/start_backend.sh</code>
         </div>
+        ${renderDirectSourceContract()}
         <p class="backend-note">${escapeHtml(backendState.error || "Expected API: /api/backend/status")}</p>
       </article>
     `;
@@ -11671,6 +11871,7 @@ function renderBackendOps() {
         <article><strong>${counts.relationships_pending ?? "..."}</strong><span>relationships pending</span></article>
         <article><strong>${counts.refresh_checks_logged ?? "..."}</strong><span>refresh checks logged</span></article>
       </div>
+      ${renderDirectSourceContract()}
       <div class="backend-action-grid">
         <button class="ghost-button" data-backend-action="reload" type="button" ${disabled}>Reload backend state</button>
         <button class="ghost-button" data-backend-action="refresh" type="button" ${disabled}>Run source refresh</button>
@@ -13078,9 +13279,9 @@ function downloadCsv() {
     "Strategic relevance",
     "Momentum",
     "AI relevance",
-    "Company size score",
-    "Revenue signal score",
-    "Audience reach score",
+    "Direct scale score",
+    "Direct revenue score",
+    "Direct reach score",
     "Source confidence score",
     "Competitive proximity score",
     "App data status score",
@@ -13132,9 +13333,9 @@ function downloadCsv() {
       player.relevance,
       player.momentum,
       player.aiScore,
-      businessSizeScore(player),
-      revenueProxyScore(player),
-      audienceReachScore(player),
+      directCompanyScaleScore(player),
+      directRevenueScore(player),
+      directReachScore(player),
       Math.max(1, Math.round(quality.score / 20)),
       competitiveProximityScore(player),
       appfiguresReadinessScore(player),

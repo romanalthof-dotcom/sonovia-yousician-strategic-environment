@@ -322,6 +322,21 @@ def operation_log(limit: int = 8) -> list[dict[str, str]]:
         conn.close()
 
 
+def row_contains_proxy_signal(row: dict[str, object]) -> bool:
+    text = " ".join(str(value or "") for value in row.values()).lower()
+    return bool(
+        re.search(
+            r"public\s+proxy|proxy\s+only|not\s+appfigures|pending\s+appfigures|credentialed\s+export\s+not\s+available",
+            text,
+        )
+    )
+
+
+def is_credentialed_appfigures_row(row: dict[str, str]) -> bool:
+    status = row.get("appfigures_status", "").strip().lower()
+    return status.startswith("credentialed appfigures export imported") and not row_contains_proxy_signal(row)
+
+
 def backend_status() -> dict[str, object]:
     players = read_csv(HANDOFF / "players_v3.csv")
     key_players = read_csv(HANDOFF / "key_players_v3.csv")
@@ -330,11 +345,7 @@ def backend_status() -> dict[str, object]:
     appfigures = read_csv(HANDOFF / "appfigures-performance-export-integrated-v3.csv")
     app_req = read_csv(HANDOFF / "appfigures_request_pack_v3_2.csv")
     refresh = read_csv(HANDOFF / "refresh_run_log_v3.csv")
-    credentialed = [
-        row
-        for row in appfigures
-        if row.get("appfigures_status", "").strip().lower().startswith("credentialed appfigures export imported")
-    ]
+    credentialed = [row for row in appfigures if is_credentialed_appfigures_row(row)]
     rel_pending = [
         row
         for row in relationships
@@ -362,7 +373,7 @@ def backend_status() -> dict[str, object]:
         },
         "scheduler": dict(scheduler_state),
         "last_operations": operation_log(),
-        "appfigures_rule": "No app revenue/download/rank/country-mix conclusion is final unless imported from a credentialed Appfigures export or API output.",
+        "appfigures_rule": "Direct data only: app revenue, downloads, rank, review velocity and country mix require a credentialed Appfigures export or API output. Non credentialed rows are rejected.",
     }
 
 
@@ -377,11 +388,7 @@ def data_quality_report() -> dict[str, object]:
     sources = read_csv(HANDOFF / "source_audit_v3.csv")
     market_moves = read_csv(HANDOFF / "market_moves_24m_curated_v3_2.csv")
 
-    credentialed = [
-        row
-        for row in appfigures
-        if row.get("appfigures_status", "").strip().lower().startswith("credentialed appfigures export imported")
-    ]
+    credentialed = [row for row in appfigures if is_credentialed_appfigures_row(row)]
     rel_pending = [
         row
         for row in relationships
@@ -449,7 +456,7 @@ def data_quality_report() -> dict[str, object]:
         "pending" if len(credentialed) == 0 else "passed",
         len(credentialed),
         f"{len(credentialed)} of {len(appfigures)} app rows are credentialed Appfigures imports.",
-        "Import Appfigures export/API output before app revenue/download/rank conclusions.",
+        "Import a credentialed Appfigures export or API output. Non credentialed rows do not count.",
     )
     add(
         "appfigures_request",
@@ -492,11 +499,11 @@ def data_quality_report() -> dict[str, object]:
         "Safe fix marks older duplicate rows as superseded and keeps the latest row open.",
     )
     add(
-        "proxy_note_duplicates",
-        "Repeated public proxy notes",
+        "public_note_duplicates",
+        "Repeated non credentialed source notes",
         "warning" if app_note_duplicate_rows else "passed",
         len(app_note_duplicate_rows),
-        f"{len(app_note_duplicate_rows)} Appfigures proxy rows contain repeated note text.",
+        f"{len(app_note_duplicate_rows)} Appfigures rows contain repeated non credentialed note text.",
         "Safe fix de-duplicates repeated note sentences without changing metrics.",
     )
     add(
@@ -533,7 +540,7 @@ def data_quality_report() -> dict[str, object]:
         },
         "checks": checks,
         "safe_fix_available": bool(duplicate_groups or app_note_duplicate_rows),
-        "safe_fix_scope": "Only de-duplicates repeated public-proxy note sentences and marks older duplicate open refresh rows as superseded. It does not accept source changes, fill Appfigures metrics, or infer relationships.",
+        "safe_fix_scope": "Only de-duplicates repeated non credentialed public source notes and marks older duplicate open refresh rows as superseded. It does not accept source changes, fill Appfigures metrics, or infer relationships.",
     }
 
 
@@ -609,6 +616,13 @@ def normalize_appfigures_row(row: dict[str, str], credentialed: bool) -> dict[st
 
 def import_appfigures(csv_text: str, credentialed: bool) -> dict[str, object]:
     incoming_raw = list(csv.DictReader(io.StringIO(csv_text)))
+    if credentialed:
+        proxy_rows = [index + 2 for index, row in enumerate(incoming_raw) if row_contains_proxy_signal(row)]
+        if proxy_rows:
+            raise ValueError(
+                "Credentialed Appfigures import rejected: remove public store estimates or pending Appfigures rows first. "
+                f"Problem rows: {', '.join(map(str, proxy_rows[:12]))}"
+            )
     incoming = [normalize_appfigures_row(row, credentialed) for row in incoming_raw]
     existing = read_csv(HANDOFF / "appfigures-performance-export-integrated-v3.csv")
     keys = {

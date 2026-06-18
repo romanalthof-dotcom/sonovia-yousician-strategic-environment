@@ -97,6 +97,20 @@ def normalize_headers(row: dict[str, str]) -> dict[str, str]:
     return out
 
 
+def row_contains_proxy_signal(row: dict[str, object]) -> bool:
+    text = " ".join(str(value or "") for value in row.values()).lower()
+    return any(
+        token in text
+        for token in [
+            "public proxy",
+            "proxy only",
+            "not appfigures",
+            "pending appfigures",
+            "credentialed export not available",
+        ]
+    )
+
+
 def make_template() -> None:
     if TEMPLATE.exists():
         return
@@ -148,7 +162,17 @@ def main() -> int:
         return 0
 
     source = Path(args.export_csv).expanduser().resolve()
-    incoming = [normalize_headers(row) for row in read_csv(source)]
+    raw_rows = read_csv(source)
+    if args.credentialed:
+        proxy_rows = [index + 2 for index, row in enumerate(raw_rows) if row_contains_proxy_signal(row)]
+        if proxy_rows:
+            print(
+                "Credentialed Appfigures import rejected: remove public store estimates or pending Appfigures rows first. "
+                f"Problem rows: {', '.join(map(str, proxy_rows[:12]))}",
+                file=sys.stderr,
+            )
+            return 2
+    incoming = [normalize_headers(row) for row in raw_rows]
     status = "Credentialed Appfigures export imported" if args.credentialed else "Imported export; credential status not confirmed"
     confidence = "High" if args.credentialed else "Medium"
     for row in incoming:

@@ -3,7 +3,7 @@
     "label": "Live override layer generated from v3.2 handoff tables",
     "lastUpdated": "2026-06-11",
     "source": "scripts/apply_brief_aligned_v3_2.py",
-    "caveat": "Public proxy notes are shown in the dashboard. Appfigures metrics remain pending unless imported from credentialed export."
+    "caveat": "Public store notes remain context only. Appfigures metrics stay pending unless imported from a credentialed export."
   },
   "schema": {
     "metricsByPlayer": "Generated from appfigures-performance-export-integrated-v3.csv",
@@ -20,7 +20,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Needs Appfigures; include as Simply portfolio app. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+      "notes": "Public store context retained for lookup only. Direct metrics require credentialed Appfigures import."
     },
     "flowkey": {
       "name": "Flowkey",
@@ -32,7 +32,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Apple public proxy: 4.7 rating, 64K ratings; Google Play public proxy: 10M+ learners claim in listing. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+      "notes": "Public store context retained for lookup only. Direct metrics require credentialed Appfigures import."
     },
     "skoove": {
       "name": "Skoove",
@@ -44,7 +44,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Google Play public proxy: 1M+ downloads, 11.6K reviews. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+      "notes": "Public store context retained for lookup only. Direct metrics require credentialed Appfigures import."
     },
     "fender-play": {
       "name": "Fender Play",
@@ -56,7 +56,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Apple public proxy: 4.8 rating, 61K ratings; Google Play public proxy: 1M+ downloads, 13.2K reviews. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+      "notes": "Public store context retained for lookup only. Direct metrics require credentialed Appfigures import."
     },
     "gibson-app": {
       "name": "Gibson App",
@@ -68,7 +68,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Needs Appfigures and public app-store validation. Public proxy, not Appfigures."
+      "notes": "Public store context retained for lookup only. Direct metrics require credentialed Appfigures import."
     },
     "moises": {
       "name": "Moises",
@@ -80,7 +80,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Apple public proxy: 4.7 rating, 27K ratings; company / MBW proxy: Music.AI says Moises reached 50M users. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+      "notes": "Public store and company context retained for lookup only. Direct metrics require credentialed Appfigures import."
     },
     "ultimate-guitar": {
       "name": "Ultimate Guitar",
@@ -92,7 +92,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Google Play public proxy: 10M+ downloads, 627K reviews. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+      "notes": "Public store context retained for lookup only. Direct metrics require credentialed Appfigures import."
     },
     "musescore": {
       "name": "MuseScore",
@@ -104,7 +104,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Apple public proxy: 4.6 rating, 76K ratings; Google Play public proxy: 10M+ downloads, 156K reviews. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+      "notes": "Public store context retained for lookup only. Direct metrics require credentialed Appfigures import."
     },
     "songsterr": {
       "name": "Songsterr",
@@ -116,7 +116,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Apple public proxy: 4.7 rating, 42K ratings; listing claims large tab catalog. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+      "notes": "Public store context retained for lookup only. Direct metrics require credentialed Appfigures import."
     },
     "chordify": {
       "name": "Chordify",
@@ -128,7 +128,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Needs Appfigures / public app-store validation. Public proxy, not Appfigures."
+      "notes": "Public store context retained for lookup only. Direct metrics require credentialed Appfigures import."
     },
     "chord-ai": {
       "name": "Chord ai",
@@ -140,7 +140,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Needs Appfigures; public listings validate AI chord recognition. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+      "notes": "Public store context retained for lookup only. Direct metrics require credentialed Appfigures import."
     },
     "rocksmith-plus": {
       "name": "Rocksmith+",
@@ -152,7 +152,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Needs Appfigures plus Ubisoft platform data. Public proxy, not Appfigures."
+      "notes": "Public product context retained for lookup only. Direct metrics require credentialed Appfigures or Ubisoft source import."
     },
     "fretello": {
       "name": "Fretello",
@@ -164,7 +164,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Needs Appfigures; specialist guitar-learning app. Public proxy, not Appfigures."
+      "notes": "Public product context retained for lookup only. Direct metrics require credentialed source import."
     },
     "musora": {
       "name": "Musora",
@@ -176,7 +176,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Needs Appfigures plus web membership validation. Public proxy, not Appfigures."
+      "notes": "Public product context retained for lookup only. Direct metrics require credentialed source import."
     },
     "bandlab": {
       "name": "BandLab",
@@ -188,7 +188,7 @@
       "websiteVisits": null,
       "source": "handoff/appfigures-performance-export-integrated-v3.csv",
       "lastUpdated": "2026-06-11",
-      "notes": "Apple public proxy: 4.8 rating, 484K ratings; company proxy: 100M+ creators and fans. Public proxy, not Appfigures. iTunes Lookup refreshed 2026-06-11; public proxy only, not Appfigures."
+      "notes": "Public store and company context retained for lookup only. Direct metrics require credentialed source import."
     }
   },
   "relationshipOverrides": {}
