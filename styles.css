@@ -12864,8 +12864,10 @@ html[data-report-scroll="auto"] {
   }
 
   .map-node-enter,
-  .map-node-exit {
-    animation: none;
+  .map-node-update,
+  .map-node-exit,
+  .map-impact-ring {
+    animation: none !important;
   }
 }
 
@@ -13014,13 +13016,19 @@ tr[data-id].is-selected td:first-child {
 }
 
 .map-node-enter {
-  animation: map-node-enter 240ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: map-node-enter-wave 430ms cubic-bezier(0.16, 0.86, 0.24, 1) both;
+  animation-delay: var(--map-node-delay, 0ms);
+}
+
+.map-node-update {
+  animation: map-node-update-wave 380ms cubic-bezier(0.16, 0.86, 0.24, 1) both;
   animation-delay: var(--map-node-delay, 0ms);
 }
 
 .map-node-exit {
   pointer-events: none;
-  animation: map-node-exit 220ms ease-in both;
+  animation: map-node-exit-wave 340ms ease-in both;
+  animation-delay: var(--map-node-delay, 0ms);
 }
 
 .map-node-exit .node-exit-ring {
@@ -13029,14 +13037,41 @@ tr[data-id].is-selected td:first-child {
   filter: none !important;
 }
 
-@keyframes map-node-enter {
+.map-impact-layer {
+  pointer-events: none;
+}
+
+.map-impact-ring {
+  fill: none;
+  stroke: rgba(0, 159, 114, 0.42);
+  stroke-width: 3.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: map-impact-wave 760ms ease-out both;
+}
+
+.map-impact-ring-2 {
+  stroke: rgba(96, 86, 255, 0.28);
+  animation-delay: 90ms;
+}
+
+.map-impact-ring-3 {
+  stroke: rgba(255, 181, 64, 0.24);
+  animation-delay: 170ms;
+}
+
+@keyframes map-node-enter-wave {
   0% {
     opacity: 0;
-    transform: scale(0.78);
+    transform: scale(0.46);
   }
-  68% {
+  42% {
     opacity: 1;
-    transform: scale(1.08);
+    transform: scale(1.14);
+  }
+  72% {
+    opacity: 1;
+    transform: scale(0.96);
   }
   100% {
     opacity: 1;
@@ -13044,14 +13079,47 @@ tr[data-id].is-selected td:first-child {
   }
 }
 
-@keyframes map-node-exit {
+@keyframes map-node-update-wave {
   0% {
-    opacity: 0.74;
+    opacity: 0.88;
+    transform: scale(0.96);
+  }
+  48% {
+    opacity: 1;
+    transform: scale(1.09);
+  }
+  100% {
+    opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes map-node-exit-wave {
+  0% {
+    opacity: 0.78;
+    transform: scale(1);
+  }
+  54% {
+    opacity: 0.36;
+    transform: scale(0.82);
   }
   100% {
     opacity: 0;
-    transform: scale(0.68);
+    transform: scale(0.34);
+  }
+}
+
+@keyframes map-impact-wave {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.32);
+  }
+  64% {
+    opacity: 0.18;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3.35);
   }
 }
 

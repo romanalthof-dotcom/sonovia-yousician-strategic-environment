@@ -3481,6 +3481,7 @@ const state = {
 };
 
 let previousMapNodePositions = new Map();
+let previousMapRenderSignature = "";
 let volosTeaserTimer = null;
 let volosTeaserScrollY = 0;
 
@@ -8454,10 +8455,11 @@ function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center, protecte
   return plan;
 }
 
-function createMapExitGhost(snapshot) {
+function createMapExitGhost(snapshot, center) {
   const ghost = createSvg("g", {
     class: `map-node map-node-exit ${snapshot.tier}`,
-    "aria-hidden": "true"
+    "aria-hidden": "true",
+    style: mapWaveStyle(snapshot.x, snapshot.y, center)
   });
   ghost.appendChild(
     createSvg("circle", {
@@ -8480,6 +8482,35 @@ function createMapExitGhost(snapshot) {
     ghost.appendChild(init);
   }
   return ghost;
+}
+
+function mapWaveMetrics(x, y, center) {
+  const distance = Math.hypot(x - center.x, y - center.y);
+  return {
+    distance,
+    delay: Math.min(260, Math.round(distance * 0.36))
+  };
+}
+
+function mapWaveStyle(x, y, center) {
+  const wave = mapWaveMetrics(x, y, center);
+  return `--map-node-delay:${wave.delay}ms;--map-node-distance:${Math.round(wave.distance)};`;
+}
+
+function mapRenderSignature(basePlayers, filtered) {
+  return [
+    filtered.map((player) => player.id).join("|"),
+    basePlayers.map((player) => player.id).join("|"),
+    state.selectedCategory,
+    state.selectedProductLens,
+    state.minRelevance,
+    String(state.query || "").trim().toLowerCase(),
+    state.mapFocusMode,
+    state.mapZoomMode,
+    mapRecordLimitFor(basePlayers),
+    state.mapRankMode,
+    state.bubbleSizeMode
+  ].join("::");
 }
 
 function appendMapClusterLabel(layer, { category, categoryPlayers, contextPlayers, x, layout, visualSize, center }) {
@@ -8526,6 +8557,9 @@ function renderMap() {
   const filtered = mapVisiblePlayers(basePlayers);
   const focusScale = mapFocusScale(basePlayers, filtered);
   const previousNodePositions = previousMapNodePositions;
+  const signature = mapRenderSignature(basePlayers, filtered);
+  const mapHasRendered = Boolean(previousMapRenderSignature);
+  const mapStateChanged = mapHasRendered && signature !== previousMapRenderSignature;
   document.body.dataset.mapFocusScale = String(Math.round(focusScale * 100));
   const byCategory = journeyCategories.map((category, index) => {
     const layout = mapLayoutForCategory(category, index, center);
@@ -8579,6 +8613,8 @@ function renderMap() {
   const labelPlan = buildMapLabelPlan(nodeItems, filtered.length, focusScale, center, protectedRects);
   const currentNodeIds = new Set(nodeItems.map((item) => item.player.id));
   const exitingNodeSnapshots = [...previousNodePositions.values()].filter((item) => !currentNodeIds.has(item.id));
+  const enteringNodeCount = nodeItems.filter((item) => !previousNodePositions.has(item.player.id)).length;
+  const shouldShowMapImpact = mapStateChanged || (mapHasRendered && (enteringNodeCount > 0 || exitingNodeSnapshots.length > 0));
 
   const defs = createSvg("defs");
   const radial = createSvg("radialGradient", { id: "mapGlow", cx: "50%", cy: "50%", r: "60%" });
@@ -8640,6 +8676,21 @@ function renderMap() {
   const connectionLayer = createSvg("g", { class: "connection-layer" });
   fragment.appendChild(connectionLayer);
 
+  if (shouldShowMapImpact) {
+    const impactLayer = createSvg("g", { class: "map-impact-layer", "aria-hidden": "true" });
+    [0, 1, 2].forEach((index) => {
+      impactLayer.appendChild(
+        createSvg("circle", {
+          cx: center.x,
+          cy: center.y,
+          r: 64,
+          class: `map-impact-ring map-impact-ring-${index + 1}`
+        })
+      );
+    });
+    fragment.appendChild(impactLayer);
+  }
+
   byCategory.forEach(({ category, players: categoryPlayers, contextPlayers, hiddenCount, x, y, layout }) => {
     const contextCount = contextPlayers.length;
     if (!contextCount && state.selectedCategory !== "all") return;
@@ -8664,7 +8715,7 @@ function renderMap() {
 
     fragment.appendChild(cluster);
 
-    categoryPlayers.forEach((player, idx) => {
+    categoryPlayers.forEach((player) => {
       const nodeItem = nodePositions.get(player.id);
       const nodeX = nodeItem?.x ?? layout.x;
       const nodeY = nodeItem?.y ?? layout.y;
@@ -8693,7 +8744,10 @@ function renderMap() {
       };
       if (isEntering) {
         nodeAttrs.class += " map-node-enter";
-        nodeAttrs.style = `--map-node-delay:${Math.min(90, idx * 7)}ms`;
+        nodeAttrs.style = mapWaveStyle(nodeX, nodeY, center);
+      } else if (mapStateChanged) {
+        nodeAttrs.class += " map-node-update";
+        nodeAttrs.style = mapWaveStyle(nodeX, nodeY, center);
       }
       const node = createSvg("g", nodeAttrs);
       const title = createSvg("title");
@@ -8849,7 +8903,7 @@ function renderMap() {
   if (exitingNodeSnapshots.length) {
     const exitLayer = createSvg("g", { class: "map-node-exit-layer" });
     exitingNodeSnapshots.slice(0, 80).forEach((snapshot) => {
-      exitLayer.appendChild(createMapExitGhost(snapshot));
+      exitLayer.appendChild(createMapExitGhost(snapshot, center));
     });
     fragment.appendChild(exitLayer);
   }
@@ -8930,7 +8984,7 @@ function renderMap() {
     window.clearTimeout(renderMap.exitCleanupTimer);
     renderMap.exitCleanupTimer = window.setTimeout(() => {
       svg.querySelectorAll(".map-node-exit-layer").forEach((layer) => layer.remove());
-    }, 320);
+    }, 720);
   }
   previousMapNodePositions = new Map(
     nodeItems.map((item) => [
@@ -8946,6 +9000,7 @@ function renderMap() {
       }
     ])
   );
+  previousMapRenderSignature = signature;
 }
 
 function renderProfile() {
