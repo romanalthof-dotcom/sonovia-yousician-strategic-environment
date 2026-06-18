@@ -2989,6 +2989,9 @@ body:not([data-view="overview"]) .view.active {
   margin-bottom: 4px;
   font-size: 1.05rem;
   font-weight: 700;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
 }
 
 .player-card p {
@@ -15849,7 +15852,7 @@ body[data-mode="executive"] .key-priority-map.visual-matrix {
 
 .priority-profile-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 14px;
 }
 
@@ -15905,8 +15908,7 @@ body[data-mode="executive"] .key-priority-map.visual-matrix {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .company-directory-grid,
-  .priority-profile-grid {
+  .company-directory-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -22111,6 +22113,50 @@ body[data-view="overview"] .map-selected-logo {
   text-shadow: none;
 }
 
+.company-logo-subtype {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  z-index: 5;
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 13px;
+  border: 1.5px solid #fff;
+  border-radius: 999px;
+  background: #10231f;
+  color: #fff;
+  font-size: 0.46rem;
+  font-weight: 950;
+  line-height: 1;
+  letter-spacing: 0;
+  box-shadow: 0 3px 8px rgba(18, 28, 24, 0.22);
+  pointer-events: none;
+}
+
+.company-logo-mark[data-player-id="fender"] .company-logo-subtype {
+  background: #fff3df;
+  color: #7b2d1d;
+  border-color: rgba(255, 255, 255, 0.94);
+}
+
+.company-inline-logo.company-logo-mark .company-logo-subtype,
+.mini-inline-logo.company-logo-mark .company-logo-subtype,
+.priority-avatar-small.company-logo-mark .company-logo-subtype,
+.company-row-avatar.company-logo-mark .company-logo-subtype,
+.lane-avatar.company-logo-mark .company-logo-subtype {
+  min-width: 17px;
+  height: 10px;
+  font-size: 0.34rem;
+  border-width: 1px;
+}
+
+.one-pager-brand-logo.company-logo-mark .company-logo-subtype {
+  min-width: 34px;
+  height: 18px;
+  font-size: 0.56rem;
+}
+
 .company-logo-mark.has-logo:not(.is-logo-missing) > .company-logo-initials {
   opacity: 0;
 }
@@ -22233,6 +22279,20 @@ body[data-view="overview"] .node-logo-fallback {
   stroke: rgba(255, 255, 255, 0.98);
   stroke-linejoin: round;
   stroke-width: 2.2px;
+}
+
+body[data-view="overview"] .node-logo-subtype-badge {
+  fill: var(--badge-color, #10231f);
+  stroke: rgba(255, 255, 255, 0.96);
+  stroke-width: 1.2;
+  filter: drop-shadow(0 2px 3px rgba(18, 28, 24, 0.2));
+  pointer-events: none;
+}
+
+body[data-view="overview"] .node-logo-subtype-text {
+  font-weight: 950;
+  text-anchor: middle;
+  pointer-events: none;
 }
 
 body[data-view="overview"] .map-node.has-brand-image .node-logo-fallback {
@@ -22932,4 +22992,61 @@ body[data-view="overview"] .map-adjust-body .source-box {
   background: #fff !important;
   color: var(--ink) !important;
   padding: 0 !important;
+}
+
+.company-inline span.company-inline-logo.company-logo-mark,
+.database-record-card .company-inline span.company-inline-logo.company-logo-mark,
+.template-table .company-inline span.company-inline-logo.company-logo-mark,
+.name-cell .company-inline span.company-inline-logo.company-logo-mark,
+.priority-player-copy .company-inline span.company-inline-logo.company-logo-mark,
+.landscape-players .company-inline span.company-inline-logo.company-logo-mark,
+.strategy-mini-strip .company-inline span.company-inline-logo.company-logo-mark,
+.relationship-item .company-inline span.company-inline-logo.company-logo-mark {
+  display: inline-grid !important;
+  place-items: center !important;
+  flex: 0 0 20px !important;
+  width: 20px !important;
+  min-width: 20px !important;
+  max-width: 20px !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  max-height: 20px !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+}
+
+.company-inline .company-logo-subtype,
+.template-table .company-inline .company-logo-subtype,
+.database-record-card .company-inline .company-logo-subtype,
+.name-cell .company-inline .company-logo-subtype,
+.priority-player-copy .company-inline .company-logo-subtype,
+.landscape-players .company-inline .company-logo-subtype,
+.strategy-mini-strip .company-inline .company-logo-subtype,
+.relationship-item .company-inline .company-logo-subtype {
+  position: absolute !important;
+  right: -1px !important;
+  bottom: -1px !important;
+  z-index: 5 !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  min-width: 17px !important;
+  width: auto !important;
+  height: 10px !important;
+  border: 1px solid #fff !important;
+  border-radius: 999px !important;
+  background: #10231f !important;
+  color: #fff !important;
+  padding: 0 2px !important;
+  box-shadow: 0 2px 5px rgba(18, 28, 24, 0.22) !important;
+  font-size: 0.34rem !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+}
+
+.company-inline .company-logo-mark[data-player-id="fender"] .company-logo-subtype,
+.template-table .company-inline .company-logo-mark[data-player-id="fender"] .company-logo-subtype,
+.database-record-card .company-inline .company-logo-mark[data-player-id="fender"] .company-logo-subtype,
+.name-cell .company-inline .company-logo-mark[data-player-id="fender"] .company-logo-subtype {
+  background: #fff3df !important;
+  color: #7b2d1d !important;
 }

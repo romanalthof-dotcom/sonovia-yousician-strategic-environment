@@ -4280,6 +4280,24 @@ function mapRankSort(a, b) {
   );
 }
 
+const visuallyConfusingPlayerPairs = [["fender-play", "fender"]];
+
+function separateConfusingPlayerPairs(rows, minimumGap = 4) {
+  const result = [...rows];
+  visuallyConfusingPlayerPairs.forEach(([movingId, fixedId]) => {
+    let movingIndex = result.findIndex((player) => player.id === movingId);
+    let fixedIndex = result.findIndex((player) => player.id === fixedId);
+    if (movingIndex < 0 || fixedIndex < 0) return;
+    if (Math.abs(movingIndex - fixedIndex) >= minimumGap) return;
+    const [moving] = result.splice(movingIndex, 1);
+    fixedIndex = result.findIndex((player) => player.id === fixedId);
+    let targetIndex = fixedIndex + minimumGap;
+    if (targetIndex > result.length) targetIndex = Math.max(0, fixedIndex - minimumGap + 1);
+    result.splice(Math.max(0, Math.min(result.length, targetIndex)), 0, moving);
+  });
+  return result;
+}
+
 function mapRankTieNote(rankId = state.mapRankMode) {
   const mode = mapRankModeById(rankId).id;
   if (["business", "revenue", "reach"].includes(mode)) return "Direct values first; pending values become a proof queue";
@@ -5573,6 +5591,12 @@ function logoDomainLabel(player) {
   return logoDomainForPlayer(player) || "initials fallback";
 }
 
+function logoSubtypeBadge(player) {
+  if (player.id === "fender-play") return "PLAY";
+  if (player.id === "fender") return "GEAR";
+  return "";
+}
+
 function onePagerLogoSourceText(player) {
   if (logoSourceLabelOverrides[player.id]) return logoSourceLabelOverrides[player.id];
   const domain = logoDomainForPlayer(player);
@@ -5594,6 +5618,7 @@ function logoMarkHtml(player, className = "company-logo-mark", options = {}) {
       style="${style}"
       title="${escapeHtml(player.name)}"
       data-logo-domain="${escapeHtml(logoDomainLabel(player))}"
+      data-player-id="${escapeHtml(player.id)}"
       aria-hidden="true"
     >
       <span class="company-logo-initials">${escapeHtml(initials(player.name))}</span>
@@ -5602,6 +5627,7 @@ function logoMarkHtml(player, className = "company-logo-mark", options = {}) {
           ? `<img src="${escapeHtml(logoUrl)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove();this.parentElement.classList.add('is-logo-missing')" />`
           : ""
       }
+      ${logoSubtypeBadge(player) ? `<span class="company-logo-subtype">${escapeHtml(logoSubtypeBadge(player))}</span>` : ""}
     </span>
   `;
 }
@@ -7513,7 +7539,7 @@ function mapVisiblePlayers(basePlayers) {
   const rankedPlayers = [...basePlayers].sort(mapRankSort);
   const limit = mapRecordLimitFor(rankedPlayers);
   const pool = ["all", defaultMapFocusMode].includes(state.mapFocusMode) ? rankedPlayers : rankedPlayers.filter(mode.matches);
-  return pool.slice(0, Math.min(limit, pool.length));
+  return separateConfusingPlayerPairs(pool.slice(0, Math.min(limit, pool.length)), 4);
 }
 
 function mapZoomLabel() {
@@ -8347,6 +8373,45 @@ function relaxMapNodePositions(items, center, protectedRects = []) {
   }
 }
 
+function pullMapNodeToward(item, target, strength = 0.6) {
+  item.x += (target.x - item.x) * strength;
+  item.y += (target.y - item.y) * strength;
+  clampMapNodePosition(item);
+}
+
+function separateConfusingMapNodes(items, center, protectedRects = []) {
+  const fenderPlay = items.find((item) => item.player.id === "fender-play");
+  const fender = items.find((item) => item.player.id === "fender");
+  if (!fenderPlay || !fender) return;
+  const minDistance = isDenseFullMapView() ? 126 : 176;
+  const distance = Math.hypot(fenderPlay.x - fender.x, fenderPlay.y - fender.y);
+  if (distance >= minDistance) return;
+  const strength = isDenseFullMapView() ? 0.34 : 0.72;
+  pullMapNodeToward(
+    fenderPlay,
+    {
+      x: fenderPlay.layout.x + fenderPlay.layout.rx * 0.62,
+      y: fenderPlay.layout.y - fenderPlay.layout.ry * 0.5
+    },
+    strength
+  );
+  pullMapNodeToward(
+    fender,
+    {
+      x: fender.layout.x - fender.layout.rx * 0.58,
+      y: fender.layout.y + fender.layout.ry * 0.46
+    },
+    strength
+  );
+  const pair = [fenderPlay, fender];
+  const pairGap = Math.max(24, minDistance - nodeCollisionRadius(fenderPlay) - nodeCollisionRadius(fender));
+  for (let iteration = 0; iteration < 12; iteration += 1) {
+    pushNodePairsApart(pair, pairGap, 0.95);
+    pushNodesAwayFromProtectedRects(pair, protectedRects, 0.9);
+    pair.forEach(clampMapNodePosition);
+  }
+}
+
 function isDenseFullMapView() {
   return (
     state.mapFocusMode === "all" &&
@@ -8792,6 +8857,7 @@ function renderMap() {
     relaxClusterNodePositions(clusterItems, layout, center, protectedRects);
   });
   relaxMapNodePositions(nodeItems, center, protectedRects);
+  separateConfusingMapNodes(nodeItems, center, protectedRects);
   const nodePositions = new Map(nodeItems.map((item) => [item.player.id, item]));
   const defaultBox = compactMap ? { x: 96, y: 24, width: 816, height: 584 } : { x: -42, y: -28, width: 1084, height: 759 };
   const viewBox = mapViewBoxFromNodes([...nodeItems, ...mapCategoryBoundsItems(byCategory, center)], basePlayers, filtered, compactMap);
@@ -8924,7 +8990,7 @@ function renderMap() {
       }
 
       const nodeAttrs = {
-        class: `map-node ${tier} ${isSelected ? "selected" : ""} ${nodeHasLogoMark ? "has-brand-logo" : ""} ${nodeLogoUrl ? "has-brand-image" : "has-brand-fallback"}`,
+        class: `map-node map-node-${svgSafeId(player.id)} ${tier} ${isSelected ? "selected" : ""} ${nodeHasLogoMark ? "has-brand-logo" : ""} ${nodeLogoUrl ? "has-brand-image" : "has-brand-fallback"}`,
         tabindex: "0",
         role: "button",
         "aria-label": `${player.name}, ${player.relevance} of 5 relevance`,
@@ -9003,6 +9069,32 @@ function renderMap() {
               preserveAspectRatio: "xMidYMid meet"
             })
           );
+        }
+        const subtype = logoSubtypeBadge(player);
+        if (subtype) {
+          const badgeRadius = Math.max(5.5, Math.min(8, logoRadius * 0.38));
+          const badgeX = nodeX + logoRadius * 0.62;
+          const badgeY = nodeY + logoRadius * 0.62;
+          const badgeInk = player.id === "fender-play" ? "#ffffff" : "#7b2d1d";
+          node.appendChild(
+            createSvg("circle", {
+              cx: badgeX,
+              cy: badgeY,
+              r: badgeRadius,
+              class: "node-logo-subtype-badge",
+              style: `--badge-color:${player.id === "fender-play" ? "#10231f" : "#fff3df"}; --badge-ink:${
+                badgeInk
+              }`
+            })
+          );
+          const subtypeText = createSvg("text", {
+            x: badgeX,
+            y: badgeY + 2,
+            class: "node-logo-subtype-text",
+            style: `font-size:${Math.max(3.8, Math.min(5.2, badgeRadius * 0.72)).toFixed(1)}px; fill:${badgeInk}`
+          });
+          subtypeText.textContent = subtype === "PLAY" ? "P" : "G";
+          node.appendChild(subtypeText);
         }
       }
       if (player.key || isSelected || tier === "focus") {
@@ -11004,7 +11096,10 @@ function bindMarketMonitorInteractions(container) {
 
 function renderKeyPlayerVisuals(keyPlayers) {
   if (!els.keyPlayerVisuals) return;
-  const rankedPlayers = [...keyPlayers].sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name));
+  const rankedPlayers = separateConfusingPlayerPairs(
+    [...keyPlayers].sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name)),
+    4
+  );
   if (!rankedPlayers.length) {
     els.keyPlayerVisuals.innerHTML = emptyState("No key player visuals match the current filter.");
     return;
@@ -11197,9 +11292,12 @@ function renderKeyPlayerVisuals(keyPlayers) {
 function renderKeyPlayers() {
   const basePlayers = getFilteredPlayers();
   const filteredPlayers = monitorVisiblePlayers(basePlayers);
-  const keyPlayers = filteredPlayers
-    .filter((player) => player.key)
-    .sort((a, b) => b.relevance + b.momentum + b.aiScore - (a.relevance + a.momentum + a.aiScore));
+  const keyPlayers = separateConfusingPlayerPairs(
+    filteredPlayers
+      .filter((player) => player.key)
+      .sort((a, b) => b.relevance + b.momentum + b.aiScore - (a.relevance + a.momentum + a.aiScore)),
+    4
+  );
 
   renderMarketMonitorOverview(filteredPlayers, keyPlayers);
   renderMonitorControlBar(basePlayers, filteredPlayers, keyPlayers);
@@ -11315,7 +11413,7 @@ function onePagerCategoryRank(player) {
 }
 
 function onePagerClosestPeers(player, taxonomy, limit = 5) {
-  return players
+  const peers = players
     .filter((candidate) => candidate.id !== player.id)
     .filter((candidate) => !isSignalOnlyRecord(candidate))
     .map((candidate) => {
@@ -11332,6 +11430,7 @@ function onePagerClosestPeers(player, taxonomy, limit = 5) {
     .sort((a, b) => b.score - a.score || totalPriority(b.candidate) - totalPriority(a.candidate) || a.candidate.name.localeCompare(b.candidate.name))
     .slice(0, limit)
     .map((item) => item.candidate);
+  return separateConfusingPlayerPairs(peers, 4);
 }
 
 function onePagerMarketContextHtml(player, taxonomy, quality, validation) {
@@ -11751,7 +11850,7 @@ function onePagerPositionPlayers(player, kind) {
       return ["platforms", "signals", "ai", "creation"].includes(candidate.category) && candidate.relevance >= 3;
     })
     .sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name));
-  return scored.slice(0, 5);
+  return separateConfusingPlayerPairs(scored.slice(0, 5), 4);
 }
 
 function onePagerPositionHtml(player) {
@@ -12659,7 +12758,7 @@ function keyPlayerTemplateRows(rows) {
     if (preferredDelta) return preferredDelta;
     return Number(b.key) - Number(a.key) || totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name);
   });
-  return sorted.slice(0, isExecutiveMode() ? 14 : 32);
+  return separateConfusingPlayerPairs(sorted, 4).slice(0, isExecutiveMode() ? 14 : 32);
 }
 
 function keyPlayerTemplateRowData(player) {
@@ -12816,6 +12915,7 @@ function renderKeyPlayerTemplate(rows, totalRows) {
 }
 
 function renderDatabaseLists(rows, totalRows) {
+  const cardRows = separateConfusingPlayerPairs(rows, 4);
   const limited = rows.length < totalRows;
   const limitNote = limited
     ? `<article class="database-record-card database-limit-note">
@@ -12830,7 +12930,7 @@ function renderDatabaseLists(rows, totalRows) {
     : "";
   if (els.databaseCards) {
     els.databaseCards.innerHTML =
-      rows.map(databaseCardHtml).join("") + limitNote || emptyState("No records match the current database segment.");
+      cardRows.map(databaseCardHtml).join("") + limitNote || emptyState("No records match the current database segment.");
     els.databaseCards.querySelectorAll("[data-id]").forEach((cardEl) => {
       const openRecord = () => {
         selectPlayer(cardEl.dataset.id);
