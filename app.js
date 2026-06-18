@@ -6629,8 +6629,8 @@ function normalizeMapViewBox(bounds, options = {}) {
 
 function mapViewBoxFromNodes(nodeItems, basePlayers, visiblePlayers, compactMap) {
   const defaultBox = compactMap
-    ? { x: 120, y: 42, width: 760, height: 610 }
-    : { x: 0, y: 0, width: 1000, height: 700 };
+    ? { x: 96, y: 24, width: 816, height: 584 }
+    : { x: -42, y: -28, width: 1084, height: 759 };
   if (!nodeItems.length || state.mapZoomMode === "full") return defaultBox;
   const selectedNode = nodeItems.find((item) => item.player?.id === state.selectedPlayerId);
   const shouldFit =
@@ -7141,14 +7141,14 @@ function renderStrategicImplications() {
 }
 
 const mapCategoryLayouts = {
-  discover: { x: 148, y: 182, angle: -142, arcRadius: 330, visibleLimit: 4, rx: 132, ry: 88 },
-  start: { x: 278, y: 270, angle: -112, arcRadius: 272, visibleLimit: 5, rx: 140, ry: 92 },
-  learn: { x: 430, y: 170, angle: -78, arcRadius: 196, visibleLimit: 6, rx: 156, ry: 104 },
-  practice: { x: 575, y: 250, angle: -28, arcRadius: 184, visibleLimit: 6, rx: 168, ry: 108 },
-  create: { x: 704, y: 438, angle: 42, arcRadius: 262, visibleLimit: 5, rx: 168, ry: 104 },
-  share: { x: 842, y: 274, angle: 84, arcRadius: 330, visibleLimit: 4, rx: 132, ry: 88 },
-  identity: { x: 810, y: 526, angle: 126, arcRadius: 346, visibleLimit: 4, rx: 132, ry: 88 },
-  broader: { x: 270, y: 535, angle: 168, arcRadius: 340, visibleLimit: 4, rx: 154, ry: 92 }
+  discover: { x: 184, y: 184, angle: -142, arcRadius: 318, visibleLimit: 4, rx: 124, ry: 84 },
+  start: { x: 304, y: 272, angle: -114, arcRadius: 258, visibleLimit: 5, rx: 132, ry: 88 },
+  learn: { x: 442, y: 166, angle: -80, arcRadius: 190, visibleLimit: 6, rx: 148, ry: 98 },
+  practice: { x: 598, y: 250, angle: -30, arcRadius: 182, visibleLimit: 6, rx: 158, ry: 102 },
+  create: { x: 724, y: 458, angle: 42, arcRadius: 262, visibleLimit: 5, rx: 154, ry: 98 },
+  share: { x: 826, y: 278, angle: 84, arcRadius: 318, visibleLimit: 4, rx: 124, ry: 84 },
+  identity: { x: 792, y: 518, angle: 126, arcRadius: 328, visibleLimit: 4, rx: 124, ry: 84 },
+  broader: { x: 294, y: 532, angle: 168, arcRadius: 326, visibleLimit: 4, rx: 146, ry: 88 }
 };
 
 function mapLayoutForCategory(category, index, center) {
@@ -7227,14 +7227,14 @@ function clusterVisualSize(layout, total) {
 }
 
 function clampMapNodePosition(item) {
-  const margin = item.radius + 14;
+  const margin = item.radius + 18;
   item.x = Math.max(margin, Math.min(1000 - margin, item.x));
   item.y = Math.max(margin, Math.min(700 - margin, item.y));
 }
 
 function pullNodeIntoCluster(item, layout, profile, strength = 0.08) {
-  const maxX = Math.max(96, layout.rx * (profile.ellipseX + 0.38));
-  const maxY = Math.max(72, layout.ry * (profile.ellipseY + 0.32));
+  const maxX = Math.max(90, layout.rx * (profile.ellipseX + 0.2));
+  const maxY = Math.max(68, layout.ry * (profile.ellipseY + 0.18));
   const dx = item.x - layout.x;
   const dy = item.y - layout.y;
   const norm = Math.max(1, Math.hypot(dx / maxX, dy / maxY));
@@ -7277,7 +7277,7 @@ function pushNodesAwayFromHub(items, center) {
     const dx = item.x - center.x;
     const dy = item.y - center.y;
     const distance = Math.max(0.1, Math.hypot(dx, dy));
-    const target = nodeCollisionRadius(item) + 82;
+    const target = nodeCollisionRadius(item) + (isDenseFullMapView() ? 120 : 104);
     if (distance >= target) return;
     const push = target - distance;
     item.x += (dx / distance) * push;
@@ -7285,36 +7285,76 @@ function pushNodesAwayFromHub(items, center) {
   });
 }
 
-function relaxClusterNodePositions(items, layout, center) {
+function pushNodeAwayFromRect(item, rect, gap = 12, weight = 1) {
+  const radius = nodeCollisionRadius(item) + gap;
+  const left = rect.x - radius;
+  const right = rect.x + rect.width + radius;
+  const top = rect.y - radius;
+  const bottom = rect.y + rect.height + radius;
+  if (item.x < left || item.x > right || item.y < top || item.y > bottom) return;
+  if (rect.push === "down") {
+    item.y += (bottom - item.y) * weight;
+    return;
+  }
+  if (rect.push === "up") {
+    item.y += (top - item.y) * weight;
+    return;
+  }
+  const moves = [
+    { dx: left - item.x, dy: 0 },
+    { dx: right - item.x, dy: 0 },
+    { dx: 0, dy: top - item.y },
+    { dx: 0, dy: bottom - item.y }
+  ].sort((a, b) => Math.hypot(a.dx, a.dy) - Math.hypot(b.dx, b.dy));
+  item.x += moves[0].dx * weight;
+  item.y += moves[0].dy * weight;
+}
+
+function pushNodesAwayFromProtectedRects(items, protectedRects, weight = 1) {
+  if (!protectedRects?.length) return;
+  items.forEach((item) => {
+    protectedRects.forEach((rect) => pushNodeAwayFromRect(item, rect, 12, weight));
+  });
+}
+
+function relaxClusterNodePositions(items, layout, center, protectedRects = []) {
   if (!items.length) return;
   const profile = clusterSpreadProfile(items.length);
   for (let iteration = 0; iteration < profile.iterations; iteration += 1) {
     pushNodePairsApart(items, profile.gap);
     pushNodesAwayFromHub(items, center);
+    pushNodesAwayFromProtectedRects(items, protectedRects, 0.85);
     items.forEach((item) => {
-      pullNodeIntoCluster(item, layout, profile, 0.012);
+      pullNodeIntoCluster(item, layout, profile, 0.018);
       clampMapNodePosition(item);
     });
   }
-  for (let iteration = 0; iteration < 10; iteration += 1) {
+  for (let iteration = 0; iteration < 16; iteration += 1) {
     pushNodePairsApart(items, profile.gap + 5);
+    pushNodesAwayFromHub(items, center);
+    pushNodesAwayFromProtectedRects(items, protectedRects, 1);
+    pushNodePairsApart(items, profile.gap + 7, 0.9);
     items.forEach(clampMapNodePosition);
   }
 }
 
-function relaxMapNodePositions(items, center) {
+function relaxMapNodePositions(items, center, protectedRects = []) {
   if (items.length <= 1) return;
-  for (let iteration = 0; iteration < 24; iteration += 1) {
+  for (let iteration = 0; iteration < 30; iteration += 1) {
     pushNodePairsApart(items, 7, 0.76);
     pushNodesAwayFromHub(items, center);
+    pushNodesAwayFromProtectedRects(items, protectedRects, 0.7);
     items.forEach((item) => {
       const profile = clusterSpreadProfile(item.categoryPlayers.length);
-      pullNodeIntoCluster(item, item.layout, profile, 0.01);
+      pullNodeIntoCluster(item, item.layout, profile, 0.016);
       clampMapNodePosition(item);
     });
   }
-  for (let iteration = 0; iteration < 14; iteration += 1) {
+  for (let iteration = 0; iteration < 22; iteration += 1) {
     pushNodePairsApart(items, 11, 1);
+    pushNodesAwayFromHub(items, center);
+    pushNodesAwayFromProtectedRects(items, protectedRects, 1);
+    pushNodePairsApart(items, 13, 0.9);
     items.forEach(clampMapNodePosition);
   }
 }
@@ -7407,6 +7447,26 @@ function rectsOverlap(a, b, padding = 0) {
   );
 }
 
+function mapProtectedLabelRects(categoryGroups, center) {
+  return categoryGroups.flatMap(({ category, contextPlayers, layout }) => {
+    if (!contextPlayers.length) return [];
+    const visualSize = clusterVisualSize(layout, contextPlayers.length);
+    const textPositions = clusterTextPositions({ ...layout, ...visualSize }, center);
+    const clusterLabel = mapCategoryLabel(category);
+    const clusterWidth = svgLabelWidth(clusterLabel, 96, 180);
+    return [
+      {
+        id: category.id,
+        x: layout.x - clusterWidth / 2 - 18,
+        y: textPositions.labelY - 31,
+        width: clusterWidth + 36,
+        height: 69,
+        push: textPositions.labelY < center.y ? "down" : "up"
+      }
+    ];
+  });
+}
+
 function mapLabelPriority(player) {
   return (
     Number(player.id === state.selectedPlayerId) * 10000 +
@@ -7446,19 +7506,32 @@ function mapLabelPositions(item, width, height, scale, center) {
   const preferredSide = isSelected ? (x >= center.x ? 1 : -1) : x >= clusterX ? 1 : -1;
   const otherSide = preferredSide * -1;
   const gap = Math.round(9 * scale);
+  const farGap = gap + (isDenseFullMapView() ? 42 : 28);
   const verticalGap = Math.round(8 * scale);
   const radius = item.radius;
   const horizontal = (side, yOffset = 0) => ({
     x: side > 0 ? x + radius + gap : x - radius - gap - width,
     y: y - height / 2 + yOffset
   });
+  const farHorizontal = (side, yOffset = 0) => ({
+    x: side > 0 ? x + radius + farGap : x - radius - farGap - width,
+    y: y - height / 2 + yOffset
+  });
   const centered = (above = false) => ({
     x: x - width / 2,
     y: above ? y - radius - verticalGap - height : y + radius + verticalGap
   });
+  const farCentered = (above = false) => ({
+    x: x - width / 2,
+    y: above ? y - radius - farGap - height : y + radius + farGap
+  });
   const diagonal = (side, lower = true) => ({
     x: side > 0 ? x + radius + gap : x - radius - gap - width,
     y: y + (lower ? radius * 0.42 : -radius * 0.42) - height / 2
+  });
+  const farDiagonal = (side, lower = true) => ({
+    x: side > 0 ? x + radius + farGap : x - radius - farGap - width,
+    y: y + (lower ? radius + farGap * 0.35 : -radius - farGap * 0.35) - height / 2
   });
   const lowerFirst = y < center.y;
   return [
@@ -7466,10 +7539,20 @@ function mapLabelPositions(item, width, height, scale, center) {
     horizontal(otherSide),
     centered(lowerFirst ? false : true),
     centered(lowerFirst ? true : false),
+    farHorizontal(preferredSide),
+    farHorizontal(otherSide),
+    farCentered(lowerFirst ? false : true),
+    farCentered(lowerFirst ? true : false),
+    farHorizontal(preferredSide, lowerFirst ? farGap * 0.28 : -farGap * 0.28),
+    farHorizontal(otherSide, lowerFirst ? farGap * 0.28 : -farGap * 0.28),
     diagonal(preferredSide, lowerFirst),
     diagonal(preferredSide, !lowerFirst),
     diagonal(otherSide, lowerFirst),
-    diagonal(otherSide, !lowerFirst)
+    diagonal(otherSide, !lowerFirst),
+    farDiagonal(preferredSide, lowerFirst),
+    farDiagonal(preferredSide, !lowerFirst),
+    farDiagonal(otherSide, lowerFirst),
+    farDiagonal(otherSide, !lowerFirst)
   ];
 }
 
@@ -7527,7 +7610,7 @@ function mapLabelCandidate(item, visibleCount, focusScale, center) {
   return mapLabelCandidates(item, visibleCount, focusScale, center)?.[0] || null;
 }
 
-function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center) {
+function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center, protectedRects = []) {
   const selectedNode = nodeItems.find((item) => item.player.id === state.selectedPlayerId);
   const selectedBounds = selectedNode
     ? {
@@ -7555,14 +7638,15 @@ function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center) {
     .sort((a, b) => b.labels[0].priority - a.labels[0].priority)
     .forEach(({ item, labels }) => {
       const isSelected = item.player.id === state.selectedPlayerId;
-      const chosen = labels.find((label) => {
+      const labelIsClear = (label) => {
         const overlapsLabel = accepted.some((rect) => rectsOverlap(label.rect, rect, focusScale >= 1.18 ? 12 : 8));
+        const overlapsProtected = protectedRects.some((rect) => rectsOverlap(label.rect, rect, 6));
         const overlapsSelectedNode = selectedBounds && !isSelected && rectsOverlap(label.rect, selectedBounds, 8);
         const overlapsNode =
-          !isSelected &&
           nodeBounds.some((rect) => rect.id !== item.player.id && rectsOverlap(label.rect, rect, focusScale >= 1.18 ? 4 : 2));
-        return !overlapsLabel && !overlapsSelectedNode && !overlapsNode;
-      }) || (isSelected ? labels[0] : null);
+        return !overlapsLabel && !overlapsProtected && !overlapsSelectedNode && !overlapsNode;
+      };
+      const chosen = labels.find((label) => labelIsClear(label)) || (isSelected && !isDenseFullMapView() ? labels[0] : null);
       if (!chosen) return;
       const label = chosen;
       accepted.push(label.rect);
@@ -7663,6 +7747,7 @@ function renderMap() {
       index
     };
   });
+  const protectedRects = mapProtectedLabelRects(byCategory, center);
   const nodeItems = [];
   byCategory.forEach(({ players: categoryPlayers, layout }) => {
     const clusterItems = [];
@@ -7683,16 +7768,16 @@ function renderMap() {
       nodeItems.push(item);
       clusterItems.push(item);
     });
-    relaxClusterNodePositions(clusterItems, layout, center);
+    relaxClusterNodePositions(clusterItems, layout, center, protectedRects);
   });
-  relaxMapNodePositions(nodeItems, center);
+  relaxMapNodePositions(nodeItems, center, protectedRects);
   const nodePositions = new Map(nodeItems.map((item) => [item.player.id, item]));
-  const defaultBox = compactMap ? { x: 120, y: 42, width: 760, height: 610 } : { x: 0, y: 0, width: 1000, height: 700 };
+  const defaultBox = compactMap ? { x: 96, y: 24, width: 816, height: 584 } : { x: -42, y: -28, width: 1084, height: 759 };
   const viewBox = mapViewBoxFromNodes([...nodeItems, ...mapCategoryBoundsItems(byCategory, center)], basePlayers, filtered, compactMap);
   svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   setMapViewBox(svg, viewBox, defaultBox);
   const metricsByCategory = new Map(categoryMetrics().map((item) => [item.id, item]));
-  const labelPlan = buildMapLabelPlan(nodeItems, filtered.length, focusScale, center);
+  const labelPlan = buildMapLabelPlan(nodeItems, filtered.length, focusScale, center, protectedRects);
   const currentNodeIds = new Set(nodeItems.map((item) => item.player.id));
   const exitingNodeSnapshots = [...previousNodePositions.values()].filter((item) => !currentNodeIds.has(item.id));
 
