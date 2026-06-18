@@ -1,11 +1,11 @@
 {
   "status": {
-    "label": "Public evidence library cross checked",
-    "lastChecked": "2026-06-17",
-    "method": "Migrated the app from the old fuzzy URL audit to exact Airtable source IDs, added official/public sources for priority profiles and broader platforms, removed unsupported future claims, and kept Appfigures/internal relationship data as explicit credentialed layers.",
+    "label": "Public evidence library expanded with close Yousician adjacencies",
+    "lastChecked": "2026-06-18",
+    "method": "Added closer music learning, practice utility, repertoire, rights, school assessment, beginner hardware and social singing players with official product, app and company sources. Appfigures, Similarweb and Yousician internal relationship data remain explicit gated layers.",
     "caveat": "Public sources validate existence, product positioning, filings, legal/industry signals and selected ownership/product claims. They still do not prove app revenue, downloads, paid conversion, internal relationships or every strategic rating unless those credentialed fields are imported separately.",
-    "version": "source-coverage-v4",
-    "lastUpdated": "2026-06-17T10:00:58Z",
+    "version": "source-coverage-v5",
+    "lastUpdated": "2026-06-18T12:00:00Z",
     "appfiguresPolicy": "Appfigures metrics remain pending unless populated from a credentialed export; public source coverage must not be used as app revenue proof.",
     "relationshipPolicy": "Internal relationship status remains a Yousician completion field and is not inferred from public sources."
   },
@@ -105,8 +105,8 @@
       "last_url_check": "2026-06-10",
       "last_http_status": "200",
       "quality_note": "Automated URL check passed on 2026-06-10.",
-      "used_by_player_ids": "ultimate-guitar | musescore | audacity",
-      "used_by_player_names": "Ultimate Guitar | MuseScore | Audacity"
+      "used_by_player_ids": "ultimate-guitar | musescore | audacity | muse-group",
+      "used_by_player_names": "Ultimate Guitar | MuseScore | Audacity | Muse Group"
     },
     {
       "source_id": "fender_play",
@@ -2947,8 +2947,8 @@
       "last_url_check": "2026-06-17",
       "last_http_status": "200",
       "quality_note": "Official Loog product page reached on 2026-06-17.",
-      "used_by_player_ids": "duolingo",
-      "used_by_player_names": "Duolingo"
+      "used_by_player_ids": "duolingo | loog",
+      "used_by_player_names": "Duolingo | Loog"
     },
     {
       "source_id": "muse_group_hal_leonard_2025",
@@ -2961,8 +2961,8 @@
       "last_url_check": "2026-06-17",
       "last_http_status": "200",
       "quality_note": "Official Muse Group post reached on 2026-06-17.",
-      "used_by_player_ids": "ultimate-guitar | musescore | hal-leonard",
-      "used_by_player_names": "Ultimate Guitar | MuseScore | Hal Leonard"
+      "used_by_player_ids": "ultimate-guitar | musescore | hal-leonard | muse-group",
+      "used_by_player_names": "Ultimate Guitar | MuseScore | Hal Leonard | Muse Group"
     },
     {
       "source_id": "moises_ai_studio_2025",
@@ -3201,6 +3201,384 @@
       "quality_note": "Public industry/legal news source reached on 2026-06-17; treat as a market signal, not as court-record validation.",
       "used_by_player_ids": "afm-major-labels | suno | udio",
       "used_by_player_names": "AFM / major labels | Suno | Udio"
+    },
+    {
+      "source_id": "makemusic_home",
+      "title": "MakeMusic Cloud official site",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://www.makemusic.com/",
+      "scope": "MakeMusic Cloud positioning, teacher software, practice catalog and music education workflow",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "makemusic-cloud",
+      "used_by_player_names": "MakeMusic Cloud"
+    },
+    {
+      "source_id": "makemusic_smartmusic",
+      "title": "MakeMusic Cloud formerly SmartMusic",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://www.makemusic.com/smartmusic/",
+      "scope": "Former SmartMusic product page and cloud music practice transition",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "makemusic-cloud",
+      "used_by_player_names": "MakeMusic Cloud"
+    },
+    {
+      "source_id": "tonalenergy_home",
+      "title": "TonalEnergy official site",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://www.tonalenergy.com/",
+      "scope": "TonalEnergy tuner, metronome and practice utility positioning",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "tonalenergy",
+      "used_by_player_names": "TonalEnergy"
+    },
+    {
+      "source_id": "tonalenergy_mobile",
+      "title": "TonalEnergy tuner and metronome app",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://www.tonalenergy.com/te-tunermet-for-iosandroid",
+      "scope": "Mobile tuner, metronome, tone and analysis feature set",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "tonalenergy",
+      "used_by_player_names": "TonalEnergy"
+    },
+    {
+      "source_id": "tonalenergy_education",
+      "title": "TonalEnergy education page",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://www.tonalenergy.com/te-education",
+      "scope": "Education and organization use cases for practice utility",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "tonalenergy",
+      "used_by_player_names": "TonalEnergy"
+    },
+    {
+      "source_id": "musicnotes_home",
+      "title": "Musicnotes official site",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://www.musicnotes.com/",
+      "scope": "Digital sheet music marketplace, repertoire purchase and catalog surface",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "musicnotes",
+      "used_by_player_names": "Musicnotes"
+    },
+    {
+      "source_id": "musicnotes_apps",
+      "title": "Musicnotes apps",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://www.musicnotes.com/apps/",
+      "scope": "Musicnotes app and digital sheet music library experience",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "musicnotes",
+      "used_by_player_names": "Musicnotes"
+    },
+    {
+      "source_id": "musicnotes_pro",
+      "title": "Musicnotes Pro",
+      "type": "Official product",
+      "tier": "Medium",
+      "url": "https://www.musicnotes.com/pro/",
+      "scope": "Membership and repeat sheet music purchase mechanics",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "musicnotes",
+      "used_by_player_names": "Musicnotes"
+    },
+    {
+      "source_id": "soundbrenner_home",
+      "title": "Soundbrenner official site",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://www.soundbrenner.com/",
+      "scope": "Soundbrenner musician utility, hardware and app ecosystem",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "soundbrenner",
+      "used_by_player_names": "Soundbrenner"
+    },
+    {
+      "source_id": "soundbrenner_metronome_app",
+      "title": "The Metronome by Soundbrenner",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://www.soundbrenner.com/pages/the-metronome-app",
+      "scope": "Metronome app, practice tools and musician workflow features",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "soundbrenner",
+      "used_by_player_names": "Soundbrenner"
+    },
+    {
+      "source_id": "hal_leonard_home",
+      "title": "Hal Leonard official site",
+      "type": "Official company",
+      "tier": "High",
+      "url": "https://www.halleonard.com/",
+      "scope": "Publisher, music education catalog, songbooks and digital products",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "hal-leonard",
+      "used_by_player_names": "Hal Leonard"
+    },
+    {
+      "source_id": "hal_leonard_about",
+      "title": "Hal Leonard about",
+      "type": "Official company",
+      "tier": "High",
+      "url": "https://www.halleonard.com/aboutUs.jsp",
+      "scope": "Company profile, publisher scope and music education context",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "hal-leonard",
+      "used_by_player_names": "Hal Leonard"
+    },
+    {
+      "source_id": "hal_leonard_digital_book",
+      "title": "Hal Leonard Digital Books",
+      "type": "Official product",
+      "tier": "Medium",
+      "url": "https://www.halleonard.com/digitalbook/",
+      "scope": "Digital book and digital music education delivery",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "hal-leonard",
+      "used_by_player_names": "Hal Leonard"
+    },
+    {
+      "source_id": "cifra_club_home",
+      "title": "Cifra Club official site",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://www.cifraclub.com.br/",
+      "scope": "Chords, tabs, lessons and Brazilian music practice ecosystem",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "cifra-club",
+      "used_by_player_names": "Cifra Club"
+    },
+    {
+      "source_id": "cifra_club_apps",
+      "title": "Cifra Club apps",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://www.cifraclub.com.br/apps/",
+      "scope": "Cifra Club app portfolio and mobile music tools",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "cifra-club",
+      "used_by_player_names": "Cifra Club"
+    },
+    {
+      "source_id": "cifra_club_lessons",
+      "title": "Cifra Club lessons",
+      "type": "Official product",
+      "tier": "Medium",
+      "url": "https://www.cifraclub.com.br/aprenda/",
+      "scope": "Lesson and learning content surface for Portuguese speaking learners",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "cifra-club",
+      "used_by_player_names": "Cifra Club"
+    },
+    {
+      "source_id": "loog_home",
+      "title": "Loog official site",
+      "type": "Official company",
+      "tier": "High",
+      "url": "https://loogguitars.com/",
+      "scope": "Beginner instruments, kids guitars and family learning hardware",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "loog",
+      "used_by_player_names": "Loog"
+    },
+    {
+      "source_id": "loog_app_plan",
+      "title": "Loog app access plan",
+      "type": "Official product",
+      "tier": "Medium",
+      "url": "https://loogguitars.com/products/app-full-access-plan",
+      "scope": "App assisted beginner learning and instrument bundle context",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "loog",
+      "used_by_player_names": "Loog"
+    },
+    {
+      "source_id": "loog_piano",
+      "title": "Loog Piano",
+      "type": "Official product",
+      "tier": "Medium",
+      "url": "https://loogguitars.com/products/loog-piano",
+      "scope": "Portable beginner piano and family entry point",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "loog",
+      "used_by_player_names": "Loog"
+    },
+    {
+      "source_id": "coach_guitar_home",
+      "title": "Coach Guitar official site",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://coachguitar.com/",
+      "scope": "Visual guitar lessons, mobile app and beginner guitar learning product",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "coach-guitar",
+      "used_by_player_names": "Coach Guitar"
+    },
+    {
+      "source_id": "coach_guitar_app_store",
+      "title": "Coach Guitar App Store listing",
+      "type": "App store",
+      "tier": "Medium",
+      "url": "https://apps.apple.com/fr/app/coach-guitar-cours-guitare/id405338085",
+      "scope": "iOS app listing for Coach Guitar",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Official app store listing discovered from the Coach Guitar site.",
+      "used_by_player_ids": "coach-guitar",
+      "used_by_player_names": "Coach Guitar"
+    },
+    {
+      "source_id": "coach_guitar_google_play",
+      "title": "Coach Guitar Google Play listing",
+      "type": "App store",
+      "tier": "Medium",
+      "url": "https://play.google.com/store/apps/details?id=com.coach.guitar.android.app",
+      "scope": "Android app listing for Coach Guitar",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Official Google Play listing discovered from the Coach Guitar site.",
+      "used_by_player_ids": "coach-guitar",
+      "used_by_player_names": "Coach Guitar"
+    },
+    {
+      "source_id": "piano_academy_home",
+      "title": "Piano Academy official site",
+      "type": "Official product",
+      "tier": "High",
+      "url": "https://www.pianoacademy.app/",
+      "scope": "Piano Academy learning app positioning and product claim surface",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "piano-academy",
+      "used_by_player_names": "Piano Academy"
+    },
+    {
+      "source_id": "smule_google_play",
+      "title": "Smule Google Play listing",
+      "type": "App store",
+      "tier": "Medium",
+      "url": "https://play.google.com/store/apps/details?id=com.smule.singandroid",
+      "scope": "Android app listing for Smule social singing and karaoke",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Official Google Play source used because the Smule homepage returned Cloudflare protection to automated checks.",
+      "used_by_player_ids": "smule",
+      "used_by_player_names": "Smule"
+    },
+    {
+      "source_id": "smule_app_store",
+      "title": "Smule App Store listing",
+      "type": "App store",
+      "tier": "Medium",
+      "url": "https://apps.apple.com/us/app/smule-karaoke-singing-app/id509993510",
+      "scope": "iOS app listing for Smule karaoke and singing community",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Official Apple App Store source used because the Smule homepage returned Cloudflare protection to automated checks.",
+      "used_by_player_ids": "smule",
+      "used_by_player_names": "Smule"
+    },
+    {
+      "source_id": "tonalenergy_app_store",
+      "title": "TonalEnergy App Store listing",
+      "type": "App store",
+      "tier": "Medium",
+      "url": "https://apps.apple.com/us/app/tonalenergy-tuner-metronome/id497716362",
+      "scope": "iOS app listing for TonalEnergy tuner and metronome",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "tonalenergy",
+      "used_by_player_names": "TonalEnergy"
+    },
+    {
+      "source_id": "tonalenergy_google_play",
+      "title": "TonalEnergy Google Play listing",
+      "type": "App store",
+      "tier": "Medium",
+      "url": "https://play.google.com/store/apps/details?id=com.sonosaurus.tonalenergytuner",
+      "scope": "Android app listing for TonalEnergy tuner and metronome",
+      "access_status": "verified",
+      "last_url_check": "2026-06-18",
+      "last_http_status": "200",
+      "quality_note": "Automated URL check passed on 2026-06-18.",
+      "used_by_player_ids": "tonalenergy",
+      "used_by_player_names": "TonalEnergy"
     }
   ],
   "evidenceByPlayer": {
@@ -4434,17 +4812,149 @@
         "Clarify music-game or learning-product relevance",
         "Assess whether family/hardware bundles offer lessons for Yousician"
       ]
+    },
+    "muse-group": {
+      "summary": "Muse Group is supported by official portfolio sources and the Hal Leonard integration announcement. It is strategically close because the portfolio spans tabs, notation, audio editing, repertoire and publishing infrastructure.",
+      "sourceIds": [
+        "muse_group",
+        "muse_group_ultimate_guitar",
+        "muse_group_musescore",
+        "muse_group_hal_leonard_2025"
+      ],
+      "openQuestions": [
+        "Quantify product level usage and revenue by property",
+        "Confirm strategic appetite for partnerships, licensing or acquisitions"
+      ]
+    },
+    "hal-leonard": {
+      "summary": "Hal Leonard is supported by official company, digital product and Muse Group integration sources. The evidence validates catalog, publishing and education relevance, but not licensing economics for Yousician.",
+      "sourceIds": [
+        "hal_leonard_home",
+        "hal_leonard_about",
+        "hal_leonard_digital_book",
+        "muse_group_hal_leonard_2025"
+      ],
+      "openQuestions": [
+        "Validate current licensing economics and rights coverage",
+        "Confirm whether Yousician has existing contacts, contracts or constraints"
+      ]
+    },
+    "musicnotes": {
+      "summary": "Musicnotes is backed by official product, app and membership pages. It validates a licensed digital sheet music and repertoire purchase surface close to serious practice decisions.",
+      "sourceIds": [
+        "musicnotes_home",
+        "musicnotes_apps",
+        "musicnotes_pro"
+      ],
+      "openQuestions": [
+        "Import web traffic and app performance before ranking scale",
+        "Assess overlap with Yousician catalog and repertoire priorities"
+      ]
+    },
+    "makemusic-cloud": {
+      "summary": "MakeMusic Cloud is backed by official MakeMusic pages and the former SmartMusic transition page. Evidence supports teacher assignment, practice and assessment relevance for school music workflows.",
+      "sourceIds": [
+        "makemusic_home",
+        "makemusic_smartmusic"
+      ],
+      "openQuestions": [
+        "Validate school penetration and renewal strength",
+        "Assess whether teacher workflow data is relevant to Yousician product strategy"
+      ]
+    },
+    "tonalenergy": {
+      "summary": "TonalEnergy is supported by official site, mobile app, education, App Store and Google Play sources. Evidence validates a daily practice utility around tuner, metronome, tone and analysis workflows.",
+      "sourceIds": [
+        "tonalenergy_home",
+        "tonalenergy_mobile",
+        "tonalenergy_education",
+        "tonalenergy_app_store",
+        "tonalenergy_google_play"
+      ],
+      "openQuestions": [
+        "Import app store performance before claiming scale",
+        "Assess whether pitch and timing utility overlaps with GuitarTuna or Yousician practice loops"
+      ]
+    },
+    "soundbrenner": {
+      "summary": "Soundbrenner is supported by official site and metronome app sources. Evidence validates a connected practice utility and hardware assisted rhythm habit surface.",
+      "sourceIds": [
+        "soundbrenner_home",
+        "soundbrenner_metronome_app"
+      ],
+      "openQuestions": [
+        "Validate active app usage and hardware sales",
+        "Assess partnership potential for rhythm practice or bundle experiments"
+      ]
+    },
+    "cifra-club": {
+      "summary": "Cifra Club is supported by official site, app and lessons pages. Evidence validates a regional Portuguese speaking song, chord, tab and lesson surface close to self guided practice.",
+      "sourceIds": [
+        "cifra_club_home",
+        "cifra_club_apps",
+        "cifra_club_lessons"
+      ],
+      "openQuestions": [
+        "Quantify LatAm traffic, app performance and paid conversion",
+        "Check overlap with Yousician and GuitarTuna regional priorities"
+      ]
+    },
+    "loog": {
+      "summary": "Loog is backed by official company, app access and piano product sources, plus the existing Duolingo Piano source. Evidence validates beginner instrument and family learning relevance.",
+      "sourceIds": [
+        "loog_home",
+        "loog_app_plan",
+        "loog_piano",
+        "duolingo_loog_piano_2024"
+      ],
+      "openQuestions": [
+        "Validate hardware sales scale and learning app usage",
+        "Assess whether beginner instrument bundles could support Yousician acquisition"
+      ]
+    },
+    "coach-guitar": {
+      "summary": "Coach Guitar is supported by official web, App Store and Google Play sources. Evidence validates direct mobile guitar learning competition, while ranking and revenue still require credentialed app data.",
+      "sourceIds": [
+        "coach_guitar_home",
+        "coach_guitar_app_store",
+        "coach_guitar_google_play"
+      ],
+      "openQuestions": [
+        "Import Appfigures metrics before ranking competitive scale",
+        "Compare onboarding, pricing and song lesson coverage against Yousician"
+      ]
+    },
+    "piano-academy": {
+      "summary": "Piano Academy is supported by its official product site. It is included as a direct piano learning app benchmark, but needs confirmed App Store, Google Play and performance enrichment before hard ranking claims.",
+      "sourceIds": [
+        "piano_academy_home"
+      ],
+      "openQuestions": [
+        "Add verified App Store and Google Play source IDs",
+        "Import Appfigures metrics before citing downloads, revenue or rank"
+      ]
+    },
+    "smule": {
+      "summary": "Smule is supported by official app store sources. Evidence validates social singing and karaoke participation, but scale and retention require credentialed app data.",
+      "sourceIds": [
+        "smule_google_play",
+        "smule_app_store"
+      ],
+      "openQuestions": [
+        "Import app performance and retention data",
+        "Assess whether singing, karaoke and identity loops matter to Yousician roadmap"
+      ]
     }
   },
   "v3Summary": {
-    "trackedPlayers": 102,
-    "keyPlayers": 4,
+    "trackedPlayers": 113,
+    "keyPlayers": 5,
     "relationshipStatusDefault": "Internal relationship status not yet captured in this dataset. To be completed by Yousician.",
     "appfiguresStatusDefault": "Pending credentialed Appfigures export",
-    "sourceLibraryCount": 228,
-    "verifiedSourceCount": 212,
-    "highTierSourceCount": 149,
+    "sourceLibraryCount": 255,
+    "verifiedSourceCount": 239,
+    "highTierSourceCount": 165,
     "unresolvedSourceReferences": 0,
-    "lastEvidencePass": "2026-06-17"
+    "lastEvidencePass": "2026-06-18"
   }
 }
