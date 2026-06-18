@@ -8445,16 +8445,7 @@ function mapNodeCollisionRadius(player, visibleRadius, focusScale = 1, visibleCo
 }
 
 function shouldLabelMapNode(player, categoryPlayers, index, layout, visibleCount = Infinity, focusScale = 1) {
-  if (player.id === state.selectedPlayerId) return true;
-  if (focusScale >= 1.35 && visibleCount <= 16) return player.key || player.relevance >= 4;
-  if (focusScale >= 1.18 && visibleCount <= 28 && (player.key || player.relevance >= 5 || player.aiScore >= 5)) return true;
-  if (visibleCount <= 8) return player.key || player.relevance >= 4 || index < 2;
-  if (visibleCount <= 18 && (player.key || player.relevance >= 5)) return true;
-  if (!player.key) return false;
-  const keyPlayersInCategory = categoryPlayers.filter((item) => item.key);
-  const keyIndex = keyPlayersInCategory.findIndex((item) => item.id === player.id);
-  const labelCap = visibleCount > 60 ? 2 : Math.min(layout.visibleLimit || 3, 3);
-  return keyIndex >= 0 && keyIndex < labelCap;
+  return player.id === state.selectedPlayerId;
 }
 
 function mapLabelAnchor(nodeX, nodeY, clusterX, center, focusScale = 1) {
@@ -8663,7 +8654,7 @@ function mapLabelCandidate(item, visibleCount, focusScale, center) {
   return mapLabelCandidates(item, visibleCount, focusScale, center)?.[0] || null;
 }
 
-function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center, protectedRects = []) {
+function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center, protectedRects = [], forcedSelectedLabel = null) {
   const selectedNode = nodeItems.find((item) => item.player.id === state.selectedPlayerId);
   const selectedBounds = selectedNode
     ? {
@@ -8699,13 +8690,64 @@ function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center, protecte
           nodeBounds.some((rect) => rect.id !== item.player.id && rectsOverlap(label.rect, rect, focusScale >= 1.18 ? 4 : 2));
         return !overlapsLabel && !overlapsProtected && !overlapsSelectedNode && !overlapsNode;
       };
-      const chosen = labels.find((label) => labelIsClear(label)) || (isSelected && !isDenseFullMapView() ? labels[0] : null);
+      const chosen = isSelected && forcedSelectedLabel ? forcedSelectedLabel : labels.find((label) => labelIsClear(label)) || (isSelected ? labels[0] : null);
       if (!chosen) return;
       const label = chosen;
       accepted.push(label.rect);
       plan.set(item.player.id, label);
     });
   return plan;
+}
+
+function selectedMapLabelReservation(nodeItems, visibleCount, focusScale, center, protectedRects = []) {
+  const selectedNode = nodeItems.find((item) => item.player.id === state.selectedPlayerId);
+  if (!selectedNode) return null;
+  const labels = mapLabelCandidates(selectedNode, visibleCount, focusScale, center);
+  if (!labels?.length) return null;
+  const nodeBounds = nodeItems
+    .filter((item) => item.player.id !== state.selectedPlayerId)
+    .map((item) => {
+      const radius = nodeCollisionRadius(item) + 7;
+      return {
+        x: item.x - radius,
+        y: item.y - radius,
+        width: radius * 2,
+        height: radius * 2
+      };
+    });
+  return labels
+    .map((label, index) => {
+      const protectedHits = protectedRects.filter((rect) => rectsOverlap(label.rect, rect, 7)).length;
+      const nodeHits = nodeBounds.filter((rect) => rectsOverlap(label.rect, rect, 5)).length;
+      const edgePenalty = label.cardX <= 32 || label.cardX + label.badgeWidth >= 968 ? 1 : 0;
+      return {
+        label,
+        score: protectedHits * 120 + nodeHits * 16 + edgePenalty * 5 + index
+      };
+    })
+    .sort((a, b) => a.score - b.score)[0]?.label;
+}
+
+function createSpaceForSelectedMapLabel(nodeItems, visibleCount, focusScale, center, protectedRects = []) {
+  const label = selectedMapLabelReservation(nodeItems, visibleCount, focusScale, center, protectedRects);
+  if (!label) return null;
+  const clearanceRect = {
+    x: label.rect.x - 13,
+    y: label.rect.y - 10,
+    width: label.rect.width + 26,
+    height: label.rect.height + 20
+  };
+  const movableItems = nodeItems.filter((item) => item.player.id !== state.selectedPlayerId);
+  for (let iteration = 0; iteration < 18; iteration += 1) {
+    movableItems.forEach((item) => {
+      pushNodeAwayFromRect(item, clearanceRect, focusScale >= 1.18 ? 16 : 12, 0.88);
+      clampMapNodePosition(item);
+    });
+    pushNodePairsApart(movableItems, isDenseFullMapView() ? 10 : 13, 0.48);
+    pushNodesAwayFromProtectedRects(movableItems, protectedRects, 0.55);
+    movableItems.forEach(clampMapNodePosition);
+  }
+  return { label, clearanceRect };
 }
 
 function createMapExitGhost(snapshot, center) {
@@ -8762,7 +8804,8 @@ function mapRenderSignature(basePlayers, filtered) {
     state.mapZoomMode,
     mapRecordLimitFor(basePlayers),
     state.mapRankMode,
-    state.bubbleSizeMode
+    state.bubbleSizeMode,
+    state.selectedPlayerId
   ].join("::");
 }
 
@@ -8858,13 +8901,14 @@ function renderMap() {
   });
   relaxMapNodePositions(nodeItems, center, protectedRects);
   separateConfusingMapNodes(nodeItems, center, protectedRects);
+  const selectedLabelSpace = createSpaceForSelectedMapLabel(nodeItems, filtered.length, focusScale, center, protectedRects);
   const nodePositions = new Map(nodeItems.map((item) => [item.player.id, item]));
   const defaultBox = compactMap ? { x: 96, y: 24, width: 816, height: 584 } : { x: -42, y: -28, width: 1084, height: 759 };
   const viewBox = mapViewBoxFromNodes([...nodeItems, ...mapCategoryBoundsItems(byCategory, center)], basePlayers, filtered, compactMap);
   svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   setMapViewBox(svg, viewBox, defaultBox);
   const metricsByCategory = new Map(categoryMetrics().map((item) => [item.id, item]));
-  const labelPlan = buildMapLabelPlan(nodeItems, filtered.length, focusScale, center, protectedRects);
+  const labelPlan = buildMapLabelPlan(nodeItems, filtered.length, focusScale, center, protectedRects, selectedLabelSpace?.label);
   const currentNodeIds = new Set(nodeItems.map((item) => item.player.id));
   const exitingNodeSnapshots = [...previousNodePositions.values()].filter((item) => !currentNodeIds.has(item.id));
   const enteringNodeCount = nodeItems.filter((item) => !previousNodePositions.has(item.player.id)).length;
@@ -9000,8 +9044,11 @@ function renderMap() {
         nodeAttrs.class += " map-node-enter";
         nodeAttrs.style = mapWaveStyle(nodeX, nodeY, center);
       } else if (mapStateChanged) {
+        const previousPosition = previousNodePositions.get(player.id);
+        const fromX = previousPosition ? Math.round((previousPosition.x - nodeX) * 10) / 10 : 0;
+        const fromY = previousPosition ? Math.round((previousPosition.y - nodeY) * 10) / 10 : 0;
         nodeAttrs.class += " map-node-update";
-        nodeAttrs.style = mapWaveStyle(nodeX, nodeY, center);
+        nodeAttrs.style = `${mapWaveStyle(nodeX, nodeY, center)}--map-node-from-x:${fromX}px;--map-node-from-y:${fromY}px;`;
       }
       const node = createSvg("g", nodeAttrs);
       const title = createSvg("title");
@@ -9118,7 +9165,21 @@ function renderMap() {
               y1: labelInfo.leader.y1,
               x2: labelInfo.leader.x2,
               y2: labelInfo.leader.y2,
-              class: `node-label-link ${player.key || isSelected ? "is-key" : "is-context"}`,
+              class: `node-label-link ${isSelected ? "is-selected-label-link" : player.key ? "is-key" : "is-context"}`,
+              style: `--label-color:${journeyColorFor(player)}`
+            })
+          );
+        }
+        if (isSelected) {
+          node.appendChild(
+            createSvg("rect", {
+              x: cardX - 10,
+              y: cardY - 8,
+              width: badgeWidth + 20,
+              height: (cardHeight || badgeHeight) + 16,
+              rx: 12,
+              class: "selected-label-space",
+              fill: journeyColorFor(player),
               style: `--label-color:${journeyColorFor(player)}`
             })
           );
@@ -9130,7 +9191,7 @@ function renderMap() {
             width: badgeWidth,
             height: cardHeight || badgeHeight,
             rx: 7,
-            class: `node-label-card ${player.key || isSelected ? "is-key" : "is-context"}`,
+            class: `node-label-card ${isSelected ? "is-selected-label" : player.key ? "is-key" : "is-context"}`,
             fill: journeyColorFor(player),
             style: `--label-color:${journeyColorFor(player)}`
           })
