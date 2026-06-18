@@ -3350,6 +3350,93 @@ body:not([data-view="overview"]) .view.active {
   overflow-wrap: anywhere;
 }
 
+.one-pager-audience-hierarchy {
+  display: grid;
+  gap: 10px;
+  margin: 0 16px 16px;
+  border: 1px solid color-mix(in srgb, var(--onepager-accent) 18%, rgba(22, 33, 29, 0.1));
+  border-left: 4px solid var(--onepager-accent);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--onepager-accent) 5%, #fff), #fff 68%),
+    #fff;
+  padding: 14px;
+}
+
+.one-pager-audience-hierarchy > header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.one-pager-audience-hierarchy > header span {
+  color: color-mix(in srgb, var(--onepager-accent) 76%, var(--ink));
+  font-size: 0.68rem;
+  font-weight: 950;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.one-pager-audience-hierarchy > header h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.04rem;
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.one-pager-audience-hierarchy > div {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.one-pager-audience-hierarchy article {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+  min-height: 118px;
+  border: 1px solid rgba(22, 33, 29, 0.09);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.86);
+  padding: 10px;
+}
+
+.one-pager-audience-hierarchy article > span {
+  color: color-mix(in srgb, var(--onepager-accent) 72%, var(--ink));
+  font-size: 0.62rem;
+  font-weight: 950;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.one-pager-audience-hierarchy article strong {
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 950;
+  line-height: 1.14;
+  overflow-wrap: anywhere;
+}
+
+.one-pager-audience-hierarchy article p,
+.one-pager-audience-hierarchy article small {
+  margin: 0;
+  color: rgba(24, 36, 31, 0.68);
+  font-size: 0.7rem;
+  font-weight: 760;
+  line-height: 1.24;
+  overflow-wrap: anywhere;
+}
+
+.one-pager-audience-hierarchy article small {
+  align-self: end;
+  color: rgba(24, 36, 31, 0.56);
+  font-weight: 900;
+}
+
 .one-pager-executive-brief {
   display: grid;
   gap: 14px;
@@ -8097,6 +8184,7 @@ body[data-print-target="brief-export"] .export-timeline-item p {
   }
 
   .one-pager-exec-priority-strip,
+  .one-pager-audience-hierarchy > div,
   .one-pager-context-card-grid,
   .one-pager-use-case-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -8447,12 +8535,23 @@ body[data-print-target="brief-export"] .export-timeline-item p {
   .one-pager-template-taxonomy,
   .one-pager-fact-strip,
   .one-pager-exec-priority-strip,
+  .one-pager-audience-hierarchy > div,
   .one-pager-brief-kpi-grid,
   .one-pager-context-card-grid,
   .one-pager-context-split,
   .one-pager-use-case-grid,
   .one-pager-source-summary {
     grid-template-columns: 1fr;
+  }
+
+  .one-pager-audience-hierarchy {
+    margin: 0 10px 10px;
+    padding: 12px;
+  }
+
+  .one-pager-audience-hierarchy > header {
+    display: grid;
+    gap: 4px;
   }
 
   .one-pager-executive-brief {
@@ -13290,6 +13389,116 @@ body[data-mode="executive"] .key-priority-map.visual-matrix {
   overflow-wrap: anywhere;
 }
 
+.monitor-role-lens-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.monitor-role-lens-grid article {
+  display: grid;
+  align-content: start;
+  gap: 9px;
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--role-color) 20%, rgba(24, 36, 31, 0.08));
+  border-left: 4px solid var(--role-color);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--role-color) 5%, #fff);
+  padding: 11px;
+}
+
+.monitor-role-lens-grid header {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.monitor-role-lens-grid header span {
+  color: color-mix(in srgb, var(--role-color) 68%, #17211d);
+  font-size: 0.6rem;
+  font-weight: 950;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.monitor-role-lens-grid header strong {
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 950;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.monitor-role-lens-body {
+  display: grid;
+  gap: 6px;
+}
+
+.monitor-role-lens-body p {
+  margin: 0;
+  color: rgba(24, 36, 31, 0.68);
+  font-size: 0.68rem;
+  font-weight: 760;
+  line-height: 1.25;
+}
+
+.monitor-role-lens-body b {
+  color: var(--ink);
+  font-weight: 950;
+}
+
+.monitor-role-lens-grid footer {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.monitor-role-lens-grid footer button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  justify-self: start;
+  max-width: 100%;
+  min-height: 28px;
+  border: 1px solid rgba(24, 36, 31, 0.09);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  padding: 3px 8px 3px 4px;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.monitor-role-lens-grid footer button span {
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--chip-color);
+  color: #fff;
+  font-size: 0.52rem;
+  font-weight: 950;
+}
+
+.monitor-role-lens-grid footer button strong {
+  min-width: 0;
+  font-size: 0.63rem;
+  font-weight: 950;
+  overflow-wrap: anywhere;
+}
+
+.monitor-role-lens-grid footer small,
+.monitor-role-lens-grid footer p {
+  margin: 0;
+  color: rgba(24, 36, 31, 0.58);
+  font-size: 0.62rem;
+  font-weight: 780;
+  line-height: 1.18;
+}
+
 .monitor-meta-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -13444,7 +13653,11 @@ body[data-mode="executive"] .key-priority-map.visual-matrix {
 .monitor-trend-actors button:hover,
 .monitor-trend-actors button:focus-visible,
 .monitor-executive-summary button:hover,
-.monitor-executive-summary button:focus-visible {
+.monitor-executive-summary button:focus-visible,
+.monitor-agenda-actions button:hover,
+.monitor-agenda-actions button:focus-visible,
+.monitor-role-lens-grid footer button:hover,
+.monitor-role-lens-grid footer button:focus-visible {
   border-color: color-mix(in srgb, var(--trend-color, var(--chip-color)) 44%, rgba(24, 36, 31, 0.1));
   outline: 0;
   box-shadow: 0 10px 22px rgba(18, 28, 24, 0.09);
@@ -14667,6 +14880,7 @@ body[data-mode="executive"] .key-priority-map.visual-matrix {
 
   .monitor-executive-summary,
   .monitor-executive-agenda,
+  .monitor-role-lens-grid,
   .monitor-leader-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -14713,6 +14927,7 @@ body[data-mode="executive"] .key-priority-map.visual-matrix {
   .monitor-kpis,
   .monitor-executive-summary,
   .monitor-executive-agenda,
+  .monitor-role-lens-grid,
   .monitor-meta-grid,
   .monitor-leader-grid,
   .monitor-composition-list,

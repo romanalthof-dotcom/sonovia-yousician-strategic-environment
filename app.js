@@ -8785,6 +8785,82 @@ function renderMonitorExecutiveAgenda(filteredPlayers) {
   `;
 }
 
+function monitorLensLead(players, scoreFn = totalPriority) {
+  return [...players].sort((a, b) => scoreFn(b) - scoreFn(a) || a.name.localeCompare(b.name))[0];
+}
+
+function renderMonitorExecutiveRoleLenses(filteredPlayers) {
+  const proofQueue = filteredPlayers.filter((player) => hasCriticalEvidenceGap(player) || qualityProfile(player).score < 68);
+  const roleLenses = [
+    {
+      label: "Board",
+      question: "Where should attention go next?",
+      keep: "Priority, decision question, confidence, current signal.",
+      lower: "Raw source links and long tail records.",
+      players: filteredPlayers.filter((player) => player.key || player.relevance >= 5),
+      score: (player) => totalPriority(player) + qualityProfile(player).score / 10
+    },
+    {
+      label: "Product and growth",
+      question: "What competes with learning habit?",
+      keep: "Core pressure, onboarding lens, pricing lens, app data gate.",
+      lower: "Ownership detail unless it changes product action.",
+      players: filteredPlayers.filter((player) => ["learning", "practice"].includes(player.category) || competitiveProximityScore(player) >= 4),
+      score: (player) => competitiveProximityScore(player) * 16 + player.relevance * 8 + player.momentum * 4
+    },
+    {
+      label: "Partnerships",
+      question: "Who can add reach, trust or utility?",
+      keep: "Partner screen, distribution route, internal owner, sensitivity.",
+      lower: "Generic ecosystem context without route to action.",
+      players: filteredPlayers.filter(
+        (player) =>
+          relationForPlayer(player)?.type === "partners" ||
+          ["hardware", "education", "platforms"].includes(player.category) ||
+          /partner|bundle|channel|retail|school|teacher/i.test(`${player.relationship} ${player.type}`)
+      ),
+      score: (player) => player.relevance * 10 + player.momentum * 5 + (relationForPlayer(player)?.strength || 0) * 8
+    },
+    {
+      label: "Research ops",
+      question: "What blocks a hard claim?",
+      keep: "Proof gaps, internal data need, source confidence, next import.",
+      lower: "Narrative explanation once evidence is already strong.",
+      players: proofQueue,
+      score: monitorProofGapScore
+    }
+  ];
+
+  return `
+    <div class="monitor-role-lens-grid" aria-label="Executive role lenses">
+      ${roleLenses
+        .map((lens) => {
+          const lead = monitorLensLead(lens.players, lens.score);
+          return `
+            <article style="--role-color:${lead ? colorFor(lead) : "var(--brand)"}">
+              <header>
+                <span>${escapeHtml(lens.label)}</span>
+                <strong>${escapeHtml(lens.question)}</strong>
+              </header>
+              <div class="monitor-role-lens-body">
+                <p><b>Show first:</b> ${escapeHtml(lens.keep)}</p>
+                <p><b>Move down:</b> ${escapeHtml(lens.lower)}</p>
+              </div>
+              <footer>
+                ${
+                  lead
+                    ? `${playerMiniButton(lead, "data-monitor-player", 18)}<small>${escapeHtml(nextAction(lead))}</small>`
+                    : `<p>No current match in this view.</p>`
+                }
+              </footer>
+            </article>
+          `;
+        })
+        .join("")}
+    </div>
+  `;
+}
+
 function monitorLeaderDefinitions() {
   return [
     { id: "relevance", label: "Yousician fit", note: "Closest mission fit", score: (player) => player.relevance, display: (player) => `${player.relevance}/5` },
@@ -8998,6 +9074,7 @@ function renderMonitorInsightReadout(filteredPlayers) {
       </div>
       ${renderMonitorExecutiveSummary(filteredPlayers)}
       ${renderMonitorExecutiveAgenda(filteredPlayers)}
+      ${renderMonitorExecutiveRoleLenses(filteredPlayers)}
       <div class="monitor-meta-grid" aria-label="Meta trend clusters">
         ${renderMonitorMetaTrends(filteredPlayers)}
       </div>
@@ -10070,6 +10147,65 @@ function onePagerExecutivePriorityStripHtml(player, taxonomy, validation, qualit
   `;
 }
 
+function onePagerAudienceHierarchyHtml(player, taxonomy, validation, quality) {
+  const posture = executivePostureFor(player, taxonomy, validation);
+  const lens = profileSpecificLens(player, taxonomy, validation);
+  const coverage = quality.coverage;
+  const sourceGap = sourceNeeds(player).join(", ") || "No public source gap for the current brief";
+  const appGate = requiresCredentialedData(player)
+    ? "App performance, revenue, downloads, rank trend and country mix need credentialed data."
+    : "App performance data is not needed for the current executive read.";
+  const sections = [
+    {
+      label: "Read first",
+      title: posture.headline,
+      body: `${posture.label}. ${executiveDecisionQuestion(player, taxonomy)}`,
+      note: `${quality.score}% source confidence`
+    },
+    {
+      label: "Use next",
+      title: lens.headline,
+      body: lens.body,
+      note: `${taxonomy.role}. ${taxonomy.journey}.`
+    },
+    {
+      label: "Validate",
+      title: validation.owner,
+      body: validation.nextStep,
+      note: sourceGap
+    },
+    {
+      label: "Keep in detail",
+      title: `${coverage.count} linked sources`,
+      body: appGate,
+      note: "Source links, raw metrics and relationship history stay below the executive read."
+    }
+  ];
+
+  return `
+    <section class="one-pager-audience-hierarchy" aria-label="Executive reading order">
+      <header>
+        <span>Reading order</span>
+        <h3>What executives need before the detail</h3>
+      </header>
+      <div>
+        ${sections
+          .map(
+            (section) => `
+              <article>
+                <span>${escapeHtml(section.label)}</span>
+                <strong>${escapeHtml(section.title)}</strong>
+                <p>${escapeHtml(section.body)}</p>
+                <small>${escapeHtml(section.note)}</small>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
 function onePagerSectionHtml(index, title, body, modifier = "") {
   return `
     <article class="one-pager-section ${modifier}">
@@ -10480,6 +10616,8 @@ function renderOnePager() {
       ${onePagerExecutivePriorityStripHtml(player, taxonomy, validation, quality)}
 
       ${onePagerExecutiveBriefHtml(player, taxonomy, validation, quality)}
+
+      ${onePagerAudienceHierarchyHtml(player, taxonomy, validation, quality)}
 
       ${onePagerMarketContextHtml(player, taxonomy, quality, validation)}
 
