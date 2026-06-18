@@ -4,6 +4,8 @@ const categories = [
     name: "Learning apps & curricula",
     shortName: "Learning apps",
     color: "#00d292",
+    icon: "graduation-cap",
+    iconFallback: "L",
     orbit: 1,
     layer: "Core market",
     description: "Direct music-learning products, curricula, feedback loops, and subscription benchmarks."
@@ -13,6 +15,8 @@ const categories = [
     name: "Song & practice ecosystems",
     shortName: "Practice habits",
     color: "#11a5a5",
+    icon: "metronome",
+    iconFallback: "P",
     orbit: 1,
     layer: "Core habit layer",
     description: "Song discovery, tabs, play-along utilities, creators, and repeat-practice habits."
@@ -22,6 +26,8 @@ const categories = [
     name: "Hardware & retail channels",
     shortName: "Gear channels",
     color: "#ffb84d",
+    icon: "shopping-cart",
+    iconFallback: "G",
     orbit: 2,
     layer: "Acquisition layer",
     description: "Instrument brands and retailers that shape gear access, beginner bundles, and partner routes."
@@ -31,6 +37,8 @@ const categories = [
     name: "Creation & production tools",
     shortName: "Creation tools",
     color: "#00b77e",
+    icon: "music-2",
+    iconFallback: "C",
     orbit: 2,
     layer: "Hobby expansion",
     description: "Tools that move people from learning and practice into making, arranging, producing, and sharing."
@@ -40,6 +48,8 @@ const categories = [
     name: "AI music & audio technology",
     shortName: "AI music tech",
     color: "#6e5cff",
+    icon: "sparkles",
+    iconFallback: "AI",
     orbit: 1,
     layer: "Disruption layer",
     description: "AI-native generation, audio utilities, practice augmentation, and licensing/rights shifts."
@@ -49,6 +59,8 @@ const categories = [
     name: "Education & pedagogy benchmarks",
     shortName: "Education benchmarks",
     color: "#80a83d",
+    icon: "school",
+    iconFallback: "E",
     orbit: 3,
     layer: "Learning model layer",
     description: "Non-music learning products, formal music education, teacher networks, and pedagogy references."
@@ -58,6 +70,8 @@ const categories = [
     name: "Capital, media & opportunity signals",
     shortName: "Market signals",
     color: "#3da5d9",
+    icon: "radar",
+    iconFallback: "S",
     orbit: 3,
     layer: "Strategic signal layer",
     description: "Investors, news, awards, funding programmes, and external indicators to monitor."
@@ -67,6 +81,8 @@ const categories = [
     name: "Broader Entertainment & Education Platforms",
     shortName: "Broader platforms",
     color: "#d94c72",
+    icon: "globe-2",
+    iconFallback: "B",
     orbit: 3,
     layer: "Attention and identity layer",
     description: "Large entertainment, games, streaming, education, and IP platforms that may shape music motivation, learning demand, or strategic options."
@@ -163,6 +179,8 @@ const journeyCategories = [
     name: "Broader platforms",
     shortName: "Broader",
     color: "#283b8f",
+    icon: "globe-2",
+    iconFallback: "B",
     orbit: 3,
     layer: "Entertainment and education platforms",
     description: "Large platforms that may affect music, education, identity, attention, or M&A logic."
@@ -174,24 +192,28 @@ const productLenses = [
     id: "all",
     label: "All products",
     shortLabel: "All",
+    icon: "layout-grid",
     description: "Full ecosystem"
   },
   {
     id: "yousician",
     label: "Yousician",
     shortLabel: "Yousician",
+    icon: "target",
     description: "Learning app, curriculum, feedback, teachers, schools and beginner progression"
   },
   {
     id: "guitartuna",
     label: "GuitarTuna",
     shortLabel: "GuitarTuna",
+    icon: "music-2",
     description: "Tuning, chords, tabs, guitar practice, song utilities, gear and guitar creators"
   },
   {
     id: "shared",
     label: "Shared",
     shortLabel: "Shared",
+    icon: "shuffle",
     description: "Records that matter to both product surfaces"
   }
 ];
@@ -3691,25 +3713,27 @@ const els = {
 };
 
 const databaseSegments = [
-  { id: "all", label: "All records", matches: () => true },
-  { id: "key", label: "Priority profiles", matches: (player) => player.key },
-  { id: "actors", label: "Companies and orgs", matches: (player) => !isSignalOnlyRecord(player) },
-  { id: "claims", label: "Needs caution", matches: (player) => claimIntegrityFor(player).hasHypothesis },
-  { id: "conflicts", label: "Value conflicts", matches: (player) => claimConflictAudit(player).conflicts.length > 0 },
-  { id: "source", label: "Missing data", matches: (player) => hasCriticalEvidenceGap(player) },
-  { id: "sourceclasses", label: "Missing source class", matches: (player) => sourceCoverageTargetAudit(player).missingRequired.length > 0 },
+  { id: "all", label: "All records", icon: "layout-grid", matches: () => true },
+  { id: "key", label: "Priority profiles", icon: "badge-check", matches: (player) => player.key },
+  { id: "actors", label: "Companies and orgs", icon: "building-2", matches: (player) => !isSignalOnlyRecord(player) },
+  { id: "claims", label: "Needs caution", icon: "alert-triangle", matches: (player) => claimIntegrityFor(player).hasHypothesis },
+  { id: "conflicts", label: "Value conflicts", icon: "git-compare-arrows", matches: (player) => claimConflictAudit(player).conflicts.length > 0 },
+  { id: "source", label: "Missing data", icon: "file-search", matches: (player) => hasCriticalEvidenceGap(player) },
+  { id: "sourceclasses", label: "Missing source class", icon: "list-checks", matches: (player) => sourceCoverageTargetAudit(player).missingRequired.length > 0 },
   {
     id: "ready",
     label: "Ready records",
+    icon: "shield-check",
     matches: (player) => isReadyRecord(player)
   },
-  { id: "appdata", label: "App data needed", matches: (player) => requiresCredentialedData(player) },
-  { id: "signals", label: "Market signals", matches: (player) => isSignalOnlyRecord(player) },
-  { id: "internal", label: "Yousician input needed", matches: (player) => Boolean(relationForPlayer(player)) },
-  { id: "ai", label: "AI and disruption", matches: (player) => player.aiScore >= 4 || player.category === "ai" },
+  { id: "appdata", label: "App data needed", icon: "bar-chart-3", matches: (player) => requiresCredentialedData(player) },
+  { id: "signals", label: "Market signals", icon: "radar", matches: (player) => isSignalOnlyRecord(player) },
+  { id: "internal", label: "Yousician input needed", icon: "network", matches: (player) => Boolean(relationForPlayer(player)) },
+  { id: "ai", label: "AI and disruption", icon: "sparkles", matches: (player) => player.aiScore >= 4 || player.category === "ai" },
   {
     id: "partner",
     label: "Partner candidates",
+    icon: "handshake",
     matches: (player) =>
       relationForPlayer(player)?.type === "partners" ||
       ["hardware", "education"].includes(player.category) ||
@@ -4044,6 +4068,68 @@ function journeyColorFor(player) {
 
 function colorFor(player) {
   return categoryById(player.category)?.color || "#17191a";
+}
+
+function iconHtml(icon, className = "data-icon") {
+  if (!nonEmptyString(icon)) return "";
+  return `<i class="${escapeHtml(className)}" data-lucide="${escapeHtml(icon)}" aria-hidden="true"></i>`;
+}
+
+function categoryIconHtml(category, className = "data-icon category-icon") {
+  if (!category) return "";
+  return iconHtml(category.icon || "circle-dot", className);
+}
+
+function journeyIconHtml(journey, className = "data-icon journey-icon") {
+  if (!journey) return "";
+  return iconHtml(journey.icon || "route", className);
+}
+
+function productLensIconForLabel(label) {
+  const normalized = `${label || ""}`.toLowerCase();
+  if (/yousician/.test(normalized) && /guitartuna/.test(normalized)) return "shuffle";
+  if (/yousician/.test(normalized)) return "target";
+  if (/guitartuna/.test(normalized)) return "music-2";
+  return "globe-2";
+}
+
+function productLensChipHtml(player, className = "product-lens-table-chip") {
+  const label = productFocusLabel(player);
+  return `<span class="${escapeHtml(className)}">${iconHtml(productLensIconForLabel(label), "chip-icon")}${escapeHtml(label)}</span>`;
+}
+
+function databaseActionIcon(action) {
+  const icons = {
+    "tracked-records": "layout-grid",
+    "key-players": "badge-check",
+    "journey-steps": "route",
+    "evidence-links": "link",
+    appfigures: "bar-chart-3",
+    relationships: "network",
+    "ai-relevant": "sparkles",
+    "market-signals": "radar",
+    "source-confidence": "shield-check",
+    "value-conflicts": "git-compare-arrows",
+    "claim-caveats": "alert-triangle",
+    "proof-debt": "file-search",
+    "source-targets": "list-checks",
+    "ready-records": "shield-check"
+  };
+  return icons[action] || "circle-dot";
+}
+
+function sourceNeedIcon(need) {
+  const text = `${need || ""}`.toLowerCase();
+  if (/appfigures|metric|revenue|rank|download|traffic|scale|performance/.test(text)) return "bar-chart-3";
+  if (/relationship|owner|internal|yousician|partner/.test(text)) return "network";
+  if (/source|evidence|proof|link|official|website/.test(text)) return "file-search";
+  if (/ownership|investor|funding|acquisition/.test(text)) return "building-2";
+  if (/ai/.test(text)) return "sparkles";
+  return "circle-dot";
+}
+
+function sourceNeedChipHtml(need) {
+  return `<span class="source-need">${iconHtml(sourceNeedIcon(need), "chip-icon")}${escapeHtml(need)}</span>`;
 }
 
 function initials(name) {
@@ -12195,6 +12281,7 @@ function renderDatabaseStats() {
     .map(
       ([label, value, note, action]) => `
         <button class="database-stat" type="button" data-dashboard-action="${escapeHtml(action)}">
+          ${iconHtml(databaseActionIcon(action), "database-stat-icon")}
           <span>${escapeHtml(label)}</span>
           <strong>${escapeHtml(value)}</strong>
           <small>${escapeHtml(note)}</small>
@@ -12211,6 +12298,7 @@ function renderDatabaseSegments() {
       const count = filtered.filter((player) => segment.matches(player)).length;
       return `
         <button class="segment-button ${state.dbSegment === segment.id ? "active" : ""}" data-segment="${segment.id}" type="button">
+          ${iconHtml(segment.icon, "segment-icon")}
           <span>${escapeHtml(segment.label)}</span>
           <small>${count}</small>
         </button>
@@ -12313,7 +12401,7 @@ function renderDatabaseVisuals(rows) {
             ({ category, items, avgQuality, gapCount, pressure }) => `
               <button class="category-proof-row" type="button" data-dashboard-journey="${escapeHtml(category.id)}" style="--cat:${category.color}; --quality:${avgQuality}; --pressure:${pressure}">
                 <header>
-                  <span>${escapeHtml(category.shortName || category.name)}</span>
+                  <span>${journeyIconHtml(category, "category-proof-icon")}${escapeHtml(category.shortName || category.name)}</span>
                   <strong>${items.length}</strong>
                 </header>
                 <div class="proof-bars">
@@ -12335,8 +12423,8 @@ function databaseCardHtml(player) {
   const validation = internalValidationFor(player);
   const feeds = liveDataFeedsForPlayer(player);
   const needs = [...new Set([...sourceNeeds(player), ...feeds])].slice(0, 7);
+  const category = categoryById(player.category);
   if (isExecutiveMode()) {
-    const category = categoryById(player.category);
     const quality = qualityProfile(player);
     const activeRating = ratingForPlayer(player);
     const completionNeed = requiresCredentialedData(player)
@@ -12363,12 +12451,12 @@ function databaseCardHtml(player) {
         <p>${escapeHtml(player.description)}</p>
         ${playerExternalLinkRailHtml(player, 4, "record-link-rail")}
         <div class="record-meta-grid executive-record-meta">
-          <span><strong>Category</strong>${escapeHtml(category?.shortName || player.category)}</span>
-          <span><strong>Product lens</strong>${escapeHtml(productFocusLabel(player))}</span>
-          <span><strong>${escapeHtml(activeRating.label)}</strong>${escapeHtml(activeRating.display)}</span>
-          <span><strong>Source confidence</strong>${escapeHtml(quality.label)}</span>
-          <span><strong>Consistency</strong>${escapeHtml(quality.conflictAudit.status === "consistent" ? "No conflict flagged" : quality.conflictAudit.status === "conflict" ? "Review conflict" : "Caveat")}</span>
-          <span><strong>Why it matters</strong>${escapeHtml(player.why)}</span>
+          <span>${categoryIconHtml(category, "record-meta-icon")}<strong>Category</strong>${escapeHtml(category?.shortName || player.category)}</span>
+          <span>${iconHtml(productLensIconForLabel(productFocusLabel(player)), "record-meta-icon")}<strong>Product lens</strong>${escapeHtml(productFocusLabel(player))}</span>
+          <span>${iconHtml("sliders-horizontal", "record-meta-icon")}<strong>${escapeHtml(activeRating.label)}</strong>${escapeHtml(activeRating.display)}</span>
+          <span>${iconHtml("shield-check", "record-meta-icon")}<strong>Source confidence</strong>${escapeHtml(quality.label)}</span>
+          <span>${iconHtml("git-compare-arrows", "record-meta-icon")}<strong>Consistency</strong>${escapeHtml(quality.conflictAudit.status === "consistent" ? "No conflict flagged" : quality.conflictAudit.status === "conflict" ? "Review conflict" : "Caveat")}</span>
+          <span>${iconHtml("lightbulb", "record-meta-icon")}<strong>Why it matters</strong>${escapeHtml(player.why)}</span>
         </div>
         <div class="record-action-row executive-completion-row">
           <strong>Completion note</strong>
@@ -12395,19 +12483,19 @@ function databaseCardHtml(player) {
       ${playerExternalLinkRailHtml(player, 4, "record-link-rail")}
       ${activeRatingMini(player)}
       <div class="record-meta-grid">
-        <span><strong>Category</strong>${escapeHtml(categoryById(player.category)?.shortName || player.category)}</span>
-        <span><strong>Product lens</strong>${escapeHtml(productFocusLabel(player))}</span>
-        <span><strong>Evidence</strong>${escapeHtml(qualityProfile(player).label)}</span>
-        <span><strong>Consistency</strong>${escapeHtml(claimConflictAudit(player).status === "consistent" ? "No conflict flagged" : "Review needed")}</span>
-        <span><strong>AI / momentum</strong>${escapeHtml(`${player.aiScore}/5 AI, ${player.momentum}/5 momentum`)}</span>
-        <span><strong>Owner</strong>${escapeHtml(researchOwner(player))}</span>
+        <span>${categoryIconHtml(category, "record-meta-icon")}<strong>Category</strong>${escapeHtml(category?.shortName || player.category)}</span>
+        <span>${iconHtml(productLensIconForLabel(productFocusLabel(player)), "record-meta-icon")}<strong>Product lens</strong>${escapeHtml(productFocusLabel(player))}</span>
+        <span>${iconHtml("shield-check", "record-meta-icon")}<strong>Evidence</strong>${escapeHtml(qualityProfile(player).label)}</span>
+        <span>${iconHtml("git-compare-arrows", "record-meta-icon")}<strong>Consistency</strong>${escapeHtml(claimConflictAudit(player).status === "consistent" ? "No conflict flagged" : "Review needed")}</span>
+        <span>${iconHtml("sparkles", "record-meta-icon")}<strong>AI / momentum</strong>${escapeHtml(`${player.aiScore}/5 AI, ${player.momentum}/5 momentum`)}</span>
+        <span>${iconHtml("user-check", "record-meta-icon")}<strong>Owner</strong>${escapeHtml(researchOwner(player))}</span>
       </div>
       <div class="record-action-row">
         <span>${escapeHtml(nextAction(player))}</span>
         <small>${escapeHtml(validation.status)}</small>
       </div>
       <div class="source-need-row">
-        ${needs.map((need) => `<span class="source-need">${escapeHtml(need)}</span>`).join("")}
+        ${needs.map(sourceNeedChipHtml).join("")}
       </div>
       <div class="source-target-chip-row compact">
         ${sourceCoverageTargetChips(player, 6)}
@@ -12442,7 +12530,7 @@ function scoreStack(player) {
 }
 
 function sourceNeedTags(player) {
-  return sourceNeeds(player).map((need) => `<span class="source-need">${escapeHtml(need)}</span>`).join("");
+  return sourceNeeds(player).map(sourceNeedChipHtml).join("");
 }
 
 function qualityCell(player) {
@@ -12475,12 +12563,13 @@ function qualityCell(player) {
 
 function taxonomyCell(player) {
   const taxonomy = taxonomyProfile(player);
-  const category = categoryById(player.category);
+  const category = categoryById(player.category) || { color: "#00b884", shortName: "Other", name: "Other" };
+  const journey = journeyCategoryFor(player);
   return `
     <div class="taxonomy-cell">
-      <span class="category-pill" style="--cat:${category.color}">${escapeHtml(category.shortName || category.name)}</span>
-      <strong>${escapeHtml(taxonomy.proximity)}</strong>
-      <small>${escapeHtml(taxonomy.journey)}</small>
+      <span class="category-pill" style="--cat:${category.color}">${categoryIconHtml(category, "chip-icon")}${escapeHtml(category.shortName || category.name)}</span>
+      <strong>${journeyIconHtml(journey, "taxonomy-icon")}${escapeHtml(taxonomy.proximity)}</strong>
+      <small>${iconHtml("route", "taxonomy-icon muted")}${escapeHtml(taxonomy.journey)}</small>
     </div>
   `;
 }
@@ -12671,11 +12760,12 @@ function renderKeyPlayerTemplate(rows, totalRows) {
             templateRows
               .map((player) => {
                 const row = keyPlayerTemplateRowData(player);
+                const category = categoryById(player.category) || {};
                 return `
                   <tr data-template-player="${escapeHtml(player.id)}" style="--cat:${row.color}" tabindex="0">
                     <td>
                       <span class="template-category-pill">
-                        <i aria-hidden="true">${escapeHtml(row.category.slice(0, 1))}</i>
+                        <span class="template-category-icon-wrap" aria-hidden="true">${categoryIconHtml(category, "template-category-icon")}</span>
                         <strong>${escapeHtml(row.category)}</strong>
                       </span>
                     </td>
@@ -12774,9 +12864,9 @@ function renderDatabaseLists(rows, totalRows) {
                 <span>${escapeHtml(player.description)}</span>
                 <div class="mini-tag-row">
                   ${player.key ? `<span class="mini-tag key">Key</span>` : ""}
-                  <span class="mini-tag">${escapeHtml(entityKindFor(player))}</span>
-                  <span class="mini-tag">Footprint: ${escapeHtml(globalFootprintFor(player))}</span>
-                  <span class="mini-tag">${escapeHtml(player.type)}</span>
+                  <span class="mini-tag">${iconHtml("building-2", "chip-icon")}${escapeHtml(entityKindFor(player))}</span>
+                  <span class="mini-tag">${iconHtml("globe-2", "chip-icon")}Footprint: ${escapeHtml(globalFootprintFor(player))}</span>
+                  <span class="mini-tag">${categoryIconHtml(categoryById(player.category), "chip-icon")}${escapeHtml(player.type)}</span>
                 </div>
               </div>
             </td>
@@ -12789,7 +12879,7 @@ function renderDatabaseLists(rows, totalRows) {
               ${taxonomyCell(player)}
             </td>
             <td>
-              <span class="product-lens-table-chip">${escapeHtml(productFocusLabel(player))}</span>
+              ${productLensChipHtml(player)}
             </td>
             <td>${scoreStack(player)}</td>
             <td>${qualityCell(player)}</td>
@@ -12809,7 +12899,7 @@ function renderDatabaseLists(rows, totalRows) {
               <span class="owner-chip">${escapeHtml(researchOwner(player))}</span>
               <p class="owner-note">${escapeHtml(validation.status)}</p>
               <div class="source-need-row">
-                ${feeds.map((feed) => `<span class="source-need">${escapeHtml(feed)}</span>`).join("")}
+                ${feeds.map(sourceNeedChipHtml).join("")}
               </div>
             </td>
           </tr>
