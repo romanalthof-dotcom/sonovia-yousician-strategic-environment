@@ -4880,12 +4880,16 @@ function svgSafeId(value) {
 }
 
 function shouldShowMapLogo(player, visibleCount, focusScale, isSelected) {
-  if (!logoUrlForPlayer(player)) return false;
-  return isSelected || player.key || visibleCount <= 35 || focusScale >= 1.15 || player.relevance >= 5;
+  return false;
 }
 
 function logoDomainLabel(player) {
   return logoDomainForPlayer(player) || "initials fallback";
+}
+
+function onePagerLogoSourceText(player) {
+  const domain = logoDomainForPlayer(player);
+  return domain ? domain.replace(/^www\./, "") : "Logo source pending";
 }
 
 function logoMarkHtml(player, className = "company-logo-mark", options = {}) {
@@ -10278,12 +10282,19 @@ function renderOnePager() {
   const validation = internalValidationFor(player);
   const executive = isExecutiveMode();
   const activeRating = ratingForPlayer(player);
+  const logoSource = onePagerLogoSourceText(player);
 
   els.onePager.innerHTML = `
     <article class="one-pager-sheet one-pager-template" style="--onepager-accent:${category.color}">
       <header class="one-pager-template-hero">
         <div class="one-pager-template-brand">
-          ${logoMarkHtml(player, "one-pager-template-icon", { style: `--onepager-accent:${category.color}` })}
+          <div class="one-pager-brand-logo-wrap">
+            ${logoMarkHtml(player, "one-pager-template-icon one-pager-brand-logo", {
+              size: 256,
+              style: `--onepager-accent:${category.color}`
+            })}
+            <span class="one-pager-brand-logo-source">${escapeHtml(logoSource)}</span>
+          </div>
           <div>
             <span class="one-pager-template-label">Strategic player brief</span>
             <h2>${escapeHtml(player.name)}</h2>

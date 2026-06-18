@@ -3130,10 +3130,17 @@ body:not([data-view="overview"]) .view.active {
 
 .one-pager-template-brand {
   display: grid;
-  grid-template-columns: 76px minmax(0, 1fr);
-  gap: 18px;
+  grid-template-columns: 118px minmax(0, 1fr);
+  gap: 20px;
   align-items: center;
   min-width: 0;
+}
+
+.one-pager-brand-logo-wrap {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  align-self: start;
 }
 
 .one-pager-template-icon {
@@ -3149,6 +3156,18 @@ body:not([data-view="overview"]) .view.active {
   box-shadow: 0 16px 34px color-mix(in srgb, var(--onepager-accent) 28%, transparent);
   font-size: 1.3rem;
   font-weight: 950;
+}
+
+.one-pager-brand-logo-source {
+  max-width: 112px;
+  overflow: hidden;
+  color: #60716d;
+  font-size: 0.64rem;
+  font-weight: 850;
+  line-height: 1.2;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .one-pager-template-label {
@@ -20542,9 +20561,20 @@ body[data-view="overview"] .map-selected-logo.company-logo-mark {
   height: 82px;
 }
 
+.one-pager-template-icon.company-logo-mark.one-pager-brand-logo {
+  width: 112px;
+  height: 112px;
+  border-radius: 18px !important;
+}
+
 .one-pager-template-icon.company-logo-mark > img {
   width: 74%;
   height: 74%;
+}
+
+.one-pager-template-icon.company-logo-mark.one-pager-brand-logo > img {
+  width: 80%;
+  height: 80%;
 }
 
 .company-logo-mark[data-logo-domain]::after {
@@ -20594,6 +20624,22 @@ body[data-view="overview"] .map-symbol-logo {
   .one-pager-template-icon.company-logo-mark {
     width: 68px;
     height: 68px;
+  }
+
+  .one-pager-template-brand {
+    grid-template-columns: 82px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .one-pager-template-icon.company-logo-mark.one-pager-brand-logo {
+    width: 76px;
+    height: 76px;
+    border-radius: 14px !important;
+  }
+
+  .one-pager-brand-logo-source {
+    max-width: 82px;
+    font-size: 0.58rem;
   }
 
   .profile-top .avatar.company-logo-mark,
