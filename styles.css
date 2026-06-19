@@ -24292,61 +24292,32 @@ body[data-view="key-players"] .monitor-insight-readout {
   color: #7b2d1d !important;
 }
 
-/* Core map group differentiation: make journey territories readable without overpowering company logos. */
+/* Core map grouping: simple category assignment without extra background rings. */
 body[data-view="overview"] .map-cluster-group {
   isolation: isolate;
 }
 
 body[data-view="overview"] .map-cluster {
   fill: var(--cluster-color) !important;
-  fill-opacity: 0.17 !important;
+  fill-opacity: 0.115 !important;
   stroke: var(--cluster-color) !important;
-  stroke-width: 1.6px !important;
-  stroke-opacity: 0.34 !important;
-}
-
-body[data-view="overview"] .map-cluster-halo {
-  stroke: var(--cluster-color) !important;
-  stroke-width: 1.45px;
-  stroke-opacity: 0.5;
-  stroke-linecap: round;
-  stroke-dasharray: 2 7;
-  filter: drop-shadow(0 10px 22px color-mix(in srgb, var(--cluster-color) 18%, rgba(18, 28, 24, 0.04)));
-}
-
-body[data-view="overview"] .map-cluster-halo-discover,
-body[data-view="overview"] .map-cluster-halo-identity {
-  stroke-dasharray: 3 7;
-}
-
-body[data-view="overview"] .map-cluster-halo-start,
-body[data-view="overview"] .map-cluster-halo-practice {
-  stroke-dasharray: 8 8;
-}
-
-body[data-view="overview"] .map-cluster-halo-learn,
-body[data-view="overview"] .map-cluster-halo-share {
-  stroke-dasharray: 1 8;
-}
-
-body[data-view="overview"] .map-cluster-halo-create,
-body[data-view="overview"] .map-cluster-halo-broader {
-  stroke-dasharray: 12 7;
+  stroke-width: 1.15px !important;
+  stroke-opacity: 0.2 !important;
 }
 
 body[data-view="overview"] .map-cluster-discover,
 body[data-view="overview"] .map-cluster-identity {
-  fill-opacity: 0.18 !important;
+  fill-opacity: 0.105 !important;
 }
 
 body[data-view="overview"] .map-cluster-learn,
 body[data-view="overview"] .map-cluster-practice {
-  fill-opacity: 0.2 !important;
+  fill-opacity: 0.13 !important;
 }
 
 body[data-view="overview"] .map-cluster-create,
 body[data-view="overview"] .map-cluster-broader {
-  fill-opacity: 0.19 !important;
+  fill-opacity: 0.12 !important;
 }
 
 body[data-view="overview"] .cluster-label-card {
@@ -24385,9 +24356,15 @@ body[data-view="overview"] .cluster-label-layer .cluster-count {
   font-size: 7.8px;
 }
 
-body[data-view="overview"] .category-arc {
-  opacity: 0.68 !important;
-  stroke-opacity: 0.9;
+body[data-view="overview"] .node-logo-plate {
+  stroke: color-mix(in srgb, var(--node-color, #00b884) 68%, rgba(23, 33, 29, 0.14));
+  stroke-width: 2px;
+}
+
+body[data-view="overview"] .map-node:not(.selected) .node-evidence-ring,
+body[data-view="overview"] .map-node:not(.selected) .node-ai-ring {
+  opacity: 0.22;
+  stroke-width: 1.1px;
 }
 
 /* Relationship view polish: executive completion board with clearer hierarchy. */

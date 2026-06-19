@@ -9310,7 +9310,6 @@ function renderMap() {
   );
   svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   setMapViewBox(svg, viewBox, defaultBox);
-  const metricsByCategory = new Map(categoryMetrics().map((item) => [item.id, item]));
   const labelPlan = buildMapLabelPlan(nodeItems, filtered.length, focusScale, center, protectedRects, selectedLabelSpace?.label);
   const currentNodeIds = new Set(nodeItems.map((item) => item.player.id));
   const exitingNodeSnapshots = [...previousNodePositions.values()].filter((item) => !currentNodeIds.has(item.id));
@@ -9325,60 +9324,6 @@ function renderMap() {
   defs.appendChild(radial);
   fragment.appendChild(defs);
   fragment.appendChild(createSvg("rect", { x: 16, y: 18, width: 968, height: 664, rx: 28, class: "map-stage" }));
-
-  const lensLayer = createSvg("g", { class: "map-lens-field-layer" });
-  [
-    {
-      className: "learn",
-      d: "M92 112 C188 46 392 56 486 132 C432 244 272 324 122 282 C54 263 42 158 92 112Z"
-    },
-    {
-      className: "practice",
-      d: "M514 126 C626 50 848 72 910 158 C956 224 902 330 770 354 C636 378 526 276 514 126Z"
-    },
-    {
-      className: "create",
-      d: "M176 474 C294 370 484 400 556 514 C642 424 818 392 908 478 C974 540 896 644 676 656 C452 668 230 642 154 570 C124 548 130 514 176 474Z"
-    }
-  ].forEach((field) => {
-    lensLayer.appendChild(createSvg("path", { d: field.d, class: `map-lens-field ${field.className}` }));
-  });
-  fragment.appendChild(lensLayer);
-
-  [
-    [144, "core overlap"],
-    [228, "adjacent ecosystem"],
-    [306, "market signals"]
-  ].forEach(([radius, label], index) => {
-    fragment.appendChild(createSvg("circle", { cx: center.x, cy: center.y, r: radius, class: "map-ring" }));
-    const ringLabel = createSvg("text", { x: center.x + radius - 10, y: center.y - 8 - index * 12, class: "ring-label" });
-    ringLabel.textContent = label;
-    fragment.appendChild(ringLabel);
-  });
-
-  const arcLayer = createSvg("g", { class: "category-arc-layer" });
-  fragment.appendChild(arcLayer);
-  byCategory.forEach(({ category, layout }) => {
-    const metric = metricsByCategory.get(category.id);
-    const geometry = clusterGeometryByCategory.get(category.id) || {
-      angle: layout.angle,
-      arcRadius: layout.arcRadius,
-      rx: layout.rx,
-      ry: layout.ry
-    };
-    const spread = state.selectedCategory === "all" ? Math.max(13, Math.min(28, (geometry.rx / geometry.arcRadius) * 58)) : 24;
-    const arc = createSvg("path", {
-      d: describeArc(center.x, center.y, geometry.arcRadius, geometry.angle - spread, geometry.angle + spread),
-      class: "category-arc",
-      stroke: category.color,
-      "stroke-width": Math.max(4, Math.round((metric?.pressure || 0) / 14)),
-      opacity: 0.18 + (metric?.pressure || 0) / 260
-    });
-    const arcTitle = createSvg("title");
-    arcTitle.textContent = `${category.name} journey lane. This is not a company relationship line.`;
-    arc.appendChild(arcTitle);
-    arcLayer.appendChild(arc);
-  });
 
   const connectionLayer = createSvg("g", { class: "connection-layer" });
   fragment.appendChild(connectionLayer);
@@ -9412,17 +9357,6 @@ function renderMap() {
     const clusterY = geometry.y ?? y;
     const clusterRx = geometry.rx;
     const clusterRy = geometry.ry;
-    const halo = createSvg("ellipse", {
-      cx: clusterX,
-      cy: clusterY,
-      rx: clusterRx + 11,
-      ry: clusterRy + 9,
-      class: `map-cluster-halo map-cluster-halo-${category.id}`,
-      fill: "none",
-      stroke: category.color,
-      style: `--cluster-color:${category.color}`
-    });
-    cluster.appendChild(halo);
     const ellipse = createSvg("ellipse", {
       cx: clusterX,
       cy: clusterY,
