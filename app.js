@@ -3135,6 +3135,108 @@ const selfUpdatingPolicy = [
   }
 ];
 
+const selfUpdatingFieldContracts = [
+  {
+    id: "official-website",
+    group: "Public auto",
+    tone: "safe",
+    field: "Website, public source URL and link health",
+    cadence: "Daily or weekly",
+    owner: "Research Ops",
+    rule: "Update automatically when the value is directly visible on an official or public source. Broken links become warnings, not deleted facts."
+  },
+  {
+    id: "public-app-store",
+    group: "Public auto",
+    tone: "safe",
+    field: "App Store rating, rating count, seller, genre and version date",
+    cadence: "Weekly",
+    owner: "Research Ops",
+    rule: "Update as public app signal only. Never translate ratings into downloads, revenue, retention or growth."
+  },
+  {
+    id: "public-metadata",
+    group: "Public auto",
+    tone: "safe",
+    field: "HQ, founded date, parent entity and official website reference",
+    cadence: "Monthly",
+    owner: "Research Ops",
+    rule: "Use public entity references as current metadata. Flag conflicts and keep footprint or interpretation separate."
+  },
+  {
+    id: "source-confidence",
+    group: "Public auto",
+    tone: "safe",
+    field: "Source confidence, class coverage, duplicate detection and contradictions",
+    cadence: "Every refresh",
+    owner: "Research Ops",
+    rule: "Recompute automatically from linked sources and public enrichment. This measures evidence quality, not business performance."
+  },
+  {
+    id: "public-change-signals",
+    group: "Detect and review",
+    tone: "review",
+    field: "Product launches, pricing copy, positioning, feature claims and website changes",
+    cadence: "Weekly, plus before board review",
+    owner: "Strategy and Research",
+    rule: "Detect changes automatically and queue them. Human review decides whether the executive read changes."
+  },
+  {
+    id: "funding-news",
+    group: "Detect and review",
+    tone: "review",
+    field: "Funding rounds, M and A, investor announcements, litigation, awards and rights news",
+    cadence: "Weekly",
+    owner: "Strategy and Research",
+    rule: "Public news can trigger a review. Do not rewrite valuation, strategic fit or recommendation language automatically."
+  },
+  {
+    id: "appfigures-performance",
+    group: "Credentialed only",
+    tone: "gated",
+    field: "Downloads, revenue, category rank, rank trend, country mix and review velocity",
+    cadence: "Weekly or monthly if access exists",
+    owner: "Growth, Analytics or Finance",
+    rule: "Only update from Appfigures export or API. Public app store values are not substitutes."
+  },
+  {
+    id: "traffic-funding-finance",
+    group: "Credentialed only",
+    tone: "gated",
+    field: "Similarweb traffic, Crunchbase or PitchBook funding, valuation and acquisition history",
+    cadence: "Monthly or deal review",
+    owner: "Strategy, Finance or approved data owner",
+    rule: "Only update from licensed exports, filings or approved direct sources. Public snippets remain review prompts."
+  },
+  {
+    id: "internal-kpis",
+    group: "Credentialed only",
+    tone: "gated",
+    field: "Internal conversion, retention, churn, LTV, ARPPU, cohort movement and pricing data",
+    cadence: "Internal reporting cycle",
+    owner: "Product Analytics, Growth and Finance",
+    rule: "Only update from internal dashboards or approved exports. Never infer from competitor research."
+  },
+  {
+    id: "relationship-status",
+    group: "Manual decision",
+    tone: "locked",
+    field: "Existing relationship, owner, contact history, sensitivity and active path",
+    cadence: "Review cycle",
+    owner: "Yousician owner, BizDev or LST",
+    rule: "Keep manual because the market cannot know internal relationship truth."
+  },
+  {
+    id: "strategic-priority",
+    group: "Manual decision",
+    tone: "locked",
+    field: "Strategic priority, key player status, shortlist, recommendation and next action",
+    cadence: "Board or LST review",
+    owner: "Board, LST and Strategy",
+    rule: "Inputs can refresh automatically, but the decision label stays human owned."
+  }
+];
+
 const liveDataFeeds = [
   {
     id: "local-overrides",
@@ -12066,6 +12168,142 @@ function onePagerTableHtml(headers, rows) {
   `;
 }
 
+function selfUpdateToneMeta(tone) {
+  const meta = {
+    safe: {
+      label: "Auto public",
+      icon: "refresh-cw",
+      short: "Updates itself"
+    },
+    review: {
+      label: "Review queue",
+      icon: "scan-search",
+      short: "Detected first"
+    },
+    gated: {
+      label: "Credentialed",
+      icon: "key-round",
+      short: "Import only"
+    },
+    locked: {
+      label: "Manual",
+      icon: "lock-keyhole",
+      short: "Human owned"
+    }
+  };
+  return meta[tone] || meta.review;
+}
+
+function onePagerSelfUpdateItems(player, quality, validation) {
+  const websiteSource = playerPrimaryWebsiteSource(player);
+  const websiteHost = onePagerHostFor(player);
+  const publicMetric = publicAppStoreMetricFor(player);
+  const hq = headquartersRecordFor(player);
+  const founded = foundedRecordFor(player);
+  const publicEnrichment = publicEnrichmentFor(player) || {};
+  const hasPublicMetadata = Boolean(publicEnrichment.hq || publicEnrichment.founded || publicEnrichment.wikidata);
+  const relationshipManual = /not prioritized|not yet|to be completed|owner confirmation|internal/i.test(
+    `${validation.knownRelationship} ${validation.status} ${validation.nextStep}`
+  );
+  return [
+    {
+      tone: websiteSource ? "safe" : "review",
+      label: "Website and source health",
+      value: websiteSource ? websiteHost : "Needs public source",
+      detail: websiteSource
+        ? "Official destination and link health can refresh automatically."
+        : "Queue for public source lookup before using the website field."
+    },
+    {
+      tone: hasPublicMetadata || !/to verify/i.test(`${hq.value} ${founded.value}`) ? "safe" : "review",
+      label: "HQ and founded",
+      value: `${hq.value} / ${founded.value}`,
+      detail: hasPublicMetadata
+        ? "Public reference metadata can refresh, with conflicts flagged."
+        : "Seeded or missing metadata should be checked before external use."
+    },
+    {
+      tone: publicMetric ? "safe" : requiresCredentialedData(player) ? "gated" : "review",
+      label: "Public app signal",
+      value: publicMetric ? publicAppStoreMetricLabel(player) : "No public app signal loaded",
+      detail: publicMetric
+        ? "Ratings refresh as public signal only, not revenue or downloads."
+        : "Only needed when this player is treated as an app benchmark."
+    },
+    {
+      tone: requiresCredentialedData(player) ? "gated" : "review",
+      label: "Revenue, downloads and rank",
+      value: requiresCredentialedData(player) ? "Credentialed import required" : "Use only if decision needs it",
+      detail: "Needs Appfigures, Similarweb, finance export or filing before it becomes fact."
+    },
+    {
+      tone: "safe",
+      label: "Source confidence",
+      value: `${quality.score}% ${quality.label}`,
+      detail: "Recomputed from linked sources, source classes and contradictions."
+    },
+    {
+      tone: "review",
+      label: "Recent market moves",
+      value: compactTemplateText(executiveSignalText(player.recent), 54),
+      detail: "Changes can be detected automatically, but executive interpretation stays reviewed."
+    },
+    {
+      tone: relationshipManual ? "locked" : "review",
+      label: "Yousician relationship",
+      value: templateRelationshipFor(player),
+      detail: "Owner, sensitivity, history and active path are internal truth."
+    },
+    {
+      tone: "locked",
+      label: "Priority and recommendation",
+      value: `${player.key ? "Key player" : "Track"} / ${ratingForPlayer(player, "strategic").display}`,
+      detail: "Inputs can update, but shortlist status and recommendation should only change in review."
+    }
+  ];
+}
+
+function onePagerSelfUpdateHtml(player, quality, validation) {
+  const items = onePagerSelfUpdateItems(player, quality, validation);
+  const counts = items.reduce((acc, item) => {
+    acc[item.tone] = (acc[item.tone] || 0) + 1;
+    return acc;
+  }, {});
+  return `
+    <section class="one-pager-self-update" aria-label="Data freshness contract">
+      <header class="one-pager-self-update-head">
+        <div>
+          <span>Data freshness contract</span>
+          <h3>What can stay current without weakening the brief</h3>
+          <p>Public facts may refresh automatically. Performance, relationship and recommendation fields stay gated so the profile does not turn public signals into false certainty.</p>
+        </div>
+        <div class="one-pager-self-update-counts" aria-label="Update mode counts">
+          <span><strong>${counts.safe || 0}</strong> auto</span>
+          <span><strong>${counts.review || 0}</strong> review</span>
+          <span><strong>${counts.gated || 0}</strong> gated</span>
+          <span><strong>${counts.locked || 0}</strong> manual</span>
+        </div>
+      </header>
+      <div class="one-pager-self-update-grid">
+        ${items
+          .map((item) => {
+            const meta = selfUpdateToneMeta(item.tone);
+            return `
+              <article class="one-pager-self-update-item update-${escapeHtml(item.tone)}">
+                <i data-lucide="${escapeHtml(meta.icon)}"></i>
+                <span>${escapeHtml(meta.label)}</span>
+                <strong>${escapeHtml(item.label)}</strong>
+                <em>${escapeHtml(item.value)}</em>
+                <small>${escapeHtml(item.detail)}</small>
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
 function onePagerFactStripHtml(player, taxonomy, quality) {
   const websiteSource = playerPrimaryWebsiteSource(player);
   const websiteUrl = sourceUrl(websiteSource);
@@ -12702,6 +12940,8 @@ function renderOnePager() {
       ${playerExternalLinkRailHtml(player, 6, "one-pager-link-rail")}
 
       ${onePagerFactStripHtml(player, taxonomy, quality)}
+
+      ${onePagerSelfUpdateHtml(player, quality, validation)}
 
       ${onePagerExecutivePriorityStripHtml(player, taxonomy, validation, quality)}
 
@@ -13896,7 +14136,40 @@ function renderSelfUpdatingPolicyPanel() {
           )
           .join("")}
       </div>
+      ${renderSelfUpdatingFieldMatrix()}
     </section>
+  `;
+}
+
+function renderSelfUpdatingFieldMatrix() {
+  return `
+    <div class="self-update-field-matrix" aria-label="Self updating field matrix">
+      <header>
+        <div>
+          <span class="section-kicker">Field level contract</span>
+          <h4>What should stay self updating</h4>
+        </div>
+        <p>Safe automation is limited to observable source facts. Anything that changes the strategic read is queued, imported from an approved source, or kept manual.</p>
+      </header>
+      <div class="self-update-field-grid">
+        ${selfUpdatingFieldContracts
+          .map((contract) => {
+            const meta = selfUpdateToneMeta(contract.tone);
+            return `
+              <article class="self-update-field-card update-${escapeHtml(contract.tone)}">
+                <div>
+                  <i data-lucide="${escapeHtml(meta.icon)}"></i>
+                  <span>${escapeHtml(contract.group)}</span>
+                </div>
+                <strong>${escapeHtml(contract.field)}</strong>
+                <p>${escapeHtml(contract.rule)}</p>
+                <small>${escapeHtml(contract.cadence)} · ${escapeHtml(contract.owner)}</small>
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+    </div>
   `;
 }
 
