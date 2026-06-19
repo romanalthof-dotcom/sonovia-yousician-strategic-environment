@@ -3058,13 +3058,13 @@ const sourceCards = [
   },
   {
     name: "Manual research",
-    use: "Strategic assessment, why it matters, confidence, and board ready interpretation.",
+    use: "Strategic assessment, why it matters, source coverage, and board ready interpretation.",
     cadence: "Before review cycles",
     status: "Always required"
   },
   {
     name: "Research protocol",
-    use: "Every executive facing claim should carry source, date, and confidence before it is treated as researched content.",
+    use: "Every executive facing claim should carry source, date, and evidence status before it is treated as researched content.",
     cadence: "Required before board export",
     status: "Addresses AI generated draft risk"
   },
@@ -3167,7 +3167,7 @@ const selfUpdatingFieldContracts = [
     id: "source-confidence",
     group: "Public auto",
     tone: "safe",
-    field: "Source confidence, class coverage, duplicate detection and contradictions",
+    field: "Source coverage, class coverage, duplicate detection and contradictions",
     cadence: "Every refresh",
     owner: "Research Ops",
     rule: "Recompute automatically from linked sources and public enrichment. This measures evidence quality, not business performance."
@@ -3940,12 +3940,12 @@ const monitorSortModes = [
   { id: "relevance", label: "Yousician fit", note: "Direct fit to the mission and product surface" },
   { id: "momentum", label: "Momentum", note: "Recent market activity and signal velocity" },
   { id: "ai", label: "AI pressure", note: "AI relevance and substitution pressure" },
-  { id: "company", label: "Verified scale", note: "Direct imported size data only" },
-  { id: "revenue", label: "Verified revenue", note: "Credentialed revenue data only" },
-  { id: "reach", label: "Verified reach", note: "Direct audience, traffic or app data only" },
+  { id: "company", label: "Credentialed scale", note: "Imported size data only" },
+  { id: "revenue", label: "Credentialed revenue", note: "Credentialed revenue data only" },
+  { id: "reach", label: "Credentialed reach", note: "Imported audience, traffic or app data only" },
   { id: "capital", label: "Capital signal", note: "Funding, ownership, acquisition and investor signals" },
   { id: "proximity", label: "Competitive proximity", note: "Closeness to Yousician's learning and practice loop" },
-  { id: "evidence", label: "Source confidence", note: "Records with stronger source coverage first" },
+  { id: "evidence", label: "Source coverage", note: "Records with stronger source coverage first" },
   { id: "proof", label: "Proof gaps", note: "Records that need evidence before decision use" },
   { id: "appdata", label: "App data need", note: "Records that need Appfigures, traffic, or revenue imports" }
 ];
@@ -3980,21 +3980,21 @@ const bubbleSizeModes = [
   },
   {
     id: "business",
-    label: "Verified company scale",
+    label: "Credentialed company scale",
     shortLabel: "Scale",
-    note: "Uses imported direct metrics only. Missing values stay pending."
+    note: "Uses imported credentialed metrics only. Missing values stay pending."
   },
   {
     id: "revenue",
-    label: "Verified revenue",
+    label: "Credentialed revenue",
     shortLabel: "Rev.",
     note: "Uses credentialed revenue data only. Missing values stay pending."
   },
   {
     id: "reach",
-    label: "Verified reach",
+    label: "Credentialed reach",
     shortLabel: "Reach",
-    note: "Uses imported audience, traffic, app or direct source data only."
+    note: "Uses imported audience, traffic, app or source-of-truth data only."
   },
   {
     id: "appfigures",
@@ -4016,9 +4016,9 @@ const bubbleSizeModes = [
   },
   {
     id: "evidence",
-    label: "Source confidence",
+    label: "Source coverage",
     shortLabel: "Sources",
-    note: "Source confidence uses linked source coverage and claim quality."
+    note: "Source coverage uses linked source coverage and claim quality."
   }
 ];
 
@@ -4043,31 +4043,31 @@ const ratingModes = [
     id: "relevance",
     label: "Yousician relevance",
     shortLabel: "Relevance",
-    note: "Direct strategic relevance to Yousician."
+    note: "Strategic relevance to Yousician."
   },
   {
     id: "company",
-    label: "Verified scale",
-    shortLabel: "Direct scale",
-    note: "Direct imported size, traffic or performance data only."
+    label: "Credentialed scale",
+    shortLabel: "Scale proof",
+    note: "Imported size, traffic or performance data only."
   },
   {
     id: "revenue",
-    label: "Verified revenue",
-    shortLabel: "Direct revenue",
+    label: "Credentialed revenue",
+    shortLabel: "Revenue proof",
     note: "Credentialed revenue data only."
   },
   {
     id: "reach",
-    label: "Verified reach",
-    shortLabel: "Direct reach",
-    note: "Direct audience, app, traffic or source of truth data only."
+    label: "Credentialed reach",
+    shortLabel: "Reach proof",
+    note: "Imported audience, app, traffic or source-of-truth data only."
   },
   {
     id: "evidence",
-    label: "Source confidence",
+    label: "Source coverage",
     shortLabel: "Sources",
-    note: "Linked evidence strength and claim confidence."
+    note: "Linked source coverage and claim quality."
   },
   {
     id: "proximity",
@@ -4478,8 +4478,8 @@ function separateConfusingPlayerPairs(rows, minimumGap = 4) {
 
 function mapRankTieNote(rankId = state.mapRankMode) {
   const mode = mapRankModeById(rankId).id;
-  if (["business", "revenue", "reach"].includes(mode)) return "Direct values first; pending values become a proof queue";
-  if (mode === "evidence") return "Stronger source confidence first";
+  if (["business", "revenue", "reach"].includes(mode)) return "Credentialed values first; pending values become a proof queue";
+  if (mode === "evidence") return "Stronger source coverage first";
   if (mode === "appfigures") return "Data queue records first";
   return "Higher ranked records first";
 }
@@ -4492,14 +4492,14 @@ function bubbleSizeRadius(player) {
 
 function bubbleSizeBasis(player) {
   const mode = bubbleSizeModeById(state.bubbleSizeMode).id;
-  if (mode === "mission") return `Yousician relevance ${missionScaleScore(player)} of 5. Missing direct scale falls back to strategic relevance`;
-  if (mode === "business") return directCompanyScaleScore(player) ? `Verified scale ${directMetricDisplay(player, "company")}` : "Verified scale pending";
-  if (mode === "revenue") return directRevenueScore(player) ? `Verified revenue ${directMetricDisplay(player, "revenue")}` : "Verified revenue pending";
-  if (mode === "reach") return directReachScore(player) ? `Verified reach ${directMetricDisplay(player, "reach")}` : "Verified reach pending";
+  if (mode === "mission") return `Yousician relevance ${missionScaleScore(player)} of 5. Missing scale proof falls back to strategic relevance`;
+  if (mode === "business") return directCompanyScaleScore(player) ? `Credentialed scale ${directMetricDisplay(player, "company")}` : "Credentialed scale pending";
+  if (mode === "revenue") return directRevenueScore(player) ? `Credentialed revenue ${directMetricDisplay(player, "revenue")}` : "Credentialed revenue pending";
+  if (mode === "reach") return directReachScore(player) ? `Credentialed reach ${directMetricDisplay(player, "reach")}` : "Credentialed reach pending";
   if (mode === "appfigures") return requiresCredentialedData(player) ? "Prepared app data queue" : "No app data queue flag";
   if (mode === "ai") return `AI relevance ${player.aiScore} of 5`;
   if (mode === "momentum") return `Recent momentum ${player.momentum} of 5`;
-  if (mode === "evidence") return `Source confidence ${qualityProfile(player).score}%`;
+  if (mode === "evidence") return `Source coverage ${qualityProfile(player).score}%`;
   return `Strategic influence ${bubbleSizeScore(player)} of 5`;
 }
 
@@ -4532,16 +4532,16 @@ function ratingForPlayer(player, modeId = state.ratingMode) {
     detail:
       mode.id === "revenue"
         ? directPending
-          ? "Direct revenue data pending"
-          : `Direct revenue ${directMetricDisplay(player, "revenue")}`
+          ? "Credentialed revenue data pending"
+          : `Credentialed revenue ${directMetricDisplay(player, "revenue")}`
         : mode.id === "company"
           ? directPending
-            ? "Direct scale data pending"
-            : `Direct scale ${directMetricDisplay(player, "company")}`
+            ? "Credentialed scale data pending"
+            : `Credentialed scale ${directMetricDisplay(player, "company")}`
           : mode.id === "reach"
             ? directPending
-              ? "Direct reach data pending"
-              : `Direct reach ${directMetricDisplay(player, "reach")}`
+              ? "Credentialed reach data pending"
+              : `Credentialed reach ${directMetricDisplay(player, "reach")}`
           : mode.id === "appdata"
             ? "Data status"
             : mode.note
@@ -5077,7 +5077,7 @@ function liveMetricClaimFor(player) {
   const source = nonEmptyString(metric.source) || "Direct imported metric";
   const updated = nonEmptyString(metric.lastUpdated) || "";
   return {
-    label: "Direct metric",
+    label: "Metric source",
     text: parts.join("; "),
     basis: `${source}${updated ? ` / ${updated}` : ""}`
   };
@@ -5959,7 +5959,7 @@ function evidenceCoverage(player) {
     replacementCount
       ? "Needs source repair"
       : score >= 76 && sources.length >= 3 && restrictedCount <= 1
-      ? "Evidence supported"
+      ? "Strong source coverage"
       : score >= 56 && sources.length >= 2
         ? "Sourced profile"
         : sources.length
@@ -5991,7 +5991,7 @@ function evidenceCoverage(player) {
 const sourceClassLabels = {
   official: "Official source",
   app_store: "App store",
-  direct_metric: "Direct metric",
+  direct_metric: "Metric source",
   ownership_capital: "Ownership / capital",
   internal_research: "Internal research",
   internal_relationship: "Yousician input",
@@ -6050,7 +6050,7 @@ function sourceCoverageTargetsFor(player) {
     targets.push({
       id: "direct_metric",
       required: false,
-      reason: "Revenue, downloads, traffic, rank and usage claims need credentialed or direct metric data before they become performance facts."
+      reason: "Revenue, downloads, traffic, rank and usage claims need credentialed metric data before they become performance facts."
     });
   }
   if (/ownership|investor|funding|capital|acquired|public|private|sec|filing/.test(text) && !/to verify|unknown|pending/.test(text)) {
@@ -6203,14 +6203,14 @@ function claimConflictAudit(player) {
     const reachScore = directReachScore(player);
     const hasDirectScaleMetric = [metric.downloads, metric.revenue, metric.websiteVisits].some((value) => value != null && value !== "");
     if (hasDirectScaleMetric && /large|global|major|massive|high-profile|very large/.test(reachText) && reachScore > 0 && reachScore <= 2) {
-      conflicts.push("Direct reach metric is materially lower than the current large reach wording.");
+      conflicts.push("Credentialed reach metric is materially lower than the current large reach wording.");
     }
     if (hasDirectScaleMetric && /niche|local|emerging|small|specialist/.test(reachText) && reachScore >= 4) {
-      conflicts.push("Direct reach metric is materially higher than the current niche or emerging reach wording.");
+      conflicts.push("Credentialed reach metric is materially higher than the current niche or emerging reach wording.");
     }
     supported.push(
       hasDirectScaleMetric
-        ? "Direct metric source is loaded for at least one quantitative field."
+        ? "Metric source is loaded for at least one quantitative field."
         : "Public app rating signal is loaded; it is not treated as downloads or revenue."
     );
   } else if (requiresCredentialedData(player)) {
@@ -6302,11 +6302,11 @@ function sizeClaimStatusFor(player) {
     );
   if (hasMetric) {
     return {
-      label: metricIsPublicAppStoreOnly(metric) ? "Public rating loaded" : "Direct metric loaded",
+      label: metricIsPublicAppStoreOnly(metric) ? "Public rating loaded" : "Credentialed metric loaded",
       tone: "verified",
       note: metricIsPublicAppStoreOnly(metric)
         ? "Official App Store rating count is loaded; revenue, downloads and rank trend still need credentialed data."
-        : "A credentialed or direct metric is loaded for this record."
+        : "A credentialed metric is loaded for this record."
     };
   }
   if (/large|major|massive|very large|high-profile|high visibility|broad|established/i.test(player.reach)) {
@@ -6580,7 +6580,7 @@ function factClaimsFor(player) {
       caveat: aiClaimStatusFor(player).note
     },
     {
-      label: "Evidence supported note",
+      label: "Source coverage note",
       text: coverage.record.summary,
       basis: sourceBasis,
       kind: claimIntegrityFor(player).evidence.label,
@@ -6743,7 +6743,7 @@ function executiveProfileSnapshot(player, taxonomy) {
         <div><span>Journey step</span><strong>${escapeHtml(journeyCategoryFor(player).name)}</strong></div>
         <div><span>Yousician use</span><strong>${escapeHtml(lens.label)}</strong></div>
         <div><span>Absolute figure</span><strong>${escapeHtml(absoluteFigureSummary(player))}</strong></div>
-        <div><span>Confidence</span><strong>${escapeHtml(`${quality.score}% source confidence`)}</strong></div>
+        <div><span>Source coverage</span><strong>${escapeHtml(`${quality.score}% profile coverage`)}</strong></div>
         <div><span>Sentiment</span><strong>${escapeHtml(sentimentSummary(player))}</strong></div>
       </div>
       <p>${escapeHtml(lens.body)}</p>
@@ -6918,7 +6918,7 @@ function executiveOnePagerDecisionCards(player, taxonomy, validation, quality) {
 
     <article class="one-pager-card executive-money-card">
       <span>Metric evidence</span>
-      <h3>${directMetric ? (publicOnlyMetric ? "Public app rating loaded" : "Direct metric source loaded") : "Direct data pending"}</h3>
+      <h3>${directMetric ? (publicOnlyMetric ? "Public app rating loaded" : "Credentialed metric source loaded") : "Credentialed data pending"}</h3>
       <p>${
         directMetric
           ? escapeHtml(
@@ -7060,7 +7060,7 @@ function qualityProfile(player) {
     18,
     Math.min(94, coverage.score - sourcePenalty - credentialPenalty - coverage.restrictedCount * 2 - (player.key && coverage.count < 3 ? 4 : 0) - auditPenalty)
   );
-  const label = score >= 76 ? "Evidence supported" : score >= 56 ? "Sourced profile" : "Source light triage";
+  const label = score >= 76 ? "Strong source coverage" : score >= 56 ? "Sourced profile" : "Source light triage";
   return {
     gaps: [...new Set(gaps)],
     score,
@@ -9689,7 +9689,7 @@ function renderProfile() {
       <h3>${executive ? (player.key ? "Key player profile" : "Executive profile") : "Next action"}</h3>
       <p>${
         executive
-          ? "Open the structured player brief for role, scale, confidence, Yousician relevance, and the decision this record supports."
+          ? "Open the structured player brief for role, scale signal, source coverage, Yousician relevance, and the decision this record supports."
           : `${escapeHtml(nextAction(player))}. ${escapeHtml(player.recent)}`
       }</p>
       <div class="profile-actions">
@@ -9721,10 +9721,10 @@ function renderProfile() {
         ${metricRow("Yousician relevance", player.relevance)}
         ${metricRow("Momentum", player.momentum)}
         ${metricRow("AI relevance", player.aiScore)}
-        ${metricRow("Direct scale", directCompanyScaleScore(player) || 0, ratingForPlayer(player, "company").display)}
-        ${metricRow("Direct revenue", directRevenueScore(player) || 0, ratingForPlayer(player, "revenue").display)}
-        ${metricRow("Direct reach", directReachScore(player) || 0, ratingForPlayer(player, "reach").display)}
-        ${metricRow("Source confidence", Math.max(1, Math.round(quality.score / 20)))}
+        ${metricRow("Credentialed scale", directCompanyScaleScore(player) || 0, ratingForPlayer(player, "company").display)}
+        ${metricRow("Credentialed revenue", directRevenueScore(player) || 0, ratingForPlayer(player, "revenue").display)}
+        ${metricRow("Credentialed reach", directReachScore(player) || 0, ratingForPlayer(player, "reach").display)}
+        ${metricRow("Source coverage", Math.max(1, Math.round(quality.score / 20)))}
         ${metricRow("Competitive proximity", competitiveProximityScore(player))}
         ${metricRow("App data status", appfiguresReadinessScore(player))}
       </div>
@@ -10062,7 +10062,7 @@ function databaseMatrixPointHtml(point) {
       data-visual-player="${escapeHtml(player.id)}"
       type="button"
       style="--point-x:${x.toFixed(2)}; --point-y:${y.toFixed(2)}; --point-color:${colorFor(player)}; --point-size:${Math.round(radius * 9)}px"
-      title="${escapeHtml(player.name)} / source confidence ${quality.score}% / priority ${databaseMatrixPriorityScore(player)} / ${proofGap ? "proof needed" : "ready"}"
+      title="${escapeHtml(player.name)} / source coverage ${quality.score}% / priority ${databaseMatrixPriorityScore(player)} / ${proofGap ? "proof needed" : "ready"}"
     >
       <span>${background ? "" : escapeHtml(initials(player.name))}</span>
       ${showLabel ? `<strong>${escapeHtml(label)}</strong>` : ""}
@@ -10242,7 +10242,7 @@ function monitorTrendDefinitions() {
       color: "#ef5a4f",
       segment: "proof",
       matches: (player) => hasCriticalEvidenceGap(player) || qualityProfile(player).score < 68,
-      insight: "These records should not drive decisions until the source or confidence gap is closed."
+      insight: "These records should not drive decisions until the source or coverage gap is closed."
     },
     {
       id: "partner-surface",
@@ -10770,7 +10770,7 @@ function renderMonitorExecutiveSummary(filteredPlayers) {
       label: "Decision ready",
       title: readyLead ? readyLead.name : "No ready lead",
       value: `${readyRecords.length} records`,
-      note: readyLead ? `${qualityProfile(readyLead).score}% source confidence` : "Most records still need evidence or internal data.",
+      note: readyLead ? `${qualityProfile(readyLead).score}% source coverage` : "Most records still need evidence or internal data.",
       action: readyLead ? `<button type="button" data-monitor-player="${escapeHtml(readyLead.id)}">Open brief</button>` : ""
     },
     {
@@ -10888,7 +10888,7 @@ function renderMonitorExecutiveRoleLenses(filteredPlayers) {
     {
       label: "Board",
       question: "Where should attention go next?",
-      keep: "Priority, decision question, confidence, current signal.",
+      keep: "Priority, decision question, source coverage, current signal.",
       lower: "Raw source links and long tail records.",
       players: filteredPlayers.filter((player) => player.key || player.relevance >= 5),
       score: (player) => totalPriority(player) + qualityProfile(player).score / 10
@@ -10917,7 +10917,7 @@ function renderMonitorExecutiveRoleLenses(filteredPlayers) {
     {
       label: "Research ops",
       question: "What blocks a hard claim?",
-      keep: "Proof gaps, internal data need, source confidence, next import.",
+      keep: "Proof gaps, internal data need, source coverage, next import.",
       lower: "Narrative explanation once evidence is already strong.",
       players: proofQueue,
       score: monitorProofGapScore
@@ -10959,9 +10959,9 @@ function monitorLeaderDefinitions() {
     { id: "relevance", label: "Yousician fit", note: "Closest mission fit", score: (player) => player.relevance, display: (player) => `${player.relevance}/5` },
     { id: "momentum", label: "Momentum", note: "Most active signal", score: (player) => player.momentum, display: (player) => `${player.momentum}/5` },
     { id: "ai", label: "AI pressure", note: "AI relevance", score: (player) => player.aiScore, display: (player) => `${player.aiScore}/5` },
-    { id: "company", label: "Verified scale", note: "Direct data only", score: directCompanyScaleScore, display: (player) => ratingForPlayer(player, "company").display },
-    { id: "revenue", label: "Verified revenue", note: "Direct data only", score: directRevenueScore, display: (player) => ratingForPlayer(player, "revenue").display },
-    { id: "reach", label: "Verified reach", note: "Direct data only", score: directReachScore, display: (player) => ratingForPlayer(player, "reach").display },
+    { id: "company", label: "Credentialed scale", note: "Imported data only", score: directCompanyScaleScore, display: (player) => ratingForPlayer(player, "company").display },
+    { id: "revenue", label: "Credentialed revenue", note: "Credentialed data only", score: directRevenueScore, display: (player) => ratingForPlayer(player, "revenue").display },
+    { id: "reach", label: "Credentialed reach", note: "Imported data only", score: directReachScore, display: (player) => ratingForPlayer(player, "reach").display },
     { id: "capital", label: "Capital signal", note: "Funding and ownership", score: monitorFundingSignalScore, display: (player) => `${monitorFundingSignalScore(player)}/10` },
     { id: "proximity", label: "Proximity", note: "Competitive closeness", score: competitiveProximityScore, display: (player) => `${competitiveProximityScore(player)}/5` },
     { id: "proof", label: "Proof gap", note: "Needs verification", score: monitorProofGapScore, display: (player) => `${Math.round(monitorProofGapScore(player))}` }
@@ -11127,8 +11127,8 @@ function renderMonitorBenchmark(filteredPlayers) {
             <th scope="col">Yousician fit</th>
             <th scope="col">Momentum</th>
             <th scope="col">AI</th>
-            <th scope="col">Direct scale</th>
-            <th scope="col">Direct revenue</th>
+            <th scope="col">Credentialed scale</th>
+            <th scope="col">Credentialed revenue</th>
             <th scope="col">Evidence</th>
             <th scope="col">Next check</th>
           </tr>
@@ -12335,7 +12335,7 @@ function onePagerSelfUpdateItems(player, quality, validation) {
     },
     {
       tone: "safe",
-      label: "Source confidence",
+      label: "Source coverage",
       value: `${quality.score}% ${quality.label}`,
       detail: "Recomputed from linked sources, source classes and contradictions."
     },
@@ -12422,7 +12422,7 @@ function onePagerFactStripHtml(player, taxonomy, quality) {
       icon: "circle-dollar-sign",
       label: "Revenue evidence",
       value: revenueDisplay === "Pending" ? "Not loaded" : revenueDisplay,
-      detail: revenueDisplay === "Pending" ? "Credentialed revenue source required." : "Direct revenue source loaded."
+      detail: revenueDisplay === "Pending" ? "Credentialed revenue source required." : "Credentialed revenue source loaded."
     },
     {
       icon: "users",
@@ -12456,7 +12456,7 @@ function onePagerFactStripHtml(player, taxonomy, quality) {
         .join("")}
       <div class="one-pager-fact one-pager-fact-wide">
         <i data-lucide="badge-check"></i>
-        <span>Source confidence</span>
+        <span>Source coverage</span>
         <strong>${quality.score}% ${escapeHtml(quality.label)}</strong>
         <small>Linked source coverage and claim quality.</small>
       </div>
@@ -12478,7 +12478,7 @@ function onePagerExecutivePriorityStripHtml(player, taxonomy, validation, qualit
   const trigger = requiresCredentialedData(player)
     ? "App data import could change scale, rank, growth or sentiment read."
     : quality.gaps.length
-      ? `Closing ${quality.gaps.slice(0, 2).join(" and ")} would change confidence.`
+      ? `Closing ${quality.gaps.slice(0, 2).join(" and ")} would change source coverage.`
       : "A product, funding, partnership or policy signal would change priority.";
   const lowerDetail = needs.length
     ? needs.slice(0, 2).join(", ")
@@ -12536,7 +12536,7 @@ function onePagerAudienceHierarchyHtml(player, taxonomy, validation, quality) {
       label: "Read first",
       title: posture.headline,
       body: `${posture.label}. ${executiveDecisionQuestion(player, taxonomy)}`,
-      note: `${quality.score}% source confidence`
+      note: `${quality.score}% source coverage`
     },
     {
       label: "Use next",
@@ -12615,15 +12615,15 @@ function onePagerSnapshotRows(player, quality) {
         : websiteHost
     ],
     ["Strategic relevance", ratingForPlayer(player, "strategic").display],
-    ["Direct scale", directMetricDisplay(player, "company")],
-    ["Direct revenue", directMetricDisplay(player, "revenue")],
-    ["Direct reach", directMetricDisplay(player, "reach")],
+    ["Credentialed scale", directMetricDisplay(player, "company")],
+    ["Credentialed revenue", directMetricDisplay(player, "revenue")],
+    ["Credentialed reach", directMetricDisplay(player, "reach")],
     ["HQ", hq.value],
     ["Global footprint", globalFootprintFor(player)],
     ["Reach signal", reachSignalFor(player)],
     ["Business model", player.model],
     ["Ownership", displayOwnership(player)],
-    ["Source confidence", `${quality.score}% with ${coverage.count} linked source${coverage.count === 1 ? "" : "s"}`],
+    ["Source coverage", `${quality.score}% with ${coverage.count} linked source${coverage.count === 1 ? "" : "s"}`],
     ["Relationship status", templateRelationshipFor(player)],
     ["App data status", executiveAppfiguresNote(player)]
   ];
@@ -12765,7 +12765,7 @@ function onePagerAssessmentHtml(player, quality) {
     { icon: "crosshair", label: "M&A relevance", value: acquisitionScore },
     { icon: "network", label: "Ecosystem influence", value: strategicScoreFive(player) },
     { icon: "brain", label: "AI relevance", value: player.aiScore },
-    { icon: "badge-check", label: "Source confidence", value: Math.max(1, Math.round(quality.score / 20)) }
+    { icon: "badge-check", label: "Source coverage", value: Math.max(1, Math.round(quality.score / 20)) }
   ];
   return `
     <div class="one-pager-score-card-grid">
@@ -12907,12 +12907,12 @@ function onePagerExecutiveBriefHtml(player, taxonomy, validation, quality) {
       detail: posture.owner
     },
     {
-      label: "Business scale",
+      label: "Public scale signal",
       value: absoluteFigureSummary(player),
-      detail: ratingForPlayer(player, "revenue").detail
+      detail: "Not revenue, downloads or active users unless credentialed data is loaded."
     },
     {
-      label: "Evidence confidence",
+      label: "Source coverage",
       value: `${quality.score}%`,
       detail: `${quality.label}, ${quality.coverage.count} linked source${quality.coverage.count === 1 ? "" : "s"}`
     },
@@ -13215,7 +13215,7 @@ function renderDatabaseStats() {
     ["Market signals", signalCount, "monitoring inputs", "market-signals"],
     ["Yousician checks", internalCheckCount, "relationship validation", "relationships"],
     ["AI records", aiCount, "high AI signal", "ai-relevant"],
-    ["Avg. source confidence", avgQuality, avgNote, "source-confidence"],
+    ["Avg. source coverage", avgQuality, avgNote, "source-confidence"],
     ["Source class gaps", sourceClassGapCount, "missing source type coverage", "source-targets"],
     ["Value conflicts", valueConflictCount, "hard contradictions", "value-conflicts"],
     ["Consistency notes", valueCaveatCount, "credential or source caveats", "claim-caveats"]
@@ -13307,7 +13307,7 @@ function renderDatabaseVisuals(rows) {
         <p>Important records sit at the top. Move them right by adding stronger sources.</p>
       </div>
       <div class="database-visual-stats" aria-label="Evidence coverage summary">
-        <button type="button" data-dashboard-action="source-confidence"><strong>${avgQuality}%</strong> avg source confidence</button>
+        <button type="button" data-dashboard-action="source-confidence"><strong>${avgQuality}%</strong> avg source coverage</button>
         <button type="button" data-dashboard-action="key-players"><strong>${keyRecordCount}</strong> priority records</button>
         <button type="button" data-dashboard-action="ready-records"><strong>${readyCount}</strong> ready for use</button>
         <button type="button" data-dashboard-action="proof-debt"><strong>${proofGapCount}</strong> proof gaps</button>
@@ -13315,7 +13315,7 @@ function renderDatabaseVisuals(rows) {
         <button type="button" data-dashboard-action="value-conflicts"><strong>${valueConflictCount}</strong> value conflicts</button>
         <button type="button" data-dashboard-action="claim-caveats"><strong>${valueCaveatCount}</strong> consistency notes</button>
       </div>
-      <div class="database-confidence-legend" aria-label="Source confidence legend">
+      <div class="database-confidence-legend" aria-label="Source coverage legend">
         <span><i class="legend-ready"></i> usable evidence</span>
         <span><i class="legend-gap"></i> proof needed</span>
         <span><i class="legend-key"></i> priority record</span>
@@ -13326,7 +13326,7 @@ function renderDatabaseVisuals(rows) {
         <span class="matrix-quadrant quadrant-watch">Lower priority</span>
         <span class="matrix-quadrant quadrant-proof">Good proof, lower priority</span>
         <span class="matrix-axis axis-y">Strategic priority</span>
-        <span class="matrix-axis axis-x">Source confidence</span>
+        <span class="matrix-axis axis-x">Source coverage</span>
         <span class="matrix-threshold threshold-confidence"></span>
         <span class="matrix-threshold threshold-priority"></span>
         ${matrixPoints.map(databaseMatrixPointHtml).join("")}
@@ -13352,7 +13352,7 @@ function renderDatabaseVisuals(rows) {
                   <span title="Evidence strength"><i></i></span>
                   <span title="Strategic pressure"><i></i></span>
                 </div>
-                <small>${avgQuality}% source confidence / ${gapCount} completion gap${gapCount === 1 ? "" : "s"}</small>
+                <small>${avgQuality}% source coverage / ${gapCount} completion gap${gapCount === 1 ? "" : "s"}</small>
               </button>
             `
           )
@@ -13398,7 +13398,7 @@ function databaseCardHtml(player) {
           <span>${categoryIconHtml(category, "record-meta-icon")}<strong>Category</strong>${escapeHtml(category?.shortName || player.category)}</span>
           <span>${iconHtml(productLensIconForLabel(productFocusLabel(player)), "record-meta-icon")}<strong>Product lens</strong>${escapeHtml(productFocusLabel(player))}</span>
           <span>${iconHtml("sliders-horizontal", "record-meta-icon")}<strong>${escapeHtml(activeRating.label)}</strong>${escapeHtml(activeRating.display)}</span>
-          <span>${iconHtml("shield-check", "record-meta-icon")}<strong>Source confidence</strong>${escapeHtml(quality.label)}</span>
+          <span>${iconHtml("shield-check", "record-meta-icon")}<strong>Source coverage</strong>${escapeHtml(quality.label)}</span>
           <span>${iconHtml("git-compare-arrows", "record-meta-icon")}<strong>Consistency</strong>${escapeHtml(quality.conflictAudit.status === "consistent" ? "No conflict flagged" : quality.conflictAudit.status === "conflict" ? "Review conflict" : "Caveat")}</span>
           <span>${iconHtml("lightbulb", "record-meta-icon")}<strong>Why it matters</strong>${escapeHtml(player.why)}</span>
         </div>
@@ -13704,7 +13704,7 @@ function renderKeyPlayerTemplate(rows, totalRows) {
       <div>
         <span class="section-kicker">Key players database template</span>
         <h3>Decision fields for the current view</h3>
-        <p>Live template from the selected filters. Direct metric fields stay pending until internal or licensed data is added.</p>
+        <p>Live template from the selected filters. Credentialed metric fields stay pending until internal or licensed data is added.</p>
       </div>
       <div class="template-panel-actions">
         <button class="ghost-button" type="button" data-template-open-all>Open full table</button>
@@ -14367,7 +14367,7 @@ function renderEvidenceLibrary() {
         <div>
           <span class="section-kicker">Cross source consistency</span>
           <h3>Values are checked against source classes before they become claims</h3>
-          <p>Each player is tested for missing source types and contradictory value signals such as reach wording versus direct metrics, ownership caveats, broken sources and metric gates.</p>
+          <p>Each player is tested for missing source types and contradictory value signals such as reach wording versus credentialed metrics, ownership caveats, broken sources and metric gates.</p>
         </div>
         <div>
           <strong>${conflictRows.length}</strong>
@@ -14493,7 +14493,7 @@ function renderValidationReadiness() {
       <div class="validation-metrics">
         <span><strong>${credentialQueueCount}</strong> live-data records</span>
         <span><strong>${relationshipChecks}</strong> relationship checks</span>
-        <span><strong>${liveMetricOverrideCount}</strong> direct metrics</span>
+        <span><strong>${liveMetricOverrideCount}</strong> credentialed metrics</span>
         <span><strong>${relationshipOverrideCount}</strong> relationship overrides</span>
         <span><strong>${readyFeeds}/${liveDataFeeds.length}</strong> feeds ready</span>
       </div>
@@ -14854,8 +14854,8 @@ function renderDirectSourceContract() {
   return `
     <section class="direct-source-contract" aria-label="Direct source update contract">
       <div class="backend-section-head">
-        <strong>Self updating direct source contract</strong>
-        <span>${directMetricPlayers} players with direct metrics</span>
+        <strong>Self updating source contract</strong>
+        <span>${directMetricPlayers} players with credentialed metrics</span>
       </div>
       <p>Public sources refresh into a review queue. Revenue, downloads, rank, review velocity, country mix, traffic and relationship fields only update from credentialed or internal inputs.</p>
       <div class="direct-source-grid">
@@ -14868,7 +14868,7 @@ function renderDirectSourceContract() {
         <li>Refresh public sources and stage changes for review.</li>
         <li>Import credentialed Appfigures, Similarweb, Crunchbase or internal exports.</li>
         <li>Approve source changes before they affect executive copy.</li>
-        <li>Keep missing direct metrics as Pending.</li>
+        <li>Keep missing credentialed metrics as Pending.</li>
       </ol>
     </section>
   `;
@@ -15449,8 +15449,8 @@ function handleDashboardAction(action) {
       showToast("Showing market signal records.");
     },
     "source-confidence": () => {
-      focusDatabaseSegment("all", { sort: "evidence", focus: "Source confidence", target: "#databaseVisuals" });
-      showToast("Showing source confidence view.");
+      focusDatabaseSegment("all", { sort: "evidence", focus: "Source coverage", target: "#databaseVisuals" });
+      showToast("Showing source coverage view.");
     },
     "claim-caveats": () => {
       focusDatabaseSegment("claims", { sort: "source", focus: "Claim caveats" });
@@ -16335,14 +16335,14 @@ function downloadCsv() {
     "Strategic relevance",
     "Momentum",
     "AI relevance",
-    "Direct scale score",
-    "Direct revenue score",
-    "Direct reach score",
-    "Source confidence score",
+    "Credentialed scale score",
+    "Credentialed revenue score",
+    "Credentialed reach score",
+    "Source coverage score",
     "Competitive proximity score",
     "App data status score",
     "Last 24m / next check",
-    "Research confidence",
+    "Research status",
     "Last verified",
     "Source status",
     "Relationship",
