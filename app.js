@@ -4893,6 +4893,13 @@ function relationshipOverrideFor(player) {
 function liveMetricClaimFor(player) {
   const metric = directMetricFor(player);
   if (!metric) return null;
+  if (metricIsPublicAppStoreOnly(metric)) {
+    return {
+      label: "Public App Store signal",
+      text: publicAppStoreMetricLabel(player),
+      basis: `${metric.source || "Official App Store public lookup"}${metric.lastUpdated ? ` / ${metric.lastUpdated}` : ""}`
+    };
+  }
   const parts = [
     metric.downloads != null ? `Downloads: ${metric.downloads}` : "",
     metric.revenue != null ? `Revenue: ${metric.revenue}` : "",
@@ -5337,6 +5344,29 @@ function publicEnrichmentMetricFor(player) {
       metric.notes ||
       "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention."
   };
+}
+
+function publicAppStoreMetricFor(player) {
+  const metric = publicEnrichmentFor(player)?.publicMetric;
+  if (!metric) return null;
+  const sourceText = metricText([metric.source, metric.data_source, metric.notes]);
+  if (!/app\s*store|apple/i.test(sourceText)) return null;
+  return metric;
+}
+
+function metricIsPublicAppStoreOnly(metric) {
+  if (!metric) return false;
+  const sourceText = metricText([metric.source, metric.data_source, metric.notes]);
+  return /app\s*store|apple/i.test(sourceText) && metric.revenue == null && metric.downloads == null && metric.websiteVisits == null;
+}
+
+function publicAppStoreMetricLabel(player) {
+  const metric = publicAppStoreMetricFor(player);
+  if (!metric) return "No public App Store rating loaded";
+  const parts = [];
+  if (metric.rating != null) parts.push(`${Number(metric.rating).toFixed(1)}/5`);
+  if (metric.reviewCount != null) parts.push(`${compactMetricNumber(Number(metric.reviewCount))} ratings`);
+  return parts.length ? parts.join(" on ") : "Public App Store listing loaded";
 }
 
 function isCredentialedQuestion(question) {
@@ -6108,9 +6138,11 @@ function sizeClaimStatusFor(player) {
     );
   if (hasMetric) {
     return {
-      label: "Direct metric loaded",
+      label: metricIsPublicAppStoreOnly(metric) ? "Public rating loaded" : "Direct metric loaded",
       tone: "verified",
-      note: "A credentialed or direct metric is loaded for this record."
+      note: metricIsPublicAppStoreOnly(metric)
+        ? "Official App Store rating count is loaded; revenue, downloads and rank trend still need credentialed data."
+        : "A credentialed or direct metric is loaded for this record."
     };
   }
   if (/large|major|massive|very large|high-profile|high visibility|broad|established/i.test(player.reach)) {
@@ -6455,7 +6487,7 @@ function absoluteFigureSummary(player) {
   if (metric?.downloads != null) figures.push(`${metric.downloads} downloads`);
   if (metric?.revenue != null) figures.push(`${metric.revenue} revenue`);
   if (metric?.websiteVisits != null) figures.push(`${metric.websiteVisits} visits`);
-  if (metric?.reviewCount != null) figures.push(`${compactMetricNumber(metric.reviewCount)} public ratings`);
+  if (metric?.reviewCount != null) figures.push(`${compactMetricNumber(metric.reviewCount)} public App Store ratings`);
   if (metric?.categoryRank != null) figures.push(`rank ${metric.categoryRank}`);
   if (figures.length) return figures.slice(0, 2).join(" / ");
   if (/public company/i.test(player.ownership)) return "Public filings available";
@@ -6466,7 +6498,7 @@ function absoluteFigureSummary(player) {
 function sentimentSummary(player) {
   const metric = directMetricFor(player);
   if (metric?.rating != null && metric?.reviewCount != null) {
-    return `${Number(metric.rating).toFixed(1)}/5 on ${compactMetricNumber(metric.reviewCount)} ratings`;
+    return `${Number(metric.rating).toFixed(1)}/5 on ${compactMetricNumber(metric.reviewCount)} public ratings`;
   }
   if (metric?.reviewVelocity != null) return `${metric.reviewVelocity} review velocity`;
   if (requiresCredentialedData(player)) return "App sentiment gated";
@@ -6690,6 +6722,7 @@ function executiveOnePagerDecisionCards(player, taxonomy, validation, quality) {
   const guardrails = executiveGuardrailsFor(player, quality, validation);
   const sourceNeedsText = sourceNeeds(player).join(", ");
   const directMetric = directMetricFor(player);
+  const publicOnlyMetric = metricIsPublicAppStoreOnly(directMetric);
   return `
     <article class="one-pager-card executive-priority-card one-pager-card-large">
       <span>Executive priority</span>
@@ -6706,12 +6739,14 @@ function executiveOnePagerDecisionCards(player, taxonomy, validation, quality) {
     </article>
 
     <article class="one-pager-card executive-money-card">
-      <span>Direct metrics</span>
-      <h3>${directMetric ? "Metric source loaded" : "Direct data pending"}</h3>
+      <span>Metric evidence</span>
+      <h3>${directMetric ? (publicOnlyMetric ? "Public app rating loaded" : "Direct metric source loaded") : "Direct data pending"}</h3>
       <p>${
         directMetric
           ? escapeHtml(
-              `Revenue ${directMetricDisplay(player, "revenue")}. Reach ${directMetricDisplay(player, "reach")}. Source ${directMetric.source}.`
+              publicOnlyMetric
+                ? `${publicAppStoreMetricLabel(player)}. Revenue, downloads, rank trend and country mix still need credentialed data.`
+                : `Revenue ${directMetricDisplay(player, "revenue")}. Reach ${directMetricDisplay(player, "reach")}. Source ${directMetric.source}.`
             )
           : "Revenue, downloads, rank, review velocity and country mix stay blank until a credentialed source is imported."
       }</p>
@@ -11978,6 +12013,8 @@ function onePagerFactStripHtml(player, taxonomy, quality) {
   const websiteHost = onePagerHostFor(player);
   const hq = headquartersRecordFor(player);
   const founded = foundedRecordFor(player);
+  const revenueDisplay = directMetricDisplay(player, "revenue");
+  const publicMetric = publicAppStoreMetricFor(player);
   const facts = [
     { icon: "map-pin", label: "HQ", value: hq.value, detail: `Global footprint: ${globalFootprintFor(player)}` },
     {
@@ -11989,11 +12026,16 @@ function onePagerFactStripHtml(player, taxonomy, quality) {
     { icon: "network", label: "Ownership", value: displayOwnership(player), detail: "Legal owner first; relationship status is separate." },
     {
       icon: "circle-dollar-sign",
-      label: "Direct revenue",
-      value: ratingForPlayer(player, "revenue").display,
-      detail: "Rating only unless an absolute figure is loaded."
+      label: "Revenue evidence",
+      value: revenueDisplay === "Pending" ? "Not loaded" : revenueDisplay,
+      detail: revenueDisplay === "Pending" ? "Credentialed revenue source required." : "Direct revenue source loaded."
     },
-    { icon: "users", label: "Scale proof", value: absoluteFigureSummary(player), detail: `Reach signal: ${reachSignalFor(player)}` },
+    {
+      icon: "users",
+      label: publicMetric ? "Public app signal" : "Scale proof",
+      value: publicMetric ? publicAppStoreMetricLabel(player) : absoluteFigureSummary(player),
+      detail: publicMetric ? "Ratings only, not downloads or revenue." : `Reach signal: ${reachSignalFor(player)}`
+    },
     {
       icon: "globe",
       label: "Website",
@@ -12166,7 +12208,8 @@ function onePagerSnapshotRows(player, quality) {
   const websiteUrl = sourceUrl(websiteSource);
   const websiteHost = onePagerHostFor(player);
   const hq = headquartersRecordFor(player);
-  return [
+  const publicMetric = publicAppStoreMetricFor(player);
+  const rows = [
     ["Market priority rank", `#${priorityRank.rank} of ${priorityRank.total} company and organisation records`],
     ["Category priority rank", `#${categoryRank.rank} of ${categoryRank.total} records in this category`],
     [
@@ -12178,9 +12221,9 @@ function onePagerSnapshotRows(player, quality) {
         : websiteHost
     ],
     ["Strategic relevance", ratingForPlayer(player, "strategic").display],
-    ["Direct scale", `${ratingForPlayer(player, "company").display} ${directMetricDisplay(player, "company")}`],
-    ["Direct revenue", `${ratingForPlayer(player, "revenue").display} ${directMetricDisplay(player, "revenue")}`],
-    ["Direct reach", `${ratingForPlayer(player, "reach").display} ${directMetricDisplay(player, "reach")}`],
+    ["Direct scale", directMetricDisplay(player, "company")],
+    ["Direct revenue", directMetricDisplay(player, "revenue")],
+    ["Direct reach", directMetricDisplay(player, "reach")],
     ["HQ", hq.value],
     ["Global footprint", globalFootprintFor(player)],
     ["Reach signal", reachSignalFor(player)],
@@ -12190,6 +12233,10 @@ function onePagerSnapshotRows(player, quality) {
     ["Relationship status", templateRelationshipFor(player)],
     ["App data status", executiveAppfiguresNote(player)]
   ];
+  if (publicMetric) {
+    rows.splice(7, 0, ["Public app rating", publicAppStoreMetricLabel(player)]);
+  }
+  return rows;
 }
 
 function onePagerPortfolioRows(player, taxonomy) {
@@ -13105,15 +13152,6 @@ function headquartersRecordFor(player) {
       caveat: "Footprint and market reach are shown separately."
     };
   }
-  const seeded = headquartersByPlayerId[player.id];
-  if (seeded?.value) {
-    return {
-      value: seeded.value,
-      basis: seeded.basis || "Public HQ seed",
-      kind: "HQ seed",
-      caveat: "Use as entity or parent HQ; verify against the latest source before board circulation."
-    };
-  }
   const enriched = publicEnrichmentFor(player)?.hq;
   if (nonEmptyString(enriched?.value)) {
     return {
@@ -13121,6 +13159,15 @@ function headquartersRecordFor(player) {
       basis: enriched.source || "Public enrichment",
       kind: "Public HQ reference",
       caveat: "Public reference loaded automatically. Footprint and reach stay separate."
+    };
+  }
+  const seeded = headquartersByPlayerId[player.id];
+  if (seeded?.value) {
+    return {
+      value: seeded.value,
+      basis: seeded.basis || "Public HQ seed",
+      kind: "HQ seed",
+      caveat: "Fallback value. Use the linked public source before board circulation."
     };
   }
   const entityKind = entityKindFor(player);

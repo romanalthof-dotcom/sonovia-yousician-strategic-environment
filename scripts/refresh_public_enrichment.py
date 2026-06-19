@@ -31,6 +31,7 @@ TARGET = DATA / "public-enrichment.json"
 WIKIDATA_API = "https://www.wikidata.org/w/api.php"
 ITUNES_LOOKUP = "https://itunes.apple.com/lookup"
 USER_AGENT = "YousicianStrategicEnvironmentPublicEnrichment/1.0 (+human-reviewed-market-intelligence)"
+APP_METRIC_EXCLUDED_PLAYERS = {"fender"}
 
 
 def now_iso() -> str:
@@ -241,14 +242,53 @@ def primary_public_source(player: dict[str, Any], evidence: dict[str, Any], sour
 
 
 def parse_itunes_id(value: str) -> str:
+    app_url_match = re.search(r"/id(\d{7,12})(?:[/?#]|$)", value or "", flags=re.I)
+    if app_url_match:
+        return app_url_match.group(1)
     match = re.search(r"\b(\d{7,12})\b", value or "")
     return match.group(1) if match else ""
 
 
-def itunes_public_metrics(app_id: str) -> dict[str, Any] | None:
+def parse_app_store_reference(value: str) -> tuple[str, str]:
+    app_id = parse_itunes_id(value)
+    if not app_id:
+        return "", ""
+    country = "us"
+    match = re.search(r"apps\.apple\.com/([a-z]{2})/", value or "", flags=re.I)
+    if match:
+        country = match.group(1).lower()
+    return app_id, country
+
+
+def app_store_references_for_player(player: dict[str, Any], record: dict[str, Any], sources: dict[str, dict[str, Any]], live: dict[str, Any]) -> list[tuple[str, str, str]]:
+    references: list[tuple[str, str, str]] = []
+    metric_seed = live.get("metricsByPlayer", {}).get(player["id"], {})
+    seed_id, seed_country = parse_app_store_reference(str(metric_seed.get("appfiguresAppId", "")))
+    if seed_id:
+        references.append((seed_id, seed_country or "us", "live override app id"))
+    for source_id in record.get("sourceIds", []):
+        source = sources.get(source_id) or {}
+        url = str(source.get("url", ""))
+        if "apps.apple.com" not in url:
+            continue
+        app_id, country = parse_app_store_reference(url)
+        if app_id:
+            references.append((app_id, country or "us", url))
+    seen: set[tuple[str, str]] = set()
+    unique: list[tuple[str, str, str]] = []
+    for app_id, country, basis in references:
+        key = (app_id, country)
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append((app_id, country, basis))
+    return unique
+
+
+def itunes_public_metrics(app_id: str, country: str = "us") -> dict[str, Any] | None:
     if not app_id:
         return None
-    data = http_json(ITUNES_LOOKUP, {"id": app_id, "country": "us"}, timeout=14)
+    data = http_json(ITUNES_LOOKUP, {"id": app_id, "country": country or "us"}, timeout=14)
     if not data or not data.get("resultCount"):
         return None
     result = data["results"][0]
@@ -258,6 +298,7 @@ def itunes_public_metrics(app_id: str) -> dict[str, Any] | None:
         return None
     return {
         "appStoreId": app_id,
+        "country": country or "us",
         "appName": result.get("trackName", ""),
         "sellerName": result.get("sellerName", ""),
         "genre": result.get("primaryGenreName", ""),
@@ -431,6 +472,7 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
 
     for player in players[: args.max_players or None]:
         player_id = player["id"]
+        record = evidence.get("evidenceByPlayer", {}).get(player_id, {})
         entry: dict[str, Any] = {
             "name": player["name"],
             "lastUpdated": today(),
@@ -467,19 +509,32 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
                 }
             )
 
-        metric_seed = live.get("metricsByPlayer", {}).get(player_id, {})
-        app_id = parse_itunes_id(str(metric_seed.get("appfiguresAppId", "")))
-        metric = itunes_public_metrics(app_id)
+        app_store_references = app_store_references_for_player(player, record, sources, live)
+        metric = None
+        metric_basis = ""
+        for app_id, country, basis in app_store_references:
+            metric = itunes_public_metrics(app_id, country)
+            metric_basis = basis
+            if metric:
+                break
+            time.sleep(args.sleep)
         if metric:
             entry["appStore"] = metric
-            entry["publicMetric"] = {
-                "reviewCount": metric.get("reviewCount"),
-                "rating": metric.get("rating"),
-                "source": metric.get("source"),
-                "sourceUrl": metric.get("sourceUrl"),
-                "lastUpdated": metric.get("lastUpdated"),
-                "notes": metric.get("notes"),
-            }
+            if player_id not in APP_METRIC_EXCLUDED_PLAYERS:
+                entry["publicMetric"] = {
+                    "reviewCount": metric.get("reviewCount"),
+                    "rating": metric.get("rating"),
+                    "source": metric.get("source"),
+                    "sourceUrl": metric.get("sourceUrl"),
+                    "lastUpdated": metric.get("lastUpdated"),
+                    "basis": metric_basis,
+                    "notes": metric.get("notes"),
+                }
+            else:
+                entry["publicMetric"] = None
+                entry["appStore"]["notes"] = (
+                    "Related app listing found, but not promoted as this player metric because the record represents a parent, channel, or broader company."
+                )
             entry["sources"].append(
                 {
                     "title": f"{metric.get('appName') or player['name']} App Store public lookup",
@@ -491,7 +546,8 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
                     "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion."
                 }
             )
-            app_store_count += 1
+            if entry["publicMetric"]:
+                app_store_count += 1
             if text_conflict(player["name"], metric.get("appName", "")):
                 entry["conflicts"].append(
                     {
@@ -502,7 +558,7 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
                         "note": "App Store app name does not closely match the dashboard player name. Confirm product mapping before using metrics."
                     }
                 )
-        if app_id:
+        if app_store_references:
             time.sleep(args.sleep)
 
         wikidata = wikidata_enrichment(player) if args.wikidata else None
@@ -577,8 +633,8 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
         "status": {
             "label": "Public enrichment layer",
             "lastUpdated": now_iso(),
-            "version": "public-enrichment-v1",
-            "method": "Generated from app.js players, evidence-library primary public sources, Apple iTunes public lookup, and Wikidata entity records.",
+            "version": "public-enrichment-v2",
+            "method": "Generated from app.js players, evidence-library primary public sources, Apple App Store public lookups found in source links, live override app ids, and Wikidata entity records.",
             "caveat": "Public enrichment can fill profile facts, official links, rating counts and reference metadata. It must not be used as Appfigures, Similarweb, revenue, downloads, conversion, retention, active user, internal relationship or rank-trend proof.",
             "checkedPlayers": checked,
             "primaryWebsites": website_count,
