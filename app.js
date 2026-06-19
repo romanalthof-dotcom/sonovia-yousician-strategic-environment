@@ -450,7 +450,7 @@ const players = [
     ownership: "Public company",
     ai: "Research smart instruments, learning integrations, and audio AI",
     description: "Large music instrument and audio company with broad education relevance.",
-    why: "Influences hardware access, music education channels, and partner possibilities.",
+    why: "Influences hardware access, music education channels, and possible route options.",
     relevance: 4,
     momentum: 3,
     aiScore: 2,
@@ -3221,7 +3221,7 @@ const selfUpdatingFieldContracts = [
     id: "relationship-status",
     group: "Manual decision",
     tone: "locked",
-    field: "Existing relationship, owner, contact history, sensitivity and active path",
+    field: "Yousician relationship status, owner, contact history, sensitivity and active path",
     cadence: "Review cycle",
     owner: "Yousician owner, BizDev or LST",
     rule: "Keep manual because the market cannot know internal relationship truth."
@@ -3578,7 +3578,7 @@ const playerInternalGapNotes = {
       "Which audience, rights and brand safety constraints would block a real use case?"
     ],
     unsafe: ["Do not frame Disney as partner, acquirer or IP route without internal strategy confirmation."],
-    nextStep: "Classify as watchlist, partner thesis or no-action after leadership review."
+    nextStep: "Classify as watchlist, route thesis or no-action after leadership review."
   },
   "epic-games": {
     headline: "Validate interactive entertainment relevance",
@@ -3589,7 +3589,7 @@ const playerInternalGapNotes = {
       "What acquisition or partnership precedent actually matters to Yousician?"
     ],
     unsafe: ["Do not treat youth attention as strategic fit until a concrete use case exists."],
-    nextStep: "Separate attention competitor, product inspiration and partner thesis."
+    nextStep: "Separate attention competitor, product inspiration and route thesis."
   },
   roblox: {
     headline: "Validate youth identity and creation relevance",
@@ -3597,7 +3597,7 @@ const playerInternalGapNotes = {
     questions: [
       "Does youth identity, social feedback or creator participation map to Yousician's target learners?",
       "Which research shows group play, sharing or identity as a retention driver?",
-      "Could Roblox be inspiration only, a partner surface, or outside scope?"
+      "Could Roblox be inspiration only, a route surface, or outside scope?"
     ],
     unsafe: ["Do not overstate education or music-learning fit from platform scale alone."],
     nextStep: "Add user research on social motivation and classify strategic relevance."
@@ -5096,7 +5096,7 @@ function internalValidationFor(player) {
     ? "Internal relationship status not yet captured in this dataset. To be completed by Yousician."
     : "Not prioritized for internal relationship review in the current visible set.";
   const nextStep = partnerLike
-    ? "Confirm owner, contact history, intro path, sensitivity, and whether this belongs in a partner pipeline."
+    ? "Confirm owner, contact history, intro path, sensitivity, and whether this belongs in a relationship pipeline."
     : competitorLike
       ? "Confirm whether Product, Brand, or Growth already tracks this player and add owner notes."
       : isStrategicRelation
@@ -6681,18 +6681,32 @@ function profileSpecificLens(player, taxonomy, validation) {
   const safeValidation = validation || internalValidationFor(player);
   const relation = relationForPlayer(player);
   const proximity = competitiveProximityScore(player);
-  if (relation?.type === "competes" || proximity >= 5) {
+  if (player.category === "practice" && proximity >= 4 && relation?.type !== "competes") {
+    return {
+      label: "Practice pressure lens",
+      headline: "Compare song choice, repertoire and repeat practice habits",
+      body: "Focus on where the learner starts, which catalog or chord utility owns the habit, and whether that weakens or strengthens Yousician's practice loop."
+    };
+  }
+  if (relation?.type === "competes" || (player.category === "learning" && proximity >= 5)) {
     return {
       label: "Competitor lens",
       headline: "Compare positioning and core learning mechanics",
       body: "Focus on pricing, onboarding, catalog, feedback, retention loop and why a learner would choose one product over another."
     };
   }
+  if (proximity >= 5) {
+    return {
+      label: "Market pressure lens",
+      headline: "Track the pressure this creates around Yousician",
+      body: "Use this to understand demand, attention, trust or workflow pressure without calling it a direct competitor."
+    };
+  }
   if (player.category === "platforms") {
     return {
       label: "Platform lens",
       headline: "Screen music strategy, education strategy and M&A relevance",
-      body: "Use this as a triage record for acquisition history, strategic fit, attention risk and possible distribution or partnership logic."
+      body: "Use this as a triage record for acquisition history, strategic fit, attention risk and possible distribution or corporate-development relevance."
     };
   }
   if (relation?.type === "partners" || /partner|channel|hardware|education|brand|distribution/i.test(`${safeTaxonomy.role} ${safeValidation.nextStep}`)) {
@@ -6704,9 +6718,9 @@ function profileSpecificLens(player, taxonomy, validation) {
   }
   if (/public company|major global|large|massive/i.test(`${player.ownership} ${player.reach}`)) {
     return {
-      label: "Acquirer lens",
-      headline: "Check financial scale and strategic fit",
-      body: "Use filings, acquisition history and product adjacency before treating this as a corporate development route."
+      label: "Corporate development lens",
+      headline: "Check financial scale, acquisition history and strategic fit",
+      body: "Use filings, acquisition history and product adjacency before treating this as a serious corporate-development route."
     };
   }
   return {
@@ -12709,12 +12723,20 @@ function onePagerPositionHtml(player) {
   `;
 }
 
+function confirmedYousicianPartnershipText(player, validation) {
+  const relationshipText = `${validation?.knownRelationship || ""} ${validation?.status || ""} ${player.relationship || ""}`;
+  if (/\bconfirmed Yousician partnership\b|\bactive Yousician partnership\b|\bcontracted Yousician partner\b/i.test(relationshipText)) {
+    return nonEmptyString(validation?.knownRelationship) || nonEmptyString(player.relationship) || "Confirmed by Yousician";
+  }
+  return "No confirmed Yousician partnership loaded";
+}
+
 function onePagerRelationshipRows(player, validation, quality) {
   const guardrails = executiveGuardrailsFor(player, quality, validation);
   return [
-    ["Existing relationship", templateRelationshipFor(player)],
+    ["Yousician relationship status", templateRelationshipFor(player)],
     ["Past discussions", "Internal Yousician input only"],
-    ["Confirmed partnership", /partner|bundle|channel/i.test(player.relationship) ? player.relationship : "No confirmed partnership loaded"],
+    ["Confirmed Yousician partnership", confirmedYousicianPartnershipText(player, validation)],
     ["Licensing", sourceNeeds(player).some((item) => /legal|rights|licensing/i.test(item)) ? "Legal source check required" : "No licensing claim in current profile"],
     ["Shared investors", "No shared-investor claim loaded"],
     ["Strategic opportunities", nextAction(player)],
@@ -12738,9 +12760,9 @@ function onePagerAssessmentHtml(player, quality) {
       ? 3
       : 1;
   const scores = [
-    { icon: "shield-alert", label: "Competitive threat", value: competitiveProximityScore(player) },
+    { icon: "shield-alert", label: "Market pressure", value: competitiveProximityScore(player) },
     { icon: "route", label: "Route potential", value: partnershipScore },
-    { icon: "crosshair", label: "Acquisition potential", value: acquisitionScore },
+    { icon: "crosshair", label: "M&A relevance", value: acquisitionScore },
     { icon: "network", label: "Ecosystem influence", value: strategicScoreFive(player) },
     { icon: "brain", label: "AI relevance", value: player.aiScore },
     { icon: "badge-check", label: "Source confidence", value: Math.max(1, Math.round(quality.score / 20)) }
@@ -13645,7 +13667,7 @@ function downloadKeyPlayerTemplateCsv(rows) {
     "Global footprint",
     "Ownership / investors",
     "Strategic importance",
-    "Existing relationship",
+    "Yousician relationship status",
     "Notes / comments"
   ];
   const csvRows = keyPlayerTemplateRows(rows).map((player) => {
@@ -13702,7 +13724,7 @@ function renderKeyPlayerTemplate(rows, totalRows) {
             <th>Global footprint</th>
             <th>Ownership / investors</th>
             <th>Strategic importance</th>
-            <th>Existing relationship</th>
+            <th>Yousician relationship status</th>
             <th>Notes / comments</th>
           </tr>
         </thead>
