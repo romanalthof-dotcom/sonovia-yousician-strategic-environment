@@ -3779,6 +3779,7 @@ const monitorSortModes = [
   { id: "company", label: "Verified scale", note: "Direct imported size data only" },
   { id: "revenue", label: "Verified revenue", note: "Credentialed revenue data only" },
   { id: "reach", label: "Verified reach", note: "Direct audience, traffic or app data only" },
+  { id: "capital", label: "Capital signal", note: "Funding, ownership, acquisition and investor signals" },
   { id: "proximity", label: "Competitive proximity", note: "Closeness to Yousician's learning and practice loop" },
   { id: "evidence", label: "Source confidence", note: "Records with stronger source coverage first" },
   { id: "proof", label: "Proof gaps", note: "Records that need evidence before decision use" },
@@ -4412,6 +4413,7 @@ function monitorProofGapScore(player) {
 function monitorSortScore(player, sortId = state.monitorSort) {
   const mode = monitorSortModeById(sortId).id;
   if (mode === "proof") return monitorProofGapScore(player);
+  if (mode === "capital") return monitorFundingSignalScore(player) * 24 + totalPriority(player) / 2;
   return databaseSortScore(player, mode);
 }
 
@@ -10105,6 +10107,232 @@ function monitorFundingSignalScore(player) {
   return Math.max(0, Math.min(10, score + Math.max(0, player.momentum - 3) + (player.key ? 1 : 0)));
 }
 
+function monitorMarketSubcategoryDefinitions() {
+  return [
+    {
+      id: "beginner-learning",
+      label: "Beginner learning apps",
+      category: "Core learning",
+      color: "#00d292",
+      matches: (player) =>
+        player.category === "learning" ||
+        /beginner|lesson|learn|curriculum|feedback|guitar learning|piano learning|drumeo|pianote|guitareo/i.test(activitySearchText(player))
+    },
+    {
+      id: "song-practice",
+      label: "Song choice and practice",
+      category: "Habit layer",
+      color: "#11a5a5",
+      matches: (player) =>
+        player.category === "practice" ||
+        /tab|chord|song|sheet|notation|practice|repertoire|play-along|play along/i.test(activitySearchText(player))
+    },
+    {
+      id: "gear-channel",
+      label: "Gear and retail channels",
+      category: "Acquisition",
+      color: "#ffb84d",
+      matches: (player) =>
+        player.category === "hardware" ||
+        /guitar|instrument|retail|store|gear|amp|pedal|hardware|bundle|channel/i.test(activitySearchText(player))
+    },
+    {
+      id: "creator-workflow",
+      label: "Creation workflow",
+      category: "Expansion",
+      color: "#00b77e",
+      matches: (player) =>
+        player.category === "creation" ||
+        /daw|recording|production|creator|samples|distribution|mastering|artist tools|collaboration/i.test(activitySearchText(player))
+    },
+    {
+      id: "ai-audio",
+      label: "AI music and audio",
+      category: "Disruption",
+      color: "#6e5cff",
+      matches: (player) =>
+        player.category === "ai" ||
+        player.aiScore >= 4 ||
+        /ai|generation|stem|transcription|audio|prompt|adaptive|personalization/i.test(activitySearchText(player))
+    },
+    {
+      id: "education-institutions",
+      label: "Education and teachers",
+      category: "Trust",
+      color: "#80a83d",
+      matches: (player) =>
+        player.category === "education" ||
+        /school|teacher|classroom|course|certificate|exam|pedagogy|education/i.test(activitySearchText(player))
+    },
+    {
+      id: "attention-platforms",
+      label: "Attention platforms",
+      category: "Demand",
+      color: "#d94c72",
+      matches: (player) =>
+        player.category === "platforms" ||
+        /streaming|games|platform|netflix|spotify|roblox|nintendo|youtube|tiktok|attention|identity/i.test(activitySearchText(player))
+    },
+    {
+      id: "capital-market-data",
+      label: "Capital and market data",
+      category: "Timing",
+      color: "#3da5d9",
+      matches: (player) =>
+        player.category === "signals" ||
+        monitorFundingSignalScore(player) >= 5 ||
+        /funding|investor|market|report|analytics|award|programme|grant|venture|capital|m&a|acquisition/i.test(activitySearchText(player))
+    }
+  ];
+}
+
+function monitorSubcategoryRows(filteredPlayers) {
+  const definitions = monitorMarketSubcategoryDefinitions();
+  return definitions
+    .map((definition) => {
+      const players = filteredPlayers.filter(definition.matches);
+      const ranked = monitorSortedPlayers(players);
+      const keyCount = players.filter((player) => player.key).length;
+      const momentumCount = players.filter((player) => player.momentum >= 4).length;
+      const fundingCount = players.filter((player) => monitorFundingSignalScore(player) >= 5).length;
+      const aiCount = players.filter((player) => player.aiScore >= 4 || player.category === "ai").length;
+      const evidence = averageScore(players, (player) => qualityProfile(player).score);
+      const priority = averageScore(players, (player) => totalPriority(player));
+      return {
+        ...definition,
+        players,
+        ranked,
+        count: players.length,
+        keyCount,
+        momentumCount,
+        fundingCount,
+        aiCount,
+        evidence,
+        priority,
+        lead: ranked[0]
+      };
+    })
+    .filter((row) => row.count)
+    .sort((a, b) => b.priority - a.priority || b.keyCount - a.keyCount || b.count - a.count);
+}
+
+function fundingSignalType(player) {
+  const text = activitySearchText(player).toLowerCase();
+  if (/acquisition|acquired|m&a|merger|definitive agreement/.test(text)) return "M&A";
+  if (/public company|sec|annual report|filing|listed/.test(text)) return "Public company";
+  if (/grant|programme|program|horizon|creative europe|eic|funding source/.test(text)) return "Public funding";
+  if (/series|seed|round|raised|funded|venture|capital|investor|backed|portfolio|a16z|accel|general catalyst/.test(text)) return "Private capital";
+  if (/ownership|owner|parent|subsidiary/.test(text)) return "Ownership";
+  return "Market signal";
+}
+
+function renderMonitorSubcategoryBoard(filteredPlayers) {
+  const rows = monitorSubcategoryRows(filteredPlayers);
+  if (!rows.length) return "";
+  const maxCount = Math.max(1, ...rows.map((row) => row.count));
+  const maxPriority = Math.max(1, ...rows.map((row) => row.priority));
+  return `
+    <section class="monitor-subcategory-board" aria-label="Market subcategory comparison">
+      <div class="monitor-compare-head">
+        <div>
+          <span class="section-kicker">Subcategory landscape</span>
+          <h3>Where the market is dense, active, or under sourced</h3>
+        </div>
+        <p>Subcategories group similar players into decision areas. A player can appear in more than one lane when it matters to multiple questions.</p>
+      </div>
+      <div class="monitor-subcategory-grid">
+        ${rows
+          .map((row) => {
+            const density = Math.round((row.count / maxCount) * 100);
+            const pressure = Math.round((row.priority / maxPriority) * 100);
+            const evidenceGap = Math.max(0, 100 - row.evidence);
+            return `
+              <article
+                class="monitor-subcategory-card"
+                style="--sub-color:${row.color}; --density:${density}; --pressure:${pressure}; --evidence-gap:${evidenceGap}"
+              >
+                <header>
+                  <span>${escapeHtml(row.category)}</span>
+                  <strong>${escapeHtml(row.label)}</strong>
+                  <em>${row.count}</em>
+                </header>
+                <div class="monitor-sub-bars" aria-hidden="true">
+                  <span><i></i><b>Density</b></span>
+                  <span><i></i><b>Pressure</b></span>
+                  <span><i></i><b>Proof gap</b></span>
+                </div>
+                <footer>
+                  <small>${row.keyCount} key / ${row.momentumCount} momentum / ${row.aiCount} AI</small>
+                  ${
+                    row.lead
+                      ? `<button type="button" data-monitor-player="${escapeHtml(row.lead.id)}">${companyInlineHtml(row.lead, { compact: 18, logoClassName: "company-inline-logo monitor-inline-logo" })}</button>`
+                      : `<small>No lead</small>`
+                  }
+                </footer>
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderMonitorCapitalBoard(filteredPlayers) {
+  const capitalPlayers = filteredPlayers
+    .map((player) => ({ player, score: monitorFundingSignalScore(player), type: fundingSignalType(player) }))
+    .filter((row) => row.score > 0)
+    .sort((a, b) => b.score - a.score || totalPriority(b.player) - totalPriority(a.player) || a.player.name.localeCompare(b.player.name));
+  const groups = ["Private capital", "M&A", "Public company", "Public funding", "Ownership", "Market signal"]
+    .map((type) => ({
+      type,
+      rows: capitalPlayers.filter((row) => row.type === type)
+    }))
+    .filter((group) => group.rows.length);
+  if (!capitalPlayers.length) return "";
+  const topRows = capitalPlayers.slice(0, 6);
+  return `
+    <section class="monitor-capital-board" aria-label="Funding ownership and market signal comparison">
+      <div class="monitor-compare-head">
+        <div>
+          <span class="section-kicker">Funding, ownership and timing</span>
+          <h3>Capital signals by type, not mixed into product proof</h3>
+        </div>
+        <p>These are directional market signals unless exact round, filing or ownership values are directly sourced.</p>
+      </div>
+      <div class="monitor-capital-layout">
+        <div class="monitor-capital-leaders">
+          ${topRows
+            .map(
+              ({ player, score, type }) => `
+                <button type="button" data-monitor-player="${escapeHtml(player.id)}" style="--capital-color:${colorFor(player)}; --capital-score:${score * 10}">
+                  ${companyInlineHtml(player, { compact: 20, logoClassName: "company-inline-logo monitor-inline-logo" })}
+                  <span>${escapeHtml(type)}</span>
+                  <strong>${score}/10</strong>
+                  <i aria-hidden="true"></i>
+                </button>
+              `
+            )
+            .join("")}
+        </div>
+        <div class="monitor-capital-types">
+          ${groups
+            .map(
+              (group) => `
+                <article>
+                  <span>${escapeHtml(group.type)}</span>
+                  <strong>${group.rows.length}</strong>
+                  <small>${group.rows.slice(0, 3).map(({ player }) => escapeHtml(compactName(player.name, 18))).join(", ")}</small>
+                </article>
+              `
+            )
+            .join("")}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
 function monitorComparisonDefinitions() {
   return [
     {
@@ -10143,7 +10371,7 @@ function monitorComparisonDefinitions() {
       title: "Where capital or M&A matters",
       note: "Funding, investor, ownership, acquisition and programme signals by category.",
       color: "#3da5d9",
-      segment: "signals",
+      sort: "capital",
       score: monitorFundingSignalScore,
       display: (player) => `${monitorFundingSignalScore(player)}/10`
     },
@@ -10518,6 +10746,7 @@ function monitorLeaderDefinitions() {
     { id: "company", label: "Verified scale", note: "Direct data only", score: directCompanyScaleScore, display: (player) => ratingForPlayer(player, "company").display },
     { id: "revenue", label: "Verified revenue", note: "Direct data only", score: directRevenueScore, display: (player) => ratingForPlayer(player, "revenue").display },
     { id: "reach", label: "Verified reach", note: "Direct data only", score: directReachScore, display: (player) => ratingForPlayer(player, "reach").display },
+    { id: "capital", label: "Capital signal", note: "Funding and ownership", score: monitorFundingSignalScore, display: (player) => `${monitorFundingSignalScore(player)}/10` },
     { id: "proximity", label: "Proximity", note: "Competitive closeness", score: competitiveProximityScore, display: (player) => `${competitiveProximityScore(player)}/5` },
     { id: "proof", label: "Proof gap", note: "Needs verification", score: monitorProofGapScore, display: (player) => `${Math.round(monitorProofGapScore(player))}` }
   ];
@@ -10651,6 +10880,22 @@ function monitorMetricCell(value, display = `${value}/5`, max = 5) {
   `;
 }
 
+function monitorSortDisplayValue(player) {
+  if (state.monitorSort === "evidence") return `${qualityProfile(player).score}%`;
+  if (state.monitorSort === "proof") return `${Math.round(monitorProofGapScore(player))} gap`;
+  if (state.monitorSort === "capital") return `${monitorFundingSignalScore(player)}/10`;
+  if (state.monitorSort === "company") return ratingForPlayer(player, "company").display;
+  if (state.monitorSort === "revenue") return ratingForPlayer(player, "revenue").display;
+  if (state.monitorSort === "reach") return ratingForPlayer(player, "reach").display;
+  return `${Math.round(monitorSortScore(player))}`;
+}
+
+function monitorSortCellValue(player) {
+  if (state.monitorSort === "proof") return Math.max(1, Math.min(5, Math.round(monitorProofGapScore(player) / 28)));
+  if (state.monitorSort === "capital") return Math.max(1, Math.min(5, Math.round(monitorFundingSignalScore(player) / 2)));
+  return Math.max(1, Math.min(5, Math.round(monitorSortScore(player) / 20)));
+}
+
 function renderMonitorBenchmark(filteredPlayers) {
   const rows = monitorBenchmarkRows(filteredPlayers);
   if (!rows.length) return emptyState("No records match the current monitor selection.");
@@ -10685,8 +10930,8 @@ function renderMonitorBenchmark(filteredPlayers) {
                     </button>
                   </th>
                   ${monitorMetricCell(
-                    state.monitorSort === "proof" ? Math.max(1, Math.min(5, Math.round(monitorProofGapScore(player) / 28))) : Math.max(1, Math.min(5, Math.round(monitorSortScore(player) / 20))),
-                    state.monitorSort === "evidence" ? `${quality.score}%` : state.monitorSort === "proof" ? `${Math.round(monitorProofGapScore(player))} gap` : `${Math.round(monitorSortScore(player))}`
+                    monitorSortCellValue(player),
+                    monitorSortDisplayValue(player)
                   )}
                   ${monitorMetricCell(player.relevance)}
                   ${monitorMetricCell(player.momentum)}
@@ -10712,19 +10957,18 @@ function renderMonitorInsightReadout(filteredPlayers) {
     <section class="monitor-insight-readout" aria-label="Market trend and comparison readout">
       <div class="directory-head">
         <div>
-          <span class="section-kicker">Market readout</span>
-          <h3>Compare players, categories and market signals first</h3>
+          <span class="section-kicker">Market monitor</span>
+          <h3>Start with comparison, subcategories and market movement</h3>
         </div>
         <span>${filteredPlayers.length} records / ${topTrend ? `${topTrend.count} in ${topTrend.title}` : "no cluster"}</span>
       </div>
-      ${renderMonitorComparisonBoard(filteredPlayers)}
-      ${renderMonitorCategoryTrendBoard(filteredPlayers)}
-      ${renderMonitorExecutiveSummary(filteredPlayers)}
-      <div class="monitor-meta-grid" aria-label="Meta trend clusters">
-        ${renderMonitorMetaTrends(filteredPlayers)}
+      <div class="monitor-readout-hero">
+        ${renderMonitorExecutiveSummary(filteredPlayers)}
+        ${renderMonitorComparisonBoard(filteredPlayers)}
       </div>
+      ${renderMonitorSubcategoryBoard(filteredPlayers)}
+      ${renderMonitorCapitalBoard(filteredPlayers)}
       ${renderMonitorMetricLeaders(filteredPlayers)}
-      ${renderMonitorMarketComposition(filteredPlayers)}
       <div class="monitor-compare-head">
         <div>
           <span class="section-kicker">Direct comparison</span>
@@ -10734,6 +10978,11 @@ function renderMonitorInsightReadout(filteredPlayers) {
       </div>
       ${renderMonitorSortControls(filteredPlayers)}
       ${renderMonitorBenchmark(filteredPlayers)}
+      ${renderMonitorCategoryTrendBoard(filteredPlayers)}
+      ${renderMonitorMarketComposition(filteredPlayers)}
+      <div class="monitor-meta-grid monitor-detail-trends" aria-label="Detailed monitor clusters">
+        ${renderMonitorMetaTrends(filteredPlayers)}
+      </div>
       ${renderMonitorExecutiveAgenda(filteredPlayers)}
       ${renderMonitorExecutiveRoleLenses(filteredPlayers)}
     </section>
