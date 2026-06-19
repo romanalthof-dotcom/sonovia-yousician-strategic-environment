@@ -30,7 +30,7 @@ const categories = [
     iconFallback: "G",
     orbit: 2,
     layer: "Acquisition layer",
-    description: "Instrument brands and retailers that shape gear access, beginner bundles, and partner routes."
+    description: "Instrument brands and retailers that shape gear access, beginner bundles, and possible route options."
   },
   {
     id: "creation",
@@ -2540,7 +2540,7 @@ const players = [
     ownership: "Muse Group footprint after Hal Leonard US and Europe were unified under Muse Group",
     ai: "Research catalog digitization, licensing, AI content rules and learning material workflows",
     description: "Major music publishing and education catalog that shapes what repertoire teachers, learners and music retailers can legally use.",
-    why: "Relevant to Yousician because song access, repertoire depth, rights, teacher material and trusted methods can become a strategic constraint or partnership surface.",
+    why: "Relevant to Yousician because song access, repertoire depth, rights, teacher material and trusted methods can become a strategic constraint or possible route surface.",
     relevance: 5,
     momentum: 4,
     aiScore: 3,
@@ -3261,9 +3261,9 @@ const liveDataFeeds = [
     name: "Internal relationship source",
     status: "Input needed",
     ready: false,
-    owner: "Partnerships / BizDev",
-    unlocks: "Existing contacts, intro paths, partnership history, commercial sensitivity, next owner",
-    nextStep: "The partnership owner validates each relationship lane before external sharing."
+    owner: "BizDev / relationship owner",
+    unlocks: "Existing contacts, intro paths, prior discussions, commercial sensitivity, next owner",
+    nextStep: "The internal owner validates each proximity lane before external sharing."
   },
   {
     id: "finance-kpis",
@@ -3336,7 +3336,7 @@ const internalGapAreas = [
     id: "relationship-reality",
     label: "Relationship reality",
     priority: "Critical",
-    owner: "BizDev / Partnerships",
+    owner: "BizDev / relationship owner",
     why: "External fit is not enough if there is no contact, owner, intro path or acceptable sensitivity.",
     missing: [
       "Known contacts, warm intros, meeting history, NDA status, owner and next action",
@@ -3424,7 +3424,7 @@ const internalDataRequestPack = [
     ]
   },
   {
-    owner: "BizDev / Partnerships",
+    owner: "BizDev / relationship owner",
     asks: [
       "Known contacts, warm intros, NDA status, meeting history and owner by entity",
       "Prior partner or bundle history including Amazon/Alexa+ terms where relevant",
@@ -3471,7 +3471,7 @@ const internalClaimRiskRules = [
   {
     label: "Relationship claims",
     rule: "No partnership, acquisition, warm intro, owner or strategic intent claim without BizDev confirmation.",
-    owner: "BizDev / Partnerships"
+    owner: "BizDev / relationship owner"
   },
   {
     label: "Competitive claims",
@@ -3505,7 +3505,7 @@ const playerInternalGapNotes = {
   },
   fender: {
     headline: "Validate brand and bundle relevance",
-    owner: "BizDev / Partnerships / Product",
+    owner: "BizDev / Product owner",
     questions: [
       "Has Yousician had Fender, Fender Play, retail or hardware bundle conversations?",
       "What beginner bundle, activation or hardware purchase data would prove distribution value?",
@@ -3906,12 +3906,12 @@ const databaseSegments = [
   { id: "ai", label: "AI and disruption", icon: "sparkles", matches: (player) => player.aiScore >= 4 || player.category === "ai" },
   {
     id: "partner",
-    label: "Partner candidates",
+    label: "Route candidates",
     icon: "handshake",
     matches: (player) =>
       relationForPlayer(player)?.type === "partners" ||
-      ["hardware", "education"].includes(player.category) ||
-      /partner|channel|retail|hardware|school|teacher|education|bundle|store|brand|funding|recognition/i.test(
+      player.category === "hardware" ||
+      /partner|channel|retail|hardware|school|teacher|bundle|store|brand|funding|recognition/i.test(
         activitySearchText(player)
       )
   }
@@ -3926,8 +3926,11 @@ const monitorSegments = [
   { id: "proof", label: "Proof gaps", matches: (player) => hasCriticalEvidenceGap(player) || qualityProfile(player).score < 68 },
   {
     id: "partners",
-    label: "Partners",
-    matches: (player) => relationForPlayer(player)?.type === "partners" || ["hardware", "education"].includes(player.category)
+    label: "Potential routes",
+    matches: (player) =>
+      relationForPlayer(player)?.type === "partners" ||
+      player.category === "hardware" ||
+      /channel|retail|school|teacher|bundle|store|brand/i.test(activitySearchText(player))
   },
   { id: "signals", label: "Market signals", matches: (player) => isSignalOnlyRecord(player) }
 ];
@@ -4592,7 +4595,7 @@ function priorityTier(player) {
 function relationshipTitle(type) {
   const labels = {
     competes: "Competitive pressure",
-    partners: "Partnership surface",
+    partners: "Potential route",
     influences: "Market influence"
   };
   return labels[type] || "Relationship";
@@ -4762,7 +4765,7 @@ function researchOwner(player) {
   if (player.category === "ai") return "AI strategy";
   if (player.category === "learning") return "Competitive intel";
   if (player.category === "practice") return "Practice & content";
-  if (player.category === "hardware") return "Partnerships";
+  if (player.category === "hardware") return "Routes / BizDev";
   if (player.category === "education") return "Learning strategy";
   if (player.category === "platforms") return "Strategy / corporate development";
   if (player.category === "signals") return "Strategy / monitoring";
@@ -4853,7 +4856,7 @@ function relationForPlayer(player) {
 
 function internalValidationOwner(relation, player) {
   if (relation?.type === "partners" || /partner|channel|hardware|retail/i.test(player.relationship + " " + player.type)) {
-    return "Partnerships / BizDev";
+    return "BizDev / relationship owner";
   }
   if (relation?.type === "competes" || /competitor|overlap|benchmark/i.test(player.relationship)) {
     return "Competitive intel / Product";
@@ -5190,7 +5193,7 @@ function fallbackInternalGapProfile(player) {
     },
     hardware: {
       headline: "Validate channel and bundle readiness",
-      owner: "BizDev / Partnerships / Product",
+      owner: "BizDev / Product owner",
       questions: [
         "Is there a known contact, warm intro, bundle history or channel owner?",
         "Which beginner purchase or activation data would prove relevance?",
@@ -6694,9 +6697,9 @@ function profileSpecificLens(player, taxonomy, validation) {
   }
   if (relation?.type === "partners" || /partner|channel|hardware|education|brand|distribution/i.test(`${safeTaxonomy.role} ${safeValidation.nextStep}`)) {
     return {
-      label: "Partner lens",
-      headline: "Screen synergies and route to audience",
-      body: "Look for credible access to learners, trust, gear, schools, creators, catalog, distribution or habit formation."
+      label: "Route lens",
+      headline: "Screen possible routes to reach, trust or utility",
+      body: "Look for credible access to learners, gear, schools, creators, catalog, distribution or habit formation. Treat this as a route hypothesis until Yousician confirms a relationship."
     };
   }
   if (/public company|major global|large|massive/i.test(`${player.ownership} ${player.reach}`)) {
@@ -6747,9 +6750,9 @@ function executivePostureFor(player, taxonomy, validation) {
   }
   if (relation?.type === "partners" || /partner|channel|bundle|hardware|retail/i.test(`${player.relationship} ${taxonomy.role}`)) {
     return {
-      label: "Partner screen",
+      label: "Route screen",
       headline: "Potential route to reach or trust",
-      body: "Screen whether this actor creates distribution, content, credibility, hardware, education or creator access for Yousician.",
+      body: "Screen whether this actor could create distribution, content, credibility, hardware, education or creator access for Yousician. This is not evidence of an active partnership.",
       owner: validation.owner
     };
   }
@@ -8379,7 +8382,7 @@ function renderStrategicImplications() {
       players: coreThreats.slice(0, 5)
     },
     {
-      label: "Build partner routes",
+      label: "Screen possible routes",
       tone: "partner",
       count: partnerTargets.length,
       body: "Hardware, retail, schools, teacher networks, and creator channels shape the learner before Yousician gets chosen.",
@@ -10229,12 +10232,15 @@ function monitorTrendDefinitions() {
     },
     {
       id: "partner-surface",
-      title: "Partner surface",
-      label: "Potential distribution or bundle route",
+      title: "Potential route",
+      label: "Possible distribution, bundle or trust route",
       color: "#ffb84d",
       segment: "partners",
-      matches: (player) => relationForPlayer(player)?.type === "partners" || ["hardware", "education"].includes(player.category),
-      insight: "Hardware, schools, teachers, and channels can shape acquisition cost and trusted onboarding."
+      matches: (player) =>
+        relationForPlayer(player)?.type === "partners" ||
+        player.category === "hardware" ||
+        /channel|retail|school|teacher|bundle|store|brand/i.test(activitySearchText(player)),
+      insight: "Hardware, schools, teachers, and channels can shape acquisition cost and trusted onboarding. This is not a confirmed partnership."
     },
     {
       id: "market-signals",
@@ -10882,14 +10888,14 @@ function renderMonitorExecutiveRoleLenses(filteredPlayers) {
       score: (player) => competitiveProximityScore(player) * 16 + player.relevance * 8 + player.momentum * 4
     },
     {
-      label: "Partnerships",
-      question: "Who can add reach, trust or utility?",
-      keep: "Partner screen, distribution route, internal owner, sensitivity.",
+      label: "Routes and channels",
+      question: "Who could add reach, trust or utility?",
+      keep: "Route screen, distribution route, internal owner, sensitivity.",
       lower: "Generic ecosystem context without route to action.",
       players: filteredPlayers.filter(
         (player) =>
           relationForPlayer(player)?.type === "partners" ||
-          ["hardware", "education", "platforms"].includes(player.category) ||
+          ["hardware", "platforms"].includes(player.category) ||
           /partner|bundle|channel|retail|school|teacher/i.test(`${player.relationship} ${player.type}`)
       ),
       score: (player) => player.relevance * 10 + player.momentum * 5 + (relationForPlayer(player)?.strength || 0) * 8
@@ -11213,7 +11219,7 @@ function monitoringActivityLanes() {
       matches: (player) => /funding|investor|venture|capital|m&a|acquisition|ownership|filing|crunchbase/i.test(activitySearchText(player))
     },
     {
-      label: "Partners & channels",
+      label: "Routes & channels",
       color: "#ffb84d",
       note: "gear, retail, schools, trusted routes",
       matches: (player) => /partner|channel|retail|hardware|school|teacher|education|bundle|store|brand/i.test(activitySearchText(player))
@@ -11535,7 +11541,7 @@ function laneCheckLabel(label) {
     "AI disruption": "generation, tutoring, feedback, audio utility shifts",
     "Product moves": "launches, features, catalog, pricing, bundles",
     "Funding & ownership": "capital, ownership, M&A, investor signals",
-    "Partners & channels": "hardware, retail, schools, teachers, brand routes",
+    "Routes & channels": "hardware, retail, schools, teachers, brand routes",
     "Creator & community": "songs, creators, sharing, social loops"
   };
   return labels[label] || "Monitor changes and verify source strength";
@@ -11707,9 +11713,12 @@ function renderKeyPlayerVisuals(keyPlayers) {
       matches: (player) => ["ai", "creation"].includes(player.category) || player.aiScore >= 4
     },
     {
-      label: "Partner surface",
+      label: "Potential route",
       color: "#ffb84d",
-      matches: (player) => relationForPlayer(player)?.type === "partners" || ["hardware", "education"].includes(player.category)
+      matches: (player) =>
+        relationForPlayer(player)?.type === "partners" ||
+        player.category === "hardware" ||
+        /channel|retail|school|teacher|bundle|store|brand/i.test(activitySearchText(player))
     },
     {
       label: "Market signals",
@@ -11727,8 +11736,11 @@ function renderKeyPlayerVisuals(keyPlayers) {
     {
       label: "Build with",
       color: "#ffb84d",
-      note: "Partner, channel, gear, and trusted-learning surfaces.",
-      matches: (player) => relationForPlayer(player)?.type === "partners" || ["hardware", "education"].includes(player.category)
+      note: "Possible channel, gear, content, and trusted-learning surfaces.",
+      matches: (player) =>
+        relationForPlayer(player)?.type === "partners" ||
+        player.category === "hardware" ||
+        /channel|retail|school|teacher|bundle|store|brand/i.test(activitySearchText(player))
     },
     {
       label: "Watch shifts",
@@ -11999,16 +12011,87 @@ function onePagerCategoryRank(player) {
   };
 }
 
+function peerSearchText(player) {
+  return `${player.name} ${player.type} ${player.category} ${player.subcategory} ${player.description} ${player.why} ${(player.tags || []).join(" ")}`.toLowerCase();
+}
+
+function isBroadPlatformPeer(player) {
+  const text = peerSearchText(player);
+  return (
+    player.category === "platforms" ||
+    /\byoutube\b|\bspotify\b|\btiktok\b|\broblox\b|\bdisney\b|\bnetflix\b|\bnintendo\b|massive global platform|creator platform|streaming|social platform|games platform/.test(
+      text
+    )
+  );
+}
+
+function peerKeywordGroups(player) {
+  const text = peerSearchText(player);
+  const groups = [];
+  const tests = [
+    ["tab-chord-repertoire", /tabs?|chords?|sheet music|scores?|notation|repertoire|play-along|arrangements?/],
+    ["lesson-app", /learning app|curricula|lessons?|courses?|teacher|feedback|onboarding|practice feedback|music learning/],
+    ["instrument-gear", /hardware|instrument|guitar brand|amp|retail|gear|connected instrument/],
+    ["creation-production", /production|creator|creation|daw|arranging|mix|audio|stems?|generation|compose|music generation/],
+    ["education-model", /classroom|school|pedagogy|education|curriculum|assessment|exam|language learning/],
+    ["capital-signal", /investor|funding|award|research|market signal|venture|capital/],
+    ["broad-platform", /youtube|spotify|tiktok|roblox|disney|netflix|nintendo|streaming|creator platform|social platform|games platform/]
+  ];
+  tests.forEach(([group, pattern]) => {
+    if (pattern.test(text)) groups.push(group);
+  });
+  return groups;
+}
+
+function sharedPeerGroups(player, candidate) {
+  const a = new Set(peerKeywordGroups(player));
+  return peerKeywordGroups(candidate).filter((group) => a.has(group));
+}
+
+function isComparablePeer(player, candidate, taxonomy, candidateTaxonomy) {
+  if (isSignalOnlyRecord(candidate)) return false;
+  const playerBroad = isBroadPlatformPeer(player);
+  const candidateBroad = isBroadPlatformPeer(candidate);
+  if (playerBroad || candidateBroad) return playerBroad && candidateBroad;
+  const sharedGroups = sharedPeerGroups(player, candidate);
+  if (player.category === candidate.category) {
+    if (["practice", "learning", "creation", "hardware", "education"].includes(player.category)) return sharedGroups.length > 0;
+    return true;
+  }
+  if (["learning", "practice"].includes(player.category) && ["learning", "practice"].includes(candidate.category)) {
+    return sharedGroups.some((group) => ["lesson-app", "tab-chord-repertoire"].includes(group));
+  }
+  if (["practice", "creation"].includes(player.category) && ["practice", "creation"].includes(candidate.category)) {
+    return sharedGroups.some((group) => ["tab-chord-repertoire", "creation-production"].includes(group));
+  }
+  if (taxonomy.proximity === candidateTaxonomy.proximity && sharedGroups.length >= 2) return true;
+  return false;
+}
+
+function isDirectCompetitivePeer(player, candidate, taxonomy, candidateTaxonomy) {
+  if (!isComparablePeer(player, candidate, taxonomy, candidateTaxonomy)) return false;
+  if (player.category === candidate.category) return true;
+  const pair = new Set([player.category, candidate.category]);
+  if (pair.has("learning") && pair.has("practice")) return true;
+  if (pair.has("creation") && pair.has("ai")) {
+    return sharedPeerGroups(player, candidate).includes("creation-production");
+  }
+  return false;
+}
+
 function onePagerClosestPeers(player, taxonomy, limit = 5) {
   const peers = players
     .filter((candidate) => candidate.id !== player.id)
     .filter((candidate) => !isSignalOnlyRecord(candidate))
+    .filter((candidate) => isComparablePeer(player, candidate, taxonomy, taxonomyProfile(candidate)))
     .map((candidate) => {
       const candidateTaxonomy = taxonomyProfile(candidate);
+      const sharedGroups = sharedPeerGroups(player, candidate);
       let score = 0;
-      if (candidate.category === player.category) score += 34;
-      if (candidateTaxonomy.journey === taxonomy.journey) score += 24;
-      if (candidateTaxonomy.proximity === taxonomy.proximity) score += 16;
+      if (candidate.category === player.category) score += 40;
+      if (candidateTaxonomy.journey === taxonomy.journey) score += 14;
+      if (candidateTaxonomy.proximity === taxonomy.proximity) score += 14;
+      score += sharedGroups.length * 14;
       if (candidate.key) score += 8;
       score += Math.max(0, 10 - Math.abs(totalPriority(candidate) - totalPriority(player)) / 4);
       score += Math.max(0, 6 - Math.abs(competitiveProximityScore(candidate) - competitiveProximityScore(player)));
@@ -12040,9 +12123,9 @@ function onePagerMarketContextHtml(player, taxonomy, quality, validation) {
       detail: `${category.shortName || category.name}, sorted by priority.`
     },
     {
-      label: "Closest peer set",
+      label: "Closest comparable set",
       value: `${peerSet.length} comparables`,
-      detail: peerSet.slice(0, 3).map((peer) => peer.name).join(", ") || "No close peer set."
+      detail: peerSet.slice(0, 3).map((peer) => peer.name).join(", ") || "No close comparable set."
     },
     {
       label: "Validation load",
@@ -12072,8 +12155,8 @@ function onePagerMarketContextHtml(player, taxonomy, quality, validation) {
       ? `Ask Yousician to confirm owner, contact history, commercial sensitivity, and whether this belongs in an active pipeline.`
       : `Relationship state is loaded as ${templateRelationshipFor(player)}; validate sensitivity before sharing externally.`,
     relation
-      ? `Use the relationship lane as ${relationshipTitle(relation.type).toLowerCase()} evidence, not as proof of an active commercial path.`
-      : `No explicit relationship lane is loaded; treat opportunity language as hypothesis until internal owners confirm.`
+      ? `Use the proximity lane as ${relationshipTitle(relation.type).toLowerCase()} evidence, not as proof of an active commercial path.`
+      : `No explicit proximity lane is loaded; treat opportunity language as hypothesis until internal owners confirm.`
   ];
   const useCases = [
     ["Board question", executiveDecisionQuestion(player, taxonomy)],
@@ -12108,7 +12191,7 @@ function onePagerMarketContextHtml(player, taxonomy, quality, validation) {
       </div>
       <div class="one-pager-context-split">
         <article>
-          <span>Comparable peer benchmark</span>
+          <span>Comparable benchmark set</span>
           ${onePagerTableHtml(["Peer", "Journey", "Fit", "Momentum", "AI", "Evidence"], peerRows.length ? peerRows : [["To verify", taxonomy.journey, "To verify", "To verify", "To verify", "To verify"]])}
         </article>
         <article>
@@ -12573,15 +12656,17 @@ function onePagerRecentRows(player, quality, validation) {
 
 function onePagerPositionPlayers(player, kind) {
   const directIds = new Set(relations.filter((relation) => relation.type === kind).map((relation) => relation.to));
+  const playerTaxonomy = taxonomyProfile(player);
   const scored = players
     .filter((candidate) => candidate.id !== player.id)
     .filter((candidate) => {
-      if (directIds.has(candidate.id)) return true;
       if (kind === "competes") {
-        return ["learning", "practice"].includes(candidate.category) && competitiveProximityScore(candidate) >= 4;
+        const candidateTaxonomy = taxonomyProfile(candidate);
+        if (directIds.has(candidate.id) && isDirectCompetitivePeer(player, candidate, playerTaxonomy, candidateTaxonomy)) return true;
+        return isDirectCompetitivePeer(player, candidate, playerTaxonomy, candidateTaxonomy) && competitiveProximityScore(candidate) >= 3;
       }
       if (kind === "partners") {
-        return ["hardware", "education"].includes(candidate.category) || /partner|bundle|licens|channel/i.test(candidate.relationship);
+        return candidate.category === "hardware" || /partner|bundle|licens|channel|retail|school|teacher/i.test(candidate.relationship);
       }
       return ["platforms", "signals", "ai", "creation"].includes(candidate.category) && candidate.relevance >= 3;
     })
@@ -12591,9 +12676,9 @@ function onePagerPositionPlayers(player, kind) {
 
 function onePagerPositionHtml(player) {
   const groups = [
-    { id: "competes", icon: "shield-alert", label: "Competes with" },
-    { id: "partners", icon: "handshake", label: "Partners with" },
-    { id: "influences", icon: "megaphone", label: "Influences" }
+    { id: "competes", icon: "shield-alert", label: "Competitive pressure" },
+    { id: "partners", icon: "route", label: "Potential Yousician routes" },
+    { id: "influences", icon: "megaphone", label: "Market influence" }
   ];
   return `
     <div class="one-pager-position-grid">
@@ -12629,7 +12714,7 @@ function onePagerRelationshipRows(player, validation, quality) {
   return [
     ["Existing relationship", templateRelationshipFor(player)],
     ["Past discussions", "Internal Yousician input only"],
-    ["Partnerships", /partner|bundle|channel/i.test(player.relationship) ? player.relationship : "No public partnership claim loaded"],
+    ["Confirmed partnership", /partner|bundle|channel/i.test(player.relationship) ? player.relationship : "No confirmed partnership loaded"],
     ["Licensing", sourceNeeds(player).some((item) => /legal|rights|licensing/i.test(item)) ? "Legal source check required" : "No licensing claim in current profile"],
     ["Shared investors", "No shared-investor claim loaded"],
     ["Strategic opportunities", nextAction(player)],
@@ -12654,7 +12739,7 @@ function onePagerAssessmentHtml(player, quality) {
       : 1;
   const scores = [
     { icon: "shield-alert", label: "Competitive threat", value: competitiveProximityScore(player) },
-    { icon: "handshake", label: "Partnership potential", value: partnershipScore },
+    { icon: "route", label: "Route potential", value: partnershipScore },
     { icon: "crosshair", label: "Acquisition potential", value: acquisitionScore },
     { icon: "network", label: "Ecosystem influence", value: strategicScoreFive(player) },
     { icon: "brain", label: "AI relevance", value: player.aiScore },
@@ -13828,9 +13913,9 @@ function renderRelationshipValidationPanel() {
         tone: "#ffb84d"
       },
       {
-        label: "Partner surface",
+        label: "Potential route",
         value: partnerCount,
-        note: "potential partner lanes",
+        note: "unconfirmed route lanes",
         tone: "#11a5a5"
       },
       {
@@ -13894,7 +13979,7 @@ function renderRelationshipValidationPanel() {
         </div>
       </div>
       <div class="validation-metrics">
-        <span><strong>${partnerCount}</strong> partner checks</span>
+        <span><strong>${partnerCount}</strong> route checks</span>
         <span><strong>${competeCount}</strong> competitive owners</span>
         <span><strong>${influenceCount}</strong> monitor lanes</span>
       </div>
@@ -13936,8 +14021,8 @@ function renderRelationshipGraph() {
     },
     {
       type: "partners",
-      title: "Partner",
-      description: "Surfaces where Yousician could gain distribution, content, or utility depth."
+      title: "Potential route",
+      description: "Unconfirmed surfaces where Yousician could gain distribution, content, trust, or utility depth."
     },
     {
       type: "influences",
@@ -13950,9 +14035,9 @@ function renderRelationshipGraph() {
     <div class="matrix-head">
       <div>
         <span class="section-kicker">Strategic proximity</span>
-        <h3>Relationship matrix</h3>
+        <h3>Strategic proximity matrix</h3>
       </div>
-      <p>Sorted by strength, relevance, and strategic closeness.</p>
+      <p>Sorted by strength, relevance, and strategic closeness. These are hypotheses until Yousician confirms an internal relationship.</p>
     </div>
     <div class="relationship-lanes">
       ${lanes
@@ -15540,7 +15625,7 @@ function renderExportSnapshot() {
     ["Direct app benchmark", "Simply", "Closest benchmark for onboarding, motivation, subscription learning and beginner conversion. Appfigures still required for performance ranking."],
     ["Repertoire and practice surface", "Ultimate Guitar", "Strong song intent and repertoire ownership around tabs, chords and repeat practice habits."],
     ["Learning mechanics benchmark", "Duolingo", "Useful reference for habit loops, gamification, subscription learning, brand and AI in education."],
-    ["Hardware and trust route", "Fender", "Instrument brand reach can influence beginner access, trust, bundles and possible partner routes."],
+    ["Hardware and trust route", "Fender", "Instrument brand reach can influence beginner access, trust, bundles and possible route options."],
     ["Classroom engagement benchmark", "Kahoot", "Useful reference for game based learning, teacher channels, classroom distribution and AI assisted content creation."]
   ];
   const completionNotes = [

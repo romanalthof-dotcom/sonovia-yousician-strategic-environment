@@ -37,7 +37,7 @@
     />
     <meta name="theme-color" content="#f7fbf7" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='28' cy='28' r='18' fill='none' stroke='%2300d292' stroke-width='10'/%3E%3Cpath d='M42 42l14 14' stroke='%231b1d1f' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="./styles.css?v=20260619-self-fields-v97" />
+    <link rel="stylesheet" href="./styles.css?v=20260619-proximity-v98" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
   </head>
   <body data-view="overview" data-mode="executive">
@@ -222,7 +222,7 @@
             </div>
             <div class="map-note">
               <span>Bubble size defaults to Yousician relevance: company scale weighted by strategic relevance.</span>
-              <span>Curved arcs mark user journey lanes, not company relationships. Thin centre lines mark direct Yousician links.</span>
+              <span>Curved arcs mark user journey lanes, not company relationships. Thin centre lines mark Yousician proximity hypotheses, not confirmed partnerships.</span>
             </div>
             <div class="map-symbol-legend" aria-label="Map element legend">
               <span class="map-symbol-title">Map legend</span>
@@ -442,7 +442,7 @@
           <div id="relationshipValidationPanel" class="relationship-validation-panel"></div>
           <div class="relationship-layout">
             <div class="relationship-graph">
-              <div id="relationshipGraph" class="relationship-matrix" role="img" aria-label="Relationship matrix"></div>
+              <div id="relationshipGraph" class="relationship-matrix" role="img" aria-label="Strategic proximity matrix"></div>
             </div>
             <div id="relationshipList" class="relationship-list"></div>
           </div>
@@ -673,6 +673,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js?v=20260619-self-fields-v97"></script>
+    <script src="./app.js?v=20260619-proximity-v98"></script>
   </body>
 </html>
