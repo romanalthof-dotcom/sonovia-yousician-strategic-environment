@@ -7947,19 +7947,21 @@ function mapViewBoxFromNodes(nodeItems, basePlayers, visiblePlayers, compactMap)
   });
 }
 
-function mapCategoryBoundsItems(categoryGroups, center) {
-  return categoryGroups.flatMap(({ contextPlayers, layout }) => {
+function mapCategoryBoundsItems(categoryGroups, center, clusterGeometryByCategory = new Map()) {
+  return categoryGroups.flatMap(({ category, contextPlayers, layout }) => {
     if (!contextPlayers.length) return [];
-    const visualSize = clusterVisualSize(layout, contextPlayers.length);
-    const textPositions = clusterTextPositions({ ...layout, ...visualSize }, center);
+    const geometry = clusterGeometryByCategory.get(category.id);
+    const visualSize = geometry || clusterVisualSize(layout, contextPlayers.length);
+    const labelLayout = geometry?.layout || layout;
+    const textPositions = clusterTextPositions({ ...labelLayout, ...visualSize }, center);
     return [
       {
-        x: layout.x,
-        y: layout.y,
+        x: geometry?.x ?? layout.x,
+        y: geometry?.y ?? layout.y,
         radius: Math.max(visualSize.rx, visualSize.ry)
       },
       {
-        x: layout.x,
+        x: geometry?.x ?? layout.x,
         y: textPositions.labelY + 3,
         radius: 92
       }
@@ -8533,6 +8535,76 @@ function clusterVisualSize(layout, total) {
   return {
     rx: Math.round(layout.rx * spread.ellipseX),
     ry: Math.round(layout.ry * spread.ellipseY)
+  };
+}
+
+function dynamicClusterGeometry({ layout, categoryPlayers, contextPlayers, nodePositions, center }) {
+  const visibleItems = categoryPlayers.map((player) => nodePositions.get(player.id)).filter(Boolean);
+  if (!visibleItems.length) {
+    const visualSize = clusterVisualSize(layout, Math.max(1, Math.min(contextPlayers.length, layout.visibleLimit || 1)));
+    const rx = Math.max(72, Math.round(visualSize.rx * 0.7));
+    const ry = Math.max(50, Math.round(visualSize.ry * 0.72));
+    return {
+      x: layout.x,
+      y: layout.y,
+      rx,
+      ry,
+      angle: layout.angle,
+      arcRadius: layout.arcRadius,
+      layout: { ...layout, rx, ry }
+    };
+  }
+
+  const bounds = visibleItems.reduce(
+    (acc, item) => {
+      const radius = nodeCollisionRadius(item);
+      return {
+        x1: Math.min(acc.x1, item.x - radius),
+        y1: Math.min(acc.y1, item.y - radius),
+        x2: Math.max(acc.x2, item.x + radius),
+        y2: Math.max(acc.y2, item.y + radius)
+      };
+    },
+    { x1: Infinity, y1: Infinity, x2: -Infinity, y2: -Infinity }
+  );
+  const visibleCount = visibleItems.length;
+  const boundsCenter = {
+    x: (bounds.x1 + bounds.x2) / 2,
+    y: (bounds.y1 + bounds.y2) / 2
+  };
+  const layoutPull = visibleCount <= 1 ? 0.06 : visibleCount <= 3 ? 0.1 : 0.14;
+  const x = clampNumber(boundsCenter.x * (1 - layoutPull) + layout.x * layoutPull, 62, 938);
+  const y = clampNumber(boundsCenter.y * (1 - layoutPull) + layout.y * layoutPull, 58, 642);
+  const visualSize = clusterVisualSize(layout, visibleCount);
+  const paddingX = visibleCount <= 1 ? 54 : visibleCount <= 3 ? 58 : visibleCount <= 8 ? 68 : 82;
+  const paddingY = visibleCount <= 1 ? 42 : visibleCount <= 3 ? 48 : visibleCount <= 8 ? 58 : 72;
+  const minRx = visibleCount <= 1 ? 74 : visibleCount <= 3 ? 96 : visibleCount <= 8 ? 118 : 142;
+  const minRy = visibleCount <= 1 ? 52 : visibleCount <= 3 ? 66 : visibleCount <= 8 ? 78 : 92;
+  const baseRx = Math.max(minRx, (bounds.x2 - bounds.x1) / 2 + paddingX, visualSize.rx * (visibleCount <= 1 ? 0.6 : 0.74));
+  const baseRy = Math.max(minRy, (bounds.y2 - bounds.y1) / 2 + paddingY, visualSize.ry * (visibleCount <= 1 ? 0.62 : 0.76));
+  const needed = visibleItems.reduce(
+    (acc, item) => {
+      const radius = nodeCollisionRadius(item);
+      return {
+        rx: Math.max(acc.rx, Math.abs(item.x - x) + radius + 22),
+        ry: Math.max(acc.ry, Math.abs(item.y - y) + radius + 20)
+      };
+    },
+    { rx: baseRx, ry: baseRy }
+  );
+  const rx = Math.round(clampNumber(needed.rx, minRx, visibleCount > 24 ? 278 : 244));
+  const ry = Math.round(clampNumber(needed.ry, minRy, visibleCount > 24 ? 194 : 168));
+  const angle = ((Math.atan2(y - center.y, x - center.x) * 180) / Math.PI + 90 + 360) % 360;
+  const distance = Math.hypot(x - center.x, y - center.y);
+  const arcRadius = Math.round(clampNumber(distance + Math.max(rx, ry) * 0.16, 118, 352));
+  return {
+    x,
+    y,
+    rx,
+    ry,
+    angle,
+    arcRadius,
+    layout: { ...layout, x, y, rx, ry, angle, arcRadius }
   };
 }
 
@@ -9217,8 +9289,25 @@ function renderMap() {
   separateConfusingMapNodes(nodeItems, center, protectedRects);
   const selectedLabelSpace = createSpaceForSelectedMapLabel(nodeItems, filtered.length, focusScale, center, protectedRects);
   const nodePositions = new Map(nodeItems.map((item) => [item.player.id, item]));
+  const clusterGeometryByCategory = new Map(
+    byCategory.map(({ category, players: categoryPlayers, contextPlayers, layout }) => [
+      category.id,
+      dynamicClusterGeometry({
+        layout,
+        categoryPlayers,
+        contextPlayers,
+        nodePositions,
+        center
+      })
+    ])
+  );
   const defaultBox = compactMap ? { x: 96, y: 24, width: 816, height: 584 } : { x: -42, y: -28, width: 1084, height: 759 };
-  const viewBox = mapViewBoxFromNodes([...nodeItems, ...mapCategoryBoundsItems(byCategory, center)], basePlayers, filtered, compactMap);
+  const viewBox = mapViewBoxFromNodes(
+    [...nodeItems, ...mapCategoryBoundsItems(byCategory, center, clusterGeometryByCategory)],
+    basePlayers,
+    filtered,
+    compactMap
+  );
   svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
   setMapViewBox(svg, viewBox, defaultBox);
   const metricsByCategory = new Map(categoryMetrics().map((item) => [item.id, item]));
@@ -9271,9 +9360,15 @@ function renderMap() {
   fragment.appendChild(arcLayer);
   byCategory.forEach(({ category, layout }) => {
     const metric = metricsByCategory.get(category.id);
-    const spread = state.selectedCategory === "all" ? 18 : 24;
+    const geometry = clusterGeometryByCategory.get(category.id) || {
+      angle: layout.angle,
+      arcRadius: layout.arcRadius,
+      rx: layout.rx,
+      ry: layout.ry
+    };
+    const spread = state.selectedCategory === "all" ? Math.max(13, Math.min(28, (geometry.rx / geometry.arcRadius) * 58)) : 24;
     const arc = createSvg("path", {
-      d: describeArc(center.x, center.y, layout.arcRadius, layout.angle - spread, layout.angle + spread),
+      d: describeArc(center.x, center.y, geometry.arcRadius, geometry.angle - spread, geometry.angle + spread),
       class: "category-arc",
       stroke: category.color,
       "stroke-width": Math.max(4, Math.round((metric?.pressure || 0) / 14)),
@@ -9307,18 +9402,19 @@ function renderMap() {
     const contextCount = contextPlayers.length;
     if (!contextCount && state.selectedCategory !== "all") return;
     if (!contextCount && state.selectedCategory === "all") return;
-    const visualCount = Math.max(categoryPlayers.length, contextCount);
-    const visualSize = clusterVisualSize(layout, visualCount);
+    const geometry = clusterGeometryByCategory.get(category.id) || dynamicClusterGeometry({ layout, categoryPlayers, contextPlayers, nodePositions, center });
 
     const cluster = createSvg("g", {
       class: `map-cluster-group map-cluster-group-${category.id} ${categoryPlayers.length ? "has-visible-nodes" : "is-context-only"}`,
       style: `--cluster-color:${category.color}`
     });
-    const clusterRx = visualCount > 1 ? visualSize.rx : 82;
-    const clusterRy = visualCount > 1 ? visualSize.ry : 56;
+    const clusterX = geometry.x ?? x;
+    const clusterY = geometry.y ?? y;
+    const clusterRx = geometry.rx;
+    const clusterRy = geometry.ry;
     const halo = createSvg("ellipse", {
-      cx: x,
-      cy: y,
+      cx: clusterX,
+      cy: clusterY,
       rx: clusterRx + 11,
       ry: clusterRy + 9,
       class: `map-cluster-halo map-cluster-halo-${category.id}`,
@@ -9328,8 +9424,8 @@ function renderMap() {
     });
     cluster.appendChild(halo);
     const ellipse = createSvg("ellipse", {
-      cx: x,
-      cy: y,
+      cx: clusterX,
+      cy: clusterY,
       rx: clusterRx,
       ry: clusterRy,
       class: `map-cluster map-cluster-${category.id}`,
@@ -9564,9 +9660,16 @@ function renderMap() {
   const clusterLabelLayer = createSvg("g", { class: "cluster-label-layer" });
   byCategory.forEach(({ category, players: categoryPlayers, contextPlayers, x, layout }) => {
     if (!contextPlayers.length) return;
-    const visualCount = Math.max(categoryPlayers.length, contextPlayers.length);
-    const visualSize = clusterVisualSize(layout, visualCount);
-    appendMapClusterLabel(clusterLabelLayer, { category, categoryPlayers, contextPlayers, x, layout, visualSize, center });
+    const geometry = clusterGeometryByCategory.get(category.id) || dynamicClusterGeometry({ layout, categoryPlayers, contextPlayers, nodePositions, center });
+    appendMapClusterLabel(clusterLabelLayer, {
+      category,
+      categoryPlayers,
+      contextPlayers,
+      x: geometry.x ?? x,
+      layout: geometry.layout || layout,
+      visualSize: geometry,
+      center
+    });
   });
   fragment.appendChild(clusterLabelLayer);
 
