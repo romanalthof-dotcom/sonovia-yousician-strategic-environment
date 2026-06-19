@@ -1,0 +1,3909 @@
+{
+  "playerEnrichment": {
+    "a16z-consumer": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "a16z Consumer",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Consumer Tech Investments &amp; Team Overview | a16z",
+          "type": "Official website",
+          "url": "https://a16z.com/consumer/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "a16z_consumer",
+        "sourceUrl": "https://a16z.com/consumer/",
+        "title": "Consumer Tech Investments &amp; Team Overview | a16z",
+        "url": "https://a16z.com/consumer/",
+        "value": "https://a16z.com/consumer/"
+      }
+    },
+    "ableton": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Ableton",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Creative tools for music makers | Ableton",
+          "type": "Official website",
+          "url": "https://www.ableton.com/en/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "ableton_official",
+        "sourceUrl": "https://www.ableton.com/en/",
+        "title": "Creative tools for music makers | Ableton",
+        "url": "https://www.ableton.com/en/",
+        "value": "https://www.ableton.com/en/"
+      }
+    },
+    "abrsm": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "ABRSM",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "access-restricted",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "ABRSM primary website",
+          "type": "Official website",
+          "url": "https://www.abrsm.org/en-gb/for-learners/apps-and-practice-tools"
+        }
+      ],
+      "website": {
+        "accessStatus": "access-restricted",
+        "checkedAt": "2026-06-19",
+        "error": "HTTP Error 403: Forbidden",
+        "httpStatus": "403",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "abrsm_apps",
+        "sourceUrl": "https://www.abrsm.org/en-gb/for-learners/apps-and-practice-tools",
+        "title": "",
+        "url": "https://www.abrsm.org/en-gb/for-learners/apps-and-practice-tools",
+        "value": "https://www.abrsm.org/en-gb/for-learners/apps-and-practice-tools"
+      }
+    },
+    "accel": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Accel",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Accel",
+          "type": "Official website",
+          "url": "https://www.accel.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "accel_home",
+        "sourceUrl": "https://www.accel.com/",
+        "title": "Accel",
+        "url": "https://www.accel.com/",
+        "value": "https://www.accel.com/"
+      }
+    },
+    "aiva": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "AIVA",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "AIVA, the AI Music Generation Assistant",
+          "type": "Official website",
+          "url": "https://www.aiva.ai/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "aiva_official",
+        "sourceUrl": "https://www.aiva.ai/",
+        "title": "AIVA, the AI Music Generation Assistant",
+        "url": "https://www.aiva.ai/",
+        "value": "https://www.aiva.ai/"
+      }
+    },
+    "apple-design-awards": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Apple Design Awards",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Apple Design Awards - 2026 winners and finalists - Apple Developer",
+          "type": "Official website",
+          "url": "https://developer.apple.com/design/awards/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "apple_design_awards_2026",
+        "sourceUrl": "https://developer.apple.com/design/awards/",
+        "title": "Apple Design Awards - 2026 winners and finalists - Apple Developer",
+        "url": "https://developer.apple.com/design/awards/",
+        "value": "https://developer.apple.com/design/awards/"
+      }
+    },
+    "apple-garageband": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "GarageBand",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "GarageBand for iOS - Apple",
+          "type": "Official website",
+          "url": "https://www.apple.com/ios/garageband/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "apple_garageband",
+        "sourceUrl": "https://www.apple.com/ios/garageband/",
+        "title": "GarageBand for iOS - Apple",
+        "url": "https://www.apple.com/ios/garageband/",
+        "value": "https://www.apple.com/ios/garageband/"
+      }
+    },
+    "artie-piano": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Artie Piano",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Learn Piano Fast with Artie – Your AI Music Teacher - ArtMaster",
+          "type": "Official website",
+          "url": "https://www.artmaster.com/artie"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "artie_artmaster",
+        "sourceUrl": "https://www.artmaster.com/artie",
+        "title": "Learn Piano Fast with Artie – Your AI Music Teacher - ArtMaster",
+        "url": "https://www.artmaster.com/artie",
+        "value": "https://www.artmaster.com/artie"
+      }
+    },
+    "artistworks": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "ArtistWorks",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Online Music Lessons Built for Your Breakthrough | ArtistWorks",
+          "type": "Official website",
+          "url": "https://artistworks.com/"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "ArtistWorks Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q85743219"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "artistworks_official",
+        "sourceUrl": "https://artistworks.com/",
+        "title": "Online Music Lessons Built for Your Breakthrough | ArtistWorks",
+        "url": "https://artistworks.com/",
+        "value": "https://artistworks.com/"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-19",
+        "confidence": "matched public entity",
+        "country": "",
+        "description": "Online music education platform",
+        "founded": "",
+        "hq": "",
+        "label": "ArtistWorks",
+        "matchScore": 27,
+        "ownedBy": "",
+        "parentOrganization": "",
+        "qid": "Q85743219",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q85743219",
+        "website": ""
+      }
+    },
+    "audacity": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Audacity",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Music Software &amp; Content Ecosystem for Creators | Muse Group",
+          "type": "Official website",
+          "url": "https://www.mu.se/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "muse_group",
+        "sourceUrl": "https://www.mu.se/",
+        "title": "Music Software &amp; Content Ecosystem for Creators | Muse Group",
+        "url": "https://www.mu.se/",
+        "value": "https://www.mu.se/"
+      }
+    },
+    "bandcamp": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Bandcamp",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Bandcamp for Artists",
+          "type": "Official website",
+          "url": "https://bandcamp.com/artists"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "bandcamp_artists",
+        "sourceUrl": "https://bandcamp.com/artists",
+        "title": "Bandcamp for Artists",
+        "url": "https://bandcamp.com/artists",
+        "value": "https://bandcamp.com/artists"
+      }
+    },
+    "bandlab": {
+      "appStore": {
+        "appName": "BandLab – Music Maker & Beats",
+        "appStoreId": "968585775",
+        "currentVersionReleaseDate": "2026-06-17T02:19:52Z",
+        "genre": "Music",
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.75272,
+        "reviewCount": 486501,
+        "sellerName": "BandLab Singapore Pte Ltd",
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/bandlab-music-maker-beats/id968585775?uo=4"
+      },
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "BandLab",
+      "publicMetric": {
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.75272,
+        "reviewCount": 486501,
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/bandlab-music-maker-beats/id968585775?uo=4"
+      },
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "BandLab primary website",
+          "type": "Official website",
+          "url": "https://www.bandlab.com/about"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
+          "tier": "High",
+          "title": "BandLab – Music Maker & Beats App Store public lookup",
+          "type": "App Store",
+          "url": "https://apps.apple.com/us/app/bandlab-music-maker-beats/id968585775?uo=4"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-17",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "bandlab_about",
+        "sourceUrl": "https://www.bandlab.com/about",
+        "title": "",
+        "url": "https://www.bandlab.com/about",
+        "value": "https://www.bandlab.com/about"
+      }
+    },
+    "beatstars": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "BeatStars",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Buy Beats Online | Download Beats | Rap Beats For Sale | Instrumentals For Sale",
+          "type": "Official website",
+          "url": "https://www.beatstars.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "beatstars_official",
+        "sourceUrl": "https://www.beatstars.com/",
+        "title": "Buy Beats Online | Download Beats | Rap Beats For Sale | Instrumentals For Sale",
+        "url": "https://www.beatstars.com/",
+        "value": "https://www.beatstars.com/"
+      }
+    },
+    "berklee-online": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Berklee Online",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Berklee Online - Master&#39;s and Bachelor&#39;s Music Degrees, Certificates, and Courses",
+          "type": "Official website",
+          "url": "https://online.berklee.edu/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "berklee_online",
+        "sourceUrl": "https://online.berklee.edu/",
+        "title": "Berklee Online - Master&#39;s and Bachelor&#39;s Music Degrees, Certificates, and Courses",
+        "url": "https://online.berklee.edu/",
+        "value": "https://online.berklee.edu/"
+      }
+    },
+    "bett-awards": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "BETT Awards",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Bett Awards | Get Rewarded For Your Achievements | Bett UK",
+          "type": "Official website",
+          "url": "https://uk.bettshow.com/awards"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "bett_awards",
+        "sourceUrl": "https://uk.bettshow.com/awards",
+        "title": "Bett Awards | Get Rewarded For Your Achievements | Bett UK",
+        "url": "https://uk.bettshow.com/awards",
+        "value": "https://uk.bettshow.com/awards"
+      }
+    },
+    "boss": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "BOSS / Roland",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "BOSS - US",
+          "type": "Official website",
+          "url": "https://www.boss.info/us/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "boss_official",
+        "sourceUrl": "https://www.boss.info/us/",
+        "title": "BOSS - US",
+        "url": "https://www.boss.info/us/",
+        "value": "https://www.boss.info/us/"
+      }
+    },
+    "brilliant": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Brilliant",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Brilliant | Learn by doing",
+          "type": "Official website",
+          "url": "https://brilliant.org/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "brilliant_home",
+        "sourceUrl": "https://brilliant.org/",
+        "title": "Brilliant | Learn by doing",
+        "url": "https://brilliant.org/",
+        "value": "https://brilliant.org/"
+      }
+    },
+    "chartmetric": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Chartmetric",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Chartmetric | Advancing music with the power of data",
+          "type": "Official website",
+          "url": "https://chartmetric.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "chartmetric_official",
+        "sourceUrl": "https://chartmetric.com/",
+        "title": "Chartmetric | Advancing music with the power of data",
+        "url": "https://chartmetric.com/",
+        "value": "https://chartmetric.com/"
+      }
+    },
+    "chord-ai": {
+      "appStore": {
+        "appName": "Chord ai - Play any song!",
+        "appStoreId": "1446177109",
+        "currentVersionReleaseDate": "2026-06-10T20:35:49Z",
+        "genre": "Music",
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.64551,
+        "reviewCount": 5862,
+        "sellerName": "Nomad AI OU",
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/chord-ai-play-any-song/id1446177109?uo=4"
+      },
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Chord ai",
+      "publicMetric": {
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.64551,
+        "reviewCount": 5862,
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/chord-ai-play-any-song/id1446177109?uo=4"
+      },
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Chord AI | Nomad AI",
+          "type": "Official website",
+          "url": "https://www.nomadai.org/chord-ai"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
+          "tier": "High",
+          "title": "Chord ai - Play any song! App Store public lookup",
+          "type": "App Store",
+          "url": "https://apps.apple.com/us/app/chord-ai-play-any-song/id1446177109?uo=4"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "chord_ai_nomad",
+        "sourceUrl": "https://www.nomadai.org/chord-ai",
+        "title": "Chord AI | Nomad AI",
+        "url": "https://www.nomadai.org/chord-ai",
+        "value": "https://www.nomadai.org/chord-ai"
+      }
+    },
+    "chordify": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Chordify",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "access-restricted",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Chordify primary website",
+          "type": "Official website",
+          "url": "https://chordify.net/"
+        }
+      ],
+      "website": {
+        "accessStatus": "access-restricted",
+        "checkedAt": "2026-06-19",
+        "error": "HTTP Error 403: Forbidden",
+        "httpStatus": "403",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "chordify_official",
+        "sourceUrl": "https://chordify.net/",
+        "title": "",
+        "url": "https://chordify.net/",
+        "value": "https://chordify.net/"
+      }
+    },
+    "cifra-club": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Cifra Club",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Cifra Club - Seu site de cifras e tablaturas",
+          "type": "Official website",
+          "url": "https://www.cifraclub.com.br/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-18",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "cifra_club_home",
+        "sourceUrl": "https://www.cifraclub.com.br/",
+        "title": "Cifra Club - Seu site de cifras e tablaturas",
+        "url": "https://www.cifraclub.com.br/",
+        "value": "https://www.cifraclub.com.br/"
+      }
+    },
+    "coach-guitar": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Coach Guitar",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Coach Guitar | Guitar Lessons",
+          "type": "Official website",
+          "url": "https://coachguitar.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-18",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "coach_guitar_home",
+        "sourceUrl": "https://coachguitar.com/",
+        "title": "Coach Guitar | Guitar Lessons",
+        "url": "https://coachguitar.com/en",
+        "value": "https://coachguitar.com/"
+      }
+    },
+    "creative-europe": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Creative Europe",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Creative Europe - European Commission",
+          "type": "Official website",
+          "url": "https://commission.europa.eu/funding-and-tenders/find-funding/eu-funding-programmes/creative-europe_en"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "creative_europe_programme",
+        "sourceUrl": "https://commission.europa.eu/funding-and-tenders/find-funding/eu-funding-programmes/creative-europe_en",
+        "title": "Creative Europe - European Commission",
+        "url": "https://commission.europa.eu/funding-and-tenders/find-funding/eu-funding-programmes/creative-europe_en",
+        "value": "https://commission.europa.eu/funding-and-tenders/find-funding/eu-funding-programmes/creative-europe_en"
+      }
+    },
+    "disney": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Disney",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Disney and Epic Games to Create Expansive and Open Games and Entertainment Universe Connected to Fortnite | The Walt Disney Company",
+          "type": "Official website",
+          "url": "https://thewaltdisneycompany.com/news/disney-and-epic-games-fortnite/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-17",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "disney_epic_games_2024",
+        "sourceUrl": "https://thewaltdisneycompany.com/news/disney-and-epic-games-fortnite/",
+        "title": "Disney and Epic Games to Create Expansive and Open Games and Entertainment Universe Connected to Fortnite | The Walt Disney Company",
+        "url": "https://thewaltdisneycompany.com/news/disney-and-epic-games-fortnite/",
+        "value": "https://thewaltdisneycompany.com/news/disney-and-epic-games-fortnite/"
+      }
+    },
+    "distrokid": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "DistroKid",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Download the DistroKid app for iOS and Android | DistroKid",
+          "type": "Official website",
+          "url": "https://distrokid.com/app/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "distrokid_app",
+        "sourceUrl": "https://distrokid.com/app/",
+        "title": "Download the DistroKid app for iOS and Android | DistroKid",
+        "url": "https://distrokid.com/app/",
+        "value": "https://distrokid.com/app/"
+      }
+    },
+    "donner": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Donner",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Electronic &amp; Digital Music Instruments | Donner® Music Store",
+          "type": "Official website",
+          "url": "https://us.donnermusic.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "donner_official",
+        "sourceUrl": "https://us.donnermusic.com/",
+        "title": "Electronic &amp; Digital Music Instruments | Donner® Music Store",
+        "url": "https://us.donnermusic.com/",
+        "value": "https://us.donnermusic.com/"
+      }
+    },
+    "duolingo": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Duolingo",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "듀오링고 음악 과정이 나왔어요 - 더 알아보기",
+          "type": "Official website",
+          "url": "https://blog.duolingo.com/duolingo-music/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-17",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "duolingo_music_launch",
+        "sourceUrl": "https://blog.duolingo.com/duolingo-music/",
+        "title": "듀오링고 음악 과정이 나왔어요 - 더 알아보기",
+        "url": "https://blog.duolingo.com/ko/duolingo-music/",
+        "value": "https://blog.duolingo.com/duolingo-music/"
+      }
+    },
+    "eic-accelerator": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "EIC Accelerator",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "EIC Accelerator - European Innovation Council - European Commission",
+          "type": "Official website",
+          "url": "https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "eic_accelerator",
+        "sourceUrl": "https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en",
+        "title": "EIC Accelerator - European Innovation Council - European Commission",
+        "url": "https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en",
+        "value": "https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en"
+      }
+    },
+    "eit-culture-creativity": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "EIT Culture & Creativity",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Leading Culture &amp; Creative Innovation | EIT Culture &amp; Creativity",
+          "type": "Official website",
+          "url": "https://eit-culture-creativity.eu/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "eit_culture_creativity",
+        "sourceUrl": "https://eit-culture-creativity.eu/",
+        "title": "Leading Culture &amp; Creative Innovation | EIT Culture &amp; Creativity",
+        "url": "https://eit-culture-creativity.eu/",
+        "value": "https://eit-culture-creativity.eu/"
+      }
+    },
+    "elevenlabs-music": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "ElevenLabs Music",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "AI Music Generator | Free Song Maker &amp; Music Creator",
+          "type": "Official website",
+          "url": "https://elevenlabs.io/music"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "elevenlabs_music",
+        "sourceUrl": "https://elevenlabs.io/music",
+        "title": "AI Music Generator | Free Song Maker &amp; Music Creator",
+        "url": "https://elevenlabs.io/music",
+        "value": "https://elevenlabs.io/music"
+      }
+    },
+    "epic-games": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Epic Games",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "access-restricted",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Epic Games primary website",
+          "type": "Official website",
+          "url": "https://www.epicgames.com/site/en-US/about"
+        }
+      ],
+      "website": {
+        "accessStatus": "access-restricted",
+        "checkedAt": "2026-06-19",
+        "error": "HTTP Error 403: Forbidden",
+        "httpStatus": "403",
+        "lastChecked": "2026-06-17",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "epic_games_about",
+        "sourceUrl": "https://www.epicgames.com/site/en-US/about",
+        "title": "",
+        "url": "https://www.epicgames.com/site/en-US/about",
+        "value": "https://www.epicgames.com/site/en-US/about"
+      }
+    },
+    "fender": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Fender",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "access-restricted",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Fender primary website",
+          "type": "Official website",
+          "url": "https://www.fender.com/play"
+        }
+      ],
+      "website": {
+        "accessStatus": "access-restricted",
+        "checkedAt": "2026-06-19",
+        "error": "HTTP Error 403: Forbidden",
+        "httpStatus": "403",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "fender_play",
+        "sourceUrl": "https://www.fender.com/play",
+        "title": "",
+        "url": "https://www.fender.com/play",
+        "value": "https://www.fender.com/play"
+      }
+    },
+    "fender-play": {
+      "appStore": {
+        "appName": "Fender Play: Learn Guitar",
+        "appStoreId": "1226057939",
+        "currentVersionReleaseDate": "2026-06-01T20:33:02Z",
+        "genre": "Education",
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.79617,
+        "reviewCount": 60620,
+        "sellerName": "Fender Digital, LLC",
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/fender-play-learn-guitar/id1226057939?uo=4"
+      },
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Fender Play",
+      "publicMetric": {
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.79617,
+        "reviewCount": 60620,
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/fender-play-learn-guitar/id1226057939?uo=4"
+      },
+      "sources": [
+        {
+          "access_status": "access-restricted",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Fender Play primary website",
+          "type": "Official website",
+          "url": "https://www.fender.com/play"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
+          "tier": "High",
+          "title": "Fender Play: Learn Guitar App Store public lookup",
+          "type": "App Store",
+          "url": "https://apps.apple.com/us/app/fender-play-learn-guitar/id1226057939?uo=4"
+        }
+      ],
+      "website": {
+        "accessStatus": "access-restricted",
+        "checkedAt": "2026-06-19",
+        "error": "HTTP Error 403: Forbidden",
+        "httpStatus": "403",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "fender_play",
+        "sourceUrl": "https://www.fender.com/play",
+        "title": "",
+        "url": "https://www.fender.com/play",
+        "value": "https://www.fender.com/play"
+      }
+    },
+    "fl-studio": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "FL Studio",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "FL Studio &ndash; Music Production Software | Image-Line",
+          "type": "Official website",
+          "url": "https://www.image-line.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "fl_studio_official",
+        "sourceUrl": "https://www.image-line.com/",
+        "title": "FL Studio &ndash; Music Production Software | Image-Line",
+        "url": "https://www.image-line.com/",
+        "value": "https://www.image-line.com/"
+      }
+    },
+    "flat-io": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Flat for Education",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Collaborative music learning app from theory to composition - Flat for Education",
+          "type": "Official website",
+          "url": "https://flat.io/edu"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "flat_io_education",
+        "sourceUrl": "https://flat.io/edu",
+        "title": "Collaborative music learning app from theory to composition - Flat for Education",
+        "url": "https://flat.io/edu",
+        "value": "https://flat.io/edu"
+      }
+    },
+    "flow-music": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Flow Music",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Google Flow Music",
+          "type": "Official website",
+          "url": "https://www.flowmusic.app/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "flow_music_official",
+        "sourceUrl": "https://www.flowmusic.app/",
+        "title": "Google Flow Music",
+        "url": "https://www.flowmusic.app/",
+        "value": "https://www.flowmusic.app/"
+      }
+    },
+    "flowkey": {
+      "appStore": {
+        "appName": "flowkey – Learn to Play Piano",
+        "appStoreId": "1020357408",
+        "currentVersionReleaseDate": "2026-06-15T09:38:45Z",
+        "genre": "Education",
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.71534,
+        "reviewCount": 63930,
+        "sellerName": "flowkey GmbH",
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/flowkey-learn-to-play-piano/id1020357408?uo=4"
+      },
+      "conflicts": [],
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q138574298",
+        "value": "2014"
+      },
+      "lastUpdated": "2026-06-19",
+      "name": "Flowkey",
+      "publicMetric": {
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.71534,
+        "reviewCount": 63930,
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/flowkey-learn-to-play-piano/id1020357408?uo=4"
+      },
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Learn Piano – Interactive Piano Learning App | flowkey",
+          "type": "Official website",
+          "url": "https://www.flowkey.com/en"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
+          "tier": "High",
+          "title": "flowkey – Learn to Play Piano App Store public lookup",
+          "type": "App Store",
+          "url": "https://apps.apple.com/us/app/flowkey-learn-to-play-piano/id1020357408?uo=4"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "flowkey Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q138574298"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "flowkey_official",
+        "sourceUrl": "https://www.flowkey.com/en",
+        "title": "Learn Piano – Interactive Piano Learning App | flowkey",
+        "url": "https://www.flowkey.com/en",
+        "value": "https://www.flowkey.com/en"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-19",
+        "confidence": "matched public entity",
+        "country": "",
+        "description": "piano learning app and music education platform",
+        "founded": "2014",
+        "hq": "",
+        "label": "flowkey",
+        "matchScore": 27,
+        "ownedBy": "",
+        "parentOrganization": "",
+        "qid": "Q138574298",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q138574298",
+        "website": "https://www.flowkey.com/"
+      }
+    },
+    "fretello": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Fretello",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Guitar Learning App | Fretello",
+          "type": "Official website",
+          "url": "https://fretello.com/app/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "fretello_official",
+        "sourceUrl": "https://fretello.com/app/",
+        "title": "Guitar Learning App | Fretello",
+        "url": "https://fretello.com/app/",
+        "value": "https://fretello.com/app/"
+      }
+    },
+    "gear4music": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Gear4music",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "access-restricted",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Gear4music primary website",
+          "type": "Official website",
+          "url": "https://www.gear4music.com/us/en/music-education-supplies"
+        }
+      ],
+      "website": {
+        "accessStatus": "access-restricted",
+        "checkedAt": "2026-06-19",
+        "error": "HTTP Error 403: Forbidden",
+        "httpStatus": "403",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "gear4music_education",
+        "sourceUrl": "https://www.gear4music.com/us/en/music-education-supplies",
+        "title": "",
+        "url": "https://www.gear4music.com/us/en/music-education-supplies",
+        "value": "https://www.gear4music.com/us/en/music-education-supplies"
+      }
+    },
+    "general-catalyst": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "General Catalyst",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "General Catalyst",
+          "type": "Official website",
+          "url": "https://www.generalcatalyst.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "general_catalyst_home",
+        "sourceUrl": "https://www.generalcatalyst.com/",
+        "title": "General Catalyst",
+        "url": "https://www.generalcatalyst.com/",
+        "value": "https://www.generalcatalyst.com/"
+      }
+    },
+    "gibson": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Gibson",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Gibson",
+          "type": "Official website",
+          "url": "https://www.gibson.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "gibson_official",
+        "sourceUrl": "https://www.gibson.com/",
+        "title": "Gibson",
+        "url": "https://www.gibson.com/",
+        "value": "https://www.gibson.com/"
+      }
+    },
+    "gibson-app": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Gibson App",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Gibson App — The Guitar Learning App with Real-Time Feedback",
+          "type": "Official website",
+          "url": "https://www.gibson.app/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "gibson_app_official",
+        "sourceUrl": "https://www.gibson.app/",
+        "title": "Gibson App — The Guitar Learning App with Real-Time Feedback",
+        "url": "https://www.gibson.app/",
+        "value": "https://www.gibson.app/"
+      }
+    },
+    "google-play-best-of": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Google Play Best Of",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Google Play Best Of primary website",
+          "type": "Official website",
+          "url": "https://play.google.com/store/apps/editorial?hl=en_US&id=mc_games_apps_cmp_bestof2025_fcp"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "google_play_best_2025",
+        "sourceUrl": "https://play.google.com/store/apps/editorial?hl=en_US&id=mc_games_apps_cmp_bestof2025_fcp",
+        "title": "",
+        "url": "https://play.google.com/store/apps/editorial?hl=en_US&id=mc_games_apps_cmp_bestof2025_fcp",
+        "value": "https://play.google.com/store/apps/editorial?hl=en_US&id=mc_games_apps_cmp_bestof2025_fcp"
+      }
+    },
+    "guitar-center": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Guitar Center",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Private Music Lessons for Beginners and Advanced Musicians",
+          "type": "Official website",
+          "url": "https://www.guitarcenter.com/Services/Lessons/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "guitar_center_lessons",
+        "sourceUrl": "https://www.guitarcenter.com/Services/Lessons/",
+        "title": "Private Music Lessons for Beginners and Advanced Musicians",
+        "url": "https://www.guitarcenter.com/Services/Lessons/",
+        "value": "https://www.guitarcenter.com/Services/Lessons/"
+      }
+    },
+    "guitar-pro": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Guitar Pro",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Guitar Pro - Tab Editor Software for Guitar, Bass, Drum, Piano and more...",
+          "type": "Official website",
+          "url": "https://www.guitar-pro.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "guitar_pro_official",
+        "sourceUrl": "https://www.guitar-pro.com/",
+        "title": "Guitar Pro - Tab Editor Software for Guitar, Bass, Drum, Piano and more...",
+        "url": "https://www.guitar-pro.com/",
+        "value": "https://www.guitar-pro.com/"
+      }
+    },
+    "guitar-tricks": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Guitar Tricks",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "access-restricted",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Guitar Tricks primary website",
+          "type": "Official website",
+          "url": "https://www.guitartricks.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "access-restricted",
+        "checkedAt": "2026-06-19",
+        "error": "HTTP Error 403: Forbidden",
+        "httpStatus": "403",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "guitar_tricks_official",
+        "sourceUrl": "https://www.guitartricks.com/",
+        "title": "",
+        "url": "https://www.guitartricks.com/",
+        "value": "https://www.guitartricks.com/"
+      }
+    },
+    "hal-leonard": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Hal Leonard",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Hal Leonard: The World's Largest Sheet Music Publisher | Official Website",
+          "type": "Official website",
+          "url": "https://www.halleonard.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-18",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "hal_leonard_home",
+        "sourceUrl": "https://www.halleonard.com/",
+        "title": "Hal Leonard: The World's Largest Sheet Music Publisher | Official Website",
+        "url": "https://www.halleonard.com/",
+        "value": "https://www.halleonard.com/"
+      }
+    },
+    "horizon-europe-cluster-2": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Horizon Europe Cluster 2",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Cluster 2: Culture, Creativity and Inclusive society - Research and innovation",
+          "type": "Official website",
+          "url": "https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe/cluster-2-culture-creativity-and-inclusive-society_en"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "horizon_europe_cluster2",
+        "sourceUrl": "https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe/cluster-2-culture-creativity-and-inclusive-society_en",
+        "title": "Cluster 2: Culture, Creativity and Inclusive society - Research and innovation",
+        "url": "https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe/cluster-2-culture-creativity-and-inclusive-society_en",
+        "value": "https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe/cluster-2-culture-creativity-and-inclusive-society_en"
+      }
+    },
+    "justinguitar": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "JustinGuitar",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Justin Guitar App",
+          "type": "Official website",
+          "url": "https://justinguitarapp.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "justinguitar_app",
+        "sourceUrl": "https://justinguitarapp.com/",
+        "title": "Justin Guitar App",
+        "url": "https://justinguitarapp.com/",
+        "value": "https://justinguitarapp.com/"
+      }
+    },
+    "kahoot": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Kahoot",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Kahoot! launches new AI self study tools for Back-to-School",
+          "type": "Official website",
+          "url": "https://kahoot.com/press/2025/09/22/new-ai-powered-study-tools-back-to-school/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "kahoot_ai_press",
+        "sourceUrl": "https://kahoot.com/press/2025/09/22/new-ai-powered-study-tools-back-to-school/",
+        "title": "Kahoot! launches new AI self study tools for Back-to-School",
+        "url": "https://kahoot.com/press/2025/09/22/new-ai-powered-study-tools-back-to-school/",
+        "value": "https://kahoot.com/press/2025/09/22/new-ai-powered-study-tools-back-to-school/"
+      }
+    },
+    "klangio": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Klangio",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "needs-review",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Klangio primary website",
+          "type": "Official website",
+          "url": "https://klang.io/"
+        }
+      ],
+      "website": {
+        "accessStatus": "needs-review",
+        "checkedAt": "2026-06-19",
+        "error": "<urlopen error [SSL: TLSV1_ALERT_PROTOCOL_VERSION] tlsv1 alert protocol version (_ssl.c:1129)>",
+        "httpStatus": "ERROR",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "klangio_official",
+        "sourceUrl": "https://klang.io/",
+        "title": "",
+        "url": "https://klang.io/",
+        "value": "https://klang.io/"
+      }
+    },
+    "lalal-ai": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "LALAL.AI",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "AI Vocal Remover & Instrumental Isolator | LALAL.AI",
+          "type": "Official website",
+          "url": "https://www.lalal.ai/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "lalal_ai_official",
+        "sourceUrl": "https://www.lalal.ai/",
+        "title": "AI Vocal Remover & Instrumental Isolator | LALAL.AI",
+        "url": "https://www.lalal.ai/",
+        "value": "https://www.lalal.ai/"
+      }
+    },
+    "landr": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "LANDR",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Create, Master and Release Music Like a Pro | LANDR",
+          "type": "Official website",
+          "url": "https://www.landr.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "landr_official",
+        "sourceUrl": "https://www.landr.com/",
+        "title": "Create, Master and Release Music Like a Pro | LANDR",
+        "url": "https://www.landr.com/",
+        "value": "https://www.landr.com/"
+      }
+    },
+    "learning-technologies-awards": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Learning Technologies Awards",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Learning Technologies Awards | 11 November 2026",
+          "type": "Official website",
+          "url": "https://www.learningtechnologies.co.uk/learning-tech-awards"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "learning_technologies_awards",
+        "sourceUrl": "https://www.learningtechnologies.co.uk/learning-tech-awards",
+        "title": "Learning Technologies Awards | 11 November 2026",
+        "url": "https://www.learningtechnologies.co.uk/learning-tech-awards",
+        "value": "https://www.learningtechnologies.co.uk/learning-tech-awards"
+      }
+    },
+    "loog": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Loog",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Kids&#39; Guitar Reimagined: Loog Guitars",
+          "type": "Official website",
+          "url": "https://loogguitars.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-18",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "loog_home",
+        "sourceUrl": "https://loogguitars.com/",
+        "title": "Kids&#39; Guitar Reimagined: Loog Guitars",
+        "url": "https://loogguitars.com/",
+        "value": "https://loogguitars.com/"
+      }
+    },
+    "luminate": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Luminate",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Luminate | Entertainment Industry Data, Analytics &amp; Insights",
+          "type": "Official website",
+          "url": "https://luminatedata.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "luminate_music",
+        "sourceUrl": "https://luminatedata.com/",
+        "title": "Luminate | Entertainment Industry Data, Analytics &amp; Insights",
+        "url": "https://luminatedata.com/",
+        "value": "https://luminatedata.com/"
+      }
+    },
+    "makemusic-cloud": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "MakeMusic Cloud",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Power Your Potential with MakeMusic Cloud - MakeMusic",
+          "type": "Official website",
+          "url": "https://www.makemusic.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-18",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "makemusic_home",
+        "sourceUrl": "https://www.makemusic.com/",
+        "title": "Power Your Potential with MakeMusic Cloud - MakeMusic",
+        "url": "https://www.makemusic.com/",
+        "value": "https://www.makemusic.com/"
+      }
+    },
+    "marty-music": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Marty Music",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Learn Guitar with Marty Music - Free Lessons & Premium Courses",
+          "type": "Official website",
+          "url": "https://www.martymusic.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "marty_music_site",
+        "sourceUrl": "https://www.martymusic.com/",
+        "title": "Learn Guitar with Marty Music - Free Lessons & Premium Courses",
+        "url": "https://www.martymusic.com/",
+        "value": "https://www.martymusic.com/"
+      }
+    },
+    "melodics": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Melodics",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Melodics | Drums, MIDI Keyboard &amp; Finger Drumming Lessons",
+          "type": "Official website",
+          "url": "https://melodics.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "melodics_official",
+        "sourceUrl": "https://melodics.com/",
+        "title": "Melodics | Drums, MIDI Keyboard &amp; Finger Drumming Lessons",
+        "url": "https://melodics.com/",
+        "value": "https://melodics.com/"
+      }
+    },
+    "midia-research": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "MIDiA Research",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Music Industry Reports from MIDiA Research",
+          "type": "Official website",
+          "url": "https://www.midiaresearch.com/reports/category/music-industry"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "midia_music_reports",
+        "sourceUrl": "https://www.midiaresearch.com/reports/category/music-industry",
+        "title": "Music Industry Reports from MIDiA Research",
+        "url": "https://www.midiaresearch.com/reports/category/music-industry",
+        "value": "https://www.midiaresearch.com/reports/category/music-industry"
+      }
+    },
+    "moises": {
+      "appStore": {
+        "appName": "Moises: The Musician's App",
+        "appStoreId": "1515796612",
+        "currentVersionReleaseDate": "2026-06-13T01:18:43Z",
+        "genre": "Music",
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.70256,
+        "reviewCount": 26655,
+        "sellerName": "Moises Systems Inc",
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/moises-the-musicians-app/id1515796612?uo=4"
+      },
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Moises",
+      "publicMetric": {
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.70256,
+        "reviewCount": 26655,
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/moises-the-musicians-app/id1515796612?uo=4"
+      },
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "We&#x27;re Launching AI Studio: Our New AI Music Creation Platform",
+          "type": "Official website",
+          "url": "https://moises.ai/newsroom/product-announcements/launch-ai-studio/"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
+          "tier": "High",
+          "title": "Moises: The Musician's App App Store public lookup",
+          "type": "App Store",
+          "url": "https://apps.apple.com/us/app/moises-the-musicians-app/id1515796612?uo=4"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-17",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "moises_ai_studio_2025",
+        "sourceUrl": "https://moises.ai/newsroom/product-announcements/launch-ai-studio/",
+        "title": "We&#x27;re Launching AI Studio: Our New AI Music Creation Platform",
+        "url": "https://moises.ai/newsroom/product-announcements/launch-ai-studio/",
+        "value": "https://moises.ai/newsroom/product-announcements/launch-ai-studio/"
+      }
+    },
+    "mtna": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "MTNA",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Membership - Music Teachers National Association",
+          "type": "Official website",
+          "url": "https://www.mtna.org/Membership.html"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "mtna_membership",
+        "sourceUrl": "https://www.mtna.org/Membership.html",
+        "title": "Membership - Music Teachers National Association",
+        "url": "https://www.mtna.org/Membership.html",
+        "value": "https://www.mtna.org/Membership.html"
+      }
+    },
+    "muse-group": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Muse Group",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Music Software &amp; Content Ecosystem for Creators | Muse Group",
+          "type": "Official website",
+          "url": "https://www.mu.se/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "muse_group",
+        "sourceUrl": "https://www.mu.se/",
+        "title": "Music Software &amp; Content Ecosystem for Creators | Muse Group",
+        "url": "https://www.mu.se/",
+        "value": "https://www.mu.se/"
+      }
+    },
+    "musescore": {
+      "appStore": {
+        "appName": "MuseScore－Sheet Music & Chords",
+        "appStoreId": "835731296",
+        "currentVersionReleaseDate": "2026-06-17T14:10:27Z",
+        "genre": "Music",
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.61761,
+        "reviewCount": 75715,
+        "sellerName": "MuseScore Limited",
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/musescore-sheet-music-chords/id835731296?uo=4"
+      },
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "MuseScore",
+      "publicMetric": {
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.61761,
+        "reviewCount": 75715,
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/musescore-sheet-music-chords/id835731296?uo=4"
+      },
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "MuseScore Studio | Muse Group",
+          "type": "Official website",
+          "url": "https://www.mu.se/musescore-studio"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
+          "tier": "High",
+          "title": "MuseScore－Sheet Music & Chords App Store public lookup",
+          "type": "App Store",
+          "url": "https://apps.apple.com/us/app/musescore-sheet-music-chords/id835731296?uo=4"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "muse_group_musescore",
+        "sourceUrl": "https://www.mu.se/musescore-studio",
+        "title": "MuseScore Studio | Muse Group",
+        "url": "https://www.mu.se/musescore-studio",
+        "value": "https://www.mu.se/musescore-studio"
+      }
+    },
+    "music-ally": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Music Ally",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Music Ally Is A Knowledge Company",
+          "type": "Official website",
+          "url": "https://musically.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "music_ally_official",
+        "sourceUrl": "https://musically.com/",
+        "title": "Music Ally Is A Knowledge Company",
+        "url": "https://musically.com/",
+        "value": "https://musically.com/"
+      }
+    },
+    "music-tectonics": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Music Tectonics",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Music Tech Conference 2026 | Music Tectonics | Los Angeles Area",
+          "type": "Official website",
+          "url": "https://www.musictectonics.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "music_tectonics_2026",
+        "sourceUrl": "https://www.musictectonics.com/",
+        "title": "Music Tech Conference 2026 | Music Tectonics | Los Angeles Area",
+        "url": "https://www.musictectonics.com/",
+        "value": "https://www.musictectonics.com/"
+      }
+    },
+    "musicca": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Musicca",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Musicca – Learn music theory for free",
+          "type": "Official website",
+          "url": "https://www.musicca.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "musicca_official",
+        "sourceUrl": "https://www.musicca.com/",
+        "title": "Musicca – Learn music theory for free",
+        "url": "https://www.musicca.com/",
+        "value": "https://www.musicca.com/"
+      }
+    },
+    "musicnotes": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Musicnotes",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "access-restricted",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Musicnotes primary website",
+          "type": "Official website",
+          "url": "https://www.musicnotes.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "access-restricted",
+        "checkedAt": "2026-06-19",
+        "error": "HTTP Error 403: Forbidden",
+        "httpStatus": "403",
+        "lastChecked": "2026-06-18",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "musicnotes_home",
+        "sourceUrl": "https://www.musicnotes.com/",
+        "title": "",
+        "url": "https://www.musicnotes.com/",
+        "value": "https://www.musicnotes.com/"
+      }
+    },
+    "musora": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Musora",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Musora | The Music Lessons App",
+          "type": "Official website",
+          "url": "https://www.musora.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "musora_official",
+        "sourceUrl": "https://www.musora.com/",
+        "title": "Musora | The Music Lessons App",
+        "url": "https://www.musora.com/",
+        "value": "https://www.musora.com/"
+      }
+    },
+    "namm": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "NAMM",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "NAMM – Believe in Music | NAMM.org",
+          "type": "Official website",
+          "url": "https://www.namm.org/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "namm_official",
+        "sourceUrl": "https://www.namm.org/",
+        "title": "NAMM – Believe in Music | NAMM.org",
+        "url": "https://www.namm.org/",
+        "value": "https://www.namm.org/"
+      }
+    },
+    "native-instruments": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Native Instruments",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Native Instruments - Software And Hardware For Music Production And Djing",
+          "type": "Official website",
+          "url": "https://www.native-instruments.com/en/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "native_instruments_official",
+        "sourceUrl": "https://www.native-instruments.com/en/",
+        "title": "Native Instruments - Software And Hardware For Music Production And Djing",
+        "url": "https://www.native-instruments.com/en/",
+        "value": "https://www.native-instruments.com/en/"
+      }
+    },
+    "netflix": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Netflix",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Play games on mobile devices | Netflix Help Center",
+          "type": "Official website",
+          "url": "https://help.netflix.com/en/node/121442"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-17",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "netflix_games_help",
+        "sourceUrl": "https://help.netflix.com/en/node/121442",
+        "title": "Play games on mobile devices | Netflix Help Center",
+        "url": "https://help.netflix.com/en/node/121442",
+        "value": "https://help.netflix.com/en/node/121442"
+      }
+    },
+    "nintendo": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Nintendo",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "IR Information - IR Library",
+          "type": "Official website",
+          "url": "https://www.nintendo.co.jp/ir/en/library/index.html"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-17",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "nintendo_ir",
+        "sourceUrl": "https://www.nintendo.co.jp/ir/en/library/index.html",
+        "title": "IR Information - IR Library",
+        "url": "https://www.nintendo.co.jp/ir/en/library/index.html",
+        "value": "https://www.nintendo.co.jp/ir/en/library/index.html"
+      }
+    },
+    "noteflight": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Noteflight",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Noteflight Learn - Instructional Software for Music Composition",
+          "type": "Official website",
+          "url": "https://www.noteflight.com/learn"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "noteflight_learn",
+        "sourceUrl": "https://www.noteflight.com/learn",
+        "title": "Noteflight Learn - Instructional Software for Music Composition",
+        "url": "https://www.noteflight.com/learn",
+        "value": "https://www.noteflight.com/learn"
+      }
+    },
+    "patreon": {
+      "conflicts": [],
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q15861362",
+        "value": "2013-05"
+      },
+      "hq": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q15861362",
+        "value": "San Francisco"
+      },
+      "lastUpdated": "2026-06-19",
+      "name": "Patreon",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Patreon for Musicians — Patreon",
+          "type": "Official website",
+          "url": "https://www.patreon.com/creators/music"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "Patreon Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q15861362"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "patreon_musicians",
+        "sourceUrl": "https://www.patreon.com/creators/music",
+        "title": "Patreon for Musicians — Patreon",
+        "url": "https://www.patreon.com/creators/music",
+        "value": "https://www.patreon.com/creators/music"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-19",
+        "confidence": "matched public entity",
+        "country": "United States",
+        "description": "American crowdfunding platform",
+        "founded": "2013-05",
+        "hq": "San Francisco",
+        "label": "Patreon",
+        "matchScore": 27,
+        "ownedBy": "",
+        "parentOrganization": "",
+        "qid": "Q15861362",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q15861362",
+        "website": "https://www.patreon.com/"
+      }
+    },
+    "piano-academy": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Piano Academy",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Learn to play the piano with Piano Academy - Yokee Music",
+          "type": "Official website",
+          "url": "https://yokeemusic.com/pa_lp_funandeasy_couple/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-18",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "piano_academy_yokee_landing",
+        "sourceUrl": "https://yokeemusic.com/pa_lp_funandeasy_couple/",
+        "title": "Learn to play the piano with Piano Academy - Yokee Music",
+        "url": "https://yokeemusic.com/pa_lp_funandeasy_couple/",
+        "value": "https://yokeemusic.com/pa_lp_funandeasy_couple/"
+      }
+    },
+    "piano-marvel": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Piano Marvel",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Piano Marvel - Piano Learning Software",
+          "type": "Official website",
+          "url": "https://pianomarvel.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "piano_marvel_official",
+        "sourceUrl": "https://pianomarvel.com/",
+        "title": "Piano Marvel - Piano Learning Software",
+        "url": "https://pianomarvel.com/en/",
+        "value": "https://pianomarvel.com/"
+      }
+    },
+    "pickup-music": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Pickup Music",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Pickup Music - The most structured approach to learning guitar",
+          "type": "Official website",
+          "url": "https://www.pickupmusic.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "pickup_music_official",
+        "sourceUrl": "https://www.pickupmusic.com/",
+        "title": "Pickup Music - The most structured approach to learning guitar",
+        "url": "https://www.pickupmusic.com/",
+        "value": "https://www.pickupmusic.com/"
+      }
+    },
+    "playground-sessions": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Playground Sessions",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Learn Piano Online - Piano Learning App",
+          "type": "Official website",
+          "url": "https://www.playgroundsessions.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "playground_sessions_official",
+        "sourceUrl": "https://www.playgroundsessions.com/",
+        "title": "Learn Piano Online - Piano Learning App",
+        "url": "https://www.playgroundsessions.com/",
+        "value": "https://www.playgroundsessions.com/"
+      }
+    },
+    "positive-grid": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Positive Grid",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Positive Grid | Guitar Amps, Software and Apps",
+          "type": "Official website",
+          "url": "https://www.positivegrid.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "positive_grid_official",
+        "sourceUrl": "https://www.positivegrid.com/",
+        "title": "Positive Grid | Guitar Amps, Software and Apps",
+        "url": "https://www.positivegrid.com/",
+        "value": "https://www.positivegrid.com/"
+      }
+    },
+    "rcm": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Royal Conservatory of Music",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Digital Learning | The Royal Conservatory of Music",
+          "type": "Official website",
+          "url": "https://www.rcmusic.com/learning/digital-learning"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "rcm_digital_learning",
+        "sourceUrl": "https://www.rcmusic.com/learning/digital-learning",
+        "title": "Digital Learning | The Royal Conservatory of Music",
+        "url": "https://www.rcmusic.com/learning/digital-learning",
+        "value": "https://www.rcmusic.com/learning/digital-learning"
+      }
+    },
+    "reverb": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Reverb",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "access-restricted",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Reverb primary website",
+          "type": "Official website",
+          "url": "https://reverb.com/news/reverb-servco-creator-partners"
+        }
+      ],
+      "website": {
+        "accessStatus": "access-restricted",
+        "checkedAt": "2026-06-19",
+        "error": "HTTP Error 403: Forbidden",
+        "httpStatus": "403",
+        "lastChecked": "2026-06-11",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "reverb_sale_news",
+        "sourceUrl": "https://reverb.com/news/reverb-servco-creator-partners",
+        "title": "",
+        "url": "https://reverb.com/news/reverb-servco-creator-partners",
+        "value": "https://reverb.com/news/reverb-servco-creator-partners"
+      }
+    },
+    "ripx-daw": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "RipX DAW",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "RipX DAW - AI Stem Separation &amp; Note-Level Audio Editing",
+          "type": "Official website",
+          "url": "https://hitnmix.com/ripx-daw/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "ripx_official",
+        "sourceUrl": "https://hitnmix.com/ripx-daw/",
+        "title": "RipX DAW - AI Stem Separation &amp; Note-Level Audio Editing",
+        "url": "https://hitnmix.com/ripx-daw/",
+        "value": "https://hitnmix.com/ripx-daw/"
+      }
+    },
+    "roblox": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Roblox",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Education | Roblox",
+          "type": "Official website",
+          "url": "https://about.roblox.com/education"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-17",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "roblox_education",
+        "sourceUrl": "https://about.roblox.com/education",
+        "title": "Education | Roblox",
+        "url": "https://about.roblox.com/education",
+        "value": "https://about.roblox.com/education"
+      }
+    },
+    "rocksmith-plus": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Rocksmith+",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Rocksmith+ - Learn to Play the Guitar, Bass, &amp; Piano | Ubisoft (US)",
+          "type": "Official website",
+          "url": "https://www.ubisoft.com/en-us/game/rocksmith/plus"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "rocksmith_plus_ubisoft",
+        "sourceUrl": "https://www.ubisoft.com/en-us/game/rocksmith/plus",
+        "title": "Rocksmith+ - Learn to Play the Guitar, Bass, &amp; Piano | Ubisoft (US)",
+        "url": "https://www.ubisoft.com/en-us/game/rocksmith/plus",
+        "value": "https://www.ubisoft.com/en-us/game/rocksmith/plus"
+      }
+    },
+    "rsi": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Rousseau",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Rousseau primary website",
+          "type": "Official website",
+          "url": "https://www.youtube.com/@Rousseau"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "rousseau_youtube",
+        "sourceUrl": "https://www.youtube.com/@Rousseau",
+        "title": "",
+        "url": "https://www.youtube.com/@Rousseau?cbrd=1&ucbcb=1",
+        "value": "https://www.youtube.com/@Rousseau"
+      }
+    },
+    "school-of-rock": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "School of Rock",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "access-restricted",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "School of Rock primary website",
+          "type": "Official website",
+          "url": "https://www.schoolofrock.com/music-lessons"
+        }
+      ],
+      "website": {
+        "accessStatus": "access-restricted",
+        "checkedAt": "2026-06-19",
+        "error": "HTTP Error 403: Forbidden",
+        "httpStatus": "403",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "school_of_rock_lessons",
+        "sourceUrl": "https://www.schoolofrock.com/music-lessons",
+        "title": "",
+        "url": "https://www.schoolofrock.com/music-lessons",
+        "value": "https://www.schoolofrock.com/music-lessons"
+      }
+    },
+    "simply": {
+      "appStore": {
+        "appName": "Simply Piano: Learn Piano Fast",
+        "appStoreId": "1019442026",
+        "currentVersionReleaseDate": "2026-06-17T14:54:02Z",
+        "genre": "Education",
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.68594,
+        "reviewCount": 826987,
+        "sellerName": "Simply Ltd",
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/simply-piano-learn-piano-fast/id1019442026?uo=4"
+      },
+      "conflicts": [],
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q6296982",
+        "value": "2010-07"
+      },
+      "hq": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q6296982",
+        "value": "Tel Aviv"
+      },
+      "lastUpdated": "2026-06-19",
+      "name": "Simply",
+      "publicMetric": {
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.68594,
+        "reviewCount": 826987,
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/simply-piano-learn-piano-fast/id1019442026?uo=4"
+      },
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Simply | The best apps to set your creativity free",
+          "type": "Official website",
+          "url": "https://www.hellosimply.com/"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
+          "tier": "High",
+          "title": "Simply Piano: Learn Piano Fast App Store public lookup",
+          "type": "App Store",
+          "url": "https://apps.apple.com/us/app/simply-piano-learn-piano-fast/id1019442026?uo=4"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "Simply Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q6296982"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "simply_home",
+        "sourceUrl": "https://www.hellosimply.com/",
+        "title": "Simply | The best apps to set your creativity free",
+        "url": "https://www.hellosimply.com/",
+        "value": "https://www.hellosimply.com/"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-19",
+        "confidence": "matched public entity",
+        "country": "Israel",
+        "description": "Privately held company producing music education apps",
+        "founded": "2010-07",
+        "hq": "Tel Aviv",
+        "label": "Simply",
+        "matchScore": 27,
+        "ownedBy": "",
+        "parentOrganization": "",
+        "qid": "Q6296982",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q6296982",
+        "website": "http://www.joytunes.com"
+      }
+    },
+    "skoove": {
+      "appStore": {
+        "appName": "Skoove: Learn to Play Piano",
+        "appStoreId": "1160668178",
+        "currentVersionReleaseDate": "2026-06-09T19:14:03Z",
+        "genre": "Education",
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.58202,
+        "reviewCount": 21549,
+        "sellerName": "Learnfield GmbH",
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/skoove-learn-to-play-piano/id1160668178?uo=4"
+      },
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Skoove",
+      "publicMetric": {
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.58202,
+        "reviewCount": 21549,
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/skoove-learn-to-play-piano/id1160668178?uo=4"
+      },
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Learn to Play Piano Online | Skoove Piano Learning App",
+          "type": "Official website",
+          "url": "https://www.skoove.com/en"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
+          "tier": "High",
+          "title": "Skoove: Learn to Play Piano App Store public lookup",
+          "type": "App Store",
+          "url": "https://apps.apple.com/us/app/skoove-learn-to-play-piano/id1160668178?uo=4"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "skoove_official",
+        "sourceUrl": "https://www.skoove.com/en",
+        "title": "Learn to Play Piano Online | Skoove Piano Learning App",
+        "url": "https://www.skoove.com/en",
+        "value": "https://www.skoove.com/en"
+      }
+    },
+    "smule": {
+      "conflicts": [],
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q7546644",
+        "value": "2008"
+      },
+      "hq": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q7546644",
+        "value": "San Francisco"
+      },
+      "lastUpdated": "2026-06-19",
+      "name": "Smule",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Smule primary website",
+          "type": "Official website",
+          "url": "https://play.google.com/store/apps/details?id=com.smule.singandroid"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "Smule Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q7546644"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-18",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "smule_google_play",
+        "sourceUrl": "https://play.google.com/store/apps/details?id=com.smule.singandroid",
+        "title": "",
+        "url": "https://play.google.com/store/apps/details?id=com.smule.singandroid",
+        "value": "https://play.google.com/store/apps/details?id=com.smule.singandroid"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-19",
+        "confidence": "matched public entity",
+        "country": "United States",
+        "description": "video game development company",
+        "founded": "2008",
+        "hq": "San Francisco",
+        "label": "Smule",
+        "matchScore": 27,
+        "ownedBy": "",
+        "parentOrganization": "",
+        "qid": "Q7546644",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q7546644",
+        "website": "http://smule.com"
+      }
+    },
+    "songsterr": {
+      "appStore": {
+        "appName": "Songsterr Tabs & Chords",
+        "appStoreId": "399211291",
+        "currentVersionReleaseDate": "2026-06-17T08:48:31Z",
+        "genre": "Music",
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.72409,
+        "reviewCount": 42474,
+        "sellerName": "Guitar Tabs LLC",
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/songsterr-tabs-chords/id399211291?uo=4"
+      },
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Songsterr",
+      "publicMetric": {
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.72409,
+        "reviewCount": 42474,
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/songsterr-tabs-chords/id399211291?uo=4"
+      },
+      "sources": [
+        {
+          "access_status": "needs-review",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Songsterr primary website",
+          "type": "Official website",
+          "url": "https://www.songsterr.com/"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
+          "tier": "High",
+          "title": "Songsterr Tabs & Chords App Store public lookup",
+          "type": "App Store",
+          "url": "https://apps.apple.com/us/app/songsterr-tabs-chords/id399211291?uo=4"
+        }
+      ],
+      "website": {
+        "accessStatus": "needs-review",
+        "checkedAt": "2026-06-19",
+        "error": "HTTP Error 103: Early Hints",
+        "httpStatus": "103",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "songsterr_official",
+        "sourceUrl": "https://www.songsterr.com/",
+        "title": "",
+        "url": "https://www.songsterr.com/",
+        "value": "https://www.songsterr.com/"
+      }
+    },
+    "soundation": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Soundation",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Soundation - Make music online",
+          "type": "Official website",
+          "url": "https://soundation.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "soundation_official",
+        "sourceUrl": "https://soundation.com/",
+        "title": "Soundation - Make music online",
+        "url": "https://soundation.com/",
+        "value": "https://soundation.com/"
+      }
+    },
+    "soundbrenner": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Soundbrenner",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Soundbrenner | 15% off | Summer Sale",
+          "type": "Official website",
+          "url": "https://www.soundbrenner.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-18",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "soundbrenner_home",
+        "sourceUrl": "https://www.soundbrenner.com/",
+        "title": "Soundbrenner | 15% off | Summer Sale",
+        "url": "https://www.soundbrenner.com/",
+        "value": "https://www.soundbrenner.com/"
+      }
+    },
+    "soundcloud": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "SoundCloud",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "SoundCloud Newsroom",
+          "type": "Official website",
+          "url": "https://soundcloud.com/company/newsroom"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "soundcloud_newsroom",
+        "sourceUrl": "https://soundcloud.com/company/newsroom",
+        "title": "SoundCloud Newsroom",
+        "url": "https://soundcloud.com/company/newsroom",
+        "value": "https://soundcloud.com/company/newsroom"
+      }
+    },
+    "soundslice": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Soundslice",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Soundslice | Create living sheet music",
+          "type": "Official website",
+          "url": "https://www.soundslice.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "soundslice_official",
+        "sourceUrl": "https://www.soundslice.com/",
+        "title": "Soundslice | Create living sheet music",
+        "url": "https://www.soundslice.com/",
+        "value": "https://www.soundslice.com/"
+      }
+    },
+    "soundtrap": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Soundtrap",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Free Online Music &amp; Beat Maker | Soundtrap",
+          "type": "Official website",
+          "url": "https://www.soundtrap.com/musicmakers"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "soundtrap_official",
+        "sourceUrl": "https://www.soundtrap.com/musicmakers",
+        "title": "Free Online Music &amp; Beat Maker | Soundtrap",
+        "url": "https://www.soundtrap.com/de/musicmakers",
+        "value": "https://www.soundtrap.com/musicmakers"
+      }
+    },
+    "splice": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Splice",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Royalty-Free Sounds, FX, Presets &amp; More | Splice",
+          "type": "Official website",
+          "url": "https://splice.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "splice_official",
+        "sourceUrl": "https://splice.com/",
+        "title": "Royalty-Free Sounds, FX, Presets &amp; More | Splice",
+        "url": "https://splice.com/",
+        "value": "https://splice.com/"
+      }
+    },
+    "spotify-artists": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Spotify for Artists",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Where Your Music is Everything – Spotify for Artists",
+          "type": "Official website",
+          "url": "https://artists.spotify.com/en/home"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "spotify_artists",
+        "sourceUrl": "https://artists.spotify.com/en/home",
+        "title": "Where Your Music is Everything – Spotify for Artists",
+        "url": "https://artists.spotify.com/en/home",
+        "value": "https://artists.spotify.com/en/home"
+      }
+    },
+    "spotify-platform": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Spotify",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Spotify Strengthens AI Protections for Artists, Songwriters, and Producers &#8212; Spotify",
+          "type": "Official website",
+          "url": "https://newsroom.spotify.com/2025-09-25/spotify-strengthens-ai-protections/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-17",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "spotify_ai_protections_2025",
+        "sourceUrl": "https://newsroom.spotify.com/2025-09-25/spotify-strengthens-ai-protections/",
+        "title": "Spotify Strengthens AI Protections for Artists, Songwriters, and Producers &#8212; Spotify",
+        "url": "https://newsroom.spotify.com/2025-09-25/spotify-strengthens-ai-protections/",
+        "value": "https://newsroom.spotify.com/2025-09-25/spotify-strengthens-ai-protections/"
+      }
+    },
+    "suno": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Suno",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Suno",
+          "type": "Official website",
+          "url": "https://suno.com/about"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "suno_about",
+        "sourceUrl": "https://suno.com/about",
+        "title": "Suno",
+        "url": "https://suno.com/about",
+        "value": "https://suno.com/about"
+      }
+    },
+    "sweetwater": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Sweetwater",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Sweetwater: Musical Instruments, Pro Audio, Accessories & More",
+          "type": "Official website",
+          "url": "https://www.sweetwater.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "sweetwater_official",
+        "sourceUrl": "https://www.sweetwater.com/",
+        "title": "Sweetwater: Musical Instruments, Pro Audio, Accessories & More",
+        "url": "https://www.sweetwater.com/",
+        "value": "https://www.sweetwater.com/"
+      }
+    },
+    "sxsw-edu-launch": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "SXSW EDU Launch",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Competitions | SXSW EDU Conference &amp; Festival",
+          "type": "Official website",
+          "url": "https://sxswedu.com/competitions/launch/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "sxsw_edu_launch",
+        "sourceUrl": "https://sxswedu.com/competitions/launch/",
+        "title": "Competitions | SXSW EDU Conference &amp; Festival",
+        "url": "https://sxswedu.com/competitions/",
+        "value": "https://sxswedu.com/competitions/launch/"
+      }
+    },
+    "techcrunch": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "TechCrunch",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "TechCrunch | Startup and Technology News",
+          "type": "Official website",
+          "url": "https://techcrunch.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "techcrunch_home",
+        "sourceUrl": "https://techcrunch.com/",
+        "title": "TechCrunch | Startup and Technology News",
+        "url": "https://techcrunch.com/",
+        "value": "https://techcrunch.com/"
+      }
+    },
+    "thomann": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Thomann",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Buy musical instruments online from the market leader – United States",
+          "type": "Official website",
+          "url": "https://www.thomannmusic.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "thomann_official",
+        "sourceUrl": "https://www.thomannmusic.com/",
+        "title": "Buy musical instruments online from the market leader – United States",
+        "url": "https://www.thomannmusic.com/",
+        "value": "https://www.thomannmusic.com/"
+      }
+    },
+    "tiktok-artists": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "TikTok for Artists",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "TikTok for Artists: The new all-in-one music insights platform for artists - Newsroom | TikTok",
+          "type": "Official website",
+          "url": "https://newsroom.tiktok.com/tiktok-for-artists-launches?lang=en"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-17",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "tiktok_for_artists_launch",
+        "sourceUrl": "https://newsroom.tiktok.com/tiktok-for-artists-launches?lang=en",
+        "title": "TikTok for Artists: The new all-in-one music insights platform for artists - Newsroom | TikTok",
+        "url": "https://newsroom.tiktok.com/tiktok-for-artists-launches?lang=en",
+        "value": "https://newsroom.tiktok.com/tiktok-for-artists-launches?lang=en"
+      }
+    },
+    "tomplay": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Tomplay",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Tomplay - Interactive Sheet Music with Backing Tracks | Tomplay",
+          "type": "Official website",
+          "url": "https://tomplay.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "tomplay_official",
+        "sourceUrl": "https://tomplay.com/",
+        "title": "Tomplay - Interactive Sheet Music with Backing Tracks | Tomplay",
+        "url": "https://tomplay.com/",
+        "value": "https://tomplay.com/"
+      }
+    },
+    "tonalenergy": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "TonalEnergy",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "TonalEnergy, Inc.",
+          "type": "Official website",
+          "url": "https://www.tonalenergy.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-18",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "tonalenergy_home",
+        "sourceUrl": "https://www.tonalenergy.com/",
+        "title": "TonalEnergy, Inc.",
+        "url": "https://www.tonalenergy.com/",
+        "value": "https://www.tonalenergy.com/"
+      }
+    },
+    "tonebase": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "tonebase",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Online Classical Music Lessons &amp; Courses | tonebase",
+          "type": "Official website",
+          "url": "https://www.tonebase.co/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "tonebase_official",
+        "sourceUrl": "https://www.tonebase.co/",
+        "title": "Online Classical Music Lessons &amp; Courses | tonebase",
+        "url": "https://www.tonebase.co/",
+        "value": "https://www.tonebase.co/"
+      }
+    },
+    "truefire": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "TrueFire",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Online Guitar Lessons - TrueFire Offers The Best Guitar Lessons Online",
+          "type": "Official website",
+          "url": "https://truefire.com/online-guitar-lessons"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "truefire_official",
+        "sourceUrl": "https://truefire.com/online-guitar-lessons",
+        "title": "Online Guitar Lessons - TrueFire Offers The Best Guitar Lessons Online",
+        "url": "https://truefire.com/online-guitar-lessons",
+        "value": "https://truefire.com/online-guitar-lessons"
+      }
+    },
+    "udio": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Udio",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Udio | AI Music Generator - Official Website",
+          "type": "Official website",
+          "url": "https://www.udio.com/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "udio_official",
+        "sourceUrl": "https://www.udio.com/",
+        "title": "Udio | AI Music Generator - Official Website",
+        "url": "https://www.udio.com/",
+        "value": "https://www.udio.com/"
+      }
+    },
+    "ultimate-guitar": {
+      "appStore": {
+        "appName": "Ultimate Guitar: Chords & Tabs",
+        "appStoreId": "357828853",
+        "currentVersionReleaseDate": "2026-06-13T22:27:00Z",
+        "genre": "Music",
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.73956,
+        "reviewCount": 460777,
+        "sellerName": "Ultimate Guitar",
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853?uo=4"
+      },
+      "conflicts": [],
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q2587057",
+        "value": "1998-10"
+      },
+      "lastUpdated": "2026-06-19",
+      "name": "Ultimate Guitar",
+      "ownership": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q2587057",
+        "value": "Muse Group"
+      },
+      "publicMetric": {
+        "lastUpdated": "2026-06-19",
+        "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
+        "rating": 4.73956,
+        "reviewCount": 460777,
+        "source": "Official App Store public lookup, verified direct",
+        "sourceUrl": "https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853?uo=4"
+      },
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Ultimate Guitar | Muse Group",
+          "type": "Official website",
+          "url": "https://www.mu.se/ultimate-guitar"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
+          "tier": "High",
+          "title": "Ultimate Guitar: Chords & Tabs App Store public lookup",
+          "type": "App Store",
+          "url": "https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853?uo=4"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "Ultimate Guitar Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q2587057"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "muse_group_ultimate_guitar",
+        "sourceUrl": "https://www.mu.se/ultimate-guitar",
+        "title": "Ultimate Guitar | Muse Group",
+        "url": "https://www.mu.se/ultimate-guitar",
+        "value": "https://www.mu.se/ultimate-guitar"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-19",
+        "confidence": "matched public entity",
+        "country": "",
+        "description": "guitarist community website",
+        "founded": "1998-10",
+        "hq": "",
+        "label": "Ultimate Guitar",
+        "matchScore": 32,
+        "ownedBy": "",
+        "parentOrganization": "Muse Group",
+        "qid": "Q2587057",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q2587057",
+        "website": "http://www.ultimate-guitar.com/"
+      }
+    },
+    "yamaha": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "Yamaha",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Products &amp; Services - Yamaha Corporation",
+          "type": "Official website",
+          "url": "https://www.yamaha.com/en/products-services/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "yamaha_products",
+        "sourceUrl": "https://www.yamaha.com/en/products-services/",
+        "title": "Products &amp; Services - Yamaha Corporation",
+        "url": "https://www.yamaha.com/en/products-services/",
+        "value": "https://www.yamaha.com/en/products-services/"
+      }
+    },
+    "youtube-artists": {
+      "conflicts": [],
+      "lastUpdated": "2026-06-19",
+      "name": "YouTube",
+      "publicMetric": null,
+      "sources": [
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-19",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "YouTube for Artists - Where Music Grows",
+          "type": "Official website",
+          "url": "https://artists.youtube/"
+        }
+      ],
+      "website": {
+        "accessStatus": "verified",
+        "checkedAt": "2026-06-19",
+        "error": "",
+        "httpStatus": "200",
+        "lastChecked": "2026-06-10",
+        "source": "Existing evidence library primary public source",
+        "sourceId": "youtube_artists",
+        "sourceUrl": "https://artists.youtube/",
+        "title": "YouTube for Artists - Where Music Grows",
+        "url": "https://artists.youtube/",
+        "value": "https://artists.youtube/"
+      }
+    }
+  },
+  "status": {
+    "appStoreMetrics": 10,
+    "caveat": "Public enrichment can fill profile facts, official links, rating counts and reference metadata. It must not be used as Appfigures, Similarweb, revenue, downloads, conversion, retention, active user, internal relationship or rank-trend proof.",
+    "checkedPlayers": 113,
+    "conflictsFlagged": 0,
+    "label": "Public enrichment layer",
+    "lastUpdated": "2026-06-19T06:41:03+00:00",
+    "method": "Generated from app.js players, evidence-library primary public sources, Apple iTunes public lookup, and Wikidata entity records.",
+    "primaryWebsites": 113,
+    "version": "public-enrichment-v1",
+    "wikidataRecords": 6
+  }
+}

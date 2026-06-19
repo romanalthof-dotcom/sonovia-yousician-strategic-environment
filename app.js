@@ -3536,6 +3536,19 @@ const liveOverrideFallback = {
 let liveOverrideContext = liveOverrideFallback;
 let liveOverrideStatus = "loading";
 
+const publicEnrichmentFallback = {
+  status: {
+    label: "Public enrichment pending",
+    lastUpdated: "",
+    source: "data/public-enrichment.json",
+    caveat: "Public enrichment has not loaded yet."
+  },
+  playerEnrichment: {}
+};
+
+let publicEnrichmentContext = publicEnrichmentFallback;
+let publicEnrichmentStatus = "loading";
+
 const backendStateFallback = {
   available: false,
   loading: true,
@@ -4718,7 +4731,7 @@ function isDirectMetricSource(row) {
     row.status,
     row.appfigures_status
   ]);
-  return /credentialed\s+appfigures|appfigures\s+export|appfigures\s+api|authorized\s+export|official\s+filing|internal\s+export|internal\s+metric|similarweb\s+export|crunchbase\s+export|pitchbook\s+export|verified\s+direct/i.test(
+  return /credentialed\s+appfigures|appfigures\s+export|appfigures\s+api|authorized\s+export|official\s+filing|internal\s+export|internal\s+metric|similarweb\s+export|crunchbase\s+export|pitchbook\s+export|verified\s+direct|official\s+app\s+store\s+public\s+lookup|public\s+app\s+store\s+lookup|app\s+store\s+public\s+lookup|google\s+play\s+public\s+lookup/i.test(
     text
   );
 }
@@ -4794,6 +4807,8 @@ function compactMetricNumber(value, options = {}) {
 
 function directMetricFor(player) {
   const directRows = [];
+  const publicMetric = publicEnrichmentMetricFor(player);
+  if (isDirectMetricSource(publicMetric)) directRows.push(publicMetric);
   const override = liveMetricFor(player);
   if (isDirectMetricSource(override)) directRows.push(override);
   backendMetricRowsForPlayer(player).filter(isDirectMetricSource).forEach((row) => directRows.push(row));
@@ -4854,11 +4869,17 @@ function directMetricDisplay(player, mode) {
   if (mode === "revenue") return compactMetricNumber(metric.revenue, { currency: true });
   if (mode === "reach") {
     const value = Math.max(metric.downloads || 0, metric.websiteVisits || 0, metric.reviewCount || 0);
-    return value ? compactMetricNumber(value) : "Pending";
+    if (!value) return "Pending";
+    const label = metric.reviewCount === value ? "ratings" : metric.websiteVisits === value ? "visits" : "downloads";
+    return `${compactMetricNumber(value)} ${label}`;
   }
   if (mode === "company") {
     const value = Math.max(metric.revenue || 0, metric.downloads || 0, metric.websiteVisits || 0, metric.reviewCount || 0);
-    return value ? compactMetricNumber(value, { currency: metric.revenue && metric.revenue >= value }) : "Pending";
+    if (!value) return "Pending";
+    if (metric.revenue && metric.revenue >= value) return compactMetricNumber(value, { currency: true });
+    if (metric.reviewCount === value) return `${compactMetricNumber(value)} ratings`;
+    if (metric.websiteVisits === value) return `${compactMetricNumber(value)} visits`;
+    return `${compactMetricNumber(value)} downloads`;
   }
   return "Pending";
 }
@@ -4876,6 +4897,8 @@ function liveMetricClaimFor(player) {
     metric.categoryRank != null ? `Rank: ${metric.categoryRank}` : "",
     metric.reviewVelocity != null ? `Review velocity: ${metric.reviewVelocity}` : "",
     metric.websiteVisits != null ? `Web visits: ${metric.websiteVisits}` : "",
+    metric.reviewCount != null ? `Ratings: ${metric.reviewCount}` : "",
+    metric.rating != null ? `Average rating: ${Number(metric.rating).toFixed(1)}/5` : ""
   ].filter(Boolean);
   if (!parts.length) return null;
   const source = nonEmptyString(metric.source) || "Direct imported metric";
@@ -5283,6 +5306,37 @@ function evidenceRecordFor(player) {
   );
 }
 
+function publicEnrichmentFor(player) {
+  return publicEnrichmentContext.playerEnrichment?.[player.id] || null;
+}
+
+function publicEnrichmentSourcesFor(player) {
+  const entry = publicEnrichmentFor(player);
+  if (!entry?.sources?.length) return [];
+  return entry.sources.map((source, index) => ({
+    ...source,
+    id: source.id || source.source_id || `public_enrichment_${player.id}_${index}`,
+    source_id: source.source_id || source.id || `public_enrichment_${player.id}_${index}`,
+    accessStatus: sourceAccessStatus(source),
+    lastUrlCheck: source.lastUrlCheck || source.last_url_check || entry.lastUpdated,
+    qualityNote: source.qualityNote || source.quality_note || "Public enrichment source."
+  }));
+}
+
+function publicEnrichmentMetricFor(player) {
+  const metric = publicEnrichmentFor(player)?.publicMetric;
+  if (!metric) return null;
+  return {
+    ...metric,
+    source: metric.source || "Official App Store public lookup, verified direct",
+    data_source: metric.source || "Official App Store public lookup, verified direct",
+    lastUpdated: metric.lastUpdated || publicEnrichmentFor(player)?.lastUpdated,
+    notes:
+      metric.notes ||
+      "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention."
+  };
+}
+
 function isCredentialedQuestion(question) {
   return /appfigures|download|revenue|rank|ranking|conversion|retention|active usage|paid|traffic|similarweb|app performance|review velocity|country mix|web\/app split|usage data|sales data|creator retention/i.test(
     question || ""
@@ -5317,8 +5371,8 @@ function gatedOpenQuestionsFor(record) {
 function evidenceSourcesFor(player) {
   const record = evidenceRecordFor(player);
   const seen = new Set();
-  return (record.sourceIds || [])
-    .map(sourceById)
+  const linkedSources = (record.sourceIds || []).map(sourceById);
+  return [...linkedSources, ...publicEnrichmentSourcesFor(player)]
     .filter((source) => {
       if (!source) return false;
       const key = sourceCanonicalId(source);
@@ -5932,6 +5986,7 @@ function claimConflictAudit(player) {
   const coverage = evidenceCoverage(player);
   const targetAudit = sourceCoverageTargetAudit(player);
   const metric = directMetricFor(player);
+  const enrichmentConflicts = publicEnrichmentFor(player)?.conflicts || [];
   const reachText = `${player.reach || ""}`.toLowerCase();
   const ownershipText = `${player.ownership || ""}`.toLowerCase();
   const sourceStatusText = `${player.sourceStatus || ""}`.toLowerCase();
@@ -5940,18 +5995,28 @@ function claimConflictAudit(player) {
   const supported = [];
 
   if (coverage.replacementCount > 0) conflicts.push("At least one linked source is marked for repair or replacement.");
+  enrichmentConflicts.forEach((conflict) => {
+    const note = nonEmptyString(conflict.note) || nonEmptyString(conflict.field) || "Public enrichment flagged a value conflict.";
+    if (/conflict|mismatch/i.test(conflict.severity || "")) conflicts.push(note);
+    else warnings.push(note);
+  });
   if (/official|linked|verified|source-backed/.test(sourceStatusText) && coverage.count < 2) {
     warnings.push("Profile wording claims linked sources, but fewer than two usable sources are attached.");
   }
   if (metric) {
     const reachScore = directReachScore(player);
-    if (/large|global|major|massive|high-profile|very large/.test(reachText) && reachScore > 0 && reachScore <= 2) {
+    const hasDirectScaleMetric = [metric.downloads, metric.revenue, metric.websiteVisits].some((value) => value != null && value !== "");
+    if (hasDirectScaleMetric && /large|global|major|massive|high-profile|very large/.test(reachText) && reachScore > 0 && reachScore <= 2) {
       conflicts.push("Direct reach metric is materially lower than the current large reach wording.");
     }
-    if (/niche|local|emerging|small|specialist/.test(reachText) && reachScore >= 4) {
+    if (hasDirectScaleMetric && /niche|local|emerging|small|specialist/.test(reachText) && reachScore >= 4) {
       conflicts.push("Direct reach metric is materially higher than the current niche or emerging reach wording.");
     }
-    supported.push("Direct metric source is loaded for at least one quantitative field.");
+    supported.push(
+      hasDirectScaleMetric
+        ? "Direct metric source is loaded for at least one quantitative field."
+        : "Public app rating signal is loaded; it is not treated as downloads or revenue."
+    );
   } else if (requiresCredentialedData(player)) {
     warnings.push("Quantitative claims still need a credentialed Appfigures, Similarweb, filing or internal export.");
   }
@@ -6036,7 +6101,9 @@ function sizeClaimStatusFor(player) {
   const metric = directMetricFor(player);
   const hasMetric =
     metric &&
-    [metric.downloads, metric.revenue, metric.categoryRank, metric.reviewVelocity, metric.websiteVisits].some((value) => value != null && value !== "");
+    [metric.downloads, metric.revenue, metric.categoryRank, metric.reviewVelocity, metric.websiteVisits, metric.reviewCount, metric.rating].some(
+      (value) => value != null && value !== ""
+    );
   if (hasMetric) {
     return {
       label: "Direct metric loaded",
@@ -6250,6 +6317,7 @@ function factClaimsFor(player) {
   const coverage = evidenceCoverage(player);
   const liveMetricClaim = liveMetricClaimFor(player);
   const hq = headquartersRecordFor(player);
+  const founded = foundedRecordFor(player);
   const sourceBasis = coverage.sources.length
     ? coverage.sources
         .slice(0, 3)
@@ -6270,6 +6338,13 @@ function factClaimsFor(player) {
       basis: hq.basis,
       kind: hq.kind,
       caveat: hq.caveat
+    },
+    {
+      label: "Founded",
+      text: founded.value,
+      basis: founded.detail,
+      kind: founded.value === "Founded to verify" ? "Pending founded field" : "Founded reference",
+      caveat: "Use latest company source if this date will be cited externally."
     },
     {
       label: "Global footprint",
@@ -6378,6 +6453,7 @@ function absoluteFigureSummary(player) {
   if (metric?.downloads != null) figures.push(`${metric.downloads} downloads`);
   if (metric?.revenue != null) figures.push(`${metric.revenue} revenue`);
   if (metric?.websiteVisits != null) figures.push(`${metric.websiteVisits} visits`);
+  if (metric?.reviewCount != null) figures.push(`${compactMetricNumber(metric.reviewCount)} public ratings`);
   if (metric?.categoryRank != null) figures.push(`rank ${metric.categoryRank}`);
   if (figures.length) return figures.slice(0, 2).join(" / ");
   if (/public company/i.test(player.ownership)) return "Public filings available";
@@ -6387,6 +6463,9 @@ function absoluteFigureSummary(player) {
 
 function sentimentSummary(player) {
   const metric = directMetricFor(player);
+  if (metric?.rating != null && metric?.reviewCount != null) {
+    return `${Number(metric.rating).toFixed(1)}/5 on ${compactMetricNumber(metric.reviewCount)} ratings`;
+  }
   if (metric?.reviewVelocity != null) return `${metric.reviewVelocity} review velocity`;
   if (requiresCredentialedData(player)) return "App sentiment gated";
   return "Qualitative signal only";
@@ -6394,6 +6473,8 @@ function sentimentSummary(player) {
 
 function displayOwnership(player) {
   if (!/to verify/i.test(player.ownership || "")) return player.ownership;
+  const enrichmentOwnership = publicEnrichmentFor(player)?.ownership;
+  if (nonEmptyString(enrichmentOwnership?.value)) return `${enrichmentOwnership.value} public source`;
   return player.key ? "Ownership validation gated" : "Ownership not used in this brief";
 }
 
@@ -11647,13 +11728,14 @@ function onePagerFactStripHtml(player, taxonomy, quality) {
   const websiteUrl = sourceUrl(websiteSource);
   const websiteHost = onePagerHostFor(player);
   const hq = headquartersRecordFor(player);
+  const founded = foundedRecordFor(player);
   const facts = [
     { icon: "map-pin", label: "HQ", value: hq.value, detail: `Global footprint: ${globalFootprintFor(player)}` },
     {
       icon: "calendar",
       label: "Founded",
-      value: player.founded || "Founded to verify",
-      detail: player.founded ? "Loaded factual field." : "Not loaded in current dataset."
+      value: founded.value,
+      detail: founded.detail
     },
     { icon: "network", label: "Ownership", value: displayOwnership(player), detail: "Legal owner first; relationship status is separate." },
     {
@@ -12745,6 +12827,26 @@ function compactTemplateText(value, maxLength = 92) {
   return `${text.slice(0, Math.max(0, maxLength - 1)).trim()}...`;
 }
 
+function foundedRecordFor(player) {
+  if (nonEmptyString(player.founded)) {
+    return {
+      value: player.founded,
+      detail: "Loaded factual field."
+    };
+  }
+  const enriched = publicEnrichmentFor(player)?.founded;
+  if (nonEmptyString(enriched?.value)) {
+    return {
+      value: enriched.value,
+      detail: `${enriched.source || "Public source"} checked ${enriched.lastUpdated || publicEnrichmentFor(player)?.lastUpdated || ""}`.trim()
+    };
+  }
+  return {
+    value: "Founded to verify",
+    detail: "Not loaded from a direct public source yet."
+  };
+}
+
 function headquartersRecordFor(player) {
   if (nonEmptyString(player.hq)) {
     return {
@@ -12761,6 +12863,15 @@ function headquartersRecordFor(player) {
       basis: seeded.basis || "Public HQ seed",
       kind: "HQ seed",
       caveat: "Use as entity or parent HQ; verify against the latest source before board circulation."
+    };
+  }
+  const enriched = publicEnrichmentFor(player)?.hq;
+  if (nonEmptyString(enriched?.value)) {
+    return {
+      value: enriched.value,
+      basis: enriched.source || "Public enrichment",
+      kind: "Public HQ reference",
+      caveat: "Public reference loaded automatically. Footprint and reach stay separate."
     };
   }
   const entityKind = entityKindFor(player);
@@ -13325,6 +13436,7 @@ function renderSourceStatus() {
   const principles = researchContext.marketPrinciples || [];
   const evidenceStatus = evidenceContext.status || evidenceContextFallback.status;
   const liveStatus = liveOverrideContext.status || liveOverrideFallback.status;
+  const publicStatus = publicEnrichmentContext.status || publicEnrichmentFallback.status;
   els.sourceStatusPanel.innerHTML = `
     <article class="source-status-card ${status.liveAccess === "blocked_by_atlassian_login" ? "blocked" : ""}">
       <div>
@@ -13336,6 +13448,7 @@ function renderSourceStatus() {
         <span class="source-need">${escapeHtml(humanizeStatus(status.liveAccess))}</span>
         <span class="source-need">${escapeHtml(evidenceStatus.label)}</span>
         <span class="source-need">${escapeHtml(liveStatus.label)}</span>
+        <span class="source-need">${escapeHtml(publicStatus.label)}${publicStatus.checkedPlayers ? ` · ${escapeHtml(publicStatus.checkedPlayers)} public checks` : ""}</span>
         <span class="source-need">Link health is not claim proof</span>
         <a class="source-need source-link" href="${escapeHtml(status.databaseUrl)}" target="_blank" rel="noopener noreferrer">Open Confluence database</a>
         </div>
@@ -13369,6 +13482,10 @@ function renderEvidenceLibrary() {
   if (!els.evidenceLibrary) return;
   const sources = sourceLibrary();
   const status = evidenceContext.status || evidenceContextFallback.status;
+  const publicStatus = publicEnrichmentContext.status || publicEnrichmentFallback.status;
+  const publicEntries = Object.values(publicEnrichmentContext.playerEnrichment || {});
+  const publicSourceCount = publicEntries.reduce((sum, entry) => sum + (entry.sources?.length || 0), 0);
+  const publicMetricCount = publicEntries.filter((entry) => entry.publicMetric).length;
   const usageBySource = new Map();
   players.forEach((player) => {
     (evidenceRecordFor(player).sourceIds || []).forEach((sourceId) => {
@@ -13437,8 +13554,11 @@ function renderEvidenceLibrary() {
         <span><strong>${authCount + manualCount}</strong> gated/manual</span>
         <span><strong>${avgCoverage}%</strong> avg. coverage</span>
         <span><strong>${sourceClassCompleteCount}/${players.length}</strong> class complete</span>
+        <span><strong>${publicSourceCount}</strong> public checks</span>
+        <span><strong>${publicMetricCount}</strong> public ratings</span>
         <span><strong>${hardConflictCount}</strong> hard conflicts</span>
       </div>
+      <small>${escapeHtml(publicStatus.caveat || "Public enrichment never replaces credentialed app or internal data.")}</small>
     </article>
     <section class="source-consistency-panel">
       <div class="source-consistency-head">
@@ -15823,6 +15943,36 @@ async function loadLiveOverrides() {
   }
 }
 
+async function loadPublicEnrichment() {
+  try {
+    const response = await fetch(`./data/public-enrichment.json?ts=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Public enrichment request failed: ${response.status}`);
+    const data = await response.json();
+    publicEnrichmentContext = {
+      ...publicEnrichmentFallback,
+      ...data,
+      status: {
+        ...publicEnrichmentFallback.status,
+        ...(data.status || {})
+      },
+      playerEnrichment: data.playerEnrichment || {}
+    };
+    publicEnrichmentStatus = "ready";
+    renderAll();
+  } catch (error) {
+    publicEnrichmentContext = {
+      ...publicEnrichmentFallback,
+      status: {
+        ...publicEnrichmentFallback.status,
+        label: "Public enrichment unavailable",
+        caveat: "data/public-enrichment.json could not be loaded. Public source checks, ratings and public facts remain hidden."
+      }
+    };
+    publicEnrichmentStatus = "unavailable";
+    renderAll();
+  }
+}
+
 function bindEvents() {
   els.priorityRange.addEventListener("input", (event) => {
     state.minRelevance = Number(event.target.value);
@@ -16022,6 +16172,7 @@ renderAll();
 loadResearchContext();
 loadEvidenceContext();
 loadLiveOverrides();
+loadPublicEnrichment();
 if (shouldLoadBackendStatus()) {
   loadBackendStatus({ silent: true });
 } else {

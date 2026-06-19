@@ -31,6 +31,12 @@ Checks `config/source-watchlist-v3.csv`, writes source-check history to `handoff
 
 Use `--baseline` once to initialize `data/refresh-state.json` without opening review items for every existing source.
 
+## `refresh_public_enrichment.py`
+
+Creates `data/public-enrichment.json` from the current player list, linked public sources, official website checks, Apple public App Store lookup and Wikidata entity records.
+
+Use this to fill public profile facts such as official website status, rating count, rating, HQ, founded date and ownership references. It deliberately does not fill revenue, downloads, app rank trends, conversion, retention, active users or internal relationship fields without credentialed exports.
+
 ## `import_appfigures_export.py`
 
 Imports an Appfigures CSV export into `handoff/appfigures-performance-export-integrated-v3.csv`.
