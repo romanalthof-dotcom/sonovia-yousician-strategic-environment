@@ -3076,6 +3076,65 @@ const sourceCards = [
   }
 ];
 
+const selfUpdatingPolicy = [
+  {
+    id: "safe-public",
+    lane: "Safe automatic updates",
+    tone: "safe",
+    cadence: "Daily or weekly",
+    owner: "Research Ops",
+    fields: [
+      "Official website availability, page title and source link health",
+      "Public App Store rating, rating count, seller, genre and current version date",
+      "Public reference fields such as website, HQ, founded date and parent entity when source matched",
+      "Evidence source access status, duplicate source detection and source class coverage"
+    ],
+    rule: "Can write to public enrichment because the value is directly visible in a public source. Still never becomes revenue, downloads or relationship proof."
+  },
+  {
+    id: "review-queue",
+    lane: "Automatic detection, human review",
+    tone: "review",
+    cadence: "Weekly, plus before board review",
+    owner: "Strategy and Research",
+    fields: [
+      "Product launches, feature copy, pricing page changes and app positioning changes",
+      "Funding news, investor announcements, M and A, awards, deadline changes and policy updates",
+      "AI rights, licensing, litigation and platform rule changes",
+      "Contradictions between profile wording and newly observed public source values"
+    ],
+    rule: "Automatically detect and queue the change. Do not rewrite executive conclusions until a human accepts the interpretation."
+  },
+  {
+    id: "credentialed",
+    lane: "Credentialed import only",
+    tone: "gated",
+    cadence: "Weekly or monthly if access exists",
+    owner: "Data, Finance or approved source owner",
+    fields: [
+      "Appfigures revenue, downloads, category rank, rank trend, country mix and review velocity",
+      "Similarweb traffic, referrals, geography, engagement and web growth",
+      "Crunchbase, PitchBook or Dealroom funding rounds, investors, valuation and acquisition history",
+      "Internal product KPIs, conversion, retention, churn, ARPPU and cohort movement"
+    ],
+    rule: "Only update from a credentialed export or API. Public sources can flag the need, but cannot replace these values."
+  },
+  {
+    id: "manual-lock",
+    lane: "Manual decision fields",
+    tone: "locked",
+    cadence: "Review cycle only",
+    owner: "Board, LST, Product, Growth and Strategy",
+    fields: [
+      "Strategic priority score, key player status and shortlist membership",
+      "Yousician relevance, relationship status, owner, contact history and sensitivity",
+      "Competitor, partner, acquirer, target or watchlist label",
+      "Final executive recommendation, decision question, risk language and next action"
+    ],
+    rule: "Never self overwrite. These are judgment fields and should change only after explicit review."
+  }
+];
+
 const liveDataFeeds = [
   {
     id: "local-overrides",
@@ -13771,6 +13830,73 @@ function renderSourceStatus() {
         </ul>
       </div>
     </article>
+    ${renderSelfUpdatingPolicyPanel()}
+  `;
+}
+
+function renderSelfUpdatingPolicyPanel() {
+  const publicStatus = publicEnrichmentContext.status || publicEnrichmentFallback.status;
+  const publicEntries = Object.values(publicEnrichmentContext.playerEnrichment || {});
+  const publicMetricCount = publicEntries.filter((entry) => entry.publicMetric).length;
+  const publicWebsiteCount = publicEntries.filter((entry) => entry.website).length;
+  const sourceCount = sourceLibrary().length;
+  const credentialedNeeded = players.filter(requiresCredentialedData).length;
+  const relationshipNeeded = validationQueue().length;
+  const conflictCount = publicEntries.reduce((sum, entry) => sum + (entry.conflicts?.length || 0), 0);
+  const stats = [
+    { label: "Public profiles checked", value: publicStatus.checkedPlayers || publicEntries.length || 0 },
+    { label: "Official websites tracked", value: publicWebsiteCount },
+    { label: "Public app ratings", value: publicMetricCount },
+    { label: "Evidence links", value: sourceCount },
+    { label: "Credentialed gates", value: credentialedNeeded },
+    { label: "Relationship checks", value: relationshipNeeded },
+    { label: "Value conflicts", value: conflictCount }
+  ];
+  return `
+    <section class="self-update-policy-panel" aria-label="Self updating policy">
+      <header class="self-update-policy-head">
+        <div>
+          <span class="section-kicker">Self updating policy</span>
+          <h3>Keep the facts alive, keep the decisions reviewed</h3>
+          <p>Automate observable public facts and source health. Queue changed claims for review. Import sensitive metrics only from approved data sources. Keep strategic judgment human owned.</p>
+        </div>
+        <div class="self-update-status">
+          <strong>${escapeHtml(publicStatus.version || publicStatus.label || "Public layer")}</strong>
+          <span>${escapeHtml(publicStatus.lastUpdated || "Not refreshed yet")}</span>
+        </div>
+      </header>
+      <div class="self-update-stat-row">
+        ${stats
+          .map(
+            (stat) => `
+              <article>
+                <strong>${escapeHtml(stat.value)}</strong>
+                <span>${escapeHtml(stat.label)}</span>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+      <div class="self-update-rule-grid">
+        ${selfUpdatingPolicy
+          .map(
+            (rule) => `
+              <article class="self-update-rule rule-${escapeHtml(rule.tone)}">
+                <header>
+                  <span>${escapeHtml(rule.lane)}</span>
+                  <strong>${escapeHtml(rule.cadence)}</strong>
+                </header>
+                <p>${escapeHtml(rule.rule)}</p>
+                <ul>
+                  ${rule.fields.map((field) => `<li>${escapeHtml(field)}</li>`).join("")}
+                </ul>
+                <small>${escapeHtml(rule.owner)}</small>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </section>
   `;
 }
 

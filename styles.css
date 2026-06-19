@@ -5815,6 +5815,200 @@ td strong {
   font-size: 0.86rem;
 }
 
+.self-update-policy-panel {
+  display: grid;
+  gap: 14px;
+  margin-top: 12px;
+  border: 1px solid rgba(22, 33, 29, 0.1);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(93, 205, 152, 0.11), rgba(255, 255, 255, 0.94) 36%, rgba(120, 108, 255, 0.06)),
+    #fff;
+  box-shadow: var(--shadow-soft);
+  padding: 16px;
+}
+
+.self-update-policy-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.self-update-policy-head h3 {
+  max-width: 680px;
+  margin: 2px 0 7px;
+  font-size: clamp(1.08rem, 1.65vw, 1.42rem);
+  line-height: 1.08;
+}
+
+.self-update-policy-head p {
+  max-width: 780px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.42;
+}
+
+.self-update-status {
+  display: grid;
+  gap: 4px;
+  min-width: 180px;
+  border: 1px solid rgba(22, 33, 29, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.84);
+  padding: 10px 12px;
+  text-align: right;
+}
+
+.self-update-status strong {
+  color: var(--ink);
+  font-size: 0.82rem;
+  line-height: 1.18;
+}
+
+.self-update-status span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.22;
+}
+
+.self-update-stat-row {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.self-update-stat-row article {
+  min-width: 0;
+  border: 1px solid rgba(22, 33, 29, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.86);
+  padding: 10px;
+}
+
+.self-update-stat-row strong {
+  display: block;
+  color: var(--ink);
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.self-update-stat-row span {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 850;
+  line-height: 1.16;
+  text-transform: uppercase;
+}
+
+.self-update-rule-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.self-update-rule {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-width: 0;
+  border: 1px solid rgba(22, 33, 29, 0.08);
+  border-top: 4px solid var(--line-strong);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px;
+}
+
+.self-update-rule header {
+  display: grid;
+  gap: 5px;
+}
+
+.self-update-rule header span {
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 900;
+  line-height: 1.16;
+}
+
+.self-update-rule header strong {
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(22, 33, 29, 0.06);
+  color: var(--muted);
+  padding: 4px 7px;
+  font-size: 0.62rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.self-update-rule p {
+  color: var(--ink);
+  font-size: 0.74rem;
+  font-weight: 760;
+  line-height: 1.32;
+}
+
+.self-update-rule ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.self-update-rule li {
+  position: relative;
+  padding-left: 14px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.26;
+}
+
+.self-update-rule li::before {
+  content: "";
+  position: absolute;
+  top: 0.52em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.58;
+}
+
+.self-update-rule small {
+  align-self: end;
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(93, 205, 152, 0.12);
+  color: var(--green-dark);
+  padding: 5px 8px;
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.self-update-rule.rule-safe {
+  border-top-color: var(--green);
+}
+
+.self-update-rule.rule-review {
+  border-top-color: var(--amber);
+}
+
+.self-update-rule.rule-gated {
+  border-top-color: var(--blue);
+}
+
+.self-update-rule.rule-locked {
+  border-top-color: var(--purple);
+}
+
 .source-link {
   text-decoration: none;
 }
@@ -8466,6 +8660,14 @@ body[data-print-target="brief-export"] .export-timeline-item p {
     grid-template-columns: minmax(0, 1fr) minmax(260px, 0.82fr);
   }
 
+  .self-update-stat-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .self-update-rule-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .research-principles {
     grid-column: 1 / -1;
   }
@@ -8481,6 +8683,20 @@ body[data-print-target="brief-export"] .export-timeline-item p {
   .section-heading {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .self-update-policy-head {
+    display: grid;
+  }
+
+  .self-update-status {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .self-update-stat-row,
+  .self-update-rule-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .topbar-actions {
