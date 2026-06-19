@@ -9111,20 +9111,38 @@ function appendMapClusterLabel(layer, { category, categoryPlayers, contextPlayer
   const textPositions = clusterTextPositions({ ...layout, ...visualSize }, center);
   const clusterLabel = mapCategoryLabel(category);
   const clusterWidth = svgLabelWidth(clusterLabel, 96, 180);
+  const stepLabel = category.step || category.iconFallback || category.shortName.slice(0, 1);
   layer.appendChild(
     createSvg("rect", {
-      x: x - clusterWidth / 2,
+      x: x - clusterWidth / 2 - 14,
       y: textPositions.labelY - 16,
-      width: clusterWidth,
+      width: clusterWidth + 28,
       height: 39,
       rx: 10,
-      class: "cluster-label-card",
+      class: `cluster-label-card cluster-label-card-${category.id}`,
       fill: category.color,
       style: `--cluster-color:${category.color}`
     })
   );
+  layer.appendChild(
+    createSvg("circle", {
+      cx: x - clusterWidth / 2 + 3,
+      cy: textPositions.labelY - 4,
+      r: 10,
+      class: `cluster-step-marker cluster-step-marker-${category.id}`,
+      fill: category.color,
+      style: `--cluster-color:${category.color}`
+    })
+  );
+  const step = createSvg("text", {
+    x: x - clusterWidth / 2 + 3,
+    y: textPositions.labelY,
+    class: "cluster-step-label"
+  });
+  step.textContent = stepLabel;
+  layer.appendChild(step);
   const label = createSvg("text", {
-    x,
+    x: x + 7,
     y: textPositions.labelY,
     class: "cluster-label"
   });
@@ -9293,17 +9311,32 @@ function renderMap() {
     const visualSize = clusterVisualSize(layout, visualCount);
 
     const cluster = createSvg("g", {
-      class: `map-cluster-group ${categoryPlayers.length ? "has-visible-nodes" : "is-context-only"}`
+      class: `map-cluster-group map-cluster-group-${category.id} ${categoryPlayers.length ? "has-visible-nodes" : "is-context-only"}`,
+      style: `--cluster-color:${category.color}`
     });
+    const clusterRx = visualCount > 1 ? visualSize.rx : 82;
+    const clusterRy = visualCount > 1 ? visualSize.ry : 56;
+    const halo = createSvg("ellipse", {
+      cx: x,
+      cy: y,
+      rx: clusterRx + 11,
+      ry: clusterRy + 9,
+      class: `map-cluster-halo map-cluster-halo-${category.id}`,
+      fill: "none",
+      stroke: category.color,
+      style: `--cluster-color:${category.color}`
+    });
+    cluster.appendChild(halo);
     const ellipse = createSvg("ellipse", {
       cx: x,
       cy: y,
-      rx: visualCount > 1 ? visualSize.rx : 82,
-      ry: visualCount > 1 ? visualSize.ry : 56,
-      class: "map-cluster",
+      rx: clusterRx,
+      ry: clusterRy,
+      class: `map-cluster map-cluster-${category.id}`,
       fill: category.color,
       stroke: category.color,
-      opacity: categoryPlayers.length ? 0.16 : 0.09
+      opacity: categoryPlayers.length ? 0.2 : 0.11,
+      style: `--cluster-color:${category.color}`
     });
     cluster.appendChild(ellipse);
 
