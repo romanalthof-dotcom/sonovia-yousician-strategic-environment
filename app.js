@@ -978,7 +978,7 @@ const players = [
     ownership: "TrueFire Studios",
     ai: "Research discovery, curriculum navigation, and adaptive practice opportunities",
     description: "Deep online guitar lesson library with interactive tools and specialist instructors.",
-    why: "Relevant for depth, intermediate/advanced learners, teacher-led content, and long-tail guitar education.",
+    why: "Relevant for depth, intermediate and advanced learners, teacher led content, and long tail guitar education.",
     relevance: 3,
     momentum: 3,
     aiScore: 2,
@@ -3936,7 +3936,7 @@ const monitorSegments = [
 ];
 
 const monitorSortModes = [
-  { id: "priority", label: "Priority", note: "Composite strategic rank" },
+  { id: "priority", label: "Priority", note: "Curated triage rank from Yousician fit, momentum, AI relevance and key player review" },
   { id: "relevance", label: "Yousician fit", note: "Direct fit to the mission and product surface" },
   { id: "momentum", label: "Momentum", note: "Recent market activity and signal velocity" },
   { id: "ai", label: "AI pressure", note: "AI relevance and substitution pressure" },
@@ -4027,7 +4027,7 @@ const mapRankModes = [
     id: "priority",
     label: "Strategic priority",
     shortLabel: "Priority",
-    note: "Uses key player status, Yousician relevance, momentum and AI pressure."
+    note: "Curated triage score. Uses key player status, Yousician relevance, momentum and AI relevance."
   },
   ...bubbleSizeModes
 ];
@@ -4037,13 +4037,13 @@ const ratingModes = [
     id: "strategic",
     label: "Strategic priority",
     shortLabel: "Priority",
-    note: "Composite view of relevance, momentum, AI relevance, and key player status."
+    note: "Curated triage score from Yousician relevance, momentum, AI relevance and key player review."
   },
   {
     id: "relevance",
     label: "Yousician relevance",
     shortLabel: "Relevance",
-    note: "Strategic relevance to Yousician."
+    note: "Curated fit to Yousician's mission, product surface and likely decision relevance."
   },
   {
     id: "company",
@@ -6706,7 +6706,7 @@ function profileSpecificLens(player, taxonomy, validation) {
     return {
       label: "Platform lens",
       headline: "Screen music strategy, education strategy and M&A relevance",
-      body: "Use this as a triage record for acquisition history, strategic fit, attention risk and possible distribution or corporate-development relevance."
+      body: "Use this as a triage record for acquisition history, strategic fit, attention risk and possible distribution or corporate development relevance."
     };
   }
   if (relation?.type === "partners" || /partner|channel|hardware|education|brand|distribution/i.test(`${safeTaxonomy.role} ${safeValidation.nextStep}`)) {
@@ -6720,7 +6720,7 @@ function profileSpecificLens(player, taxonomy, validation) {
     return {
       label: "Corporate development lens",
       headline: "Check financial scale, acquisition history and strategic fit",
-      body: "Use filings, acquisition history and product adjacency before treating this as a serious corporate-development route."
+      body: "Use filings, acquisition history and product adjacency before treating this as a serious corporate development route."
     };
   }
   return {
@@ -11941,7 +11941,7 @@ function renderKeyPlayers() {
             <p>${player.why}</p>
             ${factMiniHtml(player, 2)}
             <div>
-              ${metricRow("Strategic relevance", player.relevance)}
+              ${metricRow("Yousician relevance", player.relevance)}
               <div class="badge-row">
                 <span class="badge product-focus-badge">${escapeHtml(productFocusLabel(player))}</span>
                 <span class="badge">${escapeHtml(strategicRole(player))}</span>
@@ -12614,7 +12614,7 @@ function onePagerSnapshotRows(player, quality) {
           }
         : websiteHost
     ],
-    ["Strategic relevance", ratingForPlayer(player, "strategic").display],
+    ["Strategic priority score", ratingForPlayer(player, "strategic").display],
     ["Credentialed scale", directMetricDisplay(player, "company")],
     ["Credentialed revenue", directMetricDisplay(player, "revenue")],
     ["Credentialed reach", directMetricDisplay(player, "reach")],
@@ -12744,29 +12744,40 @@ function onePagerRelationshipRows(player, validation, quality) {
   ];
 }
 
-function onePagerAssessmentHtml(player, quality) {
+function routePotentialScore(player) {
   const relation = relationForPlayer(player);
-  const partnershipScore =
-    relation?.type === "partners"
-      ? Math.max(4, relation.strength)
-      : ["hardware", "education", "platforms", "creation"].includes(player.category)
-        ? 3
-        : 2;
-  const acquisitionScore = /public|alphabet|google|apple|microsoft|spotify|bytedance|warner|universal|yamaha|duolingo|ubisoft/i.test(
+  if (relation?.type === "partners") return Math.max(4, relation.strength);
+  if (["hardware", "education", "platforms", "creation"].includes(player.category)) return 3;
+  return 2;
+}
+
+function acquisitionRelevanceScore(player) {
+  return /public|alphabet|google|apple|microsoft|spotify|bytedance|warner|universal|yamaha|duolingo|ubisoft/i.test(
     `${player.ownership} ${player.reach} ${player.type}`
   )
     ? 2
     : player.key
       ? 3
       : 1;
-  const scores = [
+}
+
+function sourceCoverageScoreFive(quality) {
+  return Math.max(1, Math.round(quality.score / 20));
+}
+
+function onePagerAssessmentScores(player, quality) {
+  return [
     { icon: "shield-alert", label: "Market pressure", value: competitiveProximityScore(player) },
-    { icon: "route", label: "Route potential", value: partnershipScore },
-    { icon: "crosshair", label: "M&A relevance", value: acquisitionScore },
+    { icon: "route", label: "Route potential", value: routePotentialScore(player) },
+    { icon: "crosshair", label: "M&A relevance", value: acquisitionRelevanceScore(player) },
     { icon: "network", label: "Ecosystem influence", value: strategicScoreFive(player) },
     { icon: "brain", label: "AI relevance", value: player.aiScore },
-    { icon: "badge-check", label: "Source coverage", value: Math.max(1, Math.round(quality.score / 20)) }
+    { icon: "badge-check", label: "Source coverage", value: sourceCoverageScoreFive(quality) }
   ];
+}
+
+function onePagerAssessmentHtml(player, quality) {
+  const scores = onePagerAssessmentScores(player, quality);
   return `
     <div class="one-pager-score-card-grid">
       ${scores
@@ -12781,6 +12792,112 @@ function onePagerAssessmentHtml(player, quality) {
           `
         )
         .join("")}
+    </div>
+  `;
+}
+
+function ratingMethodologyRows(player, quality) {
+  const routeRelation = relationForPlayer(player);
+  const directScale = directMetricDisplay(player, "company");
+  const directRevenue = directMetricDisplay(player, "revenue");
+  const directReach = directMetricDisplay(player, "reach");
+  return [
+    {
+      label: "Strategic priority",
+      value: `${strategicScoreFive(player)}/5`,
+      source: "Curated triage",
+      basis: `Formula: Yousician relevance ${player.relevance} x4, momentum ${player.momentum} x3, AI relevance ${player.aiScore} x2${player.key ? ", plus key player review flag" : ""}; then mapped to 1 to 5.`,
+      use: "Orders research attention. It is not a revenue, reach or partnership claim."
+    },
+    {
+      label: "Yousician relevance",
+      value: `${player.relevance}/5`,
+      source: "Curated review",
+      basis: "Judges closeness to Yousician's mission, learning and practice surface, and likely executive decision relevance.",
+      use: "Use to decide whether this belongs in the first discussion or the long tail appendix."
+    },
+    {
+      label: "Momentum",
+      value: `${player.momentum}/5`,
+      source: "Signal review",
+      basis: "Uses recent product, funding, partnership, AI, content, platform or market activity already loaded in the record.",
+      use: "A high score means watch sooner, not that growth has been verified."
+    },
+    {
+      label: "AI relevance",
+      value: `${player.aiScore}/5`,
+      source: "Product lens",
+      basis: "Scores how directly AI changes learning, practice, creation, content, discovery, feedback or substitution pressure.",
+      use: "Use for strategic exposure. Do not read it as AI quality or model performance."
+    },
+    {
+      label: "Market pressure",
+      value: `${competitiveProximityScore(player)}/5`,
+      source: "Taxonomy heuristic",
+      basis: "Maps category, role and proximity text against Yousician's learning and practice loop.",
+      use: "Separates direct learning pressure from broader ecosystem context."
+    },
+    {
+      label: "Route potential",
+      value: `${routePotentialScore(player)}/5`,
+      source: routeRelation?.type === "partners" ? "Relationship lane" : "Category adjacency",
+      basis: routeRelation?.type === "partners"
+        ? `Uses the loaded potential-route lane and its strength ${routeRelation.strength}/5.`
+        : "Hardware, education, platform and creation categories get route value because they may create bundle, channel, content or curriculum paths.",
+      use: "This is not a confirmed Yousician partnership unless the internal relationship field says so."
+    },
+    {
+      label: "M&A relevance",
+      value: `${acquisitionRelevanceScore(player)}/5`,
+      source: "Screening heuristic",
+      basis: "Large public owners and very scaled strategic buyers are usually lower target relevance; key private or focused players stay on the screen.",
+      use: "Use only as an initial corporate development lens, not as acquisition likelihood."
+    },
+    {
+      label: "Source coverage",
+      value: `${quality.score}%`,
+      source: "Computed coverage",
+      basis: `${quality.coverage.count} linked source${quality.coverage.count === 1 ? "" : "s"}, ${quality.coverage.verifiedCount} checked link${quality.coverage.verifiedCount === 1 ? "" : "s"}, source class fit and contradiction checks.`,
+      use: "Shows how ready the profile is for decision use. It does not prove every claim true."
+    },
+    {
+      label: "Credentialed scale",
+      value: directScale,
+      source: directScale === "Pending" ? "Missing import" : "Credentialed data",
+      basis: `Company scale: ${directScale}; revenue: ${directRevenue}; reach: ${directReach}.`,
+      use: "Only treated as hard data when imported from a credentialed or internal source."
+    }
+  ];
+}
+
+function onePagerRatingMethodologyHtml(player, quality) {
+  const rows = ratingMethodologyRows(player, quality);
+  return `
+    <div class="one-pager-rating-methodology">
+      <div class="one-pager-rating-methodology-head">
+        <div>
+          <span>Rating governance</span>
+          <h4>What each score is allowed to mean</h4>
+        </div>
+        <p>Scores are triage tools. The UI separates curated judgement, source coverage and credentialed data so a 5/5 cannot be mistaken for a verified market metric.</p>
+      </div>
+      <div class="one-pager-rating-method-grid">
+        ${rows
+          .map(
+            (row) => `
+              <article class="one-pager-rating-method-card">
+                <header>
+                  <span>${escapeHtml(row.label)}</span>
+                  <strong>${escapeHtml(row.value)}</strong>
+                </header>
+                <em>${escapeHtml(row.source)}</em>
+                <p>${escapeHtml(row.basis)}</p>
+                <small>${escapeHtml(row.use)}</small>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
     </div>
   `;
 }
@@ -13105,7 +13222,8 @@ function renderOnePager() {
           "one-pager-section-half"
         )}
         ${onePagerSectionHtml(9, "Strategic assessment", onePagerAssessmentHtml(player, quality), "one-pager-section-half")}
-        ${onePagerSectionHtml(10, "Sources", onePagerSourcesHtml(player, quality), "one-pager-section-full")}
+        ${onePagerSectionHtml(10, "Rating method", onePagerRatingMethodologyHtml(player, quality), "one-pager-section-full")}
+        ${onePagerSectionHtml(11, "Sources", onePagerSourcesHtml(player, quality), "one-pager-section-full")}
       </section>
 
       ${
@@ -16332,7 +16450,7 @@ function downloadCsv() {
     "Open evidence questions",
     "Source needs",
     "AI signal",
-    "Strategic relevance",
+    "Yousician relevance score",
     "Momentum",
     "AI relevance",
     "Credentialed scale score",

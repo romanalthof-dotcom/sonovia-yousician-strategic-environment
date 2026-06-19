@@ -4244,6 +4244,111 @@ body:not([data-view="overview"]) .view.active {
   text-transform: uppercase;
 }
 
+.one-pager-rating-methodology {
+  display: grid;
+  gap: 12px;
+}
+
+.one-pager-rating-methodology-head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(240px, 1.1fr);
+  gap: 16px;
+  align-items: start;
+  border: 1px solid color-mix(in srgb, var(--onepager-accent) 18%, rgba(22, 33, 29, 0.12));
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--onepager-accent) 9%, #fff), #fff 62%),
+    #fff;
+  padding: 14px;
+}
+
+.one-pager-rating-methodology-head span,
+.one-pager-rating-method-card header span,
+.one-pager-rating-method-card em {
+  color: color-mix(in srgb, var(--onepager-accent) 72%, #16211d);
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.one-pager-rating-methodology-head h4 {
+  margin: 4px 0 0;
+  color: var(--ink);
+  font-size: clamp(1.15rem, 1.5vw, 1.65rem);
+  line-height: 1.08;
+}
+
+.one-pager-rating-methodology-head p {
+  margin: 0;
+  color: #51605a;
+  font-size: 0.9rem;
+  font-weight: 720;
+  line-height: 1.45;
+}
+
+.one-pager-rating-method-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 9px;
+}
+
+.one-pager-rating-method-card {
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  min-height: 172px;
+  border: 1px solid rgba(22, 33, 29, 0.1);
+  border-radius: 8px;
+  background: #fff;
+  padding: 12px;
+}
+
+.one-pager-rating-method-card header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.one-pager-rating-method-card header strong {
+  color: var(--ink);
+  font-size: 1.25rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.one-pager-rating-method-card em {
+  justify-self: start;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--onepager-accent) 10%, #fff);
+  padding: 4px 8px;
+  font-style: normal;
+}
+
+.one-pager-rating-method-card p,
+.one-pager-rating-method-card small {
+  margin: 0;
+  color: #4f5c56;
+  font-size: 0.78rem;
+  font-weight: 720;
+  line-height: 1.38;
+}
+
+.one-pager-rating-method-card small {
+  color: #6b756f;
+}
+
+@media (max-width: 720px) {
+  .one-pager-rating-methodology-head {
+    grid-template-columns: 1fr;
+  }
+
+  .one-pager-rating-method-card {
+    min-height: 0;
+  }
+}
+
 .one-pager-source-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
