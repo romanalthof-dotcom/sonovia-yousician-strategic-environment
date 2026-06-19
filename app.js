@@ -5619,6 +5619,7 @@ const logoDomainOverrides = {
   "fretello": "fretello.com",
   "gibson-app": "gibson.app",
   yamaha: "yamaha.com",
+  boss: "roland.com",
   "positive-grid": "positivegrid.com",
   "fl-studio": "image-line.com",
   "ableton": "ableton.com",
