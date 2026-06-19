@@ -24357,8 +24357,8 @@ body[data-view="overview"] .cluster-label-layer .cluster-count {
 }
 
 body[data-view="overview"] .node-logo-plate {
-  stroke: color-mix(in srgb, var(--node-color, #00b884) 68%, rgba(23, 33, 29, 0.14));
-  stroke-width: 2px;
+  stroke: color-mix(in srgb, var(--node-color, #00b884) 78%, rgba(23, 33, 29, 0.12));
+  stroke-width: 2.4px;
 }
 
 body[data-view="overview"] .map-node:not(.selected) .node-evidence-ring,

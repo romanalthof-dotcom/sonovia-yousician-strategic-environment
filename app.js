@@ -8453,14 +8453,14 @@ function renderStrategicImplications() {
 }
 
 const mapCategoryLayouts = {
-  discover: { x: 184, y: 184, angle: -142, arcRadius: 318, visibleLimit: 4, rx: 124, ry: 84 },
-  start: { x: 304, y: 272, angle: -114, arcRadius: 258, visibleLimit: 5, rx: 132, ry: 88 },
-  learn: { x: 442, y: 166, angle: -80, arcRadius: 190, visibleLimit: 6, rx: 148, ry: 98 },
-  practice: { x: 598, y: 250, angle: -30, arcRadius: 182, visibleLimit: 6, rx: 158, ry: 102 },
-  create: { x: 724, y: 458, angle: 42, arcRadius: 262, visibleLimit: 5, rx: 154, ry: 98 },
-  share: { x: 826, y: 278, angle: 84, arcRadius: 318, visibleLimit: 4, rx: 124, ry: 84 },
-  identity: { x: 792, y: 518, angle: 126, arcRadius: 328, visibleLimit: 4, rx: 124, ry: 84 },
-  broader: { x: 294, y: 532, angle: 168, arcRadius: 326, visibleLimit: 4, rx: 146, ry: 88 }
+  discover: { x: 174, y: 178, angle: -150, arcRadius: 320, visibleLimit: 4, rx: 118, ry: 86 },
+  start: { x: 306, y: 302, angle: -122, arcRadius: 255, visibleLimit: 5, rx: 122, ry: 86 },
+  learn: { x: 452, y: 166, angle: -84, arcRadius: 188, visibleLimit: 6, rx: 132, ry: 92 },
+  practice: { x: 624, y: 218, angle: -28, arcRadius: 194, visibleLimit: 6, rx: 142, ry: 92 },
+  share: { x: 828, y: 312, angle: 80, arcRadius: 322, visibleLimit: 4, rx: 116, ry: 84 },
+  create: { x: 704, y: 500, angle: 44, arcRadius: 268, visibleLimit: 5, rx: 142, ry: 94 },
+  identity: { x: 842, y: 548, angle: 128, arcRadius: 336, visibleLimit: 4, rx: 114, ry: 82 },
+  broader: { x: 286, y: 550, angle: 166, arcRadius: 332, visibleLimit: 4, rx: 134, ry: 88 }
 };
 
 function mapLayoutForCategory(category, index, center) {
@@ -8519,13 +8519,13 @@ function clusterPointPosition(index, total, layout) {
 function clusterSpreadProfile(total) {
   const density = Math.max(0, Math.min(1, (total - 8) / 16));
   return {
-    x: 0.96 + density * 0.9,
-    y: 0.9 + density * 0.74,
-    ellipseX: 1.04 + density * 0.54,
-    ellipseY: 1.03 + density * 0.44,
-    gap: 7 + density * 8,
-    radialLift: 0.02 + density * 0.09,
-    iterations: 30 + Math.round(density * 30)
+    x: 0.9 + density * 0.66,
+    y: 0.86 + density * 0.56,
+    ellipseX: 1 + density * 0.42,
+    ellipseY: 0.98 + density * 0.34,
+    gap: 8 + density * 9,
+    radialLift: 0.015 + density * 0.07,
+    iterations: 34 + Math.round(density * 32)
   };
 }
 
@@ -8592,8 +8592,10 @@ function dynamicClusterGeometry({ layout, categoryPlayers, contextPlayers, nodeP
     },
     { rx: baseRx, ry: baseRy }
   );
-  const rx = Math.round(clampNumber(needed.rx, minRx, visibleCount > 24 ? 278 : 244));
-  const ry = Math.round(clampNumber(needed.ry, minRy, visibleCount > 24 ? 194 : 168));
+  const maxRx = visibleCount > 24 ? 258 : visibleCount > 12 ? 232 : 208;
+  const maxRy = visibleCount > 24 ? 184 : visibleCount > 12 ? 164 : 148;
+  const rx = Math.round(clampNumber(needed.rx, minRx, maxRx));
+  const ry = Math.round(clampNumber(needed.ry, minRy, maxRy));
   const angle = ((Math.atan2(y - center.y, x - center.x) * 180) / Math.PI + 90 + 360) % 360;
   const distance = Math.hypot(x - center.x, y - center.y);
   const arcRadius = Math.round(clampNumber(distance + Math.max(rx, ry) * 0.16, 118, 352));
@@ -8707,7 +8709,7 @@ function relaxClusterNodePositions(items, layout, center, protectedRects = []) {
     pushNodesAwayFromHub(items, center);
     pushNodesAwayFromProtectedRects(items, protectedRects, 0.85);
     items.forEach((item) => {
-      pullNodeIntoCluster(item, layout, profile, 0.018);
+      pullNodeIntoCluster(item, layout, profile, 0.026);
       clampMapNodePosition(item);
     });
   }
@@ -8723,21 +8725,25 @@ function relaxClusterNodePositions(items, layout, center, protectedRects = []) {
 function relaxMapNodePositions(items, center, protectedRects = []) {
   if (items.length <= 1) return;
   for (let iteration = 0; iteration < 30; iteration += 1) {
-    pushNodePairsApart(items, 7, 0.76);
+    pushNodePairsApart(items, 8, 0.72);
     pushNodesAwayFromHub(items, center);
     pushNodesAwayFromProtectedRects(items, protectedRects, 0.7);
     items.forEach((item) => {
       const profile = clusterSpreadProfile(item.categoryPlayers.length);
-      pullNodeIntoCluster(item, item.layout, profile, 0.016);
+      pullNodeIntoCluster(item, item.layout, profile, 0.028);
       clampMapNodePosition(item);
     });
   }
   for (let iteration = 0; iteration < 22; iteration += 1) {
-    pushNodePairsApart(items, 11, 1);
+    pushNodePairsApart(items, 12, 0.94);
     pushNodesAwayFromHub(items, center);
     pushNodesAwayFromProtectedRects(items, protectedRects, 1);
-    pushNodePairsApart(items, 13, 0.9);
-    items.forEach(clampMapNodePosition);
+    pushNodePairsApart(items, 14, 0.84);
+    items.forEach((item) => {
+      const profile = clusterSpreadProfile(item.categoryPlayers.length);
+      pullNodeIntoCluster(item, item.layout, profile, 0.018);
+      clampMapNodePosition(item);
+    });
   }
 }
 
