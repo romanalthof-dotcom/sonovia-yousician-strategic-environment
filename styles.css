@@ -24291,3 +24291,283 @@ body[data-view="key-players"] .monitor-insight-readout {
   background: #fff3df !important;
   color: #7b2d1d !important;
 }
+
+/* Relationship view polish: executive completion board with clearer hierarchy. */
+body[data-view="relationships"] #relationshipsView {
+  display: grid;
+  gap: 18px;
+}
+
+body[data-view="relationships"] .relationship-validation-panel {
+  display: grid;
+  gap: 14px;
+}
+
+body[data-view="relationships"] .relationship-completion-hero {
+  display: grid;
+  grid-template-columns: 1fr !important;
+  gap: 18px;
+  align-items: stretch;
+  border: 1px solid rgba(0, 159, 114, 0.16);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 14% 0%, rgba(0, 210, 146, 0.12), transparent 32%),
+    linear-gradient(135deg, #ffffff 0%, #f7fbf8 58%, #eef9f4 100%);
+  box-shadow: 0 18px 48px rgba(16, 35, 31, 0.08);
+  padding: 22px;
+}
+
+body[data-view="relationships"] .relationship-completion-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 260px);
+  gap: 22px;
+  align-items: end;
+}
+
+body[data-view="relationships"] .relationship-completion-head h3 {
+  max-width: 860px;
+  margin: 6px 0 8px;
+  color: var(--ink);
+  font-size: clamp(1.45rem, 2.05vw, 2.25rem);
+  line-height: 1.06;
+}
+
+body[data-view="relationships"] .relationship-completion-head p {
+  max-width: 980px;
+  margin: 0;
+  color: rgba(24, 36, 31, 0.72);
+  font-size: clamp(0.96rem, 1.02vw, 1.08rem);
+  font-weight: 680;
+  line-height: 1.45;
+}
+
+body[data-view="relationships"] .relationship-completion-status {
+  display: grid;
+  gap: 7px;
+  border: 1px solid rgba(16, 35, 31, 0.09);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 13px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+body[data-view="relationships"] .relationship-completion-status span {
+  color: #447368;
+  font-size: 0.68rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+body[data-view="relationships"] .relationship-completion-status strong {
+  color: var(--ink);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+body[data-view="relationships"] .relationship-completion-status div {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(16, 35, 31, 0.08);
+  overflow: hidden;
+}
+
+body[data-view="relationships"] .relationship-completion-status div i {
+  display: block;
+  width: var(--complete);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #00d292, #11a5a5);
+}
+
+body[data-view="relationships"] .relationship-completion-status small {
+  color: rgba(24, 36, 31, 0.62);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+body[data-view="relationships"] .relationship-completion-board {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+body[data-view="relationships"] .relationship-completion-board article {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  min-height: 92px;
+  border: 1px solid color-mix(in srgb, var(--rel) 24%, rgba(16, 35, 31, 0.1));
+  border-radius: 11px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), color-mix(in srgb, var(--rel) 7%, #fff)),
+    #fff;
+  padding: 14px;
+  box-shadow: 0 12px 26px color-mix(in srgb, var(--rel) 10%, rgba(16, 35, 31, 0.06));
+}
+
+body[data-view="relationships"] .relationship-metric-icon {
+  width: 30px;
+  height: 30px;
+  border: 1px solid color-mix(in srgb, var(--rel) 36%, rgba(16, 35, 31, 0.1));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--rel) 14%, #fff);
+  color: color-mix(in srgb, var(--rel) 74%, #10231f);
+  padding: 6px;
+}
+
+body[data-view="relationships"] .relationship-completion-board em,
+body[data-view="relationships"] .relationship-completion-board small {
+  display: block;
+}
+
+body[data-view="relationships"] .relationship-completion-board em {
+  color: #26352f;
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 950;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+body[data-view="relationships"] .relationship-completion-board small {
+  margin-top: 3px;
+  color: rgba(24, 36, 31, 0.65) !important;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+body[data-view="relationships"] .relationship-completion-board strong {
+  justify-self: end;
+  min-width: 46px;
+  border: 0;
+  background: transparent !important;
+  color: var(--ink) !important;
+  font-size: 2rem;
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 1;
+  text-align: right;
+}
+
+body[data-view="relationships"] .relationship-work-queue {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr));
+  gap: 14px;
+}
+
+body[data-view="relationships"] .relationship-work-queue article {
+  display: grid;
+  gap: 14px;
+  min-height: 164px;
+  border: 1px solid rgba(16, 35, 31, 0.11) !important;
+  border-top: 4px solid var(--rel);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, #fff 0%, color-mix(in srgb, var(--rel) 4%, #fff) 100%),
+    #fff;
+  padding: 16px;
+  box-shadow: 0 12px 30px rgba(16, 35, 31, 0.06);
+}
+
+body[data-view="relationships"] .relationship-work-queue article header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+body[data-view="relationships"] .relationship-work-queue article header strong {
+  min-width: 0;
+  color: var(--ink);
+  font-size: 0.96rem;
+  line-height: 1.1;
+}
+
+body[data-view="relationships"] .relationship-work-queue article header span {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 170px;
+  border: 1px solid color-mix(in srgb, var(--rel) 28%, rgba(16, 35, 31, 0.1));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--rel) 10%, #fff);
+  color: #26352f !important;
+  padding: 6px 9px;
+  font-size: 0.66rem;
+  font-weight: 950;
+  line-height: 1.05;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+body[data-view="relationships"] .relationship-work-queue article p {
+  margin: 0;
+  color: rgba(24, 36, 31, 0.76);
+  font-size: 0.96rem;
+  font-weight: 650;
+  line-height: 1.42;
+}
+
+body[data-view="relationships"] .relationship-work-queue article footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  border-top: 1px solid rgba(16, 35, 31, 0.08);
+  padding-top: 10px;
+}
+
+body[data-view="relationships"] .relationship-work-queue article footer small,
+body[data-view="relationships"] .relationship-work-queue article footer em {
+  color: rgba(24, 36, 31, 0.65);
+  font-size: 0.76rem;
+  font-style: normal;
+  font-weight: 850;
+}
+
+body[data-view="relationships"] .relationship-work-queue article footer em {
+  border-radius: 999px;
+  background: rgba(16, 35, 31, 0.05);
+  padding: 5px 8px;
+}
+
+body[data-view="relationships"] .relationship-graph,
+body[data-view="relationships"] .relationship-list {
+  border: 1px solid rgba(16, 35, 31, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 14px 34px rgba(16, 35, 31, 0.055);
+}
+
+body[data-view="relationships"] .relationship-lane {
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 24% 0%, color-mix(in srgb, var(--lane) 13%, transparent), transparent 34%),
+    color-mix(in srgb, var(--lane) 5%, #fff);
+}
+
+@media (max-width: 1180px) {
+  body[data-view="relationships"] .relationship-completion-head {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="relationships"] .relationship-completion-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-view="relationships"] .relationship-completion-hero {
+    padding: 16px;
+  }
+
+  body[data-view="relationships"] .relationship-completion-board {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="relationships"] .relationship-work-queue article header,
+  body[data-view="relationships"] .relationship-work-queue article footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

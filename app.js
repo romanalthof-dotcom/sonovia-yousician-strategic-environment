@@ -14039,48 +14039,65 @@ function renderRelationshipValidationPanel() {
   const influenceCount = queue.filter((item) => item.relation.type === "influences").length;
   const relationshipOverrideCount = Object.keys(liveOverrideContext.relationshipOverrides || {}).length;
   if (isExecutiveMode()) {
+    const completionTotal = relationshipOverrideCount + queue.length;
+    const completionPct = completionTotal ? Math.round((relationshipOverrideCount / completionTotal) * 100) : 0;
     const boardItems = [
       {
         label: "Known internally",
         value: relationshipOverrideCount,
         note: "loaded relationship rows",
-        tone: "#00d292"
+        tone: "#00d292",
+        icon: "badge-check"
       },
       {
         label: "Needs owner",
         value: queue.length,
         note: "Yousician completion fields",
-        tone: "#ffb84d"
+        tone: "#ffb84d",
+        icon: "user-check"
       },
       {
         label: "Potential route",
         value: partnerCount,
         note: "unconfirmed route lanes",
-        tone: "#11a5a5"
+        tone: "#11a5a5",
+        icon: "route"
       },
       {
         label: "Defend / watch",
         value: competeCount + influenceCount,
         note: "competitive and influence lanes",
-        tone: "#6e5cff"
+        tone: "#6e5cff",
+        icon: "radar"
       }
     ];
     els.relationshipValidationPanel.innerHTML = `
       <article class="validation-summary-card executive-relationship-summary relationship-completion-hero">
-        <div>
-          <span class="section-kicker">Relationship completion layer</span>
-          <h3>Relationship status is tracked as a completion board.</h3>
-          <p>Strategic proximity is mapped now; internal owners, contact history and confirmed relationship status remain explicit Yousician inputs.</p>
-        </div>
+        <header class="relationship-completion-head">
+          <div>
+            <span class="section-kicker">Relationship completion layer</span>
+            <h3>Relationship status is tracked as an internal completion board.</h3>
+            <p>Strategic proximity is mapped now. Owners, contact history, sensitivity and confirmed relationship status stay explicit Yousician inputs.</p>
+          </div>
+          <aside class="relationship-completion-status" style="--complete:${completionPct}%">
+            <span>Internal completion</span>
+            <strong>${relationshipOverrideCount}/${completionTotal}</strong>
+            <div aria-hidden="true"><i></i></div>
+            <small>${completionPct}% of relationship rows loaded</small>
+          </aside>
+        </header>
         <div class="relationship-completion-board">
           ${boardItems
             .map(
               (item) => `
-                <span style="--rel:${item.tone}">
+                <article style="--rel:${item.tone}">
+                  ${iconHtml(item.icon, "relationship-metric-icon")}
+                  <div>
+                    <em>${escapeHtml(item.label)}</em>
+                    <small>${escapeHtml(item.note)}</small>
+                  </div>
                   <strong>${item.value}</strong>
-                  <em>${escapeHtml(item.label)}</em>
-                  <small>${escapeHtml(item.note)}</small>
-                </span>
+                </article>
               `
             )
             .join("")}
@@ -14094,11 +14111,14 @@ function renderRelationshipValidationPanel() {
             ({ relation, player }) => `
               <article style="--rel:${relationshipColor(relation.type)}">
                 <header>
-                  <strong>${companyInlineHtml(player)}</strong>
+                  <strong>${companyInlineHtml(player, { logoClassName: "company-inline-logo relationship-inline-logo" })}</strong>
                   <span>${escapeHtml(relationshipTitle(relation.type))}</span>
                 </header>
                 <p>${escapeHtml(player.why)}</p>
-                <small>${relation.strength}/5 proximity · needs Yousician owner confirmation</small>
+                <footer>
+                  <small>${relation.strength}/5 proximity</small>
+                  <em>Needs owner confirmation</em>
+                </footer>
               </article>
             `
           )
