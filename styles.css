@@ -24293,6 +24293,14 @@ body[data-view="key-players"] .monitor-insight-readout {
 }
 
 /* Core map grouping: simple category assignment without extra background rings. */
+body[data-view="overview"] .map-cluster-halo,
+body[data-view="overview"] .category-arc,
+body[data-view="overview"] .map-ring,
+body[data-view="overview"] .ring-label,
+body[data-view="overview"] .map-lens-field {
+  display: none !important;
+}
+
 body[data-view="overview"] .map-cluster-group {
   isolation: isolate;
 }

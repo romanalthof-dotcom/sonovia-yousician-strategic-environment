@@ -7949,8 +7949,8 @@ function mapViewBoxFromNodes(nodeItems, basePlayers, visiblePlayers, compactMap)
 }
 
 function mapCategoryBoundsItems(categoryGroups, center, clusterGeometryByCategory = new Map()) {
-  return categoryGroups.flatMap(({ category, contextPlayers, layout }) => {
-    if (!contextPlayers.length) return [];
+  return categoryGroups.flatMap(({ category, players: categoryPlayers, contextPlayers, layout }) => {
+    if (!categoryPlayers.length) return [];
     const geometry = clusterGeometryByCategory.get(category.id);
     const visualSize = geometry || clusterVisualSize(layout, contextPlayers.length);
     const labelLayout = geometry?.layout || layout;
@@ -9352,6 +9352,7 @@ function renderMap() {
 
   byCategory.forEach(({ category, players: categoryPlayers, contextPlayers, hiddenCount, x, y, layout }) => {
     const contextCount = contextPlayers.length;
+    if (!categoryPlayers.length) return;
     if (!contextCount && state.selectedCategory !== "all") return;
     if (!contextCount && state.selectedCategory === "all") return;
     const geometry = clusterGeometryByCategory.get(category.id) || dynamicClusterGeometry({ layout, categoryPlayers, contextPlayers, nodePositions, center });
@@ -9600,6 +9601,7 @@ function renderMap() {
 
   const clusterLabelLayer = createSvg("g", { class: "cluster-label-layer" });
   byCategory.forEach(({ category, players: categoryPlayers, contextPlayers, x, layout }) => {
+    if (!categoryPlayers.length) return;
     if (!contextPlayers.length) return;
     const geometry = clusterGeometryByCategory.get(category.id) || dynamicClusterGeometry({ layout, categoryPlayers, contextPlayers, nodePositions, center });
     appendMapClusterLabel(clusterLabelLayer, {
