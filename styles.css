@@ -21174,10 +21174,10 @@ body[data-view="overview"] .map-size-row button.volos-map-teaser {
   display: grid;
   place-items: center;
   min-height: 28px;
-  border-color: rgba(24, 36, 31, 0.018);
+  border-color: rgba(24, 36, 31, 0.035);
   border-radius: 7px;
-  background: rgba(248, 251, 248, 0.04);
-  color: rgba(24, 36, 31, 0.22);
+  background: rgba(248, 251, 248, 0.075);
+  color: rgba(24, 36, 31, 0.3);
   box-shadow: none;
   cursor: pointer;
   animation: volosTeaserButtonFade 1450ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -21192,12 +21192,12 @@ body[data-view="overview"] .map-size-row button.volos-map-teaser:focus-visible {
 }
 
 body[data-view="overview"] .map-size-row button.volos-map-teaser img {
-  width: 31px;
-  height: 18px;
+  width: 34px;
+  height: 20px;
   object-fit: contain;
   opacity: 0;
   pointer-events: none;
-  filter: grayscale(1) brightness(0.52) contrast(0.82);
+  filter: grayscale(1) brightness(0.44) contrast(1.05);
   mix-blend-mode: multiply;
   animation: volosTeaserLogoFade 1450ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -21219,21 +21219,21 @@ body[data-view="overview"] .map-size-row button.volos-map-teaser span {
   }
 
   14% {
-    opacity: 0.58;
-    border-color: rgba(24, 36, 31, 0.038);
-    background: rgba(248, 251, 248, 0.1);
+    opacity: 0.72;
+    border-color: rgba(24, 36, 31, 0.07);
+    background: rgba(248, 251, 248, 0.16);
   }
 
   27% {
-    opacity: 0.36;
-    border-color: rgba(24, 36, 31, 0.022);
-    background: rgba(248, 251, 248, 0.055);
+    opacity: 0.48;
+    border-color: rgba(24, 36, 31, 0.045);
+    background: rgba(248, 251, 248, 0.09);
   }
 
   74% {
-    opacity: 0.17;
-    border-color: rgba(24, 36, 31, 0.01);
-    background: rgba(248, 251, 248, 0.025);
+    opacity: 0.23;
+    border-color: rgba(24, 36, 31, 0.018);
+    background: rgba(248, 251, 248, 0.04);
   }
 
   100% {
@@ -21249,19 +21249,19 @@ body[data-view="overview"] .map-size-row button.volos-map-teaser span {
   }
 
   9% {
-    opacity: 0.035;
+    opacity: 0.08;
   }
 
   18% {
-    opacity: 0.16;
+    opacity: 0.28;
   }
 
   31% {
-    opacity: 0.052;
+    opacity: 0.12;
   }
 
   72% {
-    opacity: 0.018;
+    opacity: 0.04;
   }
 
   100% {
