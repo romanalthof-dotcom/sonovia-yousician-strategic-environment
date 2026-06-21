@@ -39,9 +39,33 @@ Use this to fill public profile facts such as official website status, rating co
 
 ## `import_appfigures_export.py`
 
-Imports an Appfigures CSV export into `handoff/appfigures-performance-export-integrated-v3.csv`.
+Imports an Appfigures CSV export into `handoff/appfigures-performance-export-integrated-v3.csv`. With `--credentialed`, it also updates `data/live-overrides.json` through `import_licensed_metrics.py` so the website can display the metrics.
 
 Use `--credentialed` only when the file came from authorized Appfigures access.
+
+## `import_licensed_metrics.py`
+
+Imports a credentialed Appfigures, Similarweb, Crunchbase, PitchBook, filing or approved internal export directly into `data/live-overrides.json`, which is the layer used by the website and Player Briefs.
+
+Create the template:
+
+```bash
+python3 scripts/import_licensed_metrics.py --template
+```
+
+Persistent import:
+
+```bash
+python3 scripts/import_licensed_metrics.py ~/Downloads/appfigures_export.csv --source appfigures --credentialed
+```
+
+Safe validation without writing:
+
+```bash
+python3 scripts/import_licensed_metrics.py ~/Downloads/appfigures_export.csv --source appfigures --credentialed --dry-run
+```
+
+The importer rejects rows that look like public proxies, estimates, or pending Appfigures placeholders. It only promotes rows with direct numeric metrics and a licensed or internal source type.
 
 ## `build_presend_report_v3_5.py`
 

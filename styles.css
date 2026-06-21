@@ -7231,6 +7231,46 @@ td strong {
   line-height: 1.34;
 }
 
+.licensed-feed-loader {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(190px, 0.55fr) repeat(3, minmax(130px, auto));
+  gap: 8px;
+  align-items: center;
+  border: 1px solid rgba(15, 102, 81, 0.14);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+}
+
+.licensed-feed-loader div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.licensed-feed-loader strong {
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.licensed-feed-loader span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+.licensed-feed-loader input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 8px;
+  font-size: 0.74rem;
+}
+
 .quality-check-row small {
   color: #30423b;
   font-weight: 800;
@@ -9182,6 +9222,7 @@ body[data-print-target="brief-export"] .export-timeline-item p {
   .key-player-visuals,
   .database-visuals,
   .backend-import-card,
+  .licensed-feed-loader,
   .backend-relationship-form,
   .source-visuals,
   .source-status-card,
@@ -9203,6 +9244,7 @@ body[data-print-target="brief-export"] .export-timeline-item p {
   .backend-metrics,
   .direct-source-grid,
   .direct-source-contract ol,
+  .licensed-feed-loader,
   .data-quality-summary,
   .backend-action-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -11311,7 +11353,8 @@ body[data-print-target="brief-export"] .export-stat-row strong {
 
 @media (max-width: 640px) {
   .direct-source-grid,
-  .direct-source-contract ol {
+  .direct-source-contract ol,
+  .licensed-feed-loader {
     grid-template-columns: 1fr;
   }
 }

@@ -647,9 +647,36 @@ def import_appfigures(csv_text: str, credentialed: bool) -> dict[str, object]:
     ]
     merged.extend(incoming)
     write_csv(HANDOFF / "appfigures-performance-export-integrated-v3.csv", merged, APPFIGURES_FIELDS)
+    live_result: dict[str, object] = {"status": "skipped", "reason": "not credentialed"}
+    if credentialed:
+        BACKEND.mkdir(parents=True, exist_ok=True)
+        temp_export = BACKEND / "latest-appfigures-import.csv"
+        temp_export.write_text(csv_text, encoding="utf-8")
+        python_bin = PYTHON_BIN if Path(PYTHON_BIN).exists() else sys.executable
+        completed = subprocess.run(
+            [
+                python_bin,
+                str(BASE / "scripts" / "import_licensed_metrics.py"),
+                str(temp_export),
+                "--source",
+                "appfigures",
+                "--credentialed",
+            ],
+            cwd=BASE,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        live_result = {
+            "status": "ok" if completed.returncode == 0 else "failed",
+            "stdout": completed.stdout.strip(),
+            "stderr": completed.stderr.strip(),
+        }
+        if completed.returncode != 0:
+            raise ValueError(f"Appfigures rows imported to handoff, but live override import failed: {completed.stderr.strip()}")
     sync_sqlite()
-    log_operation("appfigures_import", "ok", {"rows": len(incoming), "credentialed": credentialed})
-    return {"imported_rows": len(incoming), "credentialed": credentialed, "target_rows": len(merged)}
+    log_operation("appfigures_import", "ok", {"rows": len(incoming), "credentialed": credentialed, "live_overrides": live_result})
+    return {"imported_rows": len(incoming), "credentialed": credentialed, "target_rows": len(merged), "live_overrides": live_result}
 
 
 def update_review_status(row_id: int, status: str, notes: str = "", owner: str = "") -> dict[str, object]:

@@ -3726,6 +3726,69 @@ const liveOverrideFallback = {
 let liveOverrideContext = liveOverrideFallback;
 let liveOverrideStatus = "loading";
 
+const LICENSED_METRIC_STORAGE_KEY = "yousicianLicensedMetricOverrides";
+const LICENSED_METRIC_TEMPLATE_HEADER = [
+  "player_id",
+  "player",
+  "app_name",
+  "developer",
+  "source_type",
+  "data_source",
+  "credentialed",
+  "source_date",
+  "downloads_30d",
+  "downloads_90d",
+  "downloads_365d",
+  "revenue_30d",
+  "revenue_90d",
+  "revenue_365d",
+  "website_visits_30d",
+  "rank_current",
+  "rank_30d_avg",
+  "rating",
+  "review_count",
+  "review_velocity_90d",
+  "top_countries",
+  "notes"
+];
+
+const LICENSED_METRIC_FIELD_ALIASES = {
+  player_id: ["player_id", "playerid", "id", "record_id"],
+  player: ["player", "company", "company_name", "publisher", "organization", "organisation"],
+  app_name: ["app_name", "app", "name", "product", "title"],
+  developer: ["developer", "seller", "publisher_name", "vendor"],
+  source_type: ["source_type", "source type", "evidence_type", "feed_type", "feed"],
+  data_source: ["data_source", "data source", "source", "provider", "origin"],
+  credentialed: ["credentialed", "authorized", "licensed", "verified", "is_credentialed"],
+  source_date: ["source_date", "date", "export_date", "as_of", "as_of_date"],
+  downloads_30d: ["downloads_30d", "downloads_last_30_days", "downloads 30d", "downloads30d"],
+  downloads_90d: ["downloads_90d", "downloads_last_90_days", "downloads 90d", "downloads90d"],
+  downloads_365d: ["downloads_365d", "downloads_last_365_days", "downloads 365d", "downloads_1y", "downloads"],
+  revenue_30d: ["revenue_30d", "revenue_last_30_days", "revenue 30d", "revenue30d"],
+  revenue_90d: ["revenue_90d", "revenue_last_90_days", "revenue 90d", "revenue90d"],
+  revenue_365d: ["revenue_365d", "revenue_last_365_days", "revenue 365d", "revenue_1y", "revenue"],
+  website_visits_30d: ["website_visits_30d", "websiteVisits_30d", "website_visits", "websiteVisits", "visits", "traffic"],
+  rank_current: ["rank_current", "current_rank", "rank", "categoryRank", "category_rank"],
+  rank_30d_avg: ["rank_30d_avg", "avg_rank_30d", "average_rank_30d"],
+  rating: ["rating", "average_rating", "avg_rating"],
+  review_count: ["review_count", "ratings", "reviews", "rating_count"],
+  review_velocity_90d: ["review_velocity_90d", "reviews_90d", "rating_velocity_90d"],
+  top_countries: ["top_countries", "country_mix", "top_markets"],
+  notes: ["notes", "note", "comment", "comments"]
+};
+
+const LICENSED_METRIC_SUM_FIELDS = [
+  "downloads_30d",
+  "downloads_90d",
+  "downloads_365d",
+  "revenue_30d",
+  "revenue_90d",
+  "revenue_365d"
+];
+
+const LICENSED_METRIC_MAX_FIELDS = ["website_visits_30d", "review_count", "review_velocity_90d"];
+const LICENSED_METRIC_MIN_FIELDS = ["rank_current", "rank_30d_avg"];
+
 const publicEnrichmentFallback = {
   status: {
     label: "Public enrichment pending",
@@ -5000,6 +5063,333 @@ function compactMetricNumber(value, options = {}) {
   if (abs >= 1_000_000) return `${prefix}${(value / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`;
   if (abs >= 1_000) return `${prefix}${(value / 1_000).toFixed(1).replace(/\.0$/, "")}K`;
   return `${prefix}${Math.round(value)}`;
+}
+
+function importHeaderKey(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
+function parseCsvRows(text) {
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let inQuotes = false;
+  const pushCell = () => {
+    row.push(cell);
+    cell = "";
+  };
+  const pushRow = () => {
+    if (row.length || cell) {
+      pushCell();
+      rows.push(row);
+    }
+    row = [];
+  };
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+    const next = text[index + 1];
+    if (char === '"' && inQuotes && next === '"') {
+      cell += '"';
+      index += 1;
+    } else if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === "," && !inQuotes) {
+      pushCell();
+    } else if ((char === "\n" || char === "\r") && !inQuotes) {
+      if (char === "\r" && next === "\n") index += 1;
+      pushRow();
+    } else {
+      cell += char;
+    }
+  }
+  if (cell || row.length) pushRow();
+  if (rows.length < 2) return [];
+  const headers = rows[0].map(importHeaderKey);
+  return rows.slice(1).map((values) => {
+    const out = {};
+    headers.forEach((header, index) => {
+      if (header) out[header] = values[index] ?? "";
+    });
+    return out;
+  });
+}
+
+function normalizeLicensedMetricRow(rawRow) {
+  const normalizedKeys = {};
+  Object.entries(rawRow || {}).forEach(([key, value]) => {
+    normalizedKeys[importHeaderKey(key)] = value == null ? "" : String(value).trim();
+  });
+  const row = { ...normalizedKeys };
+  Object.entries(LICENSED_METRIC_FIELD_ALIASES).forEach(([field, aliases]) => {
+    if (row[field] != null && row[field] !== "") return;
+    const match = aliases.map(importHeaderKey).find((alias) => normalizedKeys[alias] != null && normalizedKeys[alias] !== "");
+    row[field] = match ? normalizedKeys[match] : "";
+  });
+  return row;
+}
+
+function licensedMetricSourceType(row, fileName = "") {
+  const text = metricText([row.source_type, row.data_source, row.credentialed, row.notes, fileName]);
+  if (/similarweb/i.test(text)) return "similarweb export";
+  if (/crunchbase/i.test(text)) return "crunchbase export";
+  if (/pitchbook/i.test(text)) return "pitchbook export";
+  if (/official\s+filing|annual\s+report|10-k|form\s+20-f|company\s+filing/i.test(text)) return "official filing";
+  if (/internal\s+export|internal\s+metric|finance|kpi|looker|data\s+warehouse/i.test(text)) return "internal metric";
+  if (/appfigures|authorized\s+export|credentialed|licensed/i.test(text)) return "credentialed appfigures export";
+  return "";
+}
+
+function licensedMetricRowRejected(row) {
+  const text = metricText(row);
+  return /public\s+proxy|proxy\s+only|not\s+appfigures|pending\s+appfigures|credentialed\s+export\s+not\s+available|public\s+app\s+store|google\s+play\s+public|estimate|estimated|estimation/i.test(
+    text
+  );
+}
+
+function playerImportMatchScore(player, row) {
+  const explicitId = normalizeSourceKey(row.player_id || "");
+  const playerId = normalizeSourceKey(player.id);
+  if (explicitId && explicitId === playerId) return 1000;
+  const playerName = normalizeSourceKey(player.name);
+  const candidates = [row.player, row.company, row.app_name, row.developer]
+    .map((value) => normalizeSourceKey(value || ""))
+    .filter(Boolean);
+  let score = 0;
+  candidates.forEach((candidate) => {
+    if (candidate === playerId) score = Math.max(score, 900);
+    if (candidate === playerName) score = Math.max(score, 850);
+    if (candidate.includes(playerName) && playerName.length > 3) score = Math.max(score, 500 + playerName.length);
+    if (playerName.includes(candidate) && candidate.length > 3) score = Math.max(score, 420 + candidate.length);
+  });
+  return score;
+}
+
+function playerForLicensedMetricRow(row) {
+  const matches = players
+    .map((player) => ({ player, score: playerImportMatchScore(player, row) }))
+    .filter((match) => match.score > 0)
+    .sort((a, b) => b.score - a.score || b.player.name.length - a.player.name.length);
+  return matches[0]?.player || null;
+}
+
+function metricNumberFromImportRow(row, field) {
+  return parseMetricNumber(row[field]);
+}
+
+function ensureLicensedMetricTarget(metricsByPlayer, player, row, sourceType, fileName) {
+  if (!metricsByPlayer[player.id]) {
+    const sourceDate = row.source_date || new Date().toISOString().slice(0, 10);
+    metricsByPlayer[player.id] = {
+      name: player.name,
+      source: `${sourceType} / ${fileName || "local import"}`,
+      data_source: row.data_source || sourceType,
+      source_type: sourceType,
+      confidence: row.confidence || "High",
+      status: `${sourceType} imported locally`,
+      appfigures_status: /appfigures/i.test(sourceType) ? "Credentialed Appfigures export imported" : "",
+      source_date: sourceDate,
+      lastUpdated: new Date().toISOString().slice(0, 10),
+      importedRows: 0,
+      notes: row.notes || ""
+    };
+  }
+  return metricsByPlayer[player.id];
+}
+
+function mergeLicensedMetricValue(target, field, value) {
+  if (value == null || !Number.isFinite(value)) return false;
+  if (LICENSED_METRIC_SUM_FIELDS.includes(field)) {
+    target[field] = (parseMetricNumber(target[field]) || 0) + value;
+    return true;
+  }
+  if (LICENSED_METRIC_MAX_FIELDS.includes(field)) {
+    target[field] = Math.max(parseMetricNumber(target[field]) || 0, value);
+    return true;
+  }
+  if (LICENSED_METRIC_MIN_FIELDS.includes(field)) {
+    const existing = parseMetricNumber(target[field]);
+    target[field] = existing && existing > 0 ? Math.min(existing, value) : value;
+    return true;
+  }
+  if (field === "rating") {
+    target._ratingSum = (target._ratingSum || 0) + value;
+    target._ratingCount = (target._ratingCount || 0) + 1;
+    target.rating = Number((target._ratingSum / target._ratingCount).toFixed(2));
+    return true;
+  }
+  return false;
+}
+
+function buildLicensedMetricOverrides(rawRows, fileName = "local import") {
+  const metricsByPlayer = {};
+  const ignored = [];
+  rawRows.forEach((rawRow, index) => {
+    const row = normalizeLicensedMetricRow(rawRow);
+    if (!metricText(row).trim()) return;
+    if (licensedMetricRowRejected(row)) {
+      ignored.push(`row ${index + 2}: proxy or estimate text`);
+      return;
+    }
+    const sourceType = licensedMetricSourceType(row, fileName);
+    if (!sourceType) {
+      ignored.push(`row ${index + 2}: no licensed source type`);
+      return;
+    }
+    const player = playerForLicensedMetricRow(row);
+    if (!player) {
+      ignored.push(`row ${index + 2}: player not matched`);
+      return;
+    }
+    const target = ensureLicensedMetricTarget(metricsByPlayer, player, row, sourceType, fileName);
+    let metricCount = 0;
+    [...LICENSED_METRIC_SUM_FIELDS, ...LICENSED_METRIC_MAX_FIELDS, ...LICENSED_METRIC_MIN_FIELDS, "rating"].forEach((field) => {
+      if (mergeLicensedMetricValue(target, field, metricNumberFromImportRow(row, field))) metricCount += 1;
+    });
+    if (!metricCount) {
+      ignored.push(`row ${index + 2}: no numeric metric`);
+      if (!target.importedRows) delete metricsByPlayer[player.id];
+      return;
+    }
+    target.importedRows += 1;
+    if (row.top_countries) target.top_countries = row.top_countries;
+    if (row.notes && !target.notes.includes(row.notes)) {
+      target.notes = [target.notes, row.notes].filter(Boolean).join(" / ");
+    }
+  });
+
+  Object.values(metricsByPlayer).forEach((metric) => {
+    delete metric._ratingSum;
+    delete metric._ratingCount;
+    if (metric.website_visits_30d != null) metric.websiteVisits = metric.website_visits_30d;
+    if (metric.review_count != null) metric.reviewCount = metric.review_count;
+    if (metric.review_velocity_90d != null) metric.reviewVelocity = metric.review_velocity_90d;
+    if (metric.rank_current != null) metric.categoryRank = metric.rank_current;
+    metric.source = `${metric.source}; ${metric.importedRows} row${metric.importedRows === 1 ? "" : "s"}`;
+  });
+
+  return { metricsByPlayer, ignored };
+}
+
+function localLicensedMetricPayload() {
+  try {
+    const raw = window.localStorage?.getItem(LICENSED_METRIC_STORAGE_KEY);
+    if (!raw) return null;
+    const payload = JSON.parse(raw);
+    if (!payload?.metricsByPlayer || typeof payload.metricsByPlayer !== "object") return null;
+    return payload;
+  } catch (error) {
+    return null;
+  }
+}
+
+function mergeLocalLicensedMetrics(context) {
+  const localPayload = localLicensedMetricPayload();
+  if (!localPayload) return context;
+  return {
+    ...context,
+    status: {
+      ...(context.status || {}),
+      label: "Live metric layer active",
+      localImport: localPayload.status?.label || "Local licensed feed imported",
+      localImportDate: localPayload.status?.lastUpdated || ""
+    },
+    schema: {
+      ...(context.schema || {}),
+      licensedMetricImport: "Browser-local licensed CSV/JSON import; persistent deploy uses scripts/import_licensed_metrics.py"
+    },
+    metricsByPlayer: {
+      ...(context.metricsByPlayer || {}),
+      ...(localPayload.metricsByPlayer || {})
+    }
+  };
+}
+
+function saveLocalLicensedMetricPayload(metricsByPlayer, fileName, ignored = []) {
+  const payload = {
+    status: {
+      label: "Local licensed metric feed imported",
+      lastUpdated: new Date().toISOString().slice(0, 10),
+      source: fileName,
+      caveat: "Browser-local import from a licensed or internal feed. Public proxies and estimate rows were ignored."
+    },
+    schema: liveOverrideFallback.schema,
+    metricsByPlayer,
+    ignored
+  };
+  window.localStorage?.setItem(LICENSED_METRIC_STORAGE_KEY, JSON.stringify(payload));
+  liveOverrideContext = mergeLocalLicensedMetrics(liveOverrideContext);
+}
+
+async function importLicensedMetricFile(file) {
+  if (!file) return;
+  const text = await file.text();
+  let rows = [];
+  if (/\.json$/i.test(file.name)) {
+    const parsed = JSON.parse(text);
+    rows = Array.isArray(parsed) ? parsed : Array.isArray(parsed.rows) ? parsed.rows : Object.values(parsed.metricsByPlayer || {});
+  } else {
+    rows = parseCsvRows(text);
+  }
+  const result = buildLicensedMetricOverrides(rows, file.name);
+  const importedCount = Object.keys(result.metricsByPlayer).length;
+  if (!importedCount) {
+    showToast(`No licensed metrics imported. ${result.ignored.slice(0, 2).join(" / ") || "Check source_type and player columns."}`);
+    return;
+  }
+  saveLocalLicensedMetricPayload(result.metricsByPlayer, file.name, result.ignored);
+  renderAll();
+  if (state.view === "one-pager") renderOnePager();
+  showToast(
+    `Imported licensed metrics for ${importedCount} player${importedCount === 1 ? "" : "s"}${
+      result.ignored.length ? `; ignored ${result.ignored.length} proxy or incomplete rows` : ""
+    }.`
+  );
+}
+
+function clearLocalLicensedMetrics() {
+  window.localStorage?.removeItem(LICENSED_METRIC_STORAGE_KEY);
+  loadLiveOverrides();
+  showToast("Local licensed feed cleared.");
+}
+
+function downloadLicensedMetricTemplate() {
+  const rows = players
+    .filter((player) => requiresCredentialedData(player) || player.key)
+    .sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name))
+    .map((player) => [
+      player.id,
+      player.name,
+      "",
+      "",
+      "credentialed appfigures export",
+      "Appfigures / Similarweb / Crunchbase / PitchBook / internal export",
+      "true",
+      new Date().toISOString().slice(0, 10),
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]);
+  downloadTextFile(
+    "licensed-metrics-template.csv",
+    "text/csv;charset=utf-8",
+    toCsv([LICENSED_METRIC_TEMPLATE_HEADER, ...rows]),
+    "Licensed metric CSV template downloaded."
+  );
 }
 
 function directMetricFor(player) {
@@ -15161,6 +15551,16 @@ function renderDirectSourceContract() {
         <li>Approve source changes before they affect executive copy.</li>
         <li>Keep missing credentialed metrics as Pending.</li>
       </ol>
+      <div class="licensed-feed-loader" aria-label="Licensed feed loader">
+        <div>
+          <strong>Licensed feed loader</strong>
+          <span>Works without a backend: import a licensed CSV or JSON, reject proxy rows, and show the metrics immediately in this browser.</span>
+        </div>
+        <input id="licensedMetricFileInput" type="file" accept=".csv,.json,text/csv,application/json" />
+        <button class="primary-button" data-licensed-action="choose" type="button">Import licensed feed</button>
+        <button class="ghost-button" data-licensed-action="template" type="button">Download template</button>
+        <button class="ghost-button" data-licensed-action="clear" type="button">Clear local feed</button>
+      </div>
     </section>
   `;
 }
@@ -17020,6 +17420,7 @@ async function loadLiveOverrides() {
       metricsByPlayer: data.metricsByPlayer || {},
       relationshipOverrides: data.relationshipOverrides || {}
     };
+    liveOverrideContext = mergeLocalLicensedMetrics(liveOverrideContext);
     liveOverrideStatus = "ready";
     renderAll();
   } catch (error) {
@@ -17031,6 +17432,7 @@ async function loadLiveOverrides() {
         caveat: "data/live-overrides.json could not be loaded; the dashboard is using seed records only."
       }
     };
+    liveOverrideContext = mergeLocalLicensedMetrics(liveOverrideContext);
     liveOverrideStatus = "unavailable";
     renderAll();
   }
@@ -17187,6 +17589,16 @@ function bindEvents() {
   });
 
   document.addEventListener("click", (event) => {
+    const licensedAction = event.target.closest("[data-licensed-action]");
+    if (licensedAction) {
+      event.preventDefault();
+      const action = licensedAction.dataset.licensedAction;
+      if (action === "choose") document.querySelector("#licensedMetricFileInput")?.click();
+      if (action === "template") downloadLicensedMetricTemplate();
+      if (action === "clear") clearLocalLicensedMetrics();
+      return;
+    }
+
     const dashboardAction = event.target.closest("[data-dashboard-action]");
     if (dashboardAction) {
       event.preventDefault();
@@ -17228,6 +17640,17 @@ function bindEvents() {
       renderExportSnapshot();
       requestReportNavigationSync();
       return;
+    }
+  });
+
+  document.addEventListener("change", async (event) => {
+    if (event.target?.id !== "licensedMetricFileInput") return;
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    try {
+      await importLicensedMetricFile(file);
+    } catch (error) {
+      showToast(`Licensed feed import failed: ${error.message || String(error)}`);
     }
   });
 

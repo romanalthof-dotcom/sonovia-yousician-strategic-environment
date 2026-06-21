@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import subprocess
 import sys
 from datetime import date
 from pathlib import Path
@@ -190,6 +191,26 @@ def main() -> int:
         merged = [r for r in existing if (r.get("player", ""), r.get("app_name", ""), r.get("platform", ""), r.get("country", "")) not in keys]
         merged.extend(incoming)
     write_csv(TARGET, merged)
+    if args.credentialed:
+        live_import = subprocess.run(
+            [
+                sys.executable,
+                str(BASE / "scripts" / "import_licensed_metrics.py"),
+                str(source),
+                "--source",
+                "appfigures",
+                "--credentialed",
+            ],
+            cwd=BASE,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if live_import.returncode != 0:
+            print(live_import.stderr.strip(), file=sys.stderr)
+            return live_import.returncode
+        if live_import.stdout.strip():
+            print(live_import.stdout.strip())
     print(f"Imported {len(incoming)} rows into {TARGET}")
     print(f"Status: {status}")
     return 0
