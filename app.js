@@ -11944,6 +11944,431 @@ function renderMonitorJourneyPressureBoard(filteredPlayers) {
   `;
 }
 
+function monitorMarketCategoryDefinitions() {
+  return [
+    {
+      id: "direct-learning",
+      group: "Core product",
+      label: "Direct learning apps",
+      icon: "graduation-cap",
+      color: "#00d292",
+      question: "Who teaches beginners and competes with the learning habit?",
+      matches: (player) =>
+        player.category === "learning" ||
+        /lesson|curriculum|learn|learning app|guitar learning|piano learning|drumeo|pianote|guitareo|skoove|simply/i.test(activitySearchText(player))
+    },
+    {
+      id: "practice-utilities",
+      group: "Core product",
+      label: "Practice utilities",
+      icon: "repeat-2",
+      color: "#11a5a5",
+      question: "Who helps users repeat, improve and stay with songs?",
+      matches: (player) =>
+        player.category === "practice" ||
+        /practice|metronome|tuner|play along|play-along|feedback|loop|tempo|accuracy|chord/i.test(activitySearchText(player))
+    },
+    {
+      id: "song-repertoire",
+      group: "Core product",
+      label: "Song repertoire and tabs",
+      icon: "list-music",
+      color: "#4aa8d8",
+      question: "Who owns song choice, tabs, chords and notation?",
+      matches: (player) =>
+        /tab|tabs|song|chord|sheet|notation|catalog|catalogue|repertoire|lyrics|ultimate guitar|songsterr|musescore|chordify/i.test(activitySearchText(player))
+    },
+    {
+      id: "instruments-gear",
+      group: "Access routes",
+      label: "Instruments and gear",
+      icon: "guitar",
+      color: "#ffb84d",
+      question: "Who shapes the beginner setup before an app is chosen?",
+      matches: (player) =>
+        player.category === "hardware" ||
+        /instrument|guitar brand|guitar manufacturer|gear|amp|pedal|pickup|keyboard|hardware|fender|yamaha|gibson|positive grid/i.test(activitySearchText(player))
+    },
+    {
+      id: "retail-bundles",
+      group: "Access routes",
+      label: "Retail and bundles",
+      icon: "shopping-cart",
+      color: "#f59a23",
+      question: "Who can bundle access, trials, hardware or services?",
+      matches: (player) =>
+        /retail|store|commerce|bundle|shop|trial offer|payment|thomann|sweetwater|amazon|stripe|paypal|app store|google play/i.test(activitySearchText(player))
+    },
+    {
+      id: "teachers-schools",
+      group: "Access routes",
+      label: "Teachers, schools and courses",
+      icon: "school",
+      color: "#80a83d",
+      question: "Who carries trust through instruction and credentials?",
+      matches: (player) =>
+        player.category === "education" ||
+        /teacher|school|course|classroom|lesson provider|education|certificate|exam|pedagogy|academy|abrsm|trinity|nafme/i.test(activitySearchText(player))
+    },
+    {
+      id: "streaming-attention",
+      group: "Demand creation",
+      label: "Streaming and attention",
+      icon: "radio",
+      color: "#7b4cc2",
+      question: "Who creates music intent before users seek practice?",
+      matches: (player) =>
+        /streaming|playlist|youtube|tiktok|spotify|instagram|media|artist|music discovery|attention|fan|short form/i.test(activitySearchText(player))
+    },
+    {
+      id: "creator-community",
+      group: "Demand creation",
+      label: "Creators and community",
+      icon: "users",
+      color: "#ef5a4f",
+      question: "Who influences motivation, sharing and identity?",
+      matches: (player) =>
+        /creator|community|discord|reddit|social|fans|influencer|educator|youtube educator|local bands|open mic|festival/i.test(activitySearchText(player))
+    },
+    {
+      id: "broader-entertainment",
+      group: "Demand creation",
+      label: "Broader entertainment",
+      icon: "gamepad-2",
+      color: "#30439b",
+      question: "Who competes for leisure time and could expand the category?",
+      matches: (player) =>
+        player.category === "platforms" ||
+        /netflix|disney|roblox|epic games|nintendo|games|gaming|entertainment|platform|identity|hobby/i.test(activitySearchText(player))
+    },
+    {
+      id: "creation-tools",
+      group: "Creation workflow",
+      label: "Creation tools and DAWs",
+      icon: "sliders-horizontal",
+      color: "#00b77e",
+      question: "Who moves users from playing into making music?",
+      matches: (player) =>
+        player.category === "creation" ||
+        /daw|recording|studio|production|creator tool|samples|loops|garageband|ableton|fl studio|logic pro|bandlab|splice|soundtrap/i.test(activitySearchText(player))
+    },
+    {
+      id: "ai-audio-generation",
+      group: "Creation workflow",
+      label: "AI audio and generation",
+      icon: "sparkles",
+      color: "#6e5cff",
+      question: "Who changes what a casual user expects from music tools?",
+      matches: (player) =>
+        player.category === "ai" ||
+        player.aiScore >= 4 ||
+        /ai|generation|prompt|stem|transcription|separation|adaptive|personalization|suno|udio|elevenlabs|moises|lalal/i.test(activitySearchText(player))
+    },
+    {
+      id: "artist-services",
+      group: "Creation workflow",
+      label: "Artist services",
+      icon: "upload",
+      color: "#e26b8e",
+      question: "Who owns creator distribution, promotion and fan routes?",
+      matches: (player) =>
+        /artist services|distribution|direct to fan|direct-to-fan|bandcamp|soundcloud|distrokid|amuse|linkfire|feature\.fm|publisher|label|promotion/i.test(activitySearchText(player))
+    },
+    {
+      id: "rights-catalog",
+      group: "Market structure",
+      label: "Rights, publishing and catalog",
+      icon: "lock",
+      color: "#d94c72",
+      question: "Who controls content rights, licensing and repertoire access?",
+      matches: (player) =>
+        /rights|publishing|publisher|label|license|licensing|catalog owner|catalogue owner|content rights|music publisher|song rights/i.test(activitySearchText(player))
+    },
+    {
+      id: "app-performance",
+      group: "Market structure",
+      label: "App performance data",
+      icon: "bar-chart-3",
+      color: "#3da5d9",
+      question: "Where do rankings, downloads, revenue and reviews decide the read?",
+      matches: (player) =>
+        requiresCredentialedData(player) ||
+        /appfigures|app store|google play|download|rank|ranking|review|revenue|subscriber|subscription|traffic|sensor tower|data\.ai/i.test(activitySearchText(player))
+    },
+    {
+      id: "market-intelligence",
+      group: "Market structure",
+      label: "Market intelligence",
+      icon: "radar",
+      color: "#2f80ed",
+      question: "Which sources explain timing, trends and external context?",
+      matches: (player) =>
+        player.category === "signals" ||
+        /research|report|analytics|market data|news|monitoring|trend|music ally|hypebot|music tectonics|sxsw/i.test(activitySearchText(player))
+    },
+    {
+      id: "capital-ownership",
+      group: "Market structure",
+      label: "Funding and ownership",
+      icon: "landmark",
+      color: "#11a5a5",
+      question: "Where do investors, owners or transactions change timing?",
+      matches: (player) =>
+        monitorFundingSignalScore(player) >= 4 ||
+        /funding|funded|venture|capital|investor|ownership|owner|parent|acquisition|acquired|m&a|merger|series|seed|public company|filing/i.test(activitySearchText(player))
+    },
+    {
+      id: "awards-recognition",
+      group: "Trust signals",
+      label: "Awards and recognition",
+      icon: "award",
+      color: "#c56bff",
+      question: "Which signals create trust or external validation?",
+      matches: (player) =>
+        /award|recognition|best of|design award|google play award|apple design|bett|learning technologies|credential|certification/i.test(activitySearchText(player))
+    },
+    {
+      id: "policy-legal",
+      group: "Trust signals",
+      label: "Policy, legal and access",
+      icon: "scale",
+      color: "#ef5a4f",
+      question: "Where could rights, policy or platform rules change the options?",
+      matches: (player) =>
+        /policy|legal|law|rights|copyright|licensing|privacy|platform rule|app review|regulation|regulatory|terms/i.test(activitySearchText(player))
+    },
+    {
+      id: "payments-subscriptions",
+      group: "Commercial model",
+      label: "Payments and subscriptions",
+      icon: "credit-card",
+      color: "#12a779",
+      question: "Who affects pricing, billing, bundles or conversion mechanics?",
+      matches: (player) =>
+        /payment|subscription|subscriber|pricing|freemium|paywall|checkout|stripe|paypal|app purchase|in-app purchase|bundle|trial/i.test(activitySearchText(player))
+    },
+    {
+      id: "audio-infrastructure",
+      group: "Commercial model",
+      label: "Audio and device infrastructure",
+      icon: "cable",
+      color: "#8a8fbd",
+      question: "Who can change input quality, connected practice or device use?",
+      matches: (player) =>
+        /audio|device|connectivity|hardware|interface|midi|microphone|latency|amp|pedal|bluetooth|ios|android|apple|google/i.test(activitySearchText(player))
+    }
+  ];
+}
+
+function monitorMarketCategoryScore(player) {
+  return (
+    totalPriority(player) +
+    competitiveProximityScore(player) * 6 +
+    player.momentum * 5 +
+    player.aiScore * 3 +
+    monitorFundingSignalScore(player) * 2 +
+    (player.key ? 18 : 0) +
+    (isReadyRecord(player) ? 5 : 0)
+  );
+}
+
+function uniqueMonitorPlayers(players) {
+  const seen = new Set();
+  return players.filter((player) => {
+    if (seen.has(player.id)) return false;
+    seen.add(player.id);
+    return true;
+  });
+}
+
+function monitorMarketCategoryRows(filteredPlayers) {
+  return monitorMarketCategoryDefinitions().map((definition) => {
+    const players = filteredPlayers.filter(definition.matches);
+    const ranked = monitorLaneRank(players, monitorMarketCategoryScore, 4);
+    const readyCount = players.filter(isReadyRecord).length;
+    const validationCount = players.filter((player) => hasCriticalEvidenceGap(player) || requiresCredentialedData(player)).length;
+    const keyCount = players.filter((player) => player.key).length;
+    const avgPriority = averageScore(players, totalPriority);
+    const avgConfidence = averageScore(players, (player) => qualityProfile(player).score);
+    const momentumCount = players.filter((player) => player.momentum >= 4).length;
+    return {
+      ...definition,
+      players,
+      ranked,
+      count: players.length,
+      readyCount,
+      validationCount,
+      keyCount,
+      avgPriority,
+      avgConfidence,
+      momentumCount,
+      lead: ranked[0]
+    };
+  });
+}
+
+function monitorMarketCategoryGroups(rows) {
+  const order = ["Core product", "Access routes", "Demand creation", "Creation workflow", "Market structure", "Trust signals", "Commercial model"];
+  return order
+    .map((group) => {
+      const categories = rows.filter((row) => row.group === group);
+      const players = uniqueMonitorPlayers(categories.flatMap((row) => row.players));
+      const leaders = monitorLaneRank(players, monitorMarketCategoryScore, 3);
+      return {
+        group,
+        categories,
+        players,
+        leaders,
+        count: players.length,
+        activeCount: categories.filter((row) => row.count).length,
+        keyCount: players.filter((player) => player.key).length,
+        validationCount: players.filter((player) => hasCriticalEvidenceGap(player) || requiresCredentialedData(player)).length,
+        color: categories[0]?.color || "#00d292"
+      };
+    })
+    .filter((group) => group.categories.length);
+}
+
+function monitorCategoryStatusLabel(row) {
+  if (!row.count) return "No match in current filter";
+  if (row.keyCount) return `${row.keyCount} key`;
+  if (row.readyCount) return `${row.readyCount} ready`;
+  if (row.validationCount) return `${row.validationCount} validate`;
+  return `${row.count} records`;
+}
+
+function renderMonitorSimpleMarketRead(filteredPlayers) {
+  const rows = monitorMarketCategoryRows(filteredPlayers);
+  const groups = monitorMarketCategoryGroups(rows);
+  const activeCategories = rows.filter((row) => row.count);
+  const coreGroup = groups.find((group) => group.group === "Core product");
+  const routeGroup = groups.find((group) => group.group === "Access routes");
+  const creationGroup = groups.find((group) => group.group === "Creation workflow");
+  const structureGroup = groups.find((group) => group.group === "Market structure");
+  const priorityLeader = monitorLaneRank(filteredPlayers, monitorMarketCategoryScore, 1)[0];
+  const mostCovered = [...activeCategories].sort((a, b) => b.count - a.count || b.avgPriority - a.avgPriority)[0];
+  const cards = [
+    {
+      label: "Active categories",
+      value: `${activeCategories.length}/${rows.length}`,
+      note: "expanded market lenses in this view",
+      icon: "layout-grid"
+    },
+    {
+      label: "Core product",
+      value: coreGroup ? `${coreGroup.count}` : "0",
+      note: "learning, practice and repertoire records",
+      icon: "target"
+    },
+    {
+      label: "Access routes",
+      value: routeGroup ? `${routeGroup.count}` : "0",
+      note: "gear, retail, schools and bundle paths",
+      icon: "route"
+    },
+    {
+      label: "Creation and AI",
+      value: creationGroup ? `${creationGroup.count}` : "0",
+      note: "creation tools, AI audio and artist services",
+      icon: "sparkles"
+    },
+    {
+      label: "Market structure",
+      value: structureGroup ? `${structureGroup.count}` : "0",
+      note: "rights, data, funding and ownership context",
+      icon: "landmark"
+    }
+  ];
+  return `
+    <section class="monitor-simple-read" aria-label="Simple market monitor read">
+      <div class="monitor-simple-copy">
+        <span class="section-kicker">Market monitor</span>
+        <h3>Read the market by category first.</h3>
+        <p>Start with the market role, then open the players. Counts show database coverage in the current filter, not market size.</p>
+        <div>
+          ${
+            priorityLeader
+              ? `<button type="button" data-monitor-player="${escapeHtml(priorityLeader.id)}">${companyInlineHtml(priorityLeader, { compact: 20, logoClassName: "company-inline-logo monitor-inline-logo" })}<span>top current player</span></button>`
+              : `<small>No current leader</small>`
+          }
+          ${mostCovered ? `<small>Most covered: ${escapeHtml(mostCovered.label)} (${mostCovered.count})</small>` : `<small>No active category</small>`}
+        </div>
+      </div>
+      <div class="monitor-simple-stat-grid">
+        ${cards
+          .map(
+            (card) => `
+              <article>
+                ${iconHtml(card.icon, "monitor-simple-icon")}
+                <span>${escapeHtml(card.label)}</span>
+                <strong>${escapeHtml(card.value)}</strong>
+                <small>${escapeHtml(card.note)}</small>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderMonitorMarketCategoryAtlas(filteredPlayers) {
+  const rows = monitorMarketCategoryRows(filteredPlayers);
+  const groups = monitorMarketCategoryGroups(rows);
+  return `
+    <section class="monitor-market-atlas" aria-label="Expanded market category map">
+      <div class="monitor-compare-head">
+        <div>
+          <span class="section-kicker">Market category map</span>
+          <h3>Expanded lenses without a heavy learning curve</h3>
+        </div>
+        <p>Each lane answers one market question and shows the strongest visible players. Empty cards are useful because they expose what the current filter does not cover.</p>
+      </div>
+      <div class="monitor-market-group-grid">
+        ${groups
+          .map(
+            (group) => `
+              <article class="monitor-market-group" style="--market-group-color:${group.color}">
+                <header>
+                  <span>${escapeHtml(group.group)}</span>
+                  <strong>${group.count}</strong>
+                  <small>${group.activeCount}/${group.categories.length} active categories / ${group.keyCount} key / ${group.validationCount} validate</small>
+                </header>
+                <div class="monitor-market-group-leaders">
+                  ${group.leaders.map((player) => playerMiniButton(player, "data-monitor-player", 16)).join("") || `<small>No visible leader</small>`}
+                </div>
+                <div class="monitor-market-category-list">
+                  ${group.categories
+                    .map(
+                      (row) => `
+                        <section class="monitor-market-category-row ${row.count ? "" : "is-empty"}" style="--market-category-color:${row.color}">
+                          <div class="monitor-market-category-icon">${iconHtml(row.icon, "monitor-category-icon")}</div>
+                          <div class="monitor-market-category-copy">
+                            <strong>${escapeHtml(row.label)}</strong>
+                            <p>${escapeHtml(row.question)}</p>
+                            <small>${escapeHtml(monitorCategoryStatusLabel(row))}</small>
+                          </div>
+                          <div class="monitor-market-category-metrics" aria-label="${escapeHtml(row.label)} metrics">
+                            <span><b>${row.count}</b><small>records</small></span>
+                            <span><b>${row.avgConfidence || 0}%</b><small>sources</small></span>
+                          </div>
+                          <div class="monitor-market-category-players">
+                            ${row.ranked.map((player) => playerMiniButton(player, "data-monitor-player", 14)).join("") || `<small>No match</small>`}
+                          </div>
+                        </section>
+                      `
+                    )
+                    .join("")}
+                </div>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
 function monitorDecisionCockpitLanes(filteredPlayers) {
   const lanes = [
     {
@@ -12248,14 +12673,13 @@ function renderMonitorInsightReadout(filteredPlayers) {
       <div class="directory-head">
         <div>
           <span class="section-kicker">Market monitor</span>
-          <h3>Start with the market read, then compare the evidence</h3>
+          <h3>Simple market view first, deeper evidence below</h3>
         </div>
         <span>${filteredPlayers.length} records / ${topTrend ? `${topTrend.count} in ${topTrend.title}` : "no cluster"}</span>
       </div>
-      ${renderMonitorExecutiveBrief(filteredPlayers)}
-      ${renderMonitorJourneyPressureBoard(filteredPlayers)}
+      ${renderMonitorSimpleMarketRead(filteredPlayers)}
+      ${renderMonitorMarketCategoryAtlas(filteredPlayers)}
       ${renderMonitorDecisionCockpit(filteredPlayers)}
-      ${renderMonitorTriageMatrix(filteredPlayers)}
       ${renderMonitorMovementBoard(filteredPlayers)}
       <div class="monitor-readout-hero">
         ${renderMonitorExecutiveSummary(filteredPlayers)}
@@ -12264,6 +12688,7 @@ function renderMonitorInsightReadout(filteredPlayers) {
       ${renderMonitorSubcategoryBoard(filteredPlayers)}
       ${renderMonitorCapitalBoard(filteredPlayers)}
       ${renderMonitorMetricLeaders(filteredPlayers)}
+      ${renderMonitorJourneyPressureBoard(filteredPlayers)}
       <div class="monitor-compare-head">
         <div>
           <span class="section-kicker">Direct comparison</span>
@@ -12274,6 +12699,7 @@ function renderMonitorInsightReadout(filteredPlayers) {
       ${renderMonitorSortControls(filteredPlayers)}
       ${renderMonitorBenchmark(filteredPlayers)}
       ${renderMonitorCategoryTrendBoard(filteredPlayers)}
+      ${renderMonitorTriageMatrix(filteredPlayers)}
       ${renderMonitorMarketComposition(filteredPlayers)}
       <div class="monitor-meta-grid monitor-detail-trends" aria-label="Detailed monitor clusters">
         ${renderMonitorMetaTrends(filteredPlayers)}
