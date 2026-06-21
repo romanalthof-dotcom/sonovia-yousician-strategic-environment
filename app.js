@@ -12633,9 +12633,9 @@ function renderMonitorMovementBoard(filteredPlayers) {
       <div class="monitor-compare-head">
         <div>
           <span class="section-kicker">Market movement</span>
-          <h3>Recent moves grouped into trend lanes</h3>
+          <h3>Recent market signals by lane</h3>
         </div>
-        <p>Use this for timing and discussion prompts. It is not a substitute for licensed metrics or internal relationship status.</p>
+        <p>Use these signals for timing and discussion. Performance metrics and relationship status stay separate.</p>
       </div>
       <div class="monitor-movement-grid">
         ${groups
@@ -12644,12 +12644,21 @@ function renderMonitorMovementBoard(filteredPlayers) {
             return `
               <article style="--movement-color:${monitorMovementColor(group.category)}">
                 <header>
-                  <span>${escapeHtml(group.category)}</span>
-                  <strong>${group.rows.length}</strong>
+                  <div>
+                    <span>${escapeHtml(group.category)}</span>
+                    <small>${escapeHtml(group.latest?.date || "No date loaded")}</small>
+                  </div>
+                  <strong aria-label="${group.rows.length} signals">${group.rows.length}</strong>
                 </header>
-                <p>${escapeHtml(group.latest?.summary || "Market signal to monitor.")}</p>
+                <div class="monitor-movement-copy">
+                  <span>Latest signal</span>
+                  <p>${escapeHtml(group.latest?.summary || "Market signal to monitor.")}</p>
+                </div>
+                <div class="monitor-movement-copy is-impact">
+                  <span>Why it matters</span>
+                  <p>${escapeHtml(group.latest?.impact || "Review before executive use.")}</p>
+                </div>
                 <footer>
-                  <small>${escapeHtml(group.latest?.date || "No date")} / ${escapeHtml(group.latest?.impact || "Review before executive use.")}</small>
                   ${
                     player
                       ? `<button type="button" data-monitor-player="${escapeHtml(player.id)}">${companyInlineHtml(player, { compact: 18, logoClassName: "company-inline-logo monitor-inline-logo" })}</button>`
