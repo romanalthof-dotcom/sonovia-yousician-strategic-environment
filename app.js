@@ -557,7 +557,7 @@ const players = [
     geography: "Global",
     reach: "Large tab utility",
     model: "Freemium, subscription",
-    ownership: "To verify",
+    ownership: "Guitar Tabs LLC",
     ai: "Research discovery, tab generation, and practice support",
     description: "Tab player and practice utility for guitar, bass, and drums.",
     why: "Captures song-driven practice intent and recurring hobby use.",
@@ -887,7 +887,7 @@ const players = [
     geography: "Global",
     reach: "Large tech media outlet",
     model: "Media",
-    ownership: "To verify",
+    ownership: "Regent LP",
     ai: "News signal for AI, funding, product launches",
     description: "Technology media source for funding and startup momentum signals.",
     why: "Useful for tracking last 24 month moves in AI, apps, funding, and acquisitions.",
@@ -909,7 +909,7 @@ const players = [
     geography: "International",
     reach: "Education industry signal",
     model: "Awards and recognition",
-    ownership: "To verify",
+    ownership: "Bett / Hyve Group",
     ai: "Award categories may signal education AI positioning",
     description: "Education awards example for credibility and category mapping.",
     why: "Awards can reveal positioning opportunities and credibility markers for learning products.",
@@ -1063,7 +1063,7 @@ const players = [
     geography: "Global / US",
     reach: "Niche but established piano education software",
     model: "Subscription and school/studio use",
-    ownership: "To verify",
+    ownership: "Piano Marvel LLC",
     ai: "Research assessment, practice data, and classroom feedback opportunities",
     description: "Piano learning software used for individual learners and teacher-supported environments.",
     why: "Useful for piano-specific pedagogy, assessment, reading practice, and school/studio crossover.",
@@ -1085,7 +1085,7 @@ const players = [
     geography: "Global",
     reach: "Niche but visible practice app",
     model: "Subscription lessons",
-    ownership: "To verify",
+    ownership: "Melodics Limited",
     ai: "Research timing feedback, adaptive practice, and gamified skills",
     description: "Interactive learning app for drums, keys, and finger drumming with real-time feedback.",
     why: "Broadens the map beyond guitar/piano and shows how feedback-led practice works for rhythm and production-adjacent skills.",
@@ -1129,7 +1129,7 @@ const players = [
     geography: "Global / US",
     reach: "Specialist musician and teacher utility",
     model: "Freemium, teacher tools, and store",
-    ownership: "To verify",
+    ownership: "Soundslice",
     ai: "Research transcription, notation, and adaptive practice opportunities",
     description: "Interactive sheet music platform combining notation, video/audio sync, looping, and teaching workflows.",
     why: "Important for serious practice, teachers, transcription, and the gap between video lessons and playable notation.",
@@ -1459,7 +1459,7 @@ const players = [
     geography: "Global",
     reach: "Visible AI audio utility",
     model: "Credit/subscription AI audio service",
-    ownership: "To verify",
+    ownership: "LALAL.AI",
     ai: "Core AI stem separation and audio extraction",
     description: "AI audio separation tool for removing vocals and extracting stems.",
     why: "Directly affects practice, karaoke, remixing, transcription, and learner-created backing tracks.",
@@ -1481,7 +1481,7 @@ const players = [
     geography: "Global / Europe",
     reach: "Established AI music generator",
     model: "Freemium and subscription",
-    ownership: "To verify",
+    ownership: "AIVA Technologies",
     ai: "Core AI music generation",
     description: "AI music generation assistant for creating songs across styles.",
     why: "Useful older reference for AI composition, licensing positioning, and professional/creator workflows.",
@@ -1525,7 +1525,7 @@ const players = [
     geography: "Global / US",
     reach: "Specialist premium music education platform",
     model: "Subscription courses and live learning",
-    ownership: "To verify",
+    ownership: "tonebase",
     ai: "Research expert feedback, practice planning, and premium pedagogy",
     description: "Online classical music lesson platform featuring award-winning musicians and teachers.",
     why: "Represents premium, high-skill instruction and aspirational music education beyond casual beginner apps.",
@@ -1547,7 +1547,7 @@ const players = [
     geography: "Global / US",
     reach: "Established online music education platform",
     model: "Subscription lessons and personalized instruction",
-    ownership: "To verify",
+    ownership: "TrueFire Studios",
     ai: "Research personalized feedback, teacher workflows, and async instruction",
     description: "Online music lesson platform with professional artists and personalized instruction.",
     why: "Useful benchmark for teacher feedback, asynchronous mentorship, and instrument-specific course schools.",
@@ -1679,7 +1679,7 @@ const players = [
     geography: "Global / US",
     reach: "Established piano learning platform",
     model: "Subscription and lifetime plans",
-    ownership: "To verify",
+    ownership: "Playground Sessions",
     ai: "Research song-led feedback, lesson recommendation, and practice analytics",
     description: "Piano learning platform built around interactive lessons, songs, and progress feedback.",
     why: "Adds a piano-specific competitor benchmark for catalog, feedback, pricing, and motivation mechanics.",
@@ -1701,7 +1701,7 @@ const players = [
     geography: "Global / Europe",
     reach: "Large specialist sheet-music app",
     model: "Subscription and sheet music access",
-    ownership: "To verify",
+    ownership: "Tomplay",
     ai: "Research accompaniment, practice analytics, and score-to-practice workflows",
     description: "Interactive sheet music platform with synchronized backing tracks and practice controls.",
     why: "Captures a serious-practice segment between traditional sheet music, backing tracks, and guided learning.",
@@ -1745,7 +1745,7 @@ const players = [
     geography: "Global",
     reach: "Large free web learning surface",
     model: "Free learning tools",
-    ownership: "To verify",
+    ownership: "Musicca",
     ai: "Research lightweight tutoring, exercises, and web-based learning tools",
     description: "Free music theory, exercise, and music-tool website used for self-guided learning.",
     why: "Useful benchmark for free utility, SEO discovery, theory learning, and low-friction education.",
@@ -1833,7 +1833,7 @@ const players = [
     geography: "Global",
     reach: "Teacher and school-facing platform",
     model: "Education SaaS and freemium notation",
-    ownership: "To verify",
+    ownership: "Tutteo Limited",
     ai: "Research classroom workflows, composition assistance, and teacher tooling",
     description: "Cloud notation and classroom platform for music teachers and students.",
     why: "Shows where music education moves into collaborative SaaS, assignments, and teacher-managed practice.",
@@ -1855,7 +1855,7 @@ const players = [
     geography: "Global / US",
     reach: "Established notation education platform",
     model: "Freemium, premium, and education plans",
-    ownership: "To verify",
+    ownership: "Hal Leonard",
     ai: "Research composition assistance and teacher workflow opportunities",
     description: "Online notation platform used by students, teachers, composers, and classrooms.",
     why: "Adds another education-facing notation benchmark between individual practice and formal classroom learning.",
@@ -1943,7 +1943,7 @@ const players = [
     geography: "Global / Sweden",
     reach: "Specialist web creation platform",
     model: "Freemium and subscription",
-    ownership: "To verify",
+    ownership: "Soundation AB",
     ai: "Research browser creation, templates, and AI-assisted production",
     description: "Web-based music studio for creating, collaborating, and producing music in the browser.",
     why: "Adds another low-friction creation path after learning, especially for casual browser-first users.",
@@ -1987,7 +1987,7 @@ const players = [
     geography: "Global / US",
     reach: "Emerging AI music app",
     model: "AI generation app",
-    ownership: "To verify",
+    ownership: "Flow Music",
     ai: "Core AI music generation",
     description: "AI music-generation product currently receiving Riffusion traffic and positioning.",
     why: "Important as a newer consumer-facing AI music signal alongside Suno, Udio, and ElevenLabs Music.",
@@ -2031,7 +2031,7 @@ const players = [
     geography: "Global / Germany",
     reach: "Specialist AI transcription platform",
     model: "Freemium and paid transcription tools",
-    ownership: "To verify",
+    ownership: "Klangio GmbH",
     ai: "Core AI transcription",
     description: "AI transcription platform turning recordings into sheet music, tabs, MIDI, and practice material.",
     why: "Directly relevant to song-to-practice workflows, teacher prep, and the gap between listening and learning.",
@@ -2833,6 +2833,35 @@ const headquartersByPlayerId = {
   musicnotes: { value: "Madison, Wisconsin, USA", basis: "Musicnotes company HQ seed" },
   "cifra-club": { value: "Belo Horizonte, Brazil", basis: "Studio Sol HQ seed" },
   smule: { value: "San Francisco, California, USA", basis: "Smule company HQ seed" }
+};
+
+const publicOwnershipByPlayerId = {
+  songsterr: { value: "Guitar Tabs LLC", basis: "Apple App Store seller record" },
+  techcrunch: { value: "Regent LP", basis: "TechCrunch ownership update, March 2025" },
+  "bett-awards": { value: "Bett / Hyve Group", basis: "Bett Awards public organiser reference" },
+  "piano-marvel": { value: "Piano Marvel LLC", basis: "Apple App Store seller record" },
+  melodics: { value: "Melodics Limited", basis: "Apple App Store seller record" },
+  soundslice: { value: "Soundslice", basis: "Official product/company source" },
+  "lalal-ai": { value: "LALAL.AI", basis: "Official product/company source" },
+  aiva: { value: "AIVA Technologies", basis: "Official company source" },
+  tonebase: { value: "tonebase", basis: "Official company source" },
+  artistworks: { value: "TrueFire Studios", basis: "ArtistWorks official about page and acquisition reference" },
+  "playground-sessions": { value: "Playground Sessions", basis: "Official product/company source" },
+  tomplay: { value: "Tomplay", basis: "Official product/company source" },
+  musicca: { value: "Musicca", basis: "Official product source" },
+  "flat-io": { value: "Tutteo Limited", basis: "Flat for Education legal/policy reference" },
+  noteflight: { value: "Hal Leonard", basis: "Hal Leonard acquisition reference" },
+  soundation: { value: "Soundation AB", basis: "Soundation legal/licensing reference" },
+  "flow-music": { value: "Flow Music", basis: "Official product source" },
+  klangio: { value: "Klangio GmbH", basis: "Official product/company source" }
+};
+
+const publicFoundedByPlayerId = {
+  techcrunch: { value: "2005", detail: "Public launch/founding reference." },
+  "flat-io": { value: "2015", detail: "Tutteo public milestone for Flat.io." },
+  soundation: { value: "1998", detail: "Public company history for Soundation predecessor." },
+  aiva: { value: "2016", detail: "Public AIVA company reference." },
+  tonebase: { value: "2017", detail: "Public tonebase company reference." }
 };
 
 const relations = [
@@ -3655,7 +3684,7 @@ const researchContextFallback = {
     liveAccess: "not_loaded",
     lastChecked: "2026-06-10",
     databaseUrl: "https://yousician.atlassian.net/wiki/spaces/Research/database/5904400385",
-    note: "Local research context has not loaded yet."
+    note: "Local research context is unavailable in this run."
   },
   studies: [],
   marketPrinciples: [],
@@ -3669,7 +3698,7 @@ const evidenceContextFallback = {
   status: {
     label: "Evidence library pending",
     lastChecked: "2026-06-10",
-    method: "Local evidence file has not loaded yet.",
+    method: "Local evidence file is unavailable in this run.",
     caveat: "Treat player notes as draft intelligence until source links are loaded."
   },
   sourceLibrary: [],
@@ -3702,7 +3731,7 @@ const publicEnrichmentFallback = {
     label: "Public enrichment pending",
     lastUpdated: "",
     source: "data/public-enrichment.json",
-    caveat: "Public enrichment has not loaded yet."
+    caveat: "Public enrichment is unavailable in this run."
   },
   playerEnrichment: {}
 };
@@ -4209,7 +4238,7 @@ const journeyCategoryOverrides = {
 function journeyCategoryFor(player) {
   const explicitCategory = journeyCategoryOverrides[player.id];
   if (explicitCategory) return journeyCategoryById(explicitCategory);
-  const text = `${player.name} ${player.type} ${player.subcategory} ${player.model} ${player.ownership} ${player.description} ${player.why} ${player.tags.join(" ")}`.toLowerCase();
+  const text = `${player.name} ${player.type} ${player.subcategory} ${player.model} ${displayOwnership(player)} ${player.description} ${player.why} ${player.tags.join(" ")}`.toLowerCase();
   if (player.category === "platforms") return journeyCategoryById("broader");
   if (player.category === "signals") {
     if (/award|recognition|credential|certification|best of|design/.test(text)) return journeyCategoryById("identity");
@@ -4345,7 +4374,7 @@ function ratingModeById(id) {
 }
 
 function businessSizeScore(player) {
-  const reach = `${player.reach || ""} ${player.type || ""} ${player.model || ""} ${player.ownership || ""}`.toLowerCase();
+  const reach = `${player.reach || ""} ${player.type || ""} ${player.model || ""} ${displayOwnership(player) || ""}`.toLowerCase();
   if (
     /massive|very large|major global|major platform|preinstalled|broad apple|alphabet|google|apple|microsoft|spotify|bytedance|tiktok|warner|universal|yamaha|duolingo|ubisoft/.test(
       reach
@@ -4493,9 +4522,9 @@ function bubbleSizeRadius(player) {
 function bubbleSizeBasis(player) {
   const mode = bubbleSizeModeById(state.bubbleSizeMode).id;
   if (mode === "mission") return `Yousician relevance ${missionScaleScore(player)} of 5. Missing scale proof falls back to strategic relevance`;
-  if (mode === "business") return directCompanyScaleScore(player) ? `Credentialed scale ${directMetricDisplay(player, "company")}` : "Credentialed scale pending";
-  if (mode === "revenue") return directRevenueScore(player) ? `Credentialed revenue ${directMetricDisplay(player, "revenue")}` : "Credentialed revenue pending";
-  if (mode === "reach") return directReachScore(player) ? `Credentialed reach ${directMetricDisplay(player, "reach")}` : "Credentialed reach pending";
+  if (mode === "business") return directCompanyScaleScore(player) ? `Credentialed scale ${directMetricDisplay(player, "company")}` : "Licensed scale feed required";
+  if (mode === "revenue") return directRevenueScore(player) ? `Credentialed revenue ${directMetricDisplay(player, "revenue")}` : "Licensed revenue feed required";
+  if (mode === "reach") return directReachScore(player) ? `Credentialed reach ${directMetricDisplay(player, "reach")}` : "Licensed reach feed required";
   if (mode === "appfigures") return requiresCredentialedData(player) ? "Prepared app data queue" : "No app data queue flag";
   if (mode === "ai") return `AI relevance ${player.aiScore} of 5`;
   if (mode === "momentum") return `Recent momentum ${player.momentum} of 5`;
@@ -4527,20 +4556,20 @@ function ratingForPlayer(player, modeId = state.ratingMode) {
   return {
     ...mode,
     value,
-    display: mode.id === "evidence" ? `${quality.score}%` : directPending ? "Pending" : `${value}/5`,
+    display: mode.id === "evidence" ? `${quality.score}%` : directPending ? "Feed needed" : `${value}/5`,
     sortValue: mode.id === "evidence" ? quality.score : value * 20,
     detail:
       mode.id === "revenue"
         ? directPending
-          ? "Credentialed revenue data pending"
+          ? "Licensed revenue feed required"
           : `Credentialed revenue ${directMetricDisplay(player, "revenue")}`
         : mode.id === "company"
           ? directPending
-            ? "Credentialed scale data pending"
+            ? "Licensed scale feed required"
             : `Credentialed scale ${directMetricDisplay(player, "company")}`
           : mode.id === "reach"
             ? directPending
-              ? "Credentialed reach data pending"
+              ? "Licensed reach feed required"
               : `Credentialed reach ${directMetricDisplay(player, "reach")}`
           : mode.id === "appdata"
             ? "Data status"
@@ -4832,7 +4861,9 @@ function nextAction(player) {
 
 function sourceNeeds(player) {
   const coverage = evidenceCoverage(player);
-  const text = `${player.sourceStatus} ${player.recent} ${player.type} ${player.ownership}`.toLowerCase();
+  const ownershipRecord = publicOwnershipRecordFor(player);
+  const ownershipText = ownershipRecord?.value || player.ownership || "";
+  const text = `${player.sourceStatus} ${player.recent} ${player.type} ${ownershipText}`.toLowerCase();
   const needs = [];
   const publicProfileCovered = coverage.count >= 3 && coverage.publicCount >= 2 && coverage.highCount >= 1;
   const publicSourceCovered = coverage.count >= 2 && coverage.publicCount >= 1;
@@ -4840,7 +4871,7 @@ function sourceNeeds(player) {
     needs.push("Appfigures metrics");
   }
   if (/traffic|web visits|similarweb/.test(text)) needs.push("Similarweb");
-  if (/to verify/i.test(player.ownership || "")) needs.push("Crunchbase");
+  if (needsOwnershipValidation(player)) needs.push("Crunchbase");
   if (/funding|investor|capital|ownership/.test(text) && !publicProfileCovered) needs.push("Crunchbase");
   if (/youtube|creator|media/.test(text) && coverage.count < 2) needs.push("Audience source");
   if (/legal|litigation|rights|copyright/.test(text)) needs.push("Legal/news");
@@ -5349,7 +5380,7 @@ function researchAnchorFor(player) {
   const study = defaultResearchStudy();
   const principle = researchContext.marketPrinciples[0] || "Treat this as a strategic hypothesis until the Confluence research database is checked.";
   return {
-    headline: "Market context to verify",
+    headline: "Market context needs source check",
     summary: principle,
     studyTitle: study.title,
     url: study.url,
@@ -5481,6 +5512,35 @@ function evidenceRecordFor(player) {
 
 function publicEnrichmentFor(player) {
   return publicEnrichmentContext.playerEnrichment?.[player.id] || null;
+}
+
+function publicOwnershipRecordFor(player) {
+  const enriched = publicEnrichmentFor(player)?.ownership;
+  if (nonEmptyString(enriched?.value)) {
+    return {
+      value: enriched.value,
+      basis: enriched.source || "Public enrichment",
+      source: enriched.sourceUrl || enriched.url || ""
+    };
+  }
+  const fallback = publicOwnershipByPlayerId[player.id];
+  if (fallback?.value) {
+    return {
+      value: fallback.value,
+      basis: fallback.basis || "Public operator reference",
+      source: fallback.source || ""
+    };
+  }
+  return null;
+}
+
+function needsOwnershipValidation(player) {
+  return /to verify/i.test(player.ownership || "") && !publicOwnershipRecordFor(player);
+}
+
+function displayMetricOrGate(player, mode) {
+  const value = directMetricDisplay(player, mode);
+  return value === "Pending" ? "Licensed feed required" : value;
 }
 
 function publicEnrichmentSourcesFor(player) {
@@ -6031,7 +6091,9 @@ function sourceTargetLabel(id) {
 }
 
 function sourceCoverageTargetsFor(player) {
-  const text = `${player.type} ${player.category} ${player.subcategory} ${player.reach} ${player.model} ${player.ownership} ${player.sourceStatus} ${player.recent} ${player.tags.join(" ")}`.toLowerCase();
+  const ownershipRecord = publicOwnershipRecordFor(player);
+  const ownershipText = ownershipRecord?.value || player.ownership || "";
+  const text = `${player.type} ${player.category} ${player.subcategory} ${player.reach} ${player.model} ${ownershipText} ${player.sourceStatus} ${player.recent} ${player.tags.join(" ")}`.toLowerCase();
   const sourceClaimsLinked = /official|linked|verified|source-backed/.test(text);
   const targets = [
     {
@@ -6185,7 +6247,8 @@ function claimConflictAudit(player) {
   const metric = directMetricFor(player);
   const enrichmentConflicts = publicEnrichmentFor(player)?.conflicts || [];
   const reachText = `${player.reach || ""}`.toLowerCase();
-  const ownershipText = `${player.ownership || ""}`.toLowerCase();
+  const ownershipRecord = publicOwnershipRecordFor(player);
+  const ownershipText = `${ownershipRecord?.value || player.ownership || ""}`.toLowerCase();
   const sourceStatusText = `${player.sourceStatus || ""}`.toLowerCase();
   const conflicts = [];
   const warnings = [];
@@ -6218,7 +6281,7 @@ function claimConflictAudit(player) {
     warnings.push("Quantitative claims still need a credentialed Appfigures, Similarweb, filing or internal export.");
   }
 
-  if (/to verify|unknown|pending/.test(ownershipText)) {
+  if (!ownershipRecord && /to verify|unknown|pending/.test(ownershipText)) {
     warnings.push("Ownership is still marked as a validation item.");
   } else if (targetAudit.missingRequired.some((target) => target.id === "ownership_capital")) {
     warnings.push("Ownership or capital wording exists without a dedicated ownership/capital source class.");
@@ -6437,7 +6500,7 @@ function hasCriticalEvidenceGap(player) {
     coverage.replacementCount > 0 ||
     (coverage.restrictedCount > 0 && coverage.verifiedCount < 2) ||
     (!signalOnly && coverage.count < 2) ||
-    (keyDecisionRecord && /to verify/i.test(player.ownership))
+    (keyDecisionRecord && needsOwnershipValidation(player))
   );
 }
 
@@ -6542,7 +6605,7 @@ function factClaimsFor(player) {
       label: "Founded",
       text: founded.value,
       basis: founded.detail,
-      kind: founded.value === "Founded to verify" ? "Pending founded field" : "Founded reference",
+      kind: founded.value === "No public founded date" ? "No public field loaded" : "Founded reference",
       caveat: "Use latest company source if this date will be cited externally."
     },
     {
@@ -6570,7 +6633,7 @@ function factClaimsFor(player) {
       label: "Ownership / investors",
       text: displayOwnership(player),
       basis: "Ownership field",
-      kind: /to verify|monitor/i.test(player.ownership) ? "Gated ownership field" : "Ownership claim",
+      kind: needsOwnershipValidation(player) ? "Gated ownership field" : "Public operator claim",
       caveat: "Use latest official/company or transaction source where available."
     },
     {
@@ -6672,9 +6735,9 @@ function sentimentSummary(player) {
 
 function displayOwnership(player) {
   if (!/to verify/i.test(player.ownership || "")) return player.ownership;
-  const enrichmentOwnership = publicEnrichmentFor(player)?.ownership;
-  if (nonEmptyString(enrichmentOwnership?.value)) return `${enrichmentOwnership.value} public source`;
-  return player.key ? "Ownership validation gated" : "Ownership not used in this brief";
+  const ownershipRecord = publicOwnershipRecordFor(player);
+  if (ownershipRecord?.value) return ownershipRecord.value;
+  return player.key ? "Licensed ownership source required" : "Ownership not decision critical here";
 }
 
 function profileSpecificLens(player, taxonomy, validation) {
@@ -6717,7 +6780,7 @@ function profileSpecificLens(player, taxonomy, validation) {
       body: "Look for credible access to learners, gear, schools, creators, catalog, distribution or habit formation. Treat this as a route hypothesis until Yousician confirms a relationship."
     };
   }
-  if (/public company|major global|large|massive/i.test(`${player.ownership} ${player.reach}`)) {
+  if (/public company|major global|large|massive/i.test(`${displayOwnership(player)} ${player.reach}`)) {
     return {
       label: "Corporate development lens",
       headline: "Check financial scale, acquisition history and strategic fit",
@@ -6957,7 +7020,11 @@ function executiveOnePagerDecisionCards(player, taxonomy, validation, quality) {
 
 function ownershipNoteFor(player) {
   const coverage = evidenceCoverage(player);
-  if (/to verify/i.test(player.ownership)) {
+  const ownershipRecord = publicOwnershipRecordFor(player);
+  if (ownershipRecord?.basis) {
+    return `${ownershipRecord.basis}. Treat this as operator context, not proof of internal relationship status.`;
+  }
+  if (needsOwnershipValidation(player)) {
     return "Ownership is a gated field only for deal or investor work.";
   }
   if (coverage.officialCount >= 2 && coverage.verifiedCount >= 2) {
@@ -7047,10 +7114,10 @@ function qualityProfile(player) {
   if (!signalOnly && coverage.score < 56 && coverage.count < 3) gaps.push("evidence depth");
   if (coverage.replacementCount > 0) gaps.push("broken source");
   if (coverage.restrictedCount > 0 && coverage.verifiedCount < 2) gaps.push("manual link check");
-  if (/to verify/i.test(player.ownership)) gaps.push(player.key ? "ownership" : "ownership check");
+  if (needsOwnershipValidation(player)) gaps.push(player.key ? "ownership" : "ownership check");
   if (/to verify|emerging/i.test(`${player.geography} ${player.reach} ${player.model}`)) gaps.push("metadata");
   if (requiresCredentialedData(player) && coverage.count < 2) gaps.push("credentialed data");
-  if ((/funding|investor|ownership|to verify/i.test(player.sourceStatus) || /to verify/i.test(player.ownership)) && coverage.count < 3) gaps.push("capital");
+  if ((/funding|investor|ownership|to verify/i.test(player.sourceStatus) || needsOwnershipValidation(player)) && coverage.count < 3) gaps.push("capital");
   if (coverage.publicOpenQuestions.length >= 2) gaps.push("open source questions");
   if (targetAudit.missingRequired.length >= 2) gaps.push("source class gap");
   if (conflictAudit.conflicts.length) gaps.push("value conflict");
@@ -7281,7 +7348,7 @@ function ecosystemLayerById(id) {
 }
 
 function ecosystemLayerForPlayer(player) {
-  const text = `${player.name} ${player.type} ${player.subcategory} ${player.description} ${player.relationship} ${player.ownership} ${player.tags.join(" ")}`.toLowerCase();
+  const text = `${player.name} ${player.type} ${player.subcategory} ${player.description} ${player.relationship} ${displayOwnership(player)} ${player.tags.join(" ")}`.toLowerCase();
   if (["learning", "practice"].includes(player.category) && (player.key || player.relevance >= 4)) return "core";
   if (/creator|educator|teacher|community|artist|band|lesson|school|discord|reddit|influencer|local/i.test(text)) return "people";
   if (player.category === "platforms" || /media|culture|youtube|tiktok|spotify|streaming|movie|documentary|festival|magazine|news|award/i.test(text)) return "culture";
@@ -12285,7 +12352,7 @@ function onePagerMarketContextHtml(player, taxonomy, quality, validation) {
       <div class="one-pager-context-split">
         <article>
           <span>Comparable benchmark set</span>
-          ${onePagerTableHtml(["Peer", "Journey", "Fit", "Momentum", "AI", "Evidence"], peerRows.length ? peerRows : [["To verify", taxonomy.journey, "To verify", "To verify", "To verify", "To verify"]])}
+          ${onePagerTableHtml(["Peer", "Journey", "Fit", "Momentum", "AI", "Evidence"], peerRows.length ? peerRows : [["No close peer in current taxonomy", taxonomy.journey, "Not scored", "Not scored", "Not scored", "Not enough evidence"]])}
         </article>
         <article>
           <span>What would change the read</span>
@@ -12300,7 +12367,7 @@ function onePagerMarketContextHtml(player, taxonomy, quality, validation) {
             ([label, value]) => `
               <div>
                 <span>${escapeHtml(label)}</span>
-                <strong>${escapeHtml(nonEmptyString(value) || "To verify")}</strong>
+                <strong>${escapeHtml(nonEmptyString(value) || "Not enough evidence for this view")}</strong>
               </div>
             `
           )
@@ -12322,7 +12389,7 @@ function onePagerCompanyCell(player) {
 
 function onePagerTableCellHtml(cell) {
   if (cell && typeof cell === "object" && "html" in cell) return cell.html;
-  return escapeHtml(nonEmptyString(cell) || "To verify");
+  return escapeHtml(nonEmptyString(cell) || "Not enough evidence for this view");
 }
 
 function onePagerTableHtml(headers, rows) {
@@ -12401,7 +12468,7 @@ function onePagerSelfUpdateItems(player, quality, validation) {
     {
       tone: publicMetric ? "safe" : requiresCredentialedData(player) ? "gated" : "review",
       label: "Public app signal",
-      value: publicMetric ? publicAppStoreMetricLabel(player) : "No public app signal loaded",
+      value: publicMetric ? publicAppStoreMetricLabel(player) : requiresCredentialedData(player) ? "No public app rating linked" : "Not an app benchmark",
       detail: publicMetric
         ? "Ratings refresh as public signal only, not revenue or downloads."
         : "Only needed when this player is treated as an app benchmark."
@@ -12500,8 +12567,8 @@ function onePagerFactStripHtml(player, taxonomy, quality) {
     {
       icon: "circle-dollar-sign",
       label: "Revenue evidence",
-      value: revenueDisplay === "Pending" ? "Not loaded" : revenueDisplay,
-      detail: revenueDisplay === "Pending" ? "Credentialed revenue source required." : "Credentialed revenue source loaded."
+      value: revenueDisplay === "Pending" ? "Licensed feed required" : revenueDisplay,
+      detail: revenueDisplay === "Pending" ? "No public or proxy revenue is used. Import a licensed feed, filing or internal finance export first." : "Credentialed revenue source loaded."
     },
     {
       icon: "users",
@@ -12694,9 +12761,9 @@ function onePagerSnapshotRows(player, quality) {
         : websiteHost
     ],
     ["Strategic priority score", ratingForPlayer(player, "strategic").display],
-    ["Credentialed scale", directMetricDisplay(player, "company")],
-    ["Credentialed revenue", directMetricDisplay(player, "revenue")],
-    ["Credentialed reach", directMetricDisplay(player, "reach")],
+    ["Credentialed scale", displayMetricOrGate(player, "company")],
+    ["Credentialed revenue", displayMetricOrGate(player, "revenue")],
+    ["Credentialed reach", displayMetricOrGate(player, "reach")],
     ["HQ", hq.value],
     ["Global footprint", globalFootprintFor(player)],
     ["Reach signal", reachSignalFor(player)],
@@ -12731,7 +12798,7 @@ function onePagerAiRows(player) {
     ["AI signal", executiveSignalText(player.ai)],
     ["AI claim status", ai.label],
     ["AI relevance", `${player.aiScore}/5`],
-    ["What to verify", ai.note],
+    ["Validation check", ai.note],
     ["Live data inputs", feeds.length ? feeds.join(", ") : "No live feed required yet"],
     ["Safe wording", "Use only where primary product evidence is linked"]
   ];
@@ -12792,7 +12859,7 @@ function onePagerPositionHtml(player) {
                           })}</li>`
                       )
                       .join("")
-                  : "<li>To verify</li>"
+                  : "<li>No close match in current taxonomy</li>"
               }</ul>
             </div>
           `;
@@ -12832,7 +12899,7 @@ function routePotentialScore(player) {
 
 function acquisitionRelevanceScore(player) {
   return /public|alphabet|google|apple|microsoft|spotify|bytedance|warner|universal|yamaha|duolingo|ubisoft/i.test(
-    `${player.ownership} ${player.reach} ${player.type}`
+    `${displayOwnership(player)} ${player.reach} ${player.type}`
   )
     ? 2
     : player.key
@@ -12877,9 +12944,9 @@ function onePagerAssessmentHtml(player, quality) {
 
 function ratingMethodologyRows(player, quality) {
   const routeRelation = relationForPlayer(player);
-  const directScale = directMetricDisplay(player, "company");
-  const directRevenue = directMetricDisplay(player, "revenue");
-  const directReach = directMetricDisplay(player, "reach");
+  const directScale = displayMetricOrGate(player, "company");
+  const directRevenue = displayMetricOrGate(player, "revenue");
+  const directReach = displayMetricOrGate(player, "reach");
   return [
     {
       label: "Strategic priority",
@@ -12942,7 +13009,7 @@ function ratingMethodologyRows(player, quality) {
     {
       label: "Credentialed scale",
       value: directScale,
-      source: directScale === "Pending" ? "Missing import" : "Credentialed data",
+      source: directScale === "Licensed feed required" ? "Licensed feed missing" : "Credentialed data",
       basis: `Company scale: ${directScale}; revenue: ${directRevenue}; reach: ${directReach}.`,
       use: "Only treated as hard data when imported from a credentialed or internal source."
     }
@@ -13740,9 +13807,16 @@ function foundedRecordFor(player) {
       detail: `${enriched.source || "Public source"} checked ${enriched.lastUpdated || publicEnrichmentFor(player)?.lastUpdated || ""}`.trim()
     };
   }
+  const seeded = publicFoundedByPlayerId[player.id];
+  if (seeded?.value) {
+    return {
+      value: seeded.value,
+      detail: seeded.detail || "Public founded reference."
+    };
+  }
   return {
-    value: "Founded to verify",
-    detail: "Not loaded from a direct public source yet."
+    value: "No public founded date",
+    detail: "Not shown as fact until a direct public source is linked."
   };
 }
 
@@ -13775,16 +13849,16 @@ function headquartersRecordFor(player) {
   }
   const entityKind = entityKindFor(player);
   const pendingValue = /individual|creator/i.test(entityKind)
-    ? "Creator base to verify"
+    ? "No public creator base loaded"
     : /institution/i.test(entityKind)
-      ? "Institution HQ to verify"
+      ? "No public institution HQ loaded"
       : /signal|media|data/i.test(entityKind)
-        ? "Source owner HQ to verify"
-        : "Company HQ to verify";
+        ? "No public source owner HQ loaded"
+        : "No public HQ in linked sources";
   return {
     value: pendingValue,
     basis: "No explicit HQ field loaded",
-    kind: "Pending HQ field",
+    kind: "No public HQ field",
     caveat: "Do not infer headquarters from global footprint, market reach, or app availability."
   };
 }
@@ -13794,11 +13868,11 @@ function templateHqFor(player) {
 }
 
 function globalFootprintFor(player) {
-  return nonEmptyString(player.footprint) || nonEmptyString(player.geography) || "Footprint to verify";
+  return nonEmptyString(player.footprint) || nonEmptyString(player.geography) || "No footprint field loaded";
 }
 
 function reachSignalFor(player) {
-  return nonEmptyString(player.reach) || "Reach signal to verify";
+  return nonEmptyString(player.reach) || "No reach signal loaded";
 }
 
 function templateRelationshipFor(player) {
@@ -13815,7 +13889,7 @@ function templateNotesFor(player) {
   const quality = qualityProfile(player);
   const notes = [];
   if (requiresCredentialedData(player)) notes.push("Needs Appfigures");
-  if (/to verify/i.test(player.ownership || "")) notes.push("Ownership check");
+  if (needsOwnershipValidation(player)) notes.push("Ownership check");
   if (/not yet captured|to be completed/i.test(player.relationship || "")) notes.push("Relationship owner needed");
   if (quality.gaps.length) notes.push(`Check ${quality.gaps.slice(0, 2).join(", ")}`);
   if (!notes.length) notes.push("Ready for quarterly review");
@@ -13843,10 +13917,10 @@ function keyPlayerTemplateRowData(player) {
     subcategory: player.subcategory || taxonomyProfile(player).role,
     name: player.name,
     description: compactTemplateText(player.description, 90),
-    revenueSize: `${ratingForPlayer(player, "company").display} scale, ${revenueSignal.display} revenue`,
+    revenueSize: `${displayMetricOrGate(player, "company")} scale, ${displayMetricOrGate(player, "revenue")} revenue`,
     hq: templateHqFor(player),
     geography: globalFootprintFor(player),
-    ownership: compactTemplateText(player.ownership, 74),
+    ownership: compactTemplateText(displayOwnership(player), 74),
     strategicImportance: strategicRating.display,
     relationship: templateRelationshipFor(player),
     notes: templateNotesFor(player)
@@ -14899,7 +14973,7 @@ function renderSourceVisuals() {
     ? `${accessCounts.verified} of ${sources.length} source links have a recorded link check.`
     : sources.length
       ? "Sources are loaded, but no link check status is recorded yet."
-      : "The evidence library file has not loaded in this view.";
+      : "The evidence library file is unavailable in this view.";
   const typeRows = Object.entries(
     sources.reduce((groups, source) => {
       const group = groups[source.type] || { count: 0, usedPlayers: new Set(), high: 0 };
@@ -16173,7 +16247,7 @@ function renderExportSnapshot() {
               <dl>
                 <div><dt>What they are</dt><dd>${escapeHtml(player.description)}</dd></div>
                 <div><dt>Size / reach</dt><dd>${escapeHtml(player.reach)}</dd></div>
-                <div><dt>Ownership / investors</dt><dd>${escapeHtml(player.ownership)}</dd></div>
+                <div><dt>Ownership / investors</dt><dd>${escapeHtml(displayOwnership(player))}</dd></div>
                 <div><dt>AI / recent initiative</dt><dd>${escapeHtml(executiveSignalText(player.ai || player.recent))}</dd></div>
                 <div><dt>Why they matter</dt><dd>${escapeHtml(player.why)}</dd></div>
               </dl>
@@ -16588,7 +16662,7 @@ function downloadCsv() {
       globalFootprintFor(player),
       reachSignalFor(player),
       player.model,
-      player.ownership,
+      displayOwnership(player),
       researchOwner(player),
       validation.owner,
       validation.status,

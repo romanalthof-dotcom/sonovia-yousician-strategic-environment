@@ -2,13 +2,13 @@
   "playerEnrichment": {
     "a16z-consumer": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "a16z Consumer",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Consumer Tech Investments &amp; Team Overview | a16z",
@@ -18,7 +18,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -32,20 +32,13 @@
     },
     "ableton": {
       "conflicts": [],
-      "founded": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q322379",
-        "value": "1999"
-      },
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Ableton",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Creative tools for music makers | Ableton",
@@ -64,7 +57,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -90,17 +83,24 @@
         "source": "Wikidata public entity record",
         "sourceUrl": "https://www.wikidata.org/wiki/Q322379",
         "website": "https://www.ableton.com/"
+      },
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q322379",
+        "value": "1999"
       }
     },
     "abrsm": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "ABRSM",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "access-restricted",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "ABRSM primary website",
@@ -110,7 +110,7 @@
       ],
       "website": {
         "accessStatus": "access-restricted",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "HTTP Error 403: Forbidden",
         "httpStatus": "403",
         "lastChecked": "2026-06-10",
@@ -124,13 +124,13 @@
     },
     "accel": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Accel",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Accel",
@@ -140,7 +140,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -154,13 +154,13 @@
     },
     "aiva": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "AIVA",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "AIVA, the AI Music Generation Assistant",
@@ -170,7 +170,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -184,13 +184,13 @@
     },
     "apple-design-awards": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Apple Design Awards",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Apple Design Awards - 2026 winners and finalists - Apple Developer",
@@ -200,7 +200,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -219,30 +219,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2025-11-03T17:59:32Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.07484,
-        "reviewCount": 115353,
+        "rating": 4.07494,
+        "reviewCount": 115392,
         "sellerName": "Apple Inc.",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/garageband/id408709785?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "GarageBand",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/garageband/id408709785",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.07484,
-        "reviewCount": 115353,
+        "rating": 4.07494,
+        "reviewCount": 115392,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/garageband/id408709785?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "GarageBand for iOS - Apple",
@@ -251,7 +251,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "GarageBand App Store public lookup",
@@ -261,7 +261,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -280,10 +280,10 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-16T04:41:57Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.68774,
-        "reviewCount": 1787,
+        "rating": 4.68914,
+        "reviewCount": 1795,
         "sellerName": "Art Master Academy s.r.o.",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/artie-learn-piano-with-ai/id6746756746?uo=4"
@@ -297,21 +297,21 @@
           "severity": "review"
         }
       ],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Artie Piano",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/artie-learn-piano-with-ai/id6746756746",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.68774,
-        "reviewCount": 1787,
+        "rating": 4.68914,
+        "reviewCount": 1795,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/artie-learn-piano-with-ai/id6746756746?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Learn Piano Fast with Artie – Your AI Music Teacher - ArtMaster",
@@ -320,7 +320,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Artie: Learn Piano with AI App Store public lookup",
@@ -330,7 +330,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -344,13 +344,13 @@
     },
     "artistworks": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "ArtistWorks",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Online Music Lessons Built for Your Breakthrough | ArtistWorks",
@@ -360,7 +360,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -374,13 +374,13 @@
     },
     "audacity": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Audacity",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Music Software &amp; Content Ecosystem for Creators | Muse Group",
@@ -390,7 +390,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -404,34 +404,13 @@
     },
     "bandcamp": {
       "conflicts": [],
-      "founded": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
-        "value": "2007"
-      },
-      "hq": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
-        "value": "Oakland"
-      },
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Bandcamp",
-      "ownership": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
-        "value": "Songtradr"
-      },
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Bandcamp for Artists",
@@ -450,7 +429,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -476,6 +455,27 @@
         "source": "Wikidata public entity record",
         "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
         "website": "https://bandcamp.com"
+      },
+      "hq": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
+        "value": "Oakland"
+      },
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
+        "value": "2007"
+      },
+      "ownership": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
+        "value": "Songtradr"
       }
     },
     "bandlab": {
@@ -485,30 +485,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-17T02:19:52Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.75272,
-        "reviewCount": 486501,
+        "rating": 4.75262,
+        "reviewCount": 487028,
         "sellerName": "BandLab Singapore Pte Ltd",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/bandlab-music-maker-beats/id968585775?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "BandLab",
       "publicMetric": {
         "basis": "live override app id",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.75272,
-        "reviewCount": 486501,
+        "rating": 4.75262,
+        "reviewCount": 487028,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/bandlab-music-maker-beats/id968585775?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "BandLab primary website",
@@ -517,7 +517,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "BandLab – Music Maker & Beats App Store public lookup",
@@ -527,7 +527,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-17",
@@ -541,13 +541,13 @@
     },
     "beatstars": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "BeatStars",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Buy Beats Online | Download Beats | Rap Beats For Sale | Instrumentals For Sale",
@@ -557,7 +557,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -571,13 +571,13 @@
     },
     "berklee-online": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Berklee Online",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Berklee Online - Master&#39;s and Bachelor&#39;s Music Degrees, Certificates, and Courses",
@@ -587,7 +587,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -601,23 +601,32 @@
     },
     "bett-awards": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "BETT Awards",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Bett Awards | Get Rewarded For Your Achievements | Bett UK",
           "type": "Official website",
           "url": "https://uk.bettshow.com/awards"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-21",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "Bett Awards Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q131914650"
         }
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -627,14 +636,39 @@
         "title": "Bett Awards | Get Rewarded For Your Achievements | Bett UK",
         "url": "https://uk.bettshow.com/awards",
         "value": "https://uk.bettshow.com/awards"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-21",
+        "confidence": "matched public entity",
+        "country": "",
+        "description": "education-related awards",
+        "founded": "",
+        "hq": "",
+        "label": "Bett Awards",
+        "matchScore": 32,
+        "ownedBy": "",
+        "parentOrganization": "",
+        "qid": "Q131914650",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q131914650",
+        "website": "https://bettawards.com/"
       }
     },
     "boss": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "BOSS / Roland",
       "publicMetric": null,
       "sources": [
+        {
+          "access_status": "needs-review",
+          "last_url_check": "2026-06-21",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "BOSS / Roland primary website",
+          "type": "Official website",
+          "url": "https://www.boss.info/us/"
+        },
         {
           "access_status": "verified",
           "last_url_check": "2026-06-19",
@@ -646,28 +680,28 @@
         }
       ],
       "website": {
-        "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
-        "error": "",
-        "httpStatus": "200",
+        "accessStatus": "needs-review",
+        "checkedAt": "2026-06-21",
+        "error": "The read operation timed out",
+        "httpStatus": "ERROR",
         "lastChecked": "2026-06-10",
         "source": "Existing evidence library primary public source",
         "sourceId": "boss_official",
         "sourceUrl": "https://www.boss.info/us/",
-        "title": "BOSS - US",
+        "title": "",
         "url": "https://www.boss.info/us/",
         "value": "https://www.boss.info/us/"
       }
     },
     "brilliant": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Brilliant",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Brilliant | Learn by doing",
@@ -677,7 +711,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -691,13 +725,13 @@
     },
     "chartmetric": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Chartmetric",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Chartmetric | Advancing music with the power of data",
@@ -707,7 +741,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -726,7 +760,7 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-10T20:35:49Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 4.64569,
         "reviewCount": 5865,
@@ -735,11 +769,11 @@
         "sourceUrl": "https://apps.apple.com/us/app/chord-ai-play-any-song/id1446177109?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Chord ai",
       "publicMetric": {
         "basis": "live override app id",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 4.64569,
         "reviewCount": 5865,
@@ -749,7 +783,7 @@
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Chord AI | Nomad AI",
@@ -758,7 +792,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Chord ai - Play any song! App Store public lookup",
@@ -768,7 +802,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -787,30 +821,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-17T07:48:51Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.72846,
-        "reviewCount": 32887,
+        "rating": 4.72858,
+        "reviewCount": 32908,
         "sellerName": "Chordify BV",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/chordify-songs-chords-tuner/id1073624757?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Chordify",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/chordify-songs-chords-tuner/id1073624757",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.72846,
-        "reviewCount": 32887,
+        "rating": 4.72858,
+        "reviewCount": 32908,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/chordify-songs-chords-tuner/id1073624757?uo=4"
       },
       "sources": [
         {
           "access_status": "access-restricted",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Chordify primary website",
@@ -819,7 +853,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Chordify: Songs, Chords, Tuner App Store public lookup",
@@ -829,7 +863,7 @@
       ],
       "website": {
         "accessStatus": "access-restricted",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "HTTP Error 403: Forbidden",
         "httpStatus": "403",
         "lastChecked": "2026-06-10",
@@ -843,13 +877,13 @@
     },
     "cifra-club": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Cifra Club",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Cifra Club - Seu site de cifras e tablaturas",
@@ -859,7 +893,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-18",
@@ -878,7 +912,7 @@
         "country": "fr",
         "currentVersionReleaseDate": "2026-01-09T23:07:54Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 4.35473,
         "reviewCount": 4485,
@@ -887,11 +921,11 @@
         "sourceUrl": "https://apps.apple.com/fr/app/coach-guitar-cours-de-guitare/id405338085?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Coach Guitar",
       "publicMetric": {
         "basis": "https://apps.apple.com/fr/app/coach-guitar-cours-guitare/id405338085",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 4.35473,
         "reviewCount": 4485,
@@ -901,7 +935,7 @@
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Coach Guitar | Guitar Lessons",
@@ -910,7 +944,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Coach Guitar: Cours de Guitare App Store public lookup",
@@ -920,7 +954,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-18",
@@ -934,23 +968,46 @@
     },
     "creative-europe": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-21",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q17084973",
+        "value": "2012"
+      },
+      "hq": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-21",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q17084973",
+        "value": "Brussels"
+      },
+      "lastUpdated": "2026-06-21",
       "name": "Creative Europe",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Creative Europe - European Commission",
           "type": "Official website",
           "url": "https://commission.europa.eu/funding-and-tenders/find-funding/eu-funding-programmes/creative-europe_en"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-21",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "Creative Europe Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q17084973"
         }
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -960,17 +1017,33 @@
         "title": "Creative Europe - European Commission",
         "url": "https://commission.europa.eu/funding-and-tenders/find-funding/eu-funding-programmes/creative-europe_en",
         "value": "https://commission.europa.eu/funding-and-tenders/find-funding/eu-funding-programmes/creative-europe_en"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-21",
+        "confidence": "matched public entity",
+        "country": "Belgium",
+        "description": "cultural organization based in Europe",
+        "founded": "2012",
+        "hq": "Brussels",
+        "label": "Creative Europe",
+        "matchScore": 28,
+        "ownedBy": "",
+        "parentOrganization": "",
+        "qid": "Q17084973",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q17084973",
+        "website": "https://ec.europa.eu/programmes/creative-europe"
       }
     },
     "disney": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Disney",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Disney and Epic Games to Create Expansive and Open Games and Entertainment Universe Connected to Fortnite | The Walt Disney Company",
@@ -989,7 +1062,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-17",
@@ -1024,30 +1097,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-04-13T13:52:18Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.86448,
-        "reviewCount": 23650,
+        "rating": 4.86458,
+        "reviewCount": 23704,
         "sellerName": "DistroKid Holdings, LLC",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/distrokid/id1548832265?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "DistroKid",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/distrokid/id1548832265",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.86448,
-        "reviewCount": 23650,
+        "rating": 4.86458,
+        "reviewCount": 23704,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/distrokid/id1548832265?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Download the DistroKid app for iOS and Android | DistroKid",
@@ -1056,7 +1129,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "DistroKid App Store public lookup",
@@ -1066,7 +1139,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1080,23 +1153,32 @@
     },
     "donner": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Donner",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Electronic &amp; Digital Music Instruments | Donner® Music Store",
           "type": "Official website",
           "url": "https://us.donnermusic.com/"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-21",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "Donner Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q16869625"
         }
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1106,17 +1188,33 @@
         "title": "Electronic &amp; Digital Music Instruments | Donner® Music Store",
         "url": "https://us.donnermusic.com/",
         "value": "https://us.donnermusic.com/"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-21",
+        "confidence": "matched public entity",
+        "country": "",
+        "description": "family name",
+        "founded": "",
+        "hq": "",
+        "label": "Donner",
+        "matchScore": 23,
+        "ownedBy": "",
+        "parentOrganization": "",
+        "qid": "Q16869625",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q16869625",
+        "website": ""
       }
     },
     "duolingo": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Duolingo",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "듀오링고 음악 과정이 나왔어요 - 더 알아보기",
@@ -1126,7 +1224,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-17",
@@ -1140,13 +1238,13 @@
     },
     "eic-accelerator": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "EIC Accelerator",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "EIC Accelerator - European Innovation Council - European Commission",
@@ -1156,7 +1254,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1170,13 +1268,13 @@
     },
     "eit-culture-creativity": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "EIT Culture & Creativity",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Leading Culture &amp; Creative Innovation | EIT Culture &amp; Creativity",
@@ -1186,7 +1284,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1200,13 +1298,13 @@
     },
     "elevenlabs-music": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "ElevenLabs Music",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "AI Music Generator | Free Song Maker &amp; Music Creator",
@@ -1216,7 +1314,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1230,34 +1328,13 @@
     },
     "epic-games": {
       "conflicts": [],
-      "founded": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
-        "value": "1991-01-15"
-      },
-      "hq": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
-        "value": "North Carolina"
-      },
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Epic Games",
-      "ownership": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
-        "value": "Tencent"
-      },
       "publicMetric": null,
       "sources": [
         {
           "access_status": "access-restricted",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Epic Games primary website",
@@ -1276,7 +1353,7 @@
       ],
       "website": {
         "accessStatus": "access-restricted",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "HTTP Error 403: Forbidden",
         "httpStatus": "403",
         "lastChecked": "2026-06-17",
@@ -1302,6 +1379,27 @@
         "source": "Wikidata public entity record",
         "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
         "website": "https://www.epicgames.com/"
+      },
+      "hq": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
+        "value": "North Carolina"
+      },
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
+        "value": "1991-01-15"
+      },
+      "ownership": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
+        "value": "Tencent"
       }
     },
     "fender": {
@@ -1311,7 +1409,7 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-01T20:33:02Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Related app listing found, but not promoted as this player metric because the record represents a parent, channel, or broader company.",
         "rating": 4.79617,
         "reviewCount": 60620,
@@ -1320,13 +1418,13 @@
         "sourceUrl": "https://apps.apple.com/us/app/fender-play-learn-guitar/id1226057939?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Fender",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "access-restricted",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Fender primary website",
@@ -1335,7 +1433,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Fender Play: Learn Guitar App Store public lookup",
@@ -1345,7 +1443,7 @@
       ],
       "website": {
         "accessStatus": "access-restricted",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "HTTP Error 403: Forbidden",
         "httpStatus": "403",
         "lastChecked": "2026-06-10",
@@ -1364,7 +1462,7 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-01T20:33:02Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 4.79617,
         "reviewCount": 60620,
@@ -1373,11 +1471,11 @@
         "sourceUrl": "https://apps.apple.com/us/app/fender-play-learn-guitar/id1226057939?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Fender Play",
       "publicMetric": {
         "basis": "live override app id",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 4.79617,
         "reviewCount": 60620,
@@ -1387,7 +1485,7 @@
       "sources": [
         {
           "access_status": "access-restricted",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Fender Play primary website",
@@ -1396,7 +1494,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Fender Play: Learn Guitar App Store public lookup",
@@ -1406,7 +1504,7 @@
       ],
       "website": {
         "accessStatus": "access-restricted",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "HTTP Error 403: Forbidden",
         "httpStatus": "403",
         "lastChecked": "2026-06-10",
@@ -1420,13 +1518,13 @@
     },
     "fl-studio": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "FL Studio",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "FL Studio &ndash; Music Production Software | Image-Line",
@@ -1436,7 +1534,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1450,13 +1548,13 @@
     },
     "flat-io": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Flat for Education",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Collaborative music learning app from theory to composition - Flat for Education",
@@ -1466,7 +1564,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1480,13 +1578,13 @@
     },
     "flow-music": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Flow Music",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Google Flow Music",
@@ -1496,7 +1594,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1515,10 +1613,10 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-15T09:38:45Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.71534,
-        "reviewCount": 63930,
+        "rating": 4.71512,
+        "reviewCount": 63961,
         "sellerName": "flowkey GmbH",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/flowkey-learn-to-play-piano/id1020357408?uo=4"
@@ -1526,26 +1624,33 @@
       "conflicts": [],
       "founded": {
         "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "source": "Wikidata public entity record",
         "sourceUrl": "https://www.wikidata.org/wiki/Q138574298",
         "value": "2014"
       },
-      "lastUpdated": "2026-06-19",
+      "hq": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-21",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q138574298",
+        "value": "Berlin"
+      },
+      "lastUpdated": "2026-06-21",
       "name": "Flowkey",
       "publicMetric": {
         "basis": "live override app id",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.71534,
-        "reviewCount": 63930,
+        "rating": 4.71512,
+        "reviewCount": 63961,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/flowkey-learn-to-play-piano/id1020357408?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Learn Piano – Interactive Piano Learning App | flowkey",
@@ -1554,7 +1659,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "flowkey – Learn to Play Piano App Store public lookup",
@@ -1563,7 +1668,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
           "tier": "Medium",
           "title": "flowkey Wikidata",
@@ -1573,7 +1678,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1585,12 +1690,12 @@
         "value": "https://www.flowkey.com/en"
       },
       "wikidata": {
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "confidence": "matched public entity",
-        "country": "",
+        "country": "Germany",
         "description": "piano learning app and music education platform",
         "founded": "2014",
-        "hq": "",
+        "hq": "Berlin",
         "label": "flowkey",
         "matchScore": 27,
         "ownedBy": "",
@@ -1603,13 +1708,13 @@
     },
     "fretello": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Fretello",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Guitar Learning App | Fretello",
@@ -1619,7 +1724,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1633,23 +1738,32 @@
     },
     "gear4music": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Gear4music",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "access-restricted",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Gear4music primary website",
           "type": "Official website",
           "url": "https://www.gear4music.com/us/en/music-education-supplies"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-21",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "Gear4music Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q115804892"
         }
       ],
       "website": {
         "accessStatus": "access-restricted",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "HTTP Error 403: Forbidden",
         "httpStatus": "403",
         "lastChecked": "2026-06-10",
@@ -1659,17 +1773,33 @@
         "title": "",
         "url": "https://www.gear4music.com/us/en/music-education-supplies",
         "value": "https://www.gear4music.com/us/en/music-education-supplies"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-21",
+        "confidence": "matched public entity",
+        "country": "",
+        "description": "British musical instrument retail company",
+        "founded": "",
+        "hq": "",
+        "label": "Gear4music",
+        "matchScore": 27,
+        "ownedBy": "",
+        "parentOrganization": "",
+        "qid": "Q115804892",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q115804892",
+        "website": ""
       }
     },
     "general-catalyst": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "General Catalyst",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "General Catalyst",
@@ -1679,7 +1809,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1693,13 +1823,13 @@
     },
     "gibson": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Gibson",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Gibson",
@@ -1709,7 +1839,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1728,10 +1858,10 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-05-07T09:35:21Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 4.75655,
-        "reviewCount": 11867,
+        "reviewCount": 11879,
         "sellerName": "Zoundio Oy",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/gibson-learn-to-play-guitar/id1116032929?uo=4"
@@ -1745,21 +1875,21 @@
           "severity": "review"
         }
       ],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Gibson App",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/gibson-learn-to-play-guitar/id1116032929",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 4.75655,
-        "reviewCount": 11867,
+        "reviewCount": 11879,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/gibson-learn-to-play-guitar/id1116032929?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Gibson App — The Guitar Learning App with Real-Time Feedback",
@@ -1768,7 +1898,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Gibson: Learn to Play Guitar App Store public lookup",
@@ -1778,7 +1908,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1792,13 +1922,13 @@
     },
     "google-play-best-of": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Google Play Best Of",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Google Play Best Of primary website",
@@ -1808,7 +1938,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1822,13 +1952,13 @@
     },
     "guitar-center": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Guitar Center",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Private Music Lessons for Beginners and Advanced Musicians",
@@ -1838,7 +1968,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1852,13 +1982,13 @@
     },
     "guitar-pro": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Guitar Pro",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Guitar Pro - Tab Editor Software for Guitar, Bass, Drum, Piano and more...",
@@ -1868,7 +1998,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -1887,30 +2017,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-04-11T20:39:19Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.51002,
-        "reviewCount": 4443,
+        "rating": 4.50922,
+        "reviewCount": 4444,
         "sellerName": "Guitar Tricks Inc.",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Guitar Tricks",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.51002,
-        "reviewCount": 4443,
+        "rating": 4.50922,
+        "reviewCount": 4444,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/guitar-lessons-guitar-tricks/id931639254?uo=4"
       },
       "sources": [
         {
           "access_status": "access-restricted",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Guitar Tricks primary website",
@@ -1919,7 +2049,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Guitar Lessons - Guitar Tricks App Store public lookup",
@@ -1929,7 +2059,7 @@
       ],
       "website": {
         "accessStatus": "access-restricted",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "HTTP Error 403: Forbidden",
         "httpStatus": "403",
         "lastChecked": "2026-06-10",
@@ -1943,13 +2073,13 @@
     },
     "hal-leonard": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Hal Leonard",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Hal Leonard: The World's Largest Sheet Music Publisher | Official Website",
@@ -1959,7 +2089,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-18",
@@ -1973,13 +2103,13 @@
     },
     "horizon-europe-cluster-2": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Horizon Europe Cluster 2",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Cluster 2: Culture, Creativity and Inclusive society - Research and innovation",
@@ -1989,7 +2119,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2003,13 +2133,13 @@
     },
     "justinguitar": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "JustinGuitar",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Justin Guitar App",
@@ -2019,7 +2149,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2033,13 +2163,13 @@
     },
     "kahoot": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Kahoot",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Kahoot! launches new AI self study tools for Back-to-School",
@@ -2049,7 +2179,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2063,13 +2193,13 @@
     },
     "klangio": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Klangio",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "needs-review",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Klangio primary website",
@@ -2079,7 +2209,7 @@
       ],
       "website": {
         "accessStatus": "needs-review",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "<urlopen error [SSL: TLSV1_ALERT_PROTOCOL_VERSION] tlsv1 alert protocol version (_ssl.c:1129)>",
         "httpStatus": "ERROR",
         "lastChecked": "2026-06-10",
@@ -2093,13 +2223,13 @@
     },
     "lalal-ai": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "LALAL.AI",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "AI Vocal Remover & Instrumental Isolator | LALAL.AI",
@@ -2109,7 +2239,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2123,13 +2253,13 @@
     },
     "landr": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "LANDR",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Create, Master and Release Music Like a Pro | LANDR",
@@ -2139,7 +2269,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2153,13 +2283,13 @@
     },
     "learning-technologies-awards": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Learning Technologies Awards",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Learning Technologies Awards | 11 November 2026",
@@ -2169,7 +2299,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2183,13 +2313,13 @@
     },
     "loog": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Loog",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Kids&#39; Guitar Reimagined: Loog Guitars",
@@ -2199,7 +2329,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-18",
@@ -2213,13 +2343,13 @@
     },
     "luminate": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Luminate",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Luminate | Entertainment Industry Data, Analytics &amp; Insights",
@@ -2229,7 +2359,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2243,13 +2373,13 @@
     },
     "makemusic-cloud": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "MakeMusic Cloud",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Power Your Potential with MakeMusic Cloud - MakeMusic",
@@ -2259,7 +2389,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-18",
@@ -2273,13 +2403,13 @@
     },
     "marty-music": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Marty Music",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Learn Guitar with Marty Music - Free Lessons & Premium Courses",
@@ -2289,7 +2419,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2308,30 +2438,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-15T17:19:27Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.67879,
-        "reviewCount": 495,
+        "rating": 4.67943,
+        "reviewCount": 496,
         "sellerName": "Melodics Limited",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/melodics-drum-lessons-app/id6504540940?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Melodics",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/melodics-drum-lessons-app/id6504540940",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.67879,
-        "reviewCount": 495,
+        "rating": 4.67943,
+        "reviewCount": 496,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/melodics-drum-lessons-app/id6504540940?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Melodics | Drums, MIDI Keyboard &amp; Finger Drumming Lessons",
@@ -2340,7 +2470,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Melodics: Drum Lessons App App Store public lookup",
@@ -2350,7 +2480,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2364,13 +2494,13 @@
     },
     "midia-research": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "MIDiA Research",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Music Industry Reports from MIDiA Research",
@@ -2380,7 +2510,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2399,30 +2529,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-13T01:18:43Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.70256,
-        "reviewCount": 26655,
+        "rating": 4.70253,
+        "reviewCount": 26682,
         "sellerName": "Moises Systems Inc",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/moises-the-musicians-app/id1515796612?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Moises",
       "publicMetric": {
         "basis": "live override app id",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.70256,
-        "reviewCount": 26655,
+        "rating": 4.70253,
+        "reviewCount": 26682,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/moises-the-musicians-app/id1515796612?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "We&#x27;re Launching AI Studio: Our New AI Music Creation Platform",
@@ -2431,7 +2561,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Moises: The Musician's App App Store public lookup",
@@ -2441,7 +2571,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-17",
@@ -2455,13 +2585,13 @@
     },
     "mtna": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "MTNA",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Membership - Music Teachers National Association",
@@ -2471,7 +2601,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2485,13 +2615,13 @@
     },
     "muse-group": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Muse Group",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Music Software &amp; Content Ecosystem for Creators | Muse Group",
@@ -2501,7 +2631,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2520,30 +2650,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-17T14:10:27Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.61761,
-        "reviewCount": 75715,
+        "rating": 4.6174,
+        "reviewCount": 75802,
         "sellerName": "MuseScore Limited",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/musescore-sheet-music-chords/id835731296?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "MuseScore",
       "publicMetric": {
         "basis": "live override app id",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.61761,
-        "reviewCount": 75715,
+        "rating": 4.6174,
+        "reviewCount": 75802,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/musescore-sheet-music-chords/id835731296?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "MuseScore Studio | Muse Group",
@@ -2552,7 +2682,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "MuseScore－Sheet Music & Chords App Store public lookup",
@@ -2562,7 +2692,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2576,13 +2706,13 @@
     },
     "music-ally": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Music Ally",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Music Ally Is A Knowledge Company",
@@ -2592,7 +2722,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2606,13 +2736,13 @@
     },
     "music-tectonics": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Music Tectonics",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Music Tech Conference 2026 | Music Tectonics | Los Angeles Area",
@@ -2622,7 +2752,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2636,13 +2766,13 @@
     },
     "musicca": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Musicca",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Musicca – Learn music theory for free",
@@ -2652,7 +2782,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2666,13 +2796,13 @@
     },
     "musicnotes": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Musicnotes",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "access-restricted",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Musicnotes primary website",
@@ -2682,7 +2812,7 @@
       ],
       "website": {
         "accessStatus": "access-restricted",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "HTTP Error 403: Forbidden",
         "httpStatus": "403",
         "lastChecked": "2026-06-18",
@@ -2701,30 +2831,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-08T16:04:15Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.72323,
-        "reviewCount": 2775,
+        "rating": 4.72368,
+        "reviewCount": 2783,
         "sellerName": "Musora Media Inc.",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/musora-the-music-lessons-app/id1460388277?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Musora",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/musora-the-music-lessons-app/id1460388277",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.72323,
-        "reviewCount": 2775,
+        "rating": 4.72368,
+        "reviewCount": 2783,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/musora-the-music-lessons-app/id1460388277?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Musora | The Music Lessons App",
@@ -2733,7 +2863,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Musora: The Music Lessons App App Store public lookup",
@@ -2743,7 +2873,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2757,13 +2887,13 @@
     },
     "namm": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "NAMM",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "NAMM – Believe in Music | NAMM.org",
@@ -2773,7 +2903,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2787,20 +2917,13 @@
     },
     "native-instruments": {
       "conflicts": [],
-      "founded": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q652569",
-        "value": "1996-05-03"
-      },
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Native Instruments",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Native Instruments - Software And Hardware For Music Production And Djing",
@@ -2819,7 +2942,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2845,17 +2968,24 @@
         "source": "Wikidata public entity record",
         "sourceUrl": "https://www.wikidata.org/wiki/Q652569",
         "website": "http://www.native-instruments.com"
+      },
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q652569",
+        "value": "1996-05-03"
       }
     },
     "netflix": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Netflix",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Play games on mobile devices | Netflix Help Center",
@@ -2865,7 +2995,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-17",
@@ -2879,13 +3009,13 @@
     },
     "nintendo": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Nintendo",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "IR Information - IR Library",
@@ -2895,7 +3025,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-17",
@@ -2909,23 +3039,32 @@
     },
     "noteflight": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Noteflight",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Noteflight Learn - Instructional Software for Music Composition",
           "type": "Official website",
           "url": "https://www.noteflight.com/learn"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-21",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "Noteflight Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q113167937"
         }
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2935,17 +3074,33 @@
         "title": "Noteflight Learn - Instructional Software for Music Composition",
         "url": "https://www.noteflight.com/learn",
         "value": "https://www.noteflight.com/learn"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-21",
+        "confidence": "matched public entity",
+        "country": "",
+        "description": "online music community",
+        "founded": "",
+        "hq": "",
+        "label": "Noteflight",
+        "matchScore": 27,
+        "ownedBy": "",
+        "parentOrganization": "",
+        "qid": "Q113167937",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q113167937",
+        "website": ""
       }
     },
     "patreon": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Patreon",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Patreon for Musicians — Patreon",
@@ -2955,7 +3110,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -2974,27 +3129,45 @@
         "country": "us",
         "currentVersionReleaseDate": "2024-07-30T20:12:08Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.70272,
-        "reviewCount": 69103,
+        "rating": 4.70277,
+        "reviewCount": 69119,
         "sellerName": "Yokee Music LTD",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/piano-academy-by-yokee-music/id1390574671?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Piano Academy",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/piano-academy-by-yokee-music/id1390574671",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.70272,
-        "reviewCount": 69103,
+        "rating": 4.70277,
+        "reviewCount": 69119,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/piano-academy-by-yokee-music/id1390574671?uo=4"
       },
       "sources": [
+        {
+          "access_status": "needs-review",
+          "last_url_check": "2026-06-21",
+          "quality_note": "Selected from existing evidence library as primary public source.",
+          "tier": "High",
+          "title": "Piano Academy primary website",
+          "type": "Official website",
+          "url": "https://yokeemusic.com/pa_lp_funandeasy_couple/"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-21",
+          "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
+          "tier": "High",
+          "title": "Piano Academy by Yokee Music App Store public lookup",
+          "type": "App Store",
+          "url": "https://apps.apple.com/us/app/piano-academy-by-yokee-music/id1390574671?uo=4"
+        },
         {
           "access_status": "verified",
           "last_url_check": "2026-06-19",
@@ -3003,27 +3176,18 @@
           "title": "Learn to play the piano with Piano Academy - Yokee Music",
           "type": "Official website",
           "url": "https://yokeemusic.com/pa_lp_funandeasy_couple/"
-        },
-        {
-          "access_status": "verified",
-          "last_url_check": "2026-06-19",
-          "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
-          "tier": "High",
-          "title": "Piano Academy by Yokee Music App Store public lookup",
-          "type": "App Store",
-          "url": "https://apps.apple.com/us/app/piano-academy-by-yokee-music/id1390574671?uo=4"
         }
       ],
       "website": {
-        "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
-        "error": "",
-        "httpStatus": "200",
+        "accessStatus": "needs-review",
+        "checkedAt": "2026-06-21",
+        "error": "The read operation timed out",
+        "httpStatus": "ERROR",
         "lastChecked": "2026-06-18",
         "source": "Existing evidence library primary public source",
         "sourceId": "piano_academy_yokee_landing",
         "sourceUrl": "https://yokeemusic.com/pa_lp_funandeasy_couple/",
-        "title": "Learn to play the piano with Piano Academy - Yokee Music",
+        "title": "",
         "url": "https://yokeemusic.com/pa_lp_funandeasy_couple/",
         "value": "https://yokeemusic.com/pa_lp_funandeasy_couple/"
       }
@@ -3035,30 +3199,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-12T00:00:30Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.66503,
-        "reviewCount": 4902,
+        "rating": 4.66476,
+        "reviewCount": 4907,
         "sellerName": "Piano Marvel LLC",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/piano-marvel-lessons-music/id1016751878?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Piano Marvel",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/piano-marvel-lessons-music/id1016751878",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.66503,
-        "reviewCount": 4902,
+        "rating": 4.66476,
+        "reviewCount": 4907,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/piano-marvel-lessons-music/id1016751878?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Piano Marvel - Piano Learning Software",
@@ -3067,7 +3231,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Piano Marvel - Lessons & Music App Store public lookup",
@@ -3077,7 +3241,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3096,30 +3260,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-18T11:44:59Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.89606,
-        "reviewCount": 914,
+        "rating": 4.89628,
+        "reviewCount": 916,
         "sellerName": "Pickup Music Inc.",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/pickup-music-guitar-bass/id6503952069?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Pickup Music",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/pickup-music-guitar-bass/id6503952069",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.89606,
-        "reviewCount": 914,
+        "rating": 4.89628,
+        "reviewCount": 916,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/pickup-music-guitar-bass/id6503952069?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Pickup Music - The most structured approach to learning guitar",
@@ -3128,7 +3292,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Pickup Music: Guitar & Bass App Store public lookup",
@@ -3138,7 +3302,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3152,13 +3316,13 @@
     },
     "playground-sessions": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Playground Sessions",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Learn Piano Online - Piano Learning App",
@@ -3168,7 +3332,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3182,13 +3346,13 @@
     },
     "positive-grid": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Positive Grid",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Positive Grid | Guitar Amps, Software and Apps",
@@ -3198,7 +3362,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3212,23 +3376,32 @@
     },
     "rcm": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Royal Conservatory of Music",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Digital Learning | The Royal Conservatory of Music",
           "type": "Official website",
           "url": "https://www.rcmusic.com/learning/digital-learning"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-21",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "Koerner Hall Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q130355195"
         }
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3238,17 +3411,33 @@
         "title": "Digital Learning | The Royal Conservatory of Music",
         "url": "https://www.rcmusic.com/learning/digital-learning",
         "value": "https://www.rcmusic.com/learning/digital-learning"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-21",
+        "confidence": "matched public entity",
+        "country": "Canada",
+        "description": "performance hall in the Royal Conservatory of Music in Toronto, Ontario, Canada",
+        "founded": "",
+        "hq": "",
+        "label": "Koerner Hall",
+        "matchScore": 24,
+        "ownedBy": "",
+        "parentOrganization": "",
+        "qid": "Q130355195",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q130355195",
+        "website": ""
       }
     },
     "reverb": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Reverb",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "access-restricted",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Reverb primary website",
@@ -3258,7 +3447,7 @@
       ],
       "website": {
         "accessStatus": "access-restricted",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "HTTP Error 403: Forbidden",
         "httpStatus": "403",
         "lastChecked": "2026-06-11",
@@ -3272,13 +3461,13 @@
     },
     "ripx-daw": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "RipX DAW",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "RipX DAW - AI Stem Separation &amp; Note-Level Audio Editing",
@@ -3288,7 +3477,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3302,13 +3491,13 @@
     },
     "roblox": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Roblox",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Education | Roblox",
@@ -3318,7 +3507,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-17",
@@ -3337,7 +3526,7 @@
         "country": "au",
         "currentVersionReleaseDate": "2026-02-05T08:31:53Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 3.81633,
         "reviewCount": 49,
@@ -3346,11 +3535,11 @@
         "sourceUrl": "https://apps.apple.com/au/app/rocksmith-fast-music-learning/id1571139807?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Rocksmith+",
       "publicMetric": {
         "basis": "https://apps.apple.com/au/app/rocksmith-fast-music-learning/id1571139807",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 3.81633,
         "reviewCount": 49,
@@ -3360,7 +3549,7 @@
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Rocksmith+ - Learn to Play the Guitar, Bass, &amp; Piano | Ubisoft (US)",
@@ -3369,7 +3558,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Rocksmith+ Fast Music Learning App Store public lookup",
@@ -3379,7 +3568,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3393,13 +3582,13 @@
     },
     "rsi": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Rousseau",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Rousseau primary website",
@@ -3409,7 +3598,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3428,30 +3617,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-04-23T08:56:57Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 3.17918,
-        "reviewCount": 413,
+        "rating": 3.18357,
+        "reviewCount": 414,
         "sellerName": "ACCELERANDO, LLC",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/school-of-rock-method/id1462043424?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "School of Rock",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/school-of-rock-method/id1462043424",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 3.17918,
-        "reviewCount": 413,
+        "rating": 3.18357,
+        "reviewCount": 414,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/school-of-rock-method/id1462043424?uo=4"
       },
       "sources": [
         {
           "access_status": "access-restricted",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "School of Rock primary website",
@@ -3460,17 +3649,26 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "School of Rock Method App Store public lookup",
           "type": "App Store",
           "url": "https://apps.apple.com/us/app/school-of-rock-method/id1462043424?uo=4"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-21",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "School of Rock Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q20016120"
         }
       ],
       "website": {
         "accessStatus": "access-restricted",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "HTTP Error 403: Forbidden",
         "httpStatus": "403",
         "lastChecked": "2026-06-10",
@@ -3480,6 +3678,22 @@
         "title": "",
         "url": "https://www.schoolofrock.com/music-lessons",
         "value": "https://www.schoolofrock.com/music-lessons"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-21",
+        "confidence": "matched public entity",
+        "country": "",
+        "description": "American musical-comedy teen sitcom",
+        "founded": "",
+        "hq": "",
+        "label": "School of Rock",
+        "matchScore": 37,
+        "ownedBy": "",
+        "parentOrganization": "",
+        "qid": "Q20016120",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q20016120",
+        "website": "https://www.paramountplus.com/shows/school-of-rock/"
       }
     },
     "simply": {
@@ -3487,12 +3701,12 @@
         "appName": "Simply Piano: Learn Piano Fast",
         "appStoreId": "1019442026",
         "country": "us",
-        "currentVersionReleaseDate": "2026-06-17T14:54:02Z",
+        "currentVersionReleaseDate": "2026-06-21T05:54:33Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.68594,
-        "reviewCount": 826987,
+        "rating": 4.68585,
+        "reviewCount": 827678,
         "sellerName": "Simply Ltd",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/simply-piano-learn-piano-fast/id1019442026?uo=4"
@@ -3500,33 +3714,33 @@
       "conflicts": [],
       "founded": {
         "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "source": "Wikidata public entity record",
         "sourceUrl": "https://www.wikidata.org/wiki/Q6296982",
         "value": "2010-07"
       },
       "hq": {
         "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "source": "Wikidata public entity record",
         "sourceUrl": "https://www.wikidata.org/wiki/Q6296982",
         "value": "Tel Aviv"
       },
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Simply",
       "publicMetric": {
         "basis": "live override app id",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.68594,
-        "reviewCount": 826987,
+        "rating": 4.68585,
+        "reviewCount": 827678,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/simply-piano-learn-piano-fast/id1019442026?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Simply | The best apps to set your creativity free",
@@ -3535,7 +3749,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Simply Piano: Learn Piano Fast App Store public lookup",
@@ -3544,7 +3758,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
           "tier": "Medium",
           "title": "Simply Wikidata",
@@ -3554,7 +3768,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3566,7 +3780,7 @@
         "value": "https://www.hellosimply.com/"
       },
       "wikidata": {
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "confidence": "matched public entity",
         "country": "Israel",
         "description": "Privately held company producing music education apps",
@@ -3589,30 +3803,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-09T19:14:03Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.58202,
-        "reviewCount": 21549,
+        "rating": 4.58212,
+        "reviewCount": 21566,
         "sellerName": "Learnfield GmbH",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/skoove-learn-to-play-piano/id1160668178?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Skoove",
       "publicMetric": {
         "basis": "live override app id",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.58202,
-        "reviewCount": 21549,
+        "rating": 4.58212,
+        "reviewCount": 21566,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/skoove-learn-to-play-piano/id1160668178?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Learn to Play Piano Online | Skoove Piano Learning App",
@@ -3621,7 +3835,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Skoove: Learn to Play Piano App Store public lookup",
@@ -3631,7 +3845,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3650,30 +3864,44 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-15T11:33:55Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.47668,
-        "reviewCount": 177799,
+        "rating": 4.47661,
+        "reviewCount": 177876,
         "sellerName": "Smule",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/smule-sing-duet/id509993510?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-21",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q7546644",
+        "value": "2008"
+      },
+      "hq": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-21",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q7546644",
+        "value": "San Francisco"
+      },
+      "lastUpdated": "2026-06-21",
       "name": "Smule",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/smule-karaoke-singing-app/id509993510",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.47668,
-        "reviewCount": 177799,
+        "rating": 4.47661,
+        "reviewCount": 177876,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/smule-sing-duet/id509993510?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Smule primary website",
@@ -3682,17 +3910,26 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Smule: Sing & Duet App Store public lookup",
           "type": "App Store",
           "url": "https://apps.apple.com/us/app/smule-sing-duet/id509993510?uo=4"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-21",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "Smule Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q7546644"
         }
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-18",
@@ -3702,6 +3939,22 @@
         "title": "",
         "url": "https://play.google.com/store/apps/details?id=com.smule.singandroid",
         "value": "https://play.google.com/store/apps/details?id=com.smule.singandroid"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-21",
+        "confidence": "matched public entity",
+        "country": "United States",
+        "description": "video game development company",
+        "founded": "2008",
+        "hq": "San Francisco",
+        "label": "Smule",
+        "matchScore": 27,
+        "ownedBy": "",
+        "parentOrganization": "",
+        "qid": "Q7546644",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q7546644",
+        "website": "http://smule.com"
       }
     },
     "songsterr": {
@@ -3711,30 +3964,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-17T08:48:31Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.72409,
-        "reviewCount": 42474,
+        "rating": 4.72323,
+        "reviewCount": 42624,
         "sellerName": "Guitar Tabs LLC",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/songsterr-tabs-chords/id399211291?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Songsterr",
       "publicMetric": {
         "basis": "live override app id",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.72409,
-        "reviewCount": 42474,
+        "rating": 4.72323,
+        "reviewCount": 42624,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/songsterr-tabs-chords/id399211291?uo=4"
       },
       "sources": [
         {
           "access_status": "needs-review",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Songsterr primary website",
@@ -3743,7 +3996,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Songsterr Tabs & Chords App Store public lookup",
@@ -3753,7 +4006,7 @@
       ],
       "website": {
         "accessStatus": "needs-review",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "HTTP Error 103: Early Hints",
         "httpStatus": "103",
         "lastChecked": "2026-06-10",
@@ -3767,13 +4020,13 @@
     },
     "soundation": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Soundation",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Soundation - Make music online",
@@ -3783,7 +4036,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3797,13 +4050,13 @@
     },
     "soundbrenner": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Soundbrenner",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Soundbrenner | 15% off | Summer Sale",
@@ -3813,7 +4066,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-18",
@@ -3832,30 +4085,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-15T08:05:19Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 4.8411,
-        "reviewCount": 1886018,
+        "reviewCount": 1888406,
         "sellerName": "SoundCloud Global Limited & Co KG",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/soundcloud-the-music-you-love/id336353151?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "SoundCloud",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/soundcloud-the-music-you-love/id336353151",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 4.8411,
-        "reviewCount": 1886018,
+        "reviewCount": 1888406,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/soundcloud-the-music-you-love/id336353151?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "SoundCloud Newsroom",
@@ -3864,7 +4117,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "SoundCloud: The Music You Love App Store public lookup",
@@ -3874,7 +4127,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3888,13 +4141,13 @@
     },
     "soundslice": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Soundslice",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Soundslice | Create living sheet music",
@@ -3904,7 +4157,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3918,13 +4171,13 @@
     },
     "soundtrap": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Soundtrap",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Free Online Music &amp; Beat Maker | Soundtrap",
@@ -3934,7 +4187,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -3948,13 +4201,13 @@
     },
     "splice": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Splice",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Royalty-Free Sounds, FX, Presets &amp; More | Splice",
@@ -3973,7 +4226,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4008,7 +4261,7 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-15T13:01:56Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 2.90659,
         "reviewCount": 1745,
@@ -4017,11 +4270,11 @@
         "sourceUrl": "https://apps.apple.com/us/app/spotify-for-artists/id1222021797?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Spotify for Artists",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/spotify-for-artists/id1222021797",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 2.90659,
         "reviewCount": 1745,
@@ -4031,7 +4284,7 @@
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Where Your Music is Everything – Spotify for Artists",
@@ -4040,7 +4293,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Spotify for Artists App Store public lookup",
@@ -4050,7 +4303,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4064,13 +4317,13 @@
     },
     "spotify-platform": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Spotify",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Spotify Strengthens AI Protections for Artists, Songwriters, and Producers &#8212; Spotify",
@@ -4080,7 +4333,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-17",
@@ -4099,30 +4352,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-19T00:51:03Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.89032,
-        "reviewCount": 282139,
+        "rating": 4.8903,
+        "reviewCount": 283591,
         "sellerName": "Suno Inc.",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/suno-ai-songs-music/id6480136315?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Suno",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/suno-ai-songs-music/id6480136315",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.89032,
-        "reviewCount": 282139,
+        "rating": 4.8903,
+        "reviewCount": 283591,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/suno-ai-songs-music/id6480136315?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Suno",
@@ -4131,7 +4384,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Suno - AI Songs & Music App Store public lookup",
@@ -4150,7 +4403,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4180,13 +4433,13 @@
     },
     "sweetwater": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Sweetwater",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Sweetwater: Musical Instruments, Pro Audio, Accessories & More",
@@ -4196,7 +4449,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4210,13 +4463,13 @@
     },
     "sxsw-edu-launch": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "SXSW EDU Launch",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Competitions | SXSW EDU Conference &amp; Festival",
@@ -4226,7 +4479,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4240,23 +4493,53 @@
     },
     "techcrunch": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-21",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q1022366",
+        "value": "2005-06-11"
+      },
+      "hq": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-21",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q1022366",
+        "value": "United States"
+      },
+      "lastUpdated": "2026-06-21",
       "name": "TechCrunch",
+      "ownership": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-21",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q1022366",
+        "value": "AOL"
+      },
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "TechCrunch | Startup and Technology News",
           "type": "Official website",
           "url": "https://techcrunch.com/"
+        },
+        {
+          "access_status": "verified",
+          "last_url_check": "2026-06-21",
+          "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
+          "tier": "Medium",
+          "title": "TechCrunch Wikidata",
+          "type": "Public reference",
+          "url": "https://www.wikidata.org/wiki/Q1022366"
         }
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4266,17 +4549,33 @@
         "title": "TechCrunch | Startup and Technology News",
         "url": "https://techcrunch.com/",
         "value": "https://techcrunch.com/"
+      },
+      "wikidata": {
+        "checkedAt": "2026-06-21",
+        "confidence": "matched public entity",
+        "country": "",
+        "description": "American technology news website",
+        "founded": "2005-06-11",
+        "hq": "United States",
+        "label": "TechCrunch",
+        "matchScore": 27,
+        "ownedBy": "AOL",
+        "parentOrganization": "Verizon",
+        "qid": "Q1022366",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q1022366",
+        "website": "https://techcrunch.com"
       }
     },
     "thomann": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Thomann",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Buy musical instruments online from the market leader – United States",
@@ -4286,7 +4585,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4300,13 +4599,13 @@
     },
     "tiktok-artists": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "TikTok for Artists",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "TikTok for Artists: The new all-in-one music insights platform for artists - Newsroom | TikTok",
@@ -4316,7 +4615,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-17",
@@ -4330,13 +4629,13 @@
     },
     "tomplay": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Tomplay",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Tomplay - Interactive Sheet Music with Backing Tracks | Tomplay",
@@ -4346,7 +4645,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4365,30 +4664,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-03-27T21:25:44Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.84823,
-        "reviewCount": 56752,
+        "rating": 4.84821,
+        "reviewCount": 56768,
         "sellerName": "TonalEnergy, Inc",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/tonalenergy-tuner-metronome/id497716362?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "TonalEnergy",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/tonalenergy-tuner-metronome/id497716362",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.84823,
-        "reviewCount": 56752,
+        "rating": 4.84821,
+        "reviewCount": 56768,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/tonalenergy-tuner-metronome/id497716362?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "TonalEnergy, Inc.",
@@ -4397,7 +4696,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "TonalEnergy Tuner & Metronome App Store public lookup",
@@ -4407,7 +4706,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-18",
@@ -4421,13 +4720,13 @@
     },
     "tonebase": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "tonebase",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Online Classical Music Lessons &amp; Courses | tonebase",
@@ -4437,7 +4736,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4456,30 +4755,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2025-05-21T18:24:05Z",
         "genre": "Education",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 4.74976,
-        "reviewCount": 14506,
+        "reviewCount": 14510,
         "sellerName": "TrueFire",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/truefire-guitar-lessons/id690143001?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "TrueFire",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/truefire-guitar-lessons/id690143001",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
         "rating": 4.74976,
-        "reviewCount": 14506,
+        "reviewCount": 14510,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/truefire-guitar-lessons/id690143001?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Online Guitar Lessons - TrueFire Offers The Best Guitar Lessons Online",
@@ -4488,7 +4787,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "TrueFire Guitar Lessons App Store public lookup",
@@ -4498,7 +4797,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4517,30 +4816,30 @@
         "country": "us",
         "currentVersionReleaseDate": "2026-06-16T18:09:11Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.32327,
-        "reviewCount": 2719,
+        "rating": 4.32774,
+        "reviewCount": 2743,
         "sellerName": "Uncharted Labs Inc.",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/udio-ai-music-maker-studio/id6511211165?uo=4"
       },
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Udio",
       "publicMetric": {
         "basis": "https://apps.apple.com/us/app/udio-ai-music-maker-studio/id6511211165",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.32327,
-        "reviewCount": 2719,
+        "rating": 4.32774,
+        "reviewCount": 2743,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/udio-ai-music-maker-studio/id6511211165?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Udio | AI Music Generator - Official Website",
@@ -4549,7 +4848,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Udio: AI Music Maker & Studio App Store public lookup",
@@ -4568,7 +4867,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4601,12 +4900,12 @@
         "appName": "Ultimate Guitar: Chords & Tabs",
         "appStoreId": "357828853",
         "country": "us",
-        "currentVersionReleaseDate": "2026-06-13T22:27:00Z",
+        "currentVersionReleaseDate": "2026-06-19T17:44:48Z",
         "genre": "Music",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.73956,
-        "reviewCount": 460777,
+        "rating": 4.73937,
+        "reviewCount": 461084,
         "sellerName": "Ultimate Guitar",
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853?uo=4"
@@ -4614,33 +4913,33 @@
       "conflicts": [],
       "founded": {
         "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "source": "Wikidata public entity record",
         "sourceUrl": "https://www.wikidata.org/wiki/Q2587057",
         "value": "1998-10"
       },
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Ultimate Guitar",
       "ownership": {
         "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "source": "Wikidata public entity record",
         "sourceUrl": "https://www.wikidata.org/wiki/Q2587057",
         "value": "Muse Group"
       },
       "publicMetric": {
         "basis": "live override app id",
-        "lastUpdated": "2026-06-19",
+        "lastUpdated": "2026-06-21",
         "notes": "Public App Store rating count and rating only. Not downloads, revenue, active users, rank trend, conversion, or retention.",
-        "rating": 4.73956,
-        "reviewCount": 460777,
+        "rating": 4.73937,
+        "reviewCount": 461084,
         "source": "Official App Store public lookup, verified direct",
         "sourceUrl": "https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853?uo=4"
       },
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Ultimate Guitar | Muse Group",
@@ -4649,7 +4948,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Official Apple public lookup. Use only for rating and rating count, not revenue, downloads, rank, retention, or conversion.",
           "tier": "High",
           "title": "Ultimate Guitar: Chords & Tabs App Store public lookup",
@@ -4658,7 +4957,7 @@
         },
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Public entity reference used for HQ, founding date, parent or official website candidates. Verify high-stakes claims before external use.",
           "tier": "Medium",
           "title": "Ultimate Guitar Wikidata",
@@ -4668,7 +4967,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4680,7 +4979,7 @@
         "value": "https://www.mu.se/ultimate-guitar"
       },
       "wikidata": {
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "confidence": "matched public entity",
         "country": "",
         "description": "guitarist community website",
@@ -4698,13 +4997,13 @@
     },
     "yamaha": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "Yamaha",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "Products &amp; Services - Yamaha Corporation",
@@ -4714,7 +5013,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4728,13 +5027,13 @@
     },
     "youtube-artists": {
       "conflicts": [],
-      "lastUpdated": "2026-06-19",
+      "lastUpdated": "2026-06-21",
       "name": "YouTube",
       "publicMetric": null,
       "sources": [
         {
           "access_status": "verified",
-          "last_url_check": "2026-06-19",
+          "last_url_check": "2026-06-21",
           "quality_note": "Selected from existing evidence library as primary public source.",
           "tier": "High",
           "title": "YouTube for Artists - Where Music Grows",
@@ -4744,7 +5043,7 @@
       ],
       "website": {
         "accessStatus": "verified",
-        "checkedAt": "2026-06-19",
+        "checkedAt": "2026-06-21",
         "error": "",
         "httpStatus": "200",
         "lastChecked": "2026-06-10",
@@ -4763,10 +5062,10 @@
     "checkedPlayers": 113,
     "conflictsFlagged": 2,
     "label": "Public enrichment layer",
-    "lastUpdated": "2026-06-19T08:21:24+00:00",
+    "lastUpdated": "2026-06-21T10:23:02+00:00",
     "method": "Generated from app.js players, evidence-library primary public sources, Apple App Store public lookups found in source links, live override app ids, and Wikidata entity records.",
     "primaryWebsites": 113,
     "version": "public-enrichment-v2",
-    "wikidataRecords": 11
+    "wikidataRecords": 12
   }
 }
