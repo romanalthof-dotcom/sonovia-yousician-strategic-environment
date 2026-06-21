@@ -11702,6 +11702,306 @@ function renderMonitorBenchmark(filteredPlayers) {
   `;
 }
 
+function monitorLaneRank(players, scoreFn, limit = 4) {
+  return [...players].sort((a, b) => scoreFn(b) - scoreFn(a) || totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name)).slice(0, limit);
+}
+
+function monitorDecisionCockpitLanes(filteredPlayers) {
+  const lanes = [
+    {
+      id: "defend",
+      label: "Defend core",
+      question: "Who pressures learning, practice and song habit?",
+      showFirst: "onboarding, pricing, catalog, feedback loop",
+      moveDown: "generic ecosystem context",
+      color: "#00b884",
+      action: `data-monitor-trend-segment="core"`,
+      actionLabel: "Show core pressure",
+      score: (player) => competitiveProximityScore(player) * 20 + player.relevance * 8 + player.momentum * 5,
+      matches: (player) =>
+        relationForPlayer(player)?.type === "competes" ||
+        (["learning", "practice"].includes(player.category) && player.relevance >= 4) ||
+        competitiveProximityScore(player) >= 4
+    },
+    {
+      id: "routes",
+      label: "Find routes",
+      question: "Who could add trust, reach or utility?",
+      showFirst: "channel fit, audience fit, internal owner",
+      moveDown: "route ideas without owner or access",
+      color: "#ffb84d",
+      action: `data-monitor-trend-segment="partners"`,
+      actionLabel: "Show route surface",
+      score: (player) => player.relevance * 12 + player.momentum * 7 + (relationForPlayer(player)?.strength || 0) * 10 + audienceReachScore(player) * 6,
+      matches: (player) =>
+        relationForPlayer(player)?.type === "partners" ||
+        ["hardware", "education", "platforms"].includes(player.category) ||
+        /channel|retail|school|teacher|bundle|store|brand|distribution|partner/i.test(activitySearchText(player))
+    },
+    {
+      id: "ai",
+      label: "Watch AI",
+      question: "Where could learner expectations or workflows shift?",
+      showFirst: "creation, feedback, audio utility, rights risk",
+      moveDown: "AI buzz without workflow impact",
+      color: "#6e5cff",
+      action: `data-monitor-trend-segment="ai"`,
+      actionLabel: "Show AI pressure",
+      score: (player) => player.aiScore * 22 + player.momentum * 8 + totalPriority(player) / 3,
+      matches: (player) => player.aiScore >= 4 || ["ai", "creation"].includes(player.category)
+    },
+    {
+      id: "capital",
+      label: "Time capital",
+      question: "Where do funding, M&A or ownership change timing?",
+      showFirst: "round, owner, acquisition signal, public filing",
+      moveDown: "capital mentions without decision use",
+      color: "#3da5d9",
+      action: `data-monitor-sort="capital"`,
+      actionLabel: "Sort by capital",
+      score: (player) => monitorFundingSignalScore(player) * 20 + player.momentum * 6 + totalPriority(player) / 4,
+      matches: (player) => monitorFundingSignalScore(player) >= 4
+    },
+    {
+      id: "validate",
+      label: "Validate first",
+      question: "Which attractive records are not safe to cite yet?",
+      showFirst: "missing source, Appfigures, owner, relationship truth",
+      moveDown: "polished narrative before proof",
+      color: "#ef5a4f",
+      action: `data-monitor-sort="proof"`,
+      actionLabel: "Sort by proof gap",
+      score: (player) => monitorProofGapScore(player) + totalPriority(player) / 2 + (requiresCredentialedData(player) ? 20 : 0),
+      matches: (player) =>
+        (hasCriticalEvidenceGap(player) || requiresCredentialedData(player) || qualityProfile(player).score < 68) &&
+        (player.key || totalPriority(player) >= 28)
+    },
+    {
+      id: "appendix",
+      label: "Move down",
+      question: "What should stay out of the executive read for now?",
+      showFirst: "only if priority, proof or internal relevance rises",
+      moveDown: "long tail profile detail",
+      color: "#87948e",
+      action: `data-monitor-sort="priority"`,
+      actionLabel: "Return to priority",
+      score: (player) => 100 - totalPriority(player) + Math.max(0, 68 - qualityProfile(player).score),
+      matches: (player) => !player.key && totalPriority(player) < 30 && player.momentum < 4 && player.aiScore < 4
+    }
+  ];
+  return lanes.map((lane) => {
+    const players = filteredPlayers.filter(lane.matches);
+    const ranked = monitorLaneRank(players, lane.score, 4);
+    const readyCount = players.filter(isReadyRecord).length;
+    return {
+      ...lane,
+      players,
+      ranked,
+      count: players.length,
+      readyCount,
+      proofCount: players.filter((player) => hasCriticalEvidenceGap(player) || requiresCredentialedData(player)).length
+    };
+  });
+}
+
+function renderMonitorDecisionCockpit(filteredPlayers) {
+  const lanes = monitorDecisionCockpitLanes(filteredPlayers);
+  return `
+    <section class="monitor-decision-cockpit" aria-label="Executive market decision cockpit">
+      <div class="monitor-compare-head">
+        <div>
+          <span class="section-kicker">Executive decision cockpit</span>
+          <h3>Start with the action, not the database.</h3>
+        </div>
+        <p>Each lane answers a different executive question. Counts are directional; hard revenue, download and traffic values still need licensed or internal feeds.</p>
+      </div>
+      <div class="monitor-decision-grid">
+        ${lanes
+          .map(
+            (lane) => `
+              <article class="monitor-decision-card" style="--decision-color:${lane.color}">
+                <header>
+                  <span>${escapeHtml(lane.label)}</span>
+                  <strong>${escapeHtml(lane.question)}</strong>
+                  <em>${lane.count}</em>
+                </header>
+                <div class="monitor-decision-rule">
+                  <p><b>Show first:</b> ${escapeHtml(lane.showFirst)}</p>
+                  <p><b>Move down:</b> ${escapeHtml(lane.moveDown)}</p>
+                </div>
+                <div class="monitor-decision-players">
+                  ${lane.ranked.length ? lane.ranked.map((player) => playerMiniButton(player, "data-monitor-player", 18)).join("") : `<small>No current match</small>`}
+                </div>
+                <footer>
+                  <small>${lane.readyCount} ready / ${lane.proofCount} need proof or feed</small>
+                  <button type="button" ${lane.action}>${escapeHtml(lane.actionLabel)}</button>
+                </footer>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
+function monitorTriageQuadrants(filteredPlayers) {
+  const assigned = new Set();
+  const pick = (id, label, detail, color, matches, score) => {
+    const players = filteredPlayers.filter((player) => !assigned.has(player.id) && matches(player));
+    players.forEach((player) => assigned.add(player.id));
+    return {
+      id,
+      label,
+      detail,
+      color,
+      count: players.length,
+      players: monitorLaneRank(players, score, 6)
+    };
+  };
+  return [
+    pick(
+      "act",
+      "Use now",
+      "High priority and enough evidence for executive discussion.",
+      "#00b884",
+      (player) => (player.key || totalPriority(player) >= 35) && !hasCriticalEvidenceGap(player) && qualityProfile(player).score >= 68,
+      (player) => totalPriority(player) + qualityProfile(player).score / 5
+    ),
+    pick(
+      "validate",
+      "Validate first",
+      "High value, but proof, Appfigures, ownership or internal relationship is missing.",
+      "#ef5a4f",
+      (player) => (player.key || totalPriority(player) >= 32) && (hasCriticalEvidenceGap(player) || requiresCredentialedData(player)),
+      (player) => monitorProofGapScore(player) + totalPriority(player) / 2
+    ),
+    pick(
+      "watch",
+      "Watch weekly",
+      "Momentum, AI or capital signal is active, but not yet a core decision.",
+      "#6e5cff",
+      (player) => player.momentum >= 4 || player.aiScore >= 4 || monitorFundingSignalScore(player) >= 5,
+      (player) => player.momentum * 14 + player.aiScore * 12 + monitorFundingSignalScore(player) * 6
+    ),
+    pick(
+      "park",
+      "Appendix",
+      "Useful context, not worth executive attention until the signal changes.",
+      "#87948e",
+      () => true,
+      (player) => 100 - totalPriority(player)
+    )
+  ];
+}
+
+function renderMonitorTriageMatrix(filteredPlayers) {
+  const quadrants = monitorTriageQuadrants(filteredPlayers);
+  return `
+    <section class="monitor-triage-matrix" aria-label="Executive priority versus evidence matrix">
+      <div class="monitor-compare-head">
+        <div>
+          <span class="section-kicker">Priority versus confidence</span>
+          <h3>What deserves attention, validation, monitoring or appendix placement?</h3>
+        </div>
+        <p>This is the executive ordering layer: high value records move up, unsupported or low-value records move down.</p>
+      </div>
+      <div class="monitor-triage-grid">
+        ${quadrants
+          .map(
+            (quadrant) => `
+              <article style="--triage-color:${quadrant.color}">
+                <header>
+                  <strong>${escapeHtml(quadrant.label)}</strong>
+                  <span>${quadrant.count}</span>
+                </header>
+                <p>${escapeHtml(quadrant.detail)}</p>
+                <div>
+                  ${quadrant.players.length ? quadrant.players.map((player) => playerMiniButton(player, "data-monitor-player", 18)).join("") : `<small>No current match</small>`}
+                </div>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
+function monitorMovementRows(filteredPlayers) {
+  const visibleIds = new Set(filteredPlayers.map((player) => player.id));
+  const moves = strategicMoves
+    .map((move) => ({
+      ...move,
+      player: players.find((player) => player.id === move.playerId)
+    }))
+    .filter((move) => !state.monitorQuery.trim() || visibleIds.has(move.playerId) || !move.playerId)
+    .filter((move) => state.monitorSegment === "all" || !move.playerId || visibleIds.has(move.playerId));
+  const groups = new Map();
+  moves.forEach((move) => {
+    const key = move.category || "Market move";
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(move);
+  });
+  return [...groups.entries()]
+    .map(([category, rows]) => ({
+      category,
+      rows: rows.sort((a, b) => String(b.date).localeCompare(String(a.date))),
+      latest: rows.sort((a, b) => String(b.date).localeCompare(String(a.date)))[0]
+    }))
+    .sort((a, b) => b.rows.length - a.rows.length || String(b.latest?.date).localeCompare(String(a.latest?.date)))
+    .slice(0, 6);
+}
+
+function monitorMovementColor(category) {
+  if (/ai/i.test(category)) return "#6e5cff";
+  if (/fund/i.test(category)) return "#3da5d9";
+  if (/award|data/i.test(category)) return "#ffb84d";
+  if (/rights|legal/i.test(category)) return "#ef5a4f";
+  if (/tools|product/i.test(category)) return "#00b884";
+  return "#11a5a5";
+}
+
+function renderMonitorMovementBoard(filteredPlayers) {
+  const groups = monitorMovementRows(filteredPlayers);
+  if (!groups.length) return "";
+  return `
+    <section class="monitor-movement-board" aria-label="Recent market movement board">
+      <div class="monitor-compare-head">
+        <div>
+          <span class="section-kicker">Market movement</span>
+          <h3>Recent moves grouped into trend lanes</h3>
+        </div>
+        <p>Use this for timing and discussion prompts. It is not a substitute for licensed metrics or internal relationship status.</p>
+      </div>
+      <div class="monitor-movement-grid">
+        ${groups
+          .map((group) => {
+            const player = group.latest?.player;
+            return `
+              <article style="--movement-color:${monitorMovementColor(group.category)}">
+                <header>
+                  <span>${escapeHtml(group.category)}</span>
+                  <strong>${group.rows.length}</strong>
+                </header>
+                <p>${escapeHtml(group.latest?.summary || "Market signal to monitor.")}</p>
+                <footer>
+                  <small>${escapeHtml(group.latest?.date || "No date")} / ${escapeHtml(group.latest?.impact || "Review before executive use.")}</small>
+                  ${
+                    player
+                      ? `<button type="button" data-monitor-player="${escapeHtml(player.id)}">${companyInlineHtml(player, { compact: 18, logoClassName: "company-inline-logo monitor-inline-logo" })}</button>`
+                      : `<small>Signal lane</small>`
+                  }
+                </footer>
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
 function renderMonitorInsightReadout(filteredPlayers) {
   const trendCounts = monitorPrimaryTrendCounts(filteredPlayers);
   const topTrend = trendCounts[0];
@@ -11714,6 +12014,9 @@ function renderMonitorInsightReadout(filteredPlayers) {
         </div>
         <span>${filteredPlayers.length} records / ${topTrend ? `${topTrend.count} in ${topTrend.title}` : "no cluster"}</span>
       </div>
+      ${renderMonitorDecisionCockpit(filteredPlayers)}
+      ${renderMonitorTriageMatrix(filteredPlayers)}
+      ${renderMonitorMovementBoard(filteredPlayers)}
       <div class="monitor-readout-hero">
         ${renderMonitorExecutiveSummary(filteredPlayers)}
         ${renderMonitorComparisonBoard(filteredPlayers)}

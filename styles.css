@@ -23839,6 +23839,333 @@ body[data-view="key-players"] .monitor-insight-readout {
   box-shadow: 0 24px 70px rgba(18, 31, 27, 0.07);
 }
 
+.monitor-decision-cockpit,
+.monitor-triage-matrix,
+.monitor-movement-board {
+  display: grid;
+  gap: 11px;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(24, 36, 31, 0.09);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(0, 210, 146, 0.08), transparent 26%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 252, 249, 0.94)),
+    #fff;
+  padding: 12px;
+}
+
+.monitor-decision-cockpit {
+  border-top: 4px solid #13221d;
+  box-shadow: 0 18px 42px rgba(18, 31, 27, 0.07);
+}
+
+.monitor-decision-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.monitor-decision-card {
+  display: grid;
+  grid-template-rows: auto auto minmax(74px, 1fr) auto;
+  gap: 9px;
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--decision-color) 22%, rgba(24, 36, 31, 0.08));
+  border-top: 4px solid var(--decision-color);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--decision-color) 8%, #fff), rgba(255, 255, 255, 0.98) 70%),
+    #fff;
+  padding: 11px;
+}
+
+.monitor-decision-card header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 3px 10px;
+  align-items: start;
+  min-width: 0;
+}
+
+.monitor-decision-card header span {
+  grid-column: 1;
+  color: color-mix(in srgb, var(--decision-color) 70%, #17211d);
+  font-size: 0.6rem;
+  font-weight: 950;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.monitor-decision-card header strong {
+  grid-column: 1;
+  min-width: 0;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 950;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.monitor-decision-card header em {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: inline-grid;
+  place-items: center;
+  min-width: 40px;
+  height: 38px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--decision-color) 14%, #fff);
+  color: color-mix(in srgb, var(--decision-color) 68%, #13221d);
+  font-size: 1.05rem;
+  font-style: normal;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.monitor-decision-rule {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.74);
+  padding: 8px;
+}
+
+.monitor-decision-rule p {
+  margin: 0;
+  color: rgba(24, 36, 31, 0.66);
+  font-size: 0.66rem;
+  font-weight: 760;
+  line-height: 1.22;
+}
+
+.monitor-decision-rule b {
+  color: var(--ink);
+  font-weight: 950;
+}
+
+.monitor-decision-players,
+.monitor-triage-grid article > div {
+  display: flex;
+  align-content: start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
+.monitor-decision-players small,
+.monitor-triage-grid article > div small {
+  color: rgba(24, 36, 31, 0.56);
+  font-size: 0.64rem;
+  font-weight: 850;
+}
+
+.monitor-decision-players button,
+.monitor-triage-grid article > div button,
+.monitor-movement-grid footer button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  min-height: 29px;
+  border: 1px solid rgba(24, 36, 31, 0.09);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  padding: 3px 8px 3px 4px;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.monitor-decision-card footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.monitor-decision-card footer small {
+  min-width: 0;
+  color: rgba(24, 36, 31, 0.58);
+  font-size: 0.6rem;
+  font-weight: 840;
+  line-height: 1.15;
+}
+
+.monitor-decision-card footer button {
+  flex: 0 0 auto;
+  min-height: 29px;
+  border: 1px solid color-mix(in srgb, var(--decision-color) 32%, rgba(24, 36, 31, 0.1));
+  border-radius: 999px;
+  background: #fff;
+  color: color-mix(in srgb, var(--decision-color) 74%, #17211d);
+  padding: 5px 9px;
+  font: inherit;
+  font-size: 0.62rem;
+  font-weight: 950;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.monitor-triage-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.monitor-triage-grid article {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--triage-color) 22%, rgba(24, 36, 31, 0.08));
+  border-left: 4px solid var(--triage-color);
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--triage-color) 7%, #fff), #fff 74%),
+    #fff;
+  padding: 10px;
+}
+
+.monitor-triage-grid header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.monitor-triage-grid header strong {
+  min-width: 0;
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 950;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.monitor-triage-grid header span {
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  min-width: 32px;
+  height: 30px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--triage-color) 14%, #fff);
+  color: color-mix(in srgb, var(--triage-color) 70%, #17211d);
+  font-size: 0.84rem;
+  font-weight: 950;
+}
+
+.monitor-triage-grid p {
+  min-height: 48px;
+  margin: 0;
+  color: rgba(24, 36, 31, 0.66);
+  font-size: 0.68rem;
+  font-weight: 760;
+  line-height: 1.24;
+}
+
+.monitor-movement-board {
+  background:
+    linear-gradient(135deg, rgba(19, 34, 29, 0.96), rgba(16, 48, 40, 0.92)),
+    #13221d;
+  color: #fff;
+}
+
+.monitor-movement-board .section-kicker,
+.monitor-movement-board h3,
+.monitor-movement-board .monitor-compare-head p {
+  color: #fff;
+}
+
+.monitor-movement-board .monitor-compare-head p {
+  opacity: 0.74;
+}
+
+.monitor-movement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.monitor-movement-grid article {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--movement-color) 38%, rgba(255, 255, 255, 0.12));
+  border-top: 4px solid var(--movement-color);
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--movement-color) 12%, rgba(255, 255, 255, 0.05)), rgba(255, 255, 255, 0.055)),
+    rgba(255, 255, 255, 0.04);
+  padding: 10px;
+}
+
+.monitor-movement-grid header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.monitor-movement-grid header span {
+  min-width: 0;
+  color: color-mix(in srgb, var(--movement-color) 42%, #fff);
+  font-size: 0.6rem;
+  font-weight: 950;
+  line-height: 1.08;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.monitor-movement-grid header strong {
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  min-width: 30px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 0.84rem;
+  font-weight: 950;
+}
+
+.monitor-movement-grid p {
+  min-height: 48px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.72rem;
+  font-weight: 760;
+  line-height: 1.26;
+}
+
+.monitor-movement-grid footer {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+.monitor-movement-grid footer small {
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 0.62rem;
+  font-weight: 800;
+  line-height: 1.18;
+}
+
+.monitor-movement-grid footer button {
+  justify-self: start;
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.95);
+}
+
 .monitor-readout-hero {
   display: grid;
   grid-template-columns: minmax(260px, 0.74fr) minmax(0, 1.56fr);
@@ -24167,6 +24494,18 @@ body[data-view="key-players"] .monitor-insight-readout {
     grid-template-columns: 1fr;
   }
 
+  .monitor-decision-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .monitor-triage-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .monitor-movement-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .monitor-readout-hero .monitor-executive-summary {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -24177,13 +24516,35 @@ body[data-view="key-players"] .monitor-insight-readout {
   }
 }
 
+@media (max-width: 980px) {
+  .monitor-decision-grid,
+  .monitor-triage-grid,
+  .monitor-movement-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 760px) {
   .monitor-readout-hero .monitor-executive-summary,
   .monitor-readout-hero .monitor-compare-board,
+  .monitor-decision-grid,
+  .monitor-triage-grid,
+  .monitor-movement-grid,
   .monitor-subcategory-grid,
   .monitor-capital-leaders,
   .monitor-capital-types {
     grid-template-columns: 1fr;
+  }
+
+  .monitor-decision-card footer,
+  .monitor-compare-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .monitor-decision-card footer button {
+    justify-self: start;
+    width: fit-content;
   }
 }
 
