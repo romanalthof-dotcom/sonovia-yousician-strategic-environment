@@ -2892,6 +2892,342 @@ const publicMetadataCorrectionsByPlayerId = {
       source: "https://www.mu.se/ultimate-guitar"
     }
   },
+  "fender-play": {
+    ownership: {
+      value: "Fender Musical Instruments Corporation",
+      basis: "Parent product ownership reference",
+      source: "https://www.fender.com/pages/about"
+    },
+    hq: {
+      value: "Los Angeles, California, USA",
+      basis: "Fender parent HQ reference",
+      kind: "Parent HQ reference",
+      caveat: "Fender Play is a product surface; parent company facts are shown separately from product performance."
+    }
+  },
+  fender: {
+    founded: {
+      value: "1946",
+      detail: "Company founding year from Fender company history.",
+      status: "reviewed",
+      sourceUrl: "https://www.fender.com/pages/about"
+    },
+    hq: {
+      value: "Los Angeles, California, USA",
+      basis: "Fender company profile reference",
+      kind: "HQ reference",
+      caveat: "Company HQ shown separately from global retail footprint."
+    },
+    ownership: {
+      value: "Fender Musical Instruments Corporation",
+      basis: "Official company profile reference",
+      source: "https://www.fender.com/pages/about"
+    }
+  },
+  yamaha: {
+    founded: {
+      value: "1887",
+      detail: "Company origin year from Yamaha corporate profile.",
+      status: "reviewed",
+      sourceUrl: "https://www.yamaha.com/en/about/profile/"
+    },
+    hq: {
+      value: "Hamamatsu, Shizuoka, Japan",
+      basis: "Yamaha corporate profile reference",
+      kind: "HQ reference",
+      caveat: "Global footprint is broader than corporate headquarters."
+    },
+    ownership: {
+      value: "Yamaha Corporation",
+      basis: "Official public company profile reference",
+      source: "https://www.yamaha.com/en/about/profile/"
+    }
+  },
+  thomann: {
+    founded: {
+      value: "1954",
+      detail: "Company history year from Thomann public company information.",
+      status: "reviewed",
+      sourceUrl: "https://www.thomann.de/gb/compinfo.html"
+    },
+    hq: {
+      value: "Treppendorf, Bavaria, Germany",
+      basis: "Thomann company information reference",
+      kind: "HQ reference",
+      caveat: "HQ is shown separately from European online retail reach."
+    },
+    ownership: {
+      value: "Thomann GmbH",
+      basis: "Official company information reference",
+      source: "https://www.thomann.de/gb/compinfo.html"
+    }
+  },
+  bandlab: {
+    founded: {
+      value: "2015",
+      detail: "Company and ecosystem origin year from public BandLab references.",
+      status: "reviewed",
+      sourceUrl: "https://www.bandlab.com/about"
+    },
+    hq: {
+      value: "Singapore",
+      basis: "BandLab Technologies public profile reference",
+      kind: "HQ reference",
+      caveat: "Operating footprint is global; HQ is not a reach claim."
+    },
+    ownership: {
+      value: "BandLab Technologies",
+      basis: "Official BandLab ecosystem reference",
+      source: "https://www.bandlab.com/about"
+    }
+  },
+  musescore: {
+    ownership: {
+      value: "Muse Group",
+      basis: "Muse Group product ownership reference",
+      source: "https://www.mu.se/musescore"
+    },
+    hq: {
+      value: "Limassol, Cyprus",
+      basis: "Muse Group company HQ reference",
+      kind: "Parent HQ reference",
+      caveat: "MuseScore product community and Muse Group company HQ are separate facts."
+    }
+  },
+  splice: {
+    founded: {
+      value: "2013",
+      detail: "Company founding year from public company references; use as year-level reference only.",
+      status: "reviewed",
+      sourceUrl: "https://splice.com/"
+    },
+    hq: {
+      value: "New York, New York, USA",
+      basis: "Public company profile reference",
+      kind: "HQ reference",
+      caveat: "Creator marketplace reach is broader than company HQ."
+    },
+    ownership: {
+      value: "Splice",
+      basis: "Official product and company reference",
+      source: "https://splice.com/"
+    }
+  },
+  ableton: {
+    founded: {
+      value: "1999",
+      detail: "Company founding year from Ableton public company references.",
+      status: "reviewed",
+      sourceUrl: "https://www.ableton.com/en/about/"
+    },
+    hq: {
+      value: "Berlin, Germany",
+      basis: "Ableton public company reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from global creator user base."
+    },
+    ownership: {
+      value: "Ableton AG",
+      basis: "Official company reference",
+      source: "https://www.ableton.com/en/about/"
+    }
+  },
+  "youtube-artists": {
+    founded: {
+      value: "2005",
+      detail: "YouTube company origin year. YouTube for Artists is a product surface.",
+      status: "reviewed",
+      sourceUrl: "https://about.youtube/"
+    },
+    hq: {
+      value: "San Bruno, California, USA",
+      basis: "YouTube company HQ reference",
+      kind: "Parent/product HQ reference",
+      caveat: "YouTube for Artists is shown as a creator and discovery surface, not a separate company."
+    },
+    ownership: {
+      value: "Google / Alphabet",
+      basis: "YouTube company ownership reference",
+      source: "https://about.youtube/"
+    }
+  },
+  duolingo: {
+    founded: {
+      value: "2011",
+      detail: "Company founding year from Duolingo company profile.",
+      status: "reviewed",
+      sourceUrl: "https://www.duolingo.com/info"
+    },
+    hq: {
+      value: "Pittsburgh, Pennsylvania, USA",
+      basis: "Duolingo company profile reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from global learner reach."
+    },
+    ownership: {
+      value: "Duolingo, Inc.",
+      basis: "Public company profile reference",
+      source: "https://www.duolingo.com/info"
+    }
+  },
+  kahoot: {
+    founded: {
+      value: "2012",
+      detail: "Company founding year from Kahoot public company profile references.",
+      status: "reviewed",
+      sourceUrl: "https://kahoot.com/company/"
+    },
+    hq: {
+      value: "Oslo, Norway",
+      basis: "Kahoot company profile reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from global classroom and workplace reach."
+    },
+    ownership: {
+      value: "Private consortium led by Goldman Sachs Asset Management",
+      basis: "Kahoot ownership transaction reference",
+      source: "https://kahoot.com/company/"
+    }
+  },
+  suno: {
+    ownership: {
+      value: "Suno, Inc.",
+      basis: "Official product and legal source reference",
+      source: "https://suno.com/"
+    },
+    hq: {
+      value: "Cambridge, Massachusetts, USA",
+      basis: "Public company profile reference",
+      kind: "HQ reference",
+      caveat: "HQ is shown as company location only; AI market impact and licensing exposure are separate."
+    }
+  },
+  udio: {
+    ownership: {
+      value: "Uncharted Labs, Inc.",
+      basis: "Official Udio terms and product reference",
+      source: "https://www.udio.com/terms"
+    },
+    hq: {
+      value: "New York, New York, USA",
+      basis: "Public company profile reference",
+      kind: "HQ reference",
+      caveat: "HQ is shown as company location only; licensing exposure is tracked separately."
+    }
+  },
+  moises: {
+    ownership: {
+      value: "Moises Systems Inc.",
+      basis: "Official product and app store seller reference",
+      source: "https://moises.ai/"
+    }
+  },
+  "elevenlabs-music": {
+    founded: {
+      value: "2022",
+      detail: "ElevenLabs company founding year. Eleven Music is a product surface.",
+      status: "reviewed",
+      sourceUrl: "https://elevenlabs.io/about"
+    },
+    ownership: {
+      value: "ElevenLabs",
+      basis: "Official company and product reference",
+      source: "https://elevenlabs.io/about"
+    }
+  },
+  "chord-ai": {
+    ownership: {
+      value: "Nomad AI",
+      basis: "Official app store and product reference",
+      source: "https://chordai.net/"
+    }
+  },
+  "positive-grid": {
+    ownership: {
+      value: "Positive Grid",
+      basis: "Official company and product reference",
+      source: "https://www.positivegrid.com/"
+    }
+  },
+  chordify: {
+    hq: {
+      value: "Groningen, Netherlands",
+      basis: "Chordify B.V. public company reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from global song catalog and user reach."
+    },
+    ownership: {
+      value: "Chordify B.V.",
+      basis: "Official company and product reference",
+      source: "https://chordify.net/"
+    }
+  },
+  "fl-studio": {
+    hq: {
+      value: "Ghent, Belgium",
+      basis: "Image-Line company reference",
+      kind: "HQ reference",
+      caveat: "FL Studio is a product surface; Image-Line company facts are shown separately."
+    },
+    ownership: {
+      value: "Image-Line Software",
+      basis: "Official company and product reference",
+      source: "https://www.image-line.com/"
+    }
+  },
+  "pickup-music": {
+    ownership: {
+      value: "Pickup Music, Inc.",
+      basis: "Official product and company reference",
+      source: "https://www.pickupmusic.com/"
+    }
+  },
+  musora: {
+    hq: {
+      value: "Abbotsford, British Columbia, Canada",
+      basis: "Musora public company reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from multi-brand learner reach."
+    },
+    ownership: {
+      value: "Musora Media Inc.",
+      basis: "Official company and product reference",
+      source: "https://www.musora.com/"
+    }
+  },
+  fretello: {
+    hq: {
+      value: "Linz, Austria",
+      basis: "Fretello GmbH public company reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from app distribution reach."
+    },
+    ownership: {
+      value: "Fretello GmbH",
+      basis: "Official product and imprint reference",
+      source: "https://fretello.com/"
+    }
+  },
+  justinguitar: {
+    ownership: {
+      value: "JustinGuitar",
+      basis: "Official creator and product reference",
+      source: "https://www.justinguitar.com/"
+    }
+  },
+  "guitar-tricks": {
+    hq: {
+      value: "San Francisco, California, USA",
+      basis: "Public company profile reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from subscription reach."
+    },
+    ownership: {
+      value: "Guitar Tricks Inc.",
+      basis: "Official product and company reference",
+      source: "https://www.guitartricks.com/"
+    }
+  },
   flowkey: {
     ownership: {
       value: "flowkey GmbH; Yamaha relationship is partnership or promotion, not shown as ownership",
@@ -2952,6 +3288,236 @@ const publicMetadataCorrectionsByPlayerId = {
       value: "1991",
       detail: "Year-level company founding reference. Day precision is not promoted here.",
       status: "reviewed"
+    }
+  },
+  "spotify-artists": {
+    founded: {
+      value: "2006",
+      detail: "Spotify company founding year. Spotify for Artists is a product surface.",
+      status: "reviewed",
+      sourceUrl: "https://investors.spotify.com/about/"
+    },
+    hq: {
+      value: "Stockholm, Sweden",
+      basis: "Spotify investor profile reference",
+      kind: "Parent HQ reference",
+      caveat: "Spotify for Artists is a platform surface; parent company facts are shown separately."
+    },
+    ownership: {
+      value: "Spotify Technology S.A.",
+      basis: "Public company investor profile reference",
+      source: "https://investors.spotify.com/about/"
+    }
+  },
+  "tiktok-artists": {
+    founded: {
+      value: "2016",
+      detail: "TikTok launch year reference. TikTok for Artists is a product surface.",
+      status: "reviewed",
+      sourceUrl: "https://www.tiktok.com/about"
+    },
+    ownership: {
+      value: "ByteDance",
+      basis: "TikTok company profile reference",
+      source: "https://www.tiktok.com/about"
+    }
+  },
+  "gibson-app": {
+    hq: {
+      value: "Nashville, Tennessee, USA",
+      basis: "Gibson parent company profile reference",
+      kind: "Parent HQ reference",
+      caveat: "Gibson App is a product surface; parent company facts are shown separately."
+    },
+    ownership: {
+      value: "Gibson Brands",
+      basis: "Official Gibson company reference",
+      source: "https://www.gibson.com/"
+    }
+  },
+  gibson: {
+    founded: {
+      value: "1902",
+      detail: "Company founding year from Gibson company history.",
+      status: "reviewed",
+      sourceUrl: "https://www.gibson.com/"
+    },
+    hq: {
+      value: "Nashville, Tennessee, USA",
+      basis: "Gibson company profile reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from global instrument distribution."
+    },
+    ownership: {
+      value: "Gibson Brands",
+      basis: "Official Gibson company reference",
+      source: "https://www.gibson.com/"
+    }
+  },
+  "spotify-platform": {
+    founded: {
+      value: "2006",
+      detail: "Company founding year from Spotify investor profile.",
+      status: "reviewed",
+      sourceUrl: "https://investors.spotify.com/about/"
+    },
+    hq: {
+      value: "Stockholm, Sweden",
+      basis: "Spotify investor profile reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from global platform reach."
+    },
+    ownership: {
+      value: "Spotify Technology S.A.",
+      basis: "Public company investor profile reference",
+      source: "https://investors.spotify.com/about/"
+    }
+  },
+  "muse-group": {
+    hq: {
+      value: "Limassol, Cyprus",
+      basis: "Muse Group company profile reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from MuseScore, Ultimate Guitar and publishing footprint."
+    },
+    ownership: {
+      value: "Muse Group",
+      basis: "Official company profile reference",
+      source: "https://www.mu.se/"
+    }
+  },
+  "hal-leonard": {
+    ownership: {
+      value: "Muse Group",
+      basis: "Muse Group Hal Leonard integration reference",
+      source: "https://www.mu.se/posts/muse-group-unifies-hal-leonard-us-and-hal-leonard-europe-into-a-global-powerhouse"
+    },
+    hq: {
+      value: "Milwaukee, Wisconsin, USA",
+      basis: "Hal Leonard company profile reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from Muse Group ownership footprint."
+    }
+  },
+  soundtrap: {
+    founded: {
+      value: "2012",
+      detail: "Soundtrap company origin year from Spotify acquisition and company references.",
+      status: "reviewed",
+      sourceUrl: "https://www.soundtrap.com/about"
+    },
+    hq: {
+      value: "Stockholm, Sweden",
+      basis: "Soundtrap and Spotify public reference",
+      kind: "HQ reference",
+      caveat: "Product ownership is Spotify; creator workflow reach is separate."
+    },
+    ownership: {
+      value: "Spotify",
+      basis: "Spotify acquisition reference",
+      source: "https://www.soundtrap.com/about"
+    }
+  },
+  roblox: {
+    founded: {
+      value: "2004",
+      detail: "Company founding year from Roblox corporate profile references.",
+      status: "reviewed",
+      sourceUrl: "https://corp.roblox.com/"
+    },
+    hq: {
+      value: "San Mateo, California, USA",
+      basis: "Roblox corporate profile reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from global creator and user reach."
+    },
+    ownership: {
+      value: "Roblox Corporation",
+      basis: "Public company corporate profile reference",
+      source: "https://corp.roblox.com/"
+    }
+  },
+  netflix: {
+    founded: {
+      value: "1997",
+      detail: "Company founding year from Netflix investor profile references.",
+      status: "reviewed",
+      sourceUrl: "https://ir.netflix.net/ir-overview/profile/default.aspx"
+    },
+    hq: {
+      value: "Los Gatos, California, USA",
+      basis: "Netflix investor profile reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from global entertainment reach."
+    },
+    ownership: {
+      value: "Netflix, Inc.",
+      basis: "Public company investor profile reference",
+      source: "https://ir.netflix.net/ir-overview/profile/default.aspx"
+    }
+  },
+  nintendo: {
+    founded: {
+      value: "1889",
+      detail: "Company origin year from Nintendo company history.",
+      status: "reviewed",
+      sourceUrl: "https://www.nintendo.co.jp/corporate/en/history/index.html"
+    },
+    hq: {
+      value: "Kyoto, Japan",
+      basis: "Nintendo corporate profile reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from global entertainment footprint."
+    },
+    ownership: {
+      value: "Nintendo Co., Ltd.",
+      basis: "Public company corporate profile reference",
+      source: "https://www.nintendo.co.jp/corporate/en/index.html"
+    }
+  },
+  disney: {
+    founded: {
+      value: "1923",
+      detail: "Company founding year from Disney company profile references.",
+      status: "reviewed",
+      sourceUrl: "https://thewaltdisneycompany.com/about/"
+    },
+    hq: {
+      value: "Burbank, California, USA",
+      basis: "Disney company profile reference",
+      kind: "HQ reference",
+      caveat: "HQ shown separately from global entertainment and IP footprint."
+    },
+    ownership: {
+      value: "The Walt Disney Company",
+      basis: "Public company corporate profile reference",
+      source: "https://thewaltdisneycompany.com/about/"
+    }
+  },
+  "apple-garageband": {
+    ownership: {
+      value: "Apple Inc.",
+      basis: "Official Apple product reference",
+      source: "https://www.apple.com/mac/garageband/"
+    },
+    hq: {
+      value: "Cupertino, California, USA",
+      basis: "Apple parent company HQ reference",
+      kind: "Parent HQ reference",
+      caveat: "GarageBand is a product surface; parent company facts are shown separately."
+    }
+  },
+  "rocksmith-plus": {
+    ownership: {
+      value: "Ubisoft",
+      basis: "Official Ubisoft product reference",
+      source: "https://www.ubisoft.com/en-us/game/rocksmith/plus"
+    },
+    hq: {
+      value: "Saint-Mande, France",
+      basis: "Ubisoft parent company HQ reference",
+      kind: "Parent HQ reference",
+      caveat: "Rocksmith+ is a product surface; parent company facts are shown separately."
     }
   },
   soundation: {
