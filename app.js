@@ -2864,6 +2864,105 @@ const publicFoundedByPlayerId = {
   tonebase: { value: "2017", detail: "Public tonebase company reference." }
 };
 
+const publicMetadataCorrectionsByPlayerId = {
+  simply: {
+    founded: {
+      value: "JoyTunes origin 2011 / Simply brand 2022",
+      detail:
+        "Conflicting public references exist. Use JoyTunes origin plus Simply brand history until a legal filing is loaded.",
+      status: "conflict",
+      sourceUrl: "https://www.hellosimply.com/"
+    },
+    hq: {
+      value: "Tel Aviv, Israel",
+      basis: "Public company profile cross-check",
+      kind: "HQ reference",
+      caveat: "Entity history is JoyTunes to Simply; verify legal entity details before external circulation."
+    }
+  },
+  "ultimate-guitar": {
+    founded: {
+      value: "1998",
+      detail: "Safe year-level reference. Month precision is not promoted without a direct official citation.",
+      status: "reviewed"
+    },
+    ownership: {
+      value: "Muse Group",
+      basis: "Muse Group product ownership reference",
+      source: "https://www.mu.se/ultimate-guitar"
+    }
+  },
+  flowkey: {
+    ownership: {
+      value: "flowkey GmbH; Yamaha relationship is partnership or promotion, not shown as ownership",
+      basis: "flowkey and Yamaha public partnership pages",
+      source: "https://www.flowkey.com/en/yamaha"
+    }
+  },
+  techcrunch: {
+    founded: {
+      value: "2005",
+      detail: "Launch year only. The day-level Wikidata value is not needed for this dashboard.",
+      status: "reviewed"
+    },
+    ownership: {
+      value: "Regent LP",
+      basis: "2025 ownership update; overrides stale Wikidata AOL parent value",
+      source: "https://techcrunch.com/"
+    },
+    hq: {
+      value: "No public HQ used",
+      basis: "Signal publication record",
+      kind: "HQ not decision critical",
+      caveat: "TechCrunch is used as a market signal source, not as a strategic operating company profile."
+    }
+  },
+  "creative-europe": {
+    founded: {
+      value: "Programme 2021-2027; origin 2014",
+      detail: "EU funding programme timing, not a company founding date. The previous 2012 reference was too imprecise for executive use.",
+      status: "programme"
+    }
+  },
+  bandcamp: {
+    founded: {
+      value: "2008",
+      detail: "Promoted as public launch/founding year. The 2007 Wikidata value is not shown as a hard fact.",
+      status: "reviewed"
+    },
+    ownership: {
+      value: "Songtradr",
+      basis: "Public ownership change reference",
+      source: "https://bandcamp.com/artists"
+    }
+  },
+  "epic-games": {
+    ownership: {
+      value: "Private company; Tencent minority shareholder",
+      basis: "Ownership correction. Tencent is not shown as sole owner.",
+      source: "https://www.epicgames.com/site/about"
+    },
+    hq: {
+      value: "Cary, North Carolina, USA",
+      basis: "Epic company HQ reference",
+      kind: "HQ reference",
+      caveat: "Public profile fact. Strategic relevance comes from Fortnite, Harmonix and platform strategy."
+    },
+    founded: {
+      value: "1991",
+      detail: "Year-level company founding reference. Day precision is not promoted here.",
+      status: "reviewed"
+    }
+  },
+  soundation: {
+    founded: {
+      value: "Company roots 1998 / browser studio later",
+      detail: "The 1998 value refers to the Soundation or PowerFX company history, not necessarily the current browser studio launch.",
+      status: "conflict"
+    }
+  }
+};
+
 const relations = [
   { from: "Yousician", to: "simply", type: "competes", strength: 5, note: "Direct app based learning benchmark." },
   { from: "Yousician", to: "fender-play", type: "competes", strength: 4, note: "Brand-backed guitar learning overlap." },
@@ -5904,13 +6003,27 @@ function publicEnrichmentFor(player) {
   return publicEnrichmentContext.playerEnrichment?.[player.id] || null;
 }
 
+function publicMetadataCorrectionFor(player, field) {
+  return publicMetadataCorrectionsByPlayerId[player.id]?.[field] || null;
+}
+
 function publicOwnershipRecordFor(player) {
+  const corrected = publicMetadataCorrectionFor(player, "ownership");
+  if (corrected?.value) {
+    return {
+      value: corrected.value,
+      basis: corrected.basis || "Reviewed public metadata correction",
+      source: corrected.source || corrected.sourceUrl || "",
+      status: corrected.status || "reviewed"
+    };
+  }
   const enriched = publicEnrichmentFor(player)?.ownership;
   if (nonEmptyString(enriched?.value)) {
     return {
       value: enriched.value,
       basis: enriched.source || "Public enrichment",
-      source: enriched.sourceUrl || enriched.url || ""
+      source: enriched.sourceUrl || enriched.url || "",
+      status: /wikidata/i.test(enriched.source || "") ? "public-reference" : "public-enrichment"
     };
   }
   const fallback = publicOwnershipByPlayerId[player.id];
@@ -5918,7 +6031,8 @@ function publicOwnershipRecordFor(player) {
     return {
       value: fallback.value,
       basis: fallback.basis || "Public operator reference",
-      source: fallback.source || ""
+      source: fallback.source || "",
+      status: "seed"
     };
   }
   return null;
@@ -6643,6 +6757,13 @@ function claimConflictAudit(player) {
   const conflicts = [];
   const warnings = [];
   const supported = [];
+  ["hq", "founded", "ownership"].forEach((field) => {
+    const corrected = publicMetadataCorrectionFor(player, field);
+    if (!corrected) return;
+    const note = corrected.detail || corrected.caveat || corrected.basis || `Reviewed ${field} correction is loaded.`;
+    if (/conflict/i.test(corrected.status || "")) conflicts.push(note);
+    else warnings.push(`Reviewed ${field} correction loaded: ${note}`);
+  });
 
   if (coverage.replacementCount > 0) conflicts.push("At least one linked source is marked for repair or replacement.");
   enrichmentConflicts.forEach((conflict) => {
@@ -7124,9 +7245,9 @@ function sentimentSummary(player) {
 }
 
 function displayOwnership(player) {
-  if (!/to verify/i.test(player.ownership || "")) return player.ownership;
   const ownershipRecord = publicOwnershipRecordFor(player);
   if (ownershipRecord?.value) return ownershipRecord.value;
+  if (!/to verify/i.test(player.ownership || "")) return player.ownership;
   return player.key ? "Licensed ownership source required" : "Ownership not decision critical here";
 }
 
@@ -13811,8 +13932,12 @@ function onePagerSelfUpdateItems(player, quality, validation) {
   const publicMetric = publicAppStoreMetricFor(player);
   const hq = headquartersRecordFor(player);
   const founded = foundedRecordFor(player);
-  const publicEnrichment = publicEnrichmentFor(player) || {};
-  const hasPublicMetadata = Boolean(publicEnrichment.hq || publicEnrichment.founded || publicEnrichment.wikidata);
+  const metadataNeedsReview = [hq.status, founded.status].some((status) =>
+    /missing|seed|public-reference|conflict|programme/i.test(status || "")
+  );
+  const metadataDetail = metadataNeedsReview
+    ? "Metadata includes candidates, conflicts or seeded values. Verify before external use."
+    : "Reviewed public metadata can refresh without changing interpretation.";
   const relationshipManual = /not prioritized|not yet|to be completed|owner confirmation|internal/i.test(
     `${validation.knownRelationship} ${validation.status} ${validation.nextStep}`
   );
@@ -13826,12 +13951,10 @@ function onePagerSelfUpdateItems(player, quality, validation) {
         : "Queue for public source lookup before using the website field."
     },
     {
-      tone: hasPublicMetadata || !/to verify/i.test(`${hq.value} ${founded.value}`) ? "safe" : "review",
+      tone: metadataNeedsReview ? "review" : "safe",
       label: "HQ and founded",
       value: `${hq.value} / ${founded.value}`,
-      detail: hasPublicMetadata
-        ? "Public reference metadata can refresh, with conflicts flagged."
-        : "Seeded or missing metadata should be checked before external use."
+      detail: metadataDetail
     },
     {
       tone: publicMetric ? "safe" : requiresCredentialedData(player) ? "gated" : "review",
@@ -13923,15 +14046,19 @@ function onePagerFactStripHtml(player, taxonomy, quality) {
   const founded = foundedRecordFor(player);
   const revenueDisplay = directMetricDisplay(player, "revenue");
   const publicMetric = publicAppStoreMetricFor(player);
+  const ownershipRecord = publicOwnershipRecordFor(player);
+  const ownershipDetail = ownershipRecord
+    ? `${ownershipRecord.basis}${ownershipRecord.status === "public-reference" ? ". Public reference, verify before external use." : ""}`
+    : "Profile field only. Relationship status is separate.";
   const facts = [
-    { icon: "map-pin", label: "HQ", value: hq.value, detail: `Global footprint: ${globalFootprintFor(player)}` },
+    { icon: "map-pin", label: "HQ", value: hq.value, detail: `${hq.kind || "HQ"}: ${hq.caveat || `Global footprint: ${globalFootprintFor(player)}`}` },
     {
       icon: "calendar",
       label: "Founded",
       value: founded.value,
       detail: founded.detail
     },
-    { icon: "network", label: "Ownership", value: displayOwnership(player), detail: "Legal owner first; relationship status is separate." },
+    { icon: "network", label: "Ownership", value: displayOwnership(player), detail: ownershipDetail },
     {
       icon: "circle-dollar-sign",
       label: "Revenue evidence",
@@ -15162,48 +15289,80 @@ function compactTemplateText(value, maxLength = 92) {
 }
 
 function foundedRecordFor(player) {
+  const corrected = publicMetadataCorrectionFor(player, "founded");
+  if (corrected?.value) {
+    return {
+      value: corrected.value,
+      detail: corrected.detail || "Reviewed public metadata correction.",
+      status: corrected.status || "reviewed",
+      sourceUrl: corrected.sourceUrl || corrected.source || ""
+    };
+  }
   if (nonEmptyString(player.founded)) {
     return {
       value: player.founded,
-      detail: "Loaded factual field."
+      detail: "Loaded factual field. Keep source attached before external use.",
+      status: "loaded"
     };
   }
   const enriched = publicEnrichmentFor(player)?.founded;
   if (nonEmptyString(enriched?.value)) {
+    const isWikidata = /wikidata/i.test(enriched.source || enriched.sourceUrl || "");
     return {
       value: enriched.value,
-      detail: `${enriched.source || "Public source"} checked ${enriched.lastUpdated || publicEnrichmentFor(player)?.lastUpdated || ""}`.trim()
+      detail: isWikidata
+        ? `Public reference only. ${enriched.source || "Wikidata"} checked ${enriched.lastUpdated || publicEnrichmentFor(player)?.lastUpdated || ""}; verify before external use.`.trim()
+        : `${enriched.source || "Public source"} checked ${enriched.lastUpdated || publicEnrichmentFor(player)?.lastUpdated || ""}`.trim(),
+      status: isWikidata ? "public-reference" : "public-enrichment",
+      sourceUrl: enriched.sourceUrl || enriched.url || ""
     };
   }
   const seeded = publicFoundedByPlayerId[player.id];
   if (seeded?.value) {
     return {
       value: seeded.value,
-      detail: seeded.detail || "Public founded reference."
+      detail: seeded.detail || "Seeded founded reference. Verify before external use.",
+      status: "seed"
     };
   }
   return {
     value: "No public founded date",
-    detail: "Not shown as fact until a direct public source is linked."
+    detail: "Not shown as fact until a direct public source is linked.",
+    status: "missing"
   };
 }
 
 function headquartersRecordFor(player) {
+  const corrected = publicMetadataCorrectionFor(player, "hq");
+  if (corrected?.value) {
+    return {
+      value: corrected.value,
+      basis: corrected.basis || "Reviewed public metadata correction",
+      kind: corrected.kind || "HQ reference",
+      caveat: corrected.caveat || "Reviewed correction. Verify legal entity before board circulation.",
+      status: corrected.status || "reviewed"
+    };
+  }
   if (nonEmptyString(player.hq)) {
     return {
       value: player.hq,
       basis: "Loaded HQ field",
       kind: "HQ field",
-      caveat: "Footprint and market reach are shown separately."
+      caveat: "Footprint and market reach are shown separately.",
+      status: "loaded"
     };
   }
   const enriched = publicEnrichmentFor(player)?.hq;
   if (nonEmptyString(enriched?.value)) {
+    const isWikidata = /wikidata/i.test(enriched.source || enriched.sourceUrl || "");
     return {
       value: enriched.value,
       basis: enriched.source || "Public enrichment",
-      kind: "Public HQ reference",
-      caveat: "Public reference loaded automatically. Footprint and reach stay separate."
+      kind: isWikidata ? "Public HQ candidate" : "Public HQ reference",
+      caveat: isWikidata
+        ? "Public reference loaded automatically. Verify before external circulation."
+        : "Public reference loaded automatically. Footprint and reach stay separate.",
+      status: isWikidata ? "public-reference" : "public-enrichment"
     };
   }
   const seeded = headquartersByPlayerId[player.id];
@@ -15212,7 +15371,8 @@ function headquartersRecordFor(player) {
       value: seeded.value,
       basis: seeded.basis || "Public HQ seed",
       kind: "HQ seed",
-      caveat: "Fallback value. Use the linked public source before board circulation."
+      caveat: "Fallback value. Use the linked public source before board circulation.",
+      status: "seed"
     };
   }
   const entityKind = entityKindFor(player);
@@ -15227,7 +15387,8 @@ function headquartersRecordFor(player) {
     value: pendingValue,
     basis: "No explicit HQ field loaded",
     kind: "No public HQ field",
-    caveat: "Do not infer headquarters from global footprint, market reach, or app availability."
+    caveat: "Do not infer headquarters from global footprint, market reach, or app availability.",
+    status: "missing"
   };
 }
 

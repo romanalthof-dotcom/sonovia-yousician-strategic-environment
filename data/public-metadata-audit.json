@@ -1,0 +1,2620 @@
+{
+  "players": [
+    {
+      "founded": {
+        "note": "Conflicting public references exist. Use JoyTunes origin plus Simply brand history until a legal filing is loaded.",
+        "sourceType": "correction",
+        "status": "conflict",
+        "value": "JoyTunes origin 2011 / Simply brand 2022"
+      },
+      "hq": {
+        "note": "Entity history is JoyTunes to Simply; verify legal entity details before external circulation.",
+        "sourceType": "correction",
+        "status": "reviewed",
+        "value": "Tel Aviv, Israel"
+      },
+      "id": "simply",
+      "name": "Simply",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Simply Ltd"
+      }
+    },
+    {
+      "founded": {
+        "note": "Safe year-level reference. Month precision is not promoted without a direct official citation.",
+        "sourceType": "correction",
+        "status": "reviewed",
+        "value": "1998"
+      },
+      "hq": {
+        "note": "Muse Group company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Limassol, Cyprus"
+      },
+      "id": "ultimate-guitar",
+      "name": "Ultimate Guitar",
+      "needsReview": true,
+      "ownership": {
+        "note": "Muse Group product ownership reference",
+        "sourceType": "correction",
+        "status": "reviewed",
+        "value": "Muse Group"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Fender parent company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Los Angeles, California, USA"
+      },
+      "id": "fender-play",
+      "name": "Fender Play",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Fender"
+      }
+    },
+    {
+      "founded": {
+        "note": "Wikidata public entity record",
+        "sourceType": "public_enrichment",
+        "status": "public_reference_only",
+        "value": "2014"
+      },
+      "hq": {
+        "note": "Wikidata public entity record",
+        "sourceType": "public_enrichment",
+        "status": "public_reference_only",
+        "value": "Berlin"
+      },
+      "id": "flowkey",
+      "name": "Flowkey",
+      "needsReview": true,
+      "ownership": {
+        "note": "flowkey and Yamaha public partnership pages",
+        "sourceType": "correction",
+        "status": "reviewed",
+        "value": "flowkey GmbH; Yamaha relationship is partnership or promotion, not shown as ownership"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Skoove HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Berlin, Germany"
+      },
+      "id": "skoove",
+      "name": "Skoove",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Skoove"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "justinguitar",
+      "name": "JustinGuitar",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Independent"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "artie-piano",
+      "name": "Artie Piano",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "ArtMaster"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Fender company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Los Angeles, California, USA"
+      },
+      "id": "fender",
+      "name": "Fender",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Yamaha company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Hamamatsu, Shizuoka, Japan"
+      },
+      "id": "yamaha",
+      "name": "Yamaha",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Public company"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Thomann company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Treppendorf, Bavaria, Germany"
+      },
+      "id": "thomann",
+      "name": "Thomann",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Sweetwater company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Fort Wayne, Indiana, USA"
+      },
+      "id": "sweetwater",
+      "name": "Sweetwater",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "BandLab Technologies HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Singapore"
+      },
+      "id": "bandlab",
+      "name": "BandLab",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "BandLab Technologies"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Muse Group company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Limassol, Cyprus"
+      },
+      "id": "musescore",
+      "name": "MuseScore",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Muse Group"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "songsterr",
+      "name": "Songsterr",
+      "needsReview": true,
+      "ownership": {
+        "note": "Apple App Store seller record",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Guitar Tabs LLC"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Splice company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "New York, New York, USA"
+      },
+      "id": "splice",
+      "name": "Splice",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "Wikidata public entity record",
+        "sourceType": "public_enrichment",
+        "status": "public_reference_only",
+        "value": "1999"
+      },
+      "hq": {
+        "note": "Ableton company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Berlin, Germany"
+      },
+      "id": "ableton",
+      "name": "Ableton",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Suno company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Cambridge, Massachusetts, USA"
+      },
+      "id": "suno",
+      "name": "Suno",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Udio company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "New York, New York, USA"
+      },
+      "id": "udio",
+      "name": "Udio",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "moises",
+      "name": "Moises",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Duolingo company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Pittsburgh, Pennsylvania, USA"
+      },
+      "id": "duolingo",
+      "name": "Duolingo",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Public company"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Kahoot company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Oslo, Norway"
+      },
+      "id": "kahoot",
+      "name": "Kahoot",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private; investor consortium led by Goldman Sachs Asset Management"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Brilliant company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "San Francisco, California, USA"
+      },
+      "id": "brilliant",
+      "name": "Brilliant",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "marty-music",
+      "name": "Marty Music",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Independent"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Berklee College of Music HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Boston, Massachusetts, USA"
+      },
+      "id": "berklee-online",
+      "name": "Berklee Online",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Berklee College of Music"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "MTNA association HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Cincinnati, Ohio, USA"
+      },
+      "id": "mtna",
+      "name": "MTNA",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Nonprofit association"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "rsi",
+      "name": "Rousseau",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Independent"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Apple parent company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Cupertino, California, USA"
+      },
+      "id": "apple-garageband",
+      "name": "GarageBand",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Apple"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Accel firm HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Palo Alto, California, USA"
+      },
+      "id": "accel",
+      "name": "Accel",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private partnership"
+      }
+    },
+    {
+      "founded": {
+        "note": "Launch year only. The day-level Wikidata value is not needed for this dashboard.",
+        "sourceType": "correction",
+        "status": "reviewed",
+        "value": "2005"
+      },
+      "hq": {
+        "note": "TechCrunch is used as a market signal source, not as a strategic operating company profile.",
+        "sourceType": "correction",
+        "status": "reviewed",
+        "value": "No public HQ used"
+      },
+      "id": "techcrunch",
+      "name": "TechCrunch",
+      "needsReview": false,
+      "ownership": {
+        "note": "2025 ownership update; overrides stale Wikidata AOL parent value",
+        "sourceType": "correction",
+        "status": "reviewed",
+        "value": "Regent LP"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "bett-awards",
+      "name": "BETT Awards",
+      "needsReview": true,
+      "ownership": {
+        "note": "Bett Awards public organiser reference",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Bett / Hyve Group"
+      }
+    },
+    {
+      "founded": {
+        "note": "EU funding programme timing, not a company founding date. The previous 2012 reference was too imprecise for executive use.",
+        "sourceType": "correction",
+        "status": "reviewed",
+        "value": "Programme 2021-2027; origin 2014"
+      },
+      "hq": {
+        "note": "Wikidata public entity record",
+        "sourceType": "public_enrichment",
+        "status": "public_reference_only",
+        "value": "Brussels"
+      },
+      "id": "creative-europe",
+      "name": "Creative Europe",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "European Union programme"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Guitar Tricks company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "San Francisco, California, USA"
+      },
+      "id": "guitar-tricks",
+      "name": "Guitar Tricks",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Guitar Tricks Inc."
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "TrueFire company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "St. Petersburg, Florida, USA"
+      },
+      "id": "truefire",
+      "name": "TrueFire",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "TrueFire Studios"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "pickup-music",
+      "name": "Pickup Music",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Pickup Music, Inc."
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Ubisoft parent company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Saint-Mande, France"
+      },
+      "id": "rocksmith-plus",
+      "name": "Rocksmith+",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Ubisoft"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Gibson parent company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Nashville, Tennessee, USA"
+      },
+      "id": "gibson-app",
+      "name": "Gibson App",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Gibson"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "piano-marvel",
+      "name": "Piano Marvel",
+      "needsReview": true,
+      "ownership": {
+        "note": "Apple App Store seller record",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Piano Marvel LLC"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Melodics company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Auckland, New Zealand"
+      },
+      "id": "melodics",
+      "name": "Melodics",
+      "needsReview": true,
+      "ownership": {
+        "note": "Apple App Store seller record",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Melodics Limited"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Chordify B.V. HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Groningen, Netherlands"
+      },
+      "id": "chordify",
+      "name": "Chordify",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Chordify B.V."
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Soundslice company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Chicago, Illinois, USA"
+      },
+      "id": "soundslice",
+      "name": "Soundslice",
+      "needsReview": true,
+      "ownership": {
+        "note": "Official product/company source",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Soundslice"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Arobas Music HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Lille, France"
+      },
+      "id": "guitar-pro",
+      "name": "Guitar Pro",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Arobas Music"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "YouTube HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "San Bruno, California, USA"
+      },
+      "id": "youtube-artists",
+      "name": "YouTube",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Google / Alphabet"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Gibson company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Nashville, Tennessee, USA"
+      },
+      "id": "gibson",
+      "name": "Gibson",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "positive-grid",
+      "name": "Positive Grid",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Reverb company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Chicago, Illinois, USA"
+      },
+      "id": "reverb",
+      "name": "Reverb",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Creator Partners / Servco after Etsy sale closed in June 2025"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Guitar Center company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Westlake Village, California, USA"
+      },
+      "id": "guitar-center",
+      "name": "Guitar Center",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "boss",
+      "name": "BOSS / Roland",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Roland"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Soundtrap product/company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Stockholm, Sweden"
+      },
+      "id": "soundtrap",
+      "name": "Soundtrap",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Spotify"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Image-Line HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Ghent, Belgium"
+      },
+      "id": "fl-studio",
+      "name": "FL Studio",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Image-Line"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "SoundCloud company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Berlin, Germany"
+      },
+      "id": "soundcloud",
+      "name": "SoundCloud",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "DistroKid company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "New York, New York, USA"
+      },
+      "id": "distrokid",
+      "name": "DistroKid",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "LANDR company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Montreal, Quebec, Canada"
+      },
+      "id": "landr",
+      "name": "LANDR",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "Wikidata public entity record",
+        "sourceType": "public_enrichment",
+        "status": "public_reference_only",
+        "value": "1996-05-03"
+      },
+      "hq": {
+        "note": "Native Instruments company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Berlin, Germany"
+      },
+      "id": "native-instruments",
+      "name": "Native Instruments",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Definitive agreement for inMusic to acquire Native Instruments announced May 2026; closing/status should be monitored"
+      }
+    },
+    {
+      "founded": {
+        "note": "Promoted as public launch/founding year. The 2007 Wikidata value is not shown as a hard fact.",
+        "sourceType": "correction",
+        "status": "reviewed",
+        "value": "2008"
+      },
+      "hq": {
+        "note": "Wikidata public entity record",
+        "sourceType": "public_enrichment",
+        "status": "public_reference_only",
+        "value": "Oakland"
+      },
+      "id": "bandcamp",
+      "name": "Bandcamp",
+      "needsReview": true,
+      "ownership": {
+        "note": "Public ownership change reference",
+        "sourceType": "correction",
+        "status": "reviewed",
+        "value": "Songtradr"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "lalal-ai",
+      "name": "LALAL.AI",
+      "needsReview": true,
+      "ownership": {
+        "note": "Official product/company source",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "LALAL.AI"
+      }
+    },
+    {
+      "founded": {
+        "note": "Public AIVA company reference.",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "2016"
+      },
+      "hq": {
+        "note": "AIVA company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Luxembourg"
+      },
+      "id": "aiva",
+      "name": "AIVA",
+      "needsReview": true,
+      "ownership": {
+        "note": "Official company source",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "AIVA Technologies"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "elevenlabs-music",
+      "name": "ElevenLabs Music",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "Public tonebase company reference.",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "2017"
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "tonebase",
+      "name": "tonebase",
+      "needsReview": true,
+      "ownership": {
+        "note": "Official company source",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "tonebase"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "artistworks",
+      "name": "ArtistWorks",
+      "needsReview": true,
+      "ownership": {
+        "note": "ArtistWorks official about page and acquisition reference",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "TrueFire Studios"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Spotify parent company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Stockholm, Sweden"
+      },
+      "id": "spotify-artists",
+      "name": "Spotify for Artists",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Spotify"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "tiktok-artists",
+      "name": "TikTok for Artists",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "ByteDance"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Patreon company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "San Francisco, California, USA"
+      },
+      "id": "patreon",
+      "name": "Patreon",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Musora company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Abbotsford, British Columbia, Canada"
+      },
+      "id": "musora",
+      "name": "Musora",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Fretello GmbH HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Linz, Austria"
+      },
+      "id": "fretello",
+      "name": "Fretello",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Fretello GmbH"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "playground-sessions",
+      "name": "Playground Sessions",
+      "needsReview": true,
+      "ownership": {
+        "note": "Official product/company source",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Playground Sessions"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "tomplay",
+      "name": "Tomplay",
+      "needsReview": true,
+      "ownership": {
+        "note": "Official product/company source",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Tomplay"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "chord-ai",
+      "name": "Chord ai",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Nomad AI"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "musicca",
+      "name": "Musicca",
+      "needsReview": true,
+      "ownership": {
+        "note": "Official product source",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Musicca"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "ABRSM HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "London, United Kingdom"
+      },
+      "id": "abrsm",
+      "name": "ABRSM",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Charity / exam board"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Royal Conservatory of Music HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Toronto, Ontario, Canada"
+      },
+      "id": "rcm",
+      "name": "Royal Conservatory of Music",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Nonprofit institution"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "School of Rock company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Canton, Massachusetts, USA"
+      },
+      "id": "school-of-rock",
+      "name": "School of Rock",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "Tutteo public milestone for Flat.io.",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "2015"
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "flat-io",
+      "name": "Flat for Education",
+      "needsReview": true,
+      "ownership": {
+        "note": "Flat for Education legal/policy reference",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Tutteo Limited"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "noteflight",
+      "name": "Noteflight",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hal Leonard acquisition reference",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Hal Leonard"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "donner",
+      "name": "Donner",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Gear4music company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "York, United Kingdom"
+      },
+      "id": "gear4music",
+      "name": "Gear4music",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Public company"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Muse Group parent company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Limassol, Cyprus"
+      },
+      "id": "audacity",
+      "name": "Audacity",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Muse Group"
+      }
+    },
+    {
+      "founded": {
+        "note": "The 1998 value refers to the Soundation or PowerFX company history, not necessarily the current browser studio launch.",
+        "sourceType": "correction",
+        "status": "conflict",
+        "value": "Company roots 1998 / browser studio later"
+      },
+      "hq": {
+        "note": "Soundation company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Stockholm, Sweden"
+      },
+      "id": "soundation",
+      "name": "Soundation",
+      "needsReview": true,
+      "ownership": {
+        "note": "Soundation legal/licensing reference",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Soundation AB"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "beatstars",
+      "name": "BeatStars",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "flow-music",
+      "name": "Flow Music",
+      "needsReview": true,
+      "ownership": {
+        "note": "Official product source",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Flow Music"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Hit'n'Mix HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Cambridge, United Kingdom"
+      },
+      "id": "ripx-daw",
+      "name": "RipX DAW",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Hit'n'Mix"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Klangio company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Karlsruhe, Germany"
+      },
+      "id": "klangio",
+      "name": "Klangio",
+      "needsReview": true,
+      "ownership": {
+        "note": "Official product/company source",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Klangio GmbH"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Music Ally company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "London, United Kingdom"
+      },
+      "id": "music-ally",
+      "name": "Music Ally",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "MIDiA Research HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "London, United Kingdom"
+      },
+      "id": "midia-research",
+      "name": "MIDiA Research",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "NAMM association HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Carlsbad, California, USA"
+      },
+      "id": "namm",
+      "name": "NAMM",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Nonprofit association"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "luminate",
+      "name": "Luminate",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Chartmetric company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "San Francisco, California, USA"
+      },
+      "id": "chartmetric",
+      "name": "Chartmetric",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Andreessen Horowitz HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Menlo Park, California, USA"
+      },
+      "id": "a16z-consumer",
+      "name": "a16z Consumer",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Andreessen Horowitz"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "general-catalyst",
+      "name": "General Catalyst",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private partnership"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "European Innovation Council HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Brussels, Belgium"
+      },
+      "id": "eic-accelerator",
+      "name": "EIC Accelerator",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "European Innovation Council"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "European Commission programme HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Brussels, Belgium"
+      },
+      "id": "horizon-europe-cluster-2",
+      "name": "Horizon Europe Cluster 2",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "European Commission"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "eit-culture-creativity",
+      "name": "EIT Culture & Creativity",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "European Institute of Innovation and Technology"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Apple programme owner HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Cupertino, California, USA"
+      },
+      "id": "apple-design-awards",
+      "name": "Apple Design Awards",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Apple"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Google programme owner HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Mountain View, California, USA"
+      },
+      "id": "google-play-best-of",
+      "name": "Google Play Best Of",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Google"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "music-tectonics",
+      "name": "Music Tectonics",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Rock Paper Scissors, Inc."
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Learning Technologies Awards HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "London, United Kingdom"
+      },
+      "id": "learning-technologies-awards",
+      "name": "Learning Technologies Awards",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "CloserStill Media / Learning Technologies"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "SXSW EDU HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Austin, Texas, USA"
+      },
+      "id": "sxsw-edu-launch",
+      "name": "SXSW EDU Launch",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "SXSW EDU"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Disney company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Burbank, California, USA"
+      },
+      "id": "disney",
+      "name": "Disney",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Public company"
+      }
+    },
+    {
+      "founded": {
+        "note": "Year-level company founding reference. Day precision is not promoted here.",
+        "sourceType": "correction",
+        "status": "reviewed",
+        "value": "1991"
+      },
+      "hq": {
+        "note": "Public profile fact. Strategic relevance comes from Fortnite, Harmonix and platform strategy.",
+        "sourceType": "correction",
+        "status": "reviewed",
+        "value": "Cary, North Carolina, USA"
+      },
+      "id": "epic-games",
+      "name": "Epic Games",
+      "needsReview": false,
+      "ownership": {
+        "note": "Ownership correction. Tencent is not shown as sole owner.",
+        "sourceType": "correction",
+        "status": "reviewed",
+        "value": "Private company; Tencent minority shareholder"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Roblox company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "San Mateo, California, USA"
+      },
+      "id": "roblox",
+      "name": "Roblox",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Public company"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Netflix company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Los Gatos, California, USA"
+      },
+      "id": "netflix",
+      "name": "Netflix",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Public company"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Nintendo company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Kyoto, Japan"
+      },
+      "id": "nintendo",
+      "name": "Nintendo",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Public company"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Spotify operating HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Stockholm, Sweden"
+      },
+      "id": "spotify-platform",
+      "name": "Spotify",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Public company"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Muse Group company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Limassol, Cyprus"
+      },
+      "id": "muse-group",
+      "name": "Muse Group",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private company"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Hal Leonard company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Milwaukee, Wisconsin, USA"
+      },
+      "id": "hal-leonard",
+      "name": "Hal Leonard",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Muse Group footprint after Hal Leonard US and Europe were unified under Muse Group"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Musicnotes company HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Madison, Wisconsin, USA"
+      },
+      "id": "musicnotes",
+      "name": "Musicnotes",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Musicnotes, Inc."
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "makemusic-cloud",
+      "name": "MakeMusic Cloud",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "MakeMusic"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "tonalenergy",
+      "name": "TonalEnergy",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "TonalEnergy, Inc."
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "soundbrenner",
+      "name": "Soundbrenner",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "Studio Sol HQ seed",
+        "sourceType": "seed",
+        "status": "seed_needs_source",
+        "value": "Belo Horizonte, Brazil"
+      },
+      "id": "cifra-club",
+      "name": "Cifra Club",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Studio Sol"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "loog",
+      "name": "Loog",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "coach-guitar",
+      "name": "Coach Guitar",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Manomaya"
+      }
+    },
+    {
+      "founded": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "hq": {
+        "note": "No field loaded.",
+        "sourceType": "missing",
+        "status": "missing",
+        "value": ""
+      },
+      "id": "piano-academy",
+      "name": "Piano Academy",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Yokee Music"
+      }
+    },
+    {
+      "founded": {
+        "note": "Wikidata public entity record",
+        "sourceType": "public_enrichment",
+        "status": "public_reference_only",
+        "value": "2008"
+      },
+      "hq": {
+        "note": "Wikidata public entity record",
+        "sourceType": "public_enrichment",
+        "status": "public_reference_only",
+        "value": "San Francisco"
+      },
+      "id": "smule",
+      "name": "Smule",
+      "needsReview": true,
+      "ownership": {
+        "note": "Hard-coded profile field. Needs a linked public or licensed source before external use.",
+        "sourceType": "profile",
+        "status": "profile_field_needs_source",
+        "value": "Private"
+      }
+    }
+  ],
+  "status": {
+    "caveat": "This audit classifies source quality. It does not replace legal filings, licensed company databases or internal relationship truth.",
+    "checkedAt": "2026-06-21",
+    "checkedPlayers": 113,
+    "counts": {
+      "conflict": 2,
+      "missing": 134,
+      "profile_field_needs_source": 91,
+      "public_reference_only": 8,
+      "reviewed": 13,
+      "seed_needs_source": 91
+    },
+    "label": "Public metadata audit",
+    "lastUpdated": "2026-06-21T19:04:37+00:00",
+    "method": "Compares dashboard profile fields against public enrichment, reviewed corrections and seed fallback layers.",
+    "version": "public-metadata-audit-v1"
+  }
+}
