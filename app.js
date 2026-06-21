@@ -11706,6 +11706,244 @@ function monitorLaneRank(players, scoreFn, limit = 4) {
   return [...players].sort((a, b) => scoreFn(b) - scoreFn(a) || totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name)).slice(0, limit);
 }
 
+function countLabel(count, singular, plural = `${singular}s`) {
+  return `${count} ${count === 1 ? singular : plural}`;
+}
+
+function monitorPressureScore(player) {
+  return (
+    totalPriority(player) +
+    competitiveProximityScore(player) * 7 +
+    player.momentum * 5 +
+    player.aiScore * 4 +
+    monitorFundingSignalScore(player) * 2 +
+    (player.key ? 12 : 0)
+  );
+}
+
+function monitorJourneyPressureRows(filteredPlayers) {
+  const total = Math.max(1, filteredPlayers.length);
+  return journeyCategories
+    .map((journey) => {
+      const rows = filteredPlayers.filter((player) => journeyCategoryFor(player).id === journey.id);
+      const proofCount = rows.filter((player) => hasCriticalEvidenceGap(player) || requiresCredentialedData(player)).length;
+      const readyCount = rows.filter(isReadyRecord).length;
+      const keyCount = rows.filter((player) => player.key).length;
+      const aiCount = rows.filter((player) => player.aiScore >= 4 || player.category === "ai").length;
+      const avgPriority = averageScore(rows, totalPriority);
+      const avgConfidence = averageScore(rows, (player) => qualityProfile(player).score);
+      const avgMomentum = averageScore(rows, (player) => player.momentum * 20);
+      const pressure = Math.min(
+        100,
+        Math.round(avgPriority * 1.35 + keyCount * 8 + aiCount * 2 + averageScore(rows, (player) => competitiveProximityScore(player) * 8))
+      );
+      return {
+        ...journey,
+        rows,
+        count: rows.length,
+        share: percentOf(rows.length, total),
+        keyCount,
+        aiCount,
+        proofCount,
+        readyCount,
+        avgPriority,
+        avgConfidence,
+        avgMomentum,
+        pressure,
+        topPlayers: monitorLaneRank(rows, monitorPressureScore, 3)
+      };
+    })
+    .filter((row) => row.count);
+}
+
+function monitorExecutiveBriefModel(filteredPlayers) {
+  const total = Math.max(1, filteredPlayers.length);
+  const companies = filteredPlayers.filter((player) => !isSignalOnlyRecord(player));
+  const ready = filteredPlayers.filter(isReadyRecord);
+  const needsValidation = filteredPlayers.filter((player) => hasCriticalEvidenceGap(player) || requiresCredentialedData(player));
+  const corePressure = filteredPlayers.filter((player) => ["learning", "practice"].includes(player.category) || competitiveProximityScore(player) >= 4);
+  const aiPressure = filteredPlayers.filter((player) => player.aiScore >= 4 || ["ai", "creation"].includes(player.category));
+  const routeSurface = filteredPlayers.filter(
+    (player) =>
+      relationForPlayer(player)?.type === "partners" ||
+      ["hardware", "education", "platforms"].includes(player.category) ||
+      /channel|retail|school|teacher|bundle|store|brand|distribution|partner/i.test(activitySearchText(player))
+  );
+  const capitalSignals = filteredPlayers.filter((player) => monitorFundingSignalScore(player) >= 4);
+  const journeyRows = monitorJourneyPressureRows(filteredPlayers);
+  const pressureLeader = [...journeyRows].sort((a, b) => b.pressure - a.pressure || b.count - a.count)[0];
+  const coreJourneyLeader = [...journeyRows]
+    .filter((row) => ["learn", "practice"].includes(row.id))
+    .sort((a, b) => b.pressure - a.pressure || b.keyCount - a.keyCount || b.count - a.count)[0];
+  const adjacentJourneyLeader = [...journeyRows]
+    .filter((row) => !["learn", "practice"].includes(row.id))
+    .sort((a, b) => b.pressure - a.pressure || b.count - a.count)[0];
+  const validationLeader = [...journeyRows].sort((a, b) => b.proofCount - a.proofCount || b.pressure - a.pressure)[0];
+  const confidenceLeader = [...journeyRows].sort((a, b) => b.avgConfidence - a.avgConfidence || b.readyCount - a.readyCount)[0];
+  const topPlayers = monitorLaneRank(filteredPlayers, monitorPressureScore, 4);
+  const nextDataPlayers = monitorLaneRank(
+    needsValidation.filter((player) => !isSignalOnlyRecord(player)),
+    (player) => monitorProofGapScore(player) + monitorPressureScore(player) / 3,
+    3
+  );
+  return {
+    total,
+    companies,
+    ready,
+    needsValidation,
+    corePressure,
+    aiPressure,
+    routeSurface,
+    capitalSignals,
+    journeyRows,
+    pressureLeader,
+    coreJourneyLeader,
+    adjacentJourneyLeader,
+    validationLeader,
+    confidenceLeader,
+    topPlayers,
+    nextDataPlayers
+  };
+}
+
+function renderMonitorExecutiveBrief(filteredPlayers) {
+  const model = monitorExecutiveBriefModel(filteredPlayers);
+  const coreName = model.coreJourneyLeader?.shortName || "Learn and Practice";
+  const adjacentName = model.adjacentJourneyLeader?.shortName || model.pressureLeader?.shortName || "adjacent markets";
+  const validationName = model.validationLeader?.shortName || "priority records";
+  const confidenceName = model.confidenceLeader?.shortName || "ready records";
+  const headline = `${coreName} is the direct habit battleground. ${adjacentName} is the strongest adjacent pressure.`;
+  const focusCards = [
+    {
+      icon: "target",
+      label: "Direct battleground",
+      value: coreName,
+      detail: `${countLabel(model.coreJourneyLeader?.count || 0, "record")}, ${countLabel(model.coreJourneyLeader?.keyCount || 0, "key player")}, ${model.coreJourneyLeader?.pressure || 0}% pressure`
+    },
+    {
+      icon: "radar",
+      label: "Adjacent pressure",
+      value: adjacentName,
+      detail: `${countLabel(model.adjacentJourneyLeader?.count || 0, "record")}, ${countLabel(model.adjacentJourneyLeader?.keyCount || 0, "key player")}, ${model.adjacentJourneyLeader?.pressure || 0}% pressure`
+    },
+    {
+      icon: "shield-alert",
+      label: "What must be validated",
+      value: `${model.needsValidation.length} records`,
+      detail: `${validationName} has ${model.validationLeader?.proofCount || 0} proof or licensed feed needs`
+    },
+    {
+      icon: "badge-check",
+      label: "What is usable now",
+      value: `${model.ready.length} records`,
+      detail: `${confidenceName} has the strongest average source confidence`
+    }
+  ];
+  const statCards = [
+    { label: "Company records", value: model.companies.length, note: `${percentOf(model.companies.length, model.total)}% of current view`, icon: "building-2" },
+    { label: "Core pressure", value: model.corePressure.length, note: "learning, practice and direct habit choices", icon: "crosshair" },
+    { label: "Route surface", value: model.routeSurface.length, note: "channels, brands, schools and trust paths", icon: "route" },
+    { label: "AI pressure", value: model.aiPressure.length, note: "creation, feedback and workflow shifts", icon: "sparkles" },
+    { label: "Capital timing", value: model.capitalSignals.length, note: "funding, ownership and acquisition signals", icon: "landmark" }
+  ];
+  return `
+    <section class="monitor-executive-brief" aria-label="Executive market brief">
+      <div class="monitor-executive-brief-main">
+        <span class="section-kicker">Executive market read</span>
+        <h3>${escapeHtml(headline)}</h3>
+        <p>The useful read is not the size of the database. It is where Yousician should defend the learning habit, where it could find trusted routes, and which attractive claims need stronger data before board use.</p>
+        <div class="monitor-exec-focus-grid">
+          ${focusCards
+            .map(
+              (card) => `
+                <article>
+                  ${iconHtml(card.icon, "monitor-card-icon")}
+                  <span>${escapeHtml(card.label)}</span>
+                  <strong>${escapeHtml(card.value)}</strong>
+                  <small>${escapeHtml(card.detail)}</small>
+                </article>
+              `
+            )
+            .join("")}
+        </div>
+      </div>
+      <aside class="monitor-exec-side">
+        <div class="monitor-exec-player-stack">
+          <span>First read shortlist</span>
+          <div>
+            ${model.topPlayers.map((player) => playerMiniButton(player, "data-monitor-player", 18)).join("") || `<small>No current match</small>`}
+          </div>
+        </div>
+        <div class="monitor-exec-player-stack is-validation">
+          <span>Unlock with data next</span>
+          <div>
+            ${model.nextDataPlayers.map((player) => playerMiniButton(player, "data-monitor-player", 18)).join("") || `<small>No validation queue</small>`}
+          </div>
+        </div>
+      </aside>
+      <div class="monitor-exec-stat-grid">
+        ${statCards
+          .map(
+            (card) => `
+              <article>
+                ${iconHtml(card.icon, "monitor-stat-icon")}
+                <span>${escapeHtml(card.label)}</span>
+                <strong>${card.value}</strong>
+                <small>${escapeHtml(card.note)}</small>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderMonitorJourneyPressureBoard(filteredPlayers) {
+  const rows = monitorJourneyPressureRows(filteredPlayers);
+  if (!rows.length) return "";
+  return `
+    <section class="monitor-journey-pressure" aria-label="Market pressure by learner journey">
+      <div class="monitor-compare-head">
+        <div>
+          <span class="section-kicker">Journey pressure map</span>
+          <h3>Where the ecosystem is crowded, trusted or still thin</h3>
+        </div>
+        <p>Each row compares count, priority, source confidence, momentum and visible leaders for the same learner journey used on the core map.</p>
+      </div>
+      <div class="monitor-journey-pressure-grid">
+        ${rows
+          .map(
+            (row) => `
+              <article style="--journey-color:${row.color}">
+                <header>
+                  <div>
+                    <span class="journey-step-dot">${escapeHtml(row.step || row.iconFallback)}</span>
+                    <strong>${escapeHtml(row.shortName)}</strong>
+                    <small>${escapeHtml(row.layer)}</small>
+                  </div>
+                  <em>${row.count}</em>
+                </header>
+                <div class="monitor-journey-bars" aria-label="${escapeHtml(row.shortName)} comparison metrics">
+                  <span style="--bar-score:${row.pressure}"><b>Pressure</b><i></i><em>${row.pressure}%</em></span>
+                  <span style="--bar-score:${row.avgConfidence}"><b>Sources</b><i></i><em>${row.avgConfidence}%</em></span>
+                  <span style="--bar-score:${row.avgMomentum}"><b>Momentum</b><i></i><em>${row.avgMomentum}%</em></span>
+                </div>
+                <footer>
+                  <small>${row.keyCount} key / ${row.readyCount} ready / ${row.proofCount} validate</small>
+                  <div>
+                    ${row.topPlayers.map((player) => playerMiniButton(player, "data-monitor-player", 14)).join("") || `<small>No visible leader</small>`}
+                  </div>
+                </footer>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
 function monitorDecisionCockpitLanes(filteredPlayers) {
   const lanes = [
     {
@@ -12010,10 +12248,12 @@ function renderMonitorInsightReadout(filteredPlayers) {
       <div class="directory-head">
         <div>
           <span class="section-kicker">Market monitor</span>
-          <h3>Start with comparison, subcategories and market movement</h3>
+          <h3>Start with the market read, then compare the evidence</h3>
         </div>
         <span>${filteredPlayers.length} records / ${topTrend ? `${topTrend.count} in ${topTrend.title}` : "no cluster"}</span>
       </div>
+      ${renderMonitorExecutiveBrief(filteredPlayers)}
+      ${renderMonitorJourneyPressureBoard(filteredPlayers)}
       ${renderMonitorDecisionCockpit(filteredPlayers)}
       ${renderMonitorTriageMatrix(filteredPlayers)}
       ${renderMonitorMovementBoard(filteredPlayers)}
