@@ -15410,15 +15410,181 @@ function renderMonitorDashboardSummary(kpis, lanes) {
   `;
 }
 
+function renderMonitorCommandCenter(filteredPlayers, keyPlayers) {
+  const model = monitorExecutiveBriefModel(filteredPlayers);
+  const appRows = publicAppMarketRankedRows(filteredPlayers).slice(0, 4);
+  const appLeader = appRows[0];
+  const reachLabel = appLeader
+    ? appLeader.googlePlayInstallBand || compactMetricNumber(Number(appLeader.bestReachFloor || 0))
+    : "pending";
+  const publicStatus = publicEnrichmentContext.publicAppMarketSignals?.status || publicEnrichmentFallback.publicAppMarketSignals.status;
+  const coreName = model.coreJourneyLeader?.shortName || "Learn / Practice";
+  const adjacentName = model.adjacentJourneyLeader?.shortName || model.pressureLeader?.shortName || "Create / AI";
+  const validationName = model.validationLeader?.shortName || "priority records";
+  const topPlayers = monitorLaneRank(filteredPlayers, monitorPressureScore, 5);
+  const aiPlayers = monitorLaneRank(
+    filteredPlayers.filter((player) => player.aiScore >= 4 || ["ai", "creation"].includes(player.category)),
+    (player) => player.aiScore * 16 + player.momentum * 6 + totalPriority(player) / 3,
+    4
+  );
+  const validationPlayers = model.nextDataPlayers.length
+    ? model.nextDataPlayers
+    : monitorLaneRank(
+        filteredPlayers.filter((player) => hasCriticalEvidenceGap(player) || requiresCredentialedData(player)),
+        (player) => monitorProofGapScore(player) + totalPriority(player) / 4,
+        3
+      );
+  const decisionLanes = monitorDecisionCockpitLanes(filteredPlayers).filter((lane) => lane.id !== "appendix").slice(0, 5);
+  const commandCards = [
+    {
+      label: "Defend first",
+      value: coreName,
+      note: `${model.coreJourneyLeader?.count || 0} records / ${model.coreJourneyLeader?.pressure || 0}% pressure`
+    },
+    {
+      label: "Watch adjacent pressure",
+      value: adjacentName,
+      note: `${model.aiPressure.length} AI or creation records`
+    },
+    {
+      label: "Largest public reach proxy",
+      value: appLeader?.playerRecord?.name || "No app signal",
+      note: `${reachLabel} Google Play install band`
+    },
+    {
+      label: "Validate before citing",
+      value: `${model.needsValidation.length} records`,
+      note: `${validationName} has the most proof/feed needs`
+    }
+  ];
+  const decisions = [
+    {
+      label: "Core habit battleground",
+      title: `Treat ${coreName} as the direct retention fight.`,
+      note: "Prioritize learning loops, repeat practice, repertoire pull and pricing benchmarks before expanding long-tail profiles.",
+      players: topPlayers.slice(0, 4)
+    },
+    {
+      label: "Adjacent pressure",
+      title: `${adjacentName} matters because it changes what users expect from music tools.`,
+      note: "Separate real workflow pressure from generic AI noise. Track where creation, feedback and distribution become learning substitutes.",
+      players: aiPlayers
+    },
+    {
+      label: "Data discipline",
+      title: "Use public store signals for orientation only.",
+      note: "Appfigures, revenue, retention, geography and internal relationship status still need credentialed or human-approved inputs.",
+      players: validationPlayers
+    }
+  ];
+  return `
+    <section class="monitor-command-center" aria-label="Executive market monitor command center">
+      <div class="monitor-command-hero">
+        <div>
+          <span class="section-kicker">Executive market monitor</span>
+          <h3>Start with the few market signals that change what Yousician should do next.</h3>
+          <p>First read: where the habit is defended, where adjacent pressure is rising, and which attractive claims are not yet safe for board-level use.</p>
+        </div>
+        <aside>
+          <span>Current scope</span>
+          <strong>${filteredPlayers.length}</strong>
+          <small>${model.companies.length} company/org records, ${model.ready.length} ready records, ${publicStatus.usableRows || appRows.length} public app proxy rows.</small>
+        </aside>
+      </div>
+      <div class="monitor-command-card-grid">
+        ${commandCards
+          .map(
+            (card) => `
+              <article>
+                <span>${escapeHtml(card.label)}</span>
+                <strong>${escapeHtml(card.value)}</strong>
+                <small>${escapeHtml(card.note)}</small>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+      <div class="monitor-command-body">
+        <div class="monitor-command-decisions">
+          ${decisions
+            .map(
+              (item) => `
+                <article>
+                  <span>${escapeHtml(item.label)}</span>
+                  <strong>${escapeHtml(item.title)}</strong>
+                  <p>${escapeHtml(item.note)}</p>
+                  <div>${item.players.length ? item.players.map((player) => playerMiniButton(player, "data-monitor-player", 16)).join("") : `<small>No current match</small>`}</div>
+                </article>
+              `
+            )
+            .join("")}
+        </div>
+        <aside class="monitor-command-reach">
+          <header>
+            <span class="section-kicker">Public store reach proxies</span>
+            <strong>Use for relative orientation, not performance claims.</strong>
+          </header>
+          <div>
+            ${appRows
+              .map((row) => {
+                const player = row.playerRecord;
+                const maxReach = Math.max(1, Number(appRows[0]?.bestReachFloor || 1));
+                const width = Math.max(8, Math.round((Number(row.bestReachFloor || 0) / maxReach) * 100));
+                return `
+                  <button type="button" data-monitor-player="${escapeHtml(player.id)}" style="--reach-color:${colorFor(player)}; --reach-width:${width}">
+                    ${logoMarkHtml(player, "monitor-command-reach-logo")}
+                    <span>
+                      <strong>${escapeHtml(player.name)}</strong>
+                      <small>${escapeHtml(row.googlePlayInstallBand || compactMetricNumber(Number(row.bestReachFloor || 0)))} GP / ${escapeHtml(publicAppMarketRatingLabel(row))}</small>
+                      <i></i>
+                    </span>
+                  </button>
+                `;
+              })
+              .join("")}
+          </div>
+          <small>${escapeHtml(publicStatus.caveat || "Public proxies only; Appfigures remains pending.")}</small>
+        </aside>
+      </div>
+      <div class="monitor-command-lanes">
+        ${decisionLanes
+          .map(
+            (lane) => `
+              <article style="--decision-color:${lane.color}">
+                <span>${escapeHtml(lane.label)}</span>
+                <strong>${lane.count}</strong>
+                <small>${escapeHtml(lane.question)}</small>
+                <div>${lane.ranked.length ? lane.ranked.slice(0, 3).map((player) => playerMiniButton(player, "data-monitor-player", 14)).join("") : `<small>No match</small>`}</div>
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
 function renderMonitorModeBody(filteredPlayers, keyPlayers, kpis, lanes) {
   const mode = activeMonitorViewMode();
   if (mode.id === "focus") {
     return `
-      ${renderPublicAppMarketSnapshot(filteredPlayers)}
-      ${renderMonitorComparisonCockpit(filteredPlayers, keyPlayers)}
-      ${renderMonitorFocusedPlayerPanel(filteredPlayers)}
-      ${renderMonitorInsightInspector(filteredPlayers)}
-      ${renderMonitorExecutiveBrief(filteredPlayers)}
+      ${renderMonitorCommandCenter(filteredPlayers, keyPlayers)}
+      <details class="optional-drawer monitor-analyst-drawer monitor-focus-detail-drawer">
+        <summary>
+          <span>
+            <strong>Open deeper comparison and player detail</strong>
+            <small>Charts, selected-player brief, evidence inspector and public app proxy table.</small>
+          </span>
+          <span class="drawer-indicator">Show</span>
+        </summary>
+        <div class="monitor-analyst-stack">
+          ${renderMonitorComparisonCockpit(filteredPlayers, keyPlayers)}
+          ${renderMonitorFocusedPlayerPanel(filteredPlayers)}
+          ${renderPublicAppMarketSnapshot(filteredPlayers)}
+          ${renderMonitorInsightInspector(filteredPlayers)}
+          ${renderMonitorExecutiveBrief(filteredPlayers)}
+        </div>
+      </details>
     `;
   }
   if (mode.id === "quests") {
