@@ -28532,8 +28532,9 @@ body[data-view="overview"] .map-zoom-row .map-reset-button {
 
 body[data-view="overview"] .map-wrap,
 body[data-mode="executive"][data-view="overview"] .map-wrap {
-  height: clamp(680px, calc((100vw - 16px) * 0.64), 1060px) !important;
-  min-height: clamp(680px, calc((100vw - 16px) * 0.64), 1060px) !important;
+  height: clamp(620px, calc((100vw - 16px) * 0.46), 860px) !important;
+  min-height: clamp(620px, calc((100vw - 16px) * 0.46), 860px) !important;
+  max-height: 860px !important;
 }
 
 @media (max-width: 900px) {

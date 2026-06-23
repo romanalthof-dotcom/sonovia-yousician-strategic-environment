@@ -10988,17 +10988,24 @@ function selectedMapLabelReservation(nodeItems, visibleCount, focusScale, center
     })
     .sort((a, b) => a.score - b.score);
   if (isDenseFullMapView()) {
-    const clearDenseLabel = rankedLabels.find(({ label }) => {
+    const denseLabelIsNearAndProtectedClear = ({ label }) => {
       const protectedClear = !protectedRects.some((rect) => rectsOverlap(label.rect, rect, 8));
-      const nodeClear = !nodeBounds.some((rect) => rectsOverlap(label.rect, rect, 4));
       const labelCenter = {
         x: label.rect.x + label.rect.width / 2,
         y: label.rect.y + label.rect.height / 2
       };
       const leaderDistance = Math.hypot(labelCenter.x - selectedNode.x, labelCenter.y - selectedNode.y);
-      return protectedClear && nodeClear && leaderDistance <= 156;
+      return protectedClear && leaderDistance <= 156;
+    };
+    const clearDenseLabel = rankedLabels.find((entry) => {
+      if (!denseLabelIsNearAndProtectedClear(entry)) return false;
+      return !nodeBounds.some((rect) => rectsOverlap(entry.label.rect, rect, 4));
     });
-    return clearDenseLabel?.label || null;
+    const workableDenseLabel = rankedLabels.find((entry) => {
+      if (!denseLabelIsNearAndProtectedClear(entry)) return false;
+      return nodeBounds.filter((rect) => rectsOverlap(entry.label.rect, rect, 5)).length <= 2;
+    });
+    return (clearDenseLabel || workableDenseLabel || rankedLabels.find(denseLabelIsNearAndProtectedClear))?.label || null;
   }
   return rankedLabels[0]?.label;
 }
@@ -11007,22 +11014,23 @@ function createSpaceForSelectedMapLabel(nodeItems, visibleCount, focusScale, cen
   const label = selectedMapLabelReservation(nodeItems, visibleCount, focusScale, center, protectedRects);
   if (!label) return null;
   const selectedNode = nodeItems.find((item) => item.player.id === state.selectedPlayerId);
+  const denseMap = isDenseFullMapView();
   const clearanceRect = {
-    x: label.rect.x - 13,
-    y: label.rect.y - 10,
-    width: label.rect.width + 26,
-    height: label.rect.height + 20,
+    x: label.rect.x - (denseMap ? 20 : 13),
+    y: label.rect.y - (denseMap ? 15 : 10),
+    width: label.rect.width + (denseMap ? 40 : 26),
+    height: label.rect.height + (denseMap ? 30 : 20),
     kind: "selected-label"
   };
   const movableItems = nodeItems.filter((item) => item.player.id !== state.selectedPlayerId);
-  for (let iteration = 0; iteration < 26; iteration += 1) {
+  for (let iteration = 0; iteration < (denseMap ? 34 : 26); iteration += 1) {
     movableItems.forEach((item) => {
-      pushNodeAwayFromRect(item, clearanceRect, focusScale >= 1.18 ? 22 : 18, 0.92);
-      pushNodeAwayFromNode(item, selectedNode, isDenseFullMapView() ? 22 : 10, 0.94);
+      pushNodeAwayFromRect(item, clearanceRect, denseMap ? 30 : focusScale >= 1.18 ? 22 : 18, denseMap ? 0.96 : 0.92);
+      pushNodeAwayFromNode(item, selectedNode, denseMap ? 28 : 10, denseMap ? 0.96 : 0.94);
       clampMapNodePosition(item);
     });
-    pushNodePairsApart(movableItems, isDenseFullMapView() ? 24 : 15, isDenseFullMapView() ? 0.9 : 0.56);
-    pushNodesAwayFromProtectedRects(movableItems, protectedRects, 0.62);
+    pushNodePairsApart(movableItems, denseMap ? 28 : 15, denseMap ? 0.94 : 0.56);
+    pushNodesAwayFromProtectedRects(movableItems, protectedRects, denseMap ? 0.72 : 0.62);
     movableItems.forEach(clampMapNodePosition);
   }
   return { label, clearanceRect };
