@@ -10105,7 +10105,7 @@ function renderStrategicImplications() {
 }
 
 const mapCategoryLayouts = {
-  discover: { x: 114, y: 170, angle: -158, arcRadius: 348, visibleLimit: 4, rx: 136, ry: 100 },
+  discover: { x: 114, y: 170, angle: -158, arcRadius: 348, visibleLimit: 4, rx: 146, ry: 110 },
   start: { x: 204, y: 362, angle: -136, arcRadius: 314, visibleLimit: 5, rx: 132, ry: 102 },
   learn: { x: 430, y: 124, angle: -88, arcRadius: 232, visibleLimit: 6, rx: 164, ry: 116 },
   practice: { x: 762, y: 160, angle: -22, arcRadius: 222, visibleLimit: 6, rx: 152, ry: 108 },
@@ -10519,10 +10519,10 @@ function relaxMapNodePositions(items, center, protectedRects = []) {
 function settleVisibleMapOverlaps(items, protectedRects = [], visibleCount = items.length, pinnedPlayerId = null) {
   if (items.length <= 1 || visibleCount <= 60) return;
   const movableItems = pinnedPlayerId ? items.filter((item) => item.player.id !== pinnedPlayerId) : items;
-  for (let iteration = 0; iteration < 20; iteration += 1) {
-    pushVisibleNodePairsApart(items, 5, 0.86, pinnedPlayerId);
+  for (let iteration = 0; iteration < 42; iteration += 1) {
+    pushVisibleNodePairsApart(items, 12, 0.84, pinnedPlayerId);
     if (protectedRects.length && iteration % 3 === 0) {
-      pushNodesAwayFromProtectedRects(movableItems, protectedRects, 0.18);
+      pushNodesAwayFromProtectedRects(movableItems, protectedRects, 0.2);
     }
     movableItems.forEach(clampMapNodePosition);
   }
@@ -10623,7 +10623,7 @@ function clusterTextPositions(layout, center) {
   const upperHalf = layout.y < center.y;
   const dense = isDenseFullMapView();
   const labelY = upperHalf
-    ? Math.max(dense ? -6 : 42, layout.y - layout.ry - (dense ? 34 : 22))
+    ? Math.max(dense ? -24 : 42, layout.y - layout.ry - (dense ? 68 : 22))
     : Math.min(dense ? 706 : 662, layout.y + layout.ry + (dense ? 34 : 26));
   return {
     labelY,
@@ -10758,22 +10758,22 @@ function mapLabelPositions(item, width, height, scale, center) {
   const lowerFirst = y < center.y;
   if (isSelected && isDenseFullMapView()) {
     return [
-      farCentered(lowerFirst ? false : true),
+      horizontal(preferredSide),
+      horizontal(otherSide),
       centered(lowerFirst ? false : true),
+      centered(lowerFirst ? true : false),
+      diagonal(preferredSide, lowerFirst),
+      diagonal(otherSide, lowerFirst),
+      diagonal(preferredSide, !lowerFirst),
+      diagonal(otherSide, !lowerFirst),
+      farCentered(lowerFirst ? false : true),
       farHorizontal(preferredSide),
       farHorizontal(otherSide),
       farHorizontal(preferredSide, lowerFirst ? farGap * 0.32 : -farGap * 0.32),
       farHorizontal(otherSide, lowerFirst ? farGap * 0.32 : -farGap * 0.32),
-      centered(lowerFirst ? true : false),
       farCentered(lowerFirst ? true : false),
-      horizontal(preferredSide),
-      horizontal(otherSide),
-      diagonal(preferredSide, lowerFirst),
-      diagonal(otherSide, lowerFirst),
       farDiagonal(preferredSide, lowerFirst),
       farDiagonal(otherSide, lowerFirst),
-      diagonal(preferredSide, !lowerFirst),
-      diagonal(otherSide, !lowerFirst),
       farDiagonal(preferredSide, !lowerFirst),
       farDiagonal(otherSide, !lowerFirst)
     ];
@@ -10813,19 +10813,25 @@ function mapLabelCandidates(item, visibleCount, focusScale, center) {
   const nameBottomPadding = Math.round((isSelected ? 9 : 7) * scale);
   const nameHeight = nameTopPadding + labelLines.length * lineHeight + nameBottomPadding;
   const badgeHeight = nameHeight;
-  const showSubLabel = isSelected && focusScale < 1.18;
+  const showSubLabel = isSelected && focusScale < 1.18 && !isDenseFullMapView();
+  const subLabelText = showSubLabel ? compactName(strategicRole(player), 20) : "";
+  const subFontSize = Math.min(11.8, 8.4 * focusScale);
   const subLineHeight = Math.round(Math.min(11.5, 8.2 * focusScale) * 1.15);
   const subTopGap = showSubLabel ? Math.round(4 * scale) : 0;
   const cardHeight = nameHeight + (showSubLabel ? subTopGap + subLineHeight + Math.round(7 * scale) : 0);
-  const badgeWidth = svgLabelWidth(
+  const nameBadgeWidth = svgLabelWidth(
     longestLine,
     Math.round((player.key || isSelected ? 82 : 62) * scale),
     Math.round((isSelected ? 178 : 138) * scale),
     scale
   );
+  const subBadgeWidth = showSubLabel
+    ? svgLabelWidth(subLabelText, Math.round(108 * scale), Math.round(206 * scale), Math.min(1.12, scale))
+    : 0;
+  const badgeWidth = Math.max(nameBadgeWidth, subBadgeWidth);
   const positions = mapLabelPositions(item, badgeWidth, cardHeight, scale, center);
   const seen = new Set();
-  return positions
+  const candidates = positions
     .map((position, rank) => {
       const cardX = clampNumber(position.x, 24, 976 - badgeWidth);
       const cardY = clampNumber(position.y, 24, 676 - cardHeight);
@@ -10851,12 +10857,23 @@ function mapLabelCandidates(item, visibleCount, focusScale, center) {
         priority: mapLabelPriority(player) - rank * 3,
         rect,
         showSubLabel,
+        subFontSize,
+        subLabelText,
         textX: cardX + badgeWidth / 2,
         textY: cardY + nameTopPadding + labelFontSize,
         subY: cardY + nameHeight + subTopGap + subLineHeight * 0.86
       };
     })
     .filter(Boolean);
+  if (isSelected && isDenseFullMapView()) {
+    const nearCandidates = candidates.filter((label) => {
+      const labelCenterX = label.rect.x + label.rect.width / 2;
+      const labelCenterY = label.rect.y + label.rect.height / 2;
+      return Math.hypot(labelCenterX - x, labelCenterY - y) <= 156;
+    });
+    return nearCandidates.length ? nearCandidates : candidates.slice(0, 4);
+  }
+  return candidates;
 }
 
 function mapLabelCandidate(item, visibleCount, focusScale, center) {
@@ -10899,7 +10916,8 @@ function buildMapLabelPlan(nodeItems, visibleCount, focusScale, center, protecte
           nodeBounds.some((rect) => rect.id !== item.player.id && rectsOverlap(label.rect, rect, focusScale >= 1.18 ? 4 : 2));
         return !overlapsLabel && !overlapsProtected && !overlapsSelectedNode && !overlapsNode;
       };
-      const chosen = isSelected && forcedSelectedLabel ? forcedSelectedLabel : labels.find((label) => labelIsClear(label)) || (isSelected ? labels[0] : null);
+      const fallbackLabel = isSelected && !isDenseFullMapView() ? labels[0] : null;
+      const chosen = isSelected && forcedSelectedLabel ? forcedSelectedLabel : labels.find((label) => labelIsClear(label)) || fallbackLabel;
       if (!chosen) return;
       const label = chosen;
       accepted.push(label.rect);
@@ -10924,7 +10942,7 @@ function selectedMapLabelReservation(nodeItems, visibleCount, focusScale, center
         height: radius * 2
       };
     });
-  return labels
+  const rankedLabels = labels
     .map((label, index) => {
       const protectedHits = protectedRects.filter((rect) => rectsOverlap(label.rect, rect, 7)).length;
       const nodeHits = nodeBounds.filter((rect) => rectsOverlap(label.rect, rect, 5)).length;
@@ -10936,6 +10954,7 @@ function selectedMapLabelReservation(nodeItems, visibleCount, focusScale, center
       };
       const labelDistance = Math.hypot(labelCenter.x - center.x, labelCenter.y - center.y);
       const nodeDistance = Math.hypot(selectedNode.x - center.x, selectedNode.y - center.y);
+      const leaderDistance = Math.hypot(labelCenter.x - selectedNode.x, labelCenter.y - selectedNode.y);
       const outwardPenalty = labelDistance > nodeDistance + 20 ? 1 : 0;
       const selectedCluster = isDenseFullMapView()
         ? denseClusterGeometryForLayout(selectedNode.layout, selectedNode.categoryPlayers.length)
@@ -10962,11 +10981,26 @@ function selectedMapLabelReservation(nodeItems, visibleCount, focusScale, center
           centerPenalty * 140 +
           ownClusterPenalty * 38 +
           outwardPenalty * 24 +
+          Math.max(0, leaderDistance - 124) * 2.8 +
           edgePenalty * 9 +
           index
       };
     })
-    .sort((a, b) => a.score - b.score)[0]?.label;
+    .sort((a, b) => a.score - b.score);
+  if (isDenseFullMapView()) {
+    const clearDenseLabel = rankedLabels.find(({ label }) => {
+      const protectedClear = !protectedRects.some((rect) => rectsOverlap(label.rect, rect, 8));
+      const nodeClear = !nodeBounds.some((rect) => rectsOverlap(label.rect, rect, 4));
+      const labelCenter = {
+        x: label.rect.x + label.rect.width / 2,
+        y: label.rect.y + label.rect.height / 2
+      };
+      const leaderDistance = Math.hypot(labelCenter.x - selectedNode.x, labelCenter.y - selectedNode.y);
+      return protectedClear && nodeClear && leaderDistance <= 156;
+    });
+    return clearDenseLabel?.label || null;
+  }
+  return rankedLabels[0]?.label;
 }
 
 function createSpaceForSelectedMapLabel(nodeItems, visibleCount, focusScale, center, protectedRects = []) {
@@ -11167,6 +11201,12 @@ function renderMap() {
   const selectedLabelSpace = createSpaceForSelectedMapLabel(nodeItems, filtered.length, focusScale, center, protectedRects);
   settleVisibleMapOverlaps(nodeItems, selectedLabelSpace?.clearanceRect ? [selectedLabelSpace.clearanceRect] : [], filtered.length, state.selectedPlayerId);
   lockDenseMapNodesToClusters(nodeItems, center, selectedLabelSpace?.clearanceRect ? [selectedLabelSpace.clearanceRect, ...protectedRects] : protectedRects);
+  settleVisibleMapOverlaps(
+    nodeItems,
+    selectedLabelSpace?.clearanceRect ? [selectedLabelSpace.clearanceRect, ...protectedRects] : protectedRects,
+    filtered.length,
+    state.selectedPlayerId
+  );
   const nodePositions = new Map(nodeItems.map((item) => [item.player.id, item]));
   const clusterGeometryByCategory = new Map(
     byCategory.map(({ category, players: categoryPlayers, contextPlayers, layout }) => [
@@ -11401,7 +11441,7 @@ function renderMap() {
       }
       const labelInfo = labelPlan.get(player.id);
       if (labelInfo) {
-        const { badgeHeight, badgeWidth, cardHeight, cardX, cardY, labelFontSize, labelLines, lineHeight, textX, textY, subY } = labelInfo;
+        const { badgeHeight, badgeWidth, cardHeight, cardX, cardY, labelFontSize, labelLines, lineHeight, subFontSize, subLabelText, textX, textY, subY } = labelInfo;
         if (labelInfo.leader) {
           node.appendChild(
             createSvg("line", {
@@ -11461,10 +11501,10 @@ function renderMap() {
             x: textX,
             y: subY,
             class: "node-sub selected-node-sub",
-            style: `font-size:${Math.min(11.8, 8.4 * focusScale).toFixed(1)}px`,
+            style: `font-size:${subFontSize.toFixed(1)}px`,
             "text-anchor": "middle"
           });
-          sub.textContent = compactName(strategicRole(player), 24);
+          sub.textContent = subLabelText;
           node.appendChild(sub);
         }
       }
