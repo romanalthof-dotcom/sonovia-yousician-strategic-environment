@@ -10105,14 +10105,14 @@ function renderStrategicImplications() {
 }
 
 const mapCategoryLayouts = {
-  discover: { x: 128, y: 168, angle: -156, arcRadius: 336, visibleLimit: 4, rx: 136, ry: 98 },
-  start: { x: 282, y: 380, angle: -132, arcRadius: 272, visibleLimit: 5, rx: 132, ry: 98 },
-  learn: { x: 386, y: 128, angle: -92, arcRadius: 216, visibleLimit: 6, rx: 166, ry: 118 },
+  discover: { x: 114, y: 170, angle: -158, arcRadius: 348, visibleLimit: 4, rx: 136, ry: 100 },
+  start: { x: 204, y: 362, angle: -136, arcRadius: 314, visibleLimit: 5, rx: 132, ry: 102 },
+  learn: { x: 430, y: 124, angle: -88, arcRadius: 232, visibleLimit: 6, rx: 164, ry: 116 },
   practice: { x: 762, y: 160, angle: -22, arcRadius: 222, visibleLimit: 6, rx: 152, ry: 108 },
   share: { x: 882, y: 344, angle: 70, arcRadius: 338, visibleLimit: 4, rx: 126, ry: 92 },
-  create: { x: 602, y: 552, angle: 50, arcRadius: 286, visibleLimit: 5, rx: 166, ry: 116 },
-  identity: { x: 892, y: 604, angle: 126, arcRadius: 356, visibleLimit: 4, rx: 128, ry: 94 },
-  broader: { x: 278, y: 606, angle: 166, arcRadius: 340, visibleLimit: 4, rx: 134, ry: 96 }
+  create: { x: 608, y: 560, angle: 50, arcRadius: 286, visibleLimit: 5, rx: 166, ry: 116 },
+  identity: { x: 922, y: 612, angle: 126, arcRadius: 356, visibleLimit: 4, rx: 128, ry: 94 },
+  broader: { x: 268, y: 622, angle: 166, arcRadius: 340, visibleLimit: 4, rx: 132, ry: 94 }
 };
 
 function mapLayoutForCategory(category, index, center) {
@@ -10439,6 +10439,7 @@ function projectNodeInsideDenseCluster(item, geometry, gap = 3) {
 
 function lockDenseMapNodesToClusters(items, center, protectedRects = []) {
   if (!isDenseFullMapView() || items.length <= 1) return;
+  const selectedLabelRects = protectedRects.filter((rect) => rect.kind === "selected-label");
   const groups = new Map();
   items.forEach((item) => {
     const categoryId = journeyCategoryFor(item.player).id;
@@ -10450,16 +10451,17 @@ function lockDenseMapNodesToClusters(items, center, protectedRects = []) {
   );
   groups.forEach((group, categoryId) => {
     const geometry = geometries.get(categoryId);
-    group.forEach((item) => projectNodeInsideDenseCluster(item, geometry, 5));
+    group.forEach((item) => projectNodeInsideDenseCluster(item, geometry, 3));
     for (let iteration = 0; iteration < 84; iteration += 1) {
       pushNodePairsApart(group, 4, 0.82);
-      if (iteration % 4 === 0) pushNodesAwayFromProtectedRects(group, protectedRects, 0.12);
+      if (iteration % 2 === 0 && selectedLabelRects.length) pushNodesAwayFromProtectedRects(group, selectedLabelRects, 0.42);
+      if (iteration % 4 === 0) pushNodesAwayFromProtectedRects(group, protectedRects, selectedLabelRects.length ? 0.18 : 0.12);
       group.forEach((item) => {
         const dx = item.x - geometry.x;
         const dy = item.y - geometry.y;
         item.x += -dx * 0.012;
         item.y += -dy * 0.012;
-        projectNodeInsideDenseCluster(item, geometry, 4);
+        projectNodeInsideDenseCluster(item, geometry, 2);
         clampMapNodePosition(item);
       });
     }
@@ -10619,12 +10621,13 @@ function mapLabelAnchor(nodeX, nodeY, clusterX, center, focusScale = 1) {
 
 function clusterTextPositions(layout, center) {
   const upperHalf = layout.y < center.y;
+  const dense = isDenseFullMapView();
   const labelY = upperHalf
-    ? Math.max(42, layout.y - layout.ry - (isDenseFullMapView() ? 12 : 22))
-    : Math.min(662, layout.y + layout.ry + (isDenseFullMapView() ? 18 : 26));
+    ? Math.max(dense ? -6 : 42, layout.y - layout.ry - (dense ? 34 : 22))
+    : Math.min(dense ? 706 : 662, layout.y + layout.ry + (dense ? 34 : 26));
   return {
     labelY,
-    countY: upperHalf ? labelY + 15 : Math.min(678, labelY + 15)
+    countY: upperHalf ? labelY + 15 : Math.min(dense ? 724 : 678, labelY + 15)
   };
 }
 
@@ -10753,6 +10756,28 @@ function mapLabelPositions(item, width, height, scale, center) {
     y: y + (lower ? radius + farGap * 0.35 : -radius - farGap * 0.35) - height / 2
   });
   const lowerFirst = y < center.y;
+  if (isSelected && isDenseFullMapView()) {
+    return [
+      farCentered(lowerFirst ? false : true),
+      centered(lowerFirst ? false : true),
+      farHorizontal(preferredSide),
+      farHorizontal(otherSide),
+      farHorizontal(preferredSide, lowerFirst ? farGap * 0.32 : -farGap * 0.32),
+      farHorizontal(otherSide, lowerFirst ? farGap * 0.32 : -farGap * 0.32),
+      centered(lowerFirst ? true : false),
+      farCentered(lowerFirst ? true : false),
+      horizontal(preferredSide),
+      horizontal(otherSide),
+      diagonal(preferredSide, lowerFirst),
+      diagonal(otherSide, lowerFirst),
+      farDiagonal(preferredSide, lowerFirst),
+      farDiagonal(otherSide, lowerFirst),
+      diagonal(preferredSide, !lowerFirst),
+      diagonal(otherSide, !lowerFirst),
+      farDiagonal(preferredSide, !lowerFirst),
+      farDiagonal(otherSide, !lowerFirst)
+    ];
+  }
   return [
     horizontal(preferredSide),
     horizontal(otherSide),
@@ -10905,9 +10930,40 @@ function selectedMapLabelReservation(nodeItems, visibleCount, focusScale, center
       const nodeHits = nodeBounds.filter((rect) => rectsOverlap(label.rect, rect, 5)).length;
       const edgePenalty = label.cardX <= 32 || label.cardX + label.badgeWidth >= 968 ? 1 : 0;
       const centerPenalty = rectsOverlap(label.rect, { x: center.x - 112, y: center.y - 112, width: 224, height: 224 }, 0) ? 1 : 0;
+      const labelCenter = {
+        x: label.rect.x + label.rect.width / 2,
+        y: label.rect.y + label.rect.height / 2
+      };
+      const labelDistance = Math.hypot(labelCenter.x - center.x, labelCenter.y - center.y);
+      const nodeDistance = Math.hypot(selectedNode.x - center.x, selectedNode.y - center.y);
+      const outwardPenalty = labelDistance > nodeDistance + 20 ? 1 : 0;
+      const selectedCluster = isDenseFullMapView()
+        ? denseClusterGeometryForLayout(selectedNode.layout, selectedNode.categoryPlayers.length)
+        : null;
+      const ownClusterPenalty =
+        selectedCluster &&
+        rectsOverlap(
+          label.rect,
+          {
+            x: selectedCluster.x - selectedCluster.rx,
+            y: selectedCluster.y - selectedCluster.ry,
+            width: selectedCluster.rx * 2,
+            height: selectedCluster.ry * 2
+          },
+          3
+        )
+          ? 1
+          : 0;
       return {
         label,
-        score: protectedHits * 180 + nodeHits * 28 + centerPenalty * 120 + edgePenalty * 9 + index
+        score:
+          protectedHits * 260 +
+          nodeHits * 76 +
+          centerPenalty * 140 +
+          ownClusterPenalty * 38 +
+          outwardPenalty * 24 +
+          edgePenalty * 9 +
+          index
       };
     })
     .sort((a, b) => a.score - b.score)[0]?.label;
@@ -10921,7 +10977,8 @@ function createSpaceForSelectedMapLabel(nodeItems, visibleCount, focusScale, cen
     x: label.rect.x - 13,
     y: label.rect.y - 10,
     width: label.rect.width + 26,
-    height: label.rect.height + 20
+    height: label.rect.height + 20,
+    kind: "selected-label"
   };
   const movableItems = nodeItems.filter((item) => item.player.id !== state.selectedPlayerId);
   for (let iteration = 0; iteration < 26; iteration += 1) {
