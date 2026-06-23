@@ -9546,6 +9546,7 @@ function mapViewBoxFromNodes(nodeItems, basePlayers, visiblePlayers, compactMap)
   if (!shouldFit) return defaultBox;
   const focusNodes = state.mapZoomMode === "selected" && selectedNode ? [selectedNode] : nodeItems;
   const focused = mapHasActiveFilter(basePlayers, visiblePlayers) || state.mapZoomMode === "fit" || state.mapZoomMode === "selected";
+  const denseFullMap = isDenseFullMapView();
   const bounds = focusNodes.reduce(
     (acc, item) => ({
       x1: Math.min(acc.x1, item.x - item.radius),
@@ -9559,8 +9560,8 @@ function mapViewBoxFromNodes(nodeItems, basePlayers, visiblePlayers, compactMap)
     padding: focused ? (focusNodes.length <= 2 ? 118 : focusNodes.length <= 8 ? 104 : focusNodes.length <= 18 ? 94 : 84) : 118,
     minWidth: state.mapZoomMode === "selected" ? 300 : focusNodes.length <= 3 ? 340 : focusNodes.length <= 8 ? 390 : focused ? 460 : 520,
     minHeight: state.mapZoomMode === "selected" ? 210 : focusNodes.length <= 3 ? 238 : focusNodes.length <= 8 ? 274 : focused ? 322 : 364,
-    maxWidth: focused ? defaultBox.width : null,
-    maxHeight: focused ? defaultBox.height : null
+    maxWidth: focused ? (denseFullMap ? 1136 : defaultBox.width) : null,
+    maxHeight: focused ? (denseFullMap ? 795 : defaultBox.height) : null
   });
 }
 
