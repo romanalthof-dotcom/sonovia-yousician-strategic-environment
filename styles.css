@@ -16882,6 +16882,163 @@ body[data-view="one-pager"] #one-pagerView {
   line-height: 1.18;
 }
 
+.public-app-market-panel {
+  display: grid;
+  gap: 12px;
+  border: 1px solid rgba(24, 36, 31, 0.09);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(0, 210, 146, 0.08), rgba(255, 255, 255, 0) 42%),
+    #fff;
+  padding: 14px;
+}
+
+.public-app-market-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.public-app-market-summary article {
+  display: grid;
+  gap: 4px;
+  min-height: 86px;
+  border: 1px solid rgba(24, 36, 31, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.74);
+  padding: 11px;
+}
+
+.public-app-market-summary span,
+.public-app-market-list footer small {
+  color: rgba(24, 36, 31, 0.62);
+  font-size: 0.65rem;
+  font-weight: 950;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.public-app-market-summary strong {
+  color: var(--ink);
+  font-size: 1.7rem;
+  font-weight: 950;
+  line-height: 0.95;
+}
+
+.public-app-market-summary small {
+  color: rgba(24, 36, 31, 0.66);
+  font-size: 0.68rem;
+  font-weight: 850;
+  line-height: 1.18;
+}
+
+.public-app-market-list {
+  display: grid;
+  gap: 8px;
+}
+
+.public-app-market-list article {
+  display: grid;
+  grid-template-columns: minmax(230px, 1.2fr) minmax(160px, 0.82fr) minmax(170px, 0.9fr) minmax(140px, 0.62fr);
+  gap: 10px;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--app-row-color) 24%, rgba(24, 36, 31, 0.08));
+  border-radius: 14px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--app-row-color) 7%, #fff), #fff 44%);
+  padding: 9px 10px;
+}
+
+.public-app-market-player {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.public-app-market-player > div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.public-app-market-player strong,
+.public-app-market-scale strong {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 0.86rem;
+  font-weight: 950;
+  line-height: 1.08;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.public-app-market-player small {
+  overflow: hidden;
+  color: rgba(24, 36, 31, 0.58);
+  font-size: 0.66rem;
+  font-weight: 850;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.public-app-market-scale {
+  display: grid;
+  gap: 5px;
+}
+
+.public-app-market-scale span {
+  height: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(24, 36, 31, 0.08);
+}
+
+.public-app-market-scale i {
+  display: block;
+  width: calc(var(--app-row-width) * 1%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--app-row-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--app-row-color) 16%, transparent);
+}
+
+.public-app-market-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.public-app-market-metrics span {
+  border-radius: 999px;
+  background: rgba(24, 36, 31, 0.06);
+  color: rgba(24, 36, 31, 0.74);
+  padding: 5px 7px;
+  font-size: 0.65rem;
+  font-weight: 900;
+}
+
+.public-app-market-list footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.public-app-market-list footer a,
+.public-app-market-list footer span {
+  border: 1px solid rgba(24, 36, 31, 0.1);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  padding: 6px 9px;
+  font-size: 0.66rem;
+  font-weight: 950;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
 .monitor-focus-strip {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -17550,6 +17707,18 @@ body[data-view="one-pager"] #one-pagerView {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .public-app-market-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .public-app-market-list article {
+    grid-template-columns: minmax(220px, 1fr) minmax(150px, 0.72fr);
+  }
+
+  .public-app-market-list footer {
+    justify-content: flex-start;
+  }
+
   .activity-queue-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -17608,6 +17777,15 @@ body[data-view="one-pager"] #one-pagerView {
 
   .monitor-focus-strip {
     grid-template-columns: 1fr;
+  }
+
+  .public-app-market-summary,
+  .public-app-market-list article {
+    grid-template-columns: 1fr;
+  }
+
+  .public-app-market-summary article {
+    min-height: 72px;
   }
 
   .monitor-kpi {

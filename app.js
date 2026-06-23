@@ -4482,7 +4482,18 @@ const publicEnrichmentFallback = {
     source: "data/public-enrichment.json",
     caveat: "Public enrichment is unavailable in this run."
   },
-  playerEnrichment: {}
+  playerEnrichment: {},
+  publicAppMarketSignals: {
+    status: {
+      label: "Free public app-market snapshot pending",
+      lastUpdated: "",
+      rows: 0,
+      usableRows: 0,
+      caveat: "Public app-market signals are unavailable in this run."
+    },
+    rows: [],
+    byPlayer: {}
+  }
 };
 
 let publicEnrichmentContext = publicEnrichmentFallback;
@@ -4865,6 +4876,7 @@ const monitorSortModes = [
   { id: "company", label: "Credentialed scale", note: "Imported size data only" },
   { id: "revenue", label: "Credentialed revenue", note: "Credentialed revenue data only" },
   { id: "reach", label: "Credentialed reach", note: "Imported audience, traffic or app data only" },
+  { id: "publicapp", label: "Public store reach", note: "Free install-band and rating-count proxy only" },
   { id: "capital", label: "Capital signal", note: "Funding, ownership, acquisition and investor signals" },
   { id: "proximity", label: "Competitive proximity", note: "Closeness to Yousician's learning and practice loop" },
   { id: "evidence", label: "Source coverage", note: "Records with stronger source coverage first" },
@@ -4984,6 +4996,12 @@ const ratingModes = [
     label: "Credentialed reach",
     shortLabel: "Reach proof",
     note: "Imported audience, app, traffic or source-of-truth data only."
+  },
+  {
+    id: "publicapp",
+    label: "Public store reach",
+    shortLabel: "Store proxy",
+    note: "Free Google Play install bands and public store ratings. Proxy only; not Appfigures."
   },
   {
     id: "evidence",
@@ -5328,7 +5346,7 @@ function audienceReachScore(player) {
 }
 
 function missionScaleScore(player) {
-  const directScale = directCompanyScaleScore(player);
+  const directScale = Math.max(directCompanyScaleScore(player), publicAppReachScore(player));
   const scaleBase = directScale || player.relevance;
   const scale = scaleBase * 0.55 + player.relevance * 0.35 + competitiveProximityScore(player) * 0.1;
   return Math.max(1, Math.min(5, Math.round(scale)));
@@ -5485,6 +5503,7 @@ function ratingForPlayer(player, modeId = state.ratingMode) {
     company: directCompanyScaleScore(player),
     revenue: directRevenueScore(player),
     reach: directReachScore(player),
+    publicapp: publicAppReachScore(player),
     evidence: quality ? Math.max(1, Math.round(quality.score / 20)) : 1,
     proximity: competitiveProximityScore(player),
     appdata: appfiguresReadinessScore(player),
@@ -5492,11 +5511,21 @@ function ratingForPlayer(player, modeId = state.ratingMode) {
     momentum: player.momentum
   };
   const directPending = ["company", "revenue", "reach"].includes(mode.id) && !valueByMode[mode.id];
+  const publicAppPending = mode.id === "publicapp" && !valueByMode[mode.id];
   const value = directPending ? 0 : Math.max(1, Math.min(5, valueByMode[mode.id] || valueByMode.strategic));
   return {
     ...mode,
     value,
-    display: mode.id === "evidence" ? `${quality.score}%` : directPending ? "Feed needed" : `${value}/5`,
+    display:
+      mode.id === "evidence"
+        ? `${quality.score}%`
+        : directPending
+          ? "Feed needed"
+          : publicAppPending
+            ? "No public row"
+            : mode.id === "publicapp"
+              ? publicAppSignalLabel(player)
+              : `${value}/5`,
     sortValue: mode.id === "evidence" ? quality.score : value * 20,
     detail:
       mode.id === "revenue"
@@ -5511,6 +5540,10 @@ function ratingForPlayer(player, modeId = state.ratingMode) {
             ? directPending
               ? "Licensed reach feed required"
               : `Credentialed reach ${directMetricDisplay(player, "reach")}`
+            : mode.id === "publicapp"
+              ? publicAppPending
+                ? "No free public store row mapped"
+                : `${publicAppSignalLabel(player)} / public proxy only`
           : mode.id === "appdata"
             ? "Data status"
             : mode.note
@@ -5525,6 +5558,7 @@ function databaseSortScore(player, sortId = state.dbSort) {
   if (sortId === "company") return directCompanyScaleScore(player) * 20 + strategicWeight(player) / 10;
   if (sortId === "revenue") return directRevenueScore(player) * 20 + strategicWeight(player) / 10;
   if (sortId === "reach") return directReachScore(player) * 20 + player.relevance;
+  if (sortId === "publicapp") return publicAppReachScore(player) * 20 + player.relevance;
   if (sortId === "evidence") return qualityProfile(player).score;
   if (sortId === "proximity") return competitiveProximityScore(player) * 20 + player.relevance * 2;
   if (sortId === "appdata") return appfiguresReadinessScore(player) * 20 + sourceUrgency(player);
@@ -6321,6 +6355,52 @@ function directReachScore(player) {
     [3, 1_000_000],
     [2, 100_000]
   ]);
+}
+
+function publicAppMarketRows() {
+  return Array.isArray(publicEnrichmentContext.publicAppMarketSignals?.rows)
+    ? publicEnrichmentContext.publicAppMarketSignals.rows
+    : [];
+}
+
+function publicAppMarketRowsFor(player) {
+  const byPlayer = publicEnrichmentContext.publicAppMarketSignals?.byPlayer || {};
+  const keyedRows = byPlayer[player.id] || byPlayer[slugClass(player.name)] || [];
+  if (keyedRows.length) return keyedRows;
+  const playerName = comparableMetricName(player.name);
+  const playerId = comparableMetricName(player.id);
+  return publicAppMarketRows().filter((row) => {
+    const rowPlayer = comparableMetricName(row.player || "");
+    return rowPlayer === playerName || rowPlayer === playerId || (rowPlayer && playerName.includes(rowPlayer));
+  });
+}
+
+function publicAppBestSignal(player) {
+  const rows = publicAppMarketRowsFor(player);
+  if (!rows.length) return null;
+  return [...rows].sort((a, b) => Number(b.bestReachFloor || 0) - Number(a.bestReachFloor || 0))[0];
+}
+
+function publicAppReachScore(player) {
+  const signal = publicAppBestSignal(player);
+  const reach = Number(signal?.bestReachFloor || 0);
+  return scoreFromThresholds(reach || null, [
+    [5, 100_000_000],
+    [4.5, 50_000_000],
+    [4, 10_000_000],
+    [3.5, 5_000_000],
+    [3, 1_000_000],
+    [2, 100_000]
+  ]);
+}
+
+function publicAppSignalLabel(player) {
+  const signal = publicAppBestSignal(player);
+  if (!signal) return "No public app signal";
+  if (signal.googlePlayInstallBand) return `${signal.googlePlayInstallBand} GP installs`;
+  if (signal.iosRatingCount) return `${compactMetricNumber(Number(signal.iosRatingCount))} iOS ratings`;
+  if (signal.googlePlayReviewCount) return `${compactMetricNumber(Number(signal.googlePlayReviewCount))} GP reviews`;
+  return signal.displayLabel || "Public store signal";
 }
 
 function directCompanyScaleScore(player) {
@@ -13280,6 +13360,7 @@ function monitorLeaderDefinitions() {
     { id: "relevance", label: "Yousician fit", note: "Closest mission fit", score: (player) => player.relevance, display: (player) => `${player.relevance}/5` },
     { id: "momentum", label: "Momentum", note: "Most active signal", score: (player) => player.momentum, display: (player) => `${player.momentum}/5` },
     { id: "ai", label: "AI pressure", note: "AI relevance", score: (player) => player.aiScore, display: (player) => `${player.aiScore}/5` },
+    { id: "publicapp", label: "Public store reach", note: "Free proxy only", score: publicAppReachScore, display: publicAppSignalLabel },
     { id: "company", label: "Credentialed scale", note: "Imported data only", score: directCompanyScaleScore, display: (player) => ratingForPlayer(player, "company").display },
     { id: "revenue", label: "Credentialed revenue", note: "Credentialed data only", score: directRevenueScore, display: (player) => ratingForPlayer(player, "revenue").display },
     { id: "reach", label: "Credentialed reach", note: "Imported data only", score: directReachScore, display: (player) => ratingForPlayer(player, "reach").display },
@@ -13311,6 +13392,86 @@ function renderMonitorMetricLeaders(filteredPlayers) {
         })
         .join("")}
     </div>
+  `;
+}
+
+function publicAppMarketPlayerForRow(row) {
+  const rowId = String(row.playerId || "");
+  const rowPlayer = comparableMetricName(row.player || "");
+  return (
+    players.find((player) => player.id === rowId) ||
+    players.find((player) => comparableMetricName(player.name) === rowPlayer || comparableMetricName(player.id) === rowPlayer)
+  );
+}
+
+function publicAppMarketRankedRows(filteredPlayers) {
+  const visibleIds = new Set(filteredPlayers.map((player) => player.id));
+  return publicAppMarketRows()
+    .map((row) => ({ ...row, playerRecord: publicAppMarketPlayerForRow(row) }))
+    .filter((row) => row.playerRecord && visibleIds.has(row.playerRecord.id))
+    .filter((row) => Number(row.bestReachFloor || 0) > 0 || Number(row.iosRatingCount || 0) > 0 || Number(row.googlePlayReviewCount || 0) > 0)
+    .sort((a, b) => Number(b.bestReachFloor || 0) - Number(a.bestReachFloor || 0) || String(a.player).localeCompare(String(b.player)));
+}
+
+function renderPublicAppMarketSnapshot(filteredPlayers) {
+  const status = publicEnrichmentContext.publicAppMarketSignals?.status || publicEnrichmentFallback.publicAppMarketSignals.status;
+  const rows = publicAppMarketRankedRows(filteredPlayers);
+  if (!rows.length) return "";
+  const topRows = rows.slice(0, 8);
+  const installRows = rows.filter((row) => row.googlePlayInstallBand);
+  const iosRows = rows.filter((row) => Number(row.iosRatingCount || 0) > 0);
+  const missingRows = publicAppMarketRows().filter((row) => !Number(row.bestReachFloor || 0));
+  const maxReach = Math.max(1, ...topRows.map((row) => Number(row.bestReachFloor || 0)));
+  return `
+    <section class="public-app-market-panel" aria-label="Free public app-market signals">
+      <div class="monitor-compare-head">
+        <div>
+          <span class="section-kicker">Free app-market proxies</span>
+          <h3>Public store reach and sentiment, clearly separated from Appfigures.</h3>
+        </div>
+        <p>${escapeHtml(status.caveat || "Public store values are proxies only. Use Appfigures before making performance claims.")}</p>
+      </div>
+      <div class="public-app-market-summary">
+        <article><span>Usable rows</span><strong>${rows.length}</strong><small>${escapeHtml(status.lastUpdated || "not refreshed")} refresh</small></article>
+        <article><span>Google Play bands</span><strong>${installRows.length}</strong><small>coarse install thresholds</small></article>
+        <article><span>iOS rating rows</span><strong>${iosRows.length}</strong><small>sentiment / review volume</small></article>
+        <article><span>Mappings pending</span><strong>${missingRows.length}</strong><small>needs store/package validation</small></article>
+      </div>
+      <div class="public-app-market-list">
+        ${topRows
+          .map((row) => {
+            const player = row.playerRecord;
+            const reach = Number(row.bestReachFloor || 0);
+            const width = Math.max(8, Math.round((reach / maxReach) * 100));
+            const rating = row.googlePlayRating || row.iosRating;
+            const primaryUrl = row.googlePlaySourceUrl || row.iosSourceUrl || row.sourceUrls?.[0] || "";
+            return `
+              <article style="--app-row-color:${colorFor(player)}; --app-row-width:${width}">
+                <div class="public-app-market-player">
+                  ${playerMiniButton(player, "data-monitor-player", 18)}
+                  <div>
+                    <strong>${escapeHtml(row.player || player.name)}</strong>
+                    <small>${escapeHtml(compactName(row.appName || "Public app", 34))}</small>
+                  </div>
+                </div>
+                <div class="public-app-market-scale">
+                  <span><i></i></span>
+                  <strong>${escapeHtml(row.googlePlayInstallBand ? `${row.googlePlayInstallBand} GP installs` : compactMetricNumber(Number(row.bestReachFloor || 0)))}</strong>
+                </div>
+                <div class="public-app-market-metrics">
+                  <span>${rating ? `${Number(rating).toFixed(1)}/5 rating` : "rating pending"}</span>
+                  <span>${row.googlePlayReviewCount ? `${compactMetricNumber(Number(row.googlePlayReviewCount))} GP reviews` : row.iosRatingCount ? `${compactMetricNumber(Number(row.iosRatingCount))} iOS ratings` : "reviews pending"}</span>
+                </div>
+                <footer>
+                  <small>Proxy only / ${escapeHtml(row.retrievedAt || status.lastUpdated || "")}</small>
+                  ${primaryUrl ? `<a href="${escapeHtml(primaryUrl)}" target="_blank" rel="noopener noreferrer">Source</a>` : `<span>Source pending</span>`}
+                </footer>
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+    </section>
   `;
 }
 
@@ -15202,6 +15363,7 @@ function renderMonitorModeBody(filteredPlayers, keyPlayers, kpis, lanes) {
     return `
       ${renderMonitorComparisonCockpit(filteredPlayers, keyPlayers)}
       ${renderMonitorFocusedPlayerPanel(filteredPlayers)}
+      ${renderPublicAppMarketSnapshot(filteredPlayers)}
       ${renderMonitorInsightInspector(filteredPlayers)}
       ${renderMonitorExecutiveBrief(filteredPlayers)}
     `;
@@ -15215,6 +15377,7 @@ function renderMonitorModeBody(filteredPlayers, keyPlayers, kpis, lanes) {
   if (mode.id === "signals") {
     return `
       ${renderMonitorMovementBoard(filteredPlayers)}
+      ${renderPublicAppMarketSnapshot(filteredPlayers)}
       ${renderMonitorDecisionCockpit(filteredPlayers)}
       ${renderMonitorDashboardSummary(kpis.slice(0, 4), lanes)}
     `;
@@ -15222,6 +15385,7 @@ function renderMonitorModeBody(filteredPlayers, keyPlayers, kpis, lanes) {
   if (mode.id === "coverage") {
     return `
       ${renderMonitorDashboardSummary(kpis, lanes)}
+      ${renderPublicAppMarketSnapshot(filteredPlayers)}
       ${renderMonitorFocusStrip(filteredPlayers)}
       ${renderMonitorCoverageMatrix(filteredPlayers, lanes)}
       ${renderMonitorMarketCategoryAtlas(filteredPlayers)}
@@ -15250,6 +15414,7 @@ function renderMonitorModeBody(filteredPlayers, keyPlayers, kpis, lanes) {
       ${renderMonitorExecutiveSummary(filteredPlayers)}
       ${renderMonitorComparisonBoard(filteredPlayers)}
     </div>
+    ${renderPublicAppMarketSnapshot(filteredPlayers)}
     ${renderMonitorInsightInspector(filteredPlayers)}
     ${renderMonitorDecisionCockpit(filteredPlayers)}
     ${renderMonitorTriageMatrix(filteredPlayers)}

@@ -32,6 +32,13 @@
     },
     "ableton": {
       "conflicts": [],
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q322379",
+        "value": "1999"
+      },
       "lastUpdated": "2026-06-21",
       "name": "Ableton",
       "publicMetric": null,
@@ -83,13 +90,6 @@
         "source": "Wikidata public entity record",
         "sourceUrl": "https://www.wikidata.org/wiki/Q322379",
         "website": "https://www.ableton.com/"
-      },
-      "founded": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q322379",
-        "value": "1999"
       }
     },
     "abrsm": {
@@ -404,8 +404,29 @@
     },
     "bandcamp": {
       "conflicts": [],
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
+        "value": "2007"
+      },
+      "hq": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
+        "value": "Oakland"
+      },
       "lastUpdated": "2026-06-21",
       "name": "Bandcamp",
+      "ownership": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
+        "value": "Songtradr"
+      },
       "publicMetric": null,
       "sources": [
         {
@@ -455,27 +476,6 @@
         "source": "Wikidata public entity record",
         "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
         "website": "https://bandcamp.com"
-      },
-      "hq": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
-        "value": "Oakland"
-      },
-      "founded": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
-        "value": "2007"
-      },
-      "ownership": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q545966",
-        "value": "Songtradr"
       }
     },
     "bandlab": {
@@ -1328,8 +1328,29 @@
     },
     "epic-games": {
       "conflicts": [],
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
+        "value": "1991-01-15"
+      },
+      "hq": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
+        "value": "North Carolina"
+      },
       "lastUpdated": "2026-06-21",
       "name": "Epic Games",
+      "ownership": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
+        "value": "Tencent"
+      },
       "publicMetric": null,
       "sources": [
         {
@@ -1379,27 +1400,6 @@
         "source": "Wikidata public entity record",
         "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
         "website": "https://www.epicgames.com/"
-      },
-      "hq": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
-        "value": "North Carolina"
-      },
-      "founded": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
-        "value": "1991-01-15"
-      },
-      "ownership": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q739711",
-        "value": "Tencent"
       }
     },
     "fender": {
@@ -2917,6 +2917,13 @@
     },
     "native-instruments": {
       "conflicts": [],
+      "founded": {
+        "confidence": "matched public entity",
+        "lastUpdated": "2026-06-19",
+        "source": "Wikidata public entity record",
+        "sourceUrl": "https://www.wikidata.org/wiki/Q652569",
+        "value": "1996-05-03"
+      },
       "lastUpdated": "2026-06-21",
       "name": "Native Instruments",
       "publicMetric": null,
@@ -2968,13 +2975,6 @@
         "source": "Wikidata public entity record",
         "sourceUrl": "https://www.wikidata.org/wiki/Q652569",
         "website": "http://www.native-instruments.com"
-      },
-      "founded": {
-        "confidence": "matched public entity",
-        "lastUpdated": "2026-06-19",
-        "source": "Wikidata public entity record",
-        "sourceUrl": "https://www.wikidata.org/wiki/Q652569",
-        "value": "1996-05-03"
       }
     },
     "netflix": {
@@ -5054,6 +5054,896 @@
         "url": "https://artists.youtube/",
         "value": "https://artists.youtube/"
       }
+    }
+  },
+  "publicAppMarketSignals": {
+    "byPlayer": {
+      "bandlab": [
+        {
+          "appName": "BandLab Music Maker & Beats",
+          "bestReachFloor": 100000000,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Medium public proxy",
+          "displayLabel": "100M+",
+          "googlePlayInstallBand": "100M+",
+          "googlePlayInstallFloor": 100000000,
+          "googlePlayPackage": "com.bandlab.bandlab",
+          "googlePlayRating": 4.522841453552246,
+          "googlePlayReviewCount": 813586,
+          "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.bandlab.bandlab&hl=en_US&gl=US",
+          "iosAppStoreId": "968585775",
+          "iosRating": 4.752,
+          "iosRatingCount": 487575,
+          "iosSourceUrl": "https://apps.apple.com/us/app/bandlab-music-maker-beats/id968585775?uo=4",
+          "platform": "iOS / Android",
+          "player": "BandLab",
+          "playerId": "bandlab",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://play.google.com/store/apps/details?id=com.bandlab.bandlab&hl=en_US&gl=US",
+            "https://apps.apple.com/us/app/bandlab-music-maker-beats/id968585775?uo=4",
+            "https://play.google.com/store/apps/details?id=com.bandlab.bandlab&hl=en_US&gl=US"
+          ]
+        }
+      ],
+      "chord-ai": [
+        {
+          "appName": "Chord ai",
+          "bestReachFloor": 1000000,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Medium public proxy",
+          "displayLabel": "1M+",
+          "googlePlayInstallBand": "1M+",
+          "googlePlayInstallFloor": 1000000,
+          "googlePlayPackage": "com.chordai",
+          "googlePlayRating": 4.6891889572143555,
+          "googlePlayReviewCount": 55735,
+          "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.chordai&hl=en_US&gl=US",
+          "iosAppStoreId": "1446177109",
+          "iosRating": 4.646,
+          "iosRatingCount": 5865,
+          "iosSourceUrl": "https://apps.apple.com/us/app/chord-ai-play-any-song/id1446177109?uo=4",
+          "platform": "iOS / Android",
+          "player": "Chord ai",
+          "playerId": "chord-ai",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://play.google.com/store/apps/details?id=com.chordai&hl=en_US&gl=US",
+            "https://apps.apple.com/us/app/chord-ai-play-any-song/id1446177109?uo=4",
+            "https://play.google.com/store/apps/details?id=com.chordai&hl=en_US&gl=US"
+          ]
+        }
+      ],
+      "chordify": [
+        {
+          "appName": "Chordify",
+          "bestReachFloor": null,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Mapping pending",
+          "displayLabel": "Mapping pending",
+          "googlePlayInstallBand": "",
+          "googlePlayInstallFloor": null,
+          "googlePlayPackage": "",
+          "googlePlayRating": null,
+          "googlePlayReviewCount": null,
+          "googlePlaySourceUrl": "",
+          "iosAppStoreId": "",
+          "iosRating": null,
+          "iosRatingCount": null,
+          "iosSourceUrl": "",
+          "platform": "iOS / Android",
+          "player": "Chordify",
+          "playerId": "chordify",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://chordify.net/"
+          ]
+        }
+      ],
+      "fender-play": [
+        {
+          "appName": "Fender Play: Learn Guitar",
+          "bestReachFloor": 1000000,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Medium public proxy",
+          "displayLabel": "1M+",
+          "googlePlayInstallBand": "1M+",
+          "googlePlayInstallFloor": 1000000,
+          "googlePlayPackage": "com.fender.play",
+          "googlePlayRating": 4.460506916046143,
+          "googlePlayReviewCount": 13175,
+          "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.fender.play&hl=en_US&gl=US",
+          "iosAppStoreId": "1226057939",
+          "iosRating": 4.796,
+          "iosRatingCount": 60620,
+          "iosSourceUrl": "https://apps.apple.com/us/app/fender-play-learn-guitar/id1226057939?uo=4",
+          "platform": "iOS / Android",
+          "player": "Fender Play",
+          "playerId": "fender-play",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://play.google.com/store/apps/details?id=com.fender.play&hl=en_US&gl=US",
+            "https://apps.apple.com/us/app/fender-play-learn-guitar/id1226057939?uo=4",
+            "https://play.google.com/store/apps/details?id=com.fender.play&hl=en_US&gl=US"
+          ]
+        }
+      ],
+      "flowkey": [
+        {
+          "appName": "flowkey - Learn to Play Piano",
+          "bestReachFloor": 5000000,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Medium public proxy",
+          "displayLabel": "5M+",
+          "googlePlayInstallBand": "5M+",
+          "googlePlayInstallFloor": 5000000,
+          "googlePlayPackage": "com.flowkey.app",
+          "googlePlayRating": 4.553544521331787,
+          "googlePlayReviewCount": 44320,
+          "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.flowkey.app&hl=en_US&gl=US",
+          "iosAppStoreId": "1020357408",
+          "iosRating": 4.715,
+          "iosRatingCount": 63987,
+          "iosSourceUrl": "https://apps.apple.com/us/app/flowkey-learn-to-play-piano/id1020357408?uo=4",
+          "platform": "iOS / Android",
+          "player": "Flowkey",
+          "playerId": "flowkey",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://play.google.com/store/apps/details?id=com.flowkey.app&hl=en_US&gl=US",
+            "https://apps.apple.com/us/app/flowkey-learn-to-play-piano/id1020357408?uo=4",
+            "https://play.google.com/store/apps/details?id=com.flowkey.app&hl=en_US&gl=US"
+          ]
+        }
+      ],
+      "fretello": [
+        {
+          "appName": "Fretello Guitar Lessons",
+          "bestReachFloor": null,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Mapping pending",
+          "displayLabel": "Mapping pending",
+          "googlePlayInstallBand": "",
+          "googlePlayInstallFloor": null,
+          "googlePlayPackage": "",
+          "googlePlayRating": null,
+          "googlePlayReviewCount": null,
+          "googlePlaySourceUrl": "",
+          "iosAppStoreId": "",
+          "iosRating": null,
+          "iosRatingCount": null,
+          "iosSourceUrl": "",
+          "platform": "iOS / Android",
+          "player": "Fretello",
+          "playerId": "fretello",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://fretello.com/"
+          ]
+        }
+      ],
+      "gibson-app": [
+        {
+          "appName": "Gibson: Learn & Play Guitar",
+          "bestReachFloor": null,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Mapping pending",
+          "displayLabel": "Mapping pending",
+          "googlePlayInstallBand": "",
+          "googlePlayInstallFloor": null,
+          "googlePlayPackage": "",
+          "googlePlayRating": null,
+          "googlePlayReviewCount": null,
+          "googlePlaySourceUrl": "",
+          "iosAppStoreId": "",
+          "iosRating": null,
+          "iosRatingCount": null,
+          "iosSourceUrl": "",
+          "platform": "iOS / Android",
+          "player": "Gibson App",
+          "playerId": "gibson-app",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://www.gibson.app/"
+          ]
+        }
+      ],
+      "moises": [
+        {
+          "appName": "Moises: The Musician's App",
+          "bestReachFloor": 50000000,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Medium public proxy",
+          "displayLabel": "50M+",
+          "googlePlayInstallBand": "50M+",
+          "googlePlayInstallFloor": 50000000,
+          "googlePlayPackage": "ai.moises",
+          "googlePlayRating": 4.524171829223633,
+          "googlePlayReviewCount": 414452,
+          "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=ai.moises&hl=en_US&gl=US",
+          "iosAppStoreId": "1515796612",
+          "iosRating": 4.703,
+          "iosRatingCount": 26711,
+          "iosSourceUrl": "https://apps.apple.com/us/app/moises-the-musicians-app/id1515796612?uo=4",
+          "platform": "iOS / Android",
+          "player": "Moises",
+          "playerId": "moises",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://play.google.com/store/apps/details?id=ai.moises&hl=en_US&gl=US",
+            "https://apps.apple.com/us/app/moises-the-musicians-app/id1515796612?uo=4",
+            "https://play.google.com/store/apps/details?id=ai.moises&hl=en_US&gl=US"
+          ]
+        }
+      ],
+      "musescore": [
+        {
+          "appName": "MuseScore - Sheet Music & Chords",
+          "bestReachFloor": 10000000,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Medium public proxy",
+          "displayLabel": "10M+",
+          "googlePlayInstallBand": "10M+",
+          "googlePlayInstallFloor": 10000000,
+          "googlePlayPackage": "com.musescore.playerlite",
+          "googlePlayRating": 3.855445623397827,
+          "googlePlayReviewCount": 156727,
+          "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.musescore.playerlite&hl=en_US&gl=US",
+          "iosAppStoreId": "835731296",
+          "iosRating": 4.617,
+          "iosRatingCount": 75860,
+          "iosSourceUrl": "https://apps.apple.com/us/app/musescore-sheet-music-chords/id835731296?uo=4",
+          "platform": "iOS / Android",
+          "player": "MuseScore",
+          "playerId": "musescore",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://play.google.com/store/apps/details?id=com.musescore.playerlite&hl=en_US&gl=US",
+            "https://apps.apple.com/us/app/musescore-sheet-music-chords/id835731296?uo=4",
+            "https://play.google.com/store/apps/details?id=com.musescore.playerlite&hl=en_US&gl=US"
+          ]
+        }
+      ],
+      "musora": [
+        {
+          "appName": "Musora / Drumeo / Pianote apps",
+          "bestReachFloor": null,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Mapping pending",
+          "displayLabel": "Mapping pending",
+          "googlePlayInstallBand": "",
+          "googlePlayInstallFloor": null,
+          "googlePlayPackage": "",
+          "googlePlayRating": null,
+          "googlePlayReviewCount": null,
+          "googlePlaySourceUrl": "",
+          "iosAppStoreId": "",
+          "iosRating": null,
+          "iosRatingCount": null,
+          "iosSourceUrl": "",
+          "platform": "iOS / Android / Web",
+          "player": "Musora",
+          "playerId": "musora",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://www.musora.com/"
+          ]
+        }
+      ],
+      "rocksmith": [
+        {
+          "appName": "Rocksmith+",
+          "bestReachFloor": null,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Mapping pending",
+          "displayLabel": "Mapping pending",
+          "googlePlayInstallBand": "",
+          "googlePlayInstallFloor": null,
+          "googlePlayPackage": "",
+          "googlePlayRating": null,
+          "googlePlayReviewCount": null,
+          "googlePlaySourceUrl": "",
+          "iosAppStoreId": "",
+          "iosRating": null,
+          "iosRatingCount": null,
+          "iosSourceUrl": "",
+          "platform": "iOS / Android / Console / PC",
+          "player": "Rocksmith+",
+          "playerId": "rocksmith",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://www.ubisoft.com/en-us/game/rocksmith/plus"
+          ]
+        }
+      ],
+      "simply": [
+        {
+          "appName": "Simply Guitar - Learn Guitar",
+          "bestReachFloor": 10000000,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Medium public proxy",
+          "displayLabel": "10M+",
+          "googlePlayInstallBand": "10M+",
+          "googlePlayInstallFloor": 10000000,
+          "googlePlayPackage": "com.joytunes.simplyguitar",
+          "googlePlayRating": 4.60237979888916,
+          "googlePlayReviewCount": 361708,
+          "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.joytunes.simplyguitar&hl=en_US&gl=US",
+          "iosAppStoreId": "1476695335",
+          "iosRating": 4.72,
+          "iosRatingCount": 384687,
+          "iosSourceUrl": "https://apps.apple.com/us/app/simply-guitar-learn-guitar/id1476695335?uo=4",
+          "platform": "iOS / Android",
+          "player": "Simply",
+          "playerId": "simply",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://play.google.com/store/apps/details?id=com.joytunes.simplyguitar&hl=en_US&gl=US",
+            "https://apps.apple.com/us/app/simply-guitar-learn-guitar/id1476695335?uo=4",
+            "https://play.google.com/store/apps/details?id=com.joytunes.simplyguitar&hl=en_US&gl=US"
+          ]
+        },
+        {
+          "appName": "Simply Piano",
+          "bestReachFloor": 50000000,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Medium public proxy",
+          "displayLabel": "50M+",
+          "googlePlayInstallBand": "50M+",
+          "googlePlayInstallFloor": 50000000,
+          "googlePlayPackage": "com.joytunes.simplypiano",
+          "googlePlayRating": 4.635790824890137,
+          "googlePlayReviewCount": 970722,
+          "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.joytunes.simplypiano&hl=en_US&gl=US",
+          "iosAppStoreId": "1019442026",
+          "iosRating": 4.686,
+          "iosRatingCount": 828204,
+          "iosSourceUrl": "https://apps.apple.com/us/app/simply-piano-learn-piano-fast/id1019442026?uo=4",
+          "platform": "iOS / Android",
+          "player": "Simply",
+          "playerId": "simply",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://play.google.com/store/apps/details?id=com.joytunes.simplypiano&hl=en_US&gl=US",
+            "https://apps.apple.com/us/app/simply-piano-learn-piano-fast/id1019442026?uo=4",
+            "https://play.google.com/store/apps/details?id=com.joytunes.simplypiano&hl=en_US&gl=US"
+          ]
+        }
+      ],
+      "skoove": [
+        {
+          "appName": "Skoove: Learn Piano",
+          "bestReachFloor": 1000000,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Medium public proxy",
+          "displayLabel": "1M+",
+          "googlePlayInstallBand": "1M+",
+          "googlePlayInstallFloor": 1000000,
+          "googlePlayPackage": "com.skoove.piano",
+          "googlePlayRating": 4.524064064025879,
+          "googlePlayReviewCount": 11664,
+          "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.skoove.piano&hl=en_US&gl=US",
+          "iosAppStoreId": "1160668178",
+          "iosRating": 4.582,
+          "iosRatingCount": 21584,
+          "iosSourceUrl": "https://apps.apple.com/us/app/skoove-learn-to-play-piano/id1160668178?uo=4",
+          "platform": "iOS / Android",
+          "player": "Skoove",
+          "playerId": "skoove",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://play.google.com/store/apps/details?id=com.skoove.piano&hl=en_US&gl=US",
+            "https://apps.apple.com/us/app/skoove-learn-to-play-piano/id1160668178?uo=4",
+            "https://play.google.com/store/apps/details?id=com.skoove.piano&hl=en_US&gl=US"
+          ]
+        }
+      ],
+      "songsterr": [
+        {
+          "appName": "Songsterr Tabs & Chords",
+          "bestReachFloor": 5000000,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Medium public proxy",
+          "displayLabel": "5M+",
+          "googlePlayInstallBand": "5M+",
+          "googlePlayInstallFloor": 5000000,
+          "googlePlayPackage": "com.songsterr",
+          "googlePlayRating": 4.21645450592041,
+          "googlePlayReviewCount": 59597,
+          "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.songsterr&hl=en_US&gl=US",
+          "iosAppStoreId": "399211291",
+          "iosRating": 4.723,
+          "iosRatingCount": 42713,
+          "iosSourceUrl": "https://apps.apple.com/us/app/songsterr-tabs-chords/id399211291?uo=4",
+          "platform": "iOS / Android",
+          "player": "Songsterr",
+          "playerId": "songsterr",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://play.google.com/store/apps/details?id=com.songsterr&hl=en_US&gl=US",
+            "https://apps.apple.com/us/app/songsterr-tabs-chords/id399211291?uo=4",
+            "https://play.google.com/store/apps/details?id=com.songsterr&hl=en_US&gl=US"
+          ]
+        }
+      ],
+      "ultimate-guitar": [
+        {
+          "appName": "Ultimate Guitar: Chords & Tabs",
+          "bestReachFloor": 10000000,
+          "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+          "confidence": "Medium public proxy",
+          "displayLabel": "10M+",
+          "googlePlayInstallBand": "10M+",
+          "googlePlayInstallFloor": 10000000,
+          "googlePlayPackage": "com.ultimateguitar.tabs",
+          "googlePlayRating": 4.231459617614746,
+          "googlePlayReviewCount": 627828,
+          "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.ultimateguitar.tabs&hl=en_US&gl=US",
+          "iosAppStoreId": "357828853",
+          "iosRating": 4.739,
+          "iosRatingCount": 461587,
+          "iosSourceUrl": "https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853?uo=4",
+          "platform": "iOS / Android",
+          "player": "Ultimate Guitar",
+          "playerId": "ultimate-guitar",
+          "retrievedAt": "2026-06-23",
+          "reviewStatus": "Open - public proxy, needs human review before final report claim",
+          "sourceUrls": [
+            "https://play.google.com/store/apps/details?id=com.ultimateguitar.tabs&hl=en_US&gl=US",
+            "https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853?uo=4",
+            "https://play.google.com/store/apps/details?id=com.ultimateguitar.tabs&hl=en_US&gl=US"
+          ]
+        }
+      ]
+    },
+    "rows": [
+      {
+        "appName": "Simply Guitar - Learn Guitar",
+        "bestReachFloor": 10000000,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Medium public proxy",
+        "displayLabel": "10M+",
+        "googlePlayInstallBand": "10M+",
+        "googlePlayInstallFloor": 10000000,
+        "googlePlayPackage": "com.joytunes.simplyguitar",
+        "googlePlayRating": 4.60237979888916,
+        "googlePlayReviewCount": 361708,
+        "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.joytunes.simplyguitar&hl=en_US&gl=US",
+        "iosAppStoreId": "1476695335",
+        "iosRating": 4.72,
+        "iosRatingCount": 384687,
+        "iosSourceUrl": "https://apps.apple.com/us/app/simply-guitar-learn-guitar/id1476695335?uo=4",
+        "platform": "iOS / Android",
+        "player": "Simply",
+        "playerId": "simply",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://play.google.com/store/apps/details?id=com.joytunes.simplyguitar&hl=en_US&gl=US",
+          "https://apps.apple.com/us/app/simply-guitar-learn-guitar/id1476695335?uo=4",
+          "https://play.google.com/store/apps/details?id=com.joytunes.simplyguitar&hl=en_US&gl=US"
+        ]
+      },
+      {
+        "appName": "Simply Piano",
+        "bestReachFloor": 50000000,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Medium public proxy",
+        "displayLabel": "50M+",
+        "googlePlayInstallBand": "50M+",
+        "googlePlayInstallFloor": 50000000,
+        "googlePlayPackage": "com.joytunes.simplypiano",
+        "googlePlayRating": 4.635790824890137,
+        "googlePlayReviewCount": 970722,
+        "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.joytunes.simplypiano&hl=en_US&gl=US",
+        "iosAppStoreId": "1019442026",
+        "iosRating": 4.686,
+        "iosRatingCount": 828204,
+        "iosSourceUrl": "https://apps.apple.com/us/app/simply-piano-learn-piano-fast/id1019442026?uo=4",
+        "platform": "iOS / Android",
+        "player": "Simply",
+        "playerId": "simply",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://play.google.com/store/apps/details?id=com.joytunes.simplypiano&hl=en_US&gl=US",
+          "https://apps.apple.com/us/app/simply-piano-learn-piano-fast/id1019442026?uo=4",
+          "https://play.google.com/store/apps/details?id=com.joytunes.simplypiano&hl=en_US&gl=US"
+        ]
+      },
+      {
+        "appName": "flowkey - Learn to Play Piano",
+        "bestReachFloor": 5000000,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Medium public proxy",
+        "displayLabel": "5M+",
+        "googlePlayInstallBand": "5M+",
+        "googlePlayInstallFloor": 5000000,
+        "googlePlayPackage": "com.flowkey.app",
+        "googlePlayRating": 4.553544521331787,
+        "googlePlayReviewCount": 44320,
+        "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.flowkey.app&hl=en_US&gl=US",
+        "iosAppStoreId": "1020357408",
+        "iosRating": 4.715,
+        "iosRatingCount": 63987,
+        "iosSourceUrl": "https://apps.apple.com/us/app/flowkey-learn-to-play-piano/id1020357408?uo=4",
+        "platform": "iOS / Android",
+        "player": "Flowkey",
+        "playerId": "flowkey",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://play.google.com/store/apps/details?id=com.flowkey.app&hl=en_US&gl=US",
+          "https://apps.apple.com/us/app/flowkey-learn-to-play-piano/id1020357408?uo=4",
+          "https://play.google.com/store/apps/details?id=com.flowkey.app&hl=en_US&gl=US"
+        ]
+      },
+      {
+        "appName": "Skoove: Learn Piano",
+        "bestReachFloor": 1000000,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Medium public proxy",
+        "displayLabel": "1M+",
+        "googlePlayInstallBand": "1M+",
+        "googlePlayInstallFloor": 1000000,
+        "googlePlayPackage": "com.skoove.piano",
+        "googlePlayRating": 4.524064064025879,
+        "googlePlayReviewCount": 11664,
+        "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.skoove.piano&hl=en_US&gl=US",
+        "iosAppStoreId": "1160668178",
+        "iosRating": 4.582,
+        "iosRatingCount": 21584,
+        "iosSourceUrl": "https://apps.apple.com/us/app/skoove-learn-to-play-piano/id1160668178?uo=4",
+        "platform": "iOS / Android",
+        "player": "Skoove",
+        "playerId": "skoove",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://play.google.com/store/apps/details?id=com.skoove.piano&hl=en_US&gl=US",
+          "https://apps.apple.com/us/app/skoove-learn-to-play-piano/id1160668178?uo=4",
+          "https://play.google.com/store/apps/details?id=com.skoove.piano&hl=en_US&gl=US"
+        ]
+      },
+      {
+        "appName": "Fender Play: Learn Guitar",
+        "bestReachFloor": 1000000,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Medium public proxy",
+        "displayLabel": "1M+",
+        "googlePlayInstallBand": "1M+",
+        "googlePlayInstallFloor": 1000000,
+        "googlePlayPackage": "com.fender.play",
+        "googlePlayRating": 4.460506916046143,
+        "googlePlayReviewCount": 13175,
+        "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.fender.play&hl=en_US&gl=US",
+        "iosAppStoreId": "1226057939",
+        "iosRating": 4.796,
+        "iosRatingCount": 60620,
+        "iosSourceUrl": "https://apps.apple.com/us/app/fender-play-learn-guitar/id1226057939?uo=4",
+        "platform": "iOS / Android",
+        "player": "Fender Play",
+        "playerId": "fender-play",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://play.google.com/store/apps/details?id=com.fender.play&hl=en_US&gl=US",
+          "https://apps.apple.com/us/app/fender-play-learn-guitar/id1226057939?uo=4",
+          "https://play.google.com/store/apps/details?id=com.fender.play&hl=en_US&gl=US"
+        ]
+      },
+      {
+        "appName": "Gibson: Learn & Play Guitar",
+        "bestReachFloor": null,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Mapping pending",
+        "displayLabel": "Mapping pending",
+        "googlePlayInstallBand": "",
+        "googlePlayInstallFloor": null,
+        "googlePlayPackage": "",
+        "googlePlayRating": null,
+        "googlePlayReviewCount": null,
+        "googlePlaySourceUrl": "",
+        "iosAppStoreId": "",
+        "iosRating": null,
+        "iosRatingCount": null,
+        "iosSourceUrl": "",
+        "platform": "iOS / Android",
+        "player": "Gibson App",
+        "playerId": "gibson-app",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://www.gibson.app/"
+        ]
+      },
+      {
+        "appName": "Moises: The Musician's App",
+        "bestReachFloor": 50000000,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Medium public proxy",
+        "displayLabel": "50M+",
+        "googlePlayInstallBand": "50M+",
+        "googlePlayInstallFloor": 50000000,
+        "googlePlayPackage": "ai.moises",
+        "googlePlayRating": 4.524171829223633,
+        "googlePlayReviewCount": 414452,
+        "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=ai.moises&hl=en_US&gl=US",
+        "iosAppStoreId": "1515796612",
+        "iosRating": 4.703,
+        "iosRatingCount": 26711,
+        "iosSourceUrl": "https://apps.apple.com/us/app/moises-the-musicians-app/id1515796612?uo=4",
+        "platform": "iOS / Android",
+        "player": "Moises",
+        "playerId": "moises",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://play.google.com/store/apps/details?id=ai.moises&hl=en_US&gl=US",
+          "https://apps.apple.com/us/app/moises-the-musicians-app/id1515796612?uo=4",
+          "https://play.google.com/store/apps/details?id=ai.moises&hl=en_US&gl=US"
+        ]
+      },
+      {
+        "appName": "Ultimate Guitar: Chords & Tabs",
+        "bestReachFloor": 10000000,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Medium public proxy",
+        "displayLabel": "10M+",
+        "googlePlayInstallBand": "10M+",
+        "googlePlayInstallFloor": 10000000,
+        "googlePlayPackage": "com.ultimateguitar.tabs",
+        "googlePlayRating": 4.231459617614746,
+        "googlePlayReviewCount": 627828,
+        "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.ultimateguitar.tabs&hl=en_US&gl=US",
+        "iosAppStoreId": "357828853",
+        "iosRating": 4.739,
+        "iosRatingCount": 461587,
+        "iosSourceUrl": "https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853?uo=4",
+        "platform": "iOS / Android",
+        "player": "Ultimate Guitar",
+        "playerId": "ultimate-guitar",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://play.google.com/store/apps/details?id=com.ultimateguitar.tabs&hl=en_US&gl=US",
+          "https://apps.apple.com/us/app/ultimate-guitar-chords-tabs/id357828853?uo=4",
+          "https://play.google.com/store/apps/details?id=com.ultimateguitar.tabs&hl=en_US&gl=US"
+        ]
+      },
+      {
+        "appName": "MuseScore - Sheet Music & Chords",
+        "bestReachFloor": 10000000,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Medium public proxy",
+        "displayLabel": "10M+",
+        "googlePlayInstallBand": "10M+",
+        "googlePlayInstallFloor": 10000000,
+        "googlePlayPackage": "com.musescore.playerlite",
+        "googlePlayRating": 3.855445623397827,
+        "googlePlayReviewCount": 156727,
+        "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.musescore.playerlite&hl=en_US&gl=US",
+        "iosAppStoreId": "835731296",
+        "iosRating": 4.617,
+        "iosRatingCount": 75860,
+        "iosSourceUrl": "https://apps.apple.com/us/app/musescore-sheet-music-chords/id835731296?uo=4",
+        "platform": "iOS / Android",
+        "player": "MuseScore",
+        "playerId": "musescore",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://play.google.com/store/apps/details?id=com.musescore.playerlite&hl=en_US&gl=US",
+          "https://apps.apple.com/us/app/musescore-sheet-music-chords/id835731296?uo=4",
+          "https://play.google.com/store/apps/details?id=com.musescore.playerlite&hl=en_US&gl=US"
+        ]
+      },
+      {
+        "appName": "Songsterr Tabs & Chords",
+        "bestReachFloor": 5000000,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Medium public proxy",
+        "displayLabel": "5M+",
+        "googlePlayInstallBand": "5M+",
+        "googlePlayInstallFloor": 5000000,
+        "googlePlayPackage": "com.songsterr",
+        "googlePlayRating": 4.21645450592041,
+        "googlePlayReviewCount": 59597,
+        "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.songsterr&hl=en_US&gl=US",
+        "iosAppStoreId": "399211291",
+        "iosRating": 4.723,
+        "iosRatingCount": 42713,
+        "iosSourceUrl": "https://apps.apple.com/us/app/songsterr-tabs-chords/id399211291?uo=4",
+        "platform": "iOS / Android",
+        "player": "Songsterr",
+        "playerId": "songsterr",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://play.google.com/store/apps/details?id=com.songsterr&hl=en_US&gl=US",
+          "https://apps.apple.com/us/app/songsterr-tabs-chords/id399211291?uo=4",
+          "https://play.google.com/store/apps/details?id=com.songsterr&hl=en_US&gl=US"
+        ]
+      },
+      {
+        "appName": "Chordify",
+        "bestReachFloor": null,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Mapping pending",
+        "displayLabel": "Mapping pending",
+        "googlePlayInstallBand": "",
+        "googlePlayInstallFloor": null,
+        "googlePlayPackage": "",
+        "googlePlayRating": null,
+        "googlePlayReviewCount": null,
+        "googlePlaySourceUrl": "",
+        "iosAppStoreId": "",
+        "iosRating": null,
+        "iosRatingCount": null,
+        "iosSourceUrl": "",
+        "platform": "iOS / Android",
+        "player": "Chordify",
+        "playerId": "chordify",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://chordify.net/"
+        ]
+      },
+      {
+        "appName": "Chord ai",
+        "bestReachFloor": 1000000,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Medium public proxy",
+        "displayLabel": "1M+",
+        "googlePlayInstallBand": "1M+",
+        "googlePlayInstallFloor": 1000000,
+        "googlePlayPackage": "com.chordai",
+        "googlePlayRating": 4.6891889572143555,
+        "googlePlayReviewCount": 55735,
+        "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.chordai&hl=en_US&gl=US",
+        "iosAppStoreId": "1446177109",
+        "iosRating": 4.646,
+        "iosRatingCount": 5865,
+        "iosSourceUrl": "https://apps.apple.com/us/app/chord-ai-play-any-song/id1446177109?uo=4",
+        "platform": "iOS / Android",
+        "player": "Chord ai",
+        "playerId": "chord-ai",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://play.google.com/store/apps/details?id=com.chordai&hl=en_US&gl=US",
+          "https://apps.apple.com/us/app/chord-ai-play-any-song/id1446177109?uo=4",
+          "https://play.google.com/store/apps/details?id=com.chordai&hl=en_US&gl=US"
+        ]
+      },
+      {
+        "appName": "Rocksmith+",
+        "bestReachFloor": null,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Mapping pending",
+        "displayLabel": "Mapping pending",
+        "googlePlayInstallBand": "",
+        "googlePlayInstallFloor": null,
+        "googlePlayPackage": "",
+        "googlePlayRating": null,
+        "googlePlayReviewCount": null,
+        "googlePlaySourceUrl": "",
+        "iosAppStoreId": "",
+        "iosRating": null,
+        "iosRatingCount": null,
+        "iosSourceUrl": "",
+        "platform": "iOS / Android / Console / PC",
+        "player": "Rocksmith+",
+        "playerId": "rocksmith",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://www.ubisoft.com/en-us/game/rocksmith/plus"
+        ]
+      },
+      {
+        "appName": "Fretello Guitar Lessons",
+        "bestReachFloor": null,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Mapping pending",
+        "displayLabel": "Mapping pending",
+        "googlePlayInstallBand": "",
+        "googlePlayInstallFloor": null,
+        "googlePlayPackage": "",
+        "googlePlayRating": null,
+        "googlePlayReviewCount": null,
+        "googlePlaySourceUrl": "",
+        "iosAppStoreId": "",
+        "iosRating": null,
+        "iosRatingCount": null,
+        "iosSourceUrl": "",
+        "platform": "iOS / Android",
+        "player": "Fretello",
+        "playerId": "fretello",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://fretello.com/"
+        ]
+      },
+      {
+        "appName": "Musora / Drumeo / Pianote apps",
+        "bestReachFloor": null,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Mapping pending",
+        "displayLabel": "Mapping pending",
+        "googlePlayInstallBand": "",
+        "googlePlayInstallFloor": null,
+        "googlePlayPackage": "",
+        "googlePlayRating": null,
+        "googlePlayReviewCount": null,
+        "googlePlaySourceUrl": "",
+        "iosAppStoreId": "",
+        "iosRating": null,
+        "iosRatingCount": null,
+        "iosSourceUrl": "",
+        "platform": "iOS / Android / Web",
+        "player": "Musora",
+        "playerId": "musora",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://www.musora.com/"
+        ]
+      },
+      {
+        "appName": "BandLab Music Maker & Beats",
+        "bestReachFloor": 100000000,
+        "caveat": "Google Play install bands and public store ratings are reach/sentiment proxies only. They are not Appfigures downloads, revenue, rank trend, retention, active usage or country mix.",
+        "confidence": "Medium public proxy",
+        "displayLabel": "100M+",
+        "googlePlayInstallBand": "100M+",
+        "googlePlayInstallFloor": 100000000,
+        "googlePlayPackage": "com.bandlab.bandlab",
+        "googlePlayRating": 4.522841453552246,
+        "googlePlayReviewCount": 813586,
+        "googlePlaySourceUrl": "https://play.google.com/store/apps/details?id=com.bandlab.bandlab&hl=en_US&gl=US",
+        "iosAppStoreId": "968585775",
+        "iosRating": 4.752,
+        "iosRatingCount": 487575,
+        "iosSourceUrl": "https://apps.apple.com/us/app/bandlab-music-maker-beats/id968585775?uo=4",
+        "platform": "iOS / Android",
+        "player": "BandLab",
+        "playerId": "bandlab",
+        "retrievedAt": "2026-06-23",
+        "reviewStatus": "Open - public proxy, needs human review before final report claim",
+        "sourceUrls": [
+          "https://play.google.com/store/apps/details?id=com.bandlab.bandlab&hl=en_US&gl=US",
+          "https://apps.apple.com/us/app/bandlab-music-maker-beats/id968585775?uo=4",
+          "https://play.google.com/store/apps/details?id=com.bandlab.bandlab&hl=en_US&gl=US"
+        ]
+      }
+    ],
+    "status": {
+      "caveat": "Public proxies only. Do not treat as Appfigures downloads, revenue, rank trend, retention, active users or country mix.",
+      "googlePlayInstallBands": 11,
+      "iosRatingRows": 11,
+      "label": "Free public app-market snapshot",
+      "lastUpdated": "2026-06-23",
+      "rows": 16,
+      "source": "Apple iTunes Lookup API and Google Play public listing pages",
+      "usableRows": 11
     }
   },
   "status": {
