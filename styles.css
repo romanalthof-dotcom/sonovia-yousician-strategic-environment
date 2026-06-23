@@ -22144,6 +22144,25 @@ body[data-view="overview"] .brand-mark {
   box-shadow: inset 0 0 0 5px #fff, 0 10px 22px rgba(8, 123, 93, 0.16);
 }
 
+button.brand-mark,
+body[data-view="overview"] button.brand-mark {
+  appearance: none;
+  padding: 0;
+  border: 1px solid rgba(0, 159, 114, 0.14);
+  cursor: pointer;
+}
+
+button.brand-mark:hover,
+button.brand-mark:focus-visible,
+body[data-view="overview"] button.brand-mark:hover,
+body[data-view="overview"] button.brand-mark:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 0 0 5px #fff,
+    0 0 0 4px rgba(0, 210, 146, 0.16),
+    0 12px 24px rgba(8, 123, 93, 0.2);
+}
+
 .brand-mark::before,
 body[data-view="overview"] .brand-mark::before {
   content: "";

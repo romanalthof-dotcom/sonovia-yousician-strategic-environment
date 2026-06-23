@@ -4757,6 +4757,7 @@ const els = {
   categoryFilters: document.getElementById("categoryFilters"),
   priorityRange: document.getElementById("priorityRange"),
   priorityValue: document.getElementById("priorityValue"),
+  topVolosLink: document.getElementById("topVolosLink"),
   searchInput: document.getElementById("searchInput"),
   activeFilterStrip: document.getElementById("activeFilterStrip"),
   clearFilters: document.getElementById("clearFilters"),
@@ -11596,24 +11597,24 @@ function renderMap() {
   hub.appendChild(createSvg("circle", { cx: center.x, cy: center.y, r: 62, class: "hub-hit" }));
   const yousicianLookerLink = createSvg("g", {
     class: "hub-yousician-link",
-    "aria-label": "Open Volos page",
+    "aria-label": "Open Yousician Looker board",
     tabindex: "0",
     role: "link"
   });
   const yousicianLookerTitle = createSvg("title");
-  yousicianLookerTitle.textContent = "Open Volos page";
+  yousicianLookerTitle.textContent = "Open Yousician Looker board";
   yousicianLookerLink.appendChild(yousicianLookerTitle);
   yousicianLookerLink.appendChild(createSvg("circle", { cx: center.x, cy: center.y - 17, r: 25, class: "hub-yousician-hit" }));
   yousicianLookerLink.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();
-    openVolosSideQuest();
+    openYousicianLookerBoard();
   });
   yousicianLookerLink.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       event.stopPropagation();
-      openVolosSideQuest();
+      openYousicianLookerBoard();
     }
   });
   hub.appendChild(yousicianLookerLink);
@@ -21448,6 +21449,10 @@ async function loadPublicEnrichment() {
 }
 
 function bindEvents() {
+  els.topVolosLink?.addEventListener("click", () => {
+    openVolosSideQuest();
+  });
+
   els.priorityRange.addEventListener("input", (event) => {
     state.minRelevance = Number(event.target.value);
     markMapFilterChanged();
