@@ -13413,11 +13413,37 @@ function publicAppMarketRankedRows(filteredPlayers) {
     .sort((a, b) => Number(b.bestReachFloor || 0) - Number(a.bestReachFloor || 0) || String(a.player).localeCompare(String(b.player)));
 }
 
+function publicAppMarketAppLabel(row) {
+  const appName = String(row.appName || "").replace(/\s+/g, " ").trim();
+  const playerName = String(row.playerRecord?.name || row.player || "").replace(/\s+/g, " ").trim();
+  if (!appName) return "Public app signal";
+  const normalizedApp = comparableMetricName(appName);
+  const normalizedPlayer = comparableMetricName(playerName);
+  if (normalizedApp === normalizedPlayer) return "Primary app";
+  const stripped = appName
+    .replace(new RegExp(`^${playerName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*[:–—-]?\\s*`, "i"), "")
+    .trim();
+  return stripped || appName;
+}
+
+function publicAppMarketRatingLabel(row) {
+  const rating = row.googlePlayRating || row.iosRating;
+  return rating ? `${Number(rating).toFixed(1)}/5` : "rating n/a";
+}
+
+function publicAppMarketVolumeLabel(row) {
+  if (row.googlePlayReviewCount) return `${compactMetricNumber(Number(row.googlePlayReviewCount))} GP reviews`;
+  if (row.iosRatingCount) return `${compactMetricNumber(Number(row.iosRatingCount))} iOS ratings`;
+  return "reviews pending";
+}
+
 function renderPublicAppMarketSnapshot(filteredPlayers) {
   const status = publicEnrichmentContext.publicAppMarketSignals?.status || publicEnrichmentFallback.publicAppMarketSignals.status;
   const rows = publicAppMarketRankedRows(filteredPlayers);
   if (!rows.length) return "";
-  const topRows = rows.slice(0, 8);
+  const topRows = rows.slice(0, 16);
+  const leaderRows = topRows.slice(0, 4);
+  const comparisonRows = topRows.slice(4);
   const installRows = rows.filter((row) => row.googlePlayInstallBand);
   const iosRows = rows.filter((row) => Number(row.iosRatingCount || 0) > 0);
   const missingRows = publicAppMarketRows().filter((row) => !Number(row.bestReachFloor || 0));
@@ -13437,40 +13463,67 @@ function renderPublicAppMarketSnapshot(filteredPlayers) {
         <article><span>iOS rating rows</span><strong>${iosRows.length}</strong><small>sentiment / review volume</small></article>
         <article><span>Mappings pending</span><strong>${missingRows.length}</strong><small>needs store/package validation</small></article>
       </div>
-      <div class="public-app-market-list">
-        ${topRows
+      <div class="public-app-market-leaders">
+        ${leaderRows
           .map((row) => {
             const player = row.playerRecord;
             const reach = Number(row.bestReachFloor || 0);
             const width = Math.max(8, Math.round((reach / maxReach) * 100));
-            const rating = row.googlePlayRating || row.iosRating;
             const primaryUrl = row.googlePlaySourceUrl || row.iosSourceUrl || row.sourceUrls?.[0] || "";
             return `
-              <article style="--app-row-color:${colorFor(player)}; --app-row-width:${width}">
-                <div class="public-app-market-player">
-                  ${playerMiniButton(player, "data-monitor-player", 18)}
-                  <div>
-                    <strong>${escapeHtml(row.player || player.name)}</strong>
-                    <small>${escapeHtml(compactName(row.appName || "Public app", 34))}</small>
-                  </div>
+              <article class="public-app-market-leader" style="--app-row-color:${colorFor(player)}; --app-row-width:${width}">
+                <div class="public-app-market-leader-head">
+                  <button type="button" data-monitor-player="${escapeHtml(player.id)}" title="${escapeHtml(player.name)}">
+                    ${logoMarkHtml(player, "company-inline-logo public-app-market-logo", { size: 44 })}
+                  </button>
+                  ${primaryUrl ? `<a href="${escapeHtml(primaryUrl)}" target="_blank" rel="noopener noreferrer">Source</a>` : `<span>Source pending</span>`}
                 </div>
-                <div class="public-app-market-scale">
+                <strong>${escapeHtml(player.name)}</strong>
+                <small>${escapeHtml(compactName(publicAppMarketAppLabel(row), 42))}</small>
+                <div class="public-app-market-scale" aria-label="${escapeHtml(player.name)} public reach">
                   <span><i></i></span>
                   <strong>${escapeHtml(row.googlePlayInstallBand ? `${row.googlePlayInstallBand} GP installs` : compactMetricNumber(Number(row.bestReachFloor || 0)))}</strong>
                 </div>
                 <div class="public-app-market-metrics">
-                  <span>${rating ? `${Number(rating).toFixed(1)}/5 rating` : "rating pending"}</span>
-                  <span>${row.googlePlayReviewCount ? `${compactMetricNumber(Number(row.googlePlayReviewCount))} GP reviews` : row.iosRatingCount ? `${compactMetricNumber(Number(row.iosRatingCount))} iOS ratings` : "reviews pending"}</span>
+                  <span>${escapeHtml(publicAppMarketRatingLabel(row))} rating</span>
+                  <span>${escapeHtml(publicAppMarketVolumeLabel(row))}</span>
                 </div>
-                <footer>
-                  <small>Proxy only / ${escapeHtml(row.retrievedAt || status.lastUpdated || "")}</small>
-                  ${primaryUrl ? `<a href="${escapeHtml(primaryUrl)}" target="_blank" rel="noopener noreferrer">Source</a>` : `<span>Source pending</span>`}
-                </footer>
               </article>
             `;
           })
           .join("")}
       </div>
+      <div class="public-app-market-list" aria-label="Additional public app-market comparisons">
+        ${comparisonRows
+          .map((row) => {
+            const player = row.playerRecord;
+            const reach = Number(row.bestReachFloor || 0);
+            const width = Math.max(8, Math.round((reach / maxReach) * 100));
+            return `
+              <article style="--app-row-color:${colorFor(player)}; --app-row-width:${width}">
+                <div class="public-app-market-player">
+                  <button type="button" data-monitor-player="${escapeHtml(player.id)}" title="${escapeHtml(player.name)}">
+                    ${logoMarkHtml(player, "company-inline-logo public-app-market-logo", { size: 34 })}
+                  </button>
+                  <div>
+                    <strong>${escapeHtml(player.name)}</strong>
+                    <small>${escapeHtml(compactName(publicAppMarketAppLabel(row), 34))}</small>
+                  </div>
+                </div>
+                <div class="public-app-market-scale">
+                  <span><i></i></span>
+                  <strong>${escapeHtml(row.googlePlayInstallBand || compactMetricNumber(Number(row.bestReachFloor || 0)))}</strong>
+                </div>
+                <div class="public-app-market-metrics">
+                  <span>${escapeHtml(publicAppMarketRatingLabel(row))}</span>
+                  <span>${escapeHtml(publicAppMarketVolumeLabel(row))}</span>
+                </div>
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+      <p class="public-app-market-caveat">Proxy only / ${escapeHtml(status.lastUpdated || "")}. Use this for market orientation, not as downloads, revenue, retention or country mix.</p>
     </section>
   `;
 }
@@ -15361,9 +15414,9 @@ function renderMonitorModeBody(filteredPlayers, keyPlayers, kpis, lanes) {
   const mode = activeMonitorViewMode();
   if (mode.id === "focus") {
     return `
+      ${renderPublicAppMarketSnapshot(filteredPlayers)}
       ${renderMonitorComparisonCockpit(filteredPlayers, keyPlayers)}
       ${renderMonitorFocusedPlayerPanel(filteredPlayers)}
-      ${renderPublicAppMarketSnapshot(filteredPlayers)}
       ${renderMonitorInsightInspector(filteredPlayers)}
       ${renderMonitorExecutiveBrief(filteredPlayers)}
     `;
