@@ -1,5 +1,5 @@
 validated_area,status,detail,last_checked_date,source_url
-Source review queue,Completed,6 source-change items reviewed and resolved.,2026-06-13,handoff/review_queue_v3.csv
-Business Finland funding,Updated,Funding tracker now includes the 2026 Sprint/Tempo context and open service framing.,2026-06-13,https://www.businessfinland.fi/en/whats-new/news/2026/what-do-business-finlands-funding-services-look-like-at-the-beginning-of-2026/
-TikTok Music market move,Confirmed,The board-timeline event remains supported; no report change required beyond queue closure.,2026-06-13,https://www.businessinsider.com/tiktok-abandoning-plan-to-challenge-spotify-apple-in-music-streaming-2024-9
-Remaining blockers,Classified,"Credentialed Appfigures, internal relationships, paid private-company validation, platform reach exports, traffic exports and user-research linkage remain explicitly assigned.",2026-06-13,handoff/remaining_data_gaps_v3.csv
+Source review queue,Completed,10 source-change items reviewed and resolved.,2026-06-22,handoff/review_queue_v3.csv
+Business Finland funding,Updated,Funding tracker now includes the 2026 Sprint/Tempo context and open service framing.,2026-06-22,https://www.businessfinland.fi/en/whats-new/news/2026/what-do-business-finlands-funding-services-look-like-at-the-beginning-of-2026/
+TikTok Music market move,Confirmed,The board-timeline event remains supported; no report change required beyond queue closure.,2026-06-22,https://www.businessinsider.com/tiktok-abandoning-plan-to-challenge-spotify-apple-in-music-streaming-2024-9
+Remaining blockers,Classified,"Credentialed Appfigures, internal relationships, paid private-company validation, platform reach exports, traffic exports and user-research linkage remain explicitly assigned.",2026-06-22,handoff/remaining_data_gaps_v3.csv

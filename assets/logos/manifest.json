@@ -1,0 +1,1022 @@
+{
+  "logos": {
+    "a16z-consumer": {
+      "path": "./assets/logos/a16z-consumer.png",
+      "domain": "a16z.com",
+      "source": "https://www.google.com/s2/favicons?domain=a16z.com&sz=256",
+      "bytes": 5319,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:50.622Z"
+    },
+    "ableton": {
+      "path": "./assets/logos/ableton.png",
+      "domain": "ableton.com",
+      "source": "https://www.google.com/s2/favicons?domain=ableton.com&sz=256",
+      "bytes": 836,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:50.893Z"
+    },
+    "abrsm": {
+      "path": "./assets/logos/abrsm.png",
+      "domain": "abrsm.org",
+      "source": "https://www.google.com/s2/favicons?domain=abrsm.org&sz=256",
+      "bytes": 7177,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:51.044Z"
+    },
+    "accel": {
+      "path": "./assets/logos/accel.png",
+      "domain": "accel.com",
+      "source": "https://www.google.com/s2/favicons?domain=accel.com&sz=256",
+      "bytes": 867,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:51.460Z"
+    },
+    "aiva": {
+      "path": "./assets/logos/aiva.png",
+      "domain": "aiva.ai",
+      "source": "https://www.google.com/s2/favicons?domain=aiva.ai&sz=256",
+      "bytes": 4534,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:51.544Z"
+    },
+    "apple-design-awards": {
+      "path": "./assets/logos/apple-design-awards.png",
+      "domain": "developer.apple.com",
+      "source": "https://www.google.com/s2/favicons?domain=developer.apple.com&sz=256",
+      "bytes": 2034,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:51.627Z"
+    },
+    "apple-garageband": {
+      "path": "./assets/logos/apple-garageband.png",
+      "domain": "is1-ssl.mzstatic.com",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/07/b3/a4/07b3a4b9-5372-25d8-78be-b89ea37c9cc9/AppIcon-0-1x_U007epad-0-0-0-1-0-0-sRGB-85-220-0.png/512x512bb.png",
+      "bytes": 159759,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:51.978Z"
+    },
+    "artie-piano": {
+      "path": "./assets/logos/artie-piano.png",
+      "domain": "artmaster.com",
+      "source": "https://www.google.com/s2/favicons?domain=artmaster.com&sz=256",
+      "bytes": 7949,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:52.096Z"
+    },
+    "artistworks": {
+      "path": "./assets/logos/artistworks.png",
+      "domain": "artistworks.com",
+      "source": "https://www.google.com/s2/favicons?domain=artistworks.com&sz=256",
+      "bytes": 2925,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:52.303Z"
+    },
+    "audacity": {
+      "path": "./assets/logos/audacity.png",
+      "domain": "audacityteam.org",
+      "source": "https://www.google.com/s2/favicons?domain=audacityteam.org&sz=256",
+      "bytes": 12824,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:52.465Z"
+    },
+    "bandcamp": {
+      "path": "./assets/logos/bandcamp.png",
+      "domain": "bandcamp.com",
+      "source": "https://www.google.com/s2/favicons?domain=bandcamp.com&sz=256",
+      "bytes": 748,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:52.544Z"
+    },
+    "bandlab": {
+      "path": "./assets/logos/bandlab.png",
+      "domain": "bandlab.com",
+      "source": "https://www.google.com/s2/favicons?domain=bandlab.com&sz=256",
+      "bytes": 1534,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:52.627Z"
+    },
+    "beatstars": {
+      "path": "./assets/logos/beatstars.png",
+      "domain": "beatstars.com",
+      "source": "https://www.google.com/s2/favicons?domain=beatstars.com&sz=256",
+      "bytes": 1379,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:52.721Z"
+    },
+    "berklee-online": {
+      "path": "./assets/logos/berklee-online.png",
+      "domain": "online.berklee.edu",
+      "source": "https://www.google.com/s2/favicons?domain=online.berklee.edu&sz=256",
+      "bytes": 8982,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:52.823Z"
+    },
+    "bett-awards": {
+      "path": "./assets/logos/bett-awards.png",
+      "domain": "uk.bettshow.com",
+      "source": "https://www.google.com/s2/favicons?domain=uk.bettshow.com&sz=256",
+      "bytes": 1982,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:52.985Z"
+    },
+    "boss": {
+      "path": "./assets/logos/boss.png",
+      "domain": "roland.com",
+      "source": "https://www.google.com/s2/favicons?domain=roland.com&sz=256",
+      "bytes": 4372,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:53.089Z"
+    },
+    "brilliant": {
+      "path": "./assets/logos/brilliant.png",
+      "domain": "brilliant.org",
+      "source": "https://www.google.com/s2/favicons?domain=brilliant.org&sz=256",
+      "bytes": 4501,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:53.170Z"
+    },
+    "chartmetric": {
+      "path": "./assets/logos/chartmetric.png",
+      "domain": "chartmetric.com",
+      "source": "https://www.google.com/s2/favicons?domain=chartmetric.com&sz=256",
+      "bytes": 7694,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:53.275Z"
+    },
+    "chord-ai": {
+      "path": "./assets/logos/chord-ai.png",
+      "domain": "chordai.net",
+      "source": "https://www.google.com/s2/favicons?domain=chordai.net&sz=256",
+      "bytes": 4386,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:53.351Z"
+    },
+    "chordify": {
+      "path": "./assets/logos/chordify.png",
+      "domain": "chordify.net",
+      "source": "https://www.google.com/s2/favicons?domain=chordify.net&sz=256",
+      "bytes": 4980,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:53.540Z"
+    },
+    "cifra-club": {
+      "path": "./assets/logos/cifra-club.png",
+      "domain": "cifraclub.com.br",
+      "source": "https://www.google.com/s2/favicons?domain=cifraclub.com.br&sz=256",
+      "bytes": 23649,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:53.625Z"
+    },
+    "coach-guitar": {
+      "path": "./assets/logos/coach-guitar.png",
+      "domain": "coachguitar.com",
+      "source": "https://www.google.com/s2/favicons?domain=coachguitar.com&sz=256",
+      "bytes": 13378,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:53.917Z"
+    },
+    "creative-europe": {
+      "path": "./assets/logos/creative-europe.png",
+      "domain": "commission.europa.eu",
+      "source": "https://www.google.com/s2/favicons?domain=commission.europa.eu&sz=256",
+      "bytes": 6371,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:54.088Z"
+    },
+    "disney": {
+      "path": "./assets/logos/disney.png",
+      "domain": "disney.com",
+      "source": "https://www.google.com/s2/favicons?domain=disney.com&sz=256",
+      "bytes": 2981,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:54.164Z"
+    },
+    "distrokid": {
+      "path": "./assets/logos/distrokid.png",
+      "domain": "distrokid.com",
+      "source": "https://www.google.com/s2/favicons?domain=distrokid.com&sz=256",
+      "bytes": 24205,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:54.257Z"
+    },
+    "donner": {
+      "path": "./assets/logos/donner.png",
+      "domain": "us.donnermusic.com",
+      "source": "https://www.google.com/s2/favicons?domain=us.donnermusic.com&sz=256",
+      "bytes": 799,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:54.599Z"
+    },
+    "duolingo": {
+      "path": "./assets/logos/duolingo.png",
+      "domain": "duolingo.com",
+      "source": "https://www.google.com/s2/favicons?domain=duolingo.com&sz=256",
+      "bytes": 11210,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:54.685Z"
+    },
+    "eic-accelerator": {
+      "path": "./assets/logos/eic-accelerator.png",
+      "domain": "eic.ec.europa.eu",
+      "source": "https://www.google.com/s2/favicons?domain=eic.ec.europa.eu&sz=256",
+      "bytes": 6371,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:54.772Z"
+    },
+    "eit-culture-creativity": {
+      "path": "./assets/logos/eit-culture-creativity.png",
+      "domain": "eit-culture-creativity.eu",
+      "source": "https://www.google.com/s2/favicons?domain=eit-culture-creativity.eu&sz=256",
+      "bytes": 3835,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:54.874Z"
+    },
+    "elevenlabs-music": {
+      "path": "./assets/logos/elevenlabs-music.png",
+      "domain": "elevenlabs.io",
+      "source": "https://www.google.com/s2/favicons?domain=elevenlabs.io&sz=256",
+      "bytes": 727,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:54.951Z"
+    },
+    "epic-games": {
+      "path": "./assets/logos/epic-games.png",
+      "domain": "epicgames.com",
+      "source": "https://www.google.com/s2/favicons?domain=epicgames.com&sz=256",
+      "bytes": 2656,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:55.128Z"
+    },
+    "fender": {
+      "path": "./assets/logos/fender.png",
+      "domain": "fender.com",
+      "source": "https://www.google.com/s2/favicons?domain=fender.com&sz=256",
+      "bytes": 2199,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:55.211Z"
+    },
+    "fender-play": {
+      "path": "./assets/logos/fender-play.png",
+      "domain": "is1-ssl.mzstatic.com",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5f/d2/9b/5fd29b8d-5f4f-29c1-50ee-601a291e2f06/AppIcon-0-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.png",
+      "bytes": 356289,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:55.349Z"
+    },
+    "fl-studio": {
+      "path": "./assets/logos/fl-studio.png",
+      "domain": "image-line.com",
+      "source": "https://www.google.com/s2/favicons?domain=image-line.com&sz=256",
+      "bytes": 3703,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:55.423Z"
+    },
+    "flat-io": {
+      "path": "./assets/logos/flat-io.png",
+      "domain": "flat.io",
+      "source": "https://www.google.com/s2/favicons?domain=flat.io&sz=256",
+      "bytes": 9802,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:55.510Z"
+    },
+    "flow-music": {
+      "path": "./assets/logos/flow-music.png",
+      "domain": "flowmusic.app",
+      "source": "https://www.google.com/s2/favicons?domain=flowmusic.app&sz=256",
+      "bytes": 22131,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:55.666Z"
+    },
+    "flowkey": {
+      "path": "./assets/logos/flowkey.png",
+      "domain": "flowkey.com",
+      "source": "https://www.google.com/s2/favicons?domain=flowkey.com&sz=256",
+      "bytes": 6317,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:55.930Z"
+    },
+    "fretello": {
+      "path": "./assets/logos/fretello.png",
+      "domain": "fretello.com",
+      "source": "https://www.google.com/s2/favicons?domain=fretello.com&sz=256",
+      "bytes": 21635,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:56.020Z"
+    },
+    "gear4music": {
+      "path": "./assets/logos/gear4music.png",
+      "domain": "gear4music.com",
+      "source": "https://www.google.com/s2/favicons?domain=gear4music.com&sz=256",
+      "bytes": 2601,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:56.194Z"
+    },
+    "general-catalyst": {
+      "path": "./assets/logos/general-catalyst.png",
+      "domain": "generalcatalyst.com",
+      "source": "https://www.google.com/s2/favicons?domain=generalcatalyst.com&sz=256",
+      "bytes": 9507,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:56.277Z"
+    },
+    "gibson": {
+      "path": "./assets/logos/gibson.png",
+      "domain": "gibson.com",
+      "source": "https://www.google.com/s2/favicons?domain=gibson.com&sz=256",
+      "bytes": 639,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:56.356Z"
+    },
+    "gibson-app": {
+      "path": "./assets/logos/gibson-app.png",
+      "domain": "gibson.app",
+      "source": "https://www.google.com/s2/favicons?domain=gibson.app&sz=256",
+      "bytes": 1405,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:56.442Z"
+    },
+    "google-play-best-of": {
+      "path": "./assets/logos/google-play-best-of.png",
+      "domain": "play.google.com",
+      "source": "https://www.google.com/s2/favicons?domain=play.google.com&sz=256",
+      "bytes": 1314,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:56.650Z"
+    },
+    "guitar-center": {
+      "path": "./assets/logos/guitar-center.png",
+      "domain": "guitarcenter.com",
+      "source": "https://www.google.com/s2/favicons?domain=guitarcenter.com&sz=256",
+      "bytes": 24495,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:56.773Z"
+    },
+    "guitar-pro": {
+      "path": "./assets/logos/guitar-pro.png",
+      "domain": "guitar-pro.com",
+      "source": "https://www.google.com/s2/favicons?domain=guitar-pro.com&sz=256",
+      "bytes": 3089,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:56.848Z"
+    },
+    "guitar-tricks": {
+      "path": "./assets/logos/guitar-tricks.png",
+      "domain": "guitartricks.com",
+      "source": "https://www.google.com/s2/favicons?domain=guitartricks.com&sz=256",
+      "bytes": 774,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:56.941Z"
+    },
+    "hal-leonard": {
+      "path": "./assets/logos/hal-leonard.png",
+      "domain": "halleonard.com",
+      "source": "https://www.google.com/s2/favicons?domain=halleonard.com&sz=256",
+      "bytes": 1885,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:57.033Z"
+    },
+    "horizon-europe-cluster-2": {
+      "path": "./assets/logos/horizon-europe-cluster-2.png",
+      "domain": "research-and-innovation.ec.europa.eu",
+      "source": "https://www.google.com/s2/favicons?domain=research-and-innovation.ec.europa.eu&sz=256",
+      "bytes": 6371,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:57.222Z"
+    },
+    "justinguitar": {
+      "path": "./assets/logos/justinguitar.png",
+      "domain": "justinguitarapp.com",
+      "source": "https://www.google.com/s2/favicons?domain=justinguitarapp.com&sz=256",
+      "bytes": 22542,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:57.327Z"
+    },
+    "kahoot": {
+      "path": "./assets/logos/kahoot.png",
+      "domain": "kahoot.com",
+      "source": "https://www.google.com/s2/favicons?domain=kahoot.com&sz=256",
+      "bytes": 640,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:57.403Z"
+    },
+    "klangio": {
+      "path": "./assets/logos/klangio.png",
+      "domain": "klang.io",
+      "source": "https://www.google.com/s2/favicons?domain=klang.io&sz=256",
+      "bytes": 4703,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:57.485Z"
+    },
+    "lalal-ai": {
+      "path": "./assets/logos/lalal-ai.png",
+      "domain": "lalal.ai",
+      "source": "https://www.google.com/s2/favicons?domain=lalal.ai&sz=256",
+      "bytes": 516,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:57.576Z"
+    },
+    "landr": {
+      "path": "./assets/logos/landr.png",
+      "domain": "landr.com",
+      "source": "https://www.google.com/s2/favicons?domain=landr.com&sz=256",
+      "bytes": 11986,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:57.740Z"
+    },
+    "learning-technologies-awards": {
+      "path": "./assets/logos/learning-technologies-awards.png",
+      "domain": "learningtechnologies.co.uk",
+      "source": "https://www.google.com/s2/favicons?domain=learningtechnologies.co.uk&sz=256",
+      "bytes": 1788,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:57.826Z"
+    },
+    "loog": {
+      "path": "./assets/logos/loog.png",
+      "domain": "loogguitars.com",
+      "source": "https://www.google.com/s2/favicons?domain=loogguitars.com&sz=256",
+      "bytes": 1097,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:57.906Z"
+    },
+    "luminate": {
+      "path": "./assets/logos/luminate.png",
+      "domain": "luminatedata.com",
+      "source": "https://www.google.com/s2/favicons?domain=luminatedata.com&sz=256",
+      "bytes": 990,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:58.024Z"
+    },
+    "makemusic-cloud": {
+      "path": "./assets/logos/makemusic-cloud.png",
+      "domain": "makemusic.com",
+      "source": "https://www.google.com/s2/favicons?domain=makemusic.com&sz=256",
+      "bytes": 5233,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:58.113Z"
+    },
+    "marty-music": {
+      "path": "./assets/logos/marty-music.png",
+      "domain": "martymusic.com",
+      "source": "https://www.google.com/s2/favicons?domain=martymusic.com&sz=256",
+      "bytes": 1998,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:58.290Z"
+    },
+    "melodics": {
+      "path": "./assets/logos/melodics.png",
+      "domain": "melodics.com",
+      "source": "https://www.google.com/s2/favicons?domain=melodics.com&sz=256",
+      "bytes": 2287,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:58.402Z"
+    },
+    "midia-research": {
+      "path": "./assets/logos/midia-research.png",
+      "domain": "midiaresearch.com",
+      "source": "https://www.google.com/s2/favicons?domain=midiaresearch.com&sz=256",
+      "bytes": 10692,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:58.477Z"
+    },
+    "moises": {
+      "path": "./assets/logos/moises.png",
+      "domain": "moises.ai",
+      "source": "https://www.google.com/s2/favicons?domain=moises.ai&sz=256",
+      "bytes": 4289,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:58.562Z"
+    },
+    "mtna": {
+      "path": "./assets/logos/mtna.png",
+      "domain": "mtna.org",
+      "source": "https://www.google.com/s2/favicons?domain=mtna.org&sz=256",
+      "bytes": 8940,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:58.749Z"
+    },
+    "muse-group": {
+      "path": "./assets/logos/muse-group.png",
+      "domain": "mu.se",
+      "source": "https://www.google.com/s2/favicons?domain=mu.se&sz=256",
+      "bytes": 3866,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:58.833Z"
+    },
+    "musescore": {
+      "path": "./assets/logos/musescore.png",
+      "domain": "musescore.org",
+      "source": "https://www.google.com/s2/favicons?domain=musescore.org&sz=256",
+      "bytes": 1212,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:58.924Z"
+    },
+    "music-ally": {
+      "path": "./assets/logos/music-ally.png",
+      "domain": "musically.com",
+      "source": "https://www.google.com/s2/favicons?domain=musically.com&sz=256",
+      "bytes": 2998,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:59.013Z"
+    },
+    "music-tectonics": {
+      "path": "./assets/logos/music-tectonics.png",
+      "domain": "musictectonics.com",
+      "source": "https://www.google.com/s2/favicons?domain=musictectonics.com&sz=256",
+      "bytes": 3611,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:59.102Z"
+    },
+    "musicca": {
+      "path": "./assets/logos/musicca.png",
+      "domain": "musicca.com",
+      "source": "https://www.google.com/s2/favicons?domain=musicca.com&sz=256",
+      "bytes": 4262,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:59.283Z"
+    },
+    "musicnotes": {
+      "path": "./assets/logos/musicnotes.png",
+      "domain": "musicnotes.com",
+      "source": "https://www.google.com/s2/favicons?domain=musicnotes.com&sz=256",
+      "bytes": 2416,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:59.359Z"
+    },
+    "musora": {
+      "path": "./assets/logos/musora.png",
+      "domain": "musora.com",
+      "source": "https://www.google.com/s2/favicons?domain=musora.com&sz=256",
+      "bytes": 2454,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:59.455Z"
+    },
+    "namm": {
+      "path": "./assets/logos/namm.png",
+      "domain": "namm.org",
+      "source": "https://www.google.com/s2/favicons?domain=namm.org&sz=256",
+      "bytes": 1994,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:59.550Z"
+    },
+    "native-instruments": {
+      "path": "./assets/logos/native-instruments.png",
+      "domain": "native-instruments.com",
+      "source": "https://www.google.com/s2/favicons?domain=native-instruments.com&sz=256",
+      "bytes": 1541,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:59.638Z"
+    },
+    "netflix": {
+      "path": "./assets/logos/netflix.png",
+      "domain": "netflix.com",
+      "source": "https://www.google.com/s2/favicons?domain=netflix.com&sz=256",
+      "bytes": 1840,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:59.800Z"
+    },
+    "nintendo": {
+      "path": "./assets/logos/nintendo.png",
+      "domain": "nintendo.com",
+      "source": "https://www.google.com/s2/favicons?domain=nintendo.com&sz=256",
+      "bytes": 1503,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:59.892Z"
+    },
+    "noteflight": {
+      "path": "./assets/logos/noteflight.png",
+      "domain": "noteflight.com",
+      "source": "https://www.google.com/s2/favicons?domain=noteflight.com&sz=256",
+      "bytes": 7710,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:44:59.984Z"
+    },
+    "patreon": {
+      "path": "./assets/logos/patreon.png",
+      "domain": "patreon.com",
+      "source": "https://www.google.com/s2/favicons?domain=patreon.com&sz=256",
+      "bytes": 8639,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:00.114Z"
+    },
+    "piano-academy": {
+      "path": "./assets/logos/piano-academy.png",
+      "domain": "is1-ssl.mzstatic.com",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/64/f1/1c/64f11cbb-bdd9-d408-0a8a-a26542d2511a/AppIcon-0-0-1x_U007emarketing-0-7-0-sRGB-85-220.png/512x512bb.png",
+      "bytes": 261068,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:00.218Z"
+    },
+    "piano-marvel": {
+      "path": "./assets/logos/piano-marvel.png",
+      "domain": "pianomarvel.com",
+      "source": "https://www.google.com/s2/favicons?domain=pianomarvel.com&sz=256",
+      "bytes": 4293,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:00.463Z"
+    },
+    "pickup-music": {
+      "path": "./assets/logos/pickup-music.png",
+      "domain": "pickupmusic.com",
+      "source": "https://www.google.com/s2/favicons?domain=pickupmusic.com&sz=256",
+      "bytes": 2630,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:00.538Z"
+    },
+    "playground-sessions": {
+      "path": "./assets/logos/playground-sessions.png",
+      "domain": "playgroundsessions.com",
+      "source": "https://www.google.com/s2/favicons?domain=playgroundsessions.com&sz=256",
+      "bytes": 2985,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:00.666Z"
+    },
+    "positive-grid": {
+      "path": "./assets/logos/positive-grid.png",
+      "domain": "positivegrid.com",
+      "source": "https://www.google.com/s2/favicons?domain=positivegrid.com&sz=256",
+      "bytes": 2126,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:00.893Z"
+    },
+    "rcm": {
+      "path": "./assets/logos/rcm.png",
+      "domain": "rcmusic.com",
+      "source": "https://www.google.com/s2/favicons?domain=rcmusic.com&sz=256",
+      "bytes": 5425,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:00.990Z"
+    },
+    "reverb": {
+      "path": "./assets/logos/reverb.png",
+      "domain": "reverb.com",
+      "source": "https://www.google.com/s2/favicons?domain=reverb.com&sz=256",
+      "bytes": 1957,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:01.085Z"
+    },
+    "ripx-daw": {
+      "path": "./assets/logos/ripx-daw.png",
+      "domain": "hitnmix.com",
+      "source": "https://www.google.com/s2/favicons?domain=hitnmix.com&sz=256",
+      "bytes": 19891,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:01.423Z"
+    },
+    "roblox": {
+      "path": "./assets/logos/roblox.png",
+      "domain": "roblox.com",
+      "source": "https://www.google.com/s2/favicons?domain=roblox.com&sz=256",
+      "bytes": 5890,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:01.525Z"
+    },
+    "rocksmith-plus": {
+      "path": "./assets/logos/rocksmith-plus.png",
+      "domain": "play-lh.googleusercontent.com",
+      "source": "https://play-lh.googleusercontent.com/L1KZi8RAR2o6CkljCeF-BGIQey1ZLAjS5ZnkQB9MArU5awkzv05aPfrzwwMvOzWSYaTUovth7ulxGb2UVOKTZw",
+      "bytes": 34042,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:01.928Z"
+    },
+    "rsi": {
+      "path": "./assets/logos/rsi.png",
+      "domain": "youtube.com",
+      "source": "https://www.google.com/s2/favicons?domain=youtube.com&sz=256",
+      "bytes": 2989,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:02.017Z"
+    },
+    "school-of-rock": {
+      "path": "./assets/logos/school-of-rock.png",
+      "domain": "schoolofrock.com",
+      "source": "https://www.google.com/s2/favicons?domain=schoolofrock.com&sz=256",
+      "bytes": 3400,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:02.110Z"
+    },
+    "simply": {
+      "path": "./assets/logos/simply.png",
+      "domain": "hellosimply.com",
+      "source": "https://www.google.com/s2/favicons?domain=hellosimply.com&sz=256",
+      "bytes": 6202,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:02.191Z"
+    },
+    "skoove": {
+      "path": "./assets/logos/skoove.png",
+      "domain": "skoove.com",
+      "source": "https://www.google.com/s2/favicons?domain=skoove.com&sz=256",
+      "bytes": 4471,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:02.424Z"
+    },
+    "smule": {
+      "path": "./assets/logos/smule.png",
+      "domain": "smule.com",
+      "source": "https://www.google.com/s2/favicons?domain=smule.com&sz=256",
+      "bytes": 4085,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:02.498Z"
+    },
+    "songsterr": {
+      "path": "./assets/logos/songsterr.png",
+      "domain": "songsterr.com",
+      "source": "https://www.google.com/s2/favicons?domain=songsterr.com&sz=256",
+      "bytes": 31253,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:02.725Z"
+    },
+    "soundation": {
+      "path": "./assets/logos/soundation.png",
+      "domain": "soundation.com",
+      "source": "https://www.google.com/s2/favicons?domain=soundation.com&sz=256",
+      "bytes": 1865,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:02.832Z"
+    },
+    "soundbrenner": {
+      "path": "./assets/logos/soundbrenner.png",
+      "domain": "soundbrenner.com",
+      "source": "https://www.google.com/s2/favicons?domain=soundbrenner.com&sz=256",
+      "bytes": 353,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:02.994Z"
+    },
+    "soundcloud": {
+      "path": "./assets/logos/soundcloud.png",
+      "domain": "soundcloud.com",
+      "source": "https://www.google.com/s2/favicons?domain=soundcloud.com&sz=256",
+      "bytes": 2911,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:03.079Z"
+    },
+    "soundslice": {
+      "path": "./assets/logos/soundslice.png",
+      "domain": "soundslice.com",
+      "source": "https://www.google.com/s2/favicons?domain=soundslice.com&sz=256",
+      "bytes": 2285,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:03.171Z"
+    },
+    "soundtrap": {
+      "path": "./assets/logos/soundtrap.png",
+      "domain": "soundtrap.com",
+      "source": "https://www.google.com/s2/favicons?domain=soundtrap.com&sz=256",
+      "bytes": 1882,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:03.258Z"
+    },
+    "splice": {
+      "path": "./assets/logos/splice.png",
+      "domain": "splice.com",
+      "source": "https://www.google.com/s2/favicons?domain=splice.com&sz=256",
+      "bytes": 4924,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:03.352Z"
+    },
+    "spotify-artists": {
+      "path": "./assets/logos/spotify-artists.png",
+      "domain": "artists.spotify.com",
+      "source": "https://www.google.com/s2/favicons?domain=artists.spotify.com&sz=256",
+      "bytes": 936,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:03.521Z"
+    },
+    "spotify-platform": {
+      "path": "./assets/logos/spotify-platform.png",
+      "domain": "spotify.com",
+      "source": "https://www.google.com/s2/favicons?domain=spotify.com&sz=256",
+      "bytes": 2820,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:03.590Z"
+    },
+    "suno": {
+      "path": "./assets/logos/suno.png",
+      "domain": "suno.com",
+      "source": "https://www.google.com/s2/favicons?domain=suno.com&sz=256",
+      "bytes": 72058,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:03.672Z"
+    },
+    "sweetwater": {
+      "path": "./assets/logos/sweetwater.png",
+      "domain": "sweetwater.com",
+      "source": "https://www.google.com/s2/favicons?domain=sweetwater.com&sz=256",
+      "bytes": 4517,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:03.763Z"
+    },
+    "sxsw-edu-launch": {
+      "path": "./assets/logos/sxsw-edu-launch.png",
+      "domain": "sxswedu.com",
+      "source": "https://www.google.com/s2/favicons?domain=sxswedu.com&sz=256",
+      "bytes": 890,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:03.854Z"
+    },
+    "techcrunch": {
+      "path": "./assets/logos/techcrunch.png",
+      "domain": "techcrunch.com",
+      "source": "https://www.google.com/s2/favicons?domain=techcrunch.com&sz=256",
+      "bytes": 16120,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:04.032Z"
+    },
+    "thomann": {
+      "path": "./assets/logos/thomann.png",
+      "domain": "thomannmusic.com",
+      "source": "https://www.google.com/s2/favicons?domain=thomannmusic.com&sz=256",
+      "bytes": 3859,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:04.125Z"
+    },
+    "tiktok-artists": {
+      "path": "./assets/logos/tiktok-artists.png",
+      "domain": "artists.tiktok.com",
+      "source": "https://www.google.com/s2/favicons?domain=artists.tiktok.com&sz=256",
+      "bytes": 1209,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:04.202Z"
+    },
+    "tomplay": {
+      "path": "./assets/logos/tomplay.png",
+      "domain": "tomplay.com",
+      "source": "https://www.google.com/s2/favicons?domain=tomplay.com&sz=256",
+      "bytes": 6252,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:04.288Z"
+    },
+    "tonalenergy": {
+      "path": "./assets/logos/tonalenergy.png",
+      "domain": "tonalenergy.com",
+      "source": "https://www.google.com/s2/favicons?domain=tonalenergy.com&sz=256",
+      "bytes": 758,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:04.372Z"
+    },
+    "tonebase": {
+      "path": "./assets/logos/tonebase.png",
+      "domain": "tonebase.co",
+      "source": "https://www.google.com/s2/favicons?domain=tonebase.co&sz=256",
+      "bytes": 4197,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:04.612Z"
+    },
+    "truefire": {
+      "path": "./assets/logos/truefire.png",
+      "domain": "truefire.com",
+      "source": "https://www.google.com/s2/favicons?domain=truefire.com&sz=256",
+      "bytes": 3202,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:04.694Z"
+    },
+    "udio": {
+      "path": "./assets/logos/udio.png",
+      "domain": "udio.com",
+      "source": "https://www.google.com/s2/favicons?domain=udio.com&sz=256",
+      "bytes": 7291,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:04.778Z"
+    },
+    "ultimate-guitar": {
+      "path": "./assets/logos/ultimate-guitar.png",
+      "domain": "ultimate-guitar.com",
+      "source": "https://www.google.com/s2/favicons?domain=ultimate-guitar.com&sz=256",
+      "bytes": 7645,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:04.862Z"
+    },
+    "yamaha": {
+      "path": "./assets/logos/yamaha.png",
+      "domain": "yamaha.com",
+      "source": "https://www.google.com/s2/favicons?domain=yamaha.com&sz=256",
+      "bytes": 8108,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:05.055Z"
+    },
+    "youtube-artists": {
+      "path": "./assets/logos/youtube-artists.png",
+      "domain": "youtube.com",
+      "source": "https://www.google.com/s2/favicons?domain=youtube.com&sz=256",
+      "bytes": 2989,
+      "contentType": "image/png",
+      "normalized": true,
+      "cachedAt": "2026-06-22T12:45:05.121Z"
+    }
+  },
+  "failures": []
+}

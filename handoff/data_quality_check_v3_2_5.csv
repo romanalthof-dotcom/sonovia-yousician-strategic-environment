@@ -1,12 +1,12 @@
 check_id,label,status,count,detail,next_action,last_checked_date
-key_players,All 28 key players present,passed,28,28 key-player rows are present.,Keep at 28 unless the key-player scope changes.,2026-06-13
-market_moves,Main timeline depth,passed,49,49 curated market moves are marked for main timeline use.,Keep weaker context items in appendix-only status.,2026-06-13
-appfigures,Credentialed Appfigures status,pending,0,0 of 16 app rows are credentialed Appfigures imports.,Import Appfigures export/API output before app revenue/download/rank conclusions.,2026-06-13
-appfigures_request,Appfigures completion file,passed,16,16 app rows are ready for credentialed export.,Use the completion file as the source list for Appfigures export.,2026-06-13
-relationships,Relationship completion layer,pending,28,28 of 28 relationship rows still need Yousician owner input.,Do not infer relationships externally; assign internal owners.,2026-06-13
-review_queue,Open source-change review queue,passed,0,0 source-change/new-source rows remain open after excluding refresh retry/access rows.,Review or reject source changes before leadership use.,2026-06-13
-refresh_retries,Refresh retry/access rows,warning,78,"78 open rows are local refresh retry/access checks, not accepted market claims.",Retry when network/source access is available or replace inaccessible sources.,2026-06-13
-review_duplicates,Duplicate open refresh rows,passed,0,0 sources have repeated open refresh rows.,Safe fix marks older duplicate rows as superseded and keeps the latest row open.,2026-06-13
-proxy_note_duplicates,Repeated public proxy notes,passed,0,0 Appfigures proxy rows contain repeated note text.,Safe fix de-duplicates repeated note sentences without changing metrics.,2026-06-13
-hard_claims,Source-linked statement confidence,warning,33,33 source-linked statements still have Low/Pending source confidence.,"Validate ownership, funding, user counts, AI and M&A statements before broader external use.",2026-06-13
-source_confidence,Source audit confidence,warning,42,42 source-audit rows are Low/Pending.,Upgrade only with stronger source review; do not auto-promote.,2026-06-13
+key_players,Initial 4 key players present,passed,4,4 first-pass key-player rows are present.,"Keep the shortlist at Simply, Ultimate Guitar, Duolingo and Fender until board/LST triage expands scope.",2026-06-22
+market_moves,Main timeline depth,passed,49,49 curated market moves are marked for main timeline use.,Keep weaker context items in appendix-only status.,2026-06-22
+appfigures,Credentialed Appfigures status,pending,0,0 of 16 app rows are credentialed Appfigures imports.,Import a credentialed Appfigures export or API output. Non credentialed rows do not count.,2026-06-22
+appfigures_request,Appfigures completion file,passed,16,16 app rows are ready for credentialed export.,Use the completion file as the source list for Appfigures export.,2026-06-22
+relationships,Relationship completion layer,pending,28,28 of 28 relationship rows still need Yousician owner input.,Do not infer relationships externally; assign internal owners.,2026-06-22
+review_queue,Open source-change review queue,warning,80,80 source-change/new-source rows remain open after excluding refresh retry/access rows.,Review or reject source changes before leadership use.,2026-06-22
+refresh_retries,Refresh retry/access rows,warning,78,"78 open rows are local refresh retry/access checks, not accepted market claims.",Retry when network/source access is available or replace inaccessible sources.,2026-06-22
+review_duplicates,Duplicate open refresh rows,warning,80,36 sources have repeated open refresh rows.,Safe fix marks older duplicate rows as superseded and keeps the latest row open.,2026-06-22
+public_note_duplicates,Repeated non credentialed source notes,passed,0,0 Appfigures rows contain repeated non credentialed note text.,Safe fix de-duplicates repeated note sentences without changing metrics.,2026-06-22
+hard_claims,Source-linked statement confidence,warning,33,33 source-linked statements still have Low/Pending source confidence.,"Validate ownership, funding, user counts, AI and M&A statements before broader external use.",2026-06-22
+source_confidence,Source audit confidence,warning,32,32 source-audit rows are Low/Pending.,Upgrade only with stronger source review; do not auto-promote.,2026-06-22

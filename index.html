@@ -37,7 +37,7 @@
     />
     <meta name="theme-color" content="#f7fbf7" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='28' cy='28' r='18' fill='none' stroke='%2300d292' stroke-width='10'/%3E%3Cpath d='M42 42l14 14' stroke='%231b1d1f' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="./styles.css?v=20260621-metadata-audit-v117" />
+    <link rel="stylesheet" href="./styles.css?v=20260623-locked-map-groups-v142" />
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
   </head>
   <body data-view="overview" data-mode="executive">
@@ -109,14 +109,13 @@
             <strong>Ultimate Guitar</strong>
             <strong>Duolingo</strong>
             <strong>Fender</strong>
-            <strong>Kahoot</strong>
             <em>expand only after triage</em>
           </div>
           <div class="guiding-answer-grid" aria-label="Direct answers to the guiding questions">
             <article class="guiding-answer">
               <span>1</span>
               <strong>What should be read first?</strong>
-              <p>Simply, Ultimate Guitar, Duolingo, Fender and Kahoot. They anchor direct learning, practice habits, learning mechanics, hardware trust and classroom engagement.</p>
+              <p>Simply, Ultimate Guitar, Duolingo and Fender. They anchor direct learning, practice habits, learning mechanics and hardware trust. Kahoot and others stay in long-tail triage until board/LST review expands scope.</p>
             </article>
             <article class="guiding-answer">
               <span>2</span>
@@ -177,6 +176,7 @@
                 <span>Create</span>
                 <span>Share</span>
                 <span>Identity</span>
+                <span>Broader</span>
               </div>
             </div>
             <div class="journey-blueprint" id="journeyBlueprint" aria-label="Music journey stages"></div>
@@ -193,6 +193,10 @@
                 <div class="panel-header">
                   <h2>Map controls</h2>
                   <button class="ghost-button" id="clearFilters" type="button">Clear</button>
+                </div>
+                <div class="record-type-filter" aria-label="Record type">
+                  <span>Record type</span>
+                  <div class="record-type-options" id="recordTypeFilters"></div>
                 </div>
                 <div class="product-lens" aria-label="Product lens">
                   <span>Product lens</span>
@@ -221,7 +225,7 @@
               <aside class="map-company-picker" id="mapCompanyPicker" aria-label="Companies visible on map"></aside>
             </div>
             <div class="map-note">
-              <span>Bubble size defaults to Yousician relevance: company scale weighted by strategic relevance.</span>
+              <span>Bubble size defaults to priority-weighted scale: public or credentialed scale where available, otherwise relevance-weighted triage.</span>
               <span>Curved arcs mark user journey lanes, not company relationships. Thin centre lines mark Yousician proximity hypotheses, not confirmed partnerships.</span>
             </div>
             <div class="map-symbol-legend" aria-label="Map element legend">
@@ -329,7 +333,7 @@
           <div class="section-heading">
             <div>
               <h2>Market monitor</h2>
-              <p>Compare players, category trends, funding signals, reach channels, and metric leaders before opening detailed briefs.</p>
+              <p>Prioritize the market view by focus area, recent signals, evidence coverage and decision relevance.</p>
             </div>
             <button class="ghost-button" data-jump-view="overview" type="button">Map</button>
           </div>
@@ -673,6 +677,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js?v=20260621-metadata-audit-v117"></script>
+    <script src="./app.js?v=20260623-locked-map-groups-v142"></script>
   </body>
 </html>
