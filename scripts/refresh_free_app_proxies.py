@@ -308,10 +308,15 @@ def append_review_gate(signal_rows: list[dict[str, object]]) -> None:
             "notes",
         ]
     watch_id = f"public_app_market_snapshot_{TODAY}"
+    usable_rows = [row for row in signal_rows if row.get("bestReachFloor")]
+    current_status = f"{len(usable_rows)} usable public app proxy rows"
     if any(row.get("watch_id") == watch_id for row in rows):
+        for row in rows:
+            if row.get("watch_id") == watch_id:
+                row["current_status"] = current_status
+                row["notes"] = "Public store values were added to the interactive market monitor as caveated proxies, not as final report claims."
         write_csv(REVIEW_QUEUE_CSV, rows, list(fields))
         return
-    usable_rows = [row for row in signal_rows if row.get("bestReachFloor")]
     rows.append({
         "run_id": watch_id.replace("-", ""),
         "detected_at": f"{TODAY}T00:00:00+00:00",
@@ -321,7 +326,7 @@ def append_review_gate(signal_rows: list[dict[str, object]]) -> None:
         "claim_area": "App market public proxies",
         "change_type": "public_proxy_refresh",
         "previous_status": "",
-        "current_status": f"{len(usable_rows)} usable public app proxy rows",
+        "current_status": current_status,
         "previous_hash": "",
         "current_hash": "",
         "observed_title": "Free public app-market snapshot refreshed",
