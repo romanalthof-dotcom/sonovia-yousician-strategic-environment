@@ -11587,24 +11587,24 @@ function renderMap() {
   hub.appendChild(createSvg("circle", { cx: center.x, cy: center.y, r: 62, class: "hub-hit" }));
   const yousicianLookerLink = createSvg("g", {
     class: "hub-yousician-link",
-    "aria-label": "Open Yousician Looker board",
+    "aria-label": "Open Volos page",
     tabindex: "0",
     role: "link"
   });
   const yousicianLookerTitle = createSvg("title");
-  yousicianLookerTitle.textContent = "Open Yousician Looker board";
+  yousicianLookerTitle.textContent = "Open Volos page";
   yousicianLookerLink.appendChild(yousicianLookerTitle);
   yousicianLookerLink.appendChild(createSvg("circle", { cx: center.x, cy: center.y - 17, r: 25, class: "hub-yousician-hit" }));
   yousicianLookerLink.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();
-    openYousicianLookerBoard();
+    openVolosSideQuest();
   });
   yousicianLookerLink.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       event.stopPropagation();
-      openYousicianLookerBoard();
+      openVolosSideQuest();
     }
   });
   hub.appendChild(yousicianLookerLink);
