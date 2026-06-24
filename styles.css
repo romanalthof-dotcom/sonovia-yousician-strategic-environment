@@ -24874,6 +24874,11 @@ body[data-view="overview"] .map-symbol-logo {
 }
 
 .sonovia-volos-page {
+  --volos-neon: #63d5a3;
+  --volos-lime: #b8ff6a;
+  --volos-amber: #ffb84d;
+  --volos-pink: #ff5f9d;
+  --volos-deep: #07100e;
   display: none;
   gap: 14px;
 }
@@ -24883,18 +24888,50 @@ body[data-view="overview"] .map-symbol-logo {
 }
 
 .sonovia-volos-hero {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(240px, 0.38fr);
   gap: 16px;
   align-items: stretch;
   overflow: hidden;
-  border: 1px solid rgba(24, 36, 31, 0.12);
-  border-radius: 18px;
+  border: 1px solid rgba(99, 213, 163, 0.28);
+  border-radius: 24px;
   background:
-    radial-gradient(circle at 18% 24%, rgba(99, 213, 163, 0.22), transparent 34%),
-    linear-gradient(135deg, #081210, #101815 52%, #17241f);
-  box-shadow: 0 20px 56px rgba(18, 28, 24, 0.16);
+    radial-gradient(circle at 18% 18%, rgba(99, 213, 163, 0.34), transparent 28%),
+    radial-gradient(circle at 92% 18%, rgba(255, 95, 157, 0.18), transparent 26%),
+    radial-gradient(circle at 54% 105%, rgba(255, 184, 77, 0.16), transparent 34%),
+    linear-gradient(135deg, #07100e, #101815 48%, #1c2923);
+  box-shadow:
+    0 26px 70px rgba(18, 28, 24, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.045);
   padding: 22px;
+}
+
+.sonovia-volos-hero::before,
+.sonovia-volos-hero::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.sonovia-volos-hero::before {
+  inset: 16px;
+  border: 1px dashed rgba(99, 213, 163, 0.22);
+  border-radius: 20px;
+  opacity: 0.8;
+}
+
+.sonovia-volos-hero::after {
+  right: -80px;
+  bottom: -120px;
+  width: 360px;
+  height: 360px;
+  border-radius: 999px;
+  background: conic-gradient(from 90deg, rgba(99, 213, 163, 0), rgba(99, 213, 163, 0.24), rgba(255, 184, 77, 0.18), rgba(99, 213, 163, 0));
+  filter: blur(2px);
+  opacity: 0.72;
 }
 
 .sonovia-volos-hero-copy {
@@ -24908,10 +24945,14 @@ body[data-view="overview"] .map-symbol-logo {
   margin: 0;
   max-width: 760px;
   color: #fff;
-  font-size: clamp(2rem, 4vw, 4.6rem);
+  font-size: clamp(2.25rem, 4.65vw, 5.35rem);
   font-weight: 950;
   letter-spacing: 0;
-  line-height: 0.94;
+  line-height: 0.98;
+  padding-bottom: 8px;
+  text-shadow:
+    0 5px 0 rgba(0, 0, 0, 0.18),
+    0 0 28px rgba(99, 213, 163, 0.18);
 }
 
 .sonovia-volos-hero-copy > p {
@@ -24931,15 +24972,16 @@ body[data-view="overview"] .map-symbol-logo {
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-columns: 46px minmax(0, 1fr);
+  grid-template-columns: 58px minmax(0, 1fr);
   gap: 10px;
   align-items: center;
   max-width: 640px;
   overflow: hidden;
-  border: 1px solid rgba(99, 213, 163, 0.26);
+  border: 1px solid rgba(99, 213, 163, 0.46);
   border-radius: 14px;
   background:
-    radial-gradient(circle at 10% 30%, rgba(99, 213, 163, 0.18), transparent 28%),
+    radial-gradient(circle at 10% 30%, rgba(99, 213, 163, 0.22), transparent 28%),
+    linear-gradient(135deg, rgba(99, 213, 163, 0.15), rgba(255, 255, 255, 0.06)),
     rgba(255, 255, 255, 0.08);
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.04),
@@ -24947,16 +24989,84 @@ body[data-view="overview"] .map-symbol-logo {
   padding: 10px 12px;
 }
 
+.volos-quest-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  max-width: 720px;
+}
+
+.volos-quest-strip div {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.035)),
+    rgba(7, 16, 14, 0.72);
+  padding: 11px 12px;
+}
+
+.volos-quest-strip div::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  left: 10px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.volos-quest-strip div::before {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+  z-index: 1;
+  width: 72%;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--volos-neon), var(--volos-lime));
+  box-shadow: 0 0 18px rgba(99, 213, 163, 0.52);
+}
+
+.volos-quest-strip span {
+  color: rgba(99, 213, 163, 0.86);
+  font-size: 0.58rem;
+  font-weight: 950;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.volos-quest-strip strong {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 950;
+  line-height: 1.05;
+}
+
+.volos-quest-strip em {
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 820;
+  line-height: 1.12;
+}
+
 .sonovia-volos-page.active .sonovia-volos-found-card {
   animation: volosFoundCard 720ms cubic-bezier(0.16, 0.86, 0.24, 1) 160ms both;
 }
 
 .sonovia-volos-found-card img {
-  width: 38px;
-  height: 38px;
+  width: 56px;
+  height: 44px;
   object-fit: contain;
-  opacity: 0.7;
-  filter: invert(1) grayscale(1) contrast(1.08);
+  opacity: 1;
+  filter: drop-shadow(0 9px 18px rgba(99, 213, 163, 0.42));
 }
 
 .sonovia-volos-page.active .sonovia-volos-found-card img {
@@ -25048,27 +25158,47 @@ body[data-view="overview"] .map-symbol-logo {
 }
 
 .sonovia-volos-mark-card {
+  position: relative;
   display: grid;
   align-content: center;
   justify-items: center;
   gap: 10px;
   min-height: 260px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  border-radius: 20px;
   background:
     linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
     #07100e;
   background-size: 36px 36px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.045),
+    0 22px 52px rgba(0, 0, 0, 0.2);
   padding: 18px;
 }
 
+.sonovia-volos-mark-card::before {
+  content: "LEGENDARY";
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: 1px solid rgba(255, 184, 77, 0.42);
+  border-radius: 999px;
+  background: rgba(255, 184, 77, 0.12);
+  color: #ffe0a8;
+  padding: 6px 9px;
+  font-size: 0.58rem;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+}
+
 .sonovia-volos-mark-card img {
-  width: min(100%, 280px);
-  aspect-ratio: 292 / 174;
-  border-radius: 14px;
-  object-fit: cover;
-  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.3);
+  width: min(100%, 360px);
+  max-height: 260px;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 24px 42px rgba(0, 0, 0, 0.42))
+    drop-shadow(0 0 26px rgba(99, 213, 163, 0.16));
 }
 
 .sonovia-volos-page.active .sonovia-volos-mark-card img {
@@ -25103,9 +25233,14 @@ body[data-view="overview"] .map-symbol-logo {
   gap: 8px;
   min-width: 0;
   border: 1px solid rgba(24, 36, 31, 0.1);
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: var(--shadow-soft);
+  border-color: rgba(99, 213, 163, 0.18);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(99, 213, 163, 0.14), transparent 32%),
+    #fff;
+  box-shadow:
+    0 12px 26px rgba(18, 28, 24, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.9);
   padding: 14px;
 }
 
@@ -25247,10 +25382,22 @@ body[data-view="overview"] .map-symbol-logo {
 .sonovia-volos-meme {
   min-height: 142px;
   background:
-    radial-gradient(circle at 88% 12%, rgba(99, 213, 163, 0.18), transparent 28%),
+    radial-gradient(circle at 88% 12%, rgba(255, 95, 157, 0.24), transparent 28%),
+    radial-gradient(circle at 12% 92%, rgba(99, 213, 163, 0.22), transparent 30%),
     linear-gradient(135deg, #0b1512, #17241f);
-  border-color: rgba(99, 213, 163, 0.16);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  border-color: rgba(99, 213, 163, 0.22);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 16px 28px rgba(7, 16, 14, 0.12);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.sonovia-volos-meme:hover {
+  border-color: rgba(255, 184, 77, 0.42);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 20px 34px rgba(7, 16, 14, 0.18);
+  transform: translateY(-3px) rotate(-0.4deg);
 }
 
 .sonovia-volos-meme span {
@@ -25277,19 +25424,34 @@ body[data-view="overview"] .map-symbol-logo {
 }
 
 .sonovia-volos-score-grid article {
-  border-color: rgba(255, 184, 77, 0.24);
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(255, 184, 77, 0.34);
   background:
-    linear-gradient(180deg, rgba(255, 184, 77, 0.08), rgba(255, 255, 255, 0)),
+    radial-gradient(circle at 88% 12%, rgba(255, 184, 77, 0.22), transparent 32%),
+    linear-gradient(180deg, rgba(255, 184, 77, 0.11), rgba(255, 255, 255, 0)),
     rgba(255, 255, 255, 0.9);
+}
+
+.sonovia-volos-score-grid article::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--volos-amber), var(--volos-neon));
 }
 
 .sonovia-volos-score-grid strong {
   font-size: clamp(1.3rem, 2.6vw, 2.4rem);
-  line-height: 0.96;
+  line-height: 1.06;
 }
 
 .sonovia-volos-comic-strip {
   background:
+    radial-gradient(circle at 14% 18%, rgba(99, 213, 163, 0.18), transparent 30%),
+    radial-gradient(circle at 92% 20%, rgba(255, 95, 157, 0.16), transparent 32%),
     linear-gradient(135deg, rgba(18, 28, 24, 0.96), rgba(7, 16, 14, 0.94)),
     #0b1512;
 }
@@ -25309,6 +25471,14 @@ body[data-view="overview"] .map-symbol-logo {
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035)),
     rgba(255, 255, 255, 0.035);
+}
+
+.sonovia-volos-joke-grid article {
+  border-color: rgba(255, 95, 157, 0.22);
+  background:
+    radial-gradient(circle at 90% 10%, rgba(255, 95, 157, 0.14), transparent 28%),
+    linear-gradient(135deg, rgba(99, 213, 163, 0.08), rgba(255, 255, 255, 0)),
+    #fff;
 }
 
 .sonovia-volos-panels span {
@@ -25369,7 +25539,7 @@ body[data-view="overview"] .map-symbol-logo {
   100% {
     opacity: 0.7;
     transform: scale(1) rotate(0deg);
-    filter: invert(1) grayscale(1) contrast(1.08);
+    filter: drop-shadow(0 9px 18px rgba(99, 213, 163, 0.42));
   }
 }
 
@@ -25440,6 +25610,7 @@ body[data-view="overview"] .map-symbol-logo {
   }
 
   .sonovia-volos-hero,
+  .volos-quest-strip,
   .sonovia-volos-fact-grid,
   .sonovia-volos-joke-grid,
   .sonovia-volos-serious-bit,
@@ -28110,6 +28281,1168 @@ body[data-view="relationships"] .relationship-lane {
     color-mix(in srgb, var(--lane) 5%, #fff);
 }
 
+/* Executive Market Monitor v160: answer-first market report structure. */
+body[data-view="key-players"] .monitor-executive-redesign {
+  display: grid;
+  gap: clamp(18px, 2.2vw, 30px);
+  border: 0;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 12% 6%, rgba(0, 210, 146, 0.15), transparent 26%),
+    radial-gradient(circle at 88% 10%, rgba(61, 125, 224, 0.14), transparent 24%),
+    linear-gradient(180deg, #f8fbf6 0%, #ffffff 46%, #f5f8f2 100%);
+  color: #10231f;
+  padding: clamp(18px, 2.4vw, 34px);
+  box-shadow: 0 26px 70px rgba(16, 35, 31, 0.09);
+}
+
+body[data-view="key-players"] .monitor-executive-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+  gap: clamp(16px, 2vw, 26px);
+  align-items: stretch;
+}
+
+body[data-view="key-players"] .monitor-executive-hero > div,
+body[data-view="key-players"] .monitor-executive-hero aside,
+body[data-view="key-players"] .monitor-executive-redesign > section,
+body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid article {
+  border: 1px solid rgba(16, 35, 31, 0.1);
+  background: rgba(255, 255, 255, 0.83);
+  box-shadow: 0 18px 46px rgba(16, 35, 31, 0.07);
+}
+
+body[data-view="key-players"] .monitor-executive-hero > div {
+  border-radius: 28px;
+  padding: clamp(22px, 3.4vw, 48px);
+}
+
+body[data-view="key-players"] .monitor-executive-hero h3 {
+  max-width: 1040px;
+  margin: 6px 0 14px;
+  color: #071511;
+  font-size: clamp(2.65rem, 5vw, 6.35rem);
+  line-height: 0.88;
+  letter-spacing: -0.075em;
+}
+
+body[data-view="key-players"] .monitor-executive-hero p {
+  max-width: 860px;
+  margin: 0;
+  color: rgba(16, 35, 31, 0.74);
+  font-size: clamp(1.05rem, 1.45vw, 1.42rem);
+  font-weight: 760;
+  line-height: 1.33;
+}
+
+body[data-view="key-players"] .monitor-executive-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+body[data-view="key-players"] .monitor-executive-hero-actions button,
+body[data-view="key-players"] .monitor-segment-card > button,
+body[data-view="key-players"] .monitor-signal-lane button,
+body[data-view="key-players"] .monitor-evidence-grid article > button {
+  min-height: 44px;
+  border: 1px solid rgba(16, 35, 31, 0.13);
+  border-radius: 999px;
+  background: #10231f;
+  color: #ffffff;
+  padding: 10px 15px;
+  font-size: 0.84rem;
+  font-weight: 1000;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .monitor-executive-hero-actions button:hover,
+body[data-view="key-players"] .monitor-executive-hero-actions button:focus-visible,
+body[data-view="key-players"] .monitor-segment-card > button:hover,
+body[data-view="key-players"] .monitor-signal-lane button:hover,
+body[data-view="key-players"] .monitor-evidence-grid article > button:hover {
+  border-color: rgba(0, 184, 132, 0.45);
+  background: #00b884;
+  color: #071511;
+  outline: none;
+}
+
+body[data-view="key-players"] .monitor-executive-hero aside {
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 28% 10%, rgba(0, 184, 132, 0.2), transparent 40%),
+    #10231f;
+  color: #ffffff;
+  padding: clamp(20px, 2.4vw, 32px);
+}
+
+body[data-view="key-players"] .monitor-executive-hero aside span,
+body[data-view="key-players"] .monitor-command-card-grid span,
+body[data-view="key-players"] .monitor-executive-section-head .section-kicker,
+body[data-view="key-players"] .monitor-executive-matrix header span,
+body[data-view="key-players"] .monitor-key-player-compare header span {
+  color: #008f6a;
+  font-size: 0.75rem;
+  font-weight: 1000;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-executive-hero aside span {
+  color: #68e6b5;
+}
+
+body[data-view="key-players"] .monitor-executive-hero aside strong {
+  color: #ffffff;
+  font-size: clamp(4rem, 6vw, 7.6rem);
+  line-height: 0.88;
+  letter-spacing: -0.08em;
+}
+
+body[data-view="key-players"] .monitor-executive-hero aside small {
+  color: rgba(245, 255, 249, 0.76) !important;
+  font-size: 1rem;
+  font-weight: 760;
+  line-height: 1.35;
+}
+
+body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid article {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-height: 142px;
+  border-radius: 20px;
+  padding: 18px;
+}
+
+body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid strong {
+  color: #071511;
+  font-size: clamp(1.2rem, 1.55vw, 1.72rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid small {
+  color: rgba(16, 35, 31, 0.68) !important;
+  font-size: 0.86rem;
+  font-weight: 760;
+  line-height: 1.25;
+}
+
+body[data-view="key-players"] .monitor-executive-redesign > section {
+  display: grid;
+  gap: 16px;
+  border-radius: 28px;
+  padding: clamp(18px, 2.2vw, 30px);
+}
+
+body[data-view="key-players"] .monitor-executive-section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.96fr) minmax(260px, 0.7fr);
+  gap: 18px;
+  align-items: end;
+}
+
+body[data-view="key-players"] .monitor-executive-section-head h3 {
+  margin: 4px 0 0;
+  color: #071511;
+  font-size: clamp(2rem, 3vw, 3.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.065em;
+}
+
+body[data-view="key-players"] .monitor-executive-section-head p {
+  margin: 0;
+  color: rgba(16, 35, 31, 0.7);
+  font-size: clamp(0.98rem, 1.12vw, 1.16rem);
+  font-weight: 720;
+  line-height: 1.35;
+}
+
+body[data-view="key-players"] .monitor-segment-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13px;
+}
+
+body[data-view="key-players"] .monitor-segment-card {
+  display: grid;
+  grid-template-rows: auto auto auto auto auto 1fr auto;
+  gap: 11px;
+  min-height: 338px;
+  border: 1px solid color-mix(in srgb, var(--segment-color) 32%, rgba(16, 35, 31, 0.08));
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--segment-color) 18%, transparent), transparent 44%),
+    linear-gradient(180deg, #ffffff 0%, color-mix(in srgb, var(--segment-color) 5%, #ffffff) 100%);
+  padding: 16px;
+  box-shadow: 0 16px 38px color-mix(in srgb, var(--segment-color) 9%, rgba(16, 35, 31, 0.06));
+}
+
+body[data-view="key-players"] .monitor-segment-card header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 7px;
+  align-items: start;
+}
+
+body[data-view="key-players"] .monitor-segment-card header span {
+  grid-column: 1 / -1;
+  color: color-mix(in srgb, var(--segment-color) 72%, #10231f);
+  font-size: 0.68rem;
+  font-weight: 1000;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-segment-card header strong {
+  color: #071511;
+  font-size: 1.32rem;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+body[data-view="key-players"] .monitor-segment-card header em {
+  display: inline-grid;
+  place-items: center;
+  min-width: 46px;
+  height: 46px;
+  border-radius: 15px;
+  background: color-mix(in srgb, var(--segment-color) 18%, #fff);
+  color: #071511;
+  font-size: 1.36rem;
+  font-style: normal;
+  font-weight: 1000;
+}
+
+body[data-view="key-players"] .monitor-segment-card p {
+  margin: 0;
+  color: #1b302b;
+  font-size: 1.02rem;
+  font-weight: 950;
+  line-height: 1.14;
+}
+
+body[data-view="key-players"] .monitor-segment-card > small {
+  color: rgba(16, 35, 31, 0.65) !important;
+  font-size: 0.84rem;
+  font-weight: 740;
+  line-height: 1.24;
+}
+
+body[data-view="key-players"] .monitor-segment-bar {
+  overflow: hidden;
+  height: 11px;
+  border-radius: 999px;
+  background: rgba(16, 35, 31, 0.07);
+}
+
+body[data-view="key-players"] .monitor-segment-bar i {
+  display: block;
+  width: calc(var(--segment-width) * 1%);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--segment-color) 88%, #fff), var(--segment-color));
+}
+
+body[data-view="key-players"] .monitor-segment-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+body[data-view="key-players"] .monitor-segment-metrics span {
+  display: grid;
+  gap: 2px;
+  border-radius: 12px;
+  background: rgba(16, 35, 31, 0.045);
+  padding: 8px 6px;
+  text-align: center;
+}
+
+body[data-view="key-players"] .monitor-segment-metrics b {
+  color: #071511;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+body[data-view="key-players"] .monitor-segment-metrics small {
+  color: rgba(16, 35, 31, 0.56) !important;
+  font-size: 0.62rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-segment-players,
+body[data-view="key-players"] .monitor-evidence-grid article > div,
+body[data-view="key-players"] .monitor-signal-lane footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+}
+
+body[data-view="key-players"] .monitor-executive-comparison-grid {
+  display: grid;
+  grid-template-columns: minmax(420px, 0.8fr) minmax(0, 1.2fr);
+  gap: 15px;
+}
+
+body[data-view="key-players"] .monitor-executive-matrix,
+body[data-view="key-players"] .monitor-key-player-compare {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  border: 1px solid rgba(16, 35, 31, 0.1);
+  border-radius: 24px;
+  background: #ffffff;
+  padding: 18px;
+}
+
+body[data-view="key-players"] .monitor-executive-matrix header,
+body[data-view="key-players"] .monitor-key-player-compare header {
+  display: grid;
+  gap: 5px;
+}
+
+body[data-view="key-players"] .monitor-executive-matrix h4,
+body[data-view="key-players"] .monitor-key-player-compare h4 {
+  margin: 0;
+  color: #071511;
+  font-size: clamp(1.35rem, 1.8vw, 2rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+body[data-view="key-players"] .monitor-executive-matrix p,
+body[data-view="key-players"] .monitor-key-player-compare p {
+  max-width: 860px;
+  margin: 0;
+  color: rgba(16, 35, 31, 0.67);
+  font-size: 0.88rem;
+  font-weight: 720;
+  line-height: 1.3;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+body[data-view="key-players"] .monitor-executive-matrix-plot {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 540px;
+  border: 1px solid rgba(16, 35, 31, 0.1);
+  border-radius: 22px;
+  background:
+    linear-gradient(90deg, rgba(16, 35, 31, 0.06) 1px, transparent 1px),
+    linear-gradient(rgba(16, 35, 31, 0.06) 1px, transparent 1px),
+    radial-gradient(circle at 78% 24%, rgba(0, 184, 132, 0.13), transparent 28%),
+    radial-gradient(circle at 22% 24%, rgba(61, 125, 224, 0.1), transparent 24%),
+    #fbfdf9;
+  background-size: 25% 100%, 100% 25%, auto, auto, auto;
+}
+
+body[data-view="key-players"] .matrix-axis {
+  position: absolute;
+  z-index: 1;
+  color: rgba(16, 35, 31, 0.48);
+  font-size: 0.72rem;
+  font-weight: 1000;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+body[data-view="key-players"] .matrix-axis-y {
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%) rotate(180deg);
+  writing-mode: vertical-rl;
+}
+
+body[data-view="key-players"] .matrix-axis-x {
+  right: 14px;
+  bottom: 12px;
+}
+
+body[data-view="key-players"] .matrix-zone {
+  position: absolute;
+  z-index: 4;
+  max-width: min(34%, 180px);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  color: rgba(16, 35, 31, 0.55);
+  padding: 7px 10px;
+  font-size: 0.7rem;
+  font-weight: 1000;
+  line-height: 1.05;
+  pointer-events: none;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: normal;
+  box-shadow: 0 8px 20px rgba(16, 35, 31, 0.06);
+}
+
+body[data-view="key-players"] .matrix-zone-core {
+  right: 14px;
+  top: 14px;
+}
+
+body[data-view="key-players"] .matrix-zone-platform {
+  left: 14px;
+  top: 14px;
+}
+
+body[data-view="key-players"] .monitor-matrix-player {
+  position: absolute;
+  left: calc(var(--matrix-x) * 1%);
+  bottom: calc(var(--matrix-y) * 1%);
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  width: clamp(58px, calc(var(--matrix-size) * 1px), 92px);
+  border: 0;
+  background: transparent;
+  color: #071511;
+  padding: 0;
+  transform: translate(-50%, 50%);
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .monitor-matrix-player .monitor-matrix-logo.company-logo-mark {
+  width: clamp(52px, calc(var(--matrix-size) * 1px), 86px);
+  height: clamp(52px, calc(var(--matrix-size) * 1px), 86px);
+  border: 4px solid var(--matrix-color);
+  box-shadow: 0 12px 26px color-mix(in srgb, var(--matrix-color) 22%, rgba(16, 35, 31, 0.14));
+}
+
+body[data-view="key-players"] .monitor-matrix-player span {
+  max-width: 120px;
+  border: 1px solid color-mix(in srgb, var(--matrix-color) 24%, rgba(16, 35, 31, 0.08));
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 4px 7px;
+  font-size: 0.68rem;
+  font-weight: 1000;
+  line-height: 1.05;
+  text-align: center;
+  box-shadow: 0 7px 14px rgba(16, 35, 31, 0.08);
+}
+
+body[data-view="key-players"] .monitor-matrix-player:hover,
+body[data-view="key-players"] .monitor-matrix-player:focus-visible {
+  z-index: 5;
+  outline: none;
+}
+
+body[data-view="key-players"] .monitor-matrix-player:hover .monitor-matrix-logo.company-logo-mark,
+body[data-view="key-players"] .monitor-matrix-player:focus-visible .monitor-matrix-logo.company-logo-mark {
+  transform: scale(1.07);
+}
+
+body[data-view="key-players"] .monitor-key-player-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+body[data-view="key-players"] .monitor-key-player-card {
+  display: grid;
+  gap: 11px;
+  border: 1px solid color-mix(in srgb, var(--player-color) 28%, rgba(16, 35, 31, 0.08));
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--player-color) 15%, transparent), transparent 40%),
+    #ffffff;
+  padding: 14px;
+}
+
+body[data-view="key-players"] .monitor-key-player-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .monitor-key-player-logo.company-logo-mark {
+  width: 46px;
+  height: 46px;
+  border: 3px solid var(--player-color);
+}
+
+body[data-view="key-players"] .monitor-key-player-head strong {
+  display: block;
+  color: #071511;
+  font-size: 1.14rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+body[data-view="key-players"] .monitor-key-player-head small,
+body[data-view="key-players"] .monitor-key-player-metrics small {
+  color: rgba(16, 35, 31, 0.56) !important;
+  font-size: 0.7rem;
+  font-weight: 950;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-key-player-card > p {
+  min-height: 54px;
+}
+
+body[data-view="key-players"] .monitor-key-player-metrics {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+body[data-view="key-players"] .monitor-key-player-metrics span {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  border-radius: 12px;
+  background: rgba(16, 35, 31, 0.045);
+  padding: 7px 9px;
+}
+
+body[data-view="key-players"] .monitor-key-player-metrics b {
+  overflow: hidden;
+  color: #10231f;
+  font-size: 0.8rem;
+  font-weight: 900;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-view="key-players"] .monitor-key-player-bars {
+  display: grid;
+  gap: 6px;
+}
+
+body[data-view="key-players"] .monitor-key-player-bars span {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 42px;
+  gap: 8px;
+  align-items: center;
+}
+
+body[data-view="key-players"] .monitor-key-player-bars b,
+body[data-view="key-players"] .monitor-key-player-bars em {
+  color: rgba(16, 35, 31, 0.68);
+  font-size: 0.66rem;
+  font-style: normal;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-key-player-bars i {
+  overflow: hidden;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(16, 35, 31, 0.08);
+}
+
+body[data-view="key-players"] .monitor-key-player-bars i::before {
+  content: "";
+  display: block;
+  width: calc(var(--axis-score) * 1%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--player-color);
+}
+
+body[data-view="key-players"] .monitor-signal-grid,
+body[data-view="key-players"] .monitor-evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+body[data-view="key-players"] .monitor-signal-lane,
+body[data-view="key-players"] .monitor-evidence-grid article {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  min-height: 286px;
+  border: 1px solid color-mix(in srgb, var(--signal-color, var(--gate-color)) 32%, rgba(16, 35, 31, 0.08));
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--signal-color, var(--gate-color)) 15%, transparent), transparent 38%),
+    #ffffff;
+  padding: 16px;
+}
+
+body[data-view="key-players"] .monitor-signal-lane header,
+body[data-view="key-players"] .monitor-evidence-grid article header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+body[data-view="key-players"] .monitor-signal-lane header span,
+body[data-view="key-players"] .monitor-evidence-grid article header span {
+  color: color-mix(in srgb, var(--signal-color, var(--gate-color)) 76%, #10231f);
+  font-size: 0.72rem;
+  font-weight: 1000;
+  letter-spacing: 0.05em;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-signal-lane header strong,
+body[data-view="key-players"] .monitor-evidence-grid article header strong {
+  display: inline-grid;
+  place-items: center;
+  min-width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--signal-color, var(--gate-color)) 15%, #fff);
+  color: #071511;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+body[data-view="key-players"] .monitor-signal-lane p,
+body[data-view="key-players"] .monitor-evidence-grid article p {
+  margin: 0;
+  color: #1b302b;
+  font-size: 1rem;
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+body[data-view="key-players"] .monitor-signal-latest {
+  display: grid;
+  gap: 6px;
+  border-radius: 16px;
+  background: rgba(16, 35, 31, 0.045);
+  padding: 12px;
+}
+
+body[data-view="key-players"] .monitor-signal-latest small,
+body[data-view="key-players"] .monitor-signal-latest em {
+  color: rgba(16, 35, 31, 0.58) !important;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 850;
+  line-height: 1.22;
+}
+
+body[data-view="key-players"] .monitor-signal-latest b,
+body[data-view="key-players"] .monitor-evidence-grid article > b {
+  color: #071511;
+  font-size: 0.98rem;
+  line-height: 1.12;
+}
+
+body[data-view="key-players"] .monitor-signal-lane footer {
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+body[data-view="key-players"] .monitor-evidence-grid article {
+  --signal-color: var(--gate-color);
+  min-height: 258px;
+}
+
+body[data-view="key-players"] .monitor-evidence-grid article > div {
+  min-height: 40px;
+}
+
+@media (max-width: 1480px) {
+  body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid,
+  body[data-view="key-players"] .monitor-segment-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  body[data-view="key-players"] .monitor-signal-grid,
+  body[data-view="key-players"] .monitor-evidence-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1180px) {
+  body[data-view="key-players"] .monitor-executive-hero,
+  body[data-view="key-players"] .monitor-executive-section-head,
+  body[data-view="key-players"] .monitor-executive-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid,
+  body[data-view="key-players"] .monitor-segment-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid,
+  body[data-view="key-players"] .monitor-segment-grid,
+  body[data-view="key-players"] .monitor-key-player-card-grid,
+  body[data-view="key-players"] .monitor-signal-grid,
+  body[data-view="key-players"] .monitor-evidence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-executive-redesign {
+    border-radius: 18px;
+    padding: 12px;
+  }
+
+  body[data-view="key-players"] .monitor-executive-hero h3 {
+    font-size: clamp(2.3rem, 15vw, 4.2rem);
+  }
+
+  body[data-view="key-players"] .monitor-executive-matrix-plot {
+    min-height: 440px;
+  }
+}
+
+/* Market Monitor v162 polish: clearer hierarchy, calmer first read, tighter executive cards. */
+body[data-view="key-players"] #key-playersView > .section-heading {
+  display: none;
+}
+
+body[data-view="key-players"] .monitor-mode-shell {
+  gap: 14px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+body[data-view="key-players"] .monitor-mode-shell > .directory-head {
+  display: none;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: end;
+  border: 1px solid rgba(16, 35, 31, 0.09);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(0, 184, 132, 0.15), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(246, 251, 246, 0.92));
+  padding: 18px 20px;
+  box-shadow: 0 16px 42px rgba(16, 35, 31, 0.055);
+}
+
+body[data-view="key-players"] .monitor-mode-shell > .directory-head h3 {
+  max-width: 900px;
+  margin: 4px 0 5px;
+  color: #071511;
+  font-size: clamp(1.65rem, 2.5vw, 3.1rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+}
+
+body[data-view="key-players"] .monitor-mode-shell > .directory-head p {
+  max-width: 900px;
+  margin: 0;
+  color: rgba(16, 35, 31, 0.65);
+  font-size: 0.95rem;
+  font-weight: 760;
+  line-height: 1.26;
+}
+
+body[data-view="key-players"] .monitor-mode-shell > .directory-head > span {
+  min-width: 0;
+  border: 1px solid rgba(0, 184, 132, 0.18);
+  border-radius: 999px;
+  background: rgba(0, 184, 132, 0.08);
+  color: #0f513c;
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  font-weight: 1000;
+  white-space: nowrap;
+}
+
+body[data-view="key-players"] .monitor-mode-switcher {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  border: 1px solid rgba(16, 35, 31, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.76);
+  padding: 7px;
+  box-shadow: 0 12px 28px rgba(16, 35, 31, 0.045);
+}
+
+body[data-view="key-players"] .monitor-mode-switcher button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 3px 8px;
+  align-items: center;
+  min-height: 62px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  background: transparent;
+  padding: 10px 12px;
+}
+
+body[data-view="key-players"] .monitor-mode-switcher button.is-active {
+  border-color: rgba(16, 35, 31, 0.14);
+  background:
+    radial-gradient(circle at 92% 12%, rgba(0, 184, 132, 0.22), transparent 36%),
+    #10231f;
+  box-shadow: 0 10px 22px rgba(16, 35, 31, 0.12);
+}
+
+body[data-view="key-players"] .monitor-mode-switcher strong {
+  color: #10231f;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+body[data-view="key-players"] .monitor-mode-switcher span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: rgba(0, 184, 132, 0.1);
+  color: #0f513c;
+  font-size: 0.9rem;
+  font-weight: 1000;
+}
+
+body[data-view="key-players"] .monitor-mode-switcher small {
+  grid-column: 1 / -1;
+  color: rgba(16, 35, 31, 0.56) !important;
+  font-size: 0.72rem;
+  line-height: 1.05;
+}
+
+body[data-view="key-players"] .monitor-mode-switcher button.is-active strong,
+body[data-view="key-players"] .monitor-mode-switcher button.is-active small {
+  color: #ffffff !important;
+}
+
+body[data-view="key-players"] .monitor-mode-switcher button.is-active span {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+body[data-view="key-players"] .monitor-executive-redesign {
+  gap: 16px;
+  border: 0;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(237, 248, 241, 0.9), rgba(255, 255, 255, 0.98) 28%, rgba(247, 250, 244, 0.96)),
+    #f7faf4;
+  padding: clamp(14px, 1.8vw, 24px);
+  box-shadow:
+    inset 0 0 0 1px rgba(16, 35, 31, 0.06),
+    0 24px 62px rgba(16, 35, 31, 0.07);
+}
+
+body[data-view="key-players"] .monitor-executive-hero {
+  grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.45fr);
+  gap: 12px;
+}
+
+body[data-view="key-players"] .monitor-executive-hero > div {
+  overflow: hidden;
+  border: 0;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 88% 8%, rgba(0, 210, 146, 0.28), transparent 30%),
+    radial-gradient(circle at 20% 110%, rgba(61, 125, 224, 0.24), transparent 34%),
+    linear-gradient(135deg, #071511 0%, #10231f 58%, #0f513c 100%);
+  color: #ffffff;
+  padding: clamp(22px, 2.6vw, 34px);
+}
+
+body[data-view="key-players"] .monitor-executive-hero .section-kicker {
+  color: #75e8b8;
+}
+
+body[data-view="key-players"] .monitor-executive-hero h3 {
+  max-width: 1000px;
+  color: #ffffff;
+  font-size: clamp(2.1rem, 3.35vw, 4.2rem);
+  line-height: 0.9;
+  text-wrap: balance;
+}
+
+body[data-view="key-players"] .monitor-executive-hero p {
+  max-width: 850px;
+  color: rgba(245, 255, 249, 0.78);
+  font-size: clamp(1rem, 1.25vw, 1.24rem);
+}
+
+body[data-view="key-players"] .monitor-executive-hero aside {
+  border: 1px solid rgba(16, 35, 31, 0.08);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 184, 77, 0.24), transparent 34%),
+    linear-gradient(180deg, #ffffff, #fbf7ec);
+  color: #10231f;
+  padding: 22px;
+  box-shadow: 0 18px 40px rgba(16, 35, 31, 0.07);
+}
+
+body[data-view="key-players"] .monitor-executive-hero aside span {
+  color: #a66700;
+}
+
+body[data-view="key-players"] .monitor-executive-hero aside strong {
+  color: #071511;
+  font-size: clamp(3.3rem, 5vw, 6.4rem);
+}
+
+body[data-view="key-players"] .monitor-executive-hero aside small {
+  color: rgba(16, 35, 31, 0.68) !important;
+}
+
+body[data-view="key-players"] .monitor-executive-hero-actions button {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+body[data-view="key-players"] .monitor-executive-hero-actions button:hover,
+body[data-view="key-players"] .monitor-executive-hero-actions button:focus-visible {
+  border-color: #75e8b8;
+  background: #75e8b8;
+  color: #071511;
+}
+
+body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 9px;
+}
+
+body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid article {
+  min-height: 112px;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(250, 252, 248, 0.94)),
+    #ffffff;
+  padding: 14px;
+}
+
+body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid article:nth-child(1) {
+  border-color: rgba(0, 184, 132, 0.22);
+}
+
+body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid article:nth-child(3) {
+  border-color: rgba(110, 92, 255, 0.22);
+}
+
+body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid article:nth-child(5) {
+  border-color: rgba(239, 90, 79, 0.24);
+}
+
+body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid strong {
+  font-size: clamp(1.05rem, 1.28vw, 1.48rem);
+}
+
+body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid small {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 0.76rem;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+body[data-view="key-players"] .monitor-executive-redesign > section {
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: clamp(16px, 1.8vw, 24px);
+}
+
+body[data-view="key-players"] .monitor-executive-section-head {
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.54fr);
+  gap: 14px;
+  align-items: start;
+}
+
+body[data-view="key-players"] .monitor-executive-section-head h3 {
+  max-width: 900px;
+  font-size: clamp(1.75rem, 2.45vw, 2.9rem);
+  text-wrap: balance;
+}
+
+body[data-view="key-players"] .monitor-executive-section-head p {
+  max-width: 560px;
+  font-size: 0.94rem;
+}
+
+body[data-view="key-players"] .monitor-segment-grid {
+  grid-template-columns: repeat(7, minmax(146px, 1fr));
+  gap: 8px;
+}
+
+body[data-view="key-players"] .monitor-segment-card {
+  position: relative;
+  min-height: 244px;
+  border-radius: 18px;
+  padding: 13px;
+}
+
+body[data-view="key-players"] .monitor-segment-card header {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+body[data-view="key-players"] .monitor-segment-card header em {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  font-size: 1.05rem;
+}
+
+body[data-view="key-players"] .monitor-segment-card header strong {
+  padding-right: 38px;
+  font-size: 1.02rem;
+}
+
+body[data-view="key-players"] .monitor-segment-card p {
+  font-size: 0.9rem;
+}
+
+body[data-view="key-players"] .monitor-segment-card > small {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 0.74rem;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+body[data-view="key-players"] .monitor-segment-metrics {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+body[data-view="key-players"] .monitor-segment-players {
+  max-height: 58px;
+  overflow: hidden;
+}
+
+body[data-view="key-players"] .monitor-executive-comparison-grid {
+  grid-template-columns: minmax(390px, 0.74fr) minmax(0, 1.26fr);
+}
+
+body[data-view="key-players"] .monitor-executive-matrix,
+body[data-view="key-players"] .monitor-key-player-compare {
+  border-radius: 20px;
+  padding: 15px;
+}
+
+body[data-view="key-players"] .monitor-executive-matrix-plot {
+  min-height: 430px;
+}
+
+body[data-view="key-players"] .monitor-key-player-card-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+body[data-view="key-players"] .monitor-key-player-card {
+  gap: 9px;
+  border-radius: 17px;
+  padding: 12px;
+}
+
+body[data-view="key-players"] .monitor-key-player-card > p {
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 38px;
+  font-size: 0.8rem;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+body[data-view="key-players"] .monitor-key-player-metrics span:nth-child(2) {
+  display: none;
+}
+
+body[data-view="key-players"] .monitor-signal-grid,
+body[data-view="key-players"] .monitor-evidence-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+body[data-view="key-players"] .monitor-signal-lane,
+body[data-view="key-players"] .monitor-evidence-grid article {
+  min-height: 224px;
+  border-radius: 18px;
+  padding: 14px;
+}
+
+body[data-view="key-players"] .monitor-signal-lane p,
+body[data-view="key-players"] .monitor-evidence-grid article p {
+  font-size: 0.88rem;
+}
+
+body[data-view="key-players"] .monitor-signal-latest {
+  padding: 10px;
+}
+
+body[data-view="key-players"] .monitor-signal-latest b,
+body[data-view="key-players"] .monitor-evidence-grid article > b {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1500px) {
+  body[data-view="key-players"] .monitor-segment-grid,
+  body[data-view="key-players"] .monitor-key-player-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1180px) {
+  body[data-view="key-players"] .monitor-mode-shell > .directory-head,
+  body[data-view="key-players"] .monitor-executive-hero,
+  body[data-view="key-players"] .monitor-executive-section-head,
+  body[data-view="key-players"] .monitor-executive-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid,
+  body[data-view="key-players"] .monitor-mode-switcher,
+  body[data-view="key-players"] .monitor-signal-grid,
+  body[data-view="key-players"] .monitor-evidence-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-view="key-players"] .monitor-executive-redesign .monitor-command-card-grid,
+  body[data-view="key-players"] .monitor-mode-switcher,
+  body[data-view="key-players"] .monitor-segment-grid,
+  body[data-view="key-players"] .monitor-key-player-card-grid,
+  body[data-view="key-players"] .monitor-signal-grid,
+  body[data-view="key-players"] .monitor-evidence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-executive-hero h3 {
+    font-size: clamp(2.15rem, 14vw, 4rem);
+  }
+}
+
 @media (max-width: 1180px) {
   body[data-view="relationships"] .relationship-completion-head {
     grid-template-columns: 1fr;
@@ -29664,4 +30997,2616 @@ body[data-view="overview"] .cluster-step-marker {
 body[data-view="overview"] .cluster-step-label {
   font-size: 8.6px !important;
   font-weight: 1000 !important;
+}
+
+/* Market monitor v164: interactive radar replaces the card-first command center. */
+body[data-view="key-players"] .monitor-market-radar {
+  display: grid;
+  gap: 18px;
+  border: 1px solid rgba(16, 35, 31, 0.08);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 22% 0%, rgba(0, 184, 132, 0.14), transparent 30%),
+    linear-gradient(180deg, #ffffff 0%, #f6faf4 100%);
+  padding: clamp(16px, 2vw, 26px);
+  box-shadow: 0 30px 80px rgba(16, 35, 31, 0.09);
+}
+
+body[data-view="key-players"] .monitor-market-radar-head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(420px, 0.68fr);
+  gap: 18px;
+  align-items: end;
+}
+
+body[data-view="key-players"] .monitor-market-radar-head h3 {
+  max-width: 980px;
+  margin: 5px 0 6px;
+  color: #071511;
+  font-size: clamp(2rem, 3.1vw, 4.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.065em;
+  text-wrap: balance;
+}
+
+body[data-view="key-players"] .monitor-market-radar-head p {
+  max-width: 900px;
+  margin: 0;
+  color: rgba(16, 35, 31, 0.65);
+  font-size: clamp(1rem, 1.15vw, 1.2rem);
+  font-weight: 780;
+  line-height: 1.28;
+}
+
+body[data-view="key-players"] .monitor-radar-mode-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+body[data-view="key-players"] .monitor-radar-mode-tabs button {
+  display: grid;
+  gap: 4px;
+  min-height: 70px;
+  border: 1px solid rgba(16, 35, 31, 0.09);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 12px 14px;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(16, 35, 31, 0.04);
+}
+
+body[data-view="key-players"] .monitor-radar-mode-tabs button.is-active {
+  border-color: rgba(0, 184, 132, 0.42);
+  background:
+    radial-gradient(circle at 95% 0%, rgba(0, 184, 132, 0.32), transparent 38%),
+    #10231f;
+  color: #ffffff;
+}
+
+body[data-view="key-players"] .monitor-radar-mode-tabs strong {
+  color: inherit;
+  font-size: 0.98rem;
+  line-height: 1;
+}
+
+body[data-view="key-players"] .monitor-radar-mode-tabs small {
+  color: rgba(16, 35, 31, 0.58) !important;
+  font-size: 0.72rem;
+  font-weight: 950;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-radar-mode-tabs button.is-active small {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+body[data-view="key-players"] .monitor-radar-grid {
+  display: grid;
+  grid-template-columns: minmax(720px, 1fr) minmax(320px, 390px);
+  gap: 18px;
+  align-items: stretch;
+}
+
+body[data-view="key-players"] .monitor-radar-stage {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(620px, 64vw, 860px);
+  border: 1px solid rgba(16, 35, 31, 0.09);
+  border-radius: 30px;
+  background:
+    linear-gradient(rgba(16, 35, 31, 0.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 35, 31, 0.026) 1px, transparent 1px),
+    radial-gradient(circle at 50% 48%, rgba(0, 184, 132, 0.16), transparent 24%),
+    radial-gradient(circle at 20% 78%, rgba(61, 125, 224, 0.08), transparent 25%),
+    #fbfdf9;
+  background-size: 64px 64px, 64px 64px, auto, auto, auto;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.82);
+}
+
+body[data-view="key-players"] .monitor-radar-rings,
+body[data-view="key-players"] .monitor-radar-crosshair {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+body[data-view="key-players"] .monitor-radar-rings span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--ring-size);
+  height: calc(var(--ring-size) * 0.72);
+  border: 1px dashed rgba(16, 35, 31, 0.16);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+}
+
+body[data-view="key-players"] .monitor-radar-rings span:nth-child(1) {
+  --ring-size: 28%;
+  background: rgba(0, 184, 132, 0.04);
+}
+
+body[data-view="key-players"] .monitor-radar-rings span:nth-child(2) {
+  --ring-size: 54%;
+}
+
+body[data-view="key-players"] .monitor-radar-rings span:nth-child(3) {
+  --ring-size: 82%;
+}
+
+body[data-view="key-players"] .monitor-radar-crosshair::before,
+body[data-view="key-players"] .monitor-radar-crosshair::after {
+  content: "";
+  position: absolute;
+  background: rgba(16, 35, 31, 0.08);
+}
+
+body[data-view="key-players"] .monitor-radar-crosshair::before {
+  left: 50%;
+  top: 11%;
+  width: 1px;
+  height: 78%;
+}
+
+body[data-view="key-players"] .monitor-radar-crosshair::after {
+  left: 9%;
+  top: 50%;
+  width: 82%;
+  height: 1px;
+}
+
+body[data-view="key-players"] .monitor-radar-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: clamp(132px, 11vw, 178px);
+  height: clamp(132px, 11vw, 178px);
+  border: 12px solid rgba(255, 255, 255, 0.94);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(0, 210, 146, 0.4), transparent 34%),
+    #071511;
+  color: #ffffff;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 0 24px rgba(0, 184, 132, 0.12),
+    0 22px 54px rgba(16, 35, 31, 0.2);
+}
+
+body[data-view="key-players"] .monitor-radar-center strong {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: #00b884;
+  color: #ffffff;
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+body[data-view="key-players"] .monitor-radar-center span {
+  max-width: 110px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.78rem;
+  font-weight: 1000;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-radar-group-label {
+  position: absolute;
+  left: calc(var(--group-x) * 1%);
+  top: calc(var(--group-y) * 1%);
+  z-index: 4;
+  display: inline-grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  max-width: 190px;
+  border: 1px solid color-mix(in srgb, var(--group-color) 48%, rgba(16, 35, 31, 0.1));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--group-color) 12%, #fff);
+  color: #10231f;
+  padding: 8px 10px 8px 12px;
+  text-align: left;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  box-shadow: 0 12px 28px rgba(16, 35, 31, 0.08);
+}
+
+body[data-view="key-players"] .monitor-radar-group-label strong {
+  overflow: hidden;
+  font-size: 0.78rem;
+  font-weight: 1000;
+  line-height: 1;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+body[data-view="key-players"] .monitor-radar-group-label span {
+  display: grid;
+  place-items: center;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--group-color);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 1000;
+}
+
+body[data-view="key-players"] .monitor-radar-node {
+  position: absolute;
+  left: calc(var(--node-x) * 1%);
+  top: calc(var(--node-y) * 1%);
+  z-index: 5;
+  display: grid;
+  justify-items: center;
+  width: clamp(62px, calc(var(--node-size) * 1px), 98px);
+  height: clamp(62px, calc(var(--node-size) * 1px), 98px);
+  border: 0;
+  background: transparent;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .monitor-radar-logo.company-logo-mark {
+  width: clamp(52px, calc(var(--node-size) * 1px), 90px);
+  height: clamp(52px, calc(var(--node-size) * 1px), 90px);
+  border: 4px solid var(--node-color);
+  background: #ffffff;
+  box-shadow:
+    0 0 0 calc(2px + (var(--node-score) * 0.035px)) color-mix(in srgb, var(--node-color) 22%, transparent),
+    0 14px 28px rgba(16, 35, 31, 0.14);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+body[data-view="key-players"] .monitor-radar-node span {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 5px);
+  max-width: 132px;
+  border: 1px solid color-mix(in srgb, var(--node-color) 35%, rgba(16, 35, 31, 0.08));
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #071511;
+  padding: 4px 8px;
+  font-size: 0.68rem;
+  font-weight: 1000;
+  line-height: 1.05;
+  pointer-events: none;
+  text-align: center;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  box-shadow: 0 8px 16px rgba(16, 35, 31, 0.08);
+}
+
+body[data-view="key-players"] .monitor-radar-node.is-key span,
+body[data-view="key-players"] .monitor-radar-node.is-selected span {
+  font-size: 0.76rem;
+}
+
+body[data-view="key-players"] .monitor-radar-node.is-selected {
+  z-index: 8;
+}
+
+body[data-view="key-players"] .monitor-radar-node.is-selected .monitor-radar-logo.company-logo-mark {
+  transform: scale(1.18);
+  box-shadow:
+    0 0 0 10px color-mix(in srgb, var(--node-color) 22%, transparent),
+    0 20px 38px rgba(16, 35, 31, 0.2);
+}
+
+body[data-view="key-players"] .monitor-radar-node:hover,
+body[data-view="key-players"] .monitor-radar-node:focus-visible {
+  z-index: 9;
+  outline: none;
+}
+
+body[data-view="key-players"] .monitor-radar-node:hover .monitor-radar-logo.company-logo-mark,
+body[data-view="key-players"] .monitor-radar-node:focus-visible .monitor-radar-logo.company-logo-mark {
+  transform: scale(1.14);
+}
+
+body[data-view="key-players"] .monitor-radar-detail {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--detail-color) 34%, rgba(16, 35, 31, 0.08));
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 95% 0%, color-mix(in srgb, var(--detail-color) 20%, transparent), transparent 38%),
+    #ffffff;
+  padding: 18px;
+  box-shadow: 0 20px 50px rgba(16, 35, 31, 0.08);
+}
+
+body[data-view="key-players"] .monitor-radar-detail-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+body[data-view="key-players"] .monitor-radar-detail-logo.company-logo-mark {
+  width: 72px;
+  height: 72px;
+  border: 4px solid var(--detail-color);
+}
+
+body[data-view="key-players"] .monitor-radar-detail-head span,
+body[data-view="key-players"] .monitor-radar-detail section > span,
+body[data-view="key-players"] .monitor-radar-reveal-grid span {
+  color: color-mix(in srgb, var(--detail-color, #00b884) 72%, #10231f);
+  font-size: 0.72rem;
+  font-weight: 1000;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-radar-detail h4 {
+  margin: 3px 0 2px;
+  color: #071511;
+  font-size: clamp(1.65rem, 2.1vw, 2.7rem);
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+}
+
+body[data-view="key-players"] .monitor-radar-detail-head small,
+body[data-view="key-players"] .monitor-radar-detail footer small {
+  color: rgba(16, 35, 31, 0.58) !important;
+  font-size: 0.76rem;
+  font-weight: 850;
+  line-height: 1.18;
+}
+
+body[data-view="key-players"] .monitor-radar-detail p {
+  margin: 0;
+  color: #1b302b;
+  font-size: 0.96rem;
+  font-weight: 780;
+  line-height: 1.26;
+}
+
+body[data-view="key-players"] .monitor-radar-metric-stack {
+  display: grid;
+  gap: 8px;
+}
+
+body[data-view="key-players"] .monitor-radar-metric-stack div {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) 46px;
+  gap: 8px;
+  align-items: center;
+}
+
+body[data-view="key-players"] .monitor-radar-metric-stack span,
+body[data-view="key-players"] .monitor-radar-metric-stack strong {
+  color: rgba(16, 35, 31, 0.64);
+  font-size: 0.72rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-radar-metric-stack i {
+  overflow: hidden;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(16, 35, 31, 0.08);
+}
+
+body[data-view="key-players"] .monitor-radar-metric-stack b {
+  display: block;
+  width: calc(var(--radar-metric) * 1%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--detail-color);
+}
+
+body[data-view="key-players"] .monitor-radar-detail section {
+  display: grid;
+  gap: 7px;
+  border-radius: 18px;
+  background: rgba(16, 35, 31, 0.045);
+  padding: 13px;
+}
+
+body[data-view="key-players"] .monitor-radar-detail section strong {
+  color: #071511;
+  font-size: 1.02rem;
+  line-height: 1.08;
+}
+
+body[data-view="key-players"] .monitor-radar-peer-row,
+body[data-view="key-players"] .monitor-radar-detail footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+body[data-view="key-players"] .monitor-radar-detail footer {
+  justify-content: space-between;
+}
+
+body[data-view="key-players"] .monitor-radar-detail footer button {
+  border: 0;
+  border-radius: 999px;
+  background: #10231f;
+  color: #ffffff;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .monitor-radar-reveal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+body[data-view="key-players"] .monitor-radar-reveal-grid article {
+  display: grid;
+  gap: 5px;
+  min-height: 104px;
+  border: 1px solid rgba(16, 35, 31, 0.08);
+  border-radius: 20px;
+  background: #ffffff;
+  padding: 15px;
+}
+
+body[data-view="key-players"] .monitor-radar-reveal-grid strong {
+  color: #071511;
+  font-size: 1.18rem;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+body[data-view="key-players"] .monitor-radar-reveal-grid small {
+  color: rgba(16, 35, 31, 0.58) !important;
+  font-size: 0.8rem;
+  font-weight: 780;
+  line-height: 1.22;
+}
+
+@media (max-width: 1280px) {
+  body[data-view="key-players"] .monitor-market-radar-head,
+  body[data-view="key-players"] .monitor-radar-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-radar-stage {
+    min-height: 680px;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-view="key-players"] .monitor-radar-mode-tabs,
+  body[data-view="key-players"] .monitor-radar-reveal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-radar-stage {
+    min-height: 620px;
+  }
+
+  body[data-view="key-players"] .monitor-radar-group-label {
+    max-width: 136px;
+    padding: 6px 8px;
+  }
+
+  body[data-view="key-players"] .monitor-radar-group-label strong {
+    font-size: 0.66rem;
+  }
+
+  body[data-view="key-players"] .monitor-radar-node span {
+    display: none;
+  }
+
+  body[data-view="key-players"] .monitor-radar-node.is-selected span,
+  body[data-view="key-players"] .monitor-radar-node.is-key span {
+    display: block;
+  }
+}
+
+/* Market monitor v168: replace map-like radar with an executive lane board. */
+body[data-view="key-players"] .monitor-market-board {
+  display: grid;
+  gap: 18px;
+  border: 1px solid rgba(16, 35, 31, 0.08);
+  border-radius: 32px;
+  background:
+    linear-gradient(135deg, rgba(16, 35, 31, 0.045) 0 1px, transparent 1px 22px),
+    linear-gradient(180deg, #ffffff 0%, #f4f8ee 100%);
+  padding: clamp(16px, 2vw, 28px);
+  box-shadow: 0 34px 90px rgba(16, 35, 31, 0.1);
+}
+
+body[data-view="key-players"] .monitor-market-board-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(420px, 0.58fr);
+  gap: 20px;
+  align-items: end;
+}
+
+body[data-view="key-players"] .monitor-market-board-head h3 {
+  max-width: 1050px;
+  margin: 5px 0 8px;
+  color: #071511;
+  font-size: clamp(2.3rem, 3.5vw, 5.1rem);
+  line-height: 0.9;
+  letter-spacing: -0.068em;
+  text-wrap: balance;
+}
+
+body[data-view="key-players"] .monitor-market-board-head p {
+  max-width: 980px;
+  margin: 0;
+  color: rgba(16, 35, 31, 0.68);
+  font-size: clamp(1.02rem, 1.12vw, 1.25rem);
+  font-weight: 820;
+  line-height: 1.25;
+}
+
+body[data-view="key-players"] .monitor-board-mode-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+body[data-view="key-players"] .monitor-board-mode-tabs button {
+  display: grid;
+  gap: 5px;
+  min-height: 76px;
+  border: 1px solid rgba(16, 35, 31, 0.1);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 244, 0.9));
+  padding: 13px 15px;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 14px 28px rgba(16, 35, 31, 0.055);
+}
+
+body[data-view="key-players"] .monitor-board-mode-tabs button.is-active {
+  border-color: rgba(0, 184, 132, 0.46);
+  background:
+    linear-gradient(135deg, rgba(0, 184, 132, 0.38), transparent 38%),
+    #10231f;
+  color: #ffffff;
+}
+
+body[data-view="key-players"] .monitor-board-mode-tabs strong {
+  color: inherit;
+  font-size: 1.02rem;
+  line-height: 1;
+}
+
+body[data-view="key-players"] .monitor-board-mode-tabs small {
+  color: rgba(16, 35, 31, 0.58) !important;
+  font-size: 0.72rem;
+  font-weight: 980;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-board-mode-tabs button.is-active small {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+body[data-view="key-players"] .monitor-board-grid {
+  display: grid;
+  grid-template-columns: minmax(780px, 1fr) minmax(340px, 410px);
+  gap: 18px;
+  align-items: stretch;
+}
+
+body[data-view="key-players"] .monitor-board-stage {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  min-height: 650px;
+  border: 1px solid rgba(16, 35, 31, 0.09);
+  border-radius: 30px;
+  background:
+    linear-gradient(rgba(16, 35, 31, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 35, 31, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, #fbfdf8 0%, #eef5e9 100%);
+  background-size: 58px 58px, 58px 58px, auto;
+  padding: clamp(14px, 1.5vw, 22px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.82);
+}
+
+body[data-view="key-players"] .monitor-board-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+body[data-view="key-players"] .monitor-board-toolbar span {
+  display: inline-flex;
+  gap: 7px;
+  align-items: baseline;
+  border: 1px solid rgba(16, 35, 31, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  color: rgba(16, 35, 31, 0.62);
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  box-shadow: 0 10px 22px rgba(16, 35, 31, 0.04);
+}
+
+body[data-view="key-players"] .monitor-board-toolbar strong {
+  color: #071511;
+  font-size: 1.05rem;
+}
+
+body[data-view="key-players"] .monitor-board-lanes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(218px, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+body[data-view="key-players"] .monitor-board-lane {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  min-width: 0;
+  min-height: 560px;
+  border: 1px solid color-mix(in srgb, var(--lane-color) 34%, rgba(16, 35, 31, 0.08));
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--lane-color) 12%, #fff) 0%, rgba(255, 255, 255, 0.86) 38%, rgba(255, 255, 255, 0.66) 100%);
+  padding: 12px;
+  box-shadow: 0 16px 34px rgba(16, 35, 31, 0.07);
+}
+
+body[data-view="key-players"] .monitor-board-lane header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 10px;
+  align-items: start;
+  min-height: 104px;
+  border-bottom: 1px solid color-mix(in srgb, var(--lane-color) 22%, rgba(16, 35, 31, 0.08));
+  padding-bottom: 10px;
+}
+
+body[data-view="key-players"] .monitor-board-lane header span {
+  color: #071511;
+  font-size: clamp(1.04rem, 1.18vw, 1.34rem);
+  font-weight: 1000;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-board-lane header strong {
+  display: grid;
+  place-items: center;
+  min-width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: var(--lane-color);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 1000;
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--lane-color) 28%, transparent);
+}
+
+body[data-view="key-players"] .monitor-board-lane header small {
+  grid-column: 1 / -1;
+  color: rgba(16, 35, 31, 0.62) !important;
+  font-size: 0.78rem;
+  font-weight: 820;
+  line-height: 1.16;
+}
+
+body[data-view="key-players"] .monitor-board-card-stack {
+  display: grid;
+  align-content: start;
+  gap: 9px;
+  min-width: 0;
+}
+
+body[data-view="key-players"] .monitor-board-card-stack > p {
+  margin: 0;
+  border: 1px dashed rgba(16, 35, 31, 0.16);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.7);
+  color: rgba(16, 35, 31, 0.56);
+  padding: 14px;
+  font-size: 0.84rem;
+  font-weight: 820;
+  line-height: 1.2;
+}
+
+body[data-view="key-players"] .monitor-board-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
+  grid-template-rows: auto 9px;
+  gap: 8px 10px;
+  align-items: center;
+  min-width: 0;
+  min-height: 92px;
+  border: 1px solid color-mix(in srgb, var(--card-color) 36%, rgba(16, 35, 31, 0.08));
+  border-radius: 19px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--card-color) 13%, #fff) 0%, rgba(255, 255, 255, 0.96) 44%, #fff 100%);
+  color: #071511;
+  padding: 10px 10px 10px 9px;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 14px 28px rgba(16, 35, 31, 0.08);
+  transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+}
+
+body[data-view="key-players"] .monitor-board-card:hover,
+body[data-view="key-players"] .monitor-board-card:focus-visible,
+body[data-view="key-players"] .monitor-board-card.is-selected {
+  border-color: color-mix(in srgb, var(--card-color) 72%, #10231f);
+  outline: none;
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--card-color) 14%, transparent),
+    0 20px 36px rgba(16, 35, 31, 0.13);
+}
+
+body[data-view="key-players"] .monitor-board-card.is-selected {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--card-color) 24%, #fff) 0%, #ffffff 60%);
+}
+
+body[data-view="key-players"] .monitor-board-card-logo.company-logo-mark {
+  width: 50px;
+  height: 50px;
+  border: 3px solid var(--card-color);
+  border-radius: 15px;
+  background: #ffffff;
+  box-shadow: 0 8px 16px rgba(16, 35, 31, 0.1);
+}
+
+body[data-view="key-players"] .monitor-board-card > span {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+body[data-view="key-players"] .monitor-board-card > span strong {
+  overflow: hidden;
+  color: #071511;
+  font-size: 1rem;
+  font-weight: 1000;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-view="key-players"] .monitor-board-card > span small {
+  display: -webkit-box;
+  overflow: hidden;
+  color: rgba(16, 35, 31, 0.62) !important;
+  font-size: 0.72rem;
+  font-weight: 820;
+  line-height: 1.08;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+body[data-view="key-players"] .monitor-board-card em {
+  justify-self: end;
+  max-width: 74px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--card-color) 13%, #fff);
+  color: color-mix(in srgb, var(--card-color) 72%, #10231f);
+  padding: 5px 7px;
+  font-size: 0.58rem;
+  font-style: normal;
+  font-weight: 1000;
+  line-height: 1.05;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-board-card i {
+  grid-column: 1 / -1;
+  overflow: hidden;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(16, 35, 31, 0.08);
+}
+
+body[data-view="key-players"] .monitor-board-card i b {
+  display: block;
+  width: calc(var(--card-score) * 1%);
+  height: 100%;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, var(--card-color), color-mix(in srgb, var(--card-color) 58%, #10231f));
+}
+
+body[data-view="key-players"] .monitor-board-card mark {
+  position: absolute;
+  right: 10px;
+  bottom: 18px;
+  display: grid;
+  place-items: center;
+  min-width: 34px;
+  height: 24px;
+  border-radius: 999px;
+  background: #10231f;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 1000;
+}
+
+body[data-view="key-players"] .monitor-board-lane footer {
+  display: grid;
+  gap: 4px;
+  min-height: 54px;
+  border-top: 1px solid color-mix(in srgb, var(--lane-color) 20%, rgba(16, 35, 31, 0.08));
+  padding-top: 9px;
+}
+
+body[data-view="key-players"] .monitor-board-lane footer span,
+body[data-view="key-players"] .monitor-board-lane footer b {
+  overflow: hidden;
+  color: rgba(16, 35, 31, 0.62);
+  font-size: 0.72rem;
+  font-weight: 920;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+body[data-view="key-players"] .monitor-board-lane footer b {
+  color: #071511;
+}
+
+body[data-view="key-players"] .monitor-market-board .monitor-radar-detail {
+  position: sticky;
+  top: 18px;
+  align-self: start;
+  min-height: 650px;
+}
+
+body[data-view="key-players"] .monitor-board-readout-grid article {
+  min-height: 118px;
+  border-radius: 22px;
+}
+
+@media (max-width: 1380px) {
+  body[data-view="key-players"] .monitor-market-board-head,
+  body[data-view="key-players"] .monitor-board-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-market-board .monitor-radar-detail {
+    position: static;
+    min-height: 0;
+  }
+
+  body[data-view="key-players"] .monitor-board-stage {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 880px) {
+  body[data-view="key-players"] .monitor-board-mode-tabs,
+  body[data-view="key-players"] .monitor-board-readout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-board-lanes {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-board-lane {
+    min-height: 0;
+  }
+
+  body[data-view="key-players"] .monitor-board-card {
+    grid-template-columns: 50px minmax(0, 1fr);
+  }
+
+  body[data-view="key-players"] .monitor-board-card em {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+/* Market monitor v168 readability pass: names must survive narrow executive lanes. */
+body[data-view="key-players"] .monitor-board-card {
+  grid-template-columns: 54px minmax(0, 1fr);
+  min-height: 104px;
+  padding-right: 50px;
+}
+
+body[data-view="key-players"] .monitor-board-card-logo.company-logo-mark {
+  grid-row: 1 / span 2;
+}
+
+body[data-view="key-players"] .monitor-board-card > span strong {
+  display: -webkit-box;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+body[data-view="key-players"] .monitor-board-card em {
+  grid-column: 2;
+  justify-self: start;
+  max-width: 100%;
+  padding: 4px 7px;
+}
+
+body[data-view="key-players"] .monitor-board-card mark {
+  top: 10px;
+  bottom: auto;
+  right: 10px;
+}
+
+/* Market monitor v169: strategy arena becomes the primary, non-map visual. */
+body[data-view="key-players"] .monitor-strategy-arena {
+  display: grid;
+  gap: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 35, 31, 0.1);
+  border-radius: 34px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(242, 248, 238, 0.96)),
+    #ffffff;
+  padding: clamp(18px, 2.2vw, 30px);
+  box-shadow: 0 34px 90px rgba(16, 35, 31, 0.11);
+}
+
+body[data-view="key-players"] .monitor-strategy-arena-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.54fr);
+  gap: 18px;
+  align-items: end;
+}
+
+body[data-view="key-players"] .monitor-strategy-arena-head h3 {
+  max-width: 1120px;
+  margin: 5px 0 8px;
+  color: #071511;
+  font-size: clamp(2.45rem, 3.8vw, 5.6rem);
+  line-height: 0.88;
+  letter-spacing: -0.072em;
+  text-wrap: balance;
+}
+
+body[data-view="key-players"] .monitor-strategy-arena-head p {
+  max-width: 1000px;
+  margin: 0;
+  color: rgba(16, 35, 31, 0.68);
+  font-size: clamp(1.02rem, 1.12vw, 1.24rem);
+  font-weight: 820;
+  line-height: 1.24;
+}
+
+body[data-view="key-players"] .monitor-arena-zone-readout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+body[data-view="key-players"] .monitor-arena-zone-readout article {
+  display: grid;
+  gap: 5px;
+  min-height: 92px;
+  border: 1px solid rgba(16, 35, 31, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.86);
+  padding: 13px;
+  box-shadow: 0 12px 26px rgba(16, 35, 31, 0.05);
+}
+
+body[data-view="key-players"] .monitor-arena-zone-readout span {
+  color: rgba(16, 35, 31, 0.58);
+  font-size: 0.7rem;
+  font-weight: 1000;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-arena-zone-readout strong {
+  color: #071511;
+  font-size: 1.8rem;
+  font-weight: 1000;
+  line-height: 0.9;
+}
+
+body[data-view="key-players"] .monitor-arena-zone-readout small {
+  color: rgba(16, 35, 31, 0.62) !important;
+  font-size: 0.74rem;
+  font-weight: 820;
+  line-height: 1.12;
+}
+
+body[data-view="key-players"] .monitor-strategy-arena-grid {
+  display: grid;
+  grid-template-columns: minmax(760px, 1fr) minmax(330px, 410px);
+  gap: 18px;
+  align-items: stretch;
+}
+
+body[data-view="key-players"] .monitor-arena-plot {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(650px, 58vw, 840px);
+  border: 1px solid rgba(16, 35, 31, 0.12);
+  border-radius: 30px;
+  background:
+    linear-gradient(90deg, transparent calc(50% - 1px), rgba(16, 35, 31, 0.16) calc(50% - 1px), rgba(16, 35, 31, 0.16) calc(50% + 1px), transparent calc(50% + 1px)),
+    linear-gradient(0deg, transparent calc(50% - 1px), rgba(16, 35, 31, 0.16) calc(50% - 1px), rgba(16, 35, 31, 0.16) calc(50% + 1px), transparent calc(50% + 1px)),
+    linear-gradient(90deg, rgba(61, 125, 224, 0.08) 0 50%, rgba(0, 184, 132, 0.1) 50% 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.74) 0 50%, rgba(247, 250, 243, 0.9) 50% 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.78),
+    0 20px 54px rgba(16, 35, 31, 0.08);
+}
+
+body[data-view="key-players"] .monitor-arena-plot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(16, 35, 31, 0.048) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 35, 31, 0.042) 1px, transparent 1px);
+  background-size: 72px 72px;
+  pointer-events: none;
+}
+
+body[data-view="key-players"] .arena-axis {
+  position: absolute;
+  display: none;
+  z-index: 1;
+  color: rgba(16, 35, 31, 0.42);
+  font-size: 0.78rem;
+  font-weight: 1000;
+  letter-spacing: 0.055em;
+  opacity: 0.72;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .arena-axis-y {
+  top: 50%;
+  left: 17px;
+  transform: translateY(-50%) rotate(180deg);
+  writing-mode: vertical-rl;
+}
+
+body[data-view="key-players"] .arena-axis-x {
+  right: 17px;
+  bottom: 14px;
+}
+
+body[data-view="key-players"] .arena-zone {
+  position: absolute;
+  display: none;
+  z-index: 1;
+  max-width: 190px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(16, 35, 31, 0.32);
+  padding: 0;
+  font-size: 0.86rem;
+  font-weight: 1000;
+  letter-spacing: 0.075em;
+  line-height: 1;
+  opacity: 0.72;
+  pointer-events: none;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+  box-shadow: none;
+}
+
+body[data-view="key-players"] .arena-zone-core {
+  right: 22px;
+  top: 22px;
+  text-align: right;
+}
+
+body[data-view="key-players"] .arena-zone-adjacent {
+  left: 58px;
+  top: 22px;
+  text-align: left;
+}
+
+body[data-view="key-players"] .arena-zone-close {
+  right: 22px;
+  bottom: 26px;
+  text-align: right;
+}
+
+body[data-view="key-players"] .arena-zone-tail {
+  left: 58px;
+  bottom: 26px;
+  text-align: left;
+}
+
+body[data-view="key-players"] .monitor-arena-player {
+  position: absolute;
+  left: calc(var(--arena-x) * 1%);
+  bottom: calc(var(--arena-y) * 1%);
+  z-index: 6;
+  display: block;
+  width: clamp(58px, calc(var(--arena-size) * 1px), 116px);
+  border: 0;
+  background: transparent;
+  padding: 0;
+  transform: translate(-50%, 50%);
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .monitor-arena-logo.company-logo-mark {
+  width: clamp(54px, calc(var(--arena-size) * 1px), 112px);
+  height: clamp(54px, calc(var(--arena-size) * 1px), 112px);
+  border: clamp(3px, 0.36vw, 5px) solid var(--arena-color);
+  background: #ffffff;
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--arena-color) 13%, transparent),
+    0 16px 32px rgba(16, 35, 31, 0.15);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+body[data-view="key-players"] .monitor-arena-player .monitor-arena-player-label {
+  position: absolute;
+  top: calc(100% + 7px);
+  left: 50%;
+  display: none;
+  width: max-content;
+  max-width: 132px;
+  border: 1px solid color-mix(in srgb, var(--arena-color) 30%, rgba(16, 35, 31, 0.08));
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.93);
+  color: #071511;
+  padding: 5px 8px;
+  font-size: 0.72rem;
+  font-weight: 1000;
+  line-height: 1.05;
+  overflow: hidden;
+  pointer-events: none;
+  text-align: center;
+  text-overflow: ellipsis;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  box-shadow: 0 8px 18px rgba(16, 35, 31, 0.09);
+}
+
+body[data-view="key-players"] .monitor-arena-player.is-selected {
+  z-index: 12;
+}
+
+body[data-view="key-players"] .monitor-arena-player.is-key {
+  z-index: 9;
+}
+
+body[data-view="key-players"] .monitor-arena-player.is-selected .monitor-arena-player-label,
+body[data-view="key-players"] .monitor-arena-player.is-key .monitor-arena-player-label,
+body[data-view="key-players"] .monitor-arena-player:hover .monitor-arena-player-label,
+body[data-view="key-players"] .monitor-arena-player:focus-visible .monitor-arena-player-label {
+  display: block;
+}
+
+body[data-view="key-players"] .monitor-arena-player.is-selected .monitor-arena-logo.company-logo-mark {
+  transform: scale(1.12);
+  box-shadow:
+    0 0 0 9px color-mix(in srgb, var(--arena-color) 18%, transparent),
+    0 24px 42px rgba(16, 35, 31, 0.2);
+}
+
+body[data-view="key-players"] .monitor-arena-player:hover,
+body[data-view="key-players"] .monitor-arena-player:focus-visible {
+  z-index: 14;
+  outline: none;
+}
+
+body[data-view="key-players"] .monitor-arena-player:hover .monitor-arena-logo.company-logo-mark,
+body[data-view="key-players"] .monitor-arena-player:focus-visible .monitor-arena-logo.company-logo-mark {
+  transform: scale(1.08);
+}
+
+body[data-view="key-players"] .monitor-arena-dossier {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  border: 1px solid color-mix(in srgb, var(--arena-player-color) 34%, rgba(16, 35, 31, 0.08));
+  border-radius: 30px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--arena-player-color) 11%, #fff), #ffffff 46%),
+    #fff;
+  padding: 18px;
+  box-shadow: 0 20px 54px rgba(16, 35, 31, 0.09);
+}
+
+body[data-view="key-players"] .monitor-arena-dossier header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+body[data-view="key-players"] .monitor-arena-dossier-logo.company-logo-mark {
+  width: 76px;
+  height: 76px;
+  border: 4px solid var(--arena-player-color);
+}
+
+body[data-view="key-players"] .monitor-arena-dossier header span {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+body[data-view="key-players"] .monitor-arena-dossier small,
+body[data-view="key-players"] .monitor-arena-dossier header em,
+body[data-view="key-players"] .monitor-arena-dossier section > span {
+  color: color-mix(in srgb, var(--arena-player-color) 72%, #10231f);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 1000;
+  letter-spacing: 0.045em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-arena-dossier header strong {
+  color: #071511;
+  font-size: clamp(1.65rem, 2vw, 2.55rem);
+  font-weight: 1000;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+body[data-view="key-players"] .monitor-arena-dossier p {
+  margin: 0;
+  color: #1b302b;
+  font-size: 0.98rem;
+  font-weight: 780;
+  line-height: 1.26;
+}
+
+body[data-view="key-players"] .monitor-arena-dossier-metrics {
+  display: grid;
+  gap: 9px;
+}
+
+body[data-view="key-players"] .monitor-arena-dossier-metrics span {
+  display: grid;
+  grid-template-columns: 116px minmax(0, 1fr) 48px;
+  gap: 9px;
+  align-items: center;
+}
+
+body[data-view="key-players"] .monitor-arena-dossier-metrics b,
+body[data-view="key-players"] .monitor-arena-dossier-metrics strong {
+  color: rgba(16, 35, 31, 0.62);
+  font-size: 0.7rem;
+  font-weight: 1000;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-arena-dossier-metrics i {
+  overflow: hidden;
+  height: 11px;
+  border-radius: 999px;
+  background: rgba(16, 35, 31, 0.08);
+}
+
+body[data-view="key-players"] .monitor-arena-dossier-metrics i em {
+  display: block;
+  width: calc(var(--arena-metric) * 1%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--arena-player-color);
+}
+
+body[data-view="key-players"] .monitor-arena-dossier section {
+  display: grid;
+  gap: 7px;
+  border-radius: 18px;
+  background: rgba(16, 35, 31, 0.045);
+  padding: 13px;
+}
+
+body[data-view="key-players"] .monitor-arena-dossier section strong {
+  color: #071511;
+  font-size: 1.04rem;
+  line-height: 1.1;
+}
+
+body[data-view="key-players"] .monitor-arena-dossier footer {
+  display: grid;
+  gap: 12px;
+}
+
+body[data-view="key-players"] .monitor-arena-dossier footer div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+body[data-view="key-players"] .monitor-arena-dossier footer button {
+  justify-self: start;
+  border: 0;
+  border-radius: 999px;
+  background: #10231f;
+  color: #ffffff;
+  padding: 11px 15px;
+  font-size: 0.82rem;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .monitor-command-center > .monitor-comparison-cockpit {
+  border-radius: 30px;
+  padding: clamp(16px, 1.8vw, 24px);
+}
+
+body[data-view="key-players"] .monitor-command-center > .monitor-comparison-cockpit .monitor-compare-head h3 {
+  font-size: clamp(1.8rem, 2.3vw, 3rem);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+@media (max-width: 1380px) {
+  body[data-view="key-players"] .monitor-strategy-arena-head,
+  body[data-view="key-players"] .monitor-strategy-arena-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-arena-plot {
+    min-height: 680px;
+  }
+}
+
+@media (max-width: 860px) {
+  body[data-view="key-players"] .monitor-arena-zone-readout,
+  body[data-view="key-players"] .monitor-arena-dossier-metrics span {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-arena-plot {
+    min-height: 620px;
+  }
+
+  body[data-view="key-players"] .arena-zone {
+    max-width: 170px;
+    font-size: 0.62rem;
+  }
+
+  body[data-view="key-players"] .monitor-arena-player .monitor-arena-player-label {
+    display: none;
+  }
+
+body[data-view="key-players"] .monitor-arena-player.is-selected .monitor-arena-player-label,
+body[data-view="key-players"] .monitor-arena-player.is-key .monitor-arena-player-label {
+    display: block;
+  }
+}
+
+/* Market monitor v175: consulting-style market intelligence layers. */
+body[data-view="key-players"] .monitor-executive-market-brief,
+body[data-view="key-players"] .monitor-value-chain-heatmap,
+body[data-view="key-players"] .monitor-signal-tape,
+body[data-view="key-players"] .monitor-focused-scorecard {
+  display: grid;
+  gap: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 35, 31, 0.1);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(0, 184, 132, 0.1), transparent 32%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(246, 250, 242, 0.96)),
+    #ffffff;
+  padding: clamp(16px, 2vw, 26px);
+  box-shadow: 0 28px 76px rgba(16, 35, 31, 0.09);
+}
+
+body[data-view="key-players"] .monitor-executive-market-brief {
+  grid-template-columns: minmax(360px, 0.72fr) minmax(0, 1.28fr);
+  align-items: stretch;
+  border-top: 6px solid #10231f;
+}
+
+body[data-view="key-players"] .monitor-executive-brief-copy {
+  display: grid;
+  align-content: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+body[data-view="key-players"] .monitor-executive-brief-copy h3 {
+  max-width: 760px;
+  margin: 0;
+  color: #071511;
+  font-size: clamp(2rem, 3.2vw, 4.6rem);
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+  text-wrap: balance;
+}
+
+body[data-view="key-players"] .monitor-executive-brief-copy p {
+  max-width: 760px;
+  margin: 0;
+  color: rgba(16, 35, 31, 0.68);
+  font-size: clamp(1rem, 1.06vw, 1.2rem);
+  font-weight: 820;
+  line-height: 1.28;
+}
+
+body[data-view="key-players"] .monitor-executive-brief-copy > button {
+  justify-self: start;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid rgba(16, 35, 31, 0.1);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #10231f;
+  padding: 8px 12px;
+  font: inherit;
+  font-weight: 1000;
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(16, 35, 31, 0.07);
+}
+
+body[data-view="key-players"] .monitor-executive-brief-copy > button > span {
+  color: rgba(16, 35, 31, 0.56);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-executive-brief-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  min-width: 0;
+}
+
+body[data-view="key-players"] .monitor-executive-brief-card {
+  display: grid;
+  align-content: space-between;
+  gap: 10px;
+  min-height: 190px;
+  border: 1px solid color-mix(in srgb, var(--brief-color) 32%, rgba(16, 35, 31, 0.08));
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--brief-color) 13%, #fff), #ffffff 52%),
+    #ffffff;
+  padding: 16px;
+}
+
+body[data-view="key-players"] .monitor-executive-brief-card span,
+body[data-view="key-players"] .monitor-scorecard-grid span,
+body[data-view="key-players"] .monitor-signal-tape-card header span {
+  color: color-mix(in srgb, var(--brief-color, var(--scorecard-color, #00b884)) 72%, #10231f);
+  font-size: 0.72rem;
+  font-weight: 1000;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-executive-brief-card strong {
+  color: #071511;
+  font-size: clamp(1.35rem, 1.8vw, 2.45rem);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+}
+
+body[data-view="key-players"] .monitor-executive-brief-card p {
+  margin: 0;
+  color: rgba(16, 35, 31, 0.66);
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.22;
+}
+
+body[data-view="key-players"] .monitor-executive-brief-card button {
+  justify-self: start;
+  border: 0;
+  border-radius: 999px;
+  background: #10231f;
+  color: #ffffff;
+  padding: 10px 13px;
+  font-size: 0.78rem;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .monitor-heatmap-grid {
+  display: grid;
+  grid-template-columns: minmax(245px, 0.88fr) repeat(var(--heatmap-cols), minmax(105px, 1fr));
+  gap: 10px;
+  min-width: 0;
+  overflow-x: auto;
+  padding: 2px 0 6px;
+}
+
+body[data-view="key-players"] .monitor-heatmap-guide {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  align-items: stretch;
+  border: 1px solid rgba(16, 35, 31, 0.08);
+  border-radius: 22px;
+  background:
+    linear-gradient(90deg, rgba(16, 35, 31, 0.04), rgba(0, 184, 132, 0.05)),
+    rgba(255, 255, 255, 0.76);
+  padding: 10px;
+}
+
+body[data-view="key-players"] .monitor-heatmap-guide > span,
+body[data-view="key-players"] .monitor-heatmap-guide > em {
+  display: inline-grid;
+  gap: 8px;
+  align-items: center;
+  min-height: 38px;
+  border: 1px solid rgba(16, 35, 31, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  padding: 7px 10px;
+}
+
+body[data-view="key-players"] .monitor-heatmap-guide b {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #10231f;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 1000;
+}
+
+body[data-view="key-players"] .monitor-heatmap-guide strong {
+  color: #071511;
+  font-size: 0.78rem;
+  font-weight: 1000;
+  line-height: 1;
+}
+
+body[data-view="key-players"] .monitor-heatmap-guide small {
+  color: rgba(16, 35, 31, 0.57);
+  font-size: 0.68rem;
+  font-weight: 850;
+}
+
+body[data-view="key-players"] .monitor-heatmap-guide > span {
+  flex: 1 1 190px;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 8px;
+  row-gap: 2px;
+}
+
+body[data-view="key-players"] .monitor-heatmap-guide > span:not(:first-child) {
+  flex: 0.85 1 180px;
+}
+
+body[data-view="key-players"] .monitor-heatmap-guide > span strong,
+body[data-view="key-players"] .monitor-heatmap-guide > span small {
+  grid-column: 2;
+}
+
+body[data-view="key-players"] .monitor-heatmap-guide > em {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: rgba(16, 35, 31, 0.7);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .heat-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  box-shadow: 0 0 0 4px rgba(16, 35, 31, 0.05);
+}
+
+body[data-view="key-players"] .heat-dot.is-hot {
+  background: #00b884;
+}
+
+body[data-view="key-players"] .heat-dot.is-warm {
+  background: #f59a23;
+}
+
+body[data-view="key-players"] .heat-dot.is-watch {
+  background: #9aa9a5;
+}
+
+body[data-view="key-players"] .monitor-heatmap-corner,
+body[data-view="key-players"] .monitor-heatmap-col,
+body[data-view="key-players"] .monitor-heatmap-row-head,
+body[data-view="key-players"] .monitor-heatmap-cell {
+  min-height: 104px;
+  border: 1px solid rgba(16, 35, 31, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  padding: 12px;
+}
+
+body[data-view="key-players"] .monitor-heatmap-corner,
+body[data-view="key-players"] .monitor-heatmap-col {
+  display: grid;
+  align-content: center;
+  gap: 5px;
+  color: rgba(16, 35, 31, 0.58);
+  font-size: 0.72rem;
+  font-weight: 1000;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-heatmap-corner strong,
+body[data-view="key-players"] .monitor-heatmap-col strong {
+  color: inherit;
+  font-size: 0.9rem;
+  font-weight: 1000;
+  line-height: 1;
+}
+
+body[data-view="key-players"] .monitor-heatmap-corner small,
+body[data-view="key-players"] .monitor-heatmap-col small {
+  color: rgba(16, 35, 31, 0.5);
+  font-size: 0.64rem;
+  font-weight: 850;
+  letter-spacing: 0;
+  line-height: 1.12;
+  text-transform: none;
+}
+
+body[data-view="key-players"] .monitor-heatmap-col {
+  border-color: color-mix(in srgb, var(--journey-color) 34%, rgba(16, 35, 31, 0.08));
+  background: color-mix(in srgb, var(--journey-color) 10%, #fff);
+  color: color-mix(in srgb, var(--journey-color) 64%, #10231f);
+}
+
+body[data-view="key-players"] .monitor-heatmap-row-head,
+body[data-view="key-players"] .monitor-heatmap-cell {
+  text-align: left;
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .monitor-heatmap-row-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 9px;
+  border-color: color-mix(in srgb, var(--force-color) 35%, rgba(16, 35, 31, 0.08));
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--force-color) 16%, #fff), #ffffff);
+  color: #10231f;
+  font: inherit;
+}
+
+body[data-view="key-players"] .monitor-heatmap-row-title {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+body[data-view="key-players"] .monitor-heatmap-row-head strong {
+  color: #071511;
+  font-size: clamp(1rem, 0.95vw, 1.28rem);
+  font-weight: 1000;
+  line-height: 1.02;
+}
+
+body[data-view="key-players"] .monitor-heatmap-row-head small {
+  color: rgba(16, 35, 31, 0.6) !important;
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+body[data-view="key-players"] .monitor-heatmap-row-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+body[data-view="key-players"] .monitor-heatmap-row-meta span {
+  display: grid;
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--force-color) 17%, rgba(16, 35, 31, 0.08));
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.68);
+  padding: 6px 7px;
+}
+
+body[data-view="key-players"] .monitor-heatmap-row-meta b {
+  overflow: hidden;
+  color: #071511;
+  font-size: 0.76rem;
+  font-weight: 1000;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-view="key-players"] .monitor-heatmap-row-meta em {
+  color: rgba(16, 35, 31, 0.52);
+  font-size: 0.58rem;
+  font-style: normal;
+  font-weight: 1000;
+  letter-spacing: 0.045em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-heatmap-cell {
+  display: grid;
+  align-content: stretch;
+  gap: 7px;
+  min-width: 105px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--force-color) calc(var(--heat) * 0.7%), #fff), color-mix(in srgb, var(--journey-color) calc(var(--heat) * 0.45%), #fff)),
+    #ffffff;
+  color: #071511;
+  font: inherit;
+}
+
+body[data-view="key-players"] .monitor-heatmap-cell.is-empty {
+  background: linear-gradient(135deg, rgba(16, 35, 31, 0.02), rgba(16, 35, 31, 0.008)), #ffffff;
+  color: rgba(16, 35, 31, 0.32);
+  opacity: 0.72;
+}
+
+body[data-view="key-players"] .monitor-heatmap-cell.is-hot {
+  border-color: color-mix(in srgb, var(--force-color) 64%, rgba(16, 35, 31, 0.14));
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--force-color) 24%, transparent), 0 14px 30px rgba(16, 35, 31, 0.08);
+}
+
+body[data-view="key-players"] .monitor-heatmap-cell-count {
+  display: flex;
+  gap: 7px;
+  align-items: baseline;
+  min-width: 0;
+}
+
+body[data-view="key-players"] .monitor-heatmap-cell strong {
+  font-size: clamp(1.7rem, 2vw, 2.65rem);
+  font-weight: 1000;
+  line-height: 0.9;
+}
+
+body[data-view="key-players"] .monitor-heatmap-cell-count small {
+  color: rgba(16, 35, 31, 0.5);
+  font-size: 0.64rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-heatmap-cell-lead {
+  display: -webkit-box;
+  min-height: 3.22em;
+  overflow: hidden;
+  color: rgba(16, 35, 31, 0.7);
+  font-size: 0.8rem;
+  font-weight: 1000;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+body[data-view="key-players"] .monitor-heatmap-cell i {
+  display: block;
+  overflow: hidden;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(16, 35, 31, 0.08);
+}
+
+body[data-view="key-players"] .monitor-heatmap-cell i b {
+  display: block;
+  width: max(8%, calc(var(--heat) * 1%));
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--force-color), var(--journey-color));
+}
+
+body[data-view="key-players"] .monitor-heatmap-cell.is-empty i b {
+  width: 0;
+}
+
+body[data-view="key-players"] .monitor-heatmap-cell em {
+  justify-self: start;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: rgba(16, 35, 31, 0.58);
+  padding: 4px 7px;
+  font-size: 0.62rem;
+  font-style: normal;
+  font-weight: 1000;
+  letter-spacing: 0.045em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-heatmap-cell.is-hot em {
+  background: color-mix(in srgb, var(--force-color) 18%, #fff);
+  color: color-mix(in srgb, var(--force-color) 72%, #10231f);
+}
+
+body[data-view="key-players"] .monitor-heatmap-row-head:hover,
+body[data-view="key-players"] .monitor-heatmap-row-head:focus-visible,
+body[data-view="key-players"] .monitor-heatmap-cell:hover,
+body[data-view="key-players"] .monitor-heatmap-cell:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--force-color, #00b884) 44%, transparent);
+}
+
+body[data-view="key-players"] .monitor-signal-tape-track {
+  display: grid;
+  grid-auto-columns: minmax(260px, 360px);
+  grid-auto-flow: column;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scroll-snap-type: x proximity;
+}
+
+body[data-view="key-players"] .monitor-signal-tape-card {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 250px;
+  border: 1px solid color-mix(in srgb, var(--signal-tape-color) 34%, rgba(16, 35, 31, 0.08));
+  border-top: 5px solid var(--signal-tape-color);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--signal-tape-color) 16%, transparent), transparent 38%),
+    #ffffff;
+  padding: 15px;
+  scroll-snap-align: start;
+}
+
+body[data-view="key-players"] .monitor-signal-tape-card header,
+body[data-view="key-players"] .monitor-signal-tape-card footer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+body[data-view="key-players"] .monitor-signal-tape-card time,
+body[data-view="key-players"] .monitor-signal-tape-card footer b,
+body[data-view="key-players"] .monitor-signal-tape-card footer em {
+  color: rgba(16, 35, 31, 0.55);
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-signal-tape-card strong {
+  color: #071511;
+  font-size: 1.32rem;
+  font-weight: 1000;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+body[data-view="key-players"] .monitor-signal-tape-card p,
+body[data-view="key-players"] .monitor-signal-tape-card small {
+  margin: 0;
+  color: rgba(16, 35, 31, 0.66);
+  font-size: 0.82rem;
+  font-weight: 790;
+  line-height: 1.22;
+}
+
+body[data-view="key-players"] .monitor-signal-tape-card small {
+  color: rgba(16, 35, 31, 0.52);
+}
+
+body[data-view="key-players"] .monitor-focused-scorecard {
+  border-color: color-mix(in srgb, var(--scorecard-color) 36%, rgba(16, 35, 31, 0.08));
+}
+
+body[data-view="key-players"] .monitor-scorecard-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+}
+
+body[data-view="key-players"] .monitor-scorecard-logo.company-logo-mark {
+  width: 84px;
+  height: 84px;
+  border: 4px solid var(--scorecard-color);
+}
+
+body[data-view="key-players"] .monitor-scorecard-head h3 {
+  margin: 3px 0 5px;
+  color: #071511;
+  font-size: clamp(2rem, 3vw, 4rem);
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+}
+
+body[data-view="key-players"] .monitor-scorecard-head p {
+  margin: 0;
+  color: rgba(16, 35, 31, 0.64);
+  font-size: 0.98rem;
+  font-weight: 820;
+}
+
+body[data-view="key-players"] .monitor-scorecard-head button {
+  border: 0;
+  border-radius: 999px;
+  background: #10231f;
+  color: #ffffff;
+  padding: 11px 15px;
+  font-size: 0.82rem;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .monitor-scorecard-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr 0.9fr;
+  gap: 12px;
+}
+
+body[data-view="key-players"] .monitor-scorecard-grid article {
+  display: grid;
+  gap: 8px;
+  border: 1px solid color-mix(in srgb, var(--scorecard-color) 24%, rgba(16, 35, 31, 0.08));
+  border-radius: 18px;
+  background: #ffffff;
+  padding: 14px;
+}
+
+body[data-view="key-players"] .monitor-scorecard-grid strong {
+  color: #071511;
+  font-size: 1.02rem;
+  font-weight: 900;
+  line-height: 1.18;
+}
+
+body[data-view="key-players"] .monitor-scorecard-grid small {
+  color: rgba(16, 35, 31, 0.58) !important;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.16;
+}
+
+body[data-view="key-players"] .monitor-scorecard-bars {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 16px;
+}
+
+body[data-view="key-players"] .monitor-scorecard-bars span {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr) 56px;
+  gap: 9px;
+  align-items: center;
+}
+
+body[data-view="key-players"] .monitor-scorecard-bars b,
+body[data-view="key-players"] .monitor-scorecard-bars strong {
+  color: rgba(16, 35, 31, 0.66);
+  font-size: 0.76rem;
+  font-weight: 1000;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-scorecard-bars i {
+  overflow: hidden;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(16, 35, 31, 0.08);
+}
+
+body[data-view="key-players"] .monitor-scorecard-bars i em {
+  display: block;
+  width: calc(var(--scorecard-score) * 1%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--scorecard-color);
+}
+
+body[data-view="key-players"] .monitor-scorecard-bars small {
+  grid-column: 1 / -1;
+  color: rgba(16, 35, 31, 0.52) !important;
+  font-size: 0.72rem;
+  font-weight: 780;
+  line-height: 1.1;
+}
+
+body[data-view="key-players"] .monitor-focused-scorecard footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+body[data-view="key-players"] .monitor-focused-scorecard footer a {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--scorecard-color) 10%, #fff);
+  color: color-mix(in srgb, var(--scorecard-color) 70%, #10231f);
+  padding: 8px 10px;
+  font-size: 0.76rem;
+  font-weight: 950;
+  text-decoration: none;
+}
+
+@media (max-width: 1180px) {
+  body[data-view="key-players"] .monitor-executive-market-brief,
+  body[data-view="key-players"] .monitor-scorecard-grid,
+  body[data-view="key-players"] .monitor-scorecard-bars {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-scorecard-head {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  body[data-view="key-players"] .monitor-scorecard-head button {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-view="key-players"] .monitor-executive-brief-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-scorecard-bars span {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Market monitor v178: board-room market intelligence screen. */
+body[data-view="key-players"] .monitor-market-wall,
+body[data-view="key-players"] .monitor-battlecards,
+body[data-view="key-players"] .monitor-market-moves-timeline {
+  display: grid;
+  gap: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 35, 31, 0.1);
+  border-radius: 32px;
+  background:
+    linear-gradient(135deg, rgba(16, 35, 31, 0.045) 0 1px, transparent 1px 26px),
+    linear-gradient(180deg, #ffffff, #f5f9f1);
+  padding: clamp(18px, 2.2vw, 30px);
+  box-shadow: 0 30px 82px rgba(16, 35, 31, 0.1);
+}
+
+body[data-view="key-players"] .monitor-command-center > section {
+  min-width: 0;
+}
+
+body[data-view="key-players"] .monitor-market-wall {
+  grid-template-columns: 1fr;
+  align-items: start;
+  border-top: 7px solid #10231f;
+}
+
+body[data-view="key-players"] .monitor-market-wall-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 430px);
+  grid-template-areas:
+    "kicker stats"
+    "title stats"
+    "copy focus";
+  align-items: end;
+  gap: 8px 18px;
+  min-width: 0;
+}
+
+body[data-view="key-players"] .monitor-market-wall-hero .section-kicker {
+  grid-area: kicker;
+}
+
+body[data-view="key-players"] .monitor-market-wall-hero h3 {
+  grid-area: title;
+  max-width: 780px;
+  margin: 0;
+  padding-block: 0.08em;
+  color: #071511;
+  font-size: clamp(2.3rem, 3.25vw, 4.5rem);
+  font-weight: 1000;
+  letter-spacing: -0.068em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+body[data-view="key-players"] .monitor-market-wall-hero p {
+  grid-area: copy;
+  max-width: 760px;
+  margin: 0;
+  color: rgba(16, 35, 31, 0.68);
+  font-size: clamp(1rem, 1.08vw, 1.22rem);
+  font-weight: 830;
+  line-height: 1.28;
+}
+
+body[data-view="key-players"] .monitor-market-wall-stats {
+  grid-area: stats;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+body[data-view="key-players"] .monitor-market-wall-stats span {
+  display: grid;
+  gap: 4px;
+  border: 1px solid rgba(16, 35, 31, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  padding: 12px;
+}
+
+body[data-view="key-players"] .monitor-market-wall-stats strong {
+  color: #071511;
+  font-size: 1.75rem;
+  font-weight: 1000;
+  line-height: 0.9;
+}
+
+body[data-view="key-players"] .monitor-market-wall-stats small,
+body[data-view="key-players"] .monitor-market-wall-hero > button > span {
+  color: rgba(16, 35, 31, 0.58);
+  font-size: 0.7rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-market-wall-hero > button {
+  grid-area: focus;
+  justify-self: start;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid rgba(16, 35, 31, 0.1);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #10231f;
+  padding: 8px 12px;
+  font: inherit;
+  font-weight: 1000;
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(16, 35, 31, 0.07);
+}
+
+body[data-view="key-players"] .monitor-market-thesis-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  min-width: 0;
+}
+
+body[data-view="key-players"] .monitor-market-thesis-card {
+  display: grid;
+  align-content: start;
+  gap: 9px;
+  min-height: 310px;
+  border: 1px solid color-mix(in srgb, var(--thesis-color) 32%, rgba(16, 35, 31, 0.08));
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--thesis-color) 18%, transparent), transparent 40%),
+    linear-gradient(135deg, color-mix(in srgb, var(--thesis-color) 10%, #fff), #fff 54%);
+  padding: 16px;
+}
+
+body[data-view="key-players"] .monitor-market-thesis-card.is-primary {
+  min-height: 310px;
+}
+
+body[data-view="key-players"] .monitor-market-thesis-card header,
+body[data-view="key-players"] .monitor-battlecard-head,
+body[data-view="key-players"] .monitor-move-card header,
+body[data-view="key-players"] .monitor-move-card footer,
+body[data-view="key-players"] .monitor-battlecard footer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+body[data-view="key-players"] .monitor-market-thesis-card header span,
+body[data-view="key-players"] .monitor-battlecard section span,
+body[data-view="key-players"] .monitor-move-card header span {
+  color: color-mix(in srgb, var(--thesis-color, var(--battle-color, var(--move-color, #00b884))) 72%, #10231f);
+  font-size: 0.7rem;
+  font-weight: 1000;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-market-thesis-card header strong {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--thesis-color);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 1000;
+}
+
+body[data-view="key-players"] .monitor-market-thesis-card h4 {
+  margin: 0;
+  padding-block: 0.08em;
+  color: #071511;
+  font-size: clamp(1.35rem, 1.55vw, 2.1rem);
+  font-weight: 1000;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+body[data-view="key-players"] .monitor-market-thesis-card p,
+body[data-view="key-players"] .monitor-market-thesis-card small,
+body[data-view="key-players"] .monitor-battlecard p,
+body[data-view="key-players"] .monitor-battlecard footer small,
+body[data-view="key-players"] .monitor-move-card p,
+body[data-view="key-players"] .monitor-move-card small {
+  margin: 0;
+  color: rgba(16, 35, 31, 0.66);
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+body[data-view="key-players"] .monitor-market-thesis-players {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+  min-height: 34px;
+}
+
+body[data-view="key-players"] .monitor-market-thesis-players em {
+  color: rgba(16, 35, 31, 0.48);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 900;
+}
+
+body[data-view="key-players"] .monitor-market-thesis-card > button,
+body[data-view="key-players"] .monitor-battlecard footer button {
+  justify-self: start;
+  border: 0;
+  border-radius: 999px;
+  background: #10231f;
+  color: #ffffff;
+  padding: 10px 13px;
+  font-size: 0.78rem;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .monitor-strategy-arena {
+  border-top: 7px solid #1a5d4b;
+  background:
+    radial-gradient(circle at 70% 12%, rgba(0, 184, 132, 0.13), transparent 34%),
+    linear-gradient(180deg, #ffffff, #eef6f0);
+}
+
+body[data-view="key-players"] .monitor-arena-plot {
+  min-height: 760px;
+  background:
+    linear-gradient(rgba(16, 35, 31, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 35, 31, 0.052) 1px, transparent 1px),
+    radial-gradient(circle at 82% 18%, rgba(0, 184, 132, 0.16), transparent 30%),
+    linear-gradient(180deg, #fbfdf8, #edf5ea);
+  background-size: 25% 25%, 25% 25%, auto, auto;
+}
+
+body[data-view="key-players"] .monitor-market-moves-timeline {
+  border-top: 7px solid #3d7de0;
+}
+
+body[data-view="key-players"] .monitor-move-rail {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 12px;
+  min-width: 0;
+  overflow: visible;
+  padding: 2px 0;
+}
+
+body[data-view="key-players"] .monitor-move-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 11px;
+  min-width: 0;
+  min-height: 244px;
+  border: 1px solid color-mix(in srgb, var(--move-color) 34%, rgba(16, 35, 31, 0.08));
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--move-color) 12%, #fff), #ffffff 48%),
+    #fff;
+  padding: 16px;
+}
+
+body[data-view="key-players"] .monitor-move-card::before {
+  content: "";
+  position: absolute;
+  top: 55px;
+  right: 16px;
+  left: 16px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--move-color);
+  opacity: 0.42;
+}
+
+body[data-view="key-players"] .monitor-move-card header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 10px;
+  align-items: start;
+  justify-content: stretch;
+  min-width: 0;
+  min-height: 30px;
+}
+
+body[data-view="key-players"] .monitor-move-card header span {
+  justify-self: end;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+body[data-view="key-players"] .monitor-move-card > div {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding-top: 6px;
+}
+
+body[data-view="key-players"] .monitor-move-card time,
+body[data-view="key-players"] .monitor-move-card footer b,
+body[data-view="key-players"] .monitor-move-card footer em {
+  color: rgba(16, 35, 31, 0.56);
+  font-size: 0.66rem;
+  font-style: normal;
+  font-weight: 1000;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-move-card strong {
+  display: block;
+  padding-block: 0.05em;
+  color: #071511;
+  font-size: clamp(1.12rem, 1.28vw, 1.55rem);
+  font-weight: 1000;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+body[data-view="key-players"] .monitor-move-card p,
+body[data-view="key-players"] .monitor-move-card small {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+body[data-view="key-players"] .monitor-move-card footer {
+  flex-wrap: wrap;
+  gap: 8px;
+  align-self: end;
+  justify-content: space-between;
+  min-width: 0;
+  padding-top: 4px;
+}
+
+body[data-view="key-players"] .monitor-move-card footer > * {
+  min-width: 0;
+}
+
+body[data-view="key-players"] .monitor-battlecards {
+  border-top: 7px solid #6e5cff;
+}
+
+body[data-view="key-players"] .monitor-battlecard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+}
+
+body[data-view="key-players"] .monitor-battlecard {
+  display: grid;
+  gap: 12px;
+  border: 1px solid color-mix(in srgb, var(--battle-color) 34%, rgba(16, 35, 31, 0.08));
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--battle-color) 16%, transparent), transparent 34%),
+    #ffffff;
+  padding: 16px;
+  box-shadow: 0 16px 38px rgba(16, 35, 31, 0.07);
+}
+
+body[data-view="key-players"] .monitor-battlecard-head {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .monitor-battlecard-logo.company-logo-mark {
+  flex: 0 0 auto;
+  width: 58px;
+  height: 58px;
+  border: 3px solid var(--battle-color);
+}
+
+body[data-view="key-players"] .monitor-battlecard-head span {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+body[data-view="key-players"] .monitor-battlecard-head strong {
+  display: block;
+  overflow: hidden;
+  padding-block: 0.05em;
+  color: #071511;
+  font-size: 1.35rem;
+  font-weight: 1000;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-view="key-players"] .monitor-battlecard-head small {
+  color: color-mix(in srgb, var(--battle-color) 72%, #10231f);
+  font-size: 0.72rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-battlecard-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+body[data-view="key-players"] .monitor-battlecard-facts span,
+body[data-view="key-players"] .monitor-battlecard section {
+  display: grid;
+  gap: 5px;
+  border: 1px solid color-mix(in srgb, var(--battle-color) 18%, rgba(16, 35, 31, 0.08));
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--battle-color) 6%, #fff);
+  padding: 10px;
+}
+
+body[data-view="key-players"] .monitor-battlecard-facts b,
+body[data-view="key-players"] .monitor-battlecard section strong {
+  color: #071511;
+  font-size: 0.88rem;
+  font-weight: 950;
+  line-height: 1.12;
+}
+
+body[data-view="key-players"] .monitor-battlecard-facts small {
+  color: rgba(16, 35, 31, 0.55);
+  font-size: 0.64rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .monitor-appendix-drawer {
+  border: 1px solid rgba(16, 35, 31, 0.1);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.82);
+  overflow: hidden;
+}
+
+body[data-view="key-players"] .monitor-appendix-drawer > summary {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  min-height: 74px;
+  padding: 18px 20px;
+}
+
+body[data-view="key-players"] .monitor-appendix-drawer > summary span:first-child {
+  display: grid;
+  gap: 4px;
+}
+
+body[data-view="key-players"] .monitor-appendix-drawer > summary strong {
+  color: #071511;
+  font-size: 1.05rem;
+  font-weight: 1000;
+}
+
+body[data-view="key-players"] .monitor-appendix-drawer > summary small {
+  color: rgba(16, 35, 31, 0.58);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+body[data-view="key-players"] .monitor-appendix-stack {
+  display: grid;
+  gap: 16px;
+  padding: 0 16px 16px;
+}
+
+@media (max-width: 980px) {
+  body[data-view="key-players"] .monitor-market-wall,
+  body[data-view="key-players"] .monitor-battlecard-facts {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-market-wall-hero {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "kicker"
+      "title"
+      "copy"
+      "stats"
+      "focus";
+  }
+
+  body[data-view="key-players"] .monitor-market-thesis-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-view="key-players"] .monitor-market-thesis-card.is-primary {
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-view="key-players"] .monitor-market-wall-stats,
+  body[data-view="key-players"] .monitor-market-thesis-grid,
+  body[data-view="key-players"] .monitor-battlecard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-view="key-players"] .monitor-market-wall-hero h3 {
+    font-size: clamp(2.1rem, 12vw, 3.4rem);
+  }
+
+  body[data-view="key-players"] .monitor-move-rail {
+    grid-auto-columns: minmax(260px, 86vw);
+  }
 }
