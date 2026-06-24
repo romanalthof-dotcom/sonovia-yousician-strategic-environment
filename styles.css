@@ -33313,6 +33313,216 @@ body[data-view="key-players"] .monitor-battlecard footer button {
   cursor: pointer;
 }
 
+body[data-view="key-players"] .music-market-overview {
+  display: grid;
+  gap: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 35, 31, 0.1);
+  border-top: 7px solid #f59a23;
+  border-radius: 32px;
+  background:
+    linear-gradient(135deg, rgba(245, 154, 35, 0.08) 0 1px, transparent 1px 26px),
+    linear-gradient(180deg, #fffdf7, #f6faf1);
+  padding: clamp(18px, 2vw, 28px);
+  box-shadow: 0 26px 72px rgba(16, 35, 31, 0.09);
+}
+
+body[data-view="key-players"] .music-market-overview-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 360px);
+  gap: 18px;
+  align-items: end;
+}
+
+body[data-view="key-players"] .music-market-overview-head h3 {
+  max-width: 980px;
+  margin: 0;
+  color: #071511;
+  font-size: clamp(2rem, 2.8vw, 4rem);
+  font-weight: 1000;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+body[data-view="key-players"] .music-market-overview-head p {
+  max-width: 980px;
+  margin: 8px 0 0;
+  color: rgba(16, 35, 31, 0.66);
+  font-size: clamp(0.98rem, 1.05vw, 1.18rem);
+  font-weight: 830;
+  line-height: 1.24;
+}
+
+body[data-view="key-players"] .music-market-overview-head aside {
+  display: grid;
+  gap: 5px;
+  border: 1px solid rgba(245, 154, 35, 0.36);
+  border-radius: 22px;
+  background: rgba(255, 249, 237, 0.92);
+  padding: 15px;
+}
+
+body[data-view="key-players"] .music-market-overview-head aside strong,
+body[data-view="key-players"] .music-market-theme-row article strong {
+  color: #071511;
+  font-size: 1rem;
+  font-weight: 1000;
+}
+
+body[data-view="key-players"] .music-market-overview-head aside small {
+  color: #8a5a10;
+  font-size: 0.72rem;
+  font-weight: 1000;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .music-market-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  min-width: 0;
+}
+
+body[data-view="key-players"] .music-market-player-card {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-width: 0;
+  border: 1px solid rgba(16, 35, 31, 0.1);
+  border-radius: 24px;
+  background: #ffffff;
+  padding: 14px;
+  box-shadow: 0 14px 34px rgba(16, 35, 31, 0.06);
+}
+
+body[data-view="key-players"] .music-market-player-card header {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+body[data-view="key-players"] .music-market-player-card header > span {
+  color: #9b6515;
+  font-size: 0.65rem;
+  font-weight: 1000;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .music-market-player-card > strong {
+  color: #071511;
+  font-size: clamp(1.45rem, 1.8vw, 2.4rem);
+  font-weight: 1000;
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+}
+
+body[data-view="key-players"] .music-market-player-card p,
+body[data-view="key-players"] .music-market-theme-row article p {
+  margin: 0;
+  color: rgba(16, 35, 31, 0.64);
+  font-size: 0.82rem;
+  font-weight: 820;
+  line-height: 1.22;
+}
+
+body[data-view="key-players"] .music-market-metric-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+body[data-view="key-players"] .music-market-metric-list em {
+  border: 1px solid rgba(245, 154, 35, 0.28);
+  border-radius: 999px;
+  background: rgba(245, 154, 35, 0.08);
+  color: #5d3b0c;
+  padding: 5px 7px;
+  font-size: 0.66rem;
+  font-style: normal;
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+body[data-view="key-players"] .music-market-player-card details {
+  border-top: 1px solid rgba(16, 35, 31, 0.08);
+  padding-top: 8px;
+}
+
+body[data-view="key-players"] .music-market-player-card summary {
+  color: #10231f;
+  font-size: 0.74rem;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .music-market-player-card details div {
+  display: grid;
+  gap: 5px;
+  padding-top: 8px;
+}
+
+body[data-view="key-players"] .music-market-player-card b {
+  color: rgba(16, 35, 31, 0.82);
+  font-size: 0.68rem;
+  font-weight: 1000;
+  text-transform: uppercase;
+}
+
+body[data-view="key-players"] .music-market-player-card ul {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  padding-left: 17px;
+  color: rgba(16, 35, 31, 0.64);
+  font-size: 0.78rem;
+  font-weight: 780;
+  line-height: 1.2;
+}
+
+body[data-view="key-players"] .music-market-player-card > button {
+  justify-self: start;
+  border: 1px solid rgba(16, 35, 31, 0.12);
+  border-radius: 999px;
+  background: #10231f;
+  color: #ffffff;
+  padding: 8px 10px;
+  font-size: 0.72rem;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+body[data-view="key-players"] .music-market-theme-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+body[data-view="key-players"] .music-market-theme-row article {
+  display: grid;
+  gap: 6px;
+  border: 1px solid rgba(16, 35, 31, 0.09);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 12px;
+}
+
+body[data-view="key-players"] .music-market-theme-row .music-market-caldecott-card {
+  border-color: rgba(0, 184, 132, 0.24);
+  background: linear-gradient(135deg, rgba(0, 184, 132, 0.1), rgba(255, 255, 255, 0.86));
+}
+
+body[data-view="key-players"] .music-market-caldecott-card a {
+  justify-self: start;
+  color: #0a7255;
+  font-size: 0.75rem;
+  font-weight: 1000;
+  text-decoration: none;
+}
+
 body[data-view="key-players"] .monitor-strategy-arena {
   border-top: 7px solid #1a5d4b;
   background:
@@ -33572,6 +33782,9 @@ body[data-view="key-players"] .monitor-appendix-stack {
 
 @media (max-width: 980px) {
   body[data-view="key-players"] .monitor-market-wall,
+  body[data-view="key-players"] .music-market-overview-head,
+  body[data-view="key-players"] .music-market-overview-grid,
+  body[data-view="key-players"] .music-market-theme-row,
   body[data-view="key-players"] .monitor-battlecard-facts {
     grid-template-columns: 1fr;
   }

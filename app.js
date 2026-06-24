@@ -16900,6 +16900,137 @@ function renderMonitorMarketWall(filteredPlayers, keyPlayers) {
   `;
 }
 
+function musicLearningMarketOverviewRows() {
+  return [
+    {
+      id: "simply",
+      model: "Broad hobby-learning platform",
+      position: "Large-scale hobby learning beyond music.",
+      focus: "Web acquisition, checkout efficiency and profitable growth.",
+      metricLead: "~$250M ARR",
+      metrics: ["40-45% YoY growth", "$1M+ revenue / employee", "EUR40-60 blended CAC"],
+      product: "Prescriptive learning, broad accessibility, expansion into additional hobbies.",
+      trends: ["Public-market readiness", "Diversification beyond music", "Profitable growth discipline"]
+    },
+    {
+      id: "ultimate-guitar",
+      model: "Guitar content and tabs",
+      position: "Leading hobbyist guitar platform with strong content assets.",
+      focus: "SEO, content breadth and monetization optimization.",
+      metricLead: "~$120M revenue",
+      metrics: ["~10% UG growth", "~40% MuseScore growth", "Large tab and sheet-music library"],
+      product: "Interactive tabs, sheet music and broad repertoire coverage.",
+      trends: ["MuseScore fastest growth unit", "Continued content investment", "Subscription monetization"]
+    },
+    {
+      id: "musora",
+      model: "Community-led education",
+      position: "Video-first music education portfolio across instruments.",
+      focus: "Creator partnerships, YouTube acquisition and production scale.",
+      metricLead: "~$35M CAD revenue",
+      metrics: ["Profitable", "~140 headcount", "Multi-brand instrument portfolio"],
+      product: "Video lessons, community loops and artist/creator-led learning.",
+      trends: ["Content production investment", "Instrument expansion", "Creator-channel acquisition"]
+    },
+    {
+      id: "chordify",
+      model: "Chord and lyrics utility",
+      position: "Accessible song accompaniment and chord-recognition tool.",
+      focus: "Organic traffic, lean operations and AI-assisted content scaling.",
+      metricLead: "~$9M revenue",
+      metrics: ["$10M+ 2026 target", "~45 FTE + interns", "~$200K revenue / employee"],
+      product: "Chord recognition, song accompaniment and annotation quality.",
+      trends: ["AI-assisted development", "Content quality investment", "AI-native entrant pressure"]
+    },
+    {
+      id: "flowkey",
+      model: "Instrument-specific learning",
+      position: "Piano-focused learning product.",
+      focus: "Web-first checkout, disciplined acquisition and learning outcomes.",
+      metricLead: "~$15M revenue",
+      metrics: ["~$3-4M profit", "~40 employees", "20-25% YoY growth", "EUR40-60 blended CAC"],
+      product: "High-quality piano instruction and outcome-led practice.",
+      trends: ["Return to growth", "Marketing effectiveness focus", "Piano remains core category"]
+    }
+  ];
+}
+
+function renderMusicLearningMarketOverview(filteredPlayers) {
+  const rows = musicLearningMarketOverviewRows().map((row) => ({
+    ...row,
+    player: players.find((player) => player.id === row.id) || filteredPlayers.find((player) => player.id === row.id)
+  }));
+  const themes = [
+    { label: "AI adoption", note: "AI accelerates product work, content generation and annotation; separate workflow proof from generic AI noise." },
+    { label: "CAC pressure", note: "Rising acquisition cost shifts focus toward web checkout, organic routes, profitability and retention efficiency." },
+    { label: "Content depth", note: "Libraries, community and interactive repertoire still drive subscription relevance and repeat use." },
+    { label: "Fragmented models", note: "No single model wins: hobby platforms, content ecosystems, utilities and community-led education coexist." }
+  ];
+  return `
+    <section class="music-market-overview" aria-label="Music learning market overview">
+      <div class="music-market-overview-head">
+        <div>
+          <span class="section-kicker">Music learning market overview</span>
+          <h3>Fragmented market, same operating pressure: growth efficiency, monetization and content scale.</h3>
+          <p>Chris input converted into a decision-useful view. Figures are shown as directional, review-pending inputs and should not be promoted into final report claims before source approval.</p>
+        </div>
+        <aside>
+          <strong>Review gate active</strong>
+          <small>Input only / source review pending / not for final narrative yet</small>
+        </aside>
+      </div>
+      <div class="music-market-overview-grid">
+        ${rows
+          .map(
+            (row) => `
+              <article class="music-market-player-card">
+                <header>
+                  <span>${escapeHtml(row.model)}</span>
+                  ${row.player ? companyInlineHtml(row.player, { compact: 18, logoClassName: "company-inline-logo monitor-inline-logo" }) : `<strong>${escapeHtml(row.id)}</strong>`}
+                </header>
+                <strong>${escapeHtml(row.metricLead)}</strong>
+                <p>${escapeHtml(row.position)}</p>
+                <div class="music-market-metric-list">
+                  ${row.metrics.map((metric) => `<em>${escapeHtml(metric)}</em>`).join("")}
+                </div>
+                <details>
+                  <summary>Show operating read</summary>
+                  <div>
+                    <b>Business model</b>
+                    <p>${escapeHtml(row.focus)}</p>
+                    <b>Product approach</b>
+                    <p>${escapeHtml(row.product)}</p>
+                    <b>Notable trends</b>
+                    <ul>${row.trends.map((trend) => `<li>${escapeHtml(trend)}</li>`).join("")}</ul>
+                  </div>
+                </details>
+                ${row.player ? `<button type="button" data-monitor-player="${escapeHtml(row.player.id)}">Open profile</button>` : ""}
+              </article>
+            `
+          )
+          .join("")}
+      </div>
+      <div class="music-market-theme-row">
+        ${themes
+          .map(
+            (theme) => `
+              <article>
+                <strong>${escapeHtml(theme.label)}</strong>
+                <p>${escapeHtml(theme.note)}</p>
+              </article>
+            `
+          )
+          .join("")}
+        <article class="music-market-caldecott-card">
+          <strong>Caldecott / BandLab portfolio signal</strong>
+          <p>Official corporate source frames Caldecott as a global music operator, innovator and investor spanning BandLab Technologies, NME Networks and Vista Musical Instruments.</p>
+          <a href="https://corp.caldecottmusic.com/" target="_blank" rel="noopener noreferrer">Open official source</a>
+        </article>
+      </div>
+    </section>
+  `;
+}
+
 function monitorBattlecardPosture(player) {
   if (competitiveProximityScore(player) >= 4 || ["learning", "practice"].includes(player.category)) {
     return {
@@ -17388,6 +17519,7 @@ function renderMonitorCommandCenter(filteredPlayers, keyPlayers) {
   return `
     <section class="monitor-command-center monitor-executive-redesign" aria-label="Executive market monitor command center">
       ${renderMonitorMarketWall(filteredPlayers, comparisonPlayers)}
+      ${renderMusicLearningMarketOverview(filteredPlayers)}
       ${renderMonitorStrategyArena(filteredPlayers, comparisonPlayers)}
       ${renderMonitorValueChainHeatmap(filteredPlayers)}
       ${renderMonitorMarketMovesTimeline(filteredPlayers)}
