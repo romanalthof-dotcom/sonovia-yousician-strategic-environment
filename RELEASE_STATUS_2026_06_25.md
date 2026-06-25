@@ -3,8 +3,8 @@
 ## Current Publish Candidate
 
 - Version: `market-signals-v204`
-- Commit: `acaa7e2`
-- Public working URL: `https://romanalthof-dotcom.github.io/sonovia-yousician-strategic-environment/index.html?force=market-signals-v204&view=key-players&cb=acaa7e2`
+- Commit: `c940117`
+- Public working URL: `https://romanalthof-dotcom.github.io/sonovia-yousician-strategic-environment/index.html?force=market-signals-v204&view=key-players&cb=c940117`
 - Local QA URL: `http://127.0.0.1:9189/index.html?force=market-signals-v204&view=key-players`
 
 ## What Changed
@@ -28,4 +28,3 @@
 - `https://sonovia.de/yousician` currently resolves to the Sonovia Lyris website fallback, not this dashboard.
 - `https://sonovia.de/yousician/index.html` currently returns `404`.
 - To publish under `sonovia.de/yousician`, the Sonovia domain host/router needs a rewrite or redirect to the GitHub Pages dashboard URL above.
-
