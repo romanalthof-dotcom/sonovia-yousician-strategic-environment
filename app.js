@@ -4780,6 +4780,7 @@ const els = {
   mapCompanyPicker: document.getElementById("mapCompanyPicker"),
   ecosystemMap: document.getElementById("ecosystemMap"),
   overviewMonitorSnapshot: document.getElementById("overviewMonitorSnapshot"),
+  overviewOnePagerRail: document.getElementById("overviewOnePagerRail"),
   categoryLandscape: document.getElementById("categoryLandscape"),
   profilePanel: document.getElementById("profilePanel"),
   briefReadiness: document.getElementById("briefReadiness"),
@@ -11887,6 +11888,110 @@ function renderProfile() {
   });
 }
 
+function renderOverviewOnePagerRail() {
+  if (!els.overviewOnePagerRail) return;
+  const player = getSelectedPlayer();
+  const category = categoryById(player.category);
+  const quality = qualityProfile(player);
+  const taxonomy = taxonomyProfile(player);
+  const activeRating = ratingForPlayer(player);
+  const priorityRank = onePagerPriorityRank(player);
+  const categoryRank = onePagerCategoryRank(player);
+  const peers = onePagerClosestPeers(player, taxonomy, 3);
+  const needsCredentialedData = requiresCredentialedData(player);
+  const hasReviewGate = hasCriticalEvidenceGap(player) || needsCredentialedData;
+  const gateLabel = hasReviewGate ? "Review gate" : "Triage ready";
+  const gateCopy = needsCredentialedData
+    ? "Appfigures, traffic or internal performance inputs are pending."
+    : hasCriticalEvidenceGap(player)
+      ? "Source-sensitive claims stay out of final outputs until review approval."
+      : "Use as directional context; promote only reviewed claims.";
+  const topSignals = [
+    {
+      label: "Priority",
+      value: priorityRank.rank ? `#${priorityRank.rank}` : "Triage",
+      note: `${priorityRank.total} in scope`
+    },
+    {
+      label: "Scale",
+      value: activeRating.display,
+      note: activeRating.shortLabel
+    },
+    {
+      label: "Confidence",
+      value: `${quality.score}%`,
+      note: quality.label
+    }
+  ];
+
+  els.overviewOnePagerRail.innerHTML = `
+    <article class="overview-onepager-card" style="--onepager-accent:${category.color}">
+      <header class="overview-onepager-head">
+        <span class="section-kicker">One-page brief</span>
+        <div class="overview-onepager-player">
+          ${logoMarkHtml(player, "overview-onepager-logo", { style: `--avatar-color:${category.color}` })}
+          <div>
+            <h3>${escapeHtml(player.name)}</h3>
+            <small>${escapeHtml(taxonomy.role)} / ${escapeHtml(taxonomy.journey)}</small>
+          </div>
+        </div>
+      </header>
+      <p class="overview-onepager-thesis">${escapeHtml(strategicRole(player))}</p>
+      <div class="overview-onepager-score-grid" aria-label="Brief snapshot">
+        ${topSignals
+          .map(
+            (item) => `
+              <div>
+                <span>${escapeHtml(item.label)}</span>
+                <strong>${escapeHtml(item.value)}</strong>
+                <small>${escapeHtml(item.note)}</small>
+              </div>
+            `
+          )
+          .join("")}
+      </div>
+      <div class="overview-onepager-context">
+        <div>
+          <span>Category rank</span>
+          <strong>${categoryRank.rank ? `#${categoryRank.rank}` : "Not ranked"} in ${escapeHtml(category.name)}</strong>
+        </div>
+        <div>
+          <span>Closest peers</span>
+          <strong>${peers.length ? peers.map((peer) => escapeHtml(compactName(peer.name, 14))).join(" / ") : "No tight peer set"}</strong>
+        </div>
+      </div>
+      <section class="overview-onepager-gate ${hasReviewGate ? "is-pending" : "is-ready"}" aria-label="Review gate">
+        <strong>${escapeHtml(gateLabel)}</strong>
+        <span>${escapeHtml(gateCopy)}</span>
+      </section>
+      <div class="overview-onepager-actions" aria-label="One page brief actions">
+        <button class="primary-button" type="button" data-onepager-rail-action="open">Open brief</button>
+        <button class="ghost-button" type="button" data-onepager-rail-action="focus">Focus map</button>
+        <button class="ghost-button" type="button" data-onepager-rail-action="monitor">Monitor</button>
+      </div>
+    </article>
+  `;
+
+  els.overviewOnePagerRail.querySelectorAll("[data-onepager-rail-action]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const action = button.dataset.onepagerRailAction;
+      if (action === "open") {
+        switchView("one-pager");
+        return;
+      }
+      if (action === "monitor") {
+        switchView("key-players");
+        return;
+      }
+      state.mapFocusMode = "selected";
+      state.mapZoomMode = "focus";
+      ensureSelectedPlayerVisibleInMap();
+      renderOverviewMapWorkspace({ revealMap: true, flashSummary: true, deferPicker: true, updateProfile: false });
+      flashElement(els.overviewOnePagerRail);
+    });
+  });
+}
+
 function metricRow(label, value, display = `${value}/5`) {
   return `
     <div class="metric">
@@ -15487,7 +15592,7 @@ function monitorExecutiveMatrixPosition(player) {
   return {
     x: clampNumber(Math.round(10 + proximity * 78), 10, 88),
     y: clampNumber(Math.round(12 + scale * 66), 12, 78),
-    size: clampNumber(Math.round(42 + priority * 0.75), 46, 84)
+    size: clampNumber(Math.round(30 + priority * 0.48), 38, 62)
   };
 }
 
@@ -15498,12 +15603,21 @@ function renderMonitorExecutiveMatrix(playersForComparison) {
       <header>
         <span class="section-kicker">Competitive position</span>
         <h4>Who is strategically close and visibly scaled?</h4>
-        <p>Right = closer to Yousician's learning loop. Up = stronger scale signal. Size = priority.</p>
+        <p>Use this only as a positioning map: proximity and scale signals, not market share.</p>
       </header>
+      <div class="matrix-reading-key" aria-label="How to read the competitive position matrix">
+        <span><b>X axis</b> Far adjacency -> close to Yousician loop</span>
+        <span><b>Y axis</b> Lower scale -> stronger scale signal</span>
+        <span><b>Size</b> Priority weight</span>
+      </div>
       <div class="monitor-executive-matrix-plot" role="img" aria-label="Matrix of selected market players by Yousician proximity and scale signal">
-        <span class="matrix-axis matrix-axis-y">Scale signal</span>
-        <span class="matrix-axis matrix-axis-x">Yousician proximity</span>
-        <span class="matrix-zone matrix-zone-core">Core fight</span>
+        <span class="matrix-axis matrix-axis-y">Scale signal up</span>
+        <span class="matrix-axis matrix-axis-x">Proximity right</span>
+        <span class="matrix-axis-end matrix-y-high">Higher scale</span>
+        <span class="matrix-axis-end matrix-y-low">Lower scale</span>
+        <span class="matrix-axis-end matrix-x-far">Farther adjacency</span>
+        <span class="matrix-axis-end matrix-x-close">Closer to Yousician</span>
+        <span class="matrix-zone matrix-zone-core">Close + scaled</span>
         <span class="matrix-zone matrix-zone-platform">Scaled adjacency</span>
         ${playersForComparison
           .map((player) => {
@@ -16403,7 +16517,7 @@ function monitorArenaBasePoint(player, index) {
   const jitterX = ((seed % 7) - 3) * 0.9;
   const jitterY = (((Math.floor(seed / 7) % 7) - 3) * 0.75);
   const selected = player.id === state.monitorFocusPlayerId || player.id === state.selectedPlayerId;
-  const size = clampNumber(Math.round(48 + monitorArenaScaleScore(player) * 10 + priority * 0.4 + (player.key ? 8 : 0)), 54, 104);
+  const size = clampNumber(Math.round(32 + monitorArenaScaleScore(player) * 5 + priority * 0.2 + (player.key ? 4 : 0)), 40, 60);
   return {
     player,
     fitScore: Math.round(fit * 100),
@@ -16412,7 +16526,7 @@ function monitorArenaBasePoint(player, index) {
     selected,
     showLabel: true,
     size,
-    radius: clampNumber(size / 13.4, 4.2, 8.2),
+    radius: clampNumber(size / 15.2, 3.2, 5.8),
     x: clampNumber(9 + fit * 82 + jitterX, 8, 92),
     y: clampNumber(10 + scale * 76 + jitterY, 10, 86)
   };
@@ -16528,7 +16642,12 @@ function renderMonitorStrategyArena(filteredPlayers, keyPlayers) {
         <div>
           <span class="section-kicker">Strategic positioning field</span>
           <h3>Who is close enough and scaled enough to matter?</h3>
-          <p>Right = closer to Yousician's learning and practice loop. Higher = stronger scale signal. Bubble size = priority-weighted market relevance. Ring and dossier expose evidence quality.</p>
+          <p>Positioning map, not market share: use it to see which players are close to the learning loop and which are scaled enough to deserve attention.</p>
+          <div class="monitor-arena-reading-key" aria-label="How to read the strategic positioning field">
+            <span><b>X axis</b> Far adjacency -> close to Yousician loop</span>
+            <span><b>Y axis</b> Lower scale -> stronger scale signal</span>
+            <span><b>Bubble</b> Priority-weighted relevance</span>
+          </div>
         </div>
         <div class="monitor-arena-zone-readout" aria-label="Arena zone summary">
           ${zoneRows
@@ -16546,8 +16665,12 @@ function renderMonitorStrategyArena(filteredPlayers, keyPlayers) {
       </div>
       <div class="monitor-strategy-arena-grid">
         <div class="monitor-arena-plot" role="img" aria-label="Market players by strategic proximity and scale signal">
-          <span class="arena-axis arena-axis-y">Scale signal</span>
-          <span class="arena-axis arena-axis-x">Strategic proximity to Yousician</span>
+          <span class="arena-axis arena-axis-y">Scale signal up</span>
+          <span class="arena-axis arena-axis-x">Proximity right</span>
+          <span class="arena-axis-end arena-y-high">Higher scale</span>
+          <span class="arena-axis-end arena-y-low">Lower scale</span>
+          <span class="arena-axis-end arena-x-far">Farther adjacency</span>
+          <span class="arena-axis-end arena-x-close">Closer to Yousician</span>
           <span class="arena-threshold arena-threshold-x"></span>
           <span class="arena-threshold arena-threshold-y"></span>
           <span class="arena-zone arena-zone-core">Core scaled threats</span>
@@ -16895,6 +17018,188 @@ function renderMonitorMarketWall(filteredPlayers, keyPlayers) {
             `
           )
           .join("")}
+      </div>
+    </section>
+  `;
+}
+
+function monitorOperatingBoardDefinitions(filteredPlayers) {
+  const rowsFor = (matches) => uniqueMonitorPlayers(filteredPlayers.filter(matches));
+  const contentText = (player) => `${player.id} ${player.name} ${player.category || ""} ${player.subcategory || ""} ${(player.tags || []).join(" ")} ${activitySearchText(player)}`;
+  const directRows = rowsFor(
+    (player) =>
+      competitiveProximityScore(player) >= 4 ||
+      ["learning", "practice"].includes(player.category) ||
+      /lesson|curriculum|practice|tab|chord|repertoire|piano|guitar|instrument learning|direct learning/i.test(contentText(player))
+  );
+  const contentRows = rowsFor(
+    (player) =>
+      /content|library|song|tab|chord|sheet|score|notation|musescore|ultimate|songsterr|guitar pro|repertoire|licens/i.test(contentText(player))
+  );
+  const creationRows = rowsFor(
+    (player) =>
+      player.aiScore >= 4 ||
+      ["ai", "creation"].includes(player.category) ||
+      ["create", "share"].includes(journeyCategoryFor(player).id) ||
+      /ai|creator|creation|audio|stem|generate|studio|sample|daw|production/i.test(contentText(player))
+  );
+  const routeRows = rowsFor(
+    (player) =>
+      ["platforms", "media", "education", "hardware", "retail"].includes(player.category) ||
+      /spotify|youtube|tiktok|netflix|disney|roblox|nintendo|epic|duolingo|school|teacher|retail|bundle|hardware|channel|distribution/i.test(contentText(player))
+  );
+
+  return [
+    {
+      id: "learning-economics",
+      kicker: "Core economics",
+      title: "Learning is an efficiency race.",
+      question: "Who can acquire, activate and retain beginners with the fewest wasted steps?",
+      read: "Benchmark onboarding, curriculum, habit loops, web checkout, CAC and subscription yield.",
+      segment: "core",
+      color: "#00b884",
+      rows: directRows,
+      score: (player) => monitorMarketThemePlayerScore({ id: "core" }, player)
+    },
+    {
+      id: "content-repertoire",
+      kicker: "Content gravity",
+      title: "Repertoire still pulls demand.",
+      question: "Who owns the song, tab, sheet, chord or creator surface users return to?",
+      read: "Separate defensible content depth from generic lesson volume; look for interactive repertoire loops.",
+      segment: "core",
+      color: "#3d7de0",
+      rows: contentRows,
+      score: (player) => totalPriority(player) + monitorArenaScaleScore(player) * 18 + monitorPressureScore(player) + (/ultimate|musescore|songsterr|chordify|guitar-pro/i.test(player.id) ? 72 : 0)
+    },
+    {
+      id: "creation-shift",
+      kicker: "Expectation shift",
+      title: "Creation tools change what practice feels like.",
+      question: "Which tools make learners expect faster feedback, output and social proof?",
+      read: "Track workflow proof before treating AI as strategy; distinguish creation utility from lesson replacement.",
+      segment: "ai",
+      color: "#6e5cff",
+      rows: creationRows,
+      score: (player) => monitorMarketThemePlayerScore({ id: "creation" }, player)
+    },
+    {
+      id: "distribution-routes",
+      kicker: "Route power",
+      title: "Attention, trust and channels sit upstream.",
+      question: "Which scaled platforms or partners can lower CAC or redirect demand before trial?",
+      read: "Watch music strategy, education strategy, acquisition history and channel bundles.",
+      segment: "partners",
+      color: "#ef5a4f",
+      rows: routeRows,
+      score: (player) => monitorMarketThemePlayerScore({ id: "platforms" }, player)
+    }
+  ];
+}
+
+function monitorOperatingBoardCards(filteredPlayers) {
+  const usedIds = new Set();
+  return monitorOperatingBoardDefinitions(filteredPlayers).map((lens, index) => {
+    const rankedRows = monitorLaneRank(lens.rows, lens.score, lens.rows.length || 1);
+    const leads = rankedRows.filter((player) => !usedIds.has(player.id)).slice(0, 3);
+    leads.forEach((player) => usedIds.add(player.id));
+    const fallbackLeads = leads.length ? leads : rankedRows.slice(0, 2);
+    const proofCount = lens.rows.filter((player) => hasCriticalEvidenceGap(player) || requiresCredentialedData(player)).length;
+    return {
+      ...lens,
+      index: index + 1,
+      leads: fallbackLeads,
+      keyCount: lens.rows.filter((player) => player.key).length,
+      readyCount: lens.rows.filter(isReadyRecord).length,
+      proofCount,
+      intensity: Math.min(100, Math.round((lens.rows.length / Math.max(1, filteredPlayers.length)) * 100))
+    };
+  });
+}
+
+function renderMonitorOperatingBoard(filteredPlayers) {
+  const cards = monitorOperatingBoardCards(filteredPlayers);
+  const proofNeeds = filteredPlayers.filter((player) => hasCriticalEvidenceGap(player) || requiresCredentialedData(player)).length;
+  const readyCount = filteredPlayers.filter(isReadyRecord).length;
+  const keyCount = filteredPlayers.filter((player) => player.key).length;
+  const readOrder = cards
+    .slice()
+    .sort((a, b) => b.leads.length - a.leads.length || b.keyCount - a.keyCount || b.rows.length - a.rows.length)
+    .slice(0, 3);
+
+  return `
+    <section class="monitor-operating-board" aria-label="Market operating board">
+      <div class="monitor-operating-board-head">
+        <div>
+          <span class="section-kicker">Market operating board</span>
+          <h3>Four questions, not another company list.</h3>
+          <p>Use this as the first read: each lane shows the market force, the de-duplicated lead players, the evidence state and the next useful drill-down.</p>
+        </div>
+        <aside aria-label="Market monitor scope">
+          <span><strong>${filteredPlayers.length}</strong><small>records</small></span>
+          <span><strong>${keyCount}</strong><small>key</small></span>
+          <span><strong>${readyCount}</strong><small>discussion-ready</small></span>
+          <span><strong>${proofNeeds}</strong><small>review gates</small></span>
+        </aside>
+      </div>
+      <div class="monitor-operating-board-layout">
+        <article class="monitor-operating-board-read">
+          <span>Recommended read order</span>
+          <h4>Start where decisions change, then open detail.</h4>
+          <div class="monitor-operating-read-list">
+            ${readOrder
+              .map(
+                (lens, index) => `
+                  <button type="button" data-monitor-trend-segment="${escapeHtml(lens.segment)}" style="--lens-color:${lens.color}">
+                    <b>${index + 1}</b>
+                    <span>
+                      <strong>${escapeHtml(lens.kicker)}</strong>
+                      <small>${escapeHtml(lens.read)}</small>
+                    </span>
+                  </button>
+                `
+              )
+              .join("")}
+          </div>
+          <p>Figures and Chris-input market estimates remain directional until source review approval. Appfigures remains pending unless a credentialed export is imported.</p>
+        </article>
+        <div class="monitor-operating-lens-grid">
+          ${cards
+            .map(
+              (lens) => `
+                <article class="monitor-operating-lens-card" style="--lens-color:${lens.color}; --lens-intensity:${lens.intensity}">
+                  <header>
+                    <span>${escapeHtml(lens.kicker)}</span>
+                    <strong>${lens.index}</strong>
+                  </header>
+                  <h4>${escapeHtml(lens.title)}</h4>
+                  <p>${escapeHtml(lens.question)}</p>
+                  <div class="monitor-operating-lens-stats">
+                    <span><b>${lens.rows.length}</b><small>records</small></span>
+                    <span><b>${lens.keyCount}</b><small>key</small></span>
+                    <span><b>${lens.proofCount}</b><small>review</small></span>
+                  </div>
+                  <div class="monitor-operating-lens-meter" aria-hidden="true"><i></i></div>
+                  <div class="monitor-operating-lens-leads" aria-label="${escapeHtml(`${lens.kicker} lead players`)}">
+                    ${
+                      lens.leads.length
+                        ? lens.leads.map((player) => playerMiniButton(player, "data-monitor-player", 16)).join("")
+                        : `<small>No lead in current filter.</small>`
+                    }
+                  </div>
+                  <details>
+                    <summary>Why it matters</summary>
+                    <p>${escapeHtml(lens.read)}</p>
+                  </details>
+                  <footer>
+                    <button type="button" data-monitor-trend-segment="${escapeHtml(lens.segment)}">Open lens</button>
+                    <small>${lens.proofCount ? "Review before citing." : "Usable for discussion."}</small>
+                  </footer>
+                </article>
+              `
+            )
+            .join("")}
+        </div>
       </div>
     </section>
   `;
@@ -17478,6 +17783,630 @@ function renderMonitorFocusedScorecard(filteredPlayers) {
   `;
 }
 
+function renderMonitorBriefingLayer(filteredPlayers) {
+  const lenses = monitorOperatingBoardCards(filteredPlayers);
+  const proofNeeds = filteredPlayers.filter((player) => hasCriticalEvidenceGap(player) || requiresCredentialedData(player)).length;
+  const readyCount = filteredPlayers.filter(isReadyRecord).length;
+  const signalRows = monitorMoveTimelineRows(filteredPlayers).slice(0, 3);
+  const rankedLenses = lenses
+    .slice()
+    .sort((a, b) => b.keyCount - a.keyCount || b.rows.length - a.rows.length || b.readyCount - a.readyCount);
+  const primaryLens = rankedLenses[0] || lenses[0];
+  const pressureLens = lenses.find((lens) => lens.id === "creation-shift") || rankedLenses[1] || lenses[1];
+  const routeLens = lenses.find((lens) => lens.id === "distribution-routes") || rankedLenses[2] || lenses[2];
+  const takeaways = [
+    {
+      label: "Start here",
+      title: primaryLens ? primaryLens.title : "No active market lens.",
+      body: primaryLens ? primaryLens.read : "Current filter has no visible records.",
+      color: primaryLens?.color || "#10231f",
+      segment: primaryLens?.segment || "all"
+    },
+    {
+      label: "Pressure to watch",
+      title: pressureLens ? pressureLens.title : "No pressure lens.",
+      body: pressureLens ? pressureLens.question : "No pressure signal in the current filter.",
+      color: pressureLens?.color || "#6e5cff",
+      segment: pressureLens?.segment || "ai"
+    },
+    {
+      label: "Route to inspect",
+      title: routeLens ? routeLens.title : "No route lens.",
+      body: routeLens ? routeLens.read : "No route signal in the current filter.",
+      color: routeLens?.color || "#ef5a4f",
+      segment: routeLens?.segment || "partners"
+    }
+  ];
+
+  return `
+    <section class="monitor-briefing-layer" aria-label="Executive market briefing">
+      <div class="monitor-briefing-head">
+        <div>
+          <span class="section-kicker">Market monitor briefing</span>
+          <h3>The market is four decisions, not 113 records.</h3>
+          <p>Read this first: defend the learning loop, understand content gravity, watch creation pressure, and test distribution routes. Drill down only where a decision changes.</p>
+        </div>
+        <aside aria-label="Review and scope status">
+          <span><strong>${filteredPlayers.length}</strong><small>records in current view</small></span>
+          <span><strong>${readyCount}</strong><small>discussion-ready</small></span>
+          <span><strong>${proofNeeds}</strong><small>review gates</small></span>
+        </aside>
+      </div>
+      <div class="monitor-briefing-layout">
+        <article class="monitor-briefing-answer">
+          <span>Executive read</span>
+          <h4>Answer the strategic question before browsing companies.</h4>
+          <div class="monitor-briefing-takeaways">
+            ${takeaways
+              .map(
+                (item, index) => `
+                  <button type="button" data-monitor-trend-segment="${escapeHtml(item.segment)}" style="--brief-color:${item.color}">
+                    <b>${index + 1}</b>
+                    <span>
+                      <small>${escapeHtml(item.label)}</small>
+                      <strong>${escapeHtml(item.title)}</strong>
+                      <em>${escapeHtml(item.body)}</em>
+                    </span>
+                  </button>
+                `
+              )
+              .join("")}
+          </div>
+          <p>Evidence rule: directional market inputs are useful for discussion, but not final-report claims until review-approved.</p>
+        </article>
+        <div class="monitor-briefing-map" role="img" aria-label="Four executive market decision lenses around Yousician">
+          <div class="monitor-briefing-center">
+            <strong>Yousician</strong>
+            <span>learning + practice loop</span>
+          </div>
+          ${lenses
+            .map(
+              (lens) => `
+                <article class="monitor-briefing-lane is-${escapeHtml(lens.id)}" style="--brief-color:${lens.color}; --brief-intensity:${lens.intensity}">
+                  <button type="button" data-monitor-trend-segment="${escapeHtml(lens.segment)}">
+                    <span>${escapeHtml(lens.kicker)}</span>
+                    <strong>${escapeHtml(lens.title)}</strong>
+                    <small>${escapeHtml(lens.question)}</small>
+                  </button>
+                  <div class="monitor-briefing-lane-meta">
+                    <span><b>${lens.rows.length}</b><small>records</small></span>
+                    <span><b>${lens.keyCount}</b><small>key</small></span>
+                    <span><b>${lens.proofCount}</b><small>review</small></span>
+                  </div>
+                  <div class="monitor-briefing-lane-leads">
+                    ${
+                      lens.leads.length
+                        ? lens.leads.map((player) => playerMiniButton(player, "data-monitor-player", 16)).join("")
+                        : `<small>No lead in current filter.</small>`
+                    }
+                  </div>
+                  <i aria-hidden="true"><b></b></i>
+                </article>
+              `
+            )
+            .join("")}
+        </div>
+        <aside class="monitor-briefing-signal-rail" aria-label="Current watch signals">
+          <span>Watch now</span>
+          <h4>Signals are prompts, not conclusions.</h4>
+          <div>
+            ${signalRows
+              .map(
+                (row) => `
+                  <article style="--signal-color:${row.color}">
+                    <header>
+                      <time>${escapeHtml(row.date)}</time>
+                      <strong>${escapeHtml(row.lane)}</strong>
+                    </header>
+                    <p>${escapeHtml(compactName(row.title, 34))}</p>
+                    <small>${escapeHtml(row.impact)}</small>
+                    ${row.player ? playerMiniButton(row.player, "data-monitor-player", 14) : ""}
+                  </article>
+                `
+              )
+              .join("")}
+          </div>
+          <button type="button" data-monitor-mode-jump="signals">Open signal mode</button>
+        </aside>
+      </div>
+    </section>
+  `;
+}
+
+function monitorCuratedShortlist(filteredPlayers) {
+  const usedIds = new Set();
+  const definitions = monitorExecutiveSegmentDefinitions();
+  const visibleById = new Map(filteredPlayers.map((player) => [player.id, player]));
+  const preferredByDefinition = {
+    "direct-learning": ["simply", "flowkey", "musora", "fender-play"],
+    "tabs-repertoire": ["ultimate-guitar", "chordify", "songsterr", "musescore"],
+    "ai-creation": ["bandlab", "moises", "suno"],
+    "hardware-distribution": ["fender", "thomann", "positive-grid", "pickup-music"],
+    "broader-platforms": ["duolingo", "spotify-platform", "disney", "epic-games", "roblox", "netflix", "nintendo"],
+    "authority-legitimacy": ["midia-research", "namm", "creative-europe"]
+  };
+  const preferredOrder = [
+    "direct-learning",
+    "tabs-repertoire",
+    "ai-creation",
+    "hardware-distribution",
+    "broader-platforms",
+    "authority-legitimacy"
+  ];
+  return preferredOrder
+    .map((id) => definitions.find((definition) => definition.id === id))
+    .filter(Boolean)
+    .map((definition) => {
+      const rankedCandidates = monitorLaneRank(
+        filteredPlayers.filter((player) => definition.matches(player) && !usedIds.has(player.id)),
+        (player) =>
+          monitorMarketCategoryScore(player) +
+          (player.key ? 5 : 0) +
+          (isReadyRecord(player) ? 2 : 0) -
+          (hasCriticalEvidenceGap(player) ? 1 : 0),
+        6
+      );
+      const preferredCandidates = (preferredByDefinition[definition.id] || [])
+        .map((id) => visibleById.get(id))
+        .filter((player) => player && !usedIds.has(player.id));
+      const candidates = uniqueMonitorPlayers([...preferredCandidates, ...rankedCandidates]);
+      const player = candidates[0];
+      if (!player) return null;
+      usedIds.add(player.id);
+      const preferredAlternatives = preferredCandidates.filter((item) => item.id !== player.id);
+      const rankedAlternatives = candidates.filter((item) => item.id !== player.id);
+      return {
+        definition,
+        player,
+        alternatives: (preferredAlternatives.length ? preferredAlternatives : rankedAlternatives).slice(0, 2)
+      };
+    })
+    .filter(Boolean);
+}
+
+function monitorCuratedDecisionNote(definition, player, alternatives) {
+  const altNames = alternatives.map((item) => compactName(item.name, 20)).join(" / ");
+  const notes = {
+    "direct-learning": {
+      reason: `${compactName(player.name, 18)} is the cleanest benchmark for guided progress, onboarding and paid conversion.`,
+      compare: altNames ? `Compare with ${altNames} to separate broad hobby scale from instrument/course depth.` : "Compare only after profile evidence is stronger.",
+      action: "Use for product, pricing, habit and acquisition questions."
+    },
+    "tabs-repertoire": {
+      reason: `${compactName(player.name, 18)} shows how repertoire can own the song-to-practice moment.`,
+      compare: altNames ? `Compare with ${altNames} to split content gravity from utility-tool behavior.` : "Keep as the repertoire anchor until better usage data is imported.",
+      action: "Use for catalog, rights, song discovery and practice-loop risk."
+    },
+    "ai-creation": {
+      reason: `${compactName(player.name, 18)} is a downstream pressure signal: learners increasingly expect output, not only instruction.`,
+      compare: altNames ? `Compare with ${altNames} to distinguish creation workflow from practice utility.` : "Keep as AI pressure, not as a learning competitor claim.",
+      action: "Use for AI workflow expectations and creator-path adjacency."
+    },
+    "hardware-distribution": {
+      reason: `${compactName(player.name, 18)} can affect trust and acquisition before a learner ever searches the app store.`,
+      compare: altNames ? `Compare with ${altNames} to test brand, retail and bundle routes.` : "Use as a route-to-market hypothesis until bundle data is sourced.",
+      action: "Use for CAC, bundles, retail, schools and partner routes."
+    },
+    "broader-platforms": {
+      reason: `${compactName(player.name, 18)} is not a direct music app claim; it is a scaled habit and distribution benchmark.`,
+      compare: altNames ? `Compare with ${altNames} for music strategy, education strategy and acquisition appetite.` : "Use carefully: scale alone is not music-learning relevance.",
+      action: "Use for platform reach, engagement mechanics and strategic adjacency."
+    },
+    "authority-legitimacy": {
+      reason: `${compactName(player.name, 18)} improves the board-level market framing without pretending to be a competitor.`,
+      compare: altNames ? `Compare with ${altNames} for events, funding and institutional legitimacy.` : "Keep as context, not as market share evidence.",
+      action: "Use for trend evidence, public opinion, funding windows and credibility signals."
+    }
+  };
+  return notes[definition.id] || {
+    reason: `${compactName(player.name, 18)} earns attention because it changes the current strategic read.`,
+    compare: altNames ? `Compare with ${altNames}.` : "No strong comparison anchor in the current filter.",
+    action: definition.takeaway
+  };
+}
+
+function renderMonitorCuratedShortlist(filteredPlayers) {
+  const picks = monitorCuratedShortlist(filteredPlayers);
+  if (!picks.length) return "";
+  const usedIds = new Set(picks.map((pick) => pick.player.id));
+  const remainingPriority = monitorLaneRank(
+    filteredPlayers.filter((player) => !usedIds.has(player.id)),
+    monitorMarketCategoryScore,
+    40
+  );
+  const reviewCount = picks.filter((pick) => hasCriticalEvidenceGap(pick.player) || requiresCredentialedData(pick.player)).length;
+  return `
+    <section class="monitor-curated-shortlist" aria-label="Curated executive shortlist">
+      <div class="monitor-curated-head">
+        <div>
+          <span class="section-kicker">Selected read</span>
+          <h3>Six useful records, six different reasons to care.</h3>
+          <p>This removes repeated names from the first read. Open the brief only if the reason is relevant to the decision in the room.</p>
+        </div>
+        <aside>
+          <span><strong>${picks.length}</strong><small>deduped picks</small></span>
+          <span><strong>${reviewCount}</strong><small>review gates</small></span>
+          <span><strong>${remainingPriority.length}</strong><small>kept in appendix</small></span>
+        </aside>
+      </div>
+      <div class="monitor-curated-grid">
+        ${picks
+          .map(({ definition, player, alternatives }, index) => {
+            const quality = qualityProfile(player);
+            const needsReview = hasCriticalEvidenceGap(player) || requiresCredentialedData(player);
+            const decisionNote = monitorCuratedDecisionNote(definition, player, alternatives);
+            return `
+              <article class="monitor-curated-card" style="--curated-color:${definition.color}">
+                <header>
+                  <span>${index + 1}</span>
+                  ${logoMarkHtml(player, "monitor-curated-logo")}
+                  <div>
+                    <small>${escapeHtml(definition.group)}</small>
+                    <strong>${escapeHtml(player.name)}</strong>
+                  </div>
+                </header>
+                <h4>${escapeHtml(definition.label)}</h4>
+                <p>${escapeHtml(decisionNote.reason)}</p>
+                <div class="monitor-curated-metrics" aria-label="${escapeHtml(player.name)} shortlist metrics">
+                  <span><b>${player.relevance}/5</b><small>fit</small></span>
+                  <span><b>${monitorExecutiveScaleScore(player) || "-"}/5</b><small>scale</small></span>
+                  <span><b>${quality.score}%</b><small>proof</small></span>
+                </div>
+                <div class="monitor-curated-read">
+                  <span>Decision use</span>
+                  <strong>${escapeHtml(decisionNote.action)}</strong>
+                  <small>${escapeHtml(decisionNote.compare)}</small>
+                </div>
+                ${
+                  alternatives.length
+                    ? `<div class="monitor-curated-alt"><span>Also compare</span>${alternatives
+                        .map((item) => playerMiniButton(item, "data-monitor-player", 13))
+                        .join("")}</div>`
+                    : ""
+                }
+                <footer>
+                  <em class="${needsReview ? "is-pending" : "is-ready"}">${needsReview ? "review before final claim" : "discussion-ready"}</em>
+                  <button type="button" data-monitor-open-brief="${escapeHtml(player.id)}">Brief</button>
+                  <button type="button" data-monitor-trend-segment="${escapeHtml(definition.segment)}">Lane</button>
+                </footer>
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+      <div class="monitor-curated-appendix-note">
+        <strong>Not discarded:</strong>
+        <span>${remainingPriority.length} additional records stay searchable in the monitor/database, but they do not earn first-read space unless triage changes.</span>
+      </div>
+    </section>
+  `;
+}
+
+function marketSignalRadarDefinitions() {
+  return [
+    {
+      id: "musicai-series-a",
+      lane: "capital",
+      date: "2025 Jan",
+      entity: "Music.AI / Moises",
+      title: "AI practice and creation tools now have serious venture backing.",
+      summary: "Music.AI announced a $40M Series A led by Connect Ventures and monashees, with Samsung Next and other investors participating.",
+      why: "Treat Moises as a capital-backed AI utility adjacency, not only as a feature benchmark. Watch whether practice utilities move into creation workflows faster than learning apps do.",
+      question: "Which Yousician practice moments could become AI-assisted utilities before a competitor owns them?",
+      sourceId: "musicai_series_a_2025",
+      sourceLabel: "Music.AI press",
+      url: "https://music.ai/blog/press/music-ai-raises-40m-series-a/",
+      playerId: "moises",
+      weight: 5,
+      status: "public source / review pending"
+    },
+    {
+      id: "fender-samsung-tv",
+      lane: "partnerships",
+      date: "2026 Jan",
+      entity: "Fender Play / Samsung",
+      title: "Instrument learning is moving onto the living-room screen.",
+      summary: "Samsung announced an exclusive global partnership to bring Fender Play to Samsung TVs in 2026.",
+      why: "This is a distribution and habit signal: the battle for beginners may start on hardware ecosystems, not only app stores or search.",
+      question: "Should Yousician evaluate TV, bundle or hardware-led acquisition routes before paid mobile CAC gets worse?",
+      sourceLabel: "Samsung Newsroom",
+      url: "https://news.samsung.com/global/samsung-brings-fender-play-to-samsung-tv-home-screen",
+      playerId: "fender-play",
+      weight: 5,
+      status: "official partner source / review pending"
+    },
+    {
+      id: "duolingo-loog",
+      lane: "partnerships",
+      date: "2024 Sep",
+      entity: "Duolingo / Loog",
+      title: "Beginner learning can be packaged with physical instruments.",
+      summary: "Loog and Duolingo connected Duolingo Music to a beginner-friendly portable piano product.",
+      why: "The signal is not that Duolingo is a direct music competitor; it is that broad learning brands can cross from software habit into beginner hardware bundles.",
+      question: "Where can Yousician reduce beginner friction through instrument, retail or family bundle partners?",
+      sourceId: "duolingo_loog_piano_2024",
+      sourceLabel: "Loog official product",
+      url: "https://loogguitars.com/products/loog-x-duolingo-piano",
+      playerId: "duolingo",
+      weight: 4,
+      status: "official partner source / review pending"
+    },
+    {
+      id: "spotify-video-learning",
+      lane: "platforms",
+      date: "2024 Mar",
+      entity: "Spotify",
+      title: "Scaled entertainment platforms are testing paid learning content.",
+      summary: "Spotify tested video-based learning courses in the UK with partners including BBC Maestro, PLAYvirtuoso, Skillshare and Thinkific.",
+      why: "This is a platform-adjacency signal: music learning can appear inside broader media subscriptions and discovery surfaces.",
+      question: "Which Yousician content or creator partnership would remain defensible if platforms distribute learning directly?",
+      sourceLabel: "Spotify Newsroom",
+      url: "https://newsroom.spotify.com/2024-03-25/spotify-tests-video-based-learning-courses-in-the-uk/",
+      playerId: "spotify-platform",
+      weight: 4,
+      status: "official company source / review pending"
+    },
+    {
+      id: "muse-hal-leonard",
+      lane: "content-rights",
+      date: "2025 Jan",
+      entity: "Muse Group / Hal Leonard",
+      title: "Repertoire, notation and education catalog are consolidating.",
+      summary: "Muse Group said it completed the integration of Hal Leonard US and Europe into a global publishing, digital and distribution operation.",
+      why: "The strategic issue is catalog control: tabs, scores, learning content, publishing relationships and digital practice surfaces are becoming more integrated.",
+      question: "What rights, repertoire and catalog dependencies should Yousician secure before they become more expensive or less available?",
+      sourceId: "muse_group_hal_leonard_2025",
+      sourceLabel: "Muse Group official",
+      url: "https://www.mu.se/posts/muse-group-unifies-hal-leonard-us-and-hal-leonard-europe-into-a-global-powerhouse",
+      playerId: "ultimate-guitar",
+      weight: 5,
+      status: "official company source / review pending"
+    },
+    {
+      id: "caldecott-isni",
+      lane: "content-rights",
+      date: "2025 Apr",
+      entity: "Caldecott / ISNI",
+      title: "Creator identity and attribution are becoming infrastructure.",
+      summary: "Caldecott Music Group became an ISNI Registration Agency, tying attribution infrastructure to its BandLab, media and instrument ecosystem.",
+      why: "Creator identity matters for AI, rights, attribution and partner trust. This is a market-structure signal, not a Yousician competitor claim.",
+      question: "Where does Yousician need stronger creator, rights or attribution infrastructure before AI increases provenance demands?",
+      sourceLabel: "BandLab Technologies",
+      url: "https://bandlabtechnologies.com/news/caldecott-music-group-partnership-isni-empower-global-creators-strengthen-attribution-music-media/",
+      playerId: "bandlab",
+      weight: 4,
+      status: "official company source / review pending"
+    },
+    {
+      id: "caldecott-portfolio",
+      lane: "investor-portfolio",
+      date: "2026 public",
+      entity: "Caldecott Music Group",
+      title: "A single operator spans creator tools, music media, instruments and retail.",
+      summary: "Caldecott publicly frames itself as a global music operator, innovator and investor across BandLab Technologies, NME Networks and Vista Musical Instruments.",
+      why: "Useful as portfolio/watchlist context: it shows how creation, media, retail and instrument ecosystems can sit under one strategic owner.",
+      question: "Which cross-ecosystem owner has both distribution and mission fit for Yousician partnership or M&A scenarios?",
+      sourceLabel: "Caldecott official",
+      url: "https://corp.caldecottmusic.com/",
+      playerId: "bandlab",
+      weight: 4,
+      status: "portfolio signal / review pending"
+    },
+    {
+      id: "bandlab-umg-ai",
+      lane: "partnerships",
+      date: "2023 Oct",
+      entity: "BandLab / UMG",
+      title: "Creator platforms are partnering around responsible AI before regulation settles.",
+      summary: "Universal Music Group and BandLab Technologies announced a strategic AI collaboration focused on artist and songwriter rights.",
+      why: "The collaboration shows that creator tools are not waiting for perfect AI regulation; they are trying to shape pro-creator standards with rights holders.",
+      question: "What pro-creator AI principles should Yousician make explicit before AI practice or creation features scale?",
+      sourceLabel: "Universal Music Group",
+      url: "https://www.universalmusic.com/universal-music-group-and-bandlab-technologies-announce-first-of-its-kind-strategic-ai-collaboration/",
+      playerId: "bandlab",
+      weight: 3,
+      status: "official partner source / review pending"
+    },
+    {
+      id: "apple-design-awards",
+      lane: "awards-events",
+      date: "2026 Jun",
+      entity: "Apple Design Awards",
+      title: "Platform awards are a useful quality bar, not just PR.",
+      summary: "Apple announced 2026 Design Award winners and finalists across innovation, interaction, inclusivity, visuals and social impact.",
+      why: "This creates a concrete product-quality benchmark for board-facing app craft, accessibility and submission readiness.",
+      question: "Which Yousician product moments are award-grade enough to use as proof of category leadership?",
+      sourceId: "apple_design_awards_2026",
+      sourceLabel: "Apple Developer",
+      url: "https://developer.apple.com/design/awards/",
+      playerId: "apple-design-awards",
+      weight: 3,
+      status: "official platform source / review pending"
+    },
+    {
+      id: "midia-macro",
+      lane: "macro-trends",
+      date: "2026 watch",
+      entity: "MIDiA Research",
+      title: "Macro read: music participation, creator tools and AI are converging.",
+      summary: "MIDiA remains a recurring source for creator economy, fandom, streaming, AI and music-market framing.",
+      why: "Use this as the external market lens to separate real trend pressure from generic AI or entertainment commentary.",
+      question: "Which macro shifts should be tracked monthly because they alter Yousician acquisition, retention or partnership logic?",
+      sourceLabel: "MIDiA Research",
+      url: "https://www.midiaresearch.com/blog",
+      playerId: "midia-research",
+      weight: 3,
+      status: "macro source / review pending"
+    }
+  ];
+}
+
+function marketSignalRadarLanes() {
+  return [
+    {
+      id: "capital",
+      label: "Funding / investors",
+      shortLabel: "Capital",
+      question: "Where is money validating adjacent models?",
+      segment: "signals",
+      color: "#00a071"
+    },
+    {
+      id: "partnerships",
+      label: "Live partnerships",
+      shortLabel: "Partnerships",
+      question: "Which distribution or rights partnerships are already real?",
+      segment: "partners",
+      color: "#326fd4"
+    },
+    {
+      id: "content-rights",
+      label: "Content / rights",
+      shortLabel: "Rights",
+      question: "Who is controlling repertoire, attribution and education catalog?",
+      segment: "signals",
+      color: "#8a5be8"
+    },
+    {
+      id: "investor-portfolio",
+      label: "Owners / portfolios",
+      shortLabel: "Portfolios",
+      question: "Which owners can connect media, creator tools, instruments and retail?",
+      segment: "partners",
+      color: "#f08a1f"
+    },
+    {
+      id: "platforms",
+      label: "Platform adjacency",
+      shortLabel: "Platforms",
+      question: "Where could scaled platforms absorb learning demand?",
+      segment: "partners",
+      color: "#ef5a4f"
+    },
+    {
+      id: "awards-events",
+      label: "Awards / events",
+      shortLabel: "Legitimacy",
+      question: "Which public stages define product credibility?",
+      segment: "signals",
+      color: "#d94f85"
+    },
+    {
+      id: "macro-trends",
+      label: "Macro trends",
+      shortLabel: "Macro",
+      question: "Which external shifts should change strategy, not just slides?",
+      segment: "signals",
+      color: "#4e6b72"
+    }
+  ];
+}
+
+function marketSignalRadarRows() {
+  const lanesById = new Map(marketSignalRadarLanes().map((lane) => [lane.id, lane]));
+  return marketSignalRadarDefinitions()
+    .map((signal) => {
+      const lane = lanesById.get(signal.lane) || lanesById.get("macro-trends");
+      const player = players.find((item) => item.id === signal.playerId) || null;
+      const source = sourceById(signal.sourceId) || {
+        title: signal.sourceLabel,
+        url: signal.url,
+        type: signal.status
+      };
+      return {
+        ...signal,
+        lane,
+        player,
+        source,
+        sourceHref: sourceUrl(source) || signal.url,
+        sourceTitle: source?.title || signal.sourceLabel || "Source"
+      };
+    })
+    .sort((a, b) => b.weight - a.weight || String(b.date).localeCompare(String(a.date)));
+}
+
+function renderMarketSignalRadar(filteredPlayers) {
+  const rows = marketSignalRadarRows();
+  const lanes = marketSignalRadarLanes()
+    .map((lane) => ({
+      ...lane,
+      rows: rows.filter((row) => row.lane.id === lane.id)
+    }))
+    .filter((lane) => lane.rows.length);
+  const priorityRows = rows.filter((row) => row.weight >= 4).length;
+  const visibleIds = new Set(filteredPlayers.map((player) => player.id));
+  const linkedVisibleRows = rows.filter((row) => row.player && visibleIds.has(row.player.id)).length;
+
+  return `
+    <section class="market-signal-radar" aria-label="Market signal radar">
+      <div class="market-signal-head">
+        <div>
+          <span class="section-kicker">Market signal radar</span>
+          <h3>Market monitor should show what is moving, not only who exists.</h3>
+          <p>Funding, live partnerships, rights/catalog control, owner portfolios, awards and macro trends are grouped separately from company profiles. Every item stays source-linked and review-pending before it can become final-report language.</p>
+        </div>
+        <aside aria-label="Signal radar status">
+          <span><strong>${rows.length}</strong><small>public signals</small></span>
+          <span><strong>${priorityRows}</strong><small>high-signal</small></span>
+          <span><strong>${linkedVisibleRows}</strong><small>linked to current view</small></span>
+        </aside>
+      </div>
+      <div class="market-signal-layout">
+        <div class="market-signal-lanes" aria-label="Signal categories">
+          ${lanes
+            .map((lane) => {
+              const topSignal = lane.rows[0];
+              return `
+                <button type="button" class="market-signal-lane-card" data-monitor-trend-segment="${escapeHtml(lane.segment)}" style="--signal-color:${lane.color}">
+                  <span>${escapeHtml(lane.shortLabel)}</span>
+                  <strong>${lane.rows.length}</strong>
+                  <p>${escapeHtml(lane.question)}</p>
+                  <small>${escapeHtml(topSignal.entity)} / ${escapeHtml(topSignal.date)}</small>
+                </button>
+              `;
+            })
+            .join("")}
+        </div>
+        <div class="market-signal-board" aria-label="Source-backed market signals">
+          ${rows
+            .map(
+              (row) => `
+                <article class="market-signal-card" style="--signal-color:${row.lane.color}">
+                  <header>
+                    <span>${escapeHtml(row.lane.label)}</span>
+                    <time>${escapeHtml(row.date)}</time>
+                  </header>
+                  <div class="market-signal-card-main">
+                    <strong>${escapeHtml(row.title)}</strong>
+                    <p>${escapeHtml(row.summary)}</p>
+                  </div>
+                  <div class="market-signal-why">
+                    <span>Why it matters</span>
+                    <p>${escapeHtml(row.why)}</p>
+                  </div>
+                  <details>
+                    <summary>Decision question</summary>
+                    <p>${escapeHtml(row.question)}</p>
+                  </details>
+                  <footer>
+                    ${row.player ? playerMiniButton(row.player, "data-monitor-player", 15) : `<em>${escapeHtml(row.entity)}</em>`}
+                    <a href="${escapeHtml(row.sourceHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(compactName(row.sourceTitle, 30))}</a>
+                    <b>${escapeHtml(row.status)}</b>
+                  </footer>
+                </article>
+              `
+            )
+            .join("")}
+        </div>
+      </div>
+      <div class="market-signal-review-note">
+        <strong>Claim gate:</strong>
+        <span>These signals can guide discussion and triage, but none should be promoted into PDFs, slides or final report claims until the review status is approved. Appfigures remains pending unless a credentialed export is imported.</span>
+      </div>
+    </section>
+  `;
+}
+
 function renderMonitorCommandCenter(filteredPlayers, keyPlayers) {
   const model = monitorExecutiveBriefModel(filteredPlayers);
   const publicStatus = publicEnrichmentContext.publicAppMarketSignals?.status || publicEnrichmentFallback.publicAppMarketSignals.status;
@@ -17518,21 +18447,24 @@ function renderMonitorCommandCenter(filteredPlayers, keyPlayers) {
   ];
   return `
     <section class="monitor-command-center monitor-executive-redesign" aria-label="Executive market monitor command center">
-      ${renderMonitorMarketWall(filteredPlayers, comparisonPlayers)}
+      ${renderMonitorBriefingLayer(filteredPlayers)}
+      ${renderMonitorCuratedShortlist(filteredPlayers)}
+      ${renderMarketSignalRadar(filteredPlayers)}
       ${renderMusicLearningMarketOverview(filteredPlayers)}
-      ${renderMonitorStrategyArena(filteredPlayers, comparisonPlayers)}
-      ${renderMonitorValueChainHeatmap(filteredPlayers)}
       ${renderMonitorMarketMovesTimeline(filteredPlayers)}
-      ${renderMonitorBattlecards(filteredPlayers, comparisonPlayers)}
       <details class="monitor-appendix-drawer">
         <summary>
           <span>
-            <strong>Open analyst appendix</strong>
-            <small>Long-tail board, focused scorecard, detailed comparisons and evidence gates.</small>
+            <strong>Show analysis layers</strong>
+            <small>Market wall, strategy arena, value-chain heatmap, battlecards, scorecards and evidence gates.</small>
           </span>
           <span class="drawer-indicator">Show</span>
         </summary>
         <div class="monitor-appendix-stack">
+          ${renderMonitorMarketWall(filteredPlayers, comparisonPlayers)}
+          ${renderMonitorStrategyArena(filteredPlayers, comparisonPlayers)}
+          ${renderMonitorValueChainHeatmap(filteredPlayers)}
+          ${renderMonitorBattlecards(filteredPlayers, comparisonPlayers)}
           ${renderMonitorMarketBoard(filteredPlayers, comparisonPlayers)}
           ${renderMonitorFocusedScorecard(filteredPlayers)}
           ${renderMonitorComparisonCockpit(filteredPlayers, comparisonPlayers)}
@@ -22504,6 +23436,7 @@ function selectPlayer(id, options = {}) {
     renderMapSummaryStrip();
     renderMapCompanyPicker();
     renderProfile();
+    renderOverviewOnePagerRail();
     scheduleMapRender();
   } else if (state.view === "one-pager") {
     renderOnePager();
@@ -23233,6 +24166,7 @@ function renderOverviewView() {
   renderMap();
   renderCategoryLandscape();
   renderProfile();
+  renderOverviewOnePagerRail();
   renderBriefReadiness();
   renderInsights();
   renderStrategicImplications();
@@ -23244,6 +24178,7 @@ function renderOverviewSecondaryContent() {
   renderEcosystemGuide();
   renderOverviewMonitorSnapshot();
   renderCategoryLandscape();
+  renderOverviewOnePagerRail();
   renderBriefReadiness();
   renderInsights();
   renderStrategicImplications();
@@ -23288,6 +24223,7 @@ function renderOverviewMapWorkspace(options = {}) {
     renderMapCompanyPicker();
   }
   if (options.updateProfile !== false) renderProfile();
+  renderOverviewOnePagerRail();
   syncInteractionState();
   if (options.includeFilters || options.refreshJourney) refreshLucideIcons();
   if (options.normalizeText !== false) scheduleTextDashNormalization(activeViewElement());
