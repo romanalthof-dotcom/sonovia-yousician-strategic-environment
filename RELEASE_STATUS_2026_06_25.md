@@ -3,8 +3,8 @@
 ## Current Publish Candidate
 
 - Version: `market-signals-v204`
-- Commit: `c940117`
-- Public working URL: `https://romanalthof-dotcom.github.io/sonovia-yousician-strategic-environment/index.html?force=market-signals-v204&view=key-players&cb=c940117`
+- Dashboard code commit: `acaa7e2`
+- Public working URL: `https://romanalthof-dotcom.github.io/sonovia-yousician-strategic-environment/index.html?force=market-signals-v204&view=key-players&cb=market-signals-v204`
 - Local QA URL: `http://127.0.0.1:9189/index.html?force=market-signals-v204&view=key-players`
 
 ## What Changed
