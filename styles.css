@@ -17740,9 +17740,10 @@ body[data-view="one-pager"] #one-pagerView {
 }
 
 .activity-monitor-lane > div {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 6px;
+  min-width: 0;
 }
 
 .activity-monitor-lane button,
@@ -17760,13 +17761,15 @@ body[data-view="one-pager"] #one-pagerView {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  width: 100%;
   max-width: 100%;
+  min-width: 0;
   min-height: 29px;
   border-radius: 999px;
   padding: 3px 8px 3px 4px;
 }
 
-.activity-monitor-lane button span,
+.activity-monitor-lane button > span:not(.company-inline),
 .company-row-avatar {
   display: inline-grid;
   flex: 0 0 auto;
@@ -17776,11 +17779,38 @@ body[data-view="one-pager"] #one-pagerView {
   font-weight: 950;
 }
 
-.activity-monitor-lane button span {
+.activity-monitor-lane button > span:not(.company-inline) {
   width: 22px;
   height: 22px;
   border-radius: 999px;
   font-size: 0.52rem;
+}
+
+.activity-monitor-lane button .company-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.activity-monitor-lane button .company-inline-logo {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+}
+
+.activity-monitor-lane button .company-inline > span:last-child {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  color: #10231f;
+  font-size: 0.63rem;
+  font-weight: 950;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .activity-monitor-lane button strong {
@@ -17891,21 +17921,22 @@ body[data-view="one-pager"] #one-pagerView {
 
 .activity-watch-list button {
   display: grid;
-  grid-template-columns: 30px minmax(0, 1fr);
-  gap: 1px 8px;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 2px 8px;
   align-items: center;
   min-width: 0;
   border: 1px solid rgba(24, 36, 31, 0.09);
-  border-radius: 8px;
+  border-radius: 12px;
   background: #fff;
   color: var(--ink);
-  padding: 7px;
+  padding: 8px 9px;
   font: inherit;
   text-align: left;
   cursor: pointer;
 }
 
-.activity-watch-list button span {
+.activity-watch-list button > span:not(.company-inline) {
+  grid-column: 1;
   grid-row: span 2;
   display: inline-grid;
   place-items: center;
@@ -17918,22 +17949,59 @@ body[data-view="one-pager"] #one-pagerView {
   font-weight: 950;
 }
 
+.activity-watch-list button .company-inline {
+  display: contents;
+}
+
+.activity-watch-list button .company-inline-logo,
+.activity-watch-list button .company-inline-logo.monitor-inline-logo {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 8px;
+}
+
+.activity-watch-list button .company-inline > span:last-child {
+  grid-column: 2;
+  grid-row: 1;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: -0.01em;
+  line-height: 1.12;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .activity-watch-list button strong {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: stretch;
   min-width: 0;
   font-size: 0.72rem;
   font-weight: 950;
   line-height: 1.12;
   overflow: hidden;
+  text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .activity-watch-list button small {
+  grid-column: 2;
+  grid-row: 2;
   display: block;
+  justify-self: stretch;
   color: var(--muted);
   font-size: 0.62rem;
   line-height: 1.18;
   overflow: hidden;
+  text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -23900,7 +23968,7 @@ body[data-view="database"] .database-priority-map.is-dense .database-confidence-
   color: rgba(24, 36, 31, 0.74) !important;
 }
 
-.activity-watch-list button span,
+.activity-watch-list button > span:not(.company-inline),
 .key-lane button span,
 .priority-rank {
   border: 1px solid color-mix(in srgb, var(--chip-color, var(--priority-color, #00b884)) 42%, rgba(23, 33, 29, 0.16)) !important;
@@ -27798,8 +27866,7 @@ body[data-view="key-players"] .monitor-insight-readout {
 
 /* Inline company logo safeguards for legacy chip/table rules that style all spans. */
 .monitor-leader-grid button:nth-child(2),
-.monitor-benchmark-table th button,
-.activity-watch-list button {
+.monitor-benchmark-table th button {
   grid-template-columns: minmax(0, 1fr);
 }
 

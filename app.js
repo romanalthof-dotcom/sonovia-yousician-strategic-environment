@@ -19289,8 +19289,9 @@ function renderActivityQueue(filteredPlayers, keyPlayers) {
                           .slice(0, 5)
                           .map(
                             (player) => `
-                              <button type="button" data-monitor-player="${escapeHtml(player.id)}" data-id="${escapeHtml(player.id)}">
-                                ${companyInlineHtml(player, { logoClassName: "company-inline-logo monitor-inline-logo" })}
+                              <button type="button" data-monitor-player="${escapeHtml(player.id)}" data-id="${escapeHtml(player.id)}" style="--chip-color:${colorFor(player)}">
+                                ${logoMarkHtml(player, "activity-watch-logo")}
+                                <strong>${escapeHtml(compactName(player.name, 22))}</strong>
                                 <small>${escapeHtml(executiveSignalText(player.recent))}</small>
                               </button>
                             `
