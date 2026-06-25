@@ -34952,6 +34952,27 @@ body[data-mode="executive"][data-view="overview"] .overview-onepager-actions but
   }
 }
 
+/* v211: split-window mode. Hide the reader rail under 75% screen width or when the CSS viewport is too narrow for two columns. */
+body[data-view="overview"][data-compact-window="true"] #overviewView.workspace-grid.active,
+body[data-mode="executive"][data-view="overview"][data-compact-window="true"] #overviewView.workspace-grid.active {
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-areas:
+    "map"
+    "kpis"
+    "brief" !important;
+  gap: 12px !important;
+}
+
+body[data-view="overview"][data-compact-window="true"] .overview-side-rail,
+body[data-mode="executive"][data-view="overview"][data-compact-window="true"] .overview-side-rail {
+  display: none !important;
+}
+
+body[data-view="overview"][data-compact-window="true"] .map-panel,
+body[data-mode="executive"][data-view="overview"][data-compact-window="true"] .map-panel {
+  min-width: 0;
+}
+
 /* v197: curated market monitor shortlist. Pick different reasons, not repeated names. */
 body[data-view="key-players"] .monitor-curated-shortlist {
   display: grid;

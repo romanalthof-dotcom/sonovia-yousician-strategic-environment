@@ -24811,7 +24811,20 @@ async function loadPublicEnrichment() {
   }
 }
 
+function shouldHideOverviewSidebarForWindow() {
+  const viewportWidth = window.visualViewport?.width || window.innerWidth || document.documentElement.clientWidth || 0;
+  const availableWidth = window.screen?.availWidth || window.screen?.width || viewportWidth;
+  if (!viewportWidth || !availableWidth) return false;
+  return viewportWidth < availableWidth * 0.75 || viewportWidth < 1320;
+}
+
+function updateOverviewResponsiveState() {
+  document.body.dataset.compactWindow = shouldHideOverviewSidebarForWindow() ? "true" : "false";
+}
+
 function bindEvents() {
+  updateOverviewResponsiveState();
+
   els.topVolosLink?.addEventListener("click", () => {
     openVolosSideQuest();
   });
@@ -25002,6 +25015,7 @@ function bindEvents() {
   });
 
   window.addEventListener("resize", () => {
+    updateOverviewResponsiveState();
     window.clearTimeout(bindEvents.resizeTimer);
     bindEvents.resizeTimer = window.setTimeout(() => {
       renderMap();
@@ -25009,6 +25023,8 @@ function bindEvents() {
       requestReportNavigationSync();
     }, 140);
   });
+
+  window.visualViewport?.addEventListener("resize", updateOverviewResponsiveState, { passive: true });
 
   window.addEventListener("scroll", () => {
     if (state.volosTeaserVisible && Math.abs((window.scrollY || 0) - volosTeaserScrollY) > 18) {
