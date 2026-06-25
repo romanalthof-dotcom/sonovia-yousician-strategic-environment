@@ -26,6 +26,15 @@ Final local check:
 
 Dashboard and source-audit appendix files are available on request for deeper validation, but they are not part of the first-read package.
 
+Public dashboard:
+
+- `https://romanalthof-dotcom.github.io/sonovia-yousician-strategic-environment/index.html?force=market-signals-v204&view=key-players&cb=market-signals-v204`
+
+Release status:
+
+- `RELEASE_STATUS_2026_06_25.md`
+- `DOMAIN_ROUTING.md` explains the remaining `sonovia.de/yousician` routing step.
+
 Local website:
 
 - `http://127.0.0.1:8877/index.html`
