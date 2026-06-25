@@ -35955,3 +35955,132 @@ body[data-view="key-players"] .monitor-arena-plot {
     height: 380px;
   }
 }
+
+/* v213: compact Market Monitor first read. Keep evidence accessible, but remove prose from the visible scan layer. */
+body[data-view="key-players"] .monitor-mode-shell > .directory-head p,
+body[data-view="key-players"] .monitor-briefing-head p,
+body[data-view="key-players"] .monitor-briefing-answer p,
+body[data-view="key-players"] .monitor-briefing-takeaways em,
+body[data-view="key-players"] .monitor-briefing-lane > button small,
+body[data-view="key-players"] .monitor-briefing-signal-rail article small,
+body[data-view="key-players"] .monitor-curated-head p,
+body[data-view="key-players"] .monitor-curated-card p,
+body[data-view="key-players"] .monitor-curated-read small,
+body[data-view="key-players"] .monitor-curated-alt,
+body[data-view="key-players"] .market-signal-head p,
+body[data-view="key-players"] .market-signal-lane-card p,
+body[data-view="key-players"] .market-signal-card-main p,
+body[data-view="key-players"] .market-signal-why,
+body[data-view="key-players"] .market-signal-card details,
+body[data-view="key-players"] .market-signal-review-note span,
+body[data-view="key-players"] .music-market-overview-head p,
+body[data-view="key-players"] .music-market-player-card > p,
+body[data-view="key-players"] .music-market-theme-row article p,
+body[data-view="key-players"] .monitor-market-moves-timeline .monitor-compare-head p,
+body[data-view="key-players"] .monitor-move-card p,
+body[data-view="key-players"] .monitor-move-card small,
+body[data-view="key-players"] .monitor-strategy-arena-head p,
+body[data-view="key-players"] .monitor-value-chain-heatmap .monitor-compare-head p,
+body[data-view="key-players"] .monitor-battlecard > p,
+body[data-view="key-players"] .monitor-battlecard section,
+body[data-view="key-players"] .monitor-battlecard footer small {
+  display: none !important;
+}
+
+body[data-view="key-players"] .monitor-briefing-layer,
+body[data-view="key-players"] .monitor-curated-shortlist,
+body[data-view="key-players"] .market-signal-radar,
+body[data-view="key-players"] .music-market-overview,
+body[data-view="key-players"] .monitor-market-moves-timeline {
+  gap: 10px;
+  padding: clamp(14px, 1.45vw, 22px);
+}
+
+body[data-view="key-players"] .monitor-briefing-head,
+body[data-view="key-players"] .market-signal-head,
+body[data-view="key-players"] .music-market-overview-head,
+body[data-view="key-players"] .monitor-curated-head {
+  align-items: center;
+}
+
+body[data-view="key-players"] .monitor-briefing-head h3,
+body[data-view="key-players"] .market-signal-head h3,
+body[data-view="key-players"] .monitor-curated-head h3,
+body[data-view="key-players"] .music-market-overview-head h3 {
+  max-width: 820px;
+}
+
+body[data-view="key-players"] .monitor-briefing-answer,
+body[data-view="key-players"] .monitor-briefing-signal-rail,
+body[data-view="key-players"] .monitor-curated-card,
+body[data-view="key-players"] .market-signal-card,
+body[data-view="key-players"] .music-market-player-card {
+  gap: 8px;
+}
+
+body[data-view="key-players"] .monitor-briefing-takeaways button,
+body[data-view="key-players"] .market-signal-lane-card,
+body[data-view="key-players"] .monitor-curated-read,
+body[data-view="key-players"] .music-market-player-card {
+  padding: 10px;
+}
+
+body[data-view="key-players"] .monitor-curated-card {
+  grid-template-rows: auto auto auto 1fr auto;
+}
+
+body[data-view="key-players"] .market-signal-card {
+  grid-template-rows: auto auto 1fr;
+}
+
+body[data-view="key-players"] .market-signal-review-note {
+  display: inline-flex;
+  width: fit-content;
+  padding: 8px 10px;
+}
+
+body[data-view="key-players"] .music-market-overview-grid {
+  grid-template-columns: repeat(5, minmax(150px, 1fr));
+}
+
+body[data-view="key-players"] .music-market-theme-row {
+  grid-template-columns: repeat(5, minmax(130px, 1fr));
+}
+
+/* v214: reduce Market Monitor to a true scan layer. Details remain available in drawers/details. */
+body[data-view="key-players"] .monitor-briefing-answer > h4,
+body[data-view="key-players"] .monitor-briefing-signal-rail > h4,
+body[data-view="key-players"] .monitor-curated-read,
+body[data-view="key-players"] .market-signal-lane-card small,
+body[data-view="key-players"] .monitor-appendix-drawer > summary small {
+  display: none !important;
+}
+
+body[data-view="key-players"] .music-market-metric-list em:nth-child(n + 3) {
+  display: none;
+}
+
+body[data-view="key-players"] .monitor-briefing-answer,
+body[data-view="key-players"] .monitor-briefing-signal-rail,
+body[data-view="key-players"] .monitor-curated-card,
+body[data-view="key-players"] .market-signal-card,
+body[data-view="key-players"] .music-market-player-card {
+  min-height: 0;
+}
+
+body[data-view="key-players"] .monitor-curated-card {
+  grid-template-rows: auto auto auto auto;
+}
+
+body[data-view="key-players"] .market-signal-card-main strong {
+  font-size: clamp(0.86rem, 0.95vw, 1rem);
+  line-height: 1.05;
+}
+
+body[data-view="key-players"] .market-signal-board {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+body[data-view="key-players"] .market-signal-card footer {
+  gap: 6px;
+}

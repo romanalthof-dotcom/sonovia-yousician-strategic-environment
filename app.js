@@ -12914,7 +12914,7 @@ function renderMonitorCategoryTrendBoard(filteredPlayers) {
           <span class="section-kicker">Category trend board</span>
           <h3>Compare pressure, momentum and capital signals by category</h3>
         </div>
-        <p>Funding and ownership are treated as signals unless exact round values are directly sourced.</p>
+        <p>Funding and ownership stay directional unless exact values are sourced.</p>
       </div>
       <div class="monitor-category-trend-list">
         ${rows
@@ -12986,21 +12986,21 @@ function renderMonitorExecutiveSummary(filteredPlayers) {
       label: "Decision ready",
       title: readyLead ? readyLead.name : "No ready lead",
       value: `${readyRecords.length} records`,
-      note: readyLead ? `${qualityProfile(readyLead).score}% source coverage` : "Most records still need evidence or internal data.",
+      note: readyLead ? `${qualityProfile(readyLead).score}% source coverage` : "Needs evidence or internal data.",
       action: readyLead ? `<button type="button" data-monitor-player="${escapeHtml(readyLead.id)}">Open brief</button>` : ""
     },
     {
       label: "Fast moving signal",
       title: momentumLead ? momentumLead.name : "No momentum lead",
       value: momentumLead ? `Momentum ${momentumLead.momentum}/5` : "No signal",
-      note: momentumLead ? nextAction(momentumLead) : "Use activity lanes for product and market changes.",
+      note: momentumLead ? nextAction(momentumLead) : "Use activity lanes.",
       action: momentumLead ? `<button type="button" data-monitor-player="${escapeHtml(momentumLead.id)}">Open brief</button>` : ""
     },
     {
       label: "Capital watch",
       title: capitalLead && monitorFundingSignalScore(capitalLead) > 0 ? capitalLead.name : "No capital signal",
       value: capitalLead ? `${monitorFundingSignalScore(capitalLead)}/10 signal` : "0/10 signal",
-      note: "Funding, M&A, investor and ownership signals are tracked separately from product proof.",
+      note: "Capital signals are separate from product proof.",
       action: `<button type="button" data-monitor-trend-segment="signals">Open capital signals</button>`
     }
   ];
@@ -13043,7 +13043,7 @@ function monitorInsightCatalog(filteredPlayers) {
       group: "Executive summary",
       title: "Largest pressure field",
       headline: topTrend ? topTrend.title : "No pressure field selected",
-      detail: topTrend && secondTrend ? `${topTrend.count} visible records sit in this field. The next biggest cluster is ${secondTrend.title}.` : "Use the segment filters to narrow the readout.",
+      detail: topTrend && secondTrend ? `${topTrend.count} records. Next: ${secondTrend.title}.` : "Use segment filters.",
       metrics: [
         { label: "Records", value: topTrend ? topTrend.count : 0, note: "current field size" },
         { label: "Share", value: topTrend ? percentOf(topTrend.count, filteredPlayers.length) : 0, note: "of current view" }
@@ -13056,7 +13056,7 @@ function monitorInsightCatalog(filteredPlayers) {
       group: "Executive summary",
       title: "Current comparison leader",
       headline: currentLeader ? currentLeader.name : "No record selected",
-      detail: currentLeader ? `${strategicRole(currentLeader)}. This record currently leads the selected comparison dimension.` : "Change the sort mode to compare leaders across the market.",
+      detail: currentLeader ? `${strategicRole(currentLeader)}. Leads the active comparison.` : "Change sort mode.",
       metrics: [
         { label: "Sort mode", value: monitorSortModeById(state.monitorSort).label, note: "active benchmark" },
         { label: "Priority", value: currentLeader ? Math.round(totalPriority(currentLeader)) : 0, note: "composite score" }
@@ -13069,7 +13069,7 @@ function monitorInsightCatalog(filteredPlayers) {
       group: "Executive summary",
       title: "Decision ready",
       headline: readyLead ? readyLead.name : "No ready lead",
-      detail: readyLead ? `${readyRecords.length} visible records are strong enough for internal executive use with normal caveats.` : "Most visible records still need stronger proof or licensed data.",
+      detail: readyLead ? `${readyRecords.length} records are usable for internal discussion.` : "Needs proof or licensed data.",
       metrics: [
         { label: "Ready records", value: readyRecords.length, note: "usable now" },
         { label: "Coverage", value: readyLead ? qualityProfile(readyLead).score : 0, note: "top ready confidence" }
@@ -13095,7 +13095,7 @@ function monitorInsightCatalog(filteredPlayers) {
       group: "Executive summary",
       title: "Capital watch",
       headline: capitalLead && monitorFundingSignalScore(capitalLead) > 0 ? capitalLead.name : "No capital signal",
-      detail: "Funding, ownership, investor, and acquisition context is tracked separately from direct product proof.",
+      detail: "Capital and ownership context is separate from product proof.",
       metrics: [
         { label: "Signal", value: capitalLead ? monitorFundingSignalScore(capitalLead) : 0, note: "out of 10" },
         { label: "Visible", value: filteredPlayers.filter((player) => monitorFundingSignalScore(player) > 0).length, note: "capital-linked records" }
@@ -13110,8 +13110,8 @@ function monitorInsightCatalog(filteredPlayers) {
       id: "playbook-defend",
       group: "Executive playbook",
       title: "Defend",
-      headline: "Protect the learning and practice habit",
-      detail: "This is the direct battleground for retention, repeat practice, repertoire pull, and subscription resilience.",
+      headline: "Protect learning habit",
+      detail: "Direct pressure on retention, repeat practice, repertoire and pricing.",
       metrics: [
         { label: "Records", value: model.corePressure.length, note: "direct battleground" },
         { label: "Ready", value: percentOf(model.corePressure.filter(isReadyRecord).length, model.corePressure.length || 1), note: "ready within lane" },
@@ -13124,7 +13124,7 @@ function monitorInsightCatalog(filteredPlayers) {
       id: "playbook-expand",
       group: "Executive playbook",
       title: "Expand",
-      headline: "Open trusted routes into the product",
+      headline: "Open trusted routes",
       detail: "Hardware, schools, teachers, and bundle routes can change acquisition cost, distribution, and trust before the app decision.",
       metrics: [
         { label: "Records", value: model.routeSurface.length, note: "route surface" },
@@ -13139,7 +13139,7 @@ function monitorInsightCatalog(filteredPlayers) {
       group: "Executive playbook",
       title: "Disrupt",
       headline: "Track AI and creation expectation shifts",
-      detail: "AI-native creation, audio utilities, and workflow tools can reset what casual musicians expect from music products.",
+      detail: "AI, audio utilities and workflows can reset user expectations.",
       metrics: [
         { label: "Records", value: model.aiPressure.length, note: "AI / creation surface" },
         { label: "High AI", value: percentOf(model.aiPressure.filter((player) => player.aiScore >= 4).length, model.aiPressure.length || 1), note: "AI-heavy lane" },
@@ -13166,8 +13166,8 @@ function monitorInsightCatalog(filteredPlayers) {
       id: "playbook-de-risk",
       group: "Executive playbook",
       title: "De-risk",
-      headline: "Close proof gaps before harder claims",
-      detail: "These records may matter strategically, but the narrative should stay softer until proof, ownership, or licensed metrics are stronger.",
+      headline: "Close proof gaps before claims",
+      detail: "Keep claims soft until proof, ownership or licensed metrics are stronger.",
       metrics: [
         { label: "Records", value: model.needsValidation.length, note: "validation queue" },
         { label: "App data", value: percentOf(model.needsValidation.filter((player) => requiresCredentialedData(player)).length, model.needsValidation.length || 1), note: "needs Appfigures" },
@@ -13351,29 +13351,29 @@ function renderMonitorExecutiveAgenda(filteredPlayers) {
   const lanes = [
     {
       label: "Use in executive read",
-      title: `${readyPlayers.length} decision usable records`,
-      detail: "Evidence is sufficient for internal executive discussion with normal caveats.",
+      title: `${readyPlayers.length} usable records`,
+      detail: "Enough evidence for internal discussion.",
       players: monitorActionList(readyPlayers, (player) => totalPriority(player) + qualityProfile(player).score / 8),
       action: "Open brief"
     },
     {
       label: "Validate before board",
       title: `${blockedPlayers.length} records need proof`,
-      detail: "Keep these out of hard claims until sources, ownership or internal status are fixed.",
+      detail: "Do not use as hard claims yet.",
       players: monitorActionList(blockedPlayers, monitorProofGapScore),
       action: "Close gap"
     },
     {
       label: "Watch weekly",
       title: `${watchPlayers.length} active signals`,
-      detail: "High momentum or AI pressure. Monitor for product, funding, policy or category changes.",
+      detail: "Momentum, AI, product, funding or policy changes.",
       players: monitorActionList(watchPlayers, (player) => player.momentum * 14 + player.aiScore * 10 + totalPriority(player) / 3),
       action: "Monitor"
     },
     {
       label: "Move down",
       title: `${lowerDetailPlayers.length} long tail records`,
-      detail: "Useful context, but not worth executive attention until priority, proof or internal relevance rises.",
+      detail: "Context only until priority or proof improves.",
       players: monitorActionList(lowerDetailPlayers, (player) => 100 - totalPriority(player)),
       action: "Appendix"
     }
@@ -13412,24 +13412,24 @@ function renderMonitorExecutiveRoleLenses(filteredPlayers) {
     {
       label: "Board",
       question: "Where should attention go next?",
-      keep: "Priority, decision question, source coverage, current signal.",
-      lower: "Raw source links and long tail records.",
+      keep: "Priority, decision question, proof, current signal.",
+      lower: "Raw links and long tail.",
       players: filteredPlayers.filter((player) => player.key || player.relevance >= 5),
       score: (player) => totalPriority(player) + qualityProfile(player).score / 10
     },
     {
       label: "Product and growth",
       question: "What competes with learning habit?",
-      keep: "Core pressure, onboarding lens, pricing lens, app data gate.",
-      lower: "Ownership detail unless it changes product action.",
+      keep: "Core pressure, onboarding, pricing, app-data gate.",
+      lower: "Ownership unless it changes action.",
       players: filteredPlayers.filter((player) => ["learning", "practice"].includes(player.category) || competitiveProximityScore(player) >= 4),
       score: (player) => competitiveProximityScore(player) * 16 + player.relevance * 8 + player.momentum * 4
     },
     {
       label: "Routes and channels",
       question: "Who could add reach, trust or utility?",
-      keep: "Route screen, distribution route, internal owner, sensitivity.",
-      lower: "Generic ecosystem context without route to action.",
+      keep: "Route, internal owner, sensitivity.",
+      lower: "Generic context.",
       players: filteredPlayers.filter(
         (player) =>
           relationForPlayer(player)?.type === "partners" ||
@@ -13441,8 +13441,8 @@ function renderMonitorExecutiveRoleLenses(filteredPlayers) {
     {
       label: "Research ops",
       question: "What blocks a hard claim?",
-      keep: "Proof gaps, internal data need, source coverage, next import.",
-      lower: "Narrative explanation once evidence is already strong.",
+      keep: "Proof gaps, data need, next import.",
+      lower: "Narrative once proof is strong.",
       players: proofQueue,
       score: monitorProofGapScore
     }
@@ -13576,15 +13576,15 @@ function renderPublicAppMarketSnapshot(filteredPlayers) {
       <div class="monitor-compare-head">
         <div>
           <span class="section-kicker">Free app-market proxies</span>
-          <h3>Public store reach and sentiment, clearly separated from Appfigures.</h3>
+          <h3>Public store proxy, not Appfigures.</h3>
         </div>
-        <p>${escapeHtml(status.caveat || "Public store values are proxies only. Use Appfigures before making performance claims.")}</p>
+        <p>${escapeHtml(status.caveat || "Proxy only. Use Appfigures for performance claims.")}</p>
       </div>
       <div class="public-app-market-summary">
         <article><span>Usable rows</span><strong>${rows.length}</strong><small>${escapeHtml(status.lastUpdated || "not refreshed")} refresh</small></article>
-        <article><span>Google Play bands</span><strong>${installRows.length}</strong><small>coarse install thresholds</small></article>
-        <article><span>iOS rating rows</span><strong>${iosRows.length}</strong><small>sentiment / review volume</small></article>
-        <article><span>Mappings pending</span><strong>${missingRows.length}</strong><small>needs store/package validation</small></article>
+        <article><span>Google Play bands</span><strong>${installRows.length}</strong><small>coarse thresholds</small></article>
+        <article><span>iOS rating rows</span><strong>${iosRows.length}</strong><small>sentiment / volume</small></article>
+        <article><span>Mappings pending</span><strong>${missingRows.length}</strong><small>needs validation</small></article>
       </div>
       <div class="public-app-market-leaders">
         ${leaderRows
@@ -13646,7 +13646,7 @@ function renderPublicAppMarketSnapshot(filteredPlayers) {
           })
           .join("")}
       </div>
-      <p class="public-app-market-caveat">Proxy only / ${escapeHtml(status.lastUpdated || "")}. Use this for market orientation, not as downloads, revenue, retention or country mix.</p>
+      <p class="public-app-market-caveat">Proxy only / ${escapeHtml(status.lastUpdated || "")}. Not downloads, revenue, retention or country mix.</p>
     </section>
   `;
 }
@@ -13702,7 +13702,7 @@ function renderMonitorMarketComposition(filteredPlayers) {
           <span class="section-kicker">Market composition</span>
           <h3>Where attention is concentrated</h3>
         </div>
-        <p>Counts show coverage, not market size. Priority and evidence summarize current records in each group.</p>
+        <p>Coverage, not market size. Priority and evidence are current-record scores.</p>
       </div>
       <div class="monitor-composition-list">
         ${rows
@@ -13970,9 +13970,9 @@ function renderMonitorComparisonCockpit(filteredPlayers, keyPlayers) {
       <div class="monitor-compare-head">
         <div>
           <span class="section-kicker">Comparison cockpit</span>
-          <h3>Compare market shape and player profile before reading briefs</h3>
+          <h3>Market shape before profiles</h3>
         </div>
-        <p>Donut shows record concentration. Profile charts compare Yousician fit, momentum, AI pressure, priority-weighted scale and source proof using existing reviewed fields.</p>
+        <p>Donut shows record mix. Profile charts compare fit, momentum, AI, scale and proof.</p>
       </div>
       <div class="monitor-comparison-cockpit-grid">
         ${renderMonitorMarketMixDonut(filteredPlayers)}
@@ -14314,9 +14314,9 @@ function renderMonitorExecutivePlaybook(filteredPlayers) {
     {
       color: "#00b884",
       label: "Defend",
-      title: "Protect the learning and practice habit",
+      title: "Protect learning habit",
       value: `${model.corePressure.length} records`,
-      detail: "This is the direct battleground for retention, repeat practice, song-led progression, and pricing resilience.",
+      detail: "Direct pressure on retention, repeat practice, repertoire and pricing.",
       metrics: [
         { label: "Share of view", value: percentOf(model.corePressure.length, model.total) },
         { label: "Ready now", value: percentOf(model.corePressure.filter(isReadyRecord).length, model.corePressure.length || 1) },
@@ -14330,7 +14330,7 @@ function renderMonitorExecutivePlaybook(filteredPlayers) {
     {
       color: "#ffb84d",
       label: "Expand",
-      title: "Open trusted routes into the product",
+      title: "Open trusted routes",
       value: `${model.routeSurface.length} records`,
       detail: "Hardware, retail, schools, brands, and trusted instructors can change acquisition cost, distribution, and credibility.",
       metrics: [
@@ -14348,7 +14348,7 @@ function renderMonitorExecutivePlaybook(filteredPlayers) {
       label: "Disrupt",
       title: "Track AI and creation expectation shifts",
       value: `${model.aiPressure.length} records`,
-      detail: "AI-native creation, audio utilities, and assisted workflows can reset what casual musicians expect from music products.",
+      detail: "AI, audio utilities and workflows can reset user expectations.",
       metrics: [
         { label: "Share of view", value: percentOf(model.aiPressure.length, model.total) },
         { label: "High AI", value: percentOf(model.aiPressure.filter((player) => player.aiScore >= 4).length, model.aiPressure.length || 1) },
@@ -14364,7 +14364,7 @@ function renderMonitorExecutivePlaybook(filteredPlayers) {
       label: "Time",
       title: "Use capital and market signals for timing",
       value: `${timingPlayers.length} records`,
-      detail: "Funding, ownership, awards, and external market signals help decide when to deepen research or accelerate action.",
+      detail: "Funding, ownership, awards and market signals guide timing.",
       metrics: [
         { label: "Share of view", value: percentOf(timingPlayers.length, model.total) },
         { label: "Capital score", value: monitorPlaybookAverage(timingPlayers, (player) => monitorFundingSignalScore(player) * 10) },
@@ -14378,7 +14378,7 @@ function renderMonitorExecutivePlaybook(filteredPlayers) {
     {
       color: "#ef5a4f",
       label: "De-risk",
-      title: "Close proof gaps before harder claims",
+      title: "Close proof gaps before claims",
       value: `${model.needsValidation.length} records`,
       detail: "These records may matter strategically, but the narrative should stay softer until proof, ownership, or licensed metrics are stronger.",
       metrics: [
@@ -14404,9 +14404,9 @@ function renderMonitorExecutivePlaybook(filteredPlayers) {
       <div class="monitor-compare-head">
         <div>
           <span class="section-kicker">Executive playbook</span>
-          <h3>What executives should defend, expand, time, and de-risk</h3>
+          <h3>Defend, expand, time, de-risk</h3>
         </div>
-        <p>This layer compresses the market into action vectors instead of raw categories. Use it to decide where attention, proof work, and partnership thinking should go next.</p>
+        <p>Use this to allocate attention, proof work and partnership thinking.</p>
       </div>
       <div class="monitor-playbook-grid">
         ${cards
@@ -15698,7 +15698,7 @@ function monitorExecutiveSegmentDefinitions() {
     {
       id: "direct-learning",
       group: "Core battleground",
-      label: "Direct learning competitors",
+      label: "Learning apps",
       question: "Who can own guided beginner progress?",
       takeaway: "Benchmark onboarding, habit design, curriculum, pricing and paid acquisition efficiency.",
       color: "#00b884",
@@ -15710,7 +15710,7 @@ function monitorExecutiveSegmentDefinitions() {
     {
       id: "tabs-repertoire",
       group: "Core battleground",
-      label: "Tabs, chords and repertoire",
+      label: "Repertoire",
       question: "Who controls the song-to-practice moment?",
       takeaway: "Song libraries, tabs, chords and notation pull users into practice before formal lessons.",
       color: "#3d7de0",
@@ -15732,7 +15732,7 @@ function monitorExecutiveSegmentDefinitions() {
     {
       id: "ai-creation",
       group: "Expectation shift",
-      label: "AI, creation and music tools",
+      label: "AI / creation",
       question: "Where do expectations shift from learning to making?",
       takeaway: "AI and creation workflows can reset what casual musicians expect from feedback, speed and output.",
       color: "#6e5cff",
@@ -15742,7 +15742,7 @@ function monitorExecutiveSegmentDefinitions() {
     {
       id: "hardware-distribution",
       group: "Access routes",
-      label: "Hardware, retail and distribution",
+      label: "Routes",
       question: "Who can change acquisition cost or trust?",
       takeaway: "Instrument brands, retail, schools and bundles can influence the decision before an app trial.",
       color: "#1aa6a6",
@@ -15754,7 +15754,7 @@ function monitorExecutiveSegmentDefinitions() {
     {
       id: "broader-platforms",
       group: "Scaled adjacency",
-      label: "Broader entertainment and education platforms",
+      label: "Scaled platforms",
       question: "Who has reach, habit loops or acquisition appetite?",
       takeaway: "Large platforms matter through music strategy, education strategy, acquisition history and distribution power.",
       color: "#ef5a4f",
@@ -15766,7 +15766,7 @@ function monitorExecutiveSegmentDefinitions() {
     {
       id: "authority-legitimacy",
       group: "Market structure",
-      label: "Authority, legitimacy and public opinion",
+      label: "Legitimacy",
       question: "Who shapes permission, status or market timing?",
       takeaway: "Awards, rights, investors, publishers, events and public opinion change what is credible or investable.",
       color: "#d94f85",
@@ -15971,8 +15971,8 @@ const monitorRadarModes = [
     id: "pressure",
     label: "Decision board",
     note: "Where to act",
-    title: "Which market fronts deserve board attention first?",
-    detail: "Columns separate decision contexts. Each card combines strategic pressure, priority, evidence quality and next action.",
+    title: "Board attention queue",
+    detail: "Pressure, priority, evidence and next action by context.",
     centerLabel: "Decision pressure",
     groups: () => journeyCategories.map((category) => ({ id: category.id, label: category.shortName, color: category.color })),
     groupFor: (player) => journeyCategoryFor(player).id,
@@ -16641,8 +16641,8 @@ function renderMonitorStrategyArena(filteredPlayers, keyPlayers) {
       <div class="monitor-strategy-arena-head">
         <div>
           <span class="section-kicker">Strategic positioning field</span>
-          <h3>Who is close enough and scaled enough to matter?</h3>
-          <p>Positioning map, not market share: use it to see which players are close to the learning loop and which are scaled enough to deserve attention.</p>
+          <h3>Strategic proximity vs scale</h3>
+          <p>Positioning map, not market share. Close and scaled players deserve first attention.</p>
           <div class="monitor-arena-reading-key" aria-label="How to read the strategic positioning field">
             <span><b>X axis</b> Far adjacency -> close to Yousician loop</span>
             <span><b>Y axis</b> Lower scale -> stronger scale signal</span>
@@ -16727,7 +16727,7 @@ function renderMonitorExecutiveMarketBrief(filteredPlayers, keyPlayers) {
     {
       label: "Core threat",
       value: coreScaled?.leader?.name || model.coreJourneyLeader?.shortName || "No lead",
-      note: `${coreScaled?.count || 0} scaled core records. ${closeWatch?.count || 0} close-watch records need prioritization.`,
+      note: `${coreScaled?.count || 0} scaled core records. ${closeWatch?.count || 0} need prioritization.`,
       color: "#00b884",
       action: { type: "segment", value: "core", label: "Open core" }
     },
@@ -16748,7 +16748,7 @@ function renderMonitorExecutiveMarketBrief(filteredPlayers, keyPlayers) {
     {
       label: "Do not cite yet",
       value: `${dataNeeds}`,
-      note: "Records with Appfigures, proof, ownership or review gaps. Keep out of final report claims until approved.",
+      note: "Proof, ownership, Appfigures or review gaps. Do not cite as final claims.",
       color: "#ef5a4f",
       action: { type: "sort", value: "proof", label: "Open gaps" }
     }
@@ -16757,8 +16757,8 @@ function renderMonitorExecutiveMarketBrief(filteredPlayers, keyPlayers) {
     <section class="monitor-executive-market-brief" aria-label="Executive market brief">
       <div class="monitor-executive-brief-copy">
         <span class="section-kicker">Executive market brief</span>
-        <h3>Market monitor should answer what changed, what matters, and what is safe to say.</h3>
-        <p>Default read is intentionally narrow: strategic position, value-chain pressure, timing signals and evidence gates. Long-tail detail stays searchable below.</p>
+        <h3>What changed? What matters? What can we cite?</h3>
+        <p>Read position, pressure, timing and proof. Keep long-tail detail below.</p>
         ${
           selected
             ? `<button type="button" data-monitor-open-brief="${escapeHtml(selected.id)}">${companyInlineHtml(selected, { compact: 22, logoClassName: "company-inline-logo monitor-inline-logo" })}<span>current focus</span></button>`
@@ -16815,9 +16815,9 @@ function monitorMarketWallThemes(filteredPlayers) {
     {
       id: "core",
       label: "Core market",
-      title: "Direct learning is an efficiency race.",
+      title: "Core learning benchmark",
       proof: `${directRows.length} relevant records; ${directRows.filter((player) => player.key).length} key.`,
-      implication: "Prioritize onboarding, curriculum, habit, pricing and acquisition efficiency benchmarks.",
+      implication: "Compare onboarding, curriculum, habit, pricing and acquisition.",
       color: "#00b884",
       action: { type: "segment", value: "core", label: "Open core" },
       rows: directRows
@@ -16825,9 +16825,9 @@ function monitorMarketWallThemes(filteredPlayers) {
     {
       id: "creation",
       label: "Expectation shift",
-      title: "Creation tools pull learners downstream.",
+      title: "Creation changes expectations",
       proof: `${creationRows.length} AI, creation or sharing records.`,
-      implication: "Separate real workflow pressure from generic AI noise; watch feedback, content and output speed.",
+      implication: "Confirm workflow impact before prioritizing.",
       color: "#6e5cff",
       action: { type: "segment", value: "ai", label: "Open AI" },
       rows: creationRows
@@ -16835,9 +16835,9 @@ function monitorMarketWallThemes(filteredPlayers) {
     {
       id: "platforms",
       label: "Distribution power",
-      title: "Platforms own discovery and attention.",
+      title: "Distribution controls discovery",
       proof: `${platformRows.length} broader platform or media records.`,
-      implication: "Track music strategy, education strategy, acquisition history and reach shifts.",
+      implication: "Track music, education, acquisitions and reach.",
       color: "#ef5a4f",
       action: { type: "segment", value: "partners", label: "Open routes" },
       rows: platformRows
@@ -16845,9 +16845,9 @@ function monitorMarketWallThemes(filteredPlayers) {
     {
       id: "evidence",
       label: "Claim safety",
-      title: "Evidence gaps decide what can leave the room.",
+      title: "Proof gates claims",
       proof: `${evidenceRows.length} records need feed, source or human review.`,
-      implication: "Do not promote changed source claims into final report language without review approval.",
+      implication: "Do not promote to final report without approval.",
       color: "#f59a23",
       action: { type: "sort", value: "proof", label: "Open gaps" },
       rows: evidenceRows
@@ -16858,7 +16858,7 @@ function monitorMarketWallThemes(filteredPlayers) {
     themes.splice(3, 0, {
       id: "timing",
       label: "Timing signal",
-      title: "Recent moves are timing inputs, not conclusions.",
+      title: "Recent moves are signals",
       proof: `${latestSignal.date}: ${latestSignal.player?.name || latestSignal.category || "Market signal"}`,
       implication: executiveSignalText(latestSignal.summary || latestSignal.impact || "Review timing before using this in a claim."),
       color: "#3d7de0",
@@ -16975,8 +16975,8 @@ function renderMonitorMarketWall(filteredPlayers, keyPlayers) {
     <section class="monitor-market-wall" aria-label="Executive market intelligence wall">
       <div class="monitor-market-wall-hero">
         <span class="section-kicker">Executive market wall</span>
-        <h3>Start with the market thesis, not the company list.</h3>
-        <p>Default read is intentionally narrow: what is changing, who matters, where pressure hits the journey, and what is safe to say. The long tail remains searchable below.</p>
+        <h3>Market signals</h3>
+        <p>What changed, who matters, where it hits, and what is safe to cite.</p>
         <div class="monitor-market-wall-stats" aria-label="Current monitor scope">
           <span><strong>${visibleCount}</strong><small>records in scope</small></span>
           <span><strong>${keyCount}</strong><small>key profiles</small></span>
@@ -17053,9 +17053,9 @@ function monitorOperatingBoardDefinitions(filteredPlayers) {
     {
       id: "learning-economics",
       kicker: "Core economics",
-      title: "Learning is an efficiency race.",
-      question: "Who can acquire, activate and retain beginners with the fewest wasted steps?",
-      read: "Benchmark onboarding, curriculum, habit loops, web checkout, CAC and subscription yield.",
+      title: "Learning efficiency",
+      question: "Who acquires, activates and retains beginners best?",
+      read: "Benchmark onboarding, curriculum, habit, checkout, CAC and yield.",
       segment: "core",
       color: "#00b884",
       rows: directRows,
@@ -17064,9 +17064,9 @@ function monitorOperatingBoardDefinitions(filteredPlayers) {
     {
       id: "content-repertoire",
       kicker: "Content gravity",
-      title: "Repertoire still pulls demand.",
-      question: "Who owns the song, tab, sheet, chord or creator surface users return to?",
-      read: "Separate defensible content depth from generic lesson volume; look for interactive repertoire loops.",
+      title: "Repertoire demand",
+      question: "Who owns the songs, tabs, chords or scores users return to?",
+      read: "Prioritize defensible content depth and interactive repertoire loops.",
       segment: "core",
       color: "#3d7de0",
       rows: contentRows,
@@ -17075,9 +17075,9 @@ function monitorOperatingBoardDefinitions(filteredPlayers) {
     {
       id: "creation-shift",
       kicker: "Expectation shift",
-      title: "Creation tools change what practice feels like.",
-      question: "Which tools make learners expect faster feedback, output and social proof?",
-      read: "Track workflow proof before treating AI as strategy; distinguish creation utility from lesson replacement.",
+      title: "Creation pressure",
+      question: "Which tools reset expectations for feedback and output?",
+      read: "Require workflow proof before treating AI as strategy.",
       segment: "ai",
       color: "#6e5cff",
       rows: creationRows,
@@ -17086,9 +17086,9 @@ function monitorOperatingBoardDefinitions(filteredPlayers) {
     {
       id: "distribution-routes",
       kicker: "Route power",
-      title: "Attention, trust and channels sit upstream.",
-      question: "Which scaled platforms or partners can lower CAC or redirect demand before trial?",
-      read: "Watch music strategy, education strategy, acquisition history and channel bundles.",
+      title: "Route power",
+      question: "Who can lower CAC or redirect demand before trial?",
+      read: "Track music strategy, education strategy, acquisitions and bundles.",
       segment: "partners",
       color: "#ef5a4f",
       rows: routeRows,
@@ -17132,8 +17132,8 @@ function renderMonitorOperatingBoard(filteredPlayers) {
       <div class="monitor-operating-board-head">
         <div>
           <span class="section-kicker">Market operating board</span>
-          <h3>Four questions, not another company list.</h3>
-          <p>Use this as the first read: each lane shows the market force, the de-duplicated lead players, the evidence state and the next useful drill-down.</p>
+          <h3>Four decision questions.</h3>
+          <p>Each lane shows the force, lead players, proof state and next drill-down.</p>
         </div>
         <aside aria-label="Market monitor scope">
           <span><strong>${filteredPlayers.length}</strong><small>records</small></span>
@@ -17145,7 +17145,7 @@ function renderMonitorOperatingBoard(filteredPlayers) {
       <div class="monitor-operating-board-layout">
         <article class="monitor-operating-board-read">
           <span>Recommended read order</span>
-          <h4>Start where decisions change, then open detail.</h4>
+          <h4>Start where action changes.</h4>
           <div class="monitor-operating-read-list">
             ${readOrder
               .map(
@@ -17161,7 +17161,7 @@ function renderMonitorOperatingBoard(filteredPlayers) {
               )
               .join("")}
           </div>
-          <p>Figures and Chris-input market estimates remain directional until source review approval. Appfigures remains pending unless a credentialed export is imported.</p>
+          <p>Chris-input figures stay directional until review. Appfigures stays pending unless imported.</p>
         </article>
         <div class="monitor-operating-lens-grid">
           ${cards
@@ -17266,18 +17266,18 @@ function renderMusicLearningMarketOverview(filteredPlayers) {
     player: players.find((player) => player.id === row.id) || filteredPlayers.find((player) => player.id === row.id)
   }));
   const themes = [
-    { label: "AI adoption", note: "AI accelerates product work, content generation and annotation; separate workflow proof from generic AI noise." },
-    { label: "CAC pressure", note: "Rising acquisition cost shifts focus toward web checkout, organic routes, profitability and retention efficiency." },
-    { label: "Content depth", note: "Libraries, community and interactive repertoire still drive subscription relevance and repeat use." },
-    { label: "Fragmented models", note: "No single model wins: hobby platforms, content ecosystems, utilities and community-led education coexist." }
+    { label: "AI adoption", note: "Product, content and annotation. Require workflow proof." },
+    { label: "CAC pressure", note: "Web checkout, organic routes, retention and margin." },
+    { label: "Content depth", note: "Libraries and interactive repertoire still matter." },
+    { label: "Fragmented models", note: "Hobby platforms, content ecosystems, utilities and communities coexist." }
   ];
   return `
     <section class="music-market-overview" aria-label="Music learning market overview">
       <div class="music-market-overview-head">
         <div>
           <span class="section-kicker">Music learning market overview</span>
-          <h3>Fragmented market, same operating pressure: growth efficiency, monetization and content scale.</h3>
-          <p>Chris input converted into a decision-useful view. Figures are shown as directional, review-pending inputs and should not be promoted into final report claims before source approval.</p>
+          <h3>Music learning market</h3>
+          <p>Chris input. Directional only. Do not promote to final claims before source approval.</p>
         </div>
         <aside>
           <strong>Review gate active</strong>
@@ -17299,7 +17299,7 @@ function renderMusicLearningMarketOverview(filteredPlayers) {
                   ${row.metrics.map((metric) => `<em>${escapeHtml(metric)}</em>`).join("")}
                 </div>
                 <details>
-                  <summary>Show operating read</summary>
+                  <summary>Operating read</summary>
                   <div>
                     <b>Business model</b>
                     <p>${escapeHtml(row.focus)}</p>
@@ -17328,7 +17328,7 @@ function renderMusicLearningMarketOverview(filteredPlayers) {
           .join("")}
         <article class="music-market-caldecott-card">
           <strong>Caldecott / BandLab portfolio signal</strong>
-          <p>Official corporate source frames Caldecott as a global music operator, innovator and investor spanning BandLab Technologies, NME Networks and Vista Musical Instruments.</p>
+          <p>Official source: music operator and investor across BandLab Technologies, NME Networks and Vista Musical Instruments.</p>
           <a href="https://corp.caldecottmusic.com/" target="_blank" rel="noopener noreferrer">Open official source</a>
         </article>
       </div>
@@ -17380,9 +17380,9 @@ function renderMonitorBattlecards(filteredPlayers, keyPlayers) {
       <div class="monitor-compare-head">
         <div>
           <span class="section-kicker">Battlecards</span>
-          <h3>Compare the few players that deserve attention first.</h3>
+          <h3>Compare the few that matter first.</h3>
         </div>
-        <p>Small default set. Add more only after board/LST triage confirms priority.</p>
+        <p>Small default set. Add more only after board/LST triage.</p>
       </div>
       <div class="monitor-battlecard-grid">
         ${cardPlayers
@@ -17456,9 +17456,9 @@ function renderMonitorMarketMovesTimeline(filteredPlayers) {
       <div class="monitor-compare-head">
         <div>
           <span class="section-kicker">Market moves timeline</span>
-          <h3>What changed recently, and what should it trigger?</h3>
+          <h3>Recent moves</h3>
         </div>
-        <p>Funding, events, product launches and public app proxies are timing inputs. They stay separate from final-report claims until reviewed.</p>
+        <p>Timing inputs only. Keep out of final claims until reviewed.</p>
       </div>
       <div class="monitor-move-rail">
         ${rows
@@ -17569,9 +17569,9 @@ function renderMonitorValueChainHeatmap(filteredPlayers) {
       <div class="monitor-compare-head">
         <div>
           <span class="section-kicker">Value-chain pressure map</span>
-          <h3>Where does each market force hit the learner journey?</h3>
+          <h3>Where each force hits the journey</h3>
         </div>
-        <p>Read left to right: market force, where it peaks in the journey, then the strongest visible player in each stage. Color intensity shows concentration, not claim confidence.</p>
+        <p>Rows are market forces. Columns are journey stages. Color shows concentration, not confidence.</p>
       </div>
       <div class="monitor-heatmap-guide" aria-label="How to read the pressure map">
         <span><b>1</b><strong>Pick a row</strong><small>Which market force matters?</small></span>
@@ -17686,9 +17686,9 @@ function renderMonitorSignalTape(filteredPlayers) {
       <div class="monitor-compare-head">
         <div>
           <span class="section-kicker">Signal tape</span>
-          <h3>What changed recently, and what should it trigger?</h3>
+          <h3>Recent changes and triggers</h3>
         </div>
-        <p>Signals are timing inputs, not final claims. App-store rows remain public proxies until credentialed exports are imported.</p>
+        <p>Timing inputs only. App-store rows remain public proxies.</p>
       </div>
       <div class="monitor-signal-tape-track">
         ${rows
@@ -17791,9 +17791,15 @@ function renderMonitorBriefingLayer(filteredPlayers) {
   const rankedLenses = lenses
     .slice()
     .sort((a, b) => b.keyCount - a.keyCount || b.rows.length - a.rows.length || b.readyCount - a.readyCount);
-  const primaryLens = rankedLenses[0] || lenses[0];
-  const pressureLens = lenses.find((lens) => lens.id === "creation-shift") || rankedLenses[1] || lenses[1];
-  const routeLens = lenses.find((lens) => lens.id === "distribution-routes") || rankedLenses[2] || lenses[2];
+  const usedTakeawayLensIds = new Set();
+  const takeDistinctLens = (...candidates) => {
+    const lens = candidates.flat().find((candidate) => candidate && !usedTakeawayLensIds.has(candidate.id));
+    if (lens) usedTakeawayLensIds.add(lens.id);
+    return lens || null;
+  };
+  const primaryLens = takeDistinctLens(rankedLenses[0], lenses[0]);
+  const pressureLens = takeDistinctLens(lenses.find((lens) => lens.id === "creation-shift"), rankedLenses, lenses);
+  const routeLens = takeDistinctLens(lenses.find((lens) => lens.id === "distribution-routes"), rankedLenses, lenses);
   const takeaways = [
     {
       label: "Start here",
@@ -17823,8 +17829,8 @@ function renderMonitorBriefingLayer(filteredPlayers) {
       <div class="monitor-briefing-head">
         <div>
           <span class="section-kicker">Market monitor briefing</span>
-          <h3>The market is four decisions, not 113 records.</h3>
-          <p>Read this first: defend the learning loop, understand content gravity, watch creation pressure, and test distribution routes. Drill down only where a decision changes.</p>
+          <h3>Market monitor</h3>
+          <p>Defend learning, track content, watch creation, test routes. Drill down only where action changes.</p>
         </div>
         <aside aria-label="Review and scope status">
           <span><strong>${filteredPlayers.length}</strong><small>records in current view</small></span>
@@ -17835,7 +17841,7 @@ function renderMonitorBriefingLayer(filteredPlayers) {
       <div class="monitor-briefing-layout">
         <article class="monitor-briefing-answer">
           <span>Executive read</span>
-          <h4>Answer the strategic question before browsing companies.</h4>
+          <h4>Decision first.</h4>
           <div class="monitor-briefing-takeaways">
             ${takeaways
               .map(
@@ -17888,7 +17894,7 @@ function renderMonitorBriefingLayer(filteredPlayers) {
         </div>
         <aside class="monitor-briefing-signal-rail" aria-label="Current watch signals">
           <span>Watch now</span>
-          <h4>Signals are prompts, not conclusions.</h4>
+          <h4>Watch signals.</h4>
           <div>
             ${signalRows
               .map(
@@ -18020,8 +18026,8 @@ function renderMonitorCuratedShortlist(filteredPlayers) {
       <div class="monitor-curated-head">
         <div>
           <span class="section-kicker">Selected read</span>
-          <h3>Six useful records, six different reasons to care.</h3>
-          <p>This removes repeated names from the first read. Open the brief only if the reason is relevant to the decision in the room.</p>
+          <h3>Priority records</h3>
+          <p>No repeated names. Open a brief only if it changes the decision.</p>
         </div>
         <aside>
           <span><strong>${picks.length}</strong><small>deduped picks</small></span>
@@ -18089,7 +18095,7 @@ function marketSignalRadarDefinitions() {
       lane: "capital",
       date: "2025 Jan",
       entity: "Music.AI / Moises",
-      title: "AI practice and creation tools now have serious venture backing.",
+      title: "$40M Music.AI Series A",
       summary: "Music.AI announced a $40M Series A led by Connect Ventures and monashees, with Samsung Next and other investors participating.",
       why: "Treat Moises as a capital-backed AI utility adjacency, not only as a feature benchmark. Watch whether practice utilities move into creation workflows faster than learning apps do.",
       question: "Which Yousician practice moments could become AI-assisted utilities before a competitor owns them?",
@@ -18105,7 +18111,7 @@ function marketSignalRadarDefinitions() {
       lane: "partnerships",
       date: "2026 Jan",
       entity: "Fender Play / Samsung",
-      title: "Instrument learning is moving onto the living-room screen.",
+      title: "Fender Play on Samsung TVs",
       summary: "Samsung announced an exclusive global partnership to bring Fender Play to Samsung TVs in 2026.",
       why: "This is a distribution and habit signal: the battle for beginners may start on hardware ecosystems, not only app stores or search.",
       question: "Should Yousician evaluate TV, bundle or hardware-led acquisition routes before paid mobile CAC gets worse?",
@@ -18120,7 +18126,7 @@ function marketSignalRadarDefinitions() {
       lane: "partnerships",
       date: "2024 Sep",
       entity: "Duolingo / Loog",
-      title: "Beginner learning can be packaged with physical instruments.",
+      title: "Duolingo x Loog piano",
       summary: "Loog and Duolingo connected Duolingo Music to a beginner-friendly portable piano product.",
       why: "The signal is not that Duolingo is a direct music competitor; it is that broad learning brands can cross from software habit into beginner hardware bundles.",
       question: "Where can Yousician reduce beginner friction through instrument, retail or family bundle partners?",
@@ -18136,7 +18142,7 @@ function marketSignalRadarDefinitions() {
       lane: "platforms",
       date: "2024 Mar",
       entity: "Spotify",
-      title: "Scaled entertainment platforms are testing paid learning content.",
+      title: "Spotify tests learning courses",
       summary: "Spotify tested video-based learning courses in the UK with partners including BBC Maestro, PLAYvirtuoso, Skillshare and Thinkific.",
       why: "This is a platform-adjacency signal: music learning can appear inside broader media subscriptions and discovery surfaces.",
       question: "Which Yousician content or creator partnership would remain defensible if platforms distribute learning directly?",
@@ -18151,7 +18157,7 @@ function marketSignalRadarDefinitions() {
       lane: "content-rights",
       date: "2025 Jan",
       entity: "Muse Group / Hal Leonard",
-      title: "Repertoire, notation and education catalog are consolidating.",
+      title: "Muse Group integrates Hal Leonard",
       summary: "Muse Group said it completed the integration of Hal Leonard US and Europe into a global publishing, digital and distribution operation.",
       why: "The strategic issue is catalog control: tabs, scores, learning content, publishing relationships and digital practice surfaces are becoming more integrated.",
       question: "What rights, repertoire and catalog dependencies should Yousician secure before they become more expensive or less available?",
@@ -18167,7 +18173,7 @@ function marketSignalRadarDefinitions() {
       lane: "content-rights",
       date: "2025 Apr",
       entity: "Caldecott / ISNI",
-      title: "Creator identity and attribution are becoming infrastructure.",
+      title: "Caldecott becomes ISNI agency",
       summary: "Caldecott Music Group became an ISNI Registration Agency, tying attribution infrastructure to its BandLab, media and instrument ecosystem.",
       why: "Creator identity matters for AI, rights, attribution and partner trust. This is a market-structure signal, not a Yousician competitor claim.",
       question: "Where does Yousician need stronger creator, rights or attribution infrastructure before AI increases provenance demands?",
@@ -18182,7 +18188,7 @@ function marketSignalRadarDefinitions() {
       lane: "investor-portfolio",
       date: "2026 public",
       entity: "Caldecott Music Group",
-      title: "A single operator spans creator tools, music media, instruments and retail.",
+      title: "Caldecott portfolio signal",
       summary: "Caldecott publicly frames itself as a global music operator, innovator and investor across BandLab Technologies, NME Networks and Vista Musical Instruments.",
       why: "Useful as portfolio/watchlist context: it shows how creation, media, retail and instrument ecosystems can sit under one strategic owner.",
       question: "Which cross-ecosystem owner has both distribution and mission fit for Yousician partnership or M&A scenarios?",
@@ -18197,7 +18203,7 @@ function marketSignalRadarDefinitions() {
       lane: "partnerships",
       date: "2023 Oct",
       entity: "BandLab / UMG",
-      title: "Creator platforms are partnering around responsible AI before regulation settles.",
+      title: "BandLab x UMG AI principles",
       summary: "Universal Music Group and BandLab Technologies announced a strategic AI collaboration focused on artist and songwriter rights.",
       why: "The collaboration shows that creator tools are not waiting for perfect AI regulation; they are trying to shape pro-creator standards with rights holders.",
       question: "What pro-creator AI principles should Yousician make explicit before AI practice or creation features scale?",
@@ -18212,7 +18218,7 @@ function marketSignalRadarDefinitions() {
       lane: "awards-events",
       date: "2026 Jun",
       entity: "Apple Design Awards",
-      title: "Platform awards are a useful quality bar, not just PR.",
+      title: "Apple Design Awards benchmark",
       summary: "Apple announced 2026 Design Award winners and finalists across innovation, interaction, inclusivity, visuals and social impact.",
       why: "This creates a concrete product-quality benchmark for board-facing app craft, accessibility and submission readiness.",
       question: "Which Yousician product moments are award-grade enough to use as proof of category leadership?",
@@ -18228,7 +18234,7 @@ function marketSignalRadarDefinitions() {
       lane: "macro-trends",
       date: "2026 watch",
       entity: "MIDiA Research",
-      title: "Macro read: music participation, creator tools and AI are converging.",
+      title: "MIDiA macro watch",
       summary: "MIDiA remains a recurring source for creator economy, fandom, streaming, AI and music-market framing.",
       why: "Use this as the external market lens to separate real trend pressure from generic AI or entertainment commentary.",
       question: "Which macro shifts should be tracked monthly because they alter Yousician acquisition, retention or partnership logic?",
@@ -18342,8 +18348,8 @@ function renderMarketSignalRadar(filteredPlayers) {
       <div class="market-signal-head">
         <div>
           <span class="section-kicker">Market signal radar</span>
-          <h3>Market monitor should show what is moving, not only who exists.</h3>
-          <p>Funding, live partnerships, rights/catalog control, owner portfolios, awards and macro trends are grouped separately from company profiles. Every item stays source-linked and review-pending before it can become final-report language.</p>
+          <h3>Market signals</h3>
+          <p>Funding, partnerships, rights, owners, awards and macro trends stay source-linked and review-pending.</p>
         </div>
         <aside aria-label="Signal radar status">
           <span><strong>${rows.length}</strong><small>public signals</small></span>
@@ -18422,7 +18428,7 @@ function renderMonitorCommandCenter(filteredPlayers, keyPlayers) {
     {
       label: "Core battleground",
       value: coreName,
-      note: `${model.coreJourneyLeader?.count || 0} records / ${model.coreJourneyLeader?.pressure || 0}% pressure. Read before long-tail profiles.`
+      note: `${model.coreJourneyLeader?.count || 0} records / ${model.coreJourneyLeader?.pressure || 0}% pressure. Read first.`
     },
     {
       label: "Largest segment",
@@ -18432,17 +18438,17 @@ function renderMonitorCommandCenter(filteredPlayers, keyPlayers) {
     {
       label: "Adjacent pressure",
       value: adjacentName,
-      note: `${model.aiPressure.length} AI or creation records. Separate workflow pressure from generic AI noise.`
+      note: `${model.aiPressure.length} AI or creation records. Verify real workflow impact.`
     },
     {
       label: "Current signals",
       value: `${signalRows.length}`,
-      note: "Funding, product, event and market movement rows in the current view."
+      note: "Funding, product, event and market rows in view."
     },
     {
       label: "Validate before citing",
       value: `${dataNeeds} records`,
-      note: `${validationName} has the highest proof/feed needs. Appfigures stays pending unless imported.`
+      note: `${validationName} has the highest proof needs. Appfigures pending.`
     }
   ];
   return `
@@ -18456,7 +18462,7 @@ function renderMonitorCommandCenter(filteredPlayers, keyPlayers) {
         <summary>
           <span>
             <strong>Show analysis layers</strong>
-            <small>Market wall, strategy arena, value-chain heatmap, battlecards, scorecards and evidence gates.</small>
+            <small>Thesis, arena, heatmap, scorecards and evidence gates.</small>
           </span>
           <span class="drawer-indicator">Show</span>
         </summary>
@@ -18484,7 +18490,7 @@ function renderMonitorModeBody(filteredPlayers, keyPlayers, kpis, lanes) {
         <summary>
           <span>
             <strong>Open deeper comparison and player detail</strong>
-            <small>Charts, selected-player brief, evidence inspector and public app proxy table.</small>
+            <small>Charts, player brief, evidence and app proxy table.</small>
           </span>
           <span class="drawer-indicator">Show</span>
         </summary>
@@ -18522,7 +18528,7 @@ function renderMonitorModeBody(filteredPlayers, keyPlayers, kpis, lanes) {
         <summary>
           <span>
             <strong>Comparison and proof detail</strong>
-            <small>Sorted comparison, category composition and evidence confidence.</small>
+            <small>Sorts, category mix and evidence confidence.</small>
           </span>
           <span class="drawer-indicator">Show</span>
         </summary>
@@ -18555,9 +18561,9 @@ function renderMonitorModeBody(filteredPlayers, keyPlayers, kpis, lanes) {
     ${renderMonitorCoverageMatrix(filteredPlayers, lanes)}
     <details class="optional-drawer monitor-analyst-drawer">
       <summary>
-        <span>
-          <strong>Analyst detail and supporting cuts</strong>
-          <small>Open deeper comparison, validation, composition, and appendix-level context.</small>
+          <span>
+            <strong>Analyst detail and supporting cuts</strong>
+            <small>Comparison, validation, composition and appendix context.</small>
         </span>
         <span class="drawer-indicator">Show</span>
       </summary>
@@ -18597,7 +18603,7 @@ function renderMonitorInsightReadout(filteredPlayers, keyPlayers) {
       <div class="directory-head">
         <div>
           <span class="section-kicker">Executive market monitor</span>
-          <h3>What matters most, what is changing, and what is still not proven</h3>
+          <h3>Priorities, changes, proof gaps</h3>
           <p>${escapeHtml(activeMode.description)}</p>
         </div>
         <span>${filteredPlayers.length} records / ${topTrend ? `${topTrend.count} in ${topTrend.title}` : "no cluster"}</span>
@@ -18620,7 +18626,7 @@ function monitorQuestMissionModel(filteredPlayers) {
       number: "01",
       label: "Defend",
       title: "Hold the learning habit",
-      detail: "Direct learning and practice records that can pressure retention, repertoire pull, and pricing expectations.",
+      detail: "Direct learning and practice pressure on retention, repertoire and pricing.",
       color: "#00d292",
       icon: "target",
       players: monitorLaneRank(model.corePressure, monitorPressureScore, 4),
@@ -18634,7 +18640,7 @@ function monitorQuestMissionModel(filteredPlayers) {
       number: "02",
       label: "Expand",
       title: "Find trusted routes",
-      detail: "Hardware, schools, teachers, channels and brands that can change acquisition, credibility or distribution.",
+      detail: "Hardware, schools, teachers, channels and brands that change reach or trust.",
       color: "#ffb84d",
       icon: "route",
       players: monitorLaneRank(model.routeSurface, (player) => totalPriority(player) + (relationForPlayer(player)?.strength || 0) * 8, 4),
@@ -18648,7 +18654,7 @@ function monitorQuestMissionModel(filteredPlayers) {
       number: "03",
       label: "Disrupt",
       title: "Track AI expectation shifts",
-      detail: "AI, creation and workflow records that could reset what casual musicians expect from music products.",
+      detail: "AI, creation and workflow tools that reset user expectations.",
       color: "#6e5cff",
       icon: "sparkles",
       players: monitorLaneRank(model.aiPressure, (player) => player.aiScore * 18 + player.momentum * 8 + totalPriority(player) / 3, 4),
@@ -18662,7 +18668,7 @@ function monitorQuestMissionModel(filteredPlayers) {
       number: "04",
       label: "Time",
       title: "Read market timing",
-      detail: "Funding, awards, ownership, events and market signals that decide when to deepen research or move faster.",
+      detail: "Funding, awards, ownership and events that change timing.",
       color: "#3da5d9",
       icon: "radar",
       players: monitorLaneRank(
@@ -18680,7 +18686,7 @@ function monitorQuestMissionModel(filteredPlayers) {
       number: "05",
       label: "Verify",
       title: "Prioritize validation work",
-      detail: "Records that may matter, but need stronger source coverage, licensed metrics or internal relationship status before harder claims.",
+      detail: "Potentially relevant records that need proof, licensed metrics or internal status.",
       color: "#ef5a4f",
       icon: "shield-alert",
       players: monitorLaneRank(
@@ -18719,8 +18725,8 @@ function renderMonitorQuestBoard(filteredPlayers) {
       <div class="monitor-quest-hero">
         <div>
           <span class="section-kicker">Market priority board</span>
-          <h3>Select a priority area, then review the supporting evidence.</h3>
-          <p>Select a focus area, open the relevant evidence view, review the records that matter and mark follow-up complete when the review step is done. Progress is stored locally in the browser; indexes encode pressure, momentum, evidence debt and relevance.</p>
+          <h3>Pick a priority. Check the evidence.</h3>
+          <p>Progress is local. Scores combine pressure, momentum, proof gaps and relevance.</p>
         </div>
         <div class="monitor-quest-hud" aria-label="Market monitor status">
           <article>
@@ -18871,38 +18877,38 @@ function monitoringActivityLanes() {
     {
       label: "App performance",
       color: "#00d292",
-      note: "rankings, traffic, revenue, downloads",
+      note: "rank, traffic, revenue, downloads",
       matches: (player) => /appfigures|app performance|ranking|rank|revenue|download|traffic|subscriber|subscription|pricing/i.test(activitySearchText(player))
     },
     {
       label: "AI disruption",
       color: "#6e5cff",
-      note: "generation, tutoring, feedback, audio tools",
+      note: "AI, feedback, audio tools",
       matches: (player) =>
         player.aiScore >= 4 || player.category === "ai" || /prompt|generation|stem|ai tutor|adaptive|feedback/i.test(activitySearchText(player))
     },
     {
       label: "Product moves",
       color: "#11a5a5",
-      note: "features, catalog, pricing, bundles",
+      note: "features, catalog, pricing",
       matches: (player) => /product|feature|catalog|pricing|bundle|launch|roadmap|course|pathway/i.test(activitySearchText(player))
     },
     {
       label: "Funding & ownership",
       color: "#3da5d9",
-      note: "capital, M&A, investors, filings",
+      note: "capital, M&A, owners",
       matches: (player) => /funding|investor|venture|capital|m&a|acquisition|ownership|filing|crunchbase/i.test(activitySearchText(player))
     },
     {
       label: "Routes & channels",
       color: "#ffb84d",
-      note: "gear, retail, schools, trusted routes",
+      note: "gear, retail, schools",
       matches: (player) => /partner|channel|retail|hardware|school|teacher|education|bundle|store|brand/i.test(activitySearchText(player))
     },
     {
       label: "Creator & community",
       color: "#00b77e",
-      note: "songs, creators, sharing, social loops",
+      note: "songs, creators, social",
       matches: (player) => /creator|community|youtube|song|tabs|sharing|social|marketplace|samples|repertoire/i.test(activitySearchText(player))
     }
   ];
@@ -19306,14 +19312,14 @@ function renderMonitorControlBar(basePlayers, filteredPlayers, keyPlayers) {
 
 function laneCheckLabel(label) {
   const labels = {
-    "App performance": "Appfigures, rankings, revenue, downloads, traffic",
-    "AI disruption": "generation, tutoring, feedback, audio utility shifts",
-    "Product moves": "launches, features, catalog, pricing, bundles",
-    "Funding & ownership": "capital, ownership, M&A, investor signals",
-    "Routes & channels": "hardware, retail, schools, teachers, brand routes",
-    "Creator & community": "songs, creators, sharing, social loops"
+    "App performance": "Appfigures, rankings, revenue, downloads",
+    "AI disruption": "AI, feedback, creation, audio tools",
+    "Product moves": "launches, features, catalog, pricing",
+    "Funding & ownership": "capital, ownership, M&A",
+    "Routes & channels": "hardware, retail, schools, teachers",
+    "Creator & community": "songs, creators, sharing, social"
   };
-  return labels[label] || "Monitor changes and verify source strength";
+  return labels[label] || "Monitor changes; verify sources";
 }
 
 function renderActivityQueue(filteredPlayers, keyPlayers) {
@@ -19324,7 +19330,7 @@ function renderActivityQueue(filteredPlayers, keyPlayers) {
       <div class="directory-head">
         <div>
           <span class="section-kicker">Market activity queue</span>
-          <h3>What is actively monitored</h3>
+          <h3>Active monitoring</h3>
         </div>
         <span>${lanes.reduce((sum, lane) => sum + lane.players.length, 0)} matches</span>
       </div>
@@ -19392,7 +19398,7 @@ function renderCompanyDirectory(allPlayers) {
       <div class="directory-head">
         <div>
           <span class="section-kicker">Company coverage</span>
-          <h3>${state.monitorSegment === "all" && !state.monitorQuery.trim() ? "All monitored companies and signal sources" : "Current monitor selection"}</h3>
+          <h3>${state.monitorSegment === "all" && !state.monitorQuery.trim() ? "All monitored records" : "Current selection"}</h3>
         </div>
         <span>${allPlayers.length} records</span>
       </div>
