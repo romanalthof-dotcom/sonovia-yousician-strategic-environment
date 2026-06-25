@@ -17247,13 +17247,13 @@ body[data-view="one-pager"] #one-pagerView {
 
 .monitor-dashboard {
   display: grid;
-  grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 12px;
 }
 
 .monitor-kpis {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(150px, 1fr));
   gap: 8px;
 }
 
@@ -17261,7 +17261,7 @@ body[data-view="one-pager"] #one-pagerView {
   display: grid;
   align-content: center;
   gap: 4px;
-  min-height: 92px;
+  min-height: 82px;
   min-width: 0;
   border: 1px solid rgba(24, 36, 31, 0.09);
   border-left: 3px solid var(--brand);
@@ -17272,21 +17272,21 @@ body[data-view="one-pager"] #one-pagerView {
 
 .monitor-kpi span {
   color: var(--muted);
-  font-size: 0.66rem;
+  font-size: 0.63rem;
   font-weight: 950;
   line-height: 1.1;
   text-transform: uppercase;
 }
 
 .monitor-kpi strong {
-  font-size: 1.48rem;
+  font-size: clamp(1.42rem, 1.9vw, 2.1rem);
   font-weight: 950;
   line-height: 1;
 }
 
 .monitor-kpi small {
   color: rgba(24, 36, 31, 0.7);
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 800;
   line-height: 1.18;
 }

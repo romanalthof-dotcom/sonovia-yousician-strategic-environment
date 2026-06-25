@@ -18929,6 +18929,19 @@ function marketMonitorModel(filteredPlayers, keyPlayers) {
   const highMomentum = filteredPlayers.filter((player) => player.momentum >= 4);
   const aiRecords = filteredPlayers.filter((player) => player.aiScore >= 4 || ["ai", "creation"].includes(player.category));
   const categoryCount = categories.filter((category) => filteredPlayers.some((player) => player.category === category.id)).length;
+  const lanes = monitoringActivityLanes().map((lane) => ({
+    ...lane,
+    players: filteredPlayers.filter(lane.matches).sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name))
+  }));
+  const laneCount = (label) => lanes.find((lane) => lane.label === label)?.players.length || 0;
+  const reviewGateRecords = filteredPlayers.filter((player) => hasCriticalEvidenceGap(player) || requiresCredentialedData(player));
+  const readyRecords = filteredPlayers.filter(isReadyRecord);
+  const publicAppRecords = filteredPlayers.filter(publicAppBestSignal);
+  const sourceGapRecords = filteredPlayers.filter((player) => sourceCoverageTargetAudit(player).missingRequired.length);
+  const coreLearningRecords = filteredPlayers.filter((player) =>
+    /direct competitor|lesson|learn|learning|curriculum|practice|tab|chord|repertoire|song and practice/i.test(activitySearchText(player))
+  );
+  const topPriorityRecords = filteredPlayers.filter((player) => player.key || player.relevance >= 5);
   const kpis = [
     {
       label: "Monitored records",
@@ -18951,9 +18964,44 @@ function marketMonitorModel(filteredPlayers, keyPlayers) {
       note: "ranked for player briefs"
     },
     {
+      label: "Discussion ready",
+      value: readyRecords.length,
+      note: "usable in the room"
+    },
+    {
+      label: "Review gates",
+      value: reviewGateRecords.length,
+      note: "do not cite yet"
+    },
+    {
       label: "AI / creation",
       value: aiRecords.length,
       note: "disruption surface"
+    },
+    {
+      label: "Core learning",
+      value: coreLearningRecords.length,
+      note: "learn/practice habit"
+    },
+    {
+      label: "Product moves",
+      value: laneCount("Product moves"),
+      note: "features, catalog, pricing"
+    },
+    {
+      label: "Routes / channels",
+      value: laneCount("Routes & channels"),
+      note: "gear, retail, schools"
+    },
+    {
+      label: "Funding / ownership",
+      value: laneCount("Funding & ownership"),
+      note: "capital, M&A, owners"
+    },
+    {
+      label: "Creator / community",
+      value: laneCount("Creator & community"),
+      note: "songs, sharing, social"
     },
     {
       label: "App / traffic queue",
@@ -18961,16 +19009,26 @@ function marketMonitorModel(filteredPlayers, keyPlayers) {
       note: "Appfigures / traffic inputs"
     },
     {
+      label: "Public app proxies",
+      value: publicAppRecords.length,
+      note: "ratings only, not revenue"
+    },
+    {
+      label: "Source gaps",
+      value: sourceGapRecords.length,
+      note: "missing required proof"
+    },
+    {
+      label: "Top priority",
+      value: topPriorityRecords.length,
+      note: "key players or R5"
+    },
+    {
       label: "Coverage groups",
       value: categoryCount,
       note: `${highMomentum.length} strong momentum records`
     }
   ];
-
-  const lanes = monitoringActivityLanes().map((lane) => ({
-    ...lane,
-    players: filteredPlayers.filter(lane.matches).sort((a, b) => totalPriority(b) - totalPriority(a) || a.name.localeCompare(b.name))
-  }));
 
   return { kpis, lanes, companyRecords, signalRecords, liveDataQueue, highMomentum, aiRecords, categoryCount };
 }
